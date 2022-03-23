@@ -1,6 +1,7 @@
 #include "ethernet_device.hpp"
 #include "benchmark_application.hpp"
 #include "cam_application.hpp"
+#include "denm_application.hpp"
 #include "hello_application.hpp"
 #include "link_layer.hpp"
 #include "positioning.hpp"
@@ -141,6 +142,13 @@ int main(int argc, const char** argv)
                 ca->print_received_message(vm.count("print-rx-cam") > 0);
                 ca->print_generated_message(vm.count("print-tx-cam") > 0);
                 apps.emplace(app_name, std::move(ca));
+                std::unique_ptr<DenmApplication> da {
+                        new DenmApplication(*positioning, trigger.runtime())
+                };
+                da->set_interval(std::chrono::milliseconds(vm["cam-interval"].as<unsigned>()));
+                da->print_received_message(vm.count("print-rx-cam") > 0);
+                da->print_generated_message(vm.count("print-tx-cam") > 0);
+                apps.emplace("da", std::move(da));
             } else if (app_name == "hello") {
                 std::unique_ptr<HelloApplication> hello {
                     new HelloApplication(io_service, std::chrono::milliseconds(800))

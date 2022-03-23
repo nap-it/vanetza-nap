@@ -8,8 +8,11 @@
 #include <vanetza/dcc/interface.hpp>
 #include <iostream>
 #include <vanetza/common/byte_order.hpp>
+#include <chrono>
 
 using namespace vanetza;
+using namespace std::chrono;
+double time_reception;
 
 RouterContext::RouterContext(const geonet::MIB& mib, TimeTrigger& trigger, vanetza::PositionProvider& positioning, vanetza::security::SecurityEntity* security_entity) :
     mib_(mib), router_(trigger.runtime(), mib_),
@@ -56,6 +59,9 @@ void RouterContext::indicate(CohesivePacket&& packet, const EthernetHeader& hdr)
 {
     if (hdr.source != mib_.itsGnLocalGnAddr.mid() && hdr.type == access::ethertype::GeoNetworking) {
         std::cout << "received packet from " << hdr.source << " (" << packet.size() << " bytes)\n";
+        std::cout.precision(17);
+        time_reception = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
+        std::cout << "time: " << time_reception << "\n";
         std::unique_ptr<PacketVariant> up { new PacketVariant(std::move(packet)) };
         trigger_.schedule(); // ensure the clock is up-to-date for the security entity
         router_.indicate(std::move(up), hdr.source, hdr.destination);

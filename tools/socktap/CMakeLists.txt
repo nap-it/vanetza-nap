@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.1)
+
 if(NOT TARGET Boost::system)
     message(STATUS "Skip build of socktap because of missing Boost::system dependency")
     return()
@@ -14,6 +16,8 @@ add_executable(socktap
     application.cpp
     benchmark_application.cpp
     cam_application.cpp
+    denm_application.cpp
+    complete_packet.cpp
     dcc_passthrough.cpp
     ethernet_device.cpp
     hello_application.cpp
@@ -25,7 +29,9 @@ add_executable(socktap
     security.cpp
     time_trigger.cpp
     udp_link.cpp
-)
+        JSONHelper.h JSONHelper.cpp Mqtt.cpp Mqtt.h)
+
+target_link_libraries(socktap PUBLIC mosquittopp)
 
 target_link_libraries(socktap PUBLIC Boost::system Boost::program_options Threads::Threads vanetza)
 install(TARGETS socktap EXPORT ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
@@ -46,3 +52,5 @@ if(SOCKTAP_WITH_GPSD)
     target_link_libraries(socktap PUBLIC GPS::GPS)
     target_sources(socktap PRIVATE gps_position_provider.cpp)
 endif()
+
+set(JSON_ImplicitConversions ON)

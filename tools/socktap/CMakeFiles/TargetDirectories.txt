@@ -1,0 +1,2 @@
+/home/rrosmaninho/playground/vanetza/tools/socktap/CMakeFiles/rebuild_cache.dir
+/home/rrosmaninho/playground/vanetza/tools/socktap/CMakeFiles/edit_cache.dir

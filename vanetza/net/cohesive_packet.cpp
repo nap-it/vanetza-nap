@@ -14,19 +14,19 @@ static_assert(layer_index(min_osi_layer()) == 1, "Lowest OSI layer index broken"
 
 
 CohesivePacket::CohesivePacket(const ByteBuffer& buffer, OsiLayer layer) :
-    m_buffer(buffer)
+    m_buffer(buffer), rssi(-255), time_received(-1), ethHeader(*(new EthernetHeader()))
 {
     reset_iterators(layer);
 }
 
 CohesivePacket::CohesivePacket(ByteBuffer&& buffer, OsiLayer layer) :
-    m_buffer(std::move(buffer))
+    m_buffer(std::move(buffer)), rssi(-255), time_received(-1), ethHeader(*(new EthernetHeader()))
 {
     reset_iterators(layer);
 }
 
 CohesivePacket::CohesivePacket(const CohesivePacket& other) :
-    m_buffer(other.m_buffer)
+    m_buffer(other.m_buffer), rssi(other.rssi), time_received(other.time_received), ethHeader(other.ethHeader)
 {
     rebuild_iterators(other);
 }

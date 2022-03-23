@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/static/libvanetza_gnss.a  CMakeFiles/gnss.dir/nmea.cpp.o
+/usr/bin/ranlib ../../lib/static/libvanetza_gnss.a

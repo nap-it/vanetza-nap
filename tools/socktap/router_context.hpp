@@ -14,6 +14,8 @@
 class Application;
 class TimeTrigger;
 
+extern double time_reception;
+
 class RouterContext
 {
 public:

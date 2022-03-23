@@ -1,0 +1,20 @@
+version: '2.4'
+services:
+    rsu:
+        hostname: vanetza
+        image: vanetza:test
+        networks:
+            vanetzalan0:
+                ipv4_address: 192.168.98.10
+
+    obu:
+        hostname: vanetza
+        image: vanetza:test
+        networks:
+            vanetzalan0:
+                ipv4_address: 192.168.98.20
+            
+networks:
+  vanetzalan0:
+    external: true
+    name: vanetzalan0

@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/static/libvanetza_facilities.a  CMakeFiles/facilities.dir/cam_functions.cpp.o CMakeFiles/facilities.dir/path_history.cpp.o CMakeFiles/facilities.dir/path_point.cpp.o
+/usr/bin/ranlib ../../lib/static/libvanetza_facilities.a

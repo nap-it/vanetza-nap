@@ -8,6 +8,10 @@
 #include <vanetza/geonet/data_confirm.hpp>
 #include <vanetza/geonet/router.hpp>
 
+#include <nlohmann/json.hpp>
+#include "Mqtt.h"
+#include "router_context.hpp"
+
 class Application : public vanetza::btp::IndicationInterface
 {
 public:

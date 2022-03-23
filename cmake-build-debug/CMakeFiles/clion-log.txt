@@ -1,0 +1,5 @@
+/home/rrosmaninho/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5080.54/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - Unix Makefiles" /home/rrosmaninho/playground/vanetza
+-- GeographicLib: using lookup code by Vanetza
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/rrosmaninho/playground/vanetza/cmake-build-debug

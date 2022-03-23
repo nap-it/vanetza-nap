@@ -1,0 +1,33 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /tmp/tmp.eapMZDrW6e/build-remote-vanetza/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_f3e3f/fast"
+/usr/bin/make -f CMakeFiles/cmTC_f3e3f.dir/build.make CMakeFiles/cmTC_f3e3f.dir/build
+make[1]: Entering directory '/tmp/tmp.eapMZDrW6e/build-remote-vanetza/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f3e3f.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_f3e3f.dir/CheckSymbolExists.c.o   -c /tmp/tmp.eapMZDrW6e/build-remote-vanetza/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_f3e3f
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f3e3f.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_f3e3f.dir/CheckSymbolExists.c.o  -o cmTC_f3e3f 
+/usr/bin/ld: CMakeFiles/cmTC_f3e3f.dir/CheckSymbolExists.c.o: in function `main':
+CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+make[1]: *** [CMakeFiles/cmTC_f3e3f.dir/build.make:87: cmTC_f3e3f] Error 1
+make[1]: Leaving directory '/tmp/tmp.eapMZDrW6e/build-remote-vanetza/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_f3e3f/fast] Error 2
+
+File /tmp/tmp.eapMZDrW6e/build-remote-vanetza/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+

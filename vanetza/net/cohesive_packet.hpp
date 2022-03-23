@@ -3,6 +3,7 @@
 
 #include <vanetza/common/byte_buffer.hpp>
 #include <vanetza/net/osi_layer.hpp>
+#include <vanetza/net/ethernet_header.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <array>
 
@@ -82,6 +83,10 @@ public:
      * \return const byte buffer reference
      */
     const ByteBuffer& buffer() const { return m_buffer; }
+
+    int rssi;
+    double time_received;
+    EthernetHeader& ethHeader;
 
 private:
     void reset_iterators(OsiLayer layer);

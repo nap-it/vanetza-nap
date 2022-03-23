@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/static/libvanetza_asn1.a  CMakeFiles/asn1.dir/asn1c_wrapper.cpp.o
+/usr/bin/ranlib ../../lib/static/libvanetza_asn1.a

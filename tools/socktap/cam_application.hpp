@@ -5,6 +5,7 @@
 #include <vanetza/common/clock.hpp>
 #include <vanetza/common/position_provider.hpp>
 #include <vanetza/common/runtime.hpp>
+#include <vanetza/asn1/cam.hpp>
 
 class CamApplication : public Application
 {
@@ -25,6 +26,8 @@ private:
     vanetza::Clock::duration cam_interval_;
     bool print_rx_msg_ = false;
     bool print_tx_msg_ = false;
+
+    std::string buildJSON(vanetza::asn1::Cam cam, int rssi);
 };
 
 #endif /* CAM_APPLICATION_HPP_EUIC2VFR */

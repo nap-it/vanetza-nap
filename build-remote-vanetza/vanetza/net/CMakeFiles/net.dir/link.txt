@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/static/libvanetza_net.a  CMakeFiles/net.dir/buffer_packet.cpp.o CMakeFiles/net.dir/chunk_packet.cpp.o CMakeFiles/net.dir/cohesive_packet.cpp.o CMakeFiles/net.dir/ethernet_header.cpp.o CMakeFiles/net.dir/mac_address.cpp.o CMakeFiles/net.dir/packet_variant.cpp.o CMakeFiles/net.dir/packet.cpp.o CMakeFiles/net.dir/proxy_header.cpp.o CMakeFiles/net.dir/io_vector.cpp.o CMakeFiles/net.dir/sockaddr.cpp.o
+/usr/bin/ranlib ../../lib/static/libvanetza_net.a
