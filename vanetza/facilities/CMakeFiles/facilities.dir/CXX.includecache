@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/rrosmaninho/playground/vanetza/vanetza/facilities/cam_functions.cpp
+/home/rrosmaninho/Repos/IT/vanetza/vanetza/facilities/cam_functions.cpp
 vanetza/asn1/cam.hpp
 -
 vanetza/facilities/cam_functions.hpp
@@ -30,26 +30,6 @@ boost/units/systems/angle/degrees.hpp
 algorithm
 -
 limits
--
-
-/home/rrosmaninho/playground/vanetza/vanetza/facilities/path_history.cpp
-vanetza/facilities/path_history.hpp
--
-vanetza/units/angle.hpp
--
-vanetza/units/length.hpp
--
-boost/units/cmath.hpp
--
-cassert
--
-
-/home/rrosmaninho/playground/vanetza/vanetza/facilities/path_point.cpp
-vanetza/facilities/path_point.hpp
--
-boost/units/cmath.hpp
--
-boost/units/systems/si/prefixes.hpp
 -
 
 vanetza/asn1/asn1c_conversion.hpp

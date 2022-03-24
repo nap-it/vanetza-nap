@@ -1,0 +1,419 @@
+--FIXME RGY moved here from file SPAT_MAP_ISO_TS_19091.asn
+
+-- ^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-
+-- 
+-- module: DSRC
+-- ISO TS 19091 30.08.2016
+-- 
+-- ^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-
+--FIXME RGY definitions are moved here from IS-DSRC and IS-REGION; created to cut circular import loops amongst ASN.1 files
+DSRC-REGION-noCircular { iso (1) standard (0) signalizedIntersection (19091) profilec(2) dsrc (2) version (1) } 
+
+DEFINITIONS AUTOMATIC TAGS::= BEGIN 
+
+IMPORTS
+Longitude, Latitude FROM ITS-Container { itu-t (0) identified-organization (4) etsi (0) itsDomain (5) wg1 (1) ts (102894) cdd (2) version (2) }
+
+Control-addGrpC FROM AddGrpC-noCircular { iso (1) standard (0) signalizedIntersection (19091) profilec(2) addgrpc (0) version (1) };
+
+------------------------------------------------------
+--FIXME RGY BELOW ARE DEFINITIONS MOVED FROM DSRC
+------------------------------------------------------
+
+DeltaAngle ::= INTEGER (-150..150) 
+   -- With an angle range from 
+   -- negative 150 to positive 150 
+   -- in one degree steps where zero is directly
+   -- along the axis or the lane center line as defined by the
+   -- two closest points
+
+DeltaTime ::= INTEGER (-122 .. 121) 
+   -- Supporting a range of +/- 20 minute in steps of 10 seconds
+   -- the value of -121 shall be used when more than -20 minutes
+   -- the value of +120 shall be used when more than +20 minutes
+   -- the value -122 shall be used when the value is unavailable
+
+LaneDataAttribute ::= CHOICE {
+    -- Segment attribute types and the data needed for each
+    pathEndPointAngle        DeltaAngle,  
+                             -- adjusts final point/width slant
+                             -- of the lane to align with the stop line
+    laneCrownPointCenter     RoadwayCrownAngle,  
+                             -- sets the canter of the road bed      
+                             -- from centerline point
+    laneCrownPointLeft       RoadwayCrownAngle,  
+                             -- sets the canter of the road bed
+                             -- from left edge
+    laneCrownPointRight      RoadwayCrownAngle,  
+                             -- sets the canter of the road bed
+                             -- from right edge
+    laneAngle                MergeDivergeNodeAngle,  
+                             -- the angle or direction of another lane
+                             -- this is required to support Japan style
+                             -- when a merge point angle is required
+    speedLimits              SpeedLimitList,
+                             -- Reference regulatory speed limits
+                             -- used by all segments
+   
+    -- Add others as needed, in regional space
+    regional  SEQUENCE (SIZE(1..4)) OF 
+              RegionalExtension {{Reg-LaneDataAttribute}}, 
+    ...
+    }
+
+LaneDataAttributeList ::= SEQUENCE (SIZE(1..8)) OF LaneDataAttribute
+
+LaneID ::= INTEGER (0..255)
+   -- the value 0 shall be used when the lane ID is
+   -- not available or not known
+   -- the value 255 is reserved for future use
+
+MergeDivergeNodeAngle ::= INTEGER (-180..180) 
+   -- In units of 1.5 degrees from north
+   -- the value -180 shall be used to represent 
+   -- data is not available or unknown
+
+NodeOffsetPointXY ::= CHOICE {
+   -- Nodes with X,Y content
+   node-XY1         Node-XY-20b,    -- node is within   5.11m of last node
+   node-XY2         Node-XY-22b,    -- node is within  10.23m of last node
+   node-XY3         Node-XY-24b,    -- node is within  20.47m of last node
+   node-XY4         Node-XY-26b,    -- node is within  40.96m of last node
+   node-XY5         Node-XY-28b,    -- node is within  81.91m of last node
+   node-XY6         Node-XY-32b,    -- node is within 327.67m of last node
+   node-LatLon      Node-LLmD-64b,  -- node is a full 32b Lat/Lon range
+   regional         RegionalExtension {{Reg-NodeOffsetPointXY}}
+                                    -- node which follows is of a 
+                                    -- regional definition type 
+   }
+
+Node-LLmD-64b ::= SEQUENCE {
+   lon  Longitude,
+   lat  Latitude
+   }
+
+
+Node-XY-20b ::= SEQUENCE {
+   x  Offset-B10,
+   y  Offset-B10
+   }
+
+Node-XY-22b ::= SEQUENCE {
+   x  Offset-B11,
+   y  Offset-B11
+   }
+
+
+Node-XY-24b ::= SEQUENCE {
+   x  Offset-B12,
+   y  Offset-B12
+   }
+
+
+Node-XY-26b ::= SEQUENCE {
+   x  Offset-B13,
+   y  Offset-B13
+   }
+
+
+Node-XY-28b ::= SEQUENCE {
+   x  Offset-B14,
+   y  Offset-B14
+   }
+
+
+Node-XY-32b ::= SEQUENCE {
+   x  Offset-B16,
+   y  Offset-B16
+   }
+
+NodeSetXY ::= SEQUENCE (SIZE(2..63)) OF NodeXY
+
+NodeXY ::= SEQUENCE {
+   delta       NodeOffsetPointXY,
+               -- A choice of which X,Y offset value to use  
+               -- this includes various delta values as well a regional choices
+   attributes  NodeAttributeSetXY OPTIONAL,
+               -- Any optional Attributes which are needed
+               -- This includes changes to the current lane width and elevation
+   ... 
+}
+
+NodeAttributeSetXY ::= SEQUENCE {
+   localNode    NodeAttributeXYList OPTIONAL,
+                -- Attribute states which pertain to this node point
+   disabled     SegmentAttributeXYList OPTIONAL,
+                -- Attribute states which are disabled at this node point
+   enabled      SegmentAttributeXYList OPTIONAL,
+                -- Attribute states which are enabled at this node point
+                -- and which remain enabled until disabled or the lane ends
+   data         LaneDataAttributeList OPTIONAL,
+                -- Attributes which require an additional data values
+                -- some of these are local to the node point, while others
+                -- persist with the provided values until changed
+                -- and this is indicated in each entry
+   dWidth       Offset-B10 OPTIONAL,
+                -- A value added to the current lane width
+                -- at this node and from this node onwards, in 1cm steps
+                -- lane width between nodes are a linear taper between pts
+                -- the value of zero shall not be sent here
+   dElevation   Offset-B10 OPTIONAL,
+                -- A value added to the current Elevation 
+                -- at this node from this node onwards, in 10cm steps
+                -- elevations between nodes are a linear taper between pts
+                -- the value of zero shall not be sent here
+   regional     SEQUENCE (SIZE(1..4)) OF 
+                RegionalExtension {{Reg-NodeAttributeSetXY}} OPTIONAL,
+   ...
+   }
+
+NodeAttributeXYList ::= SEQUENCE (SIZE(1..8)) OF NodeAttributeXY
+
+NodeAttributeXY ::= ENUMERATED {
+   -- Various values which pertain only to the current node point
+   
+   -- General Items
+   reserved,  
+   stopLine,             -- point where a mid-path stop line exists
+                         -- See also 'do not block' for segments
+
+   -- Path finish details 
+   roundedCapStyleA,      -- Used to control final path rounded end shape
+                          -- with edge of curve at final point in a circle
+   roundedCapStyleB,      -- Used to control final path rounded end shape
+                          -- with edge of curve extending 50% of width past
+                          -- final point in a circle
+   
+   -- Topography Points (items with no concept of a distance along the path)
+   mergePoint,           -- Japan merge with 1 or more lanes
+   divergePoint,         -- Japan diverge with 1 or more lanes
+   downstreamStopLine,   -- Japan style downstream intersection 
+                                   -- (a 2nd intersection) stop line
+   downstreamStartNode,  -- Japan style downstream intersection 
+                                   -- (a 2nd intersection) start node
+     
+   -- Pedestrian Support Attributes
+   closedToTraffic,      -- where a pedestrian may NOT go
+                         -- to be used during construction events
+   safeIsland,           -- a pedestrian safe stopping point
+                         -- also called a traffic island
+                         -- This usage described a point feature on a path, 
+                         -- other entries can describe a path
+   curbPresentAtStepOff, -- the sidewalk to street curb is NOT 
+                         -- angled where it meets the edge of the 
+                         -- roadway (user must step up/down)
+ 
+   -- Lane geometry details  (see standard for defined shapes)
+   hydrantPresent,       -- Or other services access 
+   ...
+   }
+
+Offset-B10 ::= INTEGER (-512..511)
+   -- a range of +- 5.11 meters
+
+Offset-B11 ::= INTEGER (-1024..1023)
+   -- a range of +- 10.23 meters
+
+Offset-B12 ::= INTEGER (-2048..2047)
+   -- a range of +- 20.47 meters
+
+Offset-B13 ::= INTEGER (-4096..4095)
+   -- a range of +- 40.95 meters
+
+Offset-B14 ::= INTEGER (-8192..8191)
+   -- a range of +- 81.91 meters
+
+Offset-B16 ::= INTEGER (-32768..32767)
+   -- a range of +- 327.68 meters
+
+PrioritizationResponseStatus ::= ENUMERATED {
+   unknown           (0),
+                      -- Unknown state
+   requested         (1),
+                      -- This prioritization request was detected 
+                      -- by the traffic controller  
+   processing        (2),
+                      -- Checking request 
+                      -- (request is in queue, other requests are prior)
+   watchOtherTraffic (3),
+                      -- Cannot give full permission, 
+                      -- therefore watch for other traffic
+                      -- Note that other requests may be present
+   granted           (4),
+                      -- Intervention was successful 
+                      -- and now prioritization is active
+   rejected          (5),
+                      -- The prioritization or preemption request was 
+                      -- rejected by the traffic controller
+   maxPresence       (6),
+                      -- The Request has exceeded maxPresence time
+                      -- Used when the controller has determined that
+                      -- the requester should then back off and 
+                      -- request an alternative.  
+   reserviceLocked   (7),
+                      -- Prior conditions have resulted in a reservice 
+                      -- locked event: the controller requires the 
+                      -- passage of time before another similar request 
+                      -- will be accepted
+   ...
+}
+
+RegionId ::= INTEGER (0..255)
+   noRegion     RegionId ::= 0  -- Use default supplied stubs
+   addGrpA      RegionId ::= 1  -- USA
+   addGrpB      RegionId ::= 2  -- Japan
+   addGrpC      RegionId ::= 3  -- EU
+   -- NOTE: new registered regional IDs will be added here
+   -- The values 128 and above are for local region use
+
+-- Regional extensions support
+REG-EXT-ID-AND-TYPE ::= CLASS {
+   &id     RegionId UNIQUE,
+   &Type
+   } WITH SYNTAX {&Type IDENTIFIED BY &id}
+
+RegionalExtension {REG-EXT-ID-AND-TYPE : Set} ::= SEQUENCE {
+   regionId     REG-EXT-ID-AND-TYPE.&id( {Set} ),
+   regExtValue  REG-EXT-ID-AND-TYPE.&Type( {Set}{@regionId} )
+   }
+
+RegulatorySpeedLimit ::= SEQUENCE {
+   type        SpeedLimitType, 
+               -- The type of regulatory speed which follows
+   speed       Velocity
+               -- The speed in units of 0.02 m/s
+               -- See Section 11 for converting and translating 
+               -- speed expressed in mph into units of m/s
+   }
+
+RoadwayCrownAngle ::= INTEGER (-128..127) 
+    -- In LSB units of 0.3 degrees of angle
+    -- over a range of -38.1 to + 38.1 degrees
+    -- The value -128 shall be used for unknown
+    -- The value zero shall be used for angles 
+    -- which are between -0.15 and +0.15
+
+
+SegmentAttributeXYList ::= SEQUENCE (SIZE(1..8)) OF SegmentAttributeXY
+
+SegmentAttributeXY ::= ENUMERATED {
+   -- Various values which can be Enabled and Disabled for a lane segment
+   
+   -- General Items
+   reserved                  ,  
+   doNotBlock                ,  -- segment where a vehicle 
+                                -- may not come to a stop
+   whiteLine                 ,  -- segment where lane crossing not allowed
+                                -- such as the final few meters of a lane
+   
+   -- Porous Lane states, merging, turn outs, parking etc.
+   
+   mergingLaneLeft           ,  -- indicates porous lanes
+   mergingLaneRight          ,
+   
+   curbOnLeft                ,  -- indicates presence of curbs
+   curbOnRight               ,
+   
+   loadingzoneOnLeft         ,  -- loading or drop off zones
+   loadingzoneOnRight        ,
+   
+   turnOutPointOnLeft        ,  -- opening to adjacent street/alley/road
+   turnOutPointOnRight       ,
+   
+   adjacentParkingOnLeft     , -- side of road parking
+   adjacentParkingOnRight    ,
+   
+   -- Bike Lane Needs
+   adjacentBikeLaneOnLeft    , -- presence of marked bike lanes
+   adjacentBikeLaneOnRight   ,
+   sharedBikeLane            , -- right of way is shared with bikes
+                               -- who may occupy entire lane width
+   bikeBoxInFront            ,
+   
+   -- Transit Needs
+   transitStopOnLeft         , -- any form of bus/transit loading
+                               -- with pull in-out access to lane on left
+   transitStopOnRight        , -- any form of bus/transit loading
+                               -- with pull in-out access to lane on right
+   transitStopInLane         , -- any form of bus/transit loading
+                               -- in mid path of the lane
+   sharedWithTrackedVehicle  , -- lane is shared with train or trolley 
+                               -- not used for crossing tracks
+  
+     
+   -- Pedestrian Support Attributes
+   safeIsland                , -- begin/end a safety island in path
+   lowCurbsPresent           , -- for ADA support
+   rumbleStripPresent        , -- for ADA support
+   audibleSignalingPresent   , -- for ADA support
+   adaptiveTimingPresent     , -- for ADA support
+   rfSignalRequestPresent    , -- Supports RF push to walk technologies
+   partialCurbIntrusion      , -- path is blocked by a median or curb 
+                               -- but at least 1 meter remains open for use
+                               -- and at-grade passage
+   
+   -- Lane geometry details  (see standard for defined shapes)
+   taperToLeft               , -- Used to control final path shape
+   taperToRight              , -- Used to control final path shape
+   taperToCenterLine         , -- Used to control final path shape
+
+   -- Parking Lane and Curb Attributes
+   parallelParking           , -- 
+   headInParking             , -- Parking at an angle with the street
+   freeParking               , -- no restriction on use of parking
+   timeRestrictionsOnParking , -- Parking is not permitted at all times
+                               -- typically used when the 'parking' lane 
+                               -- becomes a driving lane at times
+   costToPark                , -- Used where parking has a cost
+   midBlockCurbPresent       , -- a protruding curb near lane edge
+   unEvenPavementPresent     , -- a disjoint height at lane edge
+   ...
+   }
+
+SignalGroupID ::= INTEGER (0..255) 
+    -- The value 0 shall be used when the ID is
+    -- not available or not known
+    -- the value 255 is reserved to indicate a 
+    -- permanent green movement state
+    -- therefore a simple 8 phase signal controller 
+    -- device might use 1..9 as its groupIDs
+
+SpeedLimitList ::= SEQUENCE (SIZE(1..9)) OF RegulatorySpeedLimit
+
+SpeedLimitType ::= ENUMERATED {
+    unknown,                    -- Speed limit type not available
+    maxSpeedInSchoolZone,       -- Only sent when the limit is active
+    maxSpeedInSchoolZoneWhenChildrenArePresent, -- Sent at any time
+    maxSpeedInConstructionZone, -- Used for work zones, incident zones, etc.
+                                -- where a reduced speed is present
+    vehicleMinSpeed,
+    vehicleMaxSpeed,            -- Regulatory speed limit for general traffic
+    vehicleNightMaxSpeed,
+
+    truckMinSpeed,
+    truckMaxSpeed,
+    truckNightMaxSpeed,
+
+    vehiclesWithTrailersMinSpeed,
+    vehiclesWithTrailersMaxSpeed,
+    vehiclesWithTrailersNightMaxSpeed,
+    ...
+    }
+
+Velocity ::= INTEGER (0..8191) -- Units of 0.02 m/s
+    -- The value 8191 indicates that 
+    -- velocity is unavailable
+
+------------------------------------------------------
+--FIXME RGY BELOW ARE DEFINITIONS MOVED FROM IS-REGION
+------------------------------------------------------
+
+Reg-LaneDataAttribute       REG-EXT-ID-AND-TYPE ::= { ... }
+
+Reg-NodeOffsetPointXY       REG-EXT-ID-AND-TYPE ::= { ... }
+
+Reg-NodeAttributeSetXY      REG-EXT-ID-AND-TYPE ::= {
+    {Control-addGrpC    IDENTIFIED BY addGrpC} ,
+     ...
+}
+END   

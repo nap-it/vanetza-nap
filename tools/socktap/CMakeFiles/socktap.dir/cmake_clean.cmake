@@ -7,6 +7,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/socktap.dir/benchmark_application.cpp.o"
   "CMakeFiles/socktap.dir/cam_application.cpp.o"
   "CMakeFiles/socktap.dir/complete_packet.cpp.o"
+  "CMakeFiles/socktap.dir/cpm_application.cpp.o"
   "CMakeFiles/socktap.dir/dcc_passthrough.cpp.o"
   "CMakeFiles/socktap.dir/denm_application.cpp.o"
   "CMakeFiles/socktap.dir/ethernet_device.cpp.o"

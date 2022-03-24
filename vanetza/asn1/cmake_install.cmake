@@ -1,4 +1,4 @@
-# Install script for directory: /home/rrosmaninho/playground/vanetza/vanetza/asn1
+# Install script for directory: /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -37,44 +37,39 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
-# Set default install directory permissions.
-if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/usr/bin/objdump")
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/rrosmaninho/Repos/IT/vanetza/lib/static/libvanetza_asn1_support.a")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/rrosmaninho/playground/vanetza/lib/static/libvanetza_asn1_support.a")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/vanetza/asn1" TYPE DIRECTORY FILES "/home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/support" FILES_MATCHING REGEX "/[^/]*\\.h$")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/vanetza/asn1" TYPE DIRECTORY FILES "/home/rrosmaninho/playground/vanetza/vanetza/asn1/support" FILES_MATCHING REGEX "/[^/]*\\.h$")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/rrosmaninho/Repos/IT/vanetza/lib/static/libvanetza_asn1_its.a")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/rrosmaninho/playground/vanetza/lib/static/libvanetza_asn1_its.a")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/vanetza/asn1" TYPE DIRECTORY FILES "/home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its" FILES_MATCHING REGEX "/[^/]*\\.h$")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/vanetza/asn1" TYPE DIRECTORY FILES "/home/rrosmaninho/playground/vanetza/vanetza/asn1/its" FILES_MATCHING REGEX "/[^/]*\\.h$")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/rrosmaninho/Repos/IT/vanetza/lib/static/libvanetza_asn1_security.a")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/rrosmaninho/playground/vanetza/lib/static/libvanetza_asn1_security.a")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/vanetza/asn1" TYPE DIRECTORY FILES "/home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/security" FILES_MATCHING REGEX "/[^/]*\\.h$")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/vanetza/asn1" TYPE DIRECTORY FILES "/home/rrosmaninho/playground/vanetza/vanetza/asn1/security" FILES_MATCHING REGEX "/[^/]*\\.h$")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/rrosmaninho/Repos/IT/vanetza/lib/static/libvanetza_asn1_pki.a")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/rrosmaninho/playground/vanetza/lib/static/libvanetza_asn1_pki.a")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/vanetza/asn1" TYPE DIRECTORY FILES "/home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/pki" FILES_MATCHING REGEX "/[^/]*\\.h$")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/vanetza/asn1" TYPE DIRECTORY FILES "/home/rrosmaninho/playground/vanetza/vanetza/asn1/pki" FILES_MATCHING REGEX "/[^/]*\\.h$")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/rrosmaninho/playground/vanetza/lib/static/libvanetza_asn1.a")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/rrosmaninho/Repos/IT/vanetza/lib/static/libvanetza_asn1.a")
 endif()
 

@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/rrosmaninho/playground/vanetza/vanetza/gnss/nmea.cpp
+/home/rrosmaninho/Repos/IT/vanetza/vanetza/gnss/nmea.cpp
 nmea.hpp
-/home/rrosmaninho/playground/vanetza/vanetza/gnss/nmea.hpp
+/home/rrosmaninho/Repos/IT/vanetza/vanetza/gnss/nmea.hpp
 wgs84point.hpp
-/home/rrosmaninho/playground/vanetza/vanetza/gnss/wgs84point.hpp
+/home/rrosmaninho/Repos/IT/vanetza/vanetza/gnss/wgs84point.hpp
 boost/date_time/gregorian/gregorian.hpp
 -
 boost/date_time/posix_time/posix_time.hpp
@@ -26,7 +26,7 @@ iomanip
 sstream
 -
 
-/home/rrosmaninho/playground/vanetza/vanetza/gnss/nmea.hpp
+/home/rrosmaninho/Repos/IT/vanetza/vanetza/gnss/nmea.hpp
 vanetza/units/angle.hpp
 -
 vanetza/units/velocity.hpp
@@ -40,7 +40,7 @@ cstdint
 string
 -
 
-/home/rrosmaninho/playground/vanetza/vanetza/gnss/wgs84point.hpp
+/home/rrosmaninho/Repos/IT/vanetza/vanetza/gnss/wgs84point.hpp
 vanetza/units/angle.hpp
 -
 

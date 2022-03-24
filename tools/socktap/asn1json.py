@@ -7,10 +7,10 @@ printed = []
 bitstrings = {}
 
 add_t = ["DeltaReferencePosition", "ItsPduHeader", "PtActivationData"]
-ignore = ["WMInumber", "VDS", "OpeningDaysHours", "PhoneNumber"]
+ignore = ["WMInumber", "VDS", "OpeningDaysHours", "PhoneNumber", "CLASS", "REG-EXT-ID-AND-TYPE.&id", "REG-EXT-ID-AND-TYPE.&Type"]
 
 base_dir = "../../asn1"
-asn1_files = ["TS102894-2v131-CDD.asn", "EN302637-2v141-CAM.asn", "EN302637-3v131-DENM.asn"]
+asn1_files = ["TS102894-2v131-CDD.asn", "DSRC_REGION_noCircular.asn", "TR103562v211-CPM.asn"]
 
 default_types = ["INTEGER", "BOOLEAN", "ENUMERATED", "BIT STRING", "IA5String", "SEQUENCE", "OCTET STRING", "SEQUENCE OF", "UTF8String", "NumericString", "CHOICE"]
 
@@ -109,7 +109,7 @@ for asn1_file in asn1_files:
         elif asn1_type["type"] in ["BIT STRING"]:
             asn1_types.append(ASN1BitString(type_name, asn1_type, top_level_key, asn1_file))
             bitstrings[type_name] = ASN1BitString(type_name, asn1_type, top_level_key, asn1_file)
-        elif asn1_type["type"] in ["OCTET STRING", "NumericString", "UTF8String", "IA5String"]:
+        elif asn1_type["type"] in ["OCTET STRING", "NumericString", "UTF8String", "IA5String", "CLASS"]:
             asn1_types.append(ASN1TODO(type_name, asn1_type, top_level_key, asn1_file))
         else:
             printed.append(type_name)
@@ -152,13 +152,19 @@ print(intro)
 b = len(printed)
 
 # TODO: Replace with better algorithm when there's time
-while len(printed) != len(asn1_types) + b:
+for i in range(10):
+#while len(printed) != len(asn1_types) + b:
+    print(str(len(printed)) + " vs " + (str(len(asn1_types) + b)))
+    print("\n\n\n\n\n\n\n")
     for t in asn1_types:
-        if t.name not in printed and (t.definition["type"] in ["BIT STRING", "OCTET STRING", "NumericString", "UTF8String", "IA5String"] or all([d["type"] in printed + default_types for d in t.members])):
-            print(t)
+        #if t.name not in printed:
+        #    print(t.definition["type"])
+        if t.name not in printed and (t.definition["type"] in ["BIT STRING", "OCTET STRING", "NumericString", "UTF8String", "IA5String", "CLASS"] or all([d["type"] in printed + default_types for d in t.members])):
+            #print(t)
             printed.append(t.name)
-
-
-
+        elif t.name not in printed:
+            print(t.name + " " + t.definition["type"])
+            print(all([d["type"] in printed + default_types for d in t.members]))
+            print([d["type"] for d in t.members if d["type"] not in printed + default_types])
 
     

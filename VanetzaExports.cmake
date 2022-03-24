@@ -4,7 +4,7 @@ if("${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}" LESS 2.5)
    message(FATAL_ERROR "CMake >= 2.6.0 required")
 endif()
 cmake_policy(PUSH)
-cmake_policy(VERSION 2.6...3.17)
+cmake_policy(VERSION 2.6)
 #----------------------------------------------------------------
 # Generated CMake target import file.
 #----------------------------------------------------------------
@@ -49,7 +49,7 @@ unset(_expectedTargets)
 add_library(Vanetza::access STATIC IMPORTED)
 
 set_target_properties(Vanetza::access PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/playground/vanetza"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/Repos/IT/vanetza"
   INTERFACE_LINK_LIBRARIES "Vanetza::net"
 )
 
@@ -57,14 +57,14 @@ set_target_properties(Vanetza::access PROPERTIES
 add_library(Vanetza::asn1_support STATIC IMPORTED)
 
 set_target_properties(Vanetza::asn1_support PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/playground/vanetza;/home/rrosmaninho/playground/vanetza/vanetza/asn1/support"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/Repos/IT/vanetza;/home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/support"
 )
 
 # Create imported target Vanetza::asn1_its
 add_library(Vanetza::asn1_its STATIC IMPORTED)
 
 set_target_properties(Vanetza::asn1_its PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/playground/vanetza"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/Repos/IT/vanetza"
   INTERFACE_LINK_LIBRARIES "Vanetza::asn1_support"
 )
 
@@ -72,7 +72,7 @@ set_target_properties(Vanetza::asn1_its PROPERTIES
 add_library(Vanetza::asn1_security STATIC IMPORTED)
 
 set_target_properties(Vanetza::asn1_security PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/playground/vanetza"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/Repos/IT/vanetza"
   INTERFACE_LINK_LIBRARIES "Vanetza::asn1_support"
 )
 
@@ -80,7 +80,7 @@ set_target_properties(Vanetza::asn1_security PROPERTIES
 add_library(Vanetza::asn1_pki STATIC IMPORTED)
 
 set_target_properties(Vanetza::asn1_pki PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/playground/vanetza"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/Repos/IT/vanetza"
   INTERFACE_LINK_LIBRARIES "Vanetza::asn1_support"
 )
 
@@ -88,7 +88,7 @@ set_target_properties(Vanetza::asn1_pki PROPERTIES
 add_library(Vanetza::asn1 STATIC IMPORTED)
 
 set_target_properties(Vanetza::asn1 PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/playground/vanetza"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/Repos/IT/vanetza"
   INTERFACE_LINK_LIBRARIES "Vanetza::asn1_its;Boost::boost"
 )
 
@@ -96,7 +96,7 @@ set_target_properties(Vanetza::asn1 PROPERTIES
 add_library(Vanetza::btp STATIC IMPORTED)
 
 set_target_properties(Vanetza::btp PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/playground/vanetza"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/Repos/IT/vanetza"
   INTERFACE_LINK_LIBRARIES "Boost::boost;Vanetza::geonet"
 )
 
@@ -104,7 +104,7 @@ set_target_properties(Vanetza::btp PROPERTIES
 add_library(Vanetza::common STATIC IMPORTED)
 
 set_target_properties(Vanetza::common PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/playground/vanetza"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/Repos/IT/vanetza"
   INTERFACE_LINK_LIBRARIES "Boost::date_time;Threads::Threads"
 )
 
@@ -112,7 +112,7 @@ set_target_properties(Vanetza::common PROPERTIES
 add_library(Vanetza::dcc STATIC IMPORTED)
 
 set_target_properties(Vanetza::dcc PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/playground/vanetza"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/Repos/IT/vanetza"
   INTERFACE_LINK_LIBRARIES "Vanetza::access;Vanetza::net"
 )
 
@@ -120,7 +120,7 @@ set_target_properties(Vanetza::dcc PROPERTIES
 add_library(Vanetza::facilities STATIC IMPORTED)
 
 set_target_properties(Vanetza::facilities PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/playground/vanetza"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/Repos/IT/vanetza"
   INTERFACE_LINK_LIBRARIES "Boost::date_time;Vanetza::asn1;Vanetza::security;\$<LINK_ONLY:Vanetza::geonet>"
 )
 
@@ -128,7 +128,7 @@ set_target_properties(Vanetza::facilities PROPERTIES
 add_library(Vanetza::geonet STATIC IMPORTED)
 
 set_target_properties(Vanetza::geonet PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/playground/vanetza"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/Repos/IT/vanetza"
   INTERFACE_LINK_LIBRARIES "\$<LINK_ONLY:GeographicLib::GeographicLib>;Boost::date_time;Vanetza::dcc;Vanetza::net;Vanetza::security"
 )
 
@@ -136,7 +136,7 @@ set_target_properties(Vanetza::geonet PROPERTIES
 add_library(Vanetza::gnss STATIC IMPORTED)
 
 set_target_properties(Vanetza::gnss PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/playground/vanetza"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/Repos/IT/vanetza"
   INTERFACE_LINK_LIBRARIES "Boost::date_time"
 )
 
@@ -144,7 +144,7 @@ set_target_properties(Vanetza::gnss PROPERTIES
 add_library(Vanetza::net STATIC IMPORTED)
 
 set_target_properties(Vanetza::net PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/playground/vanetza"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/Repos/IT/vanetza"
   INTERFACE_LINK_LIBRARIES "Vanetza::common"
 )
 
@@ -153,7 +153,7 @@ add_library(Vanetza::security STATIC IMPORTED)
 
 set_target_properties(Vanetza::security PROPERTIES
   INTERFACE_COMPILE_DEFINITIONS "VANETZA_WITH_CRYPTOPP"
-  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/playground/vanetza"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/rrosmaninho/Repos/IT/vanetza"
   INTERFACE_LINK_LIBRARIES "Vanetza::common;Vanetza::net;\$<LINK_ONLY:GeographicLib::GeographicLib>;CryptoPP::CryptoPP"
 )
 
@@ -171,104 +171,104 @@ set_target_properties(Vanetza::vanetza PROPERTIES
 set_property(TARGET Vanetza::access APPEND PROPERTY IMPORTED_CONFIGURATIONS NOCONFIG)
 set_target_properties(Vanetza::access PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_NOCONFIG "CXX"
-  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/playground/vanetza/lib/static/libvanetza_access.a"
+  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/Repos/IT/vanetza/lib/static/libvanetza_access.a"
   )
 
 # Import target "Vanetza::asn1_support" for configuration ""
 set_property(TARGET Vanetza::asn1_support APPEND PROPERTY IMPORTED_CONFIGURATIONS NOCONFIG)
 set_target_properties(Vanetza::asn1_support PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_NOCONFIG "C"
-  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/playground/vanetza/lib/static/libvanetza_asn1_support.a"
+  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/Repos/IT/vanetza/lib/static/libvanetza_asn1_support.a"
   )
 
 # Import target "Vanetza::asn1_its" for configuration ""
 set_property(TARGET Vanetza::asn1_its APPEND PROPERTY IMPORTED_CONFIGURATIONS NOCONFIG)
 set_target_properties(Vanetza::asn1_its PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_NOCONFIG "C"
-  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/playground/vanetza/lib/static/libvanetza_asn1_its.a"
+  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/Repos/IT/vanetza/lib/static/libvanetza_asn1_its.a"
   )
 
 # Import target "Vanetza::asn1_security" for configuration ""
 set_property(TARGET Vanetza::asn1_security APPEND PROPERTY IMPORTED_CONFIGURATIONS NOCONFIG)
 set_target_properties(Vanetza::asn1_security PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_NOCONFIG "C"
-  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/playground/vanetza/lib/static/libvanetza_asn1_security.a"
+  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/Repos/IT/vanetza/lib/static/libvanetza_asn1_security.a"
   )
 
 # Import target "Vanetza::asn1_pki" for configuration ""
 set_property(TARGET Vanetza::asn1_pki APPEND PROPERTY IMPORTED_CONFIGURATIONS NOCONFIG)
 set_target_properties(Vanetza::asn1_pki PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_NOCONFIG "C"
-  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/playground/vanetza/lib/static/libvanetza_asn1_pki.a"
+  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/Repos/IT/vanetza/lib/static/libvanetza_asn1_pki.a"
   )
 
 # Import target "Vanetza::asn1" for configuration ""
 set_property(TARGET Vanetza::asn1 APPEND PROPERTY IMPORTED_CONFIGURATIONS NOCONFIG)
 set_target_properties(Vanetza::asn1 PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_NOCONFIG "CXX"
-  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/playground/vanetza/lib/static/libvanetza_asn1.a"
+  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/Repos/IT/vanetza/lib/static/libvanetza_asn1.a"
   )
 
 # Import target "Vanetza::btp" for configuration ""
 set_property(TARGET Vanetza::btp APPEND PROPERTY IMPORTED_CONFIGURATIONS NOCONFIG)
 set_target_properties(Vanetza::btp PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_NOCONFIG "CXX"
-  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/playground/vanetza/lib/static/libvanetza_btp.a"
+  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/Repos/IT/vanetza/lib/static/libvanetza_btp.a"
   )
 
 # Import target "Vanetza::common" for configuration ""
 set_property(TARGET Vanetza::common APPEND PROPERTY IMPORTED_CONFIGURATIONS NOCONFIG)
 set_target_properties(Vanetza::common PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_NOCONFIG "CXX"
-  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/playground/vanetza/lib/static/libvanetza_common.a"
+  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/Repos/IT/vanetza/lib/static/libvanetza_common.a"
   )
 
 # Import target "Vanetza::dcc" for configuration ""
 set_property(TARGET Vanetza::dcc APPEND PROPERTY IMPORTED_CONFIGURATIONS NOCONFIG)
 set_target_properties(Vanetza::dcc PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_NOCONFIG "CXX"
-  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/playground/vanetza/lib/static/libvanetza_dcc.a"
+  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/Repos/IT/vanetza/lib/static/libvanetza_dcc.a"
   )
 
 # Import target "Vanetza::facilities" for configuration ""
 set_property(TARGET Vanetza::facilities APPEND PROPERTY IMPORTED_CONFIGURATIONS NOCONFIG)
 set_target_properties(Vanetza::facilities PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_NOCONFIG "CXX"
-  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/playground/vanetza/lib/static/libvanetza_facilities.a"
+  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/Repos/IT/vanetza/lib/static/libvanetza_facilities.a"
   )
 
 # Import target "Vanetza::geonet" for configuration ""
 set_property(TARGET Vanetza::geonet APPEND PROPERTY IMPORTED_CONFIGURATIONS NOCONFIG)
 set_target_properties(Vanetza::geonet PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_NOCONFIG "CXX"
-  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/playground/vanetza/lib/static/libvanetza_geonet.a"
+  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/Repos/IT/vanetza/lib/static/libvanetza_geonet.a"
   )
 
 # Import target "Vanetza::gnss" for configuration ""
 set_property(TARGET Vanetza::gnss APPEND PROPERTY IMPORTED_CONFIGURATIONS NOCONFIG)
 set_target_properties(Vanetza::gnss PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_NOCONFIG "CXX"
-  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/playground/vanetza/lib/static/libvanetza_gnss.a"
+  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/Repos/IT/vanetza/lib/static/libvanetza_gnss.a"
   )
 
 # Import target "Vanetza::net" for configuration ""
 set_property(TARGET Vanetza::net APPEND PROPERTY IMPORTED_CONFIGURATIONS NOCONFIG)
 set_target_properties(Vanetza::net PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_NOCONFIG "CXX"
-  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/playground/vanetza/lib/static/libvanetza_net.a"
+  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/Repos/IT/vanetza/lib/static/libvanetza_net.a"
   )
 
 # Import target "Vanetza::security" for configuration ""
 set_property(TARGET Vanetza::security APPEND PROPERTY IMPORTED_CONFIGURATIONS NOCONFIG)
 set_target_properties(Vanetza::security PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_NOCONFIG "CXX"
-  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/playground/vanetza/lib/static/libvanetza_security.a"
+  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/Repos/IT/vanetza/lib/static/libvanetza_security.a"
   )
 
 # Import target "Vanetza::socktap" for configuration ""
 set_property(TARGET Vanetza::socktap APPEND PROPERTY IMPORTED_CONFIGURATIONS NOCONFIG)
 set_target_properties(Vanetza::socktap PROPERTIES
-  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/playground/vanetza/bin/socktap"
+  IMPORTED_LOCATION_NOCONFIG "/home/rrosmaninho/Repos/IT/vanetza/bin/socktap"
   )
 
 # This file does not depend on other imported targets which have

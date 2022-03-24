@@ -30,12 +30,12 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
 include(CMakeFindDependencyMacro)
 include(MacroFindDependencyComponents)
 
-find_dependency_components(Boost VERSION 1.74 COMPONENTS date_time;program_options;system)
-find_dependency(GeographicLib 1.51)
+find_dependency_components(Boost VERSION 1.71 COMPONENTS date_time;program_options;system)
+find_dependency(GeographicLib 1.50.1)
 find_dependency(Threads)
 
 if(TRUE)
-    find_dependency(CryptoPP 8.4.0)
+    find_dependency(CryptoPP 5.6.4)
 endif()
 
 if()

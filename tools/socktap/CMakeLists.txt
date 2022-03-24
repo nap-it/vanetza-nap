@@ -17,6 +17,7 @@ add_executable(socktap
     benchmark_application.cpp
     cam_application.cpp
     denm_application.cpp
+    cpm_application.cpp
     complete_packet.cpp
     dcc_passthrough.cpp
     ethernet_device.cpp

@@ -2,6 +2,7 @@
 #include "benchmark_application.hpp"
 #include "cam_application.hpp"
 #include "denm_application.hpp"
+#include "cpm_application.hpp"
 #include "hello_application.hpp"
 #include "link_layer.hpp"
 #include "positioning.hpp"
@@ -135,15 +136,22 @@ int main(int argc, const char** argv)
             }
 
             if (app_name == "ca") {
-                std::unique_ptr<CamApplication> ca {
-                    new CamApplication(*positioning, trigger.runtime())
-                };
-                ca->set_interval(std::chrono::milliseconds(vm["cam-interval"].as<unsigned>()));
-                ca->print_received_message(vm.count("print-rx-cam") > 0);
-                ca->print_generated_message(vm.count("print-tx-cam") > 0);
-                apps.emplace(app_name, std::move(ca));
-                std::unique_ptr<DenmApplication> da {
-                        new DenmApplication(*positioning, trigger.runtime())
+                // std::unique_ptr<CamApplication> ca {
+                //     new CamApplication(*positioning, trigger.runtime())
+                // };
+                // ca->set_interval(std::chrono::milliseconds(vm["cam-interval"].as<unsigned>()));
+                // ca->print_received_message(vm.count("print-rx-cam") > 0);
+                // ca->print_generated_message(vm.count("print-tx-cam") > 0);
+                // apps.emplace(app_name, std::move(ca));
+                // std::unique_ptr<DenmApplication> da {
+                //         new DenmApplication(*positioning, trigger.runtime())
+                // };
+                // da->set_interval(std::chrono::milliseconds(vm["cam-interval"].as<unsigned>()));
+                // da->print_received_message(vm.count("print-rx-cam") > 0);
+                // da->print_generated_message(vm.count("print-tx-cam") > 0);
+                // apps.emplace("da", std::move(da));
+                std::unique_ptr<CpmApplication> da {
+                        new CpmApplication(*positioning, trigger.runtime())
                 };
                 da->set_interval(std::chrono::milliseconds(vm["cam-interval"].as<unsigned>()));
                 da->print_received_message(vm.count("print-rx-cam") > 0);
