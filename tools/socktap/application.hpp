@@ -7,11 +7,14 @@
 #include <vanetza/btp/port_dispatcher.hpp>
 #include <vanetza/geonet/data_confirm.hpp>
 #include <vanetza/geonet/router.hpp>
+#include "asn1json.hpp"
 
 #include <nlohmann/json.hpp>
 #include "Mqtt.h"
 #include "router_context.hpp"
 
+#include <prometheus/counter.h>
+#include <prometheus/registry.h>
 class Application : public vanetza::btp::IndicationInterface
 {
 public:
@@ -30,6 +33,11 @@ public:
 
     virtual PortType port() = 0;
     virtual PromiscuousHook* promiscuous_hook();
+    void on_message(string);
+    Mqtt *mqtt;
+    std::shared_ptr<prometheus::Registry> *registry;
+    prometheus::Family<prometheus::Counter> *packet_counter;
+    prometheus::Family<prometheus::Counter> *latency_counter;
 
 protected:
     DataConfirm request(const DataRequest&, DownPacketPtr);

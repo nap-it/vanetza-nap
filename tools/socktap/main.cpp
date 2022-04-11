@@ -1,23 +1,27 @@
 #include "ethernet_device.hpp"
-#include "benchmark_application.hpp"
 #include "cam_application.hpp"
 #include "denm_application.hpp"
 #include "cpm_application.hpp"
-#include "hello_application.hpp"
 #include "link_layer.hpp"
 #include "positioning.hpp"
 #include "router_context.hpp"
 #include "security.hpp"
 #include "time_trigger.hpp"
+#include "INIReader.hpp"
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/signal_set.hpp>
 #include <boost/program_options.hpp>
+#include <boost/asio/ip/host_name.hpp>
 #include <iostream>
+#include <prometheus/counter.h>
+#include <prometheus/exposer.h>
+#include <prometheus/registry.h>
 
 namespace asio = boost::asio;
 namespace gn = vanetza::geonet;
 namespace po = boost::program_options;
 using namespace vanetza;
+using namespace prometheus;
 
 int main(int argc, const char** argv)
 {
@@ -124,6 +128,25 @@ int main(int argc, const char** argv)
             mib.itsGnSecurity = true;
         }
 
+        const auto host_name = boost::asio::ip::host_name();
+        cout << "HOSTNAME: " << host_name << endl;
+        Mqtt *mqtt = new Mqtt(host_name, "192.168.98.1", 1883);
+
+        Exposer exposer{"0.0.0.0:9100"};
+        std::shared_ptr<prometheus::Registry> registry = std::make_shared<Registry>();
+
+        prometheus::Family<prometheus::Counter> *packet_counter = &(BuildCounter()
+                             .Name("observed_packets_count_total")
+                             .Help("Number of observed packets")
+                             .Register(*registry));
+
+        prometheus::Family<prometheus::Counter> *latency_counter = &(BuildCounter()
+                             .Name("observed_packets_latency_total")
+                             .Help("Processing latency of observed packets")
+                             .Register(*registry));
+
+        exposer.RegisterCollectable(registry);
+
         RouterContext context(mib, trigger, *positioning, security.get());
         context.require_position_fix(vm.count("require-gnss-fix") > 0);
         context.set_link_layer(link_layer.get());
@@ -136,13 +159,13 @@ int main(int argc, const char** argv)
             }
 
             if (app_name == "ca") {
-                // std::unique_ptr<CamApplication> ca {
-                //     new CamApplication(*positioning, trigger.runtime())
-                // };
-                // ca->set_interval(std::chrono::milliseconds(vm["cam-interval"].as<unsigned>()));
-                // ca->print_received_message(vm.count("print-rx-cam") > 0);
-                // ca->print_generated_message(vm.count("print-tx-cam") > 0);
-                // apps.emplace(app_name, std::move(ca));
+                std::unique_ptr<CamApplication> ca {
+                    new CamApplication(*positioning, trigger.runtime(), mqtt, &registry, packet_counter, latency_counter)
+                };
+                ca->set_interval(std::chrono::milliseconds(vm["cam-interval"].as<unsigned>()));
+                ca->print_received_message(vm.count("print-rx-cam") > 0);
+                ca->print_generated_message(vm.count("print-tx-cam") > 0);
+                apps.emplace(app_name, std::move(ca));
                 // std::unique_ptr<DenmApplication> da {
                 //         new DenmApplication(*positioning, trigger.runtime())
                 // };
@@ -151,22 +174,22 @@ int main(int argc, const char** argv)
                 // da->print_generated_message(vm.count("print-tx-cam") > 0);
                 // apps.emplace("da", std::move(da));
                 std::unique_ptr<CpmApplication> da {
-                        new CpmApplication(*positioning, trigger.runtime())
+                        new CpmApplication(*positioning, trigger.runtime(), mqtt)
                 };
                 da->set_interval(std::chrono::milliseconds(vm["cam-interval"].as<unsigned>()));
                 da->print_received_message(vm.count("print-rx-cam") > 0);
                 da->print_generated_message(vm.count("print-tx-cam") > 0);
                 apps.emplace("da", std::move(da));
-            } else if (app_name == "hello") {
-                std::unique_ptr<HelloApplication> hello {
-                    new HelloApplication(io_service, std::chrono::milliseconds(800))
-                };
-                apps.emplace(app_name, std::move(hello));
-            } else if (app_name == "benchmark") {
-                std::unique_ptr<BenchmarkApplication> benchmark {
-                    new BenchmarkApplication(io_service)
-                };
-                apps.emplace(app_name, std::move(benchmark));
+            // } else if (app_name == "hello") {
+            //     std::unique_ptr<HelloApplication> hello {
+            //         new HelloApplication(io_service, std::chrono::milliseconds(800))
+            //     };
+            //     apps.emplace(app_name, std::move(hello));
+            // } else if (app_name == "benchmark") {
+            //     std::unique_ptr<BenchmarkApplication> benchmark {
+            //         new BenchmarkApplication(io_service)
+            //     };
+            //     apps.emplace(app_name, std::move(benchmark));
             } else {
                 std::cerr << "skip unknown application '" << app_name << "'\n";
             }

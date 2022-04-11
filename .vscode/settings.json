@@ -70,6 +70,12 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "valarray": "cpp",
-        "__nullptr": "cpp"
+        "__nullptr": "cpp",
+        "csetjmp": "cpp",
+        "strstream": "cpp",
+        "codecvt": "cpp",
+        "unordered_set": "cpp",
+        "*.ipp": "cpp",
+        "filesystem": "cpp"
     }
 }

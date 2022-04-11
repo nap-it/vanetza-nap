@@ -1,5 +1,4 @@
 #include "cam_application.hpp"
-#include "asn1json.hpp"
 #include "complete_packet.hpp"
 #include <vanetza/btp/ports.hpp>
 #include <vanetza/asn1/cam.hpp>
@@ -14,21 +13,34 @@
 
 // This is a very simple CA application sending CAMs at a fixed rate.
 
+//static CamApplication* object;
+
 using namespace vanetza;
 using namespace vanetza::facilities;
 using namespace std::chrono;
 using json = nlohmann::json;
 
-Mqtt *mqtt_cam;
 std::map<long, std::map<std::string, double>> persistence;
+prometheus::Counter *cam_rx_counter;
+prometheus::Counter *cam_tx_counter;
+prometheus::Counter *cam_rx_latency;
+prometheus::Counter *cam_tx_latency;
 
-CamApplication::CamApplication(PositionProvider& positioning, Runtime& rt) :
+CamApplication::CamApplication(PositionProvider& positioning, Runtime& rt, Mqtt *mqtt_, std::shared_ptr<prometheus::Registry>* registry_, prometheus::Family<prometheus::Counter>* packet_counter_, prometheus::Family<prometheus::Counter>* latency_counter_) :
     positioning_(positioning), runtime_(rt), cam_interval_(seconds(1))
 {
-    vector<string> subscription_topic_list;
-    mqtt_cam = new Mqtt("pc-client", "vanetza/cam", subscription_topic_list, "192.168.98.1", 1883);
+    mqtt = mqtt_;
     persistence = {};
     schedule_timer();
+    mqtt->subscribe("target/cam", this);
+    registry = registry_;
+    packet_counter = packet_counter_;
+    latency_counter = latency_counter_;
+    
+    cam_rx_counter = &((*packet_counter).Add({{"message", "cam"}, {"direction", "rx"}}));
+    cam_tx_counter = &((*packet_counter).Add({{"message", "cam"}, {"direction", "tx"}}));
+    cam_rx_latency = &((*latency_counter).Add({{"message", "cam"}, {"direction", "rx"}}));
+    cam_tx_latency = &((*latency_counter).Add({{"message", "cam"}, {"direction", "tx"}}));
 }
 
 void CamApplication::set_interval(Clock::duration interval)
@@ -77,24 +89,9 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
 
     std::cout << "CAM application received a packet with " << (cam ? "decodable" : "broken") << " content" << std::endl;
 
-
-    mqtt_cam->publish(buildJSON(*cam, cp.rssi));
+    mqtt->publish("vanetza/cam", buildJSON(*cam, cp.rssi));
+    cam_rx_counter->Increment();
 }
-
-// void to_json(json& j, const Heading& p) {
-//     j = json{{"value", p.headingValue}, {"confidence", p.headingConfidence}};
-// }
-
-// void to_json(json& j, const BasicVehicleContainerHighFrequency& p) {
-//     j = json{{"heading", p.heading}};
-// }
-
-// void from_json(const json& j, ItsPduHeader_t& p) {
-//     j.at("messageID").get_to(p.messageID);
-//     j.at("protocolVersion").get_to(p.protocolVersion);
-//     j.at("stationID").get_to(p.stationID);
-// }
- // namespace ns
 
 void CamApplication::schedule_timer()
 {
@@ -131,12 +128,14 @@ std::string CamApplication::buildJSON(vanetza::asn1::Cam message, int rssi) {
     
     bool new_info = last_map == persistence.end() || ((last_map->second)["lat"] != (double) latitude) || ((last_map->second)["lng"] != (double) longitude) || ( time_reception - (last_map->second)["time"] >= 1);
 
+    const double time_now =  (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
+
     json json_payload = {
             {"timestamp", time_reception},
             {"newInfo", new_info},
             {"rssi", rssi},
             {"test", {
-                {"json_timestamp", (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0}
+                {"json_timestamp", time_now}
             }
             },
             {"stationID", (long) header.stationID},
@@ -160,11 +159,11 @@ std::string CamApplication::buildJSON(vanetza::asn1::Cam message, int rssi) {
             {"yawRate", (long) bvc.yawRate.yawRateValue},
             {"brakePedal", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-0)))},
             {"gasPedal", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-1)))},
-            {"emergencyBrake", !!(*(bvc.accelerationControl->buf) & (1 << (7-2)))},
-            {"collisionWarning", !!(*(bvc.accelerationControl->buf) & (1 << (7-3)))},
-            {"accEngaged", !!(*(bvc.accelerationControl->buf) & (1 << (7-4)))},
-            {"cruiseControl", !!(*(bvc.accelerationControl->buf) & (1 << (7-5)))},
-            {"speedLimiter", !!(*(bvc.accelerationControl->buf) & (1 << (7-6)))},
+            {"emergencyBrake", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-2)))},
+            {"collisionWarning", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-3)))},
+            {"accEngaged", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-4)))},
+            {"cruiseControl", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-5)))},
+            {"speedLimiter", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-6)))},
             {"specialVehicle", {
                   {"publicTransport", {
                      {"embarkationStatus", false},
@@ -179,7 +178,54 @@ std::string CamApplication::buildJSON(vanetza::asn1::Cam message, int rssi) {
     //std::cout << *(bvc.accelerationControl->buf) << std::endl;
     //::cout << json_payload.dump() << std::endl;
 
+    cam_rx_latency->Increment(time_now - time_reception);
+
     return json_payload.dump();
+}
+
+void CamApplication::on_message(string mqtt_message) {
+    json payload = json::parse(mqtt_message);
+    cout << "parsed" << endl;
+    CoopAwareness_t cam = payload.get<CoopAwareness_t>();
+    cout << "parsed2" << endl;
+
+    vanetza::asn1::Cam message;
+
+    ItsPduHeader_t& header = message->header;
+    header.protocolVersion = 2;
+    header.messageID = ItsPduHeader__messageID_cam;
+    header.stationID = 1; // some dummy value
+
+    cam.camParameters.highFrequencyContainer.present = HighFrequencyContainer_PR_basicVehicleContainerHighFrequency;
+
+    message->cam = cam;
+
+    json j = message->cam;
+    std::cout << "a0 " << j << std::endl;
+
+    DownPacketPtr packet { new DownPacket() };
+    packet->layer(OsiLayer::Application) = std::move(message);
+
+    std::cout << "a1 " << std::endl;
+
+    DataRequest request;
+    request.its_aid = aid::CA;
+    request.transport_type = geonet::TransportType::SHB;
+    request.communication_profile = geonet::CommunicationProfile::ITS_G5;
+
+    std::cout << "a2 " << std::endl;
+
+    auto confirm = Application::request(request, std::move(packet));
+    std::cout << "a3 " << std::endl;
+    if (!confirm.accepted()) {
+        throw std::runtime_error("CAM application data request failed");
+    }
+
+    std::cout << "a4 " << std::endl;
+}
+
+void CamApplication::send(vanetza::asn1::Cam message) {
+    
 }
 
 void CamApplication::on_timer(Clock::time_point)
@@ -231,10 +277,6 @@ void CamApplication::on_timer(Clock::time_point)
 
     bvc.yawRate.yawRateValue = YawRateValue_unavailable;
 
-    
-
-    std::cout << "hmm" << std::endl; 
-
     bvc.accelerationControl = new AccelerationControl_t();
     bvc.accelerationControl->buf = (uint8_t *) calloc(1, sizeof(uint8_t));
     bvc.accelerationControl->size = 1;
@@ -263,4 +305,6 @@ void CamApplication::on_timer(Clock::time_point)
     if (!confirm.accepted()) {
         throw std::runtime_error("CAM application data request failed");
     }
+
+    cam_tx_counter->Increment();
 }

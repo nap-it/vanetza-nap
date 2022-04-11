@@ -4,15 +4,17 @@
 #include <vanetza/common/runtime.hpp>
 #include <vanetza/asn1/cpm.hpp>
 
-class CpmApplication : public Application
+class CpmApplication : public Application, public Mqtt_client
 {
 public:
-    CpmApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt);
+    CpmApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, Mqtt* mqtt_);
     PortType port() override;
     void indicate(const DataIndication&, UpPacketPtr) override;
     void set_interval(vanetza::Clock::duration);
     void print_received_message(bool flag);
     void print_generated_message(bool flag);
+    void on_message(string);
+    void send(vanetza::asn1::Cpm message);
 
 private:
     void schedule_timer();

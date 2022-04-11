@@ -17,13 +17,10 @@ using namespace vanetza;
 using namespace std::chrono;
 using json = nlohmann::json;
 
-Mqtt *mqtt_denm;
 
 DenmApplication::DenmApplication(PositionProvider& positioning, Runtime& rt) :
     positioning_(positioning), runtime_(rt), denm_interval_(seconds(1))
 {
-    vector<string> subscription_topic_list;
-    mqtt_denm = new Mqtt("pc-client2", "vanetza/denm", subscription_topic_list, "127.0.0.1", 1883);
     schedule_timer();
 }
 
@@ -55,7 +52,7 @@ void DenmApplication::indicate(const DataIndication& indication, UpPacketPtr pac
     std::shared_ptr<const asn1::Denm> denm = boost::apply_visitor(visitor, *packet);
 
     std::cout << "DENM application received a packet with " << (denm ? "decodable" : "broken") << " content" << std::endl;
-    mqtt_denm->publish(buildJSON(*denm));
+    mqtt->publish("vanetza/denm", buildJSON(*denm));
 }
 
 void DenmApplication::schedule_timer()

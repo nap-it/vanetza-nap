@@ -13,15 +13,15 @@ endif()
 find_package(Threads REQUIRED)
 
 add_executable(socktap
+    asn1json.cpp
+    Mqtt.h Mqtt.cpp
     application.cpp
-    benchmark_application.cpp
     cam_application.cpp
     denm_application.cpp
     cpm_application.cpp
     complete_packet.cpp
     dcc_passthrough.cpp
     ethernet_device.cpp
-    hello_application.cpp
     link_layer.cpp
     main.cpp
     positioning.cpp
@@ -30,7 +30,7 @@ add_executable(socktap
     security.cpp
     time_trigger.cpp
     udp_link.cpp
-        JSONHelper.h JSONHelper.cpp Mqtt.cpp Mqtt.h)
+        JSONHelper.h JSONHelper.cpp)
 
 target_link_libraries(socktap PUBLIC mosquittopp)
 
@@ -55,3 +55,13 @@ if(SOCKTAP_WITH_GPSD)
 endif()
 
 set(JSON_ImplicitConversions ON)
+
+find_package(prometheus-cpp CONFIG REQUIRED)
+
+if(PROMETHEUS_CPP_ENABLE_PUSH)
+  target_link_libraries(socktap PRIVATE prometheus-cpp::push)
+endif()
+
+if(PROMETHEUS_CPP_ENABLE_PULL)
+  target_link_libraries(socktap PRIVATE prometheus-cpp::pull)
+endif()

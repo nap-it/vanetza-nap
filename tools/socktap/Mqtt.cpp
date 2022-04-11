@@ -3,16 +3,17 @@
 //
 
 #include "Mqtt.h"
+#include <map>  
 
-Mqtt::Mqtt(string id, string publish_topic,vector<string> subscription_topic_list, string host, int port, string username, string password){
+map<string, Mqtt_client*> subscribers;
+
+Mqtt::Mqtt(string id, string host, int port, string username, string password){
 
     mosqpp::lib_init();
     this->id = id;
     this->keepalive = 60;
     this->port = port;
     this->host = host;
-    this->publish_topic = publish_topic;
-    this->subscription_topic_list = subscription_topic_list;
 
     mosquittopp::username_pw_set(username.c_str(), password.c_str());
 
@@ -28,15 +29,13 @@ Mqtt::Mqtt(string id, string publish_topic,vector<string> subscription_topic_lis
 
 
 
-Mqtt::Mqtt(string id, string publish_topic,vector<string> subscription_topic_list , string host, int port) : mosquittopp(id.c_str())
+Mqtt::Mqtt(string id, string host, int port) : mosquittopp(id.c_str())
 {
     mosqpp::lib_init();
     this->id = id;
     this->keepalive = 60;
     this->port = port;
     this->host = host;
-    this->publish_topic = publish_topic;
-    this->subscription_topic_list = subscription_topic_list;
 
 
 
@@ -54,7 +53,7 @@ Mqtt::~Mqtt() {
     mosqpp::lib_cleanup();
 }
 
-bool Mqtt::publish(string message)
+bool Mqtt::publish(string topic, string message)
 {
     /*
      * NULL: pointer to an int.  If not NULL, the function will set this to the message id of this particular message.
@@ -73,19 +72,14 @@ bool Mqtt::publish(string message)
      * false: set to true to make the message retained.
      *
      */
-    int answer = mosqpp::mosquittopp::publish(nullptr, publish_topic.c_str(), message.length(), message.c_str(), 1, false);
+    int answer = mosqpp::mosquittopp::publish(nullptr, topic.c_str(), message.length(), message.c_str(), 1, false);
     return (answer == MOSQ_ERR_SUCCESS);
 }
 
-bool Mqtt::subscribe() {
-    bool success = true;
-    for(int i=0; i<subscription_topic_list.size(); i++){
-        int answer = mosquittopp::subscribe(nullptr, subscription_topic_list[i].c_str());
-        if(answer != MOSQ_ERR_SUCCESS){
-            success = false;
-        }
-    }
-    return success;
+bool Mqtt::subscribe(string topic, Mqtt_client* object) {
+    subscribers[topic] = object;
+    int answer = mosquittopp::subscribe(nullptr, topic.c_str());
+    return answer == MOSQ_ERR_SUCCESS;
 }
 
 void Mqtt::on_subscribe(int, int, const int *) {
@@ -96,6 +90,8 @@ void Mqtt::on_message(const struct mosquitto_message *message) {
 
     string payload = string(static_cast<char *>(message->payload));
     string topic = string(message->topic);
+
+    subscribers[topic]->on_message(payload);
 
     cout<< TAG << "payload: " << payload << endl;
     cout<< TAG << "topic: " << topic << endl;

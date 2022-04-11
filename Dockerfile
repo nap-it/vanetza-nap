@@ -14,6 +14,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libcrypto++-dev \
     libgeographic-dev \
     libssl-dev \
+    zlib1g-dev \
+    libcurl4-openssl-dev \
     && rm -rf /var/lib/apt/lists/*
 #COPY bin/socktap /usr/local/bin/socktap
 #COPY docker_script.sh /usr/local/bin/docker_script.sh
@@ -21,6 +23,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN mkdir /vanetza
 COPY . /vanetza
 WORKDIR /vanetza
+RUN dpkg -i deps/*.deb
 RUN rm CMakeCache.txt
 RUN cmake .
 RUN cmake --build . --target socktap -j 6

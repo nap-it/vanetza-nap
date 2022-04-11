@@ -41,7 +41,7 @@ extern asn_per_constraints_t asn_PER_type_NodeSetXY_constr_1;
 #endif
 
 /* Referred external types */
-/* #include "NodeXY.h" */
+/*#include "NodeXY.h"*/
 
 #endif	/* _NodeSetXY_H_ */
 #include "asn_internal.h"

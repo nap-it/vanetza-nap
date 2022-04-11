@@ -12,6 +12,13 @@
 
 using namespace std;
 
+class Mqtt_client
+{
+public:
+    virtual void on_message(string){};
+};
+
+
 /**
  * @class Mqtt
  * This class is responsible for the mqtt connection using mosquittopp.
@@ -55,14 +62,12 @@ public:
      * constructor of the class when a login to the server is required.
      *
      * @param id
-     * @param publish_topic null terminated string of the topic to publish to
-     * @param subscribe_topic the subscription pattern
      * @param host the hostname or ip address of the broker to connect to
      * @param port the network port to connect to (usually 1883)
      * @param username username, if expected by the server
      * @param password password, if expected by the server
      */
-    Mqtt(string id, string publish_topic,vector<string> subscription_topic_list, string host, int port, string username, string password);
+    Mqtt(string id, string host, int port, string username, string password);
 
     /**
      * @brief Mqtt constructor
@@ -70,12 +75,10 @@ public:
      * constructor of the class when a login to the server is not required.
      *
      * @param id
-     * @param publish_topic null terminated string of the topic to publish to
-     * @param subscribe_topic the subscription pattern
      * @param host the hostname or ip address of the broker to connect to
      * @param port the network port to connect to (usually 1883)
      */
-    Mqtt(string id, string publish_topic,vector<string> subscription_topic_list, string host, int port);
+    Mqtt(string id, string host, int port);
 
     ~Mqtt();
 
@@ -84,13 +87,13 @@ public:
      * @param message null terminated string of the topic to publish to
      * @return True, if publication was successfully
      */
-    bool publish(string message);
+    bool publish(string topic, string message);
 
     /**
      * @brief subscribe to a topic
      * @return True, if subscription was successfully
      */
-    bool subscribe();
+    bool subscribe(string topic, Mqtt_client* object);
 };
 
 

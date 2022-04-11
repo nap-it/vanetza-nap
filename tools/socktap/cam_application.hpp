@@ -7,15 +7,17 @@
 #include <vanetza/common/runtime.hpp>
 #include <vanetza/asn1/cam.hpp>
 
-class CamApplication : public Application
+class CamApplication : public Application, public Mqtt_client
 {
 public:
-    CamApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt);
+    CamApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, Mqtt* mqtt_, std::shared_ptr<prometheus::Registry>* registry_, prometheus::Family<prometheus::Counter>* packet_counter_, prometheus::Family<prometheus::Counter>* latency_counter_);
     PortType port() override;
     void indicate(const DataIndication&, UpPacketPtr) override;
     void set_interval(vanetza::Clock::duration);
     void print_received_message(bool flag);
     void print_generated_message(bool flag);
+    void on_message(string);
+    void send(vanetza::asn1::Cam message);
 
 private:
     void schedule_timer();
