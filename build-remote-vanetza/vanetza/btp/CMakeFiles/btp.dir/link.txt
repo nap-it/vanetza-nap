@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../lib/static/libvanetza_btp.a  CMakeFiles/btp.dir/data_indication.cpp.o CMakeFiles/btp.dir/data_request.cpp.o CMakeFiles/btp.dir/header.cpp.o CMakeFiles/btp.dir/port_dispatcher.cpp.o
-/usr/bin/ranlib ../../lib/static/libvanetza_btp.a

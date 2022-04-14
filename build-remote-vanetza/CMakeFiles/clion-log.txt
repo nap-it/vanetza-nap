@@ -1,9 +1,0 @@
-/usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /tmp/tmp.eapMZDrW6e
--- Boost version: 1.67.0
--- Found the following Boost libraries:
---   date_time
--- GeographicLib: using lookup code by Vanetza
--- Configuring done
--- Generating done
--- Build files have been written to: /tmp/tmp.eapMZDrW6e/build-remote-vanetza
-Cannot resolve path: /home/rrosmaninho/playground/vanetza/build-remote-vanetza

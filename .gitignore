@@ -2,3 +2,13 @@ build
 conanfile.pyc
 doxygen/html/
 www/
+
+bin/
+.vscode
+.idea
+.github
+cmake/
+cmake-build-debug/
+cmake-config/
+CMakeFiles/
+.travis.yml
