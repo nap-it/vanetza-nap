@@ -14,7 +14,6 @@ public:
     void print_received_message(bool flag);
     void print_generated_message(bool flag);
     void on_message(string);
-    void send(vanetza::asn1::Cpm message);
 
 private:
     void schedule_timer();

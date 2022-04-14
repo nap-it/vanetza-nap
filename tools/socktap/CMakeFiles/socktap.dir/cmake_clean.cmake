@@ -1,7 +1,6 @@
 file(REMOVE_RECURSE
   "../../bin/socktap"
   "../../bin/socktap.pdb"
-  "CMakeFiles/socktap.dir/JSONHelper.cpp.o"
   "CMakeFiles/socktap.dir/Mqtt.cpp.o"
   "CMakeFiles/socktap.dir/application.cpp.o"
   "CMakeFiles/socktap.dir/asn1json.cpp.o"

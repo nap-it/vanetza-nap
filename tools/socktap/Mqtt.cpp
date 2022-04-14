@@ -93,8 +93,8 @@ void Mqtt::on_message(const struct mosquitto_message *message) {
 
     subscribers[topic]->on_message(payload);
 
-    cout<< TAG << "payload: " << payload << endl;
-    cout<< TAG << "topic: " << topic << endl;
+    //cout<< TAG << "payload: " << payload << endl;
+    //cout<< TAG << "topic: " << topic << endl;
 }
 
 void Mqtt::on_disconnect(int rc) {

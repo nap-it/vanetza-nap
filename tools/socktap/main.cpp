@@ -166,6 +166,7 @@ int main(int argc, const char** argv)
                 ca->print_received_message(vm.count("print-rx-cam") > 0);
                 ca->print_generated_message(vm.count("print-tx-cam") > 0);
                 apps.emplace(app_name, std::move(ca));
+
                 // std::unique_ptr<DenmApplication> da {
                 //         new DenmApplication(*positioning, trigger.runtime())
                 // };
@@ -173,6 +174,7 @@ int main(int argc, const char** argv)
                 // da->print_received_message(vm.count("print-rx-cam") > 0);
                 // da->print_generated_message(vm.count("print-tx-cam") > 0);
                 // apps.emplace("da", std::move(da));
+                
                 std::unique_ptr<CpmApplication> da {
                         new CpmApplication(*positioning, trigger.runtime(), mqtt)
                 };

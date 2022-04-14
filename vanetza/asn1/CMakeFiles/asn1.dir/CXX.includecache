@@ -33,6 +33,8 @@ stdexcept
 -
 string
 -
+iostream
+-
 
 /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/asn1c_wrapper.hpp
 vanetza/asn1/support/asn_system.h

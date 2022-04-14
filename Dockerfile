@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu:impish
 ENV TZ=Europe/Lisbon
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -26,7 +26,7 @@ WORKDIR /vanetza
 RUN dpkg -i deps/*.deb
 RUN rm CMakeCache.txt
 RUN cmake .
-RUN cmake --build . --target socktap -j 6
+RUN cmake --build . --target socktap -j 8
 RUN cp /vanetza/bin/socktap /usr/local/bin/socktap
 #SHELL ["/bin/bash", "-c"]
 #ENTRYPOINT ["/usr/bin/sleep", " 5000"]

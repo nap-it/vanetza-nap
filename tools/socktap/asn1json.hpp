@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
-*   Auto-generated from the asn1 directory by asn1json.py on 2022-04-04 09:05:24.886177
+*   Auto-generated from the asn1 directory by asn1json.py on 2022-04-14 04:24:20.585627
 */
 
 #ifndef ASN1_JSON_HPP
@@ -28,6 +28,9 @@
 #include <vanetza/asn1/its/EnabledLaneList.h>
 
 using json = nlohmann::json;
+
+void to_json(json& j, const TimestampIts_t& p);
+void from_json(const json& j, TimestampIts_t& p);
 
 
 /*
@@ -1685,9 +1688,9 @@ void from_json(const json& j, NodeListXY& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const PerceivedObjectContainer& p);
+void to_json(json& j, const PerceivedObjectContainer_t& p);
 
-void from_json(const json& j, PerceivedObjectContainer& p);
+void from_json(const json& j, PerceivedObjectContainer_t& p);
 
 
 /*

@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
+#set(CMAKE_BUILD_TYPE Debug)
+
 if(NOT TARGET Boost::system)
     message(STATUS "Skip build of socktap because of missing Boost::system dependency")
     return()
@@ -29,8 +31,7 @@ add_executable(socktap
     router_context.cpp
     security.cpp
     time_trigger.cpp
-    udp_link.cpp
-        JSONHelper.h JSONHelper.cpp)
+    udp_link.cpp)
 
 target_link_libraries(socktap PUBLIC mosquittopp)
 

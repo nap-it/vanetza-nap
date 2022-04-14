@@ -377,7 +377,7 @@ vanetza/access/CMakeFiles/access.dir/all: vanetza/net/CMakeFiles/net.dir/all
 
 # Build rule for subdir invocation for target.
 vanetza/access/CMakeFiles/access.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 1
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 vanetza/access/CMakeFiles/access.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 0
 .PHONY : vanetza/access/CMakeFiles/access.dir/rule
@@ -427,12 +427,12 @@ vanetza/asn1/CMakeFiles/asn1.dir/clean:
 vanetza/asn1/CMakeFiles/asn1_pki.dir/all: vanetza/asn1/CMakeFiles/asn1_support.dir/all
 	$(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_pki.dir/build.make vanetza/asn1/CMakeFiles/asn1_pki.dir/depend
 	$(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_pki.dir/build.make vanetza/asn1/CMakeFiles/asn1_pki.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=44,45,46,47,48,49,50,51,52,53,54,55,56,57,58 "Built target asn1_pki"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59 "Built target asn1_pki"
 .PHONY : vanetza/asn1/CMakeFiles/asn1_pki.dir/all
 
 # Build rule for subdir invocation for target.
 vanetza/asn1/CMakeFiles/asn1_pki.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 32
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 33
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 vanetza/asn1/CMakeFiles/asn1_pki.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 0
 .PHONY : vanetza/asn1/CMakeFiles/asn1_pki.dir/rule
@@ -454,12 +454,12 @@ vanetza/asn1/CMakeFiles/asn1_pki.dir/clean:
 vanetza/asn1/CMakeFiles/asn1_security.dir/all: vanetza/asn1/CMakeFiles/asn1_support.dir/all
 	$(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_security.dir/build.make vanetza/asn1/CMakeFiles/asn1_security.dir/depend
 	$(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_security.dir/build.make vanetza/asn1/CMakeFiles/asn1_security.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=59,60,61,62,63,64,65,66,67,68,69 "Built target asn1_security"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=60,61,62,63,64,65,66,67,68,69 "Built target asn1_security"
 .PHONY : vanetza/asn1/CMakeFiles/asn1_security.dir/all
 
 # Build rule for subdir invocation for target.
 vanetza/asn1/CMakeFiles/asn1_security.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 28
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 27
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 vanetza/asn1/CMakeFiles/asn1_security.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 0
 .PHONY : vanetza/asn1/CMakeFiles/asn1_security.dir/rule
@@ -540,7 +540,7 @@ vanetza/btp/CMakeFiles/btp.dir/all: vanetza/net/CMakeFiles/net.dir/all
 vanetza/btp/CMakeFiles/btp.dir/all: vanetza/security/CMakeFiles/security.dir/all
 	$(MAKE) $(MAKESILENT) -f vanetza/btp/CMakeFiles/btp.dir/build.make vanetza/btp/CMakeFiles/btp.dir/depend
 	$(MAKE) $(MAKESILENT) -f vanetza/btp/CMakeFiles/btp.dir/build.make vanetza/btp/CMakeFiles/btp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num= "Built target btp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=87 "Built target btp"
 .PHONY : vanetza/btp/CMakeFiles/btp.dir/all
 
 # Build rule for subdir invocation for target.
@@ -567,12 +567,12 @@ vanetza/btp/CMakeFiles/btp.dir/clean:
 vanetza/common/CMakeFiles/common.dir/all:
 	$(MAKE) $(MAKESILENT) -f vanetza/common/CMakeFiles/common.dir/build.make vanetza/common/CMakeFiles/common.dir/depend
 	$(MAKE) $(MAKESILENT) -f vanetza/common/CMakeFiles/common.dir/build.make vanetza/common/CMakeFiles/common.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=87 "Built target common"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num= "Built target common"
 .PHONY : vanetza/common/CMakeFiles/common.dir/all
 
 # Build rule for subdir invocation for target.
 vanetza/common/CMakeFiles/common.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 vanetza/common/CMakeFiles/common.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 0
 .PHONY : vanetza/common/CMakeFiles/common.dir/rule
@@ -601,7 +601,7 @@ vanetza/dcc/CMakeFiles/dcc.dir/all: vanetza/net/CMakeFiles/net.dir/all
 
 # Build rule for subdir invocation for target.
 vanetza/dcc/CMakeFiles/dcc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 vanetza/dcc/CMakeFiles/dcc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 0
 .PHONY : vanetza/dcc/CMakeFiles/dcc.dir/rule
@@ -636,7 +636,7 @@ vanetza/facilities/CMakeFiles/facilities.dir/all: vanetza/security/CMakeFiles/se
 
 # Build rule for subdir invocation for target.
 vanetza/facilities/CMakeFiles/facilities.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 72
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 71
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 vanetza/facilities/CMakeFiles/facilities.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 0
 .PHONY : vanetza/facilities/CMakeFiles/facilities.dir/rule
@@ -667,7 +667,7 @@ vanetza/geonet/CMakeFiles/geonet.dir/all: vanetza/security/CMakeFiles/security.d
 
 # Build rule for subdir invocation for target.
 vanetza/geonet/CMakeFiles/geonet.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 12
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 11
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 vanetza/geonet/CMakeFiles/geonet.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 0
 .PHONY : vanetza/geonet/CMakeFiles/geonet.dir/rule
@@ -721,7 +721,7 @@ vanetza/net/CMakeFiles/net.dir/all: vanetza/common/CMakeFiles/common.dir/all
 
 # Build rule for subdir invocation for target.
 vanetza/net/CMakeFiles/net.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 1
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 vanetza/net/CMakeFiles/net.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 0
 .PHONY : vanetza/net/CMakeFiles/net.dir/rule
@@ -749,7 +749,7 @@ vanetza/security/CMakeFiles/security.dir/all: vanetza/net/CMakeFiles/net.dir/all
 
 # Build rule for subdir invocation for target.
 vanetza/security/CMakeFiles/security.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 vanetza/security/CMakeFiles/security.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 0
 .PHONY : vanetza/security/CMakeFiles/security.dir/rule
@@ -777,7 +777,7 @@ tools/proxy_fake_feed/CMakeFiles/proxy_fake_feed.dir/all: vanetza/net/CMakeFiles
 
 # Build rule for subdir invocation for target.
 tools/proxy_fake_feed/CMakeFiles/proxy_fake_feed.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 1
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tools/proxy_fake_feed/CMakeFiles/proxy_fake_feed.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/rrosmaninho/Repos/IT/vanetza/CMakeFiles 0
 .PHONY : tools/proxy_fake_feed/CMakeFiles/proxy_fake_feed.dir/rule

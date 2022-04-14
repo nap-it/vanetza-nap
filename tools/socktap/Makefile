@@ -190,33 +190,6 @@ socktap/fast:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f tools/socktap/CMakeFiles/socktap.dir/build.make tools/socktap/CMakeFiles/socktap.dir/build
 .PHONY : socktap/fast
 
-JSONHelper.o: JSONHelper.cpp.o
-
-.PHONY : JSONHelper.o
-
-# target to build an object file
-JSONHelper.cpp.o:
-	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f tools/socktap/CMakeFiles/socktap.dir/build.make tools/socktap/CMakeFiles/socktap.dir/JSONHelper.cpp.o
-.PHONY : JSONHelper.cpp.o
-
-JSONHelper.i: JSONHelper.cpp.i
-
-.PHONY : JSONHelper.i
-
-# target to preprocess a source file
-JSONHelper.cpp.i:
-	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f tools/socktap/CMakeFiles/socktap.dir/build.make tools/socktap/CMakeFiles/socktap.dir/JSONHelper.cpp.i
-.PHONY : JSONHelper.cpp.i
-
-JSONHelper.s: JSONHelper.cpp.s
-
-.PHONY : JSONHelper.s
-
-# target to generate assembly for a file
-JSONHelper.cpp.s:
-	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f tools/socktap/CMakeFiles/socktap.dir/build.make tools/socktap/CMakeFiles/socktap.dir/JSONHelper.cpp.s
-.PHONY : JSONHelper.cpp.s
-
 Mqtt.o: Mqtt.cpp.o
 
 .PHONY : Mqtt.o
@@ -689,9 +662,6 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... socktap"
-	@echo "... JSONHelper.o"
-	@echo "... JSONHelper.i"
-	@echo "... JSONHelper.s"
 	@echo "... Mqtt.o"
 	@echo "... Mqtt.i"
 	@echo "... Mqtt.s"

@@ -76,6 +76,8 @@
         "codecvt": "cpp",
         "unordered_set": "cpp",
         "*.ipp": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "__locale": "cpp",
+        "locale": "cpp"
     }
 }

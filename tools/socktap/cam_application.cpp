@@ -185,9 +185,7 @@ std::string CamApplication::buildJSON(vanetza::asn1::Cam message, int rssi) {
 
 void CamApplication::on_message(string mqtt_message) {
     json payload = json::parse(mqtt_message);
-    cout << "parsed" << endl;
     CoopAwareness_t cam = payload.get<CoopAwareness_t>();
-    cout << "parsed2" << endl;
 
     vanetza::asn1::Cam message;
 
@@ -201,31 +199,19 @@ void CamApplication::on_message(string mqtt_message) {
     message->cam = cam;
 
     json j = message->cam;
-    std::cout << "a0 " << j << std::endl;
 
     DownPacketPtr packet { new DownPacket() };
     packet->layer(OsiLayer::Application) = std::move(message);
-
-    std::cout << "a1 " << std::endl;
 
     DataRequest request;
     request.its_aid = aid::CA;
     request.transport_type = geonet::TransportType::SHB;
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
-    std::cout << "a2 " << std::endl;
-
     auto confirm = Application::request(request, std::move(packet));
-    std::cout << "a3 " << std::endl;
     if (!confirm.accepted()) {
         throw std::runtime_error("CAM application data request failed");
     }
-
-    std::cout << "a4 " << std::endl;
-}
-
-void CamApplication::send(vanetza::asn1::Cam message) {
-    
 }
 
 void CamApplication::on_timer(Clock::time_point)
@@ -301,9 +287,15 @@ void CamApplication::on_timer(Clock::time_point)
     request.transport_type = geonet::TransportType::SHB;
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
-    auto confirm = Application::request(request, std::move(packet));
-    if (!confirm.accepted()) {
-        throw std::runtime_error("CAM application data request failed");
+    try {
+        auto confirm = Application::request(request, std::move(packet));
+        if (!confirm.accepted()) {
+            throw std::runtime_error("CAM application data request failed");
+        }
+    } catch(std::runtime_error& e) {
+        std::cout << "-- Vanetza UPER Encoding Error --\nCheck that the message format follows ETSI spec\n" << e.what() << std::endl;
+    } catch(...) {
+        std::cout << "-- Unexpected Error --\nVanetza couldn't send the requested message but did not throw a runtime error on UPER encode.\nNo other info available\n" << std::endl;
     }
 
     cam_tx_counter->Increment();
