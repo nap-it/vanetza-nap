@@ -16,7 +16,9 @@ find_package(Threads REQUIRED)
 
 add_executable(socktap
     asn1json.cpp
-    Mqtt.h Mqtt.cpp
+    config_reader.hpp
+    config.hpp config.cpp
+    mqtt.h mqtt.cpp
     application.cpp
     cam_application.cpp
     denm_application.cpp
@@ -30,8 +32,7 @@ add_executable(socktap
     raw_socket_link.cpp
     router_context.cpp
     security.cpp
-    time_trigger.cpp
-    udp_link.cpp)
+    time_trigger.cpp)
 
 target_link_libraries(socktap PUBLIC mosquittopp)
 

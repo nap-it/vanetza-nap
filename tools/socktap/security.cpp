@@ -130,7 +130,7 @@ create_security_entity(const po::variables_map& vm, const Runtime& runtime, Posi
 void add_security_options(po::options_description& options)
 {
     options.add_options()
-        ("security", po::value<std::string>()->default_value("dummy"), "Security entity [none,dummy,certs]")
+        ("security", po::value<std::string>()->default_value("none"), "Security entity [none,dummy,certs]")
         ("certificate", po::value<std::string>(), "Certificate to use for secured messages.")
         ("certificate-key", po::value<std::string>(), "Certificate key to use for secured messages.")
         ("certificate-chain", po::value<std::vector<std::string> >()->multitoken(), "Certificate chain to use, use as often as needed.")

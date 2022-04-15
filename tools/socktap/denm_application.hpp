@@ -10,12 +10,10 @@
 class DenmApplication : public Application
 {
 public:
-    DenmApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt);
+    DenmApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, Mqtt* mqtt_, config_t config_s_, metrics_t metrics_s_);
     PortType port() override;
     void indicate(const DataIndication&, UpPacketPtr) override;
     void set_interval(vanetza::Clock::duration);
-    void print_received_message(bool flag);
-    void print_generated_message(bool flag);
 
 private:
     void schedule_timer();
@@ -24,10 +22,11 @@ private:
     vanetza::PositionProvider& positioning_;
     vanetza::Runtime& runtime_;
     vanetza::Clock::duration denm_interval_;
-    bool print_rx_msg_ = false;
-    bool print_tx_msg_ = false;
+    Mqtt *mqtt;
+    config_t config_s;
+    metrics_t metrics_s;
 
-    std::string buildJSON(vanetza::asn1::Denm denm);
+    std::string buildJSON(DENM_t denm, double time_reception, int rssi);
 };
 
 #endif /* DENM_APPLICATION_HPP_EUIC2VFR */

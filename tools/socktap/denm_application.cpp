@@ -18,8 +18,8 @@ using namespace std::chrono;
 using json = nlohmann::json;
 
 
-DenmApplication::DenmApplication(PositionProvider& positioning, Runtime& rt) :
-    positioning_(positioning), runtime_(rt), denm_interval_(seconds(1))
+DenmApplication::DenmApplication(PositionProvider& positioning, Runtime& rt, Mqtt* mqtt_, config_t config_s_, metrics_t metrics_s_) :
+    positioning_(positioning), runtime_(rt), denm_interval_(seconds(1)), mqtt(mqtt_), config_s(config_s_), metrics_s(metrics_s_)
 {
     schedule_timer();
 }
@@ -28,17 +28,7 @@ void DenmApplication::set_interval(Clock::duration interval)
 {
     denm_interval_ = interval;
     runtime_.cancel(this);
-    schedule_timer();
-}
-
-void DenmApplication::print_generated_message(bool flag)
-{
-    print_tx_msg_ = flag;
-}
-
-void DenmApplication::print_received_message(bool flag)
-{
-    print_rx_msg_ = flag;
+    if (interval != std::chrono::milliseconds(0)) schedule_timer();
 }
 
 DenmApplication::PortType DenmApplication::port()
@@ -48,11 +38,21 @@ DenmApplication::PortType DenmApplication::port()
 
 void DenmApplication::indicate(const DataIndication& indication, UpPacketPtr packet)
 {
+    struct indication_visitor : public boost::static_visitor<CohesivePacket>
+    {
+        CohesivePacket operator()(CohesivePacket& packet) {return packet;}
+        CohesivePacket operator()(ChunkPacket& packet) {return CohesivePacket(std::move(ByteBuffer()), OsiLayer::Physical);}
+    } ivis;
+
+    UpPacket* packet_ptr = packet.get();
+    CohesivePacket cp = boost::apply_visitor(ivis, *packet_ptr);
+
     asn1::PacketVisitor<asn1::Denm> visitor;
     std::shared_ptr<const asn1::Denm> denm = boost::apply_visitor(visitor, *packet);
 
     std::cout << "DENM application received a packet with " << (denm ? "decodable" : "broken") << " content" << std::endl;
-    mqtt->publish("vanetza/denm", buildJSON(*denm));
+    DENM_t denm_t = {(*denm)->header, (*denm)->denm};
+    mqtt->publish("vanetza/denm", buildJSON(denm_t, cp.time_received, cp.rssi));
 }
 
 void DenmApplication::schedule_timer()
@@ -60,9 +60,9 @@ void DenmApplication::schedule_timer()
     runtime_.schedule(denm_interval_, std::bind(&DenmApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-std::string DenmApplication::buildJSON(vanetza::asn1::Denm message) {
-    ItsPduHeader_t& header = message->header;
-    DecentralizedEnvironmentalNotificationMessage_t & denm = message->denm;
+std::string DenmApplication::buildJSON(DENM_t message, double time_reception, int rssi) {
+    ItsPduHeader_t& header = message.header;
+    DecentralizedEnvironmentalNotificationMessage_t & denm = message.denm;
     ManagementContainer_t & mgc = denm.management;
     ReferencePosition_t & evp = mgc.eventPosition;
     //json j = denm;
@@ -71,7 +71,7 @@ std::string DenmApplication::buildJSON(vanetza::asn1::Denm message) {
     nlohmann::json json_payload = {
             {"timestamp", time_reception},
             {"newInfo", true},
-            {"rssi", -255},
+            {"rssi", rssi},
             {"test", {
                 {"json_timestamp", (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0}
             }

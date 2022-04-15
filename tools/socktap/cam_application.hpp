@@ -10,12 +10,10 @@
 class CamApplication : public Application, public Mqtt_client
 {
 public:
-    CamApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, Mqtt* mqtt_, std::shared_ptr<prometheus::Registry>* registry_, prometheus::Family<prometheus::Counter>* packet_counter_, prometheus::Family<prometheus::Counter>* latency_counter_);
+    CamApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, Mqtt* mqtt_, config_t config_s_, metrics_t metrics_s_);
     PortType port() override;
     void indicate(const DataIndication&, UpPacketPtr) override;
     void set_interval(vanetza::Clock::duration);
-    void print_received_message(bool flag);
-    void print_generated_message(bool flag);
     void on_message(string);
 
 private:
@@ -25,10 +23,11 @@ private:
     vanetza::PositionProvider& positioning_;
     vanetza::Runtime& runtime_;
     vanetza::Clock::duration cam_interval_;
-    bool print_rx_msg_ = false;
-    bool print_tx_msg_ = false;
+    Mqtt *mqtt;
+    config_t config_s;
+    metrics_t metrics_s;
 
-    std::string buildJSON(vanetza::asn1::Cam cam, int rssi);
+    std::string buildJSON(CAM_t cam, double time_reception, int rssi);
 };
 
 #endif /* CAM_APPLICATION_HPP_EUIC2VFR */

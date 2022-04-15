@@ -8,6 +8,7 @@
 #include <boost/program_options/variables_map.hpp>
 #include <memory>
 #include <stdexcept>
+#include "config.hpp"
 
 class PositioningException : public std::runtime_error
 {
@@ -15,8 +16,6 @@ class PositioningException : public std::runtime_error
 };
 
 std::unique_ptr<vanetza::PositionProvider>
-create_position_provider(boost::asio::io_service&, const boost::program_options::variables_map&, const vanetza::Runtime&);
-
-void add_positioning_options(boost::program_options::options_description&);
+create_position_provider(boost::asio::io_service&, config_t config_s, const vanetza::Runtime&);
 
 #endif /* POSITIONING_HPP_VZRIW7PB */

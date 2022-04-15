@@ -12,11 +12,11 @@
 
 using namespace vanetza;
 using namespace std::chrono;
-double time_reception;
 
-RouterContext::RouterContext(const geonet::MIB& mib, TimeTrigger& trigger, vanetza::PositionProvider& positioning, vanetza::security::SecurityEntity* security_entity) :
+RouterContext::RouterContext(const geonet::MIB& mib, TimeTrigger& trigger, vanetza::PositionProvider& positioning, vanetza::security::SecurityEntity* security_entity, bool ignore_own_messages_) :
     mib_(mib), router_(trigger.runtime(), mib_),
-    trigger_(trigger), positioning_(positioning)
+    trigger_(trigger), positioning_(positioning),
+    ignore_own_messages(ignore_own_messages_)
 {
     router_.packet_dropped = std::bind(&RouterContext::log_packet_drop, this, std::placeholders::_1);
     router_.set_address(mib_.itsGnLocalGnAddr);
@@ -57,11 +57,8 @@ void RouterContext::set_link_layer(LinkLayer* link_layer)
 
 void RouterContext::indicate(CohesivePacket&& packet, const EthernetHeader& hdr)
 {
-    if (hdr.source != mib_.itsGnLocalGnAddr.mid() && hdr.type == access::ethertype::GeoNetworking) {
+    if ((!ignore_own_messages || hdr.source != mib_.itsGnLocalGnAddr.mid()) && hdr.type == access::ethertype::GeoNetworking) {
         std::cout << "received packet from " << hdr.source << " (" << packet.size() << " bytes)\n";
-        std::cout.precision(17);
-        time_reception = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
-        std::cout << "time: " << time_reception << "\n";
         std::unique_ptr<PacketVariant> up { new PacketVariant(std::move(packet)) };
         trigger_.schedule(); // ensure the clock is up-to-date for the security entity
         router_.indicate(std::move(up), hdr.source, hdr.destination);

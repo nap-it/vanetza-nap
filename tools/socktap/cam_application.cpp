@@ -6,6 +6,7 @@
 #include <vanetza/facilities/cam_functions.hpp>
 #include <boost/units/cmath.hpp>
 #include <boost/units/systems/si/prefixes.hpp>
+#include <boost/asio.hpp>
 #include <chrono>
 #include <exception>
 #include <functional>
@@ -19,6 +20,7 @@ using namespace vanetza;
 using namespace vanetza::facilities;
 using namespace std::chrono;
 using json = nlohmann::json;
+using namespace boost::asio;
 
 std::map<long, std::map<std::string, double>> persistence;
 prometheus::Counter *cam_rx_counter;
@@ -26,38 +28,33 @@ prometheus::Counter *cam_tx_counter;
 prometheus::Counter *cam_rx_latency;
 prometheus::Counter *cam_tx_latency;
 
-CamApplication::CamApplication(PositionProvider& positioning, Runtime& rt, Mqtt *mqtt_, std::shared_ptr<prometheus::Registry>* registry_, prometheus::Family<prometheus::Counter>* packet_counter_, prometheus::Family<prometheus::Counter>* latency_counter_) :
-    positioning_(positioning), runtime_(rt), cam_interval_(seconds(1))
+boost::asio::io_service io_service_;
+ip::udp::socket udp_socket(io_service_);
+ip::udp::endpoint remote_endpoint;
+boost::system::error_code err;
+
+CamApplication::CamApplication(PositionProvider& positioning, Runtime& rt, Mqtt *mqtt_, config_t config_s_, metrics_t metrics_s_) :
+    positioning_(positioning), runtime_(rt), cam_interval_(seconds(1)), mqtt(mqtt_), config_s(config_s_), metrics_s(metrics_s_)
 {
-    mqtt = mqtt_;
     persistence = {};
-    schedule_timer();
-    mqtt->subscribe("target/cam", this);
-    registry = registry_;
-    packet_counter = packet_counter_;
-    latency_counter = latency_counter_;
+    mqtt->subscribe(config_s.cam.topic_in, this);
     
-    cam_rx_counter = &((*packet_counter).Add({{"message", "cam"}, {"direction", "rx"}}));
-    cam_tx_counter = &((*packet_counter).Add({{"message", "cam"}, {"direction", "tx"}}));
-    cam_rx_latency = &((*latency_counter).Add({{"message", "cam"}, {"direction", "rx"}}));
-    cam_tx_latency = &((*latency_counter).Add({{"message", "cam"}, {"direction", "tx"}}));
+    cam_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "cam"}, {"direction", "rx"}}));
+    cam_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "cam"}, {"direction", "tx"}}));
+    cam_rx_latency = &((*metrics_s.latency_counter).Add({{"message", "cam"}, {"direction", "rx"}}));
+    cam_tx_latency = &((*metrics_s.latency_counter).Add({{"message", "cam"}, {"direction", "tx"}}));
+
+    if(config_s.cam.udp_out_port != 0) {
+        udp_socket.open(ip::udp::v4());
+        remote_endpoint = ip::udp::endpoint(ip::address::from_string(config_s.cam.udp_out_addr), config_s.cam.udp_out_port);
+    }
 }
 
 void CamApplication::set_interval(Clock::duration interval)
 {
     cam_interval_ = interval;
     runtime_.cancel(this);
-    schedule_timer();
-}
-
-void CamApplication::print_generated_message(bool flag)
-{
-    print_tx_msg_ = flag;
-}
-
-void CamApplication::print_received_message(bool flag)
-{
-    print_rx_msg_ = flag;
+    if (interval != std::chrono::milliseconds(0)) schedule_timer();
 }
 
 CamApplication::PortType CamApplication::port()
@@ -69,19 +66,11 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
 {
     struct indication_visitor : public boost::static_visitor<CohesivePacket>
     {
-
-        CohesivePacket operator()(CohesivePacket& packet)
-        {
-           std::cout << "f0_CAM rssi: " << packet.rssi << std::endl;
-           return packet;
-        }
-
+        CohesivePacket operator()(CohesivePacket& packet) {return packet;}
         CohesivePacket operator()(ChunkPacket& packet) {return CohesivePacket(std::move(ByteBuffer()), OsiLayer::Physical);}
-
     } ivis;
 
     UpPacket* packet_ptr = packet.get();
-    //indication_visitor i_visitor();
     CohesivePacket cp = boost::apply_visitor(ivis, *packet_ptr);
 
     asn1::PacketVisitor<asn1::Cam> visitor;
@@ -89,8 +78,29 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
 
     std::cout << "CAM application received a packet with " << (cam ? "decodable" : "broken") << " content" << std::endl;
 
-    mqtt->publish("vanetza/cam", buildJSON(*cam, cp.rssi));
+    CAM_t cam_t = {(*cam)->header, (*cam)->cam};
+    string cam_json = buildJSON(cam_t, cp.time_received, cp.rssi);
+
+    mqtt->publish(config_s.cam.topic_out, cam_json);
+    std::cout << "CAM JSON: " << cam_json << std::endl;
     cam_rx_counter->Increment();
+
+    if(config_s.full_cam_topic_out != "") { 
+        json fields_json = cam_t;
+        json full_json = {
+            {"timestamp", cp.time_received},
+            {"rssi", cp.rssi},
+            {"others", {
+                "json_timestamp", (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0}
+            },
+            {"fields", fields_json}
+        };
+        string json_dump = full_json.dump();
+        mqtt->publish(config_s.full_cam_topic_out, json_dump);
+        if(config_s.cam.udp_out_port != 0) {
+            udp_socket.send_to(buffer(json_dump, json_dump.length()), remote_endpoint, 0, err);
+        }
+    }
 }
 
 void CamApplication::schedule_timer()
@@ -98,15 +108,14 @@ void CamApplication::schedule_timer()
     runtime_.schedule(cam_interval_, std::bind(&CamApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-std::string CamApplication::buildJSON(vanetza::asn1::Cam message, int rssi) {
-    
-    ItsPduHeader_t& header = message->header;
-    CoopAwareness_t& cam = message->cam;
+std::string CamApplication::buildJSON(CAM_t message, double time_reception, int rssi) { 
+    ItsPduHeader_t& header = message.header;
+    CoopAwareness_t& cam = message.cam;
     BasicContainer_t& basic = cam.camParameters.basicContainer;
     BasicVehicleContainerHighFrequency& bvc = cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency;
     AccelerationControl_t* acc = cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.accelerationControl;
-    json j = cam;
-    std::cout << "CAM JSON: " << j << std::endl;
+    //json j = cam;
+    //std::cout << "CAM JSON: " << j << std::endl;
 
     string driveDirection = "UNAVAILABLE"; 
     switch(bvc.driveDirection) {
@@ -128,7 +137,7 @@ std::string CamApplication::buildJSON(vanetza::asn1::Cam message, int rssi) {
     
     bool new_info = last_map == persistence.end() || ((last_map->second)["lat"] != (double) latitude) || ((last_map->second)["lng"] != (double) longitude) || ( time_reception - (last_map->second)["time"] >= 1);
 
-    const double time_now =  (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
+    const double time_now = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
 
     json json_payload = {
             {"timestamp", time_reception},
@@ -175,17 +184,26 @@ std::string CamApplication::buildJSON(vanetza::asn1::Cam message, int rssi) {
 
     if(new_info) persistence[header.stationID] = {{"lat", (double) latitude}, {"lng", (double) longitude}, {"time", time_reception}};
 
-    //std::cout << *(bvc.accelerationControl->buf) << std::endl;
-    //::cout << json_payload.dump() << std::endl;
-
     cam_rx_latency->Increment(time_now - time_reception);
-
     return json_payload.dump();
 }
 
 void CamApplication::on_message(string mqtt_message) {
-    json payload = json::parse(mqtt_message);
-    CoopAwareness_t cam = payload.get<CoopAwareness_t>();
+
+    const double time_reception = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
+
+    CoopAwareness_t cam;
+
+    try {
+        json payload = json::parse(mqtt_message);
+        cam = payload.get<CoopAwareness_t>();
+    } catch(nlohmann::detail::type_error& e) {
+        std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows ETSI spec\n" << e.what() << std::endl;
+        return;
+    } catch(...) {
+        std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
+        return;
+    }
 
     vanetza::asn1::Cam message;
 
@@ -212,6 +230,11 @@ void CamApplication::on_message(string mqtt_message) {
     if (!confirm.accepted()) {
         throw std::runtime_error("CAM application data request failed");
     }
+
+    const double time_now = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
+
+    cam_tx_counter->Increment();
+    cam_tx_latency->Increment(time_now - time_reception);
 }
 
 void CamApplication::on_timer(Clock::time_point)
@@ -272,11 +295,6 @@ void CamApplication::on_timer(Clock::time_point)
     std::string error;
     if (!message.validate(error)) {
         throw std::runtime_error("Invalid high frequency CAM: %s" + error);
-    }
-
-    if (print_tx_msg_) {
-        std::cout << "Generated CAM contains\n";
-        print_indented(std::cout, message, "  ", 1);
     }
 
     DownPacketPtr packet { new DownPacket() };

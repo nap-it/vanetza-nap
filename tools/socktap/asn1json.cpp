@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
-*   Auto-generated from the asn1 directory by asn1json.py on 2022-04-14 04:24:15.250372
+*   Auto-generated from the asn1 directory by asn1json.py on 2022-04-14 23:37:34.522358
 */
 
 #include "asn1json.hpp"
@@ -38,7 +38,6 @@ void to_json(json& j, const TimestampIts_t& p) {
 void from_json(const json& j, TimestampIts_t& p) {
     std::cout << "TIMESTAMP " << j << std::endl;
 }
-
 
 
 /*

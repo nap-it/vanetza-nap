@@ -34,7 +34,7 @@ private:
     boost::asio::generic::raw_protocol::endpoint receive_endpoint_;
 };
 
-static void rssi_handler();
+static void rssi_handler(int port);
 
 #endif /* RAW_SOCKET_LINK_HPP_VUXH507U */
 

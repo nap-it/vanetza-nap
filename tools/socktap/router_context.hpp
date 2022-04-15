@@ -14,12 +14,10 @@
 class Application;
 class TimeTrigger;
 
-extern double time_reception;
-
 class RouterContext
 {
 public:
-    RouterContext(const vanetza::geonet::MIB&, TimeTrigger&, vanetza::PositionProvider&, vanetza::security::SecurityEntity*);
+    RouterContext(const vanetza::geonet::MIB&, TimeTrigger&, vanetza::PositionProvider&, vanetza::security::SecurityEntity*, bool ignore_own_messages_);
     ~RouterContext();
     void enable(Application*);
     void disable(Application*);
@@ -47,6 +45,7 @@ private:
     std::unique_ptr<DccPassthrough> request_interface_;
     std::list<Application*> applications_;
     bool require_position_fix_ = false;
+    bool ignore_own_messages = true;
 };
 
 #endif /* ROUTER_CONTEXT_HPP_KIPUYBY2 */

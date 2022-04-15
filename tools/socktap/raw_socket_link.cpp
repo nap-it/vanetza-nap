@@ -15,57 +15,51 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
+#include <boost/asio.hpp>
+
 #define MAXLINE 1024
 
 using namespace vanetza;
 using namespace std::chrono;
 
-static void rssi_handler() {
-    int sockfd;
-    char buffer[MAXLINE];
-    struct sockaddr_in servaddr, cliaddr;
-      
-    // Creating socket file descriptor
-    if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) {
-        perror("socket creation failed");
-        exit(EXIT_FAILURE);
-    }
-      
-    memset(&servaddr, 0, sizeof(servaddr));
-    memset(&cliaddr, 0, sizeof(cliaddr));
-      
-    // Filling server information
-    servaddr.sin_family    = AF_INET; // IPv4
-    servaddr.sin_addr.s_addr = INADDR_ANY;
-    servaddr.sin_port = htons(4347);
-      
-    // Bind the socket with the server address
-    if ( bind(sockfd, (const struct sockaddr *)&servaddr, 
-            sizeof(servaddr)) < 0 )
+bool rssi_enabled;
+std::map<std::string, int> *rssi_map;
+
+static void rssi_handler(int port) {
+    boost::asio::io_context io_context;
+    boost::asio::ip::udp::endpoint receiver(boost::asio::ip::udp::v4(), port);
+    boost::asio::ip::udp::socket udp_socket(io_context, receiver);
+
+    for(;;)
     {
-        perror("bind failed");
-        exit(EXIT_FAILURE);
-    }
-      
-    int n;
-    socklen_t len;
+        char buffer[1024];
+        boost::asio::ip::udp::endpoint sender;
+        std::size_t bytes_transferred = udp_socket.receive_from(boost::asio::buffer(buffer), sender);
+        std::string tmpstr(buffer);
+        std::istringstream is(tmpstr);
 
-    len = sizeof(cliaddr);  //len is value/resuslt
-  
-    n = recvfrom(sockfd, (char *)buffer, MAXLINE, 
-                MSG_WAITALL, ( struct sockaddr *) &cliaddr,
-                &len);
+        std::map<std::string, int> tmp_map;
+        std::string line;
+        while (getline(is,line)) {
+            int delimiter = line.find("|");
+            if(delimiter == std::string::npos) break;
+            std::string mac = line.substr(0, delimiter);
+            int rssi = stoi(line.substr(delimiter, line.length()));
+            tmp_map[mac] = rssi;
+        }
 
-    buffer[n] = '\0';
-    printf("Client : %s\n", buffer);
+        rssi_map = &tmp_map;
+    }  
 }
 
 RawSocketLink::RawSocketLink(boost::asio::generic::raw_protocol::socket&& socket) :
     socket_(std::move(socket)), receive_buffer_(2048, 0x00),
     receive_endpoint_(socket_.local_endpoint())
-{
-    std::thread rssi_th(rssi_handler);
-    rssi_th.detach();
+{   
+    if (true) {
+        std::thread rssi_th(rssi_handler, 1111);
+        rssi_th.detach();
+    }
     do_receive();
 }
 
@@ -108,7 +102,13 @@ void RawSocketLink::on_read(const boost::system::error_code& ec, std::size_t rea
         CohesivePacket packet(std::move(buffer), OsiLayer::Physical);
         boost::optional<EthernetHeader> eth = parse_ethernet_header(packet);
         packet.ethHeader = *eth;
-        packet.rssi = -200;
+        std::stringstream stream;
+        stream << eth->source;
+        std::string result( stream.str() );
+        if (rssi_enabled && (*rssi_map).count(result.substr(result.length() - 4))) {
+            packet.rssi = (*rssi_map)[result.substr(result.length() - 4)];
+        }
+        else packet.rssi = -255;
         packet.time_received = time_reception;
         if (callback_ && eth) {
             callback_(std::move(packet), *eth);

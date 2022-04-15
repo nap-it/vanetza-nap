@@ -17,9 +17,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     zlib1g-dev \
     libcurl4-openssl-dev \
     && rm -rf /var/lib/apt/lists/*
-#COPY bin/socktap /usr/local/bin/socktap
-#COPY docker_script.sh /usr/local/bin/docker_script.sh
-#RUN chmod +x /usr/local/bin/docker_script.sh
+RUN printf "\nlistener 1883 0.0.0.0\nallow_anonymous true\n\n" > /etc/mosquitto/mosquitto.conf
 RUN mkdir /vanetza
 COPY . /vanetza
 WORKDIR /vanetza
@@ -28,7 +26,9 @@ RUN rm CMakeCache.txt
 RUN cmake .
 RUN cmake --build . --target socktap -j 8
 RUN cp /vanetza/bin/socktap /usr/local/bin/socktap
+RUN chmod +x /vanetza/entrypoint.sh
 #SHELL ["/bin/bash", "-c"]
 #ENTRYPOINT ["/usr/bin/sleep", " 5000"]
-#ENTRYPOINT ["/usr/local/bin/docker_script.sh"]
-ENTRYPOINT ["/usr/local/bin/socktap", "-l", "ethernet", "-i", "eth0", "-a", "ca", "--security=none", "--non-strict", "--gn-version", "1"]
+ENTRYPOINT ["/vanetza/entrypoint.sh"]
+#ENTRYPOINT ["/usr/local/bin/socktap", "-l", "ethernet", "-i", "eth0", "-a", "ca", "--security=none", "--non-strict", "--gn-version", "1"]
+#ENTRYPOINT ["/usr/local/bin/socktap", "-c", "tools/socktap/config.ini"]

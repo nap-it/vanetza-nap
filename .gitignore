@@ -12,3 +12,6 @@ cmake-build-debug/
 cmake-config/
 CMakeFiles/
 .travis.yml
+
+tools/socktap/CMakeFiles/
+tools/socktap/cmake-build-debug/

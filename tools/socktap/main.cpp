@@ -7,15 +7,14 @@
 #include "router_context.hpp"
 #include "security.hpp"
 #include "time_trigger.hpp"
-#include "INIReader.hpp"
+#include "config.hpp"
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/signal_set.hpp>
 #include <boost/program_options.hpp>
 #include <boost/asio/ip/host_name.hpp>
 #include <iostream>
-#include <prometheus/counter.h>
 #include <prometheus/exposer.h>
-#include <prometheus/registry.h>
+#include <random>
 
 namespace asio = boost::asio;
 namespace gn = vanetza::geonet;
@@ -23,28 +22,18 @@ namespace po = boost::program_options;
 using namespace vanetza;
 using namespace prometheus;
 
+std::random_device rd;     // only used once to initialise (seed) engine
+std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
+std::uniform_int_distribution<int> uni(0,1000); // guaranteed unbiased
+
 int main(int argc, const char** argv)
 {
     po::options_description options("Allowed options");
     options.add_options()
         ("help", "Print out available options.")
-        ("link-layer,l", po::value<std::string>()->default_value("ethernet"), "Link layer type")
-        ("interface,i", po::value<std::string>()->default_value("lo"), "Network interface to use.")
-        ("mac-address", po::value<std::string>(), "Override the network interface's MAC address.")
-        ("require-gnss-fix", "Suppress transmissions while GNSS position fix is missing")
-        ("gn-version", po::value<unsigned>()->default_value(1), "GeoNetworking protocol version to use.")
-        ("cam-interval", po::value<unsigned>()->default_value(1000), "CAM sending interval in milliseconds.")
-        ("print-rx-cam", "Print received CAMs")
-        ("print-tx-cam", "Print generated CAMs")
-        ("benchmark", "Enable benchmarking")
-        ("applications,a", po::value<std::vector<std::string>>()->default_value({"ca"}, "ca")->multitoken(), "Run applications [ca,hello,benchmark]")
-        ("non-strict", "Set MIB parameter ItsGnSnDecapResultHandling to NON_STRICT")
+        ("config,c", po::value<std::string>()->default_value("config.ini"), "Config file path")
     ;
-    add_positioning_options(options);
     add_security_options(options);
-
-    po::positional_options_description positional_options;
-    positional_options.add("interface", 1);
 
     po::variables_map vm;
 
@@ -52,7 +41,6 @@ int main(int argc, const char** argv)
         po::store(
             po::command_line_parser(argc, argv)
                 .options(options)
-                .positional(positional_options)
                 .run(),
             vm
         );
@@ -68,24 +56,28 @@ int main(int argc, const char** argv)
         return 1;
     }
 
+    config_t config_s = {};
+    read_config(&config_s, vm["config"].as<std::string>());
+
     try {
         asio::io_service io_service;
         TimeTrigger trigger(io_service);
 
-        const char* device_name = vm["interface"].as<std::string>().c_str();
+        const char* device_name = config_s.interface.c_str();
         EthernetDevice device(device_name);
         vanetza::MacAddress mac_address = device.address();
 
-        if (vm.count("mac-address")) {
-            std::cout << "Using MAC address: " << vm["mac-address"].as<std::string>() << "." << std::endl;
+        std::cout << config_s.mac_address << std::endl;
+        if (config_s.mac_address != "") {
+            std::cout << "Using MAC address: " << config_s.mac_address << "." << std::endl;
 
-            if (!parse_mac_address(vm["mac-address"].as<std::string>().c_str(), mac_address)) {
+            if (!parse_mac_address(config_s.mac_address, mac_address)) {
                 std::cerr << "The specified MAC address is invalid." << std::endl;
                 return 1;
             }
         }
 
-        const std::string link_layer_name = vm["link-layer"].as<std::string>();
+        const std::string link_layer_name = "ethernet";
         auto link_layer =  create_link_layer(io_service, device, link_layer_name);
         if (!link_layer) {
             std::cerr << "No link layer '" << link_layer_name << "' found." << std::endl;
@@ -108,16 +100,15 @@ int main(int argc, const char** argv)
         mib.itsGnLocalGnAddr.is_manually_configured(true);
         mib.itsGnLocalAddrConfMethod = geonet::AddrConfMethod::Managed;
         mib.itsGnSecurity = false;
-        if (vm.count("non-strict")) {
-            mib.itsGnSnDecapResultHandling = vanetza::geonet::SecurityDecapHandling::Non_Strict;
-        }
-        mib.itsGnProtocolVersion = vm["gn-version"].as<unsigned>();
 
+        // NON_STRICT
+        mib.itsGnSnDecapResultHandling = vanetza::geonet::SecurityDecapHandling::Non_Strict;
+        mib.itsGnProtocolVersion = 1;
         if (mib.itsGnProtocolVersion != 0 && mib.itsGnProtocolVersion != 1) {
             throw std::runtime_error("Unsupported GeoNetworking version, only version 0 and 1 are supported.");
         }
 
-        auto positioning = create_position_provider(io_service, vm, trigger.runtime());
+        auto positioning = create_position_provider(io_service, config_s, trigger.runtime());
         if (!positioning) {
             std::cerr << "Requested positioning method is not available\n";
             return 1;
@@ -129,72 +120,53 @@ int main(int argc, const char** argv)
         }
 
         const auto host_name = boost::asio::ip::host_name();
-        cout << "HOSTNAME: " << host_name << endl;
-        Mqtt *mqtt = new Mqtt(host_name, "192.168.98.1", 1883);
+        Mqtt *mqtt = new Mqtt(host_name + "_" + to_string(uni(rng)), config_s.mqtt_broker, config_s.mqtt_port);
 
-        Exposer exposer{"0.0.0.0:9100"};
-        std::shared_ptr<prometheus::Registry> registry = std::make_shared<Registry>();
+        Exposer exposer{"0.0.0.0:" + to_string(config_s.prometheus_port)};
+        metrics_t metrics_s = {};
 
-        prometheus::Family<prometheus::Counter> *packet_counter = &(BuildCounter()
+        metrics_s.registry = std::make_shared<Registry>();
+
+        metrics_s.packet_counter = &(BuildCounter()
                              .Name("observed_packets_count_total")
                              .Help("Number of observed packets")
-                             .Register(*registry));
+                             .Register(*(metrics_s.registry)));
 
-        prometheus::Family<prometheus::Counter> *latency_counter = &(BuildCounter()
+        metrics_s.latency_counter = &(BuildCounter()
                              .Name("observed_packets_latency_total")
                              .Help("Processing latency of observed packets")
-                             .Register(*registry));
+                             .Register(*(metrics_s.registry)));
 
-        exposer.RegisterCollectable(registry);
+        exposer.RegisterCollectable(metrics_s.registry);
 
-        RouterContext context(mib, trigger, *positioning, security.get());
+        RouterContext context(mib, trigger, *positioning, security.get(), config_s.ignore_own_messages);
         context.require_position_fix(vm.count("require-gnss-fix") > 0);
         context.set_link_layer(link_layer.get());
 
         std::map<std::string, std::unique_ptr<Application>> apps;
-        for (const std::string& app_name : vm["applications"].as<std::vector<std::string>>()) {
-            if (apps.find(app_name) != apps.end()) {
-                std::cerr << "application '" << app_name << "' requested multiple times, skip\n";
-                continue;
-            }
 
-            if (app_name == "ca") {
-                std::unique_ptr<CamApplication> ca {
-                    new CamApplication(*positioning, trigger.runtime(), mqtt, &registry, packet_counter, latency_counter)
-                };
-                ca->set_interval(std::chrono::milliseconds(vm["cam-interval"].as<unsigned>()));
-                ca->print_received_message(vm.count("print-rx-cam") > 0);
-                ca->print_generated_message(vm.count("print-tx-cam") > 0);
-                apps.emplace(app_name, std::move(ca));
+        if (config_s.cam.enabled) {
+            std::unique_ptr<CamApplication> cam_app {
+                new CamApplication(*positioning, trigger.runtime(), mqtt, config_s, metrics_s)
+            };
+            cam_app->set_interval(std::chrono::milliseconds(config_s.cam.periodicity));
+            apps.emplace("cam", std::move(cam_app));
+        }
 
-                // std::unique_ptr<DenmApplication> da {
-                //         new DenmApplication(*positioning, trigger.runtime())
-                // };
-                // da->set_interval(std::chrono::milliseconds(vm["cam-interval"].as<unsigned>()));
-                // da->print_received_message(vm.count("print-rx-cam") > 0);
-                // da->print_generated_message(vm.count("print-tx-cam") > 0);
-                // apps.emplace("da", std::move(da));
-                
-                std::unique_ptr<CpmApplication> da {
-                        new CpmApplication(*positioning, trigger.runtime(), mqtt)
-                };
-                da->set_interval(std::chrono::milliseconds(vm["cam-interval"].as<unsigned>()));
-                da->print_received_message(vm.count("print-rx-cam") > 0);
-                da->print_generated_message(vm.count("print-tx-cam") > 0);
-                apps.emplace("da", std::move(da));
-            // } else if (app_name == "hello") {
-            //     std::unique_ptr<HelloApplication> hello {
-            //         new HelloApplication(io_service, std::chrono::milliseconds(800))
-            //     };
-            //     apps.emplace(app_name, std::move(hello));
-            // } else if (app_name == "benchmark") {
-            //     std::unique_ptr<BenchmarkApplication> benchmark {
-            //         new BenchmarkApplication(io_service)
-            //     };
-            //     apps.emplace(app_name, std::move(benchmark));
-            } else {
-                std::cerr << "skip unknown application '" << app_name << "'\n";
-            }
+        if (config_s.denm.enabled) {
+            std::unique_ptr<DenmApplication> denm_app {
+                new DenmApplication(*positioning, trigger.runtime(), mqtt, config_s, metrics_s)
+            };
+            denm_app->set_interval(std::chrono::milliseconds(config_s.denm.periodicity));
+            apps.emplace("denm", std::move(denm_app));
+        }
+
+        if (config_s.cpm.enabled) {
+            std::unique_ptr<CpmApplication> cpm_app {
+                    new CpmApplication(*positioning, trigger.runtime(), mqtt, config_s, metrics_s)
+            };
+            cpm_app->set_interval(std::chrono::milliseconds(config_s.cpm.periodicity));
+            apps.emplace("cpm", std::move(cpm_app));
         }
 
         if (apps.empty()) {

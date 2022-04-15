@@ -35,6 +35,8 @@ basic = []
 asn1_types = []
 bitstrings = {}
 
+initial_len = len(printed)
+
 class ASN1Sequence:
     def __init__(self, name, definition, parent_name, parent_file):
         self.name = name
@@ -332,7 +334,6 @@ void to_json(json& j, const TimestampIts_t& p) {
 void from_json(const json& j, TimestampIts_t& p) {
     std::cout << "TIMESTAMP " << j << std::endl;
 }
-
 """
 
 header_intro = """/*
@@ -368,7 +369,7 @@ b = len(printed)
 
 # TODO: Replace with better algorithm when there's time
 # for i in range(10):
-while len(printed) + 10 != len(asn1_types) + b:
+while len(printed) + initial_len != len(asn1_types) + b:
     for t in asn1_types:
         if t.name not in printed and (t.definition["type"] in ["BIT STRING", "OCTET STRING", "NumericString", "UTF8String", "IA5String", "CLASS"] or all([d["type"] in printed + default_types for d in t.members])):
             print(t.header_str() if sys.argv[1] == "hpp" else t)

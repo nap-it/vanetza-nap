@@ -1,0 +1,37 @@
+#include "config.hpp"
+
+message_config_t read_message_config(INIReader reader, string env_prefix, string ini_section) {
+    message_config_t res = {
+        getenv((env_prefix + "_ENABLED").c_str()) == NULL ? reader.GetBoolean(ini_section, "enabled", true) : getenv((env_prefix + "_ENABLED").c_str()) == "true",
+        getenv((env_prefix + "_PERIODICITY").c_str()) == NULL ? reader.GetInteger(ini_section, "periodicity", 0) : stoi(getenv((env_prefix + "_PERIODICITY").c_str())),
+        getenv((env_prefix + "_TOPIC_IN").c_str()) == NULL ? reader.Get(ini_section, "topic_in", "target/none") : getenv((env_prefix + "_TOPIC_IN").c_str()),
+        getenv((env_prefix + "_TOPIC_OUT").c_str()) == NULL ? reader.Get(ini_section, "topic_out", "vanetza/message") : getenv((env_prefix + "_TOPIC_OUT").c_str()),
+        getenv((env_prefix + "_UDP_OUT_ADDR").c_str()) == NULL ? reader.Get(ini_section, "udp_out_addr", "127.0.0.1") : getenv((env_prefix + "_UDP_OUT_ADDR").c_str()),
+        getenv((env_prefix + "_UDP_OUT_PORT").c_str()) == NULL ? reader.GetInteger(ini_section, "udp_out_port", true) : stoi(getenv((env_prefix + "_UDP_OUT_PORT").c_str())),
+    };
+    return res;
+}
+
+void read_config(config_t* config_s, string path) {
+    INIReader reader(path);
+
+    config_s->StationID = getenv("VANETZA_STATION_ID") == NULL ? reader.GetInteger("station", "id", 99) : stoi(getenv("VANETZA_STATION_ID"));
+    config_s->StationType = getenv("VANETZA_STATION_TYPE") == NULL ? reader.GetInteger("station", "type", 99) : stoi(getenv("VANETZA_STATION_TYPE"));
+    config_s->mac_address = getenv("VANETZA_MAC_ADDRESS") == NULL ? reader.Get("station", "mac_address", "") : getenv("VANETZA_MAC_ADDRESS");
+    config_s->use_hardcoded_gps = getenv("VANETZA_USE_HARDCODED_GPS") == NULL ? reader.GetBoolean("station", "use_hardcoded_gps", true) : getenv("VANETZA_USE_HARDCODED_GPS") == "true";
+    config_s->latitude = getenv("VANETZA_LATITUDE") == NULL ? reader.GetReal("station", "latitude", 40) : stod(getenv("VANETZA_LATITUDE"));
+    config_s->longitude = getenv("VANETZA_LONGITUDE") == NULL ? reader.GetReal("station", "longitude", 8) : stod(getenv("VANETZA_LONGITUDE"));
+    config_s->interface = getenv("VANETZA_INTERFACE") == NULL ? reader.Get("general", "interface", "wlan0") : getenv("VANETZA_INTERFACE");
+    config_s->mqtt_broker = getenv("VANETZA_MQTT_BROKER") == NULL ? reader.Get("general", "mqtt_broker", "127.0.0.1") : getenv("VANETZA_MQTT_BROKER");
+    config_s->mqtt_port = getenv("VANETZA_MQTT_PORT") == NULL ? reader.GetInteger("general", "mqtt_port", 1883) : stoi(getenv("VANETZA_MQTT_PORT"));
+    config_s->prometheus_port = getenv("VANETZA_PROMETHEUS_PORT") == NULL ? reader.GetInteger("general", "prometheus_port", 9100) : stoi(getenv("VANETZA_PROMETHEUS_PORT"));
+    config_s->rssi_port = getenv("VANETZA_RSSI_PORT") == NULL ? reader.GetInteger("general", "rssi_port", 3000) : stoi(getenv("VANETZA_RSSI_PORT"));
+    config_s->ignore_own_messages = getenv("VANETZA_IGNORE_OWN_MESSAGES") == NULL ? reader.GetBoolean("general", "ignore_own_messages", true) : getenv("VANETZA_IGNORE_OWN_MESSAGES") == "true";
+    config_s->cam = read_message_config(reader, "VANETZA_CAM", "cam");
+    config_s->denm = read_message_config(reader, "VANETZA_DENM", "denm");
+    config_s->cpm = read_message_config(reader, "VANETZA_CPM", "cpm");
+    config_s->vam = read_message_config(reader, "VANETZA_VAM", "vam");
+    config_s->spatem = read_message_config(reader, "VANETZA_SPATEM", "spatem");
+    config_s->mapem = read_message_config(reader, "VANETZA_MAPEM", "mapem");
+    config_s->full_cam_topic_out = getenv("VANETZA_CAM_FULL_TOPIC_OUT") == NULL ? reader.Get("cam", "full_topic_out", "") : getenv("VANETZA_CAM_FULL_TOPIC_OUT");
+}

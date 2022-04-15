@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
-*   Auto-generated from the asn1 directory by asn1json.py on 2022-04-14 04:24:20.585627
+*   Auto-generated from the asn1 directory by asn1json.py on 2022-04-14 23:37:42.739486
 */
 
 #ifndef ASN1_JSON_HPP

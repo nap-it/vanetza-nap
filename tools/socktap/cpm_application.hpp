@@ -7,12 +7,10 @@
 class CpmApplication : public Application, public Mqtt_client
 {
 public:
-    CpmApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, Mqtt* mqtt_);
+    CpmApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, Mqtt* mqtt_, config_t config_s_, metrics_t metrics_s_);
     PortType port() override;
     void indicate(const DataIndication&, UpPacketPtr) override;
     void set_interval(vanetza::Clock::duration);
-    void print_received_message(bool flag);
-    void print_generated_message(bool flag);
     void on_message(string);
 
 private:
@@ -22,9 +20,10 @@ private:
     vanetza::PositionProvider& positioning_;
     vanetza::Runtime& runtime_;
     vanetza::Clock::duration cpm_interval_;
-    bool print_rx_msg_ = false;
-    bool print_tx_msg_ = false;
+    Mqtt *mqtt;
+    config_t config_s;
+    metrics_t metrics_s;
 
-    std::string buildJSON(vanetza::asn1::Cpm cpm);
+    std::string buildJSON(CPM_t cpm, double time_reception, int rssi);
 };
 
