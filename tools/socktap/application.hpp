@@ -16,6 +16,7 @@
 
 #include <prometheus/counter.h>
 #include <prometheus/registry.h>
+
 class Application : public vanetza::btp::IndicationInterface
 {
 public:

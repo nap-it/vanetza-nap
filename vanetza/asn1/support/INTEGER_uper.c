@@ -134,6 +134,7 @@ INTEGER_encode_uper(const asn_TYPE_descriptor_t *td,
     const uint8_t *buf;
     const uint8_t *end;
     const asn_per_constraint_t *ct;
+
     union {
         intmax_t s;
         uintmax_t u;

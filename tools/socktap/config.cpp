@@ -15,8 +15,8 @@ message_config_t read_message_config(INIReader reader, string env_prefix, string
 void read_config(config_t* config_s, string path) {
     INIReader reader(path);
 
-    config_s->StationID = getenv("VANETZA_STATION_ID") == NULL ? reader.GetInteger("station", "id", 99) : stoi(getenv("VANETZA_STATION_ID"));
-    config_s->StationType = getenv("VANETZA_STATION_TYPE") == NULL ? reader.GetInteger("station", "type", 99) : stoi(getenv("VANETZA_STATION_TYPE"));
+    config_s->station_id = getenv("VANETZA_STATION_ID") == NULL ? reader.GetInteger("station", "id", 99) : stoi(getenv("VANETZA_STATION_ID"));
+    config_s->station_type = getenv("VANETZA_STATION_TYPE") == NULL ? reader.GetInteger("station", "type", 99) : stoi(getenv("VANETZA_STATION_TYPE"));
     config_s->mac_address = getenv("VANETZA_MAC_ADDRESS") == NULL ? reader.Get("station", "mac_address", "") : getenv("VANETZA_MAC_ADDRESS");
     config_s->use_hardcoded_gps = getenv("VANETZA_USE_HARDCODED_GPS") == NULL ? reader.GetBoolean("station", "use_hardcoded_gps", true) : getenv("VANETZA_USE_HARDCODED_GPS") == "true";
     config_s->latitude = getenv("VANETZA_LATITUDE") == NULL ? reader.GetReal("station", "latitude", 40) : stod(getenv("VANETZA_LATITUDE"));
@@ -27,6 +27,7 @@ void read_config(config_t* config_s, string path) {
     config_s->prometheus_port = getenv("VANETZA_PROMETHEUS_PORT") == NULL ? reader.GetInteger("general", "prometheus_port", 9100) : stoi(getenv("VANETZA_PROMETHEUS_PORT"));
     config_s->rssi_port = getenv("VANETZA_RSSI_PORT") == NULL ? reader.GetInteger("general", "rssi_port", 3000) : stoi(getenv("VANETZA_RSSI_PORT"));
     config_s->ignore_own_messages = getenv("VANETZA_IGNORE_OWN_MESSAGES") == NULL ? reader.GetBoolean("general", "ignore_own_messages", true) : getenv("VANETZA_IGNORE_OWN_MESSAGES") == "true";
+    config_s->ignore_rsu_messages = getenv("VANETZA_IGNORE_RSU_MESSAGES") == NULL ? reader.GetBoolean("general", "ignore_rsu_messages", true) : getenv("VANETZA_IGNORE_RSU_MESSAGES") == "true";
     config_s->cam = read_message_config(reader, "VANETZA_CAM", "cam");
     config_s->denm = read_message_config(reader, "VANETZA_DENM", "denm");
     config_s->cpm = read_message_config(reader, "VANETZA_CPM", "cpm");

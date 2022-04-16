@@ -76,9 +76,35 @@ include vanetza/asn1/CMakeFiles/asn1_its.dir/progress.make
 # Include the compile flags for this target's objects.
 include vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelOrDecel.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelOrDecel.c.o: vanetza/asn1/its/AccelOrDecel.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelOrDecel.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AccelOrDecel.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AccelOrDecel.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelOrDecel.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/AccelOrDecel.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AccelOrDecel.c > CMakeFiles/asn1_its.dir/its/AccelOrDecel.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelOrDecel.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/AccelOrDecel.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AccelOrDecel.c -o CMakeFiles/asn1_its.dir/its/AccelOrDecel.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationChangeIndication.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationChangeIndication.c.o: vanetza/asn1/its/AccelerationChangeIndication.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationChangeIndication.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AccelerationChangeIndication.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AccelerationChangeIndication.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationChangeIndication.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/AccelerationChangeIndication.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AccelerationChangeIndication.c > CMakeFiles/asn1_its.dir/its/AccelerationChangeIndication.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationChangeIndication.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/AccelerationChangeIndication.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AccelerationChangeIndication.c -o CMakeFiles/asn1_its.dir/its/AccelerationChangeIndication.c.s
+
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationConfidence.c.o: vanetza/asn1/its/AccelerationConfidence.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationConfidence.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationConfidence.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AccelerationConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AccelerationConfidence.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationConfidence.c.i: cmake_force
@@ -91,7 +117,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationConfidence.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationControl.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationControl.c.o: vanetza/asn1/its/AccelerationControl.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationControl.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationControl.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AccelerationControl.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AccelerationControl.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationControl.c.i: cmake_force
@@ -104,7 +130,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationControl.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccidentSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccidentSubCauseCode.c.o: vanetza/asn1/its/AccidentSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccidentSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccidentSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AccidentSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AccidentSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccidentSubCauseCode.c.i: cmake_force
@@ -115,9 +141,22 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccidentSubCauseCode.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/AccidentSubCauseCode.c.s"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AccidentSubCauseCode.c -o CMakeFiles/asn1_its.dir/its/AccidentSubCauseCode.c.s
 
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ActionDeltaTime.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ActionDeltaTime.c.o: vanetza/asn1/its/ActionDeltaTime.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ActionDeltaTime.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ActionDeltaTime.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ActionDeltaTime.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ActionDeltaTime.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/ActionDeltaTime.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ActionDeltaTime.c > CMakeFiles/asn1_its.dir/its/ActionDeltaTime.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ActionDeltaTime.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/ActionDeltaTime.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ActionDeltaTime.c -o CMakeFiles/asn1_its.dir/its/ActionDeltaTime.c.s
+
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ActionID.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ActionID.c.o: vanetza/asn1/its/ActionID.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ActionID.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ActionID.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ActionID.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ActionID.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ActionID.c.i: cmake_force
@@ -130,7 +169,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ActionID.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-AdhesionSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-AdhesionSubCauseCode.c.o: vanetza/asn1/its/AdverseWeatherCondition-AdhesionSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-AdhesionSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-AdhesionSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-AdhesionSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AdverseWeatherCondition-AdhesionSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-AdhesionSubCauseCode.c.i: cmake_force
@@ -143,7 +182,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-AdhesionSubCaus
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-ExtremeWeatherConditionSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-ExtremeWeatherConditionSubCauseCode.c.o: vanetza/asn1/its/AdverseWeatherCondition-ExtremeWeatherConditionSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-ExtremeWeatherConditionSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-ExtremeWeatherConditionSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-ExtremeWeatherConditionSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AdverseWeatherCondition-ExtremeWeatherConditionSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-ExtremeWeatherConditionSubCauseCode.c.i: cmake_force
@@ -156,7 +195,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-ExtremeWeatherC
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-PrecipitationSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-PrecipitationSubCauseCode.c.o: vanetza/asn1/its/AdverseWeatherCondition-PrecipitationSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-PrecipitationSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-PrecipitationSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-PrecipitationSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AdverseWeatherCondition-PrecipitationSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-PrecipitationSubCauseCode.c.i: cmake_force
@@ -169,7 +208,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-PrecipitationSu
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-VisibilitySubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-VisibilitySubCauseCode.c.o: vanetza/asn1/its/AdverseWeatherCondition-VisibilitySubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-VisibilitySubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-VisibilitySubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-VisibilitySubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AdverseWeatherCondition-VisibilitySubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-VisibilitySubCauseCode.c.i: cmake_force
@@ -182,7 +221,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-VisibilitySubCa
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdvisorySpeed.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdvisorySpeed.c.o: vanetza/asn1/its/AdvisorySpeed.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdvisorySpeed.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdvisorySpeed.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AdvisorySpeed.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AdvisorySpeed.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdvisorySpeed.c.i: cmake_force
@@ -195,7 +234,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdvisorySpeed.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdvisorySpeedList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdvisorySpeedList.c.o: vanetza/asn1/its/AdvisorySpeedList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdvisorySpeedList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdvisorySpeedList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AdvisorySpeedList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AdvisorySpeedList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdvisorySpeedList.c.i: cmake_force
@@ -208,7 +247,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdvisorySpeedList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdvisorySpeedType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdvisorySpeedType.c.o: vanetza/asn1/its/AdvisorySpeedType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdvisorySpeedType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdvisorySpeedType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AdvisorySpeedType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AdvisorySpeedType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdvisorySpeedType.c.i: cmake_force
@@ -221,7 +260,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdvisorySpeedType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AlacarteContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AlacarteContainer.c.o: vanetza/asn1/its/AlacarteContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AlacarteContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AlacarteContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AlacarteContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AlacarteContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AlacarteContainer.c.i: cmake_force
@@ -234,7 +273,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AlacarteContainer.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AllowedManeuvers.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AllowedManeuvers.c.o: vanetza/asn1/its/AllowedManeuvers.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AllowedManeuvers.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AllowedManeuvers.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AllowedManeuvers.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AllowedManeuvers.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AllowedManeuvers.c.i: cmake_force
@@ -247,7 +286,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AllowedManeuvers.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AlphabetIndicator.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AlphabetIndicator.c.o: vanetza/asn1/its/AlphabetIndicator.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AlphabetIndicator.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AlphabetIndicator.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AlphabetIndicator.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AlphabetIndicator.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AlphabetIndicator.c.i: cmake_force
@@ -260,7 +299,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AlphabetIndicator.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Altitude.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Altitude.c.o: vanetza/asn1/its/Altitude.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Altitude.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Altitude.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Altitude.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Altitude.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Altitude.c.i: cmake_force
@@ -273,7 +312,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Altitude.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AltitudeConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AltitudeConfidence.c.o: vanetza/asn1/its/AltitudeConfidence.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AltitudeConfidence.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AltitudeConfidence.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AltitudeConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AltitudeConfidence.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AltitudeConfidence.c.i: cmake_force
@@ -286,7 +325,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AltitudeConfidence.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AltitudeValue.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AltitudeValue.c.o: vanetza/asn1/its/AltitudeValue.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AltitudeValue.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AltitudeValue.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AltitudeValue.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AltitudeValue.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AltitudeValue.c.i: cmake_force
@@ -299,7 +338,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AltitudeValue.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Angle.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Angle.c.o: vanetza/asn1/its/Angle.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Angle.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Angle.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Angle.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Angle.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Angle.c.i: cmake_force
@@ -312,7 +351,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Angle.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AngleConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AngleConfidence.c.o: vanetza/asn1/its/AngleConfidence.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AngleConfidence.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AngleConfidence.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AngleConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AngleConfidence.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AngleConfidence.c.i: cmake_force
@@ -325,7 +364,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AngleConfidence.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AnimalSubclass.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AnimalSubclass.c.o: vanetza/asn1/its/AnimalSubclass.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AnimalSubclass.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AnimalSubclass.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AnimalSubclass.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AnimalSubclass.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AnimalSubclass.c.i: cmake_force
@@ -338,7 +377,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AnimalSubclass.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AnimalSubclassType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AnimalSubclassType.c.o: vanetza/asn1/its/AnimalSubclassType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AnimalSubclassType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AnimalSubclassType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AnimalSubclassType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AnimalSubclassType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AnimalSubclassType.c.i: cmake_force
@@ -351,7 +390,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AnimalSubclassType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AntennaOffsetSet.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AntennaOffsetSet.c.o: vanetza/asn1/its/AntennaOffsetSet.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AntennaOffsetSet.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AntennaOffsetSet.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AntennaOffsetSet.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AntennaOffsetSet.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AntennaOffsetSet.c.i: cmake_force
@@ -364,7 +403,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AntennaOffsetSet.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ApproachID.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ApproachID.c.o: vanetza/asn1/its/ApproachID.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ApproachID.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ApproachID.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ApproachID.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ApproachID.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ApproachID.c.i: cmake_force
@@ -377,7 +416,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ApproachID.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaCircular.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaCircular.c.o: vanetza/asn1/its/AreaCircular.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaCircular.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaCircular.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AreaCircular.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AreaCircular.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaCircular.c.i: cmake_force
@@ -390,7 +429,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaCircular.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaEllipse.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaEllipse.c.o: vanetza/asn1/its/AreaEllipse.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaEllipse.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaEllipse.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AreaEllipse.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AreaEllipse.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaEllipse.c.i: cmake_force
@@ -403,7 +442,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaEllipse.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaPolygon.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaPolygon.c.o: vanetza/asn1/its/AreaPolygon.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaPolygon.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaPolygon.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AreaPolygon.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AreaPolygon.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaPolygon.c.i: cmake_force
@@ -416,7 +455,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaPolygon.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaRadial.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaRadial.c.o: vanetza/asn1/its/AreaRadial.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaRadial.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaRadial.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AreaRadial.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AreaRadial.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaRadial.c.i: cmake_force
@@ -429,7 +468,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaRadial.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaRectangle.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaRectangle.c.o: vanetza/asn1/its/AreaRectangle.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaRectangle.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaRectangle.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AreaRectangle.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AreaRectangle.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaRectangle.c.i: cmake_force
@@ -442,7 +481,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AreaRectangle.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AviEriDateTime.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AviEriDateTime.c.o: vanetza/asn1/its/AviEriDateTime.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AviEriDateTime.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/AviEriDateTime.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/AviEriDateTime.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/AviEriDateTime.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/AviEriDateTime.c.i: cmake_force
@@ -455,7 +494,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/AviEriDateTime.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicContainer.c.o: vanetza/asn1/its/BasicContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/BasicContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/BasicContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicContainer.c.i: cmake_force
@@ -468,7 +507,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicContainer.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicVehicleContainerHighFrequency.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicVehicleContainerHighFrequency.c.o: vanetza/asn1/its/BasicVehicleContainerHighFrequency.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicVehicleContainerHighFrequency.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicVehicleContainerHighFrequency.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/BasicVehicleContainerHighFrequency.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/BasicVehicleContainerHighFrequency.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicVehicleContainerHighFrequency.c.i: cmake_force
@@ -481,7 +520,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicVehicleContainerHighFrequency.c.s:
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicVehicleContainerLowFrequency.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicVehicleContainerLowFrequency.c.o: vanetza/asn1/its/BasicVehicleContainerLowFrequency.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicVehicleContainerLowFrequency.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicVehicleContainerLowFrequency.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/BasicVehicleContainerLowFrequency.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/BasicVehicleContainerLowFrequency.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicVehicleContainerLowFrequency.c.i: cmake_force
@@ -494,7 +533,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicVehicleContainerLowFrequency.c.s: 
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicVehicleRole.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicVehicleRole.c.o: vanetza/asn1/its/BasicVehicleRole.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicVehicleRole.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicVehicleRole.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/BasicVehicleRole.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/BasicVehicleRole.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicVehicleRole.c.i: cmake_force
@@ -507,7 +546,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/BasicVehicleRole.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/BatteryStatus.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/BatteryStatus.c.o: vanetza/asn1/its/BatteryStatus.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/BatteryStatus.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/BatteryStatus.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/BatteryStatus.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/BatteryStatus.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/BatteryStatus.c.i: cmake_force
@@ -520,7 +559,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/BatteryStatus.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CAM.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CAM.c.o: vanetza/asn1/its/CAM.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CAM.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CAM.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CAM.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CAM.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CAM.c.i: cmake_force
@@ -533,7 +572,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CAM.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CPM.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CPM.c.o: vanetza/asn1/its/CPM.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CPM.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CPM.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CPM.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CPM.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CPM.c.i: cmake_force
@@ -546,7 +585,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CPM.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS1.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS1.c.o: vanetza/asn1/its/CS1.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS1.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS1.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CS1.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CS1.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS1.c.i: cmake_force
@@ -559,7 +598,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS1.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS2.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS2.c.o: vanetza/asn1/its/CS2.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS2.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS2.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CS2.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CS2.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS2.c.i: cmake_force
@@ -572,7 +611,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS2.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS3.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS3.c.o: vanetza/asn1/its/CS3.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS3.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS3.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CS3.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CS3.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS3.c.i: cmake_force
@@ -585,7 +624,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS3.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS4.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS4.c.o: vanetza/asn1/its/CS4.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS4.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS4.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CS4.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CS4.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS4.c.i: cmake_force
@@ -598,7 +637,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS4.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS5.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS5.c.o: vanetza/asn1/its/CS5.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS5.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS5.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CS5.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CS5.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS5.c.i: cmake_force
@@ -611,7 +650,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS5.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS7.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS7.c.o: vanetza/asn1/its/CS7.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS7.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS7.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CS7.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CS7.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS7.c.i: cmake_force
@@ -624,7 +663,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS7.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS8.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS8.c.o: vanetza/asn1/its/CS8.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS8.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS8.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CS8.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CS8.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS8.c.i: cmake_force
@@ -637,7 +676,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CS8.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CamParameters.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CamParameters.c.o: vanetza/asn1/its/CamParameters.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CamParameters.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CamParameters.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CamParameters.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CamParameters.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CamParameters.c.i: cmake_force
@@ -650,7 +689,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CamParameters.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CartesianAngle.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CartesianAngle.c.o: vanetza/asn1/its/CartesianAngle.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CartesianAngle.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CartesianAngle.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CartesianAngle.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CartesianAngle.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CartesianAngle.c.i: cmake_force
@@ -663,7 +702,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CartesianAngle.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CartesianAngleValue.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CartesianAngleValue.c.o: vanetza/asn1/its/CartesianAngleValue.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CartesianAngleValue.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_49) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CartesianAngleValue.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CartesianAngleValue.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CartesianAngleValue.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CartesianAngleValue.c.i: cmake_force
@@ -676,7 +715,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CartesianAngleValue.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CauseCode.c.o: vanetza/asn1/its/CauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_50) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CauseCode.c.i: cmake_force
@@ -689,7 +728,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CauseCode.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CauseCodeType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CauseCodeType.c.o: vanetza/asn1/its/CauseCodeType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CauseCodeType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_51) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CauseCodeType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CauseCodeType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CauseCodeType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CauseCodeType.c.i: cmake_force
@@ -702,7 +741,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CauseCodeType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CenDsrcTollingZone.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CenDsrcTollingZone.c.o: vanetza/asn1/its/CenDsrcTollingZone.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_49) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CenDsrcTollingZone.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_52) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CenDsrcTollingZone.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CenDsrcTollingZone.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CenDsrcTollingZone.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CenDsrcTollingZone.c.i: cmake_force
@@ -715,7 +754,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CenDsrcTollingZone.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CenDsrcTollingZoneID.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CenDsrcTollingZoneID.c.o: vanetza/asn1/its/CenDsrcTollingZoneID.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_50) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CenDsrcTollingZoneID.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_53) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CenDsrcTollingZoneID.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CenDsrcTollingZoneID.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CenDsrcTollingZoneID.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CenDsrcTollingZoneID.c.i: cmake_force
@@ -728,7 +767,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CenDsrcTollingZoneID.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClassConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClassConfidence.c.o: vanetza/asn1/its/ClassConfidence.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_51) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClassConfidence.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_54) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClassConfidence.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ClassConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClassConfidence.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClassConfidence.c.i: cmake_force
@@ -741,7 +780,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClassConfidence.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClosedLanes.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClosedLanes.c.o: vanetza/asn1/its/ClosedLanes.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_52) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClosedLanes.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_55) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClosedLanes.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ClosedLanes.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClosedLanes.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClosedLanes.c.i: cmake_force
@@ -752,9 +791,126 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClosedLanes.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/ClosedLanes.c.s"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClosedLanes.c -o CMakeFiles/asn1_its.dir/its/ClosedLanes.c.s
 
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBoundingBoxShape.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBoundingBoxShape.c.o: vanetza/asn1/its/ClusterBoundingBoxShape.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_56) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBoundingBoxShape.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ClusterBoundingBoxShape.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterBoundingBoxShape.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBoundingBoxShape.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/ClusterBoundingBoxShape.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterBoundingBoxShape.c > CMakeFiles/asn1_its.dir/its/ClusterBoundingBoxShape.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBoundingBoxShape.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/ClusterBoundingBoxShape.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterBoundingBoxShape.c -o CMakeFiles/asn1_its.dir/its/ClusterBoundingBoxShape.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBreakupInfo.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBreakupInfo.c.o: vanetza/asn1/its/ClusterBreakupInfo.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_57) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBreakupInfo.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ClusterBreakupInfo.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterBreakupInfo.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBreakupInfo.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/ClusterBreakupInfo.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterBreakupInfo.c > CMakeFiles/asn1_its.dir/its/ClusterBreakupInfo.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBreakupInfo.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/ClusterBreakupInfo.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterBreakupInfo.c -o CMakeFiles/asn1_its.dir/its/ClusterBreakupInfo.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBreakupReason.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBreakupReason.c.o: vanetza/asn1/its/ClusterBreakupReason.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_58) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBreakupReason.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ClusterBreakupReason.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterBreakupReason.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBreakupReason.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/ClusterBreakupReason.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterBreakupReason.c > CMakeFiles/asn1_its.dir/its/ClusterBreakupReason.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBreakupReason.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/ClusterBreakupReason.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterBreakupReason.c -o CMakeFiles/asn1_its.dir/its/ClusterBreakupReason.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterCardinalitySize.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterCardinalitySize.c.o: vanetza/asn1/its/ClusterCardinalitySize.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_59) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterCardinalitySize.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ClusterCardinalitySize.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterCardinalitySize.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterCardinalitySize.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/ClusterCardinalitySize.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterCardinalitySize.c > CMakeFiles/asn1_its.dir/its/ClusterCardinalitySize.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterCardinalitySize.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/ClusterCardinalitySize.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterCardinalitySize.c -o CMakeFiles/asn1_its.dir/its/ClusterCardinalitySize.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterId.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterId.c.o: vanetza/asn1/its/ClusterId.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_60) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterId.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ClusterId.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterId.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterId.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/ClusterId.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterId.c > CMakeFiles/asn1_its.dir/its/ClusterId.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterId.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/ClusterId.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterId.c -o CMakeFiles/asn1_its.dir/its/ClusterId.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterJoinInfo.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterJoinInfo.c.o: vanetza/asn1/its/ClusterJoinInfo.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_61) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterJoinInfo.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ClusterJoinInfo.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterJoinInfo.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterJoinInfo.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/ClusterJoinInfo.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterJoinInfo.c > CMakeFiles/asn1_its.dir/its/ClusterJoinInfo.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterJoinInfo.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/ClusterJoinInfo.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterJoinInfo.c -o CMakeFiles/asn1_its.dir/its/ClusterJoinInfo.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterLeaveInfo.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterLeaveInfo.c.o: vanetza/asn1/its/ClusterLeaveInfo.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_62) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterLeaveInfo.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ClusterLeaveInfo.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterLeaveInfo.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterLeaveInfo.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/ClusterLeaveInfo.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterLeaveInfo.c > CMakeFiles/asn1_its.dir/its/ClusterLeaveInfo.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterLeaveInfo.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/ClusterLeaveInfo.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterLeaveInfo.c -o CMakeFiles/asn1_its.dir/its/ClusterLeaveInfo.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterLeaveReason.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterLeaveReason.c.o: vanetza/asn1/its/ClusterLeaveReason.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_63) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterLeaveReason.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ClusterLeaveReason.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterLeaveReason.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterLeaveReason.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/ClusterLeaveReason.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterLeaveReason.c > CMakeFiles/asn1_its.dir/its/ClusterLeaveReason.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterLeaveReason.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/ClusterLeaveReason.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterLeaveReason.c -o CMakeFiles/asn1_its.dir/its/ClusterLeaveReason.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterProfiles.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterProfiles.c.o: vanetza/asn1/its/ClusterProfiles.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_64) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterProfiles.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ClusterProfiles.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterProfiles.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterProfiles.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/ClusterProfiles.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterProfiles.c > CMakeFiles/asn1_its.dir/its/ClusterProfiles.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterProfiles.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/ClusterProfiles.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ClusterProfiles.c -o CMakeFiles/asn1_its.dir/its/ClusterProfiles.c.s
+
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CollectivePerceptionMessage.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CollectivePerceptionMessage.c.o: vanetza/asn1/its/CollectivePerceptionMessage.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_53) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CollectivePerceptionMessage.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_65) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CollectivePerceptionMessage.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CollectivePerceptionMessage.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CollectivePerceptionMessage.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CollectivePerceptionMessage.c.i: cmake_force
@@ -767,7 +923,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CollectivePerceptionMessage.c.s: cmake_
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CollisionRiskSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CollisionRiskSubCauseCode.c.o: vanetza/asn1/its/CollisionRiskSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_54) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CollisionRiskSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_66) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CollisionRiskSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CollisionRiskSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CollisionRiskSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CollisionRiskSubCauseCode.c.i: cmake_force
@@ -780,7 +936,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CollisionRiskSubCauseCode.c.s: cmake_fo
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ComputedLane.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ComputedLane.c.o: vanetza/asn1/its/ComputedLane.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_55) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ComputedLane.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_67) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ComputedLane.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ComputedLane.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ComputedLane.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ComputedLane.c.i: cmake_force
@@ -793,7 +949,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ComputedLane.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectingLane.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectingLane.c.o: vanetza/asn1/its/ConnectingLane.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_56) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectingLane.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_68) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectingLane.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ConnectingLane.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ConnectingLane.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectingLane.c.i: cmake_force
@@ -806,7 +962,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectingLane.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Connection.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Connection.c.o: vanetza/asn1/its/Connection.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_57) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Connection.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_69) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Connection.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Connection.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Connection.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Connection.c.i: cmake_force
@@ -819,7 +975,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Connection.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectionManeuverAssist-addGrpC.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectionManeuverAssist-addGrpC.c.o: vanetza/asn1/its/ConnectionManeuverAssist-addGrpC.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_58) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectionManeuverAssist-addGrpC.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_70) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectionManeuverAssist-addGrpC.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ConnectionManeuverAssist-addGrpC.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ConnectionManeuverAssist-addGrpC.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectionManeuverAssist-addGrpC.c.i: cmake_force
@@ -832,7 +988,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectionManeuverAssist-addGrpC.c.s: c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectionManeuverAssist.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectionManeuverAssist.c.o: vanetza/asn1/its/ConnectionManeuverAssist.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_59) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectionManeuverAssist.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_71) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectionManeuverAssist.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ConnectionManeuverAssist.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ConnectionManeuverAssist.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectionManeuverAssist.c.i: cmake_force
@@ -845,7 +1001,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectionManeuverAssist.c.s: cmake_for
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectionTrajectory-addGrpC.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectionTrajectory-addGrpC.c.o: vanetza/asn1/its/ConnectionTrajectory-addGrpC.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_60) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectionTrajectory-addGrpC.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_72) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectionTrajectory-addGrpC.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ConnectionTrajectory-addGrpC.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ConnectionTrajectory-addGrpC.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectionTrajectory-addGrpC.c.i: cmake_force
@@ -858,7 +1014,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectionTrajectory-addGrpC.c.s: cmake
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectsToList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectsToList.c.o: vanetza/asn1/its/ConnectsToList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_61) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectsToList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_73) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectsToList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ConnectsToList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ConnectsToList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectsToList.c.i: cmake_force
@@ -871,7 +1027,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ConnectsToList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CoopAwareness.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CoopAwareness.c.o: vanetza/asn1/its/CoopAwareness.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_62) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CoopAwareness.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_74) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CoopAwareness.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CoopAwareness.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CoopAwareness.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CoopAwareness.c.i: cmake_force
@@ -884,7 +1040,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CoopAwareness.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CountryCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CountryCode.c.o: vanetza/asn1/its/CountryCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_63) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CountryCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_75) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CountryCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CountryCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CountryCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CountryCode.c.i: cmake_force
@@ -897,7 +1053,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CountryCode.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CpmManagementContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CpmManagementContainer.c.o: vanetza/asn1/its/CpmManagementContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_64) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CpmManagementContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_76) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CpmManagementContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CpmManagementContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CpmManagementContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CpmManagementContainer.c.i: cmake_force
@@ -910,7 +1066,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CpmManagementContainer.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CpmParameters.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CpmParameters.c.o: vanetza/asn1/its/CpmParameters.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_65) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CpmParameters.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_77) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CpmParameters.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CpmParameters.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CpmParameters.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CpmParameters.c.i: cmake_force
@@ -923,7 +1079,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CpmParameters.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Curvature.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Curvature.c.o: vanetza/asn1/its/Curvature.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_66) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Curvature.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_78) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Curvature.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Curvature.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Curvature.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Curvature.c.i: cmake_force
@@ -936,7 +1092,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Curvature.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CurvatureCalculationMode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CurvatureCalculationMode.c.o: vanetza/asn1/its/CurvatureCalculationMode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_67) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CurvatureCalculationMode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_79) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CurvatureCalculationMode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CurvatureCalculationMode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CurvatureCalculationMode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CurvatureCalculationMode.c.i: cmake_force
@@ -949,7 +1105,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CurvatureCalculationMode.c.s: cmake_for
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CurvatureConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CurvatureConfidence.c.o: vanetza/asn1/its/CurvatureConfidence.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_68) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CurvatureConfidence.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_80) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CurvatureConfidence.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CurvatureConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CurvatureConfidence.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CurvatureConfidence.c.i: cmake_force
@@ -962,7 +1118,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CurvatureConfidence.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CurvatureValue.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CurvatureValue.c.o: vanetza/asn1/its/CurvatureValue.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_69) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CurvatureValue.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_81) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/CurvatureValue.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/CurvatureValue.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/CurvatureValue.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/CurvatureValue.c.i: cmake_force
@@ -975,7 +1131,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/CurvatureValue.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DDateTime.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DDateTime.c.o: vanetza/asn1/its/DDateTime.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_70) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DDateTime.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_82) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DDateTime.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DDateTime.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DDateTime.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DDateTime.c.i: cmake_force
@@ -988,7 +1144,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DDateTime.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DDay.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DDay.c.o: vanetza/asn1/its/DDay.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_71) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DDay.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_83) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DDay.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DDay.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DDay.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DDay.c.i: cmake_force
@@ -1001,7 +1157,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DDay.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DENM.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DENM.c.o: vanetza/asn1/its/DENM.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_72) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DENM.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_84) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DENM.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DENM.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DENM.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DENM.c.i: cmake_force
@@ -1014,7 +1170,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DENM.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DHour.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DHour.c.o: vanetza/asn1/its/DHour.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_73) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DHour.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_85) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DHour.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DHour.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DHour.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DHour.c.i: cmake_force
@@ -1027,7 +1183,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DHour.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DMinute.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DMinute.c.o: vanetza/asn1/its/DMinute.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_74) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DMinute.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_86) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DMinute.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DMinute.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DMinute.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DMinute.c.i: cmake_force
@@ -1040,7 +1196,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DMinute.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DMonth.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DMonth.c.o: vanetza/asn1/its/DMonth.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_75) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DMonth.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_87) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DMonth.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DMonth.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DMonth.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DMonth.c.i: cmake_force
@@ -1053,7 +1209,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DMonth.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DOffset.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DOffset.c.o: vanetza/asn1/its/DOffset.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_76) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DOffset.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_88) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DOffset.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DOffset.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DOffset.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DOffset.c.i: cmake_force
@@ -1066,7 +1222,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DOffset.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DSRCmsgID.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DSRCmsgID.c.o: vanetza/asn1/its/DSRCmsgID.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_77) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DSRCmsgID.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_89) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DSRCmsgID.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DSRCmsgID.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DSRCmsgID.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DSRCmsgID.c.i: cmake_force
@@ -1079,7 +1235,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DSRCmsgID.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DSecond.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DSecond.c.o: vanetza/asn1/its/DSecond.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_78) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DSecond.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_90) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DSecond.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DSecond.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DSecond.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DSecond.c.i: cmake_force
@@ -1092,7 +1248,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DSecond.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DYear.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DYear.c.o: vanetza/asn1/its/DYear.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_79) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DYear.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_91) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DYear.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DYear.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DYear.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DYear.c.i: cmake_force
@@ -1105,7 +1261,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DYear.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousEndOfQueueSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousEndOfQueueSubCauseCode.c.o: vanetza/asn1/its/DangerousEndOfQueueSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_80) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousEndOfQueueSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_92) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousEndOfQueueSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DangerousEndOfQueueSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DangerousEndOfQueueSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousEndOfQueueSubCauseCode.c.i: cmake_force
@@ -1118,7 +1274,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousEndOfQueueSubCauseCode.c.s: cm
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousGoodsBasic.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousGoodsBasic.c.o: vanetza/asn1/its/DangerousGoodsBasic.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_81) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousGoodsBasic.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_93) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousGoodsBasic.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DangerousGoodsBasic.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DangerousGoodsBasic.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousGoodsBasic.c.i: cmake_force
@@ -1131,7 +1287,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousGoodsBasic.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousGoodsContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousGoodsContainer.c.o: vanetza/asn1/its/DangerousGoodsContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_82) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousGoodsContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_94) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousGoodsContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DangerousGoodsContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DangerousGoodsContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousGoodsContainer.c.i: cmake_force
@@ -1144,7 +1300,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousGoodsContainer.c.s: cmake_forc
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousGoodsExtended.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousGoodsExtended.c.o: vanetza/asn1/its/DangerousGoodsExtended.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_83) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousGoodsExtended.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_95) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousGoodsExtended.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DangerousGoodsExtended.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DangerousGoodsExtended.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousGoodsExtended.c.i: cmake_force
@@ -1157,7 +1313,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousGoodsExtended.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousSituationSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousSituationSubCauseCode.c.o: vanetza/asn1/its/DangerousSituationSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_84) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousSituationSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_96) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousSituationSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DangerousSituationSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DangerousSituationSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousSituationSubCauseCode.c.i: cmake_force
@@ -1170,7 +1326,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DangerousSituationSubCauseCode.c.s: cma
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DataParameters.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DataParameters.c.o: vanetza/asn1/its/DataParameters.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_85) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DataParameters.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_97) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DataParameters.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DataParameters.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DataParameters.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DataParameters.c.i: cmake_force
@@ -1183,7 +1339,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DataParameters.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DecentralizedEnvironmentalNotificationMessage.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DecentralizedEnvironmentalNotificationMessage.c.o: vanetza/asn1/its/DecentralizedEnvironmentalNotificationMessage.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_86) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DecentralizedEnvironmentalNotificationMessage.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_98) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DecentralizedEnvironmentalNotificationMessage.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DecentralizedEnvironmentalNotificationMessage.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DecentralizedEnvironmentalNotificationMessage.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DecentralizedEnvironmentalNotificationMessage.c.i: cmake_force
@@ -1196,7 +1352,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DecentralizedEnvironmentalNotificationM
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaAltitude.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaAltitude.c.o: vanetza/asn1/its/DeltaAltitude.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_87) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaAltitude.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_99) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaAltitude.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DeltaAltitude.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DeltaAltitude.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaAltitude.c.i: cmake_force
@@ -1209,7 +1365,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaAltitude.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaAngle.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaAngle.c.o: vanetza/asn1/its/DeltaAngle.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_88) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaAngle.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_100) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaAngle.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DeltaAngle.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DeltaAngle.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaAngle.c.i: cmake_force
@@ -1222,7 +1378,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaAngle.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaLatitude.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaLatitude.c.o: vanetza/asn1/its/DeltaLatitude.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_89) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaLatitude.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_101) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaLatitude.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DeltaLatitude.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DeltaLatitude.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaLatitude.c.i: cmake_force
@@ -1235,7 +1391,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaLatitude.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaLongitude.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaLongitude.c.o: vanetza/asn1/its/DeltaLongitude.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_90) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaLongitude.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_102) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaLongitude.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DeltaLongitude.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DeltaLongitude.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaLongitude.c.i: cmake_force
@@ -1248,7 +1404,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaLongitude.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaReferencePosition.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaReferencePosition.c.o: vanetza/asn1/its/DeltaReferencePosition.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_91) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaReferencePosition.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_103) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaReferencePosition.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DeltaReferencePosition.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DeltaReferencePosition.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaReferencePosition.c.i: cmake_force
@@ -1261,7 +1417,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaReferencePosition.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaTime.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaTime.c.o: vanetza/asn1/its/DeltaTime.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_92) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaTime.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_104) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaTime.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DeltaTime.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DeltaTime.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaTime.c.i: cmake_force
@@ -1274,7 +1430,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DeltaTime.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DescriptiveName.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DescriptiveName.c.o: vanetza/asn1/its/DescriptiveName.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_93) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DescriptiveName.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_105) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DescriptiveName.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DescriptiveName.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DescriptiveName.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DescriptiveName.c.i: cmake_force
@@ -1287,7 +1443,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DescriptiveName.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DetectionArea.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DetectionArea.c.o: vanetza/asn1/its/DetectionArea.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_94) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DetectionArea.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_106) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DetectionArea.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DetectionArea.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DetectionArea.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DetectionArea.c.i: cmake_force
@@ -1300,7 +1456,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DetectionArea.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DigitalMap.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DigitalMap.c.o: vanetza/asn1/its/DigitalMap.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_95) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DigitalMap.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_107) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DigitalMap.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DigitalMap.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DigitalMap.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DigitalMap.c.i: cmake_force
@@ -1313,7 +1469,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DigitalMap.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DistanceConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DistanceConfidence.c.o: vanetza/asn1/its/DistanceConfidence.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_96) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DistanceConfidence.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_108) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DistanceConfidence.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DistanceConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DistanceConfidence.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DistanceConfidence.c.i: cmake_force
@@ -1326,7 +1482,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DistanceConfidence.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DistanceValue.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DistanceValue.c.o: vanetza/asn1/its/DistanceValue.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_97) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DistanceValue.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_109) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DistanceValue.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DistanceValue.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DistanceValue.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DistanceValue.c.i: cmake_force
@@ -1339,7 +1495,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DistanceValue.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DriveDirection.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DriveDirection.c.o: vanetza/asn1/its/DriveDirection.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_98) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DriveDirection.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_110) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DriveDirection.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DriveDirection.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DriveDirection.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DriveDirection.c.i: cmake_force
@@ -1352,7 +1508,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DriveDirection.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DrivenLineOffsetLg.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DrivenLineOffsetLg.c.o: vanetza/asn1/its/DrivenLineOffsetLg.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_99) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DrivenLineOffsetLg.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_111) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DrivenLineOffsetLg.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DrivenLineOffsetLg.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DrivenLineOffsetLg.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DrivenLineOffsetLg.c.i: cmake_force
@@ -1365,7 +1521,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DrivenLineOffsetLg.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DrivenLineOffsetSm.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DrivenLineOffsetSm.c.o: vanetza/asn1/its/DrivenLineOffsetSm.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_100) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DrivenLineOffsetSm.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_112) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DrivenLineOffsetSm.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DrivenLineOffsetSm.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DrivenLineOffsetSm.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DrivenLineOffsetSm.c.i: cmake_force
@@ -1378,7 +1534,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DrivenLineOffsetSm.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DrivingLaneStatus.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DrivingLaneStatus.c.o: vanetza/asn1/its/DrivingLaneStatus.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_101) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DrivingLaneStatus.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_113) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DrivingLaneStatus.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DrivingLaneStatus.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DrivingLaneStatus.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DrivingLaneStatus.c.i: cmake_force
@@ -1391,7 +1547,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DrivingLaneStatus.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DynamicStatus.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DynamicStatus.c.o: vanetza/asn1/its/DynamicStatus.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_102) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DynamicStatus.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_114) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/DynamicStatus.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/DynamicStatus.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/DynamicStatus.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/DynamicStatus.c.i: cmake_force
@@ -1404,7 +1560,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/DynamicStatus.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Elevation.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Elevation.c.o: vanetza/asn1/its/Elevation.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_103) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Elevation.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_115) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Elevation.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Elevation.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Elevation.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Elevation.c.i: cmake_force
@@ -1417,7 +1573,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Elevation.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ElevationConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ElevationConfidence.c.o: vanetza/asn1/its/ElevationConfidence.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_104) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ElevationConfidence.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_116) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ElevationConfidence.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ElevationConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ElevationConfidence.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ElevationConfidence.c.i: cmake_force
@@ -1430,7 +1586,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ElevationConfidence.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmbarkationStatus.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmbarkationStatus.c.o: vanetza/asn1/its/EmbarkationStatus.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_105) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmbarkationStatus.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_117) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmbarkationStatus.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/EmbarkationStatus.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/EmbarkationStatus.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmbarkationStatus.c.i: cmake_force
@@ -1443,7 +1599,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmbarkationStatus.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmergencyContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmergencyContainer.c.o: vanetza/asn1/its/EmergencyContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_106) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmergencyContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_118) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmergencyContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/EmergencyContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/EmergencyContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmergencyContainer.c.i: cmake_force
@@ -1456,7 +1612,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmergencyContainer.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmergencyPriority.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmergencyPriority.c.o: vanetza/asn1/its/EmergencyPriority.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_107) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmergencyPriority.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_119) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmergencyPriority.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/EmergencyPriority.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/EmergencyPriority.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmergencyPriority.c.i: cmake_force
@@ -1469,7 +1625,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmergencyPriority.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmergencyVehicleApproachingSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmergencyVehicleApproachingSubCauseCode.c.o: vanetza/asn1/its/EmergencyVehicleApproachingSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_108) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmergencyVehicleApproachingSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_120) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmergencyVehicleApproachingSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/EmergencyVehicleApproachingSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/EmergencyVehicleApproachingSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmergencyVehicleApproachingSubCauseCode.c.i: cmake_force
@@ -1482,7 +1638,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmergencyVehicleApproachingSubCauseCode
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmissionType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmissionType.c.o: vanetza/asn1/its/EmissionType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_109) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmissionType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_121) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmissionType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/EmissionType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/EmissionType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmissionType.c.i: cmake_force
@@ -1495,7 +1651,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/EmissionType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EnabledLaneList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EnabledLaneList.c.o: vanetza/asn1/its/EnabledLaneList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_110) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EnabledLaneList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_122) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EnabledLaneList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/EnabledLaneList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/EnabledLaneList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EnabledLaneList.c.i: cmake_force
@@ -1508,7 +1664,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/EnabledLaneList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EnergyStorageType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EnergyStorageType.c.o: vanetza/asn1/its/EnergyStorageType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_111) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EnergyStorageType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_123) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EnergyStorageType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/EnergyStorageType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/EnergyStorageType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EnergyStorageType.c.i: cmake_force
@@ -1521,7 +1677,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/EnergyStorageType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryCode.c.o: vanetza/asn1/its/EuVehicleCategoryCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_112) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_124) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/EuVehicleCategoryCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/EuVehicleCategoryCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryCode.c.i: cmake_force
@@ -1534,7 +1690,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryCode.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryL.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryL.c.o: vanetza/asn1/its/EuVehicleCategoryL.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_113) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryL.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_125) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryL.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/EuVehicleCategoryL.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/EuVehicleCategoryL.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryL.c.i: cmake_force
@@ -1547,7 +1703,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryL.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryM.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryM.c.o: vanetza/asn1/its/EuVehicleCategoryM.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_114) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryM.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_126) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryM.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/EuVehicleCategoryM.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/EuVehicleCategoryM.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryM.c.i: cmake_force
@@ -1560,7 +1716,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryM.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryN.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryN.c.o: vanetza/asn1/its/EuVehicleCategoryN.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_115) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryN.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_127) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryN.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/EuVehicleCategoryN.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/EuVehicleCategoryN.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryN.c.i: cmake_force
@@ -1573,7 +1729,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryN.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryO.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryO.c.o: vanetza/asn1/its/EuVehicleCategoryO.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_116) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryO.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_128) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryO.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/EuVehicleCategoryO.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/EuVehicleCategoryO.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryO.c.i: cmake_force
@@ -1586,7 +1742,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/EuVehicleCategoryO.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EventHistory.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EventHistory.c.o: vanetza/asn1/its/EventHistory.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_117) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EventHistory.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_129) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EventHistory.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/EventHistory.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/EventHistory.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EventHistory.c.i: cmake_force
@@ -1599,7 +1755,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/EventHistory.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EventPoint.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EventPoint.c.o: vanetza/asn1/its/EventPoint.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_118) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EventPoint.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_130) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/EventPoint.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/EventPoint.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/EventPoint.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/EventPoint.c.i: cmake_force
@@ -1612,7 +1768,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/EventPoint.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ExceptionalCondition.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ExceptionalCondition.c.o: vanetza/asn1/its/ExceptionalCondition.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_119) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ExceptionalCondition.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_131) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ExceptionalCondition.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ExceptionalCondition.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ExceptionalCondition.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ExceptionalCondition.c.i: cmake_force
@@ -1625,7 +1781,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ExceptionalCondition.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ExteriorLights.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ExteriorLights.c.o: vanetza/asn1/its/ExteriorLights.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_120) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ExteriorLights.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_132) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ExteriorLights.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ExteriorLights.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ExteriorLights.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ExteriorLights.c.i: cmake_force
@@ -1638,7 +1794,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ExteriorLights.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceAddendum.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceAddendum.c.o: vanetza/asn1/its/FreeSpaceAddendum.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_121) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceAddendum.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_133) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceAddendum.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/FreeSpaceAddendum.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/FreeSpaceAddendum.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceAddendum.c.i: cmake_force
@@ -1651,7 +1807,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceAddendum.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceAddendumContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceAddendumContainer.c.o: vanetza/asn1/its/FreeSpaceAddendumContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_122) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceAddendumContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_134) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceAddendumContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/FreeSpaceAddendumContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/FreeSpaceAddendumContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceAddendumContainer.c.i: cmake_force
@@ -1664,7 +1820,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceAddendumContainer.c.s: cmake_f
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceArea.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceArea.c.o: vanetza/asn1/its/FreeSpaceArea.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_123) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceArea.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_135) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceArea.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/FreeSpaceArea.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/FreeSpaceArea.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceArea.c.i: cmake_force
@@ -1677,7 +1833,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceArea.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceConfidence.c.o: vanetza/asn1/its/FreeSpaceConfidence.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_124) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceConfidence.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_136) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceConfidence.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/FreeSpaceConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/FreeSpaceConfidence.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceConfidence.c.i: cmake_force
@@ -1690,7 +1846,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreeSpaceConfidence.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreightContainerData.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreightContainerData.c.o: vanetza/asn1/its/FreightContainerData.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_125) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreightContainerData.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_137) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreightContainerData.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/FreightContainerData.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/FreightContainerData.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreightContainerData.c.i: cmake_force
@@ -1703,7 +1859,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/FreightContainerData.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FrontOverhang.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FrontOverhang.c.o: vanetza/asn1/its/FrontOverhang.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_126) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/FrontOverhang.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_138) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/FrontOverhang.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/FrontOverhang.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/FrontOverhang.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FrontOverhang.c.i: cmake_force
@@ -1716,7 +1872,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/FrontOverhang.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FuelType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FuelType.c.o: vanetza/asn1/its/FuelType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_127) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/FuelType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_139) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/FuelType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/FuelType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/FuelType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FuelType.c.i: cmake_force
@@ -1729,7 +1885,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/FuelType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FullPositionVector.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FullPositionVector.c.o: vanetza/asn1/its/FullPositionVector.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_128) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/FullPositionVector.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_140) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/FullPositionVector.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/FullPositionVector.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/FullPositionVector.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/FullPositionVector.c.i: cmake_force
@@ -1742,7 +1898,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/FullPositionVector.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/GNSSstatus.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/GNSSstatus.c.o: vanetza/asn1/its/GNSSstatus.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_129) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/GNSSstatus.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_141) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/GNSSstatus.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/GNSSstatus.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/GNSSstatus.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/GNSSstatus.c.i: cmake_force
@@ -1755,7 +1911,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/GNSSstatus.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/GenerationDeltaTime.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/GenerationDeltaTime.c.o: vanetza/asn1/its/GenerationDeltaTime.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_130) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/GenerationDeltaTime.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_142) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/GenerationDeltaTime.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/GenerationDeltaTime.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/GenerationDeltaTime.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/GenerationDeltaTime.c.i: cmake_force
@@ -1768,7 +1924,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/GenerationDeltaTime.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/GenericLane.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/GenericLane.c.o: vanetza/asn1/its/GenericLane.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_131) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/GenericLane.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_143) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/GenericLane.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/GenericLane.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/GenericLane.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/GenericLane.c.i: cmake_force
@@ -1781,7 +1937,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/GenericLane.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/GeoGraphicalLimit.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/GeoGraphicalLimit.c.o: vanetza/asn1/its/GeoGraphicalLimit.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_132) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/GeoGraphicalLimit.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_144) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/GeoGraphicalLimit.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/GeoGraphicalLimit.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/GeoGraphicalLimit.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/GeoGraphicalLimit.c.i: cmake_force
@@ -1794,7 +1950,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/GeoGraphicalLimit.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HardShoulderStatus.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HardShoulderStatus.c.o: vanetza/asn1/its/HardShoulderStatus.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_133) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HardShoulderStatus.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_145) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HardShoulderStatus.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/HardShoulderStatus.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/HardShoulderStatus.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HardShoulderStatus.c.i: cmake_force
@@ -1807,7 +1963,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/HardShoulderStatus.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-AnimalOnTheRoadSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-AnimalOnTheRoadSubCauseCode.c.o: vanetza/asn1/its/HazardousLocation-AnimalOnTheRoadSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_134) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-AnimalOnTheRoadSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_146) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-AnimalOnTheRoadSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/HazardousLocation-AnimalOnTheRoadSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/HazardousLocation-AnimalOnTheRoadSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-AnimalOnTheRoadSubCauseCode.c.i: cmake_force
@@ -1820,7 +1976,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-AnimalOnTheRoadSubCau
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-DangerousCurveSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-DangerousCurveSubCauseCode.c.o: vanetza/asn1/its/HazardousLocation-DangerousCurveSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_135) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-DangerousCurveSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_147) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-DangerousCurveSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/HazardousLocation-DangerousCurveSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/HazardousLocation-DangerousCurveSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-DangerousCurveSubCauseCode.c.i: cmake_force
@@ -1833,7 +1989,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-DangerousCurveSubCaus
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-ObstacleOnTheRoadSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-ObstacleOnTheRoadSubCauseCode.c.o: vanetza/asn1/its/HazardousLocation-ObstacleOnTheRoadSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_136) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-ObstacleOnTheRoadSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_148) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-ObstacleOnTheRoadSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/HazardousLocation-ObstacleOnTheRoadSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/HazardousLocation-ObstacleOnTheRoadSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-ObstacleOnTheRoadSubCauseCode.c.i: cmake_force
@@ -1846,7 +2002,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-ObstacleOnTheRoadSubC
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-SurfaceConditionSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-SurfaceConditionSubCauseCode.c.o: vanetza/asn1/its/HazardousLocation-SurfaceConditionSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_137) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-SurfaceConditionSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_149) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-SurfaceConditionSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/HazardousLocation-SurfaceConditionSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/HazardousLocation-SurfaceConditionSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-SurfaceConditionSubCauseCode.c.i: cmake_force
@@ -1859,7 +2015,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-SurfaceConditionSubCa
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Heading.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Heading.c.o: vanetza/asn1/its/Heading.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_138) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Heading.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_150) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Heading.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Heading.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Heading.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Heading.c.i: cmake_force
@@ -1870,9 +2026,22 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Heading.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/Heading.c.s"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Heading.c -o CMakeFiles/asn1_its.dir/its/Heading.c.s
 
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingChangeIndication.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingChangeIndication.c.o: vanetza/asn1/its/HeadingChangeIndication.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_151) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingChangeIndication.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/HeadingChangeIndication.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/HeadingChangeIndication.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingChangeIndication.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/HeadingChangeIndication.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/HeadingChangeIndication.c > CMakeFiles/asn1_its.dir/its/HeadingChangeIndication.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingChangeIndication.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/HeadingChangeIndication.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/HeadingChangeIndication.c -o CMakeFiles/asn1_its.dir/its/HeadingChangeIndication.c.s
+
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingConfidence.c.o: vanetza/asn1/its/HeadingConfidence.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_139) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingConfidence.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_152) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingConfidence.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/HeadingConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/HeadingConfidence.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingConfidence.c.i: cmake_force
@@ -1885,7 +2054,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingConfidence.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingIso.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingIso.c.o: vanetza/asn1/its/HeadingIso.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_140) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingIso.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_153) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingIso.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/HeadingIso.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/HeadingIso.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingIso.c.i: cmake_force
@@ -1898,7 +2067,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingIso.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingIsoConfidenceIso.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingIsoConfidenceIso.c.o: vanetza/asn1/its/HeadingIsoConfidenceIso.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_141) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingIsoConfidenceIso.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_154) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingIsoConfidenceIso.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/HeadingIsoConfidenceIso.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/HeadingIsoConfidenceIso.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingIsoConfidenceIso.c.i: cmake_force
@@ -1911,7 +2080,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingIsoConfidenceIso.c.s: cmake_forc
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingValue.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingValue.c.o: vanetza/asn1/its/HeadingValue.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_142) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingValue.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_155) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingValue.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/HeadingValue.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/HeadingValue.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingValue.c.i: cmake_force
@@ -1924,7 +2093,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingValue.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeightLonCarr.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeightLonCarr.c.o: vanetza/asn1/its/HeightLonCarr.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_143) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeightLonCarr.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_156) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeightLonCarr.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/HeightLonCarr.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/HeightLonCarr.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeightLonCarr.c.i: cmake_force
@@ -1937,7 +2106,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeightLonCarr.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HighFrequencyContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HighFrequencyContainer.c.o: vanetza/asn1/its/HighFrequencyContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_144) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HighFrequencyContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_157) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HighFrequencyContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/HighFrequencyContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/HighFrequencyContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HighFrequencyContainer.c.i: cmake_force
@@ -1950,7 +2119,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/HighFrequencyContainer.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HitchPointOffset.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HitchPointOffset.c.o: vanetza/asn1/its/HitchPointOffset.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_145) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HitchPointOffset.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_158) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HitchPointOffset.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/HitchPointOffset.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/HitchPointOffset.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HitchPointOffset.c.i: cmake_force
@@ -1963,7 +2132,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/HitchPointOffset.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HumanPresenceOnTheRoadSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HumanPresenceOnTheRoadSubCauseCode.c.o: vanetza/asn1/its/HumanPresenceOnTheRoadSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_146) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HumanPresenceOnTheRoadSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_159) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HumanPresenceOnTheRoadSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/HumanPresenceOnTheRoadSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/HumanPresenceOnTheRoadSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HumanPresenceOnTheRoadSubCauseCode.c.i: cmake_force
@@ -1976,7 +2145,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/HumanPresenceOnTheRoadSubCauseCode.c.s:
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HumanProblemSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HumanProblemSubCauseCode.c.o: vanetza/asn1/its/HumanProblemSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_147) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HumanProblemSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_160) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/HumanProblemSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/HumanProblemSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/HumanProblemSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/HumanProblemSubCauseCode.c.i: cmake_force
@@ -1989,7 +2158,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/HumanProblemSubCauseCode.c.s: cmake_for
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Identifier.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Identifier.c.o: vanetza/asn1/its/Identifier.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_148) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Identifier.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_161) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Identifier.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Identifier.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Identifier.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Identifier.c.i: cmake_force
@@ -2002,7 +2171,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Identifier.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ImpactReductionContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ImpactReductionContainer.c.o: vanetza/asn1/its/ImpactReductionContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_149) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ImpactReductionContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_162) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ImpactReductionContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ImpactReductionContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ImpactReductionContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ImpactReductionContainer.c.i: cmake_force
@@ -2015,7 +2184,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ImpactReductionContainer.c.s: cmake_for
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/InformationQuality.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/InformationQuality.c.o: vanetza/asn1/its/InformationQuality.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_150) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/InformationQuality.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_163) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/InformationQuality.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/InformationQuality.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/InformationQuality.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/InformationQuality.c.i: cmake_force
@@ -2028,7 +2197,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/InformationQuality.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionAccessPoint.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionAccessPoint.c.o: vanetza/asn1/its/IntersectionAccessPoint.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_151) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionAccessPoint.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_164) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionAccessPoint.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/IntersectionAccessPoint.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/IntersectionAccessPoint.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionAccessPoint.c.i: cmake_force
@@ -2041,7 +2210,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionAccessPoint.c.s: cmake_forc
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionGeometry.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionGeometry.c.o: vanetza/asn1/its/IntersectionGeometry.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_152) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionGeometry.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_165) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionGeometry.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/IntersectionGeometry.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/IntersectionGeometry.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionGeometry.c.i: cmake_force
@@ -2054,7 +2223,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionGeometry.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionGeometryList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionGeometryList.c.o: vanetza/asn1/its/IntersectionGeometryList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_153) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionGeometryList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_166) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionGeometryList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/IntersectionGeometryList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/IntersectionGeometryList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionGeometryList.c.i: cmake_force
@@ -2067,7 +2236,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionGeometryList.c.s: cmake_for
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionID.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionID.c.o: vanetza/asn1/its/IntersectionID.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_154) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionID.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_167) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionID.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/IntersectionID.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/IntersectionID.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionID.c.i: cmake_force
@@ -2080,7 +2249,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionID.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionReferenceID.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionReferenceID.c.o: vanetza/asn1/its/IntersectionReferenceID.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_155) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionReferenceID.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_168) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionReferenceID.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/IntersectionReferenceID.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/IntersectionReferenceID.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionReferenceID.c.i: cmake_force
@@ -2093,7 +2262,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionReferenceID.c.s: cmake_forc
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionState-addGrpC.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionState-addGrpC.c.o: vanetza/asn1/its/IntersectionState-addGrpC.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_156) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionState-addGrpC.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_169) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionState-addGrpC.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/IntersectionState-addGrpC.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/IntersectionState-addGrpC.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionState-addGrpC.c.i: cmake_force
@@ -2106,7 +2275,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionState-addGrpC.c.s: cmake_fo
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionState.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionState.c.o: vanetza/asn1/its/IntersectionState.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_157) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionState.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_170) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionState.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/IntersectionState.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/IntersectionState.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionState.c.i: cmake_force
@@ -2119,7 +2288,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionState.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionStateList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionStateList.c.o: vanetza/asn1/its/IntersectionStateList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_158) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionStateList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_171) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionStateList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/IntersectionStateList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/IntersectionStateList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionStateList.c.i: cmake_force
@@ -2132,7 +2301,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionStateList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionStatusObject.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionStatusObject.c.o: vanetza/asn1/its/IntersectionStatusObject.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_159) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionStatusObject.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_172) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionStatusObject.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/IntersectionStatusObject.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/IntersectionStatusObject.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionStatusObject.c.i: cmake_force
@@ -2145,7 +2314,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/IntersectionStatusObject.c.s: cmake_for
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Iso3833VehicleType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Iso3833VehicleType.c.o: vanetza/asn1/its/Iso3833VehicleType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_160) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Iso3833VehicleType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_173) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Iso3833VehicleType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Iso3833VehicleType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Iso3833VehicleType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Iso3833VehicleType.c.i: cmake_force
@@ -2158,7 +2327,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Iso3833VehicleType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IssuerIdentifier.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IssuerIdentifier.c.o: vanetza/asn1/its/IssuerIdentifier.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_161) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/IssuerIdentifier.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_174) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/IssuerIdentifier.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/IssuerIdentifier.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/IssuerIdentifier.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/IssuerIdentifier.c.i: cmake_force
@@ -2171,7 +2340,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/IssuerIdentifier.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItineraryPath.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItineraryPath.c.o: vanetza/asn1/its/ItineraryPath.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_162) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItineraryPath.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_175) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItineraryPath.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ItineraryPath.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ItineraryPath.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItineraryPath.c.i: cmake_force
@@ -2184,7 +2353,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItineraryPath.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsPduHeader.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsPduHeader.c.o: vanetza/asn1/its/ItsPduHeader.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_163) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsPduHeader.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_176) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsPduHeader.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ItsPduHeader.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ItsPduHeader.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsPduHeader.c.i: cmake_force
@@ -2197,7 +2366,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsPduHeader.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsStationPosition.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsStationPosition.c.o: vanetza/asn1/its/ItsStationPosition.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_164) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsStationPosition.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_177) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsStationPosition.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ItsStationPosition.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ItsStationPosition.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsStationPosition.c.i: cmake_force
@@ -2210,7 +2379,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsStationPosition.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsStationPositionList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsStationPositionList.c.o: vanetza/asn1/its/ItsStationPositionList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_165) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsStationPositionList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_178) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsStationPositionList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ItsStationPositionList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ItsStationPositionList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsStationPositionList.c.i: cmake_force
@@ -2223,7 +2392,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsStationPositionList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Barrier.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Barrier.c.o: vanetza/asn1/its/LaneAttributes-Barrier.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_166) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Barrier.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_179) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Barrier.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LaneAttributes-Barrier.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LaneAttributes-Barrier.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Barrier.c.i: cmake_force
@@ -2236,7 +2405,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Barrier.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Bike.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Bike.c.o: vanetza/asn1/its/LaneAttributes-Bike.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_167) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Bike.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_180) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Bike.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LaneAttributes-Bike.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LaneAttributes-Bike.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Bike.c.i: cmake_force
@@ -2249,7 +2418,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Bike.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Crosswalk.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Crosswalk.c.o: vanetza/asn1/its/LaneAttributes-Crosswalk.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_168) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Crosswalk.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_181) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Crosswalk.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LaneAttributes-Crosswalk.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LaneAttributes-Crosswalk.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Crosswalk.c.i: cmake_force
@@ -2262,7 +2431,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Crosswalk.c.s: cmake_for
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Parking.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Parking.c.o: vanetza/asn1/its/LaneAttributes-Parking.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_169) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Parking.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_182) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Parking.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LaneAttributes-Parking.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LaneAttributes-Parking.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Parking.c.i: cmake_force
@@ -2275,7 +2444,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Parking.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Sidewalk.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Sidewalk.c.o: vanetza/asn1/its/LaneAttributes-Sidewalk.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_170) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Sidewalk.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_183) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Sidewalk.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LaneAttributes-Sidewalk.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LaneAttributes-Sidewalk.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Sidewalk.c.i: cmake_force
@@ -2288,7 +2457,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Sidewalk.c.s: cmake_forc
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Striping.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Striping.c.o: vanetza/asn1/its/LaneAttributes-Striping.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_171) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Striping.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_184) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Striping.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LaneAttributes-Striping.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LaneAttributes-Striping.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Striping.c.i: cmake_force
@@ -2301,7 +2470,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Striping.c.s: cmake_forc
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-TrackedVehicle.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-TrackedVehicle.c.o: vanetza/asn1/its/LaneAttributes-TrackedVehicle.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_172) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-TrackedVehicle.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_185) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-TrackedVehicle.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LaneAttributes-TrackedVehicle.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LaneAttributes-TrackedVehicle.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-TrackedVehicle.c.i: cmake_force
@@ -2314,7 +2483,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-TrackedVehicle.c.s: cmak
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Vehicle.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Vehicle.c.o: vanetza/asn1/its/LaneAttributes-Vehicle.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_173) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Vehicle.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_186) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Vehicle.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LaneAttributes-Vehicle.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LaneAttributes-Vehicle.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Vehicle.c.i: cmake_force
@@ -2327,7 +2496,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-Vehicle.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-addGrpC.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-addGrpC.c.o: vanetza/asn1/its/LaneAttributes-addGrpC.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_174) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-addGrpC.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_187) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-addGrpC.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LaneAttributes-addGrpC.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LaneAttributes-addGrpC.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-addGrpC.c.i: cmake_force
@@ -2340,7 +2509,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes-addGrpC.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes.c.o: vanetza/asn1/its/LaneAttributes.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_175) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_188) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LaneAttributes.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LaneAttributes.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes.c.i: cmake_force
@@ -2353,7 +2522,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneAttributes.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneConnectionID.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneConnectionID.c.o: vanetza/asn1/its/LaneConnectionID.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_176) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneConnectionID.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_189) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneConnectionID.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LaneConnectionID.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LaneConnectionID.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneConnectionID.c.i: cmake_force
@@ -2366,7 +2535,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneConnectionID.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneDataAttribute.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneDataAttribute.c.o: vanetza/asn1/its/LaneDataAttribute.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_177) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneDataAttribute.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_190) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneDataAttribute.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LaneDataAttribute.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LaneDataAttribute.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneDataAttribute.c.i: cmake_force
@@ -2379,7 +2548,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneDataAttribute.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneDataAttributeList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneDataAttributeList.c.o: vanetza/asn1/its/LaneDataAttributeList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_178) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneDataAttributeList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_191) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneDataAttributeList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LaneDataAttributeList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LaneDataAttributeList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneDataAttributeList.c.i: cmake_force
@@ -2392,7 +2561,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneDataAttributeList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneDirection.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneDirection.c.o: vanetza/asn1/its/LaneDirection.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_179) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneDirection.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_192) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneDirection.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LaneDirection.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LaneDirection.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneDirection.c.i: cmake_force
@@ -2403,9 +2572,22 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneDirection.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/LaneDirection.c.s"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LaneDirection.c -o CMakeFiles/asn1_its.dir/its/LaneDirection.c.s
 
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsPduHeaderVam.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsPduHeaderVam.c.o: vanetza/asn1/its/ItsPduHeaderVam.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_193) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsPduHeaderVam.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ItsPduHeaderVam.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ItsPduHeaderVam.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsPduHeaderVam.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/ItsPduHeaderVam.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ItsPduHeaderVam.c > CMakeFiles/asn1_its.dir/its/ItsPduHeaderVam.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsPduHeaderVam.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/ItsPduHeaderVam.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ItsPduHeaderVam.c -o CMakeFiles/asn1_its.dir/its/ItsPduHeaderVam.c.s
+
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneID.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneID.c.o: vanetza/asn1/its/LaneID.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_180) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneID.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_194) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneID.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LaneID.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LaneID.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneID.c.i: cmake_force
@@ -2418,7 +2600,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneID.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneList.c.o: vanetza/asn1/its/LaneList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_181) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_195) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LaneList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LaneList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneList.c.i: cmake_force
@@ -2431,7 +2613,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LanePosition.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LanePosition.c.o: vanetza/asn1/its/LanePosition.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_182) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LanePosition.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_196) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LanePosition.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LanePosition.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LanePosition.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LanePosition.c.i: cmake_force
@@ -2444,7 +2626,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LanePosition.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneSharing.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneSharing.c.o: vanetza/asn1/its/LaneSharing.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_183) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneSharing.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_197) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneSharing.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LaneSharing.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LaneSharing.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneSharing.c.i: cmake_force
@@ -2457,7 +2639,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneSharing.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneTypeAttributes.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneTypeAttributes.c.o: vanetza/asn1/its/LaneTypeAttributes.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_184) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneTypeAttributes.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_198) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneTypeAttributes.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LaneTypeAttributes.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LaneTypeAttributes.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneTypeAttributes.c.i: cmake_force
@@ -2470,7 +2652,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneTypeAttributes.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneWidth.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneWidth.c.o: vanetza/asn1/its/LaneWidth.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_185) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneWidth.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_199) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneWidth.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LaneWidth.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LaneWidth.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneWidth.c.i: cmake_force
@@ -2483,7 +2665,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneWidth.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LateralAcceleration.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LateralAcceleration.c.o: vanetza/asn1/its/LateralAcceleration.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_186) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LateralAcceleration.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_200) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LateralAcceleration.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LateralAcceleration.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LateralAcceleration.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LateralAcceleration.c.i: cmake_force
@@ -2496,7 +2678,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LateralAcceleration.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LateralAccelerationValue.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LateralAccelerationValue.c.o: vanetza/asn1/its/LateralAccelerationValue.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_187) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LateralAccelerationValue.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_201) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LateralAccelerationValue.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LateralAccelerationValue.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LateralAccelerationValue.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LateralAccelerationValue.c.i: cmake_force
@@ -2509,7 +2691,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LateralAccelerationValue.c.s: cmake_for
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Latitude.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Latitude.c.o: vanetza/asn1/its/Latitude.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_188) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Latitude.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_202) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Latitude.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Latitude.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Latitude.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Latitude.c.i: cmake_force
@@ -2522,7 +2704,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Latitude.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LayerID.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LayerID.c.o: vanetza/asn1/its/LayerID.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_189) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LayerID.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_203) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LayerID.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LayerID.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LayerID.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LayerID.c.i: cmake_force
@@ -2535,7 +2717,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LayerID.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LayerType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LayerType.c.o: vanetza/asn1/its/LayerType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_190) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LayerType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_204) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LayerType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LayerType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LayerType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LayerType.c.i: cmake_force
@@ -2548,7 +2730,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LayerType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LicPlateNumber.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LicPlateNumber.c.o: vanetza/asn1/its/LicPlateNumber.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_191) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LicPlateNumber.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_205) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LicPlateNumber.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LicPlateNumber.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LicPlateNumber.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LicPlateNumber.c.i: cmake_force
@@ -2559,9 +2741,22 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LicPlateNumber.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/LicPlateNumber.c.s"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LicPlateNumber.c -o CMakeFiles/asn1_its.dir/its/LicPlateNumber.c.s
 
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/LeftOrRight.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/LeftOrRight.c.o: vanetza/asn1/its/LeftOrRight.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_206) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LeftOrRight.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LeftOrRight.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LeftOrRight.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/LeftOrRight.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/LeftOrRight.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LeftOrRight.c > CMakeFiles/asn1_its.dir/its/LeftOrRight.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/LeftOrRight.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/LeftOrRight.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LeftOrRight.c -o CMakeFiles/asn1_its.dir/its/LeftOrRight.c.s
+
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LightBarSirenInUse.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LightBarSirenInUse.c.o: vanetza/asn1/its/LightBarSirenInUse.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_192) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LightBarSirenInUse.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_207) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LightBarSirenInUse.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LightBarSirenInUse.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LightBarSirenInUse.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LightBarSirenInUse.c.i: cmake_force
@@ -2574,7 +2769,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LightBarSirenInUse.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LocationContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LocationContainer.c.o: vanetza/asn1/its/LocationContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_193) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LocationContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_208) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LocationContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LocationContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LocationContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LocationContainer.c.i: cmake_force
@@ -2587,7 +2782,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LocationContainer.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Longitude.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Longitude.c.o: vanetza/asn1/its/Longitude.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_194) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Longitude.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_209) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Longitude.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Longitude.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Longitude.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Longitude.c.i: cmake_force
@@ -2600,7 +2795,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Longitude.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalAcceleration.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalAcceleration.c.o: vanetza/asn1/its/LongitudinalAcceleration.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_195) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalAcceleration.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_210) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalAcceleration.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LongitudinalAcceleration.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LongitudinalAcceleration.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalAcceleration.c.i: cmake_force
@@ -2613,7 +2808,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalAcceleration.c.s: cmake_for
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalAccelerationValue.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalAccelerationValue.c.o: vanetza/asn1/its/LongitudinalAccelerationValue.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_196) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalAccelerationValue.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_211) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalAccelerationValue.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LongitudinalAccelerationValue.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LongitudinalAccelerationValue.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalAccelerationValue.c.i: cmake_force
@@ -2626,7 +2821,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalAccelerationValue.c.s: cmak
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalLanePosition.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalLanePosition.c.o: vanetza/asn1/its/LongitudinalLanePosition.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_197) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalLanePosition.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_212) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalLanePosition.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LongitudinalLanePosition.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LongitudinalLanePosition.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalLanePosition.c.i: cmake_force
@@ -2639,7 +2834,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalLanePosition.c.s: cmake_for
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalLanePositionConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalLanePositionConfidence.c.o: vanetza/asn1/its/LongitudinalLanePositionConfidence.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_198) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalLanePositionConfidence.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_213) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalLanePositionConfidence.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LongitudinalLanePositionConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LongitudinalLanePositionConfidence.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalLanePositionConfidence.c.i: cmake_force
@@ -2652,7 +2847,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalLanePositionConfidence.c.s:
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalLanePositionValue.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalLanePositionValue.c.o: vanetza/asn1/its/LongitudinalLanePositionValue.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_199) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalLanePositionValue.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_214) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalLanePositionValue.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LongitudinalLanePositionValue.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LongitudinalLanePositionValue.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalLanePositionValue.c.i: cmake_force
@@ -2665,7 +2860,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LongitudinalLanePositionValue.c.s: cmak
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LowFrequencyContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LowFrequencyContainer.c.o: vanetza/asn1/its/LowFrequencyContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_200) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LowFrequencyContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_215) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/LowFrequencyContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/LowFrequencyContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/LowFrequencyContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/LowFrequencyContainer.c.i: cmake_force
@@ -2678,7 +2873,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/LowFrequencyContainer.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MAPEM.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MAPEM.c.o: vanetza/asn1/its/MAPEM.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_201) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MAPEM.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_216) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MAPEM.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/MAPEM.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/MAPEM.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MAPEM.c.i: cmake_force
@@ -2691,7 +2886,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/MAPEM.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ManagementContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ManagementContainer.c.o: vanetza/asn1/its/ManagementContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_202) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ManagementContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_217) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ManagementContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ManagementContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ManagementContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ManagementContainer.c.i: cmake_force
@@ -2704,7 +2899,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ManagementContainer.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ManeuverAssistList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ManeuverAssistList.c.o: vanetza/asn1/its/ManeuverAssistList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_203) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ManeuverAssistList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_218) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ManeuverAssistList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ManeuverAssistList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ManeuverAssistList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ManeuverAssistList.c.i: cmake_force
@@ -2717,7 +2912,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ManeuverAssistList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ManufacturerIdentifier.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ManufacturerIdentifier.c.o: vanetza/asn1/its/ManufacturerIdentifier.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_204) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ManufacturerIdentifier.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_219) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ManufacturerIdentifier.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ManufacturerIdentifier.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ManufacturerIdentifier.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ManufacturerIdentifier.c.i: cmake_force
@@ -2730,7 +2925,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ManufacturerIdentifier.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapData-addGrpC.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapData-addGrpC.c.o: vanetza/asn1/its/MapData-addGrpC.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_205) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapData-addGrpC.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_220) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapData-addGrpC.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/MapData-addGrpC.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/MapData-addGrpC.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapData-addGrpC.c.i: cmake_force
@@ -2743,7 +2938,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapData-addGrpC.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapData.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapData.c.o: vanetza/asn1/its/MapData.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_206) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapData.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_221) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapData.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/MapData.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/MapData.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapData.c.i: cmake_force
@@ -2754,9 +2949,22 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapData.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/MapData.c.s"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/MapData.c -o CMakeFiles/asn1_its.dir/its/MapData.c.s
 
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapPosition.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapPosition.c.o: vanetza/asn1/its/MapPosition.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_222) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapPosition.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/MapPosition.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/MapPosition.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapPosition.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/MapPosition.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/MapPosition.c > CMakeFiles/asn1_its.dir/its/MapPosition.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapPosition.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/MapPosition.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/MapPosition.c -o CMakeFiles/asn1_its.dir/its/MapPosition.c.s
+
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MatchedPosition.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MatchedPosition.c.o: vanetza/asn1/its/MatchedPosition.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_207) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MatchedPosition.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_223) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MatchedPosition.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/MatchedPosition.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/MatchedPosition.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MatchedPosition.c.i: cmake_force
@@ -2769,7 +2977,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/MatchedPosition.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MergeDivergeNodeAngle.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MergeDivergeNodeAngle.c.o: vanetza/asn1/its/MergeDivergeNodeAngle.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_208) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MergeDivergeNodeAngle.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_224) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MergeDivergeNodeAngle.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/MergeDivergeNodeAngle.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/MergeDivergeNodeAngle.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MergeDivergeNodeAngle.c.i: cmake_force
@@ -2782,7 +2990,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/MergeDivergeNodeAngle.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MinuteOfTheYear.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MinuteOfTheYear.c.o: vanetza/asn1/its/MinuteOfTheYear.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_209) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MinuteOfTheYear.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_225) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MinuteOfTheYear.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/MinuteOfTheYear.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/MinuteOfTheYear.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MinuteOfTheYear.c.i: cmake_force
@@ -2795,7 +3003,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/MinuteOfTheYear.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementEvent-addGrpC.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementEvent-addGrpC.c.o: vanetza/asn1/its/MovementEvent-addGrpC.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_210) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementEvent-addGrpC.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_226) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementEvent-addGrpC.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/MovementEvent-addGrpC.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/MovementEvent-addGrpC.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementEvent-addGrpC.c.i: cmake_force
@@ -2808,7 +3016,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementEvent-addGrpC.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementEvent.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementEvent.c.o: vanetza/asn1/its/MovementEvent.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_211) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementEvent.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_227) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementEvent.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/MovementEvent.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/MovementEvent.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementEvent.c.i: cmake_force
@@ -2821,7 +3029,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementEvent.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementEventList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementEventList.c.o: vanetza/asn1/its/MovementEventList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_212) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementEventList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_228) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementEventList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/MovementEventList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/MovementEventList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementEventList.c.i: cmake_force
@@ -2834,7 +3042,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementEventList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementList.c.o: vanetza/asn1/its/MovementList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_213) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_229) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/MovementList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/MovementList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementList.c.i: cmake_force
@@ -2847,7 +3055,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementPhaseState.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementPhaseState.c.o: vanetza/asn1/its/MovementPhaseState.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_214) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementPhaseState.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_230) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementPhaseState.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/MovementPhaseState.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/MovementPhaseState.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementPhaseState.c.i: cmake_force
@@ -2860,7 +3068,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementPhaseState.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementState.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementState.c.o: vanetza/asn1/its/MovementState.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_215) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementState.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_231) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementState.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/MovementState.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/MovementState.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementState.c.i: cmake_force
@@ -2873,7 +3081,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/MovementState.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MsgCount.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MsgCount.c.o: vanetza/asn1/its/MsgCount.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_216) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MsgCount.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_232) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/MsgCount.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/MsgCount.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/MsgCount.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/MsgCount.c.i: cmake_force
@@ -2886,7 +3094,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/MsgCount.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-LLmD-64b.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-LLmD-64b.c.o: vanetza/asn1/its/Node-LLmD-64b.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_217) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-LLmD-64b.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_233) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-LLmD-64b.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Node-LLmD-64b.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Node-LLmD-64b.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-LLmD-64b.c.i: cmake_force
@@ -2899,7 +3107,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-LLmD-64b.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-20b.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-20b.c.o: vanetza/asn1/its/Node-XY-20b.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_218) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-20b.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_234) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-20b.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Node-XY-20b.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Node-XY-20b.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-20b.c.i: cmake_force
@@ -2912,7 +3120,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-20b.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-22b.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-22b.c.o: vanetza/asn1/its/Node-XY-22b.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_219) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-22b.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_235) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-22b.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Node-XY-22b.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Node-XY-22b.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-22b.c.i: cmake_force
@@ -2925,7 +3133,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-22b.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-24b.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-24b.c.o: vanetza/asn1/its/Node-XY-24b.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_220) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-24b.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_236) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-24b.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Node-XY-24b.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Node-XY-24b.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-24b.c.i: cmake_force
@@ -2938,7 +3146,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-24b.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-26b.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-26b.c.o: vanetza/asn1/its/Node-XY-26b.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_221) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-26b.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_237) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-26b.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Node-XY-26b.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Node-XY-26b.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-26b.c.i: cmake_force
@@ -2951,7 +3159,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-26b.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-28b.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-28b.c.o: vanetza/asn1/its/Node-XY-28b.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_222) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-28b.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_238) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-28b.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Node-XY-28b.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Node-XY-28b.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-28b.c.i: cmake_force
@@ -2964,7 +3172,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-28b.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-32b.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-32b.c.o: vanetza/asn1/its/Node-XY-32b.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_223) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-32b.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_239) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-32b.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Node-XY-32b.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Node-XY-32b.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-32b.c.i: cmake_force
@@ -2977,7 +3185,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node-XY-32b.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node.c.o: vanetza/asn1/its/Node.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_224) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_240) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Node.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Node.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node.c.i: cmake_force
@@ -2990,7 +3198,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Node.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeSet-addGrpC.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeSet-addGrpC.c.o: vanetza/asn1/its/NodeAttributeSet-addGrpC.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_225) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeSet-addGrpC.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_241) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeSet-addGrpC.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/NodeAttributeSet-addGrpC.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/NodeAttributeSet-addGrpC.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeSet-addGrpC.c.i: cmake_force
@@ -3003,7 +3211,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeSet-addGrpC.c.s: cmake_for
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeSetXY.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeSetXY.c.o: vanetza/asn1/its/NodeAttributeSetXY.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_226) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeSetXY.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_242) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeSetXY.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/NodeAttributeSetXY.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/NodeAttributeSetXY.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeSetXY.c.i: cmake_force
@@ -3016,7 +3224,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeSetXY.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeXY.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeXY.c.o: vanetza/asn1/its/NodeAttributeXY.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_227) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeXY.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_243) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeXY.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/NodeAttributeXY.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/NodeAttributeXY.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeXY.c.i: cmake_force
@@ -3029,7 +3237,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeXY.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeXYList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeXYList.c.o: vanetza/asn1/its/NodeAttributeXYList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_228) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeXYList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_244) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeXYList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/NodeAttributeXYList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/NodeAttributeXYList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeXYList.c.i: cmake_force
@@ -3042,7 +3250,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeAttributeXYList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeLink.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeLink.c.o: vanetza/asn1/its/NodeLink.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_229) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeLink.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_245) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeLink.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/NodeLink.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/NodeLink.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeLink.c.i: cmake_force
@@ -3055,7 +3263,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeLink.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeListXY.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeListXY.c.o: vanetza/asn1/its/NodeListXY.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_230) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeListXY.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_246) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeListXY.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/NodeListXY.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/NodeListXY.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeListXY.c.i: cmake_force
@@ -3068,7 +3276,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeListXY.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeOffsetPointXY.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeOffsetPointXY.c.o: vanetza/asn1/its/NodeOffsetPointXY.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_231) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeOffsetPointXY.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_247) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeOffsetPointXY.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/NodeOffsetPointXY.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/NodeOffsetPointXY.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeOffsetPointXY.c.i: cmake_force
@@ -3081,7 +3289,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeOffsetPointXY.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeOffsetPointZ.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeOffsetPointZ.c.o: vanetza/asn1/its/NodeOffsetPointZ.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_232) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeOffsetPointZ.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_248) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeOffsetPointZ.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/NodeOffsetPointZ.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/NodeOffsetPointZ.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeOffsetPointZ.c.i: cmake_force
@@ -3094,7 +3302,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeOffsetPointZ.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeSetXY.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeSetXY.c.o: vanetza/asn1/its/NodeSetXY.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_233) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeSetXY.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_249) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeSetXY.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/NodeSetXY.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/NodeSetXY.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeSetXY.c.i: cmake_force
@@ -3107,7 +3315,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeSetXY.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeXY.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeXY.c.o: vanetza/asn1/its/NodeXY.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_234) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeXY.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_250) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeXY.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/NodeXY.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/NodeXY.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeXY.c.i: cmake_force
@@ -3118,9 +3326,22 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeXY.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/NodeXY.c.s"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/NodeXY.c -o CMakeFiles/asn1_its.dir/its/NodeXY.c.s
 
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/NonIslandLanePosition.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/NonIslandLanePosition.c.o: vanetza/asn1/its/NonIslandLanePosition.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_251) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NonIslandLanePosition.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/NonIslandLanePosition.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/NonIslandLanePosition.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/NonIslandLanePosition.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/NonIslandLanePosition.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/NonIslandLanePosition.c > CMakeFiles/asn1_its.dir/its/NonIslandLanePosition.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/NonIslandLanePosition.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/NonIslandLanePosition.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/NonIslandLanePosition.c -o CMakeFiles/asn1_its.dir/its/NonIslandLanePosition.c.s
+
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NumberOfOccupants.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NumberOfOccupants.c.o: vanetza/asn1/its/NumberOfOccupants.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_235) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NumberOfOccupants.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_252) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NumberOfOccupants.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/NumberOfOccupants.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/NumberOfOccupants.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NumberOfOccupants.c.i: cmake_force
@@ -3133,7 +3354,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/NumberOfOccupants.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NumberOfPerceivedObjects.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NumberOfPerceivedObjects.c.o: vanetza/asn1/its/NumberOfPerceivedObjects.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_236) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NumberOfPerceivedObjects.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_253) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/NumberOfPerceivedObjects.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/NumberOfPerceivedObjects.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/NumberOfPerceivedObjects.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/NumberOfPerceivedObjects.c.i: cmake_force
@@ -3146,7 +3367,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/NumberOfPerceivedObjects.c.s: cmake_for
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectAge.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectAge.c.o: vanetza/asn1/its/ObjectAge.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_237) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectAge.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_254) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectAge.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ObjectAge.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ObjectAge.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectAge.c.i: cmake_force
@@ -3159,7 +3380,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectAge.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectClass.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectClass.c.o: vanetza/asn1/its/ObjectClass.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_238) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectClass.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_255) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectClass.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ObjectClass.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ObjectClass.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectClass.c.i: cmake_force
@@ -3172,7 +3393,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectClass.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectClassDescription.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectClassDescription.c.o: vanetza/asn1/its/ObjectClassDescription.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_239) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectClassDescription.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_256) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectClassDescription.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ObjectClassDescription.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ObjectClassDescription.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectClassDescription.c.i: cmake_force
@@ -3185,7 +3406,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectClassDescription.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectConfidence.c.o: vanetza/asn1/its/ObjectConfidence.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_240) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectConfidence.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_257) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectConfidence.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ObjectConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ObjectConfidence.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectConfidence.c.i: cmake_force
@@ -3198,7 +3419,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectConfidence.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDimension.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDimension.c.o: vanetza/asn1/its/ObjectDimension.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_241) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDimension.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_258) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDimension.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ObjectDimension.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ObjectDimension.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDimension.c.i: cmake_force
@@ -3211,7 +3432,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDimension.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDimensionConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDimensionConfidence.c.o: vanetza/asn1/its/ObjectDimensionConfidence.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_242) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDimensionConfidence.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_259) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDimensionConfidence.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ObjectDimensionConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ObjectDimensionConfidence.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDimensionConfidence.c.i: cmake_force
@@ -3224,7 +3445,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDimensionConfidence.c.s: cmake_fo
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDimensionValue.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDimensionValue.c.o: vanetza/asn1/its/ObjectDimensionValue.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_243) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDimensionValue.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_260) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDimensionValue.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ObjectDimensionValue.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ObjectDimensionValue.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDimensionValue.c.i: cmake_force
@@ -3237,7 +3458,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDimensionValue.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDistanceWithConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDistanceWithConfidence.c.o: vanetza/asn1/its/ObjectDistanceWithConfidence.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_244) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDistanceWithConfidence.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_261) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDistanceWithConfidence.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ObjectDistanceWithConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ObjectDistanceWithConfidence.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDistanceWithConfidence.c.i: cmake_force
@@ -3250,7 +3471,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDistanceWithConfidence.c.s: cmake
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectRefPoint.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectRefPoint.c.o: vanetza/asn1/its/ObjectRefPoint.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_245) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectRefPoint.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_262) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectRefPoint.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ObjectRefPoint.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ObjectRefPoint.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectRefPoint.c.i: cmake_force
@@ -3263,7 +3484,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectRefPoint.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B09.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B09.c.o: vanetza/asn1/its/Offset-B09.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_246) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B09.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_263) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B09.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Offset-B09.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Offset-B09.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B09.c.i: cmake_force
@@ -3274,9 +3495,22 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B09.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/Offset-B09.c.s"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Offset-B09.c -o CMakeFiles/asn1_its.dir/its/Offset-B09.c.s
 
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/OffRoadLanePosition.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/OffRoadLanePosition.c.o: vanetza/asn1/its/OffRoadLanePosition.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_264) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/OffRoadLanePosition.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/OffRoadLanePosition.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/OffRoadLanePosition.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/OffRoadLanePosition.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/OffRoadLanePosition.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/OffRoadLanePosition.c > CMakeFiles/asn1_its.dir/its/OffRoadLanePosition.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/OffRoadLanePosition.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/OffRoadLanePosition.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/OffRoadLanePosition.c -o CMakeFiles/asn1_its.dir/its/OffRoadLanePosition.c.s
+
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B10.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B10.c.o: vanetza/asn1/its/Offset-B10.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_247) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B10.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_265) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B10.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Offset-B10.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Offset-B10.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B10.c.i: cmake_force
@@ -3289,7 +3523,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B10.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B11.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B11.c.o: vanetza/asn1/its/Offset-B11.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_248) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B11.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_266) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B11.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Offset-B11.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Offset-B11.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B11.c.i: cmake_force
@@ -3302,7 +3536,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B11.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B12.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B12.c.o: vanetza/asn1/its/Offset-B12.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_249) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B12.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_267) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B12.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Offset-B12.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Offset-B12.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B12.c.i: cmake_force
@@ -3315,7 +3549,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B12.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B13.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B13.c.o: vanetza/asn1/its/Offset-B13.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_250) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B13.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_268) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B13.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Offset-B13.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Offset-B13.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B13.c.i: cmake_force
@@ -3328,7 +3562,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B13.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B14.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B14.c.o: vanetza/asn1/its/Offset-B14.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_251) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B14.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_269) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B14.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Offset-B14.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Offset-B14.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B14.c.i: cmake_force
@@ -3341,7 +3575,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B14.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B16.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B16.c.o: vanetza/asn1/its/Offset-B16.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_252) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B16.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_270) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B16.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Offset-B16.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Offset-B16.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B16.c.i: cmake_force
@@ -3354,7 +3588,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B16.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/OffsetPoint.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/OffsetPoint.c.o: vanetza/asn1/its/OffsetPoint.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_253) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/OffsetPoint.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_271) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/OffsetPoint.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/OffsetPoint.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/OffsetPoint.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/OffsetPoint.c.i: cmake_force
@@ -3367,7 +3601,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/OffsetPoint.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/OpeningDaysHours.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/OpeningDaysHours.c.o: vanetza/asn1/its/OpeningDaysHours.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_254) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/OpeningDaysHours.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_272) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/OpeningDaysHours.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/OpeningDaysHours.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/OpeningDaysHours.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/OpeningDaysHours.c.i: cmake_force
@@ -3380,7 +3614,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/OpeningDaysHours.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/OriginatingRSUContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/OriginatingRSUContainer.c.o: vanetza/asn1/its/OriginatingRSUContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_255) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/OriginatingRSUContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_273) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/OriginatingRSUContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/OriginatingRSUContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/OriginatingRSUContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/OriginatingRSUContainer.c.i: cmake_force
@@ -3393,7 +3627,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/OriginatingRSUContainer.c.s: cmake_forc
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/OriginatingVehicleContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/OriginatingVehicleContainer.c.o: vanetza/asn1/its/OriginatingVehicleContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_256) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/OriginatingVehicleContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_274) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/OriginatingVehicleContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/OriginatingVehicleContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/OriginatingVehicleContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/OriginatingVehicleContainer.c.i: cmake_force
@@ -3406,7 +3640,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/OriginatingVehicleContainer.c.s: cmake_
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/OtherSubclass.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/OtherSubclass.c.o: vanetza/asn1/its/OtherSubclass.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_257) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/OtherSubclass.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_275) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/OtherSubclass.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/OtherSubclass.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/OtherSubclass.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/OtherSubclass.c.i: cmake_force
@@ -3419,7 +3653,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/OtherSubclass.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/OtherSublassType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/OtherSublassType.c.o: vanetza/asn1/its/OtherSublassType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_258) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/OtherSublassType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_276) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/OtherSublassType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/OtherSublassType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/OtherSublassType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/OtherSublassType.c.i: cmake_force
@@ -3432,7 +3666,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/OtherSublassType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/OverlayLaneList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/OverlayLaneList.c.o: vanetza/asn1/its/OverlayLaneList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_259) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/OverlayLaneList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_277) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/OverlayLaneList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/OverlayLaneList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/OverlayLaneList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/OverlayLaneList.c.i: cmake_force
@@ -3445,7 +3679,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/OverlayLaneList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PathDeltaTime.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PathDeltaTime.c.o: vanetza/asn1/its/PathDeltaTime.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_260) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PathDeltaTime.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_278) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PathDeltaTime.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PathDeltaTime.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PathDeltaTime.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PathDeltaTime.c.i: cmake_force
@@ -3458,7 +3692,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PathDeltaTime.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PathHistory.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PathHistory.c.o: vanetza/asn1/its/PathHistory.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_261) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PathHistory.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_279) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PathHistory.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PathHistory.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PathHistory.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PathHistory.c.i: cmake_force
@@ -3471,7 +3705,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PathHistory.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PathPoint.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PathPoint.c.o: vanetza/asn1/its/PathPoint.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_262) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PathPoint.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_280) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PathPoint.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PathPoint.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PathPoint.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PathPoint.c.i: cmake_force
@@ -3484,7 +3718,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PathPoint.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PedestrianBicycleDetect.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PedestrianBicycleDetect.c.o: vanetza/asn1/its/PedestrianBicycleDetect.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_263) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PedestrianBicycleDetect.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_281) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PedestrianBicycleDetect.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PedestrianBicycleDetect.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PedestrianBicycleDetect.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PedestrianBicycleDetect.c.i: cmake_force
@@ -3497,7 +3731,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PedestrianBicycleDetect.c.s: cmake_forc
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerceivedObject.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerceivedObject.c.o: vanetza/asn1/its/PerceivedObject.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_264) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerceivedObject.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_282) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerceivedObject.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PerceivedObject.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PerceivedObject.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerceivedObject.c.i: cmake_force
@@ -3510,7 +3744,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerceivedObject.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerceivedObjectContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerceivedObjectContainer.c.o: vanetza/asn1/its/PerceivedObjectContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_265) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerceivedObjectContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_283) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerceivedObjectContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PerceivedObjectContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PerceivedObjectContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerceivedObjectContainer.c.i: cmake_force
@@ -3523,7 +3757,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerceivedObjectContainer.c.s: cmake_for
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerceivedObjectContainerSegmentInfo.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerceivedObjectContainerSegmentInfo.c.o: vanetza/asn1/its/PerceivedObjectContainerSegmentInfo.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_266) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerceivedObjectContainerSegmentInfo.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_284) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerceivedObjectContainerSegmentInfo.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PerceivedObjectContainerSegmentInfo.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PerceivedObjectContainerSegmentInfo.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerceivedObjectContainerSegmentInfo.c.i: cmake_force
@@ -3536,7 +3770,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerceivedObjectContainerSegmentInfo.c.s
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerformanceClass.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerformanceClass.c.o: vanetza/asn1/its/PerformanceClass.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_267) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerformanceClass.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_285) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerformanceClass.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PerformanceClass.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PerformanceClass.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerformanceClass.c.i: cmake_force
@@ -3549,7 +3783,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PerformanceClass.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PersonSubclass.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PersonSubclass.c.o: vanetza/asn1/its/PersonSubclass.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_268) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PersonSubclass.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_286) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PersonSubclass.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PersonSubclass.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PersonSubclass.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PersonSubclass.c.i: cmake_force
@@ -3562,7 +3796,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PersonSubclass.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PersonSubclassType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PersonSubclassType.c.o: vanetza/asn1/its/PersonSubclassType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_269) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PersonSubclassType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_287) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PersonSubclassType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PersonSubclassType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PersonSubclassType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PersonSubclassType.c.i: cmake_force
@@ -3575,7 +3809,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PersonSubclassType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PhoneNumber.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PhoneNumber.c.o: vanetza/asn1/its/PhoneNumber.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_270) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PhoneNumber.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_288) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PhoneNumber.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PhoneNumber.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PhoneNumber.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PhoneNumber.c.i: cmake_force
@@ -3588,7 +3822,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PhoneNumber.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PolyPointList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PolyPointList.c.o: vanetza/asn1/its/PolyPointList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_271) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PolyPointList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_289) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PolyPointList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PolyPointList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PolyPointList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PolyPointList.c.i: cmake_force
@@ -3601,7 +3835,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PolyPointList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosCentMass.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosCentMass.c.o: vanetza/asn1/its/PosCentMass.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_272) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosCentMass.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_290) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosCentMass.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PosCentMass.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PosCentMass.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosCentMass.c.i: cmake_force
@@ -3614,7 +3848,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosCentMass.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosConfidenceEllipse.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosConfidenceEllipse.c.o: vanetza/asn1/its/PosConfidenceEllipse.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_273) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosConfidenceEllipse.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_291) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosConfidenceEllipse.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PosConfidenceEllipse.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PosConfidenceEllipse.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosConfidenceEllipse.c.i: cmake_force
@@ -3627,7 +3861,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosConfidenceEllipse.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosFrontAx.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosFrontAx.c.o: vanetza/asn1/its/PosFrontAx.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_274) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosFrontAx.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_292) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosFrontAx.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PosFrontAx.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PosFrontAx.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosFrontAx.c.i: cmake_force
@@ -3640,7 +3874,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosFrontAx.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosLonCarr.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosLonCarr.c.o: vanetza/asn1/its/PosLonCarr.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_275) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosLonCarr.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_293) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosLonCarr.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PosLonCarr.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PosLonCarr.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosLonCarr.c.i: cmake_force
@@ -3653,7 +3887,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosLonCarr.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosPillar.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosPillar.c.o: vanetza/asn1/its/PosPillar.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_276) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosPillar.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_294) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosPillar.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PosPillar.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PosPillar.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosPillar.c.i: cmake_force
@@ -3666,7 +3900,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PosPillar.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Position3D-addGrpC.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Position3D-addGrpC.c.o: vanetza/asn1/its/Position3D-addGrpC.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_277) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Position3D-addGrpC.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_295) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Position3D-addGrpC.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Position3D-addGrpC.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Position3D-addGrpC.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Position3D-addGrpC.c.i: cmake_force
@@ -3679,7 +3913,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Position3D-addGrpC.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Position3D.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Position3D.c.o: vanetza/asn1/its/Position3D.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_278) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Position3D.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_296) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Position3D.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Position3D.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Position3D.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Position3D.c.i: cmake_force
@@ -3692,7 +3926,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Position3D.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionConfidence.c.o: vanetza/asn1/its/PositionConfidence.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_279) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionConfidence.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_297) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionConfidence.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PositionConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PositionConfidence.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionConfidence.c.i: cmake_force
@@ -3705,7 +3939,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionConfidence.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionConfidenceSet.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionConfidenceSet.c.o: vanetza/asn1/its/PositionConfidenceSet.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_280) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionConfidenceSet.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_298) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionConfidenceSet.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PositionConfidenceSet.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PositionConfidenceSet.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionConfidenceSet.c.i: cmake_force
@@ -3718,7 +3952,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionConfidenceSet.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionOfOccupants.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionOfOccupants.c.o: vanetza/asn1/its/PositionOfOccupants.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_281) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionOfOccupants.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_299) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionOfOccupants.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PositionOfOccupants.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PositionOfOccupants.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionOfOccupants.c.i: cmake_force
@@ -3731,7 +3965,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionOfOccupants.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionOfPillars.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionOfPillars.c.o: vanetza/asn1/its/PositionOfPillars.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_282) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionOfPillars.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_300) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionOfPillars.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PositionOfPillars.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PositionOfPillars.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionOfPillars.c.i: cmake_force
@@ -3744,7 +3978,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionOfPillars.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionalAccuracy.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionalAccuracy.c.o: vanetza/asn1/its/PositionalAccuracy.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_283) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionalAccuracy.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_301) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionalAccuracy.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PositionalAccuracy.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PositionalAccuracy.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionalAccuracy.c.i: cmake_force
@@ -3757,7 +3991,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositionalAccuracy.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositioningSolutionType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositioningSolutionType.c.o: vanetza/asn1/its/PositioningSolutionType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_284) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositioningSolutionType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_302) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositioningSolutionType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PositioningSolutionType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PositioningSolutionType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositioningSolutionType.c.i: cmake_force
@@ -3770,7 +4004,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PositioningSolutionType.c.s: cmake_forc
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PostCrashSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PostCrashSubCauseCode.c.o: vanetza/asn1/its/PostCrashSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_285) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PostCrashSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_303) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PostCrashSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PostCrashSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PostCrashSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PostCrashSubCauseCode.c.i: cmake_force
@@ -3783,7 +4017,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PostCrashSubCauseCode.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PreemptPriorityList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PreemptPriorityList.c.o: vanetza/asn1/its/PreemptPriorityList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_286) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PreemptPriorityList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_304) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PreemptPriorityList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PreemptPriorityList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PreemptPriorityList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PreemptPriorityList.c.i: cmake_force
@@ -3796,7 +4030,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PreemptPriorityList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PrioritizationResponse.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PrioritizationResponse.c.o: vanetza/asn1/its/PrioritizationResponse.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_287) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PrioritizationResponse.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_305) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PrioritizationResponse.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PrioritizationResponse.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PrioritizationResponse.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PrioritizationResponse.c.i: cmake_force
@@ -3809,7 +4043,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PrioritizationResponse.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PrioritizationResponseList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PrioritizationResponseList.c.o: vanetza/asn1/its/PrioritizationResponseList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_288) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PrioritizationResponseList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_306) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PrioritizationResponseList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PrioritizationResponseList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PrioritizationResponseList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PrioritizationResponseList.c.i: cmake_force
@@ -3822,7 +4056,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PrioritizationResponseList.c.s: cmake_f
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PrioritizationResponseStatus.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PrioritizationResponseStatus.c.o: vanetza/asn1/its/PrioritizationResponseStatus.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_289) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PrioritizationResponseStatus.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_307) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PrioritizationResponseStatus.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PrioritizationResponseStatus.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PrioritizationResponseStatus.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PrioritizationResponseStatus.c.i: cmake_force
@@ -3835,7 +4069,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PrioritizationResponseStatus.c.s: cmake
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PriorityRequestType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PriorityRequestType.c.o: vanetza/asn1/its/PriorityRequestType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_290) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PriorityRequestType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_308) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PriorityRequestType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PriorityRequestType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PriorityRequestType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PriorityRequestType.c.i: cmake_force
@@ -3848,7 +4082,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PriorityRequestType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedCommunicationZone.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedCommunicationZone.c.o: vanetza/asn1/its/ProtectedCommunicationZone.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_291) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedCommunicationZone.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_309) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedCommunicationZone.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ProtectedCommunicationZone.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ProtectedCommunicationZone.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedCommunicationZone.c.i: cmake_force
@@ -3861,7 +4095,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedCommunicationZone.c.s: cmake_f
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedCommunicationZonesRSU.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedCommunicationZonesRSU.c.o: vanetza/asn1/its/ProtectedCommunicationZonesRSU.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_292) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedCommunicationZonesRSU.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_310) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedCommunicationZonesRSU.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ProtectedCommunicationZonesRSU.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ProtectedCommunicationZonesRSU.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedCommunicationZonesRSU.c.i: cmake_force
@@ -3874,7 +4108,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedCommunicationZonesRSU.c.s: cma
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedZoneID.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedZoneID.c.o: vanetza/asn1/its/ProtectedZoneID.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_293) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedZoneID.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_311) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedZoneID.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ProtectedZoneID.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ProtectedZoneID.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedZoneID.c.i: cmake_force
@@ -3887,7 +4121,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedZoneID.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedZoneRadius.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedZoneRadius.c.o: vanetza/asn1/its/ProtectedZoneRadius.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_294) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedZoneRadius.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_312) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedZoneRadius.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ProtectedZoneRadius.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ProtectedZoneRadius.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedZoneRadius.c.i: cmake_force
@@ -3900,7 +4134,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedZoneRadius.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedZoneType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedZoneType.c.o: vanetza/asn1/its/ProtectedZoneType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_295) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedZoneType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_313) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedZoneType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ProtectedZoneType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ProtectedZoneType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedZoneType.c.i: cmake_force
@@ -3913,7 +4147,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ProtectedZoneType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtActivation.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtActivation.c.o: vanetza/asn1/its/PtActivation.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_296) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtActivation.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_314) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtActivation.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PtActivation.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PtActivation.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtActivation.c.i: cmake_force
@@ -3926,7 +4160,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtActivation.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtActivationData.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtActivationData.c.o: vanetza/asn1/its/PtActivationData.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_297) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtActivationData.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_315) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtActivationData.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PtActivationData.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PtActivationData.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtActivationData.c.i: cmake_force
@@ -3939,7 +4173,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtActivationData.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtActivationType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtActivationType.c.o: vanetza/asn1/its/PtActivationType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_298) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtActivationType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_316) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtActivationType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PtActivationType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PtActivationType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtActivationType.c.i: cmake_force
@@ -3952,7 +4186,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtActivationType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtvRequestType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtvRequestType.c.o: vanetza/asn1/its/PtvRequestType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_299) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtvRequestType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_317) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtvRequestType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PtvRequestType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PtvRequestType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtvRequestType.c.i: cmake_force
@@ -3965,7 +4199,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PtvRequestType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PublicTransportContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PublicTransportContainer.c.o: vanetza/asn1/its/PublicTransportContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_300) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PublicTransportContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_318) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/PublicTransportContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/PublicTransportContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/PublicTransportContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/PublicTransportContainer.c.i: cmake_force
@@ -3978,7 +4212,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/PublicTransportContainer.c.s: cmake_for
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RSUContainerHighFrequency.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RSUContainerHighFrequency.c.o: vanetza/asn1/its/RSUContainerHighFrequency.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_301) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RSUContainerHighFrequency.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_319) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RSUContainerHighFrequency.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RSUContainerHighFrequency.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RSUContainerHighFrequency.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RSUContainerHighFrequency.c.i: cmake_force
@@ -3991,7 +4225,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RSUContainerHighFrequency.c.s: cmake_fo
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCM-Revision.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCM-Revision.c.o: vanetza/asn1/its/RTCM-Revision.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_302) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCM-Revision.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_320) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCM-Revision.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RTCM-Revision.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RTCM-Revision.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCM-Revision.c.i: cmake_force
@@ -4004,7 +4238,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCM-Revision.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMEM.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMEM.c.o: vanetza/asn1/its/RTCMEM.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_303) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMEM.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_321) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMEM.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RTCMEM.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RTCMEM.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMEM.c.i: cmake_force
@@ -4017,7 +4251,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMEM.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMcorrections.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMcorrections.c.o: vanetza/asn1/its/RTCMcorrections.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_304) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMcorrections.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_322) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMcorrections.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RTCMcorrections.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RTCMcorrections.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMcorrections.c.i: cmake_force
@@ -4030,7 +4264,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMcorrections.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMheader.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMheader.c.o: vanetza/asn1/its/RTCMheader.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_305) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMheader.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_323) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMheader.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RTCMheader.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RTCMheader.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMheader.c.i: cmake_force
@@ -4043,7 +4277,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMheader.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMmessage.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMmessage.c.o: vanetza/asn1/its/RTCMmessage.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_306) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMmessage.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_324) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMmessage.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RTCMmessage.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RTCMmessage.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMmessage.c.i: cmake_force
@@ -4056,7 +4290,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMmessage.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMmessageList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMmessageList.c.o: vanetza/asn1/its/RTCMmessageList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_307) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMmessageList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_325) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMmessageList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RTCMmessageList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RTCMmessageList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMmessageList.c.i: cmake_force
@@ -4069,7 +4303,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RTCMmessageList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Radius.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Radius.c.o: vanetza/asn1/its/Radius.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_308) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Radius.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_326) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Radius.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Radius.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Radius.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Radius.c.i: cmake_force
@@ -4082,7 +4316,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Radius.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Range.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Range.c.o: vanetza/asn1/its/Range.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_309) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Range.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_327) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Range.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Range.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Range.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Range.c.i: cmake_force
@@ -4095,7 +4329,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Range.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RearOverhang.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RearOverhang.c.o: vanetza/asn1/its/RearOverhang.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_310) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RearOverhang.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_328) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RearOverhang.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RearOverhang.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RearOverhang.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RearOverhang.c.i: cmake_force
@@ -4108,7 +4342,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RearOverhang.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RefPointId.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RefPointId.c.o: vanetza/asn1/its/RefPointId.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_311) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RefPointId.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_329) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RefPointId.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RefPointId.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RefPointId.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RefPointId.c.i: cmake_force
@@ -4121,7 +4355,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RefPointId.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ReferenceDenms.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ReferenceDenms.c.o: vanetza/asn1/its/ReferenceDenms.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_312) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ReferenceDenms.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_330) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ReferenceDenms.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ReferenceDenms.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ReferenceDenms.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ReferenceDenms.c.i: cmake_force
@@ -4134,7 +4368,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ReferenceDenms.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ReferencePosition.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ReferencePosition.c.o: vanetza/asn1/its/ReferencePosition.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_313) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ReferencePosition.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_331) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ReferencePosition.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ReferencePosition.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ReferencePosition.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ReferencePosition.c.i: cmake_force
@@ -4147,7 +4381,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ReferencePosition.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RegionId.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RegionId.c.o: vanetza/asn1/its/RegionId.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_314) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RegionId.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_332) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RegionId.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RegionId.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RegionId.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RegionId.c.i: cmake_force
@@ -4160,7 +4394,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RegionId.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RegionalExtension.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RegionalExtension.c.o: vanetza/asn1/its/RegionalExtension.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_315) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RegionalExtension.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_333) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RegionalExtension.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RegionalExtension.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RegionalExtension.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RegionalExtension.c.i: cmake_force
@@ -4173,7 +4407,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RegionalExtension.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RegulatorySpeedLimit.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RegulatorySpeedLimit.c.o: vanetza/asn1/its/RegulatorySpeedLimit.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_316) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RegulatorySpeedLimit.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_334) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RegulatorySpeedLimit.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RegulatorySpeedLimit.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RegulatorySpeedLimit.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RegulatorySpeedLimit.c.i: cmake_force
@@ -4186,7 +4420,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RegulatorySpeedLimit.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RejectedReason.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RejectedReason.c.o: vanetza/asn1/its/RejectedReason.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_317) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RejectedReason.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_335) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RejectedReason.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RejectedReason.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RejectedReason.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RejectedReason.c.i: cmake_force
@@ -4199,7 +4433,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RejectedReason.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RelevanceDistance.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RelevanceDistance.c.o: vanetza/asn1/its/RelevanceDistance.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_318) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RelevanceDistance.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_336) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RelevanceDistance.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RelevanceDistance.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RelevanceDistance.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RelevanceDistance.c.i: cmake_force
@@ -4212,7 +4446,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RelevanceDistance.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RelevanceTrafficDirection.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RelevanceTrafficDirection.c.o: vanetza/asn1/its/RelevanceTrafficDirection.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_319) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RelevanceTrafficDirection.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_337) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RelevanceTrafficDirection.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RelevanceTrafficDirection.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RelevanceTrafficDirection.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RelevanceTrafficDirection.c.i: cmake_force
@@ -4225,7 +4459,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RelevanceTrafficDirection.c.s: cmake_fo
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestID.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestID.c.o: vanetza/asn1/its/RequestID.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_320) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestID.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_338) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestID.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RequestID.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RequestID.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestID.c.i: cmake_force
@@ -4238,7 +4472,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestID.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestImportanceLevel.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestImportanceLevel.c.o: vanetza/asn1/its/RequestImportanceLevel.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_321) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestImportanceLevel.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_339) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestImportanceLevel.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RequestImportanceLevel.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RequestImportanceLevel.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestImportanceLevel.c.i: cmake_force
@@ -4251,7 +4485,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestImportanceLevel.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestResponseIndication.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestResponseIndication.c.o: vanetza/asn1/its/RequestResponseIndication.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_322) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestResponseIndication.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_340) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestResponseIndication.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RequestResponseIndication.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RequestResponseIndication.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestResponseIndication.c.i: cmake_force
@@ -4264,7 +4498,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestResponseIndication.c.s: cmake_fo
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestSubRole.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestSubRole.c.o: vanetza/asn1/its/RequestSubRole.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_323) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestSubRole.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_341) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestSubRole.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RequestSubRole.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RequestSubRole.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestSubRole.c.i: cmake_force
@@ -4277,7 +4511,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestSubRole.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorDescription-addGrpC.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorDescription-addGrpC.c.o: vanetza/asn1/its/RequestorDescription-addGrpC.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_324) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorDescription-addGrpC.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_342) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorDescription-addGrpC.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RequestorDescription-addGrpC.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RequestorDescription-addGrpC.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorDescription-addGrpC.c.i: cmake_force
@@ -4290,7 +4524,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorDescription-addGrpC.c.s: cmake
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorDescription.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorDescription.c.o: vanetza/asn1/its/RequestorDescription.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_325) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorDescription.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_343) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorDescription.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RequestorDescription.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RequestorDescription.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorDescription.c.i: cmake_force
@@ -4303,7 +4537,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorDescription.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorPositionVector.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorPositionVector.c.o: vanetza/asn1/its/RequestorPositionVector.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_326) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorPositionVector.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_344) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorPositionVector.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RequestorPositionVector.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RequestorPositionVector.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorPositionVector.c.i: cmake_force
@@ -4316,7 +4550,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorPositionVector.c.s: cmake_forc
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorType.c.o: vanetza/asn1/its/RequestorType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_327) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_345) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RequestorType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RequestorType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorType.c.i: cmake_force
@@ -4329,7 +4563,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RequestorType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RescueAndRecoveryWorkInProgressSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RescueAndRecoveryWorkInProgressSubCauseCode.c.o: vanetza/asn1/its/RescueAndRecoveryWorkInProgressSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_328) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RescueAndRecoveryWorkInProgressSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_346) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RescueAndRecoveryWorkInProgressSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RescueAndRecoveryWorkInProgressSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RescueAndRecoveryWorkInProgressSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RescueAndRecoveryWorkInProgressSubCauseCode.c.i: cmake_force
@@ -4342,7 +4576,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RescueAndRecoveryWorkInProgressSubCause
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RescueContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RescueContainer.c.o: vanetza/asn1/its/RescueContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_329) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RescueContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_347) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RescueContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RescueContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RescueContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RescueContainer.c.i: cmake_force
@@ -4355,7 +4589,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RescueContainer.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictedTypes.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictedTypes.c.o: vanetza/asn1/its/RestrictedTypes.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_330) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictedTypes.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_348) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictedTypes.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RestrictedTypes.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RestrictedTypes.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictedTypes.c.i: cmake_force
@@ -4368,7 +4602,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictedTypes.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionAppliesTo.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionAppliesTo.c.o: vanetza/asn1/its/RestrictionAppliesTo.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_331) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionAppliesTo.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_349) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionAppliesTo.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RestrictionAppliesTo.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RestrictionAppliesTo.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionAppliesTo.c.i: cmake_force
@@ -4381,7 +4615,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionAppliesTo.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionClassAssignment.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionClassAssignment.c.o: vanetza/asn1/its/RestrictionClassAssignment.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_332) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionClassAssignment.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_350) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionClassAssignment.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RestrictionClassAssignment.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RestrictionClassAssignment.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionClassAssignment.c.i: cmake_force
@@ -4394,7 +4628,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionClassAssignment.c.s: cmake_f
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionClassID.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionClassID.c.o: vanetza/asn1/its/RestrictionClassID.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_333) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionClassID.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_351) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionClassID.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RestrictionClassID.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RestrictionClassID.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionClassID.c.i: cmake_force
@@ -4407,7 +4641,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionClassID.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionClassList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionClassList.c.o: vanetza/asn1/its/RestrictionClassList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_334) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionClassList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_352) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionClassList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RestrictionClassList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RestrictionClassList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionClassList.c.i: cmake_force
@@ -4420,7 +4654,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionClassList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionUserType-addGrpC.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionUserType-addGrpC.c.o: vanetza/asn1/its/RestrictionUserType-addGrpC.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_335) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionUserType-addGrpC.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_353) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionUserType-addGrpC.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RestrictionUserType-addGrpC.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RestrictionUserType-addGrpC.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionUserType-addGrpC.c.i: cmake_force
@@ -4433,7 +4667,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionUserType-addGrpC.c.s: cmake_
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionUserType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionUserType.c.o: vanetza/asn1/its/RestrictionUserType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_336) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionUserType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_354) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionUserType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RestrictionUserType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RestrictionUserType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionUserType.c.i: cmake_force
@@ -4446,7 +4680,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionUserType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionUserTypeList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionUserTypeList.c.o: vanetza/asn1/its/RestrictionUserTypeList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_337) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionUserTypeList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_355) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionUserTypeList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RestrictionUserTypeList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RestrictionUserTypeList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionUserTypeList.c.i: cmake_force
@@ -4459,7 +4693,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RestrictionUserTypeList.c.s: cmake_forc
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadLaneSetList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadLaneSetList.c.o: vanetza/asn1/its/RoadLaneSetList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_338) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadLaneSetList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_356) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadLaneSetList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RoadLaneSetList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RoadLaneSetList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadLaneSetList.c.i: cmake_force
@@ -4472,7 +4706,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadLaneSetList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadRegulatorID.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadRegulatorID.c.o: vanetza/asn1/its/RoadRegulatorID.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_339) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadRegulatorID.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_357) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadRegulatorID.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RoadRegulatorID.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RoadRegulatorID.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadRegulatorID.c.i: cmake_force
@@ -4485,7 +4719,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadRegulatorID.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegment.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegment.c.o: vanetza/asn1/its/RoadSegment.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_340) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegment.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_358) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegment.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RoadSegment.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RoadSegment.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegment.c.i: cmake_force
@@ -4498,7 +4732,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegment.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegmentID.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegmentID.c.o: vanetza/asn1/its/RoadSegmentID.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_341) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegmentID.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_359) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegmentID.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RoadSegmentID.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RoadSegmentID.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegmentID.c.i: cmake_force
@@ -4511,7 +4745,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegmentID.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegmentList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegmentList.c.o: vanetza/asn1/its/RoadSegmentList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_342) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegmentList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_360) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegmentList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RoadSegmentList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RoadSegmentList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegmentList.c.i: cmake_force
@@ -4524,7 +4758,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegmentList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegmentReferenceID.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegmentReferenceID.c.o: vanetza/asn1/its/RoadSegmentReferenceID.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_343) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegmentReferenceID.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_361) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegmentReferenceID.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RoadSegmentReferenceID.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RoadSegmentReferenceID.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegmentReferenceID.c.i: cmake_force
@@ -4537,7 +4771,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadSegmentReferenceID.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadType.c.o: vanetza/asn1/its/RoadType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_344) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_362) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RoadType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RoadType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadType.c.i: cmake_force
@@ -4550,7 +4784,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadWorksContainerBasic.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadWorksContainerBasic.c.o: vanetza/asn1/its/RoadWorksContainerBasic.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_345) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadWorksContainerBasic.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_363) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadWorksContainerBasic.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RoadWorksContainerBasic.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RoadWorksContainerBasic.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadWorksContainerBasic.c.i: cmake_force
@@ -4563,7 +4797,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadWorksContainerBasic.c.s: cmake_forc
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadWorksContainerExtended.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadWorksContainerExtended.c.o: vanetza/asn1/its/RoadWorksContainerExtended.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_346) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadWorksContainerExtended.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_364) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadWorksContainerExtended.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RoadWorksContainerExtended.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RoadWorksContainerExtended.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadWorksContainerExtended.c.i: cmake_force
@@ -4576,7 +4810,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadWorksContainerExtended.c.s: cmake_f
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadwayCrownAngle.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadwayCrownAngle.c.o: vanetza/asn1/its/RoadwayCrownAngle.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_347) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadwayCrownAngle.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_365) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadwayCrownAngle.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RoadwayCrownAngle.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RoadwayCrownAngle.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadwayCrownAngle.c.i: cmake_force
@@ -4589,7 +4823,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadwayCrownAngle.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadworksSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadworksSubCauseCode.c.o: vanetza/asn1/its/RoadworksSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_348) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadworksSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_366) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadworksSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/RoadworksSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/RoadworksSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadworksSubCauseCode.c.i: cmake_force
@@ -4602,7 +4836,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/RoadworksSubCauseCode.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SPAT.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SPAT.c.o: vanetza/asn1/its/SPAT.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_349) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SPAT.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_367) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SPAT.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SPAT.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SPAT.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SPAT.c.i: cmake_force
@@ -4615,7 +4849,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SPAT.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SPATEM.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SPATEM.c.o: vanetza/asn1/its/SPATEM.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_350) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SPATEM.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_368) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SPATEM.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SPATEM.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SPATEM.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SPATEM.c.i: cmake_force
@@ -4628,7 +4862,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SPATEM.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SafetyCarContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SafetyCarContainer.c.o: vanetza/asn1/its/SafetyCarContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_351) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SafetyCarContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_369) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SafetyCarContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SafetyCarContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SafetyCarContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SafetyCarContainer.c.i: cmake_force
@@ -4641,7 +4875,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SafetyCarContainer.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Scale-B12.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Scale-B12.c.o: vanetza/asn1/its/Scale-B12.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_352) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Scale-B12.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_370) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Scale-B12.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Scale-B12.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Scale-B12.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Scale-B12.c.i: cmake_force
@@ -4654,7 +4888,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Scale-B12.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SegmentAttributeXY.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SegmentAttributeXY.c.o: vanetza/asn1/its/SegmentAttributeXY.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_353) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SegmentAttributeXY.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_371) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SegmentAttributeXY.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SegmentAttributeXY.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SegmentAttributeXY.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SegmentAttributeXY.c.i: cmake_force
@@ -4667,7 +4901,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SegmentAttributeXY.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SegmentAttributeXYList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SegmentAttributeXYList.c.o: vanetza/asn1/its/SegmentAttributeXYList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_354) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SegmentAttributeXYList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_372) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SegmentAttributeXYList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SegmentAttributeXYList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SegmentAttributeXYList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SegmentAttributeXYList.c.i: cmake_force
@@ -4680,7 +4914,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SegmentAttributeXYList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SegmentCount.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SegmentCount.c.o: vanetza/asn1/its/SegmentCount.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_355) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SegmentCount.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_373) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SegmentCount.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SegmentCount.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SegmentCount.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SegmentCount.c.i: cmake_force
@@ -4693,7 +4927,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SegmentCount.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiAxisLength.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiAxisLength.c.o: vanetza/asn1/its/SemiAxisLength.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_356) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiAxisLength.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_374) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiAxisLength.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SemiAxisLength.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SemiAxisLength.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiAxisLength.c.i: cmake_force
@@ -4706,7 +4940,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiAxisLength.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiMajorAxisAccuracy.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiMajorAxisAccuracy.c.o: vanetza/asn1/its/SemiMajorAxisAccuracy.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_357) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiMajorAxisAccuracy.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_375) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiMajorAxisAccuracy.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SemiMajorAxisAccuracy.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SemiMajorAxisAccuracy.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiMajorAxisAccuracy.c.i: cmake_force
@@ -4719,7 +4953,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiMajorAxisAccuracy.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiMajorAxisOrientation.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiMajorAxisOrientation.c.o: vanetza/asn1/its/SemiMajorAxisOrientation.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_358) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiMajorAxisOrientation.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_376) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiMajorAxisOrientation.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SemiMajorAxisOrientation.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SemiMajorAxisOrientation.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiMajorAxisOrientation.c.i: cmake_force
@@ -4732,7 +4966,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiMajorAxisOrientation.c.s: cmake_for
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiMinorAxisAccuracy.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiMinorAxisAccuracy.c.o: vanetza/asn1/its/SemiMinorAxisAccuracy.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_359) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiMinorAxisAccuracy.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_377) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiMinorAxisAccuracy.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SemiMinorAxisAccuracy.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SemiMinorAxisAccuracy.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiMinorAxisAccuracy.c.i: cmake_force
@@ -4745,7 +4979,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiMinorAxisAccuracy.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiRangeLength.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiRangeLength.c.o: vanetza/asn1/its/SemiRangeLength.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_360) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiRangeLength.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_378) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiRangeLength.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SemiRangeLength.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SemiRangeLength.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiRangeLength.c.i: cmake_force
@@ -4758,7 +4992,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SemiRangeLength.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorHeight.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorHeight.c.o: vanetza/asn1/its/SensorHeight.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_361) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorHeight.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_379) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorHeight.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SensorHeight.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SensorHeight.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorHeight.c.i: cmake_force
@@ -4771,7 +5005,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorHeight.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorIdList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorIdList.c.o: vanetza/asn1/its/SensorIdList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_362) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorIdList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_380) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorIdList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SensorIdList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SensorIdList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorIdList.c.i: cmake_force
@@ -4784,7 +5018,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorIdList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorInformation.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorInformation.c.o: vanetza/asn1/its/SensorInformation.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_363) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorInformation.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_381) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorInformation.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SensorInformation.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SensorInformation.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorInformation.c.i: cmake_force
@@ -4797,7 +5031,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorInformation.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorInformationContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorInformationContainer.c.o: vanetza/asn1/its/SensorInformationContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_364) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorInformationContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_382) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorInformationContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SensorInformationContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SensorInformationContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorInformationContainer.c.i: cmake_force
@@ -4810,7 +5044,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorInformationContainer.c.s: cmake_f
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorType.c.o: vanetza/asn1/its/SensorType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_365) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_383) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SensorType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SensorType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorType.c.i: cmake_force
@@ -4823,7 +5057,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SensorType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceNumber.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceNumber.c.o: vanetza/asn1/its/SequenceNumber.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_366) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceNumber.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_384) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceNumber.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SequenceNumber.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SequenceNumber.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceNumber.c.i: cmake_force
@@ -4836,7 +5070,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceNumber.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ServiceApplicationLimit.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ServiceApplicationLimit.c.o: vanetza/asn1/its/ServiceApplicationLimit.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_367) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ServiceApplicationLimit.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_385) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ServiceApplicationLimit.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ServiceApplicationLimit.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ServiceApplicationLimit.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ServiceApplicationLimit.c.i: cmake_force
@@ -4849,7 +5083,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ServiceApplicationLimit.c.s: cmake_forc
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ServiceNumber.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ServiceNumber.c.o: vanetza/asn1/its/ServiceNumber.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_368) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ServiceNumber.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_386) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ServiceNumber.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ServiceNumber.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ServiceNumber.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ServiceNumber.c.i: cmake_force
@@ -4860,9 +5094,48 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ServiceNumber.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/ServiceNumber.c.s"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ServiceNumber.c -o CMakeFiles/asn1_its.dir/its/ServiceNumber.c.s
 
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfTrajectoryInterceptionIndication.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfTrajectoryInterceptionIndication.c.o: vanetza/asn1/its/SequenceOfTrajectoryInterceptionIndication.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_387) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfTrajectoryInterceptionIndication.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SequenceOfTrajectoryInterceptionIndication.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SequenceOfTrajectoryInterceptionIndication.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfTrajectoryInterceptionIndication.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/SequenceOfTrajectoryInterceptionIndication.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SequenceOfTrajectoryInterceptionIndication.c > CMakeFiles/asn1_its.dir/its/SequenceOfTrajectoryInterceptionIndication.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfTrajectoryInterceptionIndication.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/SequenceOfTrajectoryInterceptionIndication.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SequenceOfTrajectoryInterceptionIndication.c -o CMakeFiles/asn1_its.dir/its/SequenceOfTrajectoryInterceptionIndication.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfVruPathPoint.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfVruPathPoint.c.o: vanetza/asn1/its/SequenceOfVruPathPoint.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_388) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfVruPathPoint.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SequenceOfVruPathPoint.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SequenceOfVruPathPoint.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfVruPathPoint.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/SequenceOfVruPathPoint.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SequenceOfVruPathPoint.c > CMakeFiles/asn1_its.dir/its/SequenceOfVruPathPoint.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfVruPathPoint.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/SequenceOfVruPathPoint.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SequenceOfVruPathPoint.c -o CMakeFiles/asn1_its.dir/its/SequenceOfVruPathPoint.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfVruSafeDistanceIndication.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfVruSafeDistanceIndication.c.o: vanetza/asn1/its/SequenceOfVruSafeDistanceIndication.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_389) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfVruSafeDistanceIndication.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SequenceOfVruSafeDistanceIndication.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SequenceOfVruSafeDistanceIndication.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfVruSafeDistanceIndication.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/SequenceOfVruSafeDistanceIndication.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SequenceOfVruSafeDistanceIndication.c > CMakeFiles/asn1_its.dir/its/SequenceOfVruSafeDistanceIndication.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfVruSafeDistanceIndication.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/SequenceOfVruSafeDistanceIndication.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SequenceOfVruSafeDistanceIndication.c -o CMakeFiles/asn1_its.dir/its/SequenceOfVruSafeDistanceIndication.c.s
+
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ShadowingApplies.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ShadowingApplies.c.o: vanetza/asn1/its/ShadowingApplies.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_369) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ShadowingApplies.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_390) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ShadowingApplies.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ShadowingApplies.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ShadowingApplies.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ShadowingApplies.c.i: cmake_force
@@ -4875,7 +5148,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ShadowingApplies.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalControlZone.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalControlZone.c.o: vanetza/asn1/its/SignalControlZone.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_370) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalControlZone.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_391) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalControlZone.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SignalControlZone.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SignalControlZone.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalControlZone.c.i: cmake_force
@@ -4888,7 +5161,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalControlZone.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalGroupID.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalGroupID.c.o: vanetza/asn1/its/SignalGroupID.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_371) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalGroupID.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_392) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalGroupID.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SignalGroupID.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SignalGroupID.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalGroupID.c.i: cmake_force
@@ -4901,7 +5174,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalGroupID.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalHeadLocation.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalHeadLocation.c.o: vanetza/asn1/its/SignalHeadLocation.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_372) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalHeadLocation.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_393) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalHeadLocation.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SignalHeadLocation.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SignalHeadLocation.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalHeadLocation.c.i: cmake_force
@@ -4914,7 +5187,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalHeadLocation.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalHeadLocationList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalHeadLocationList.c.o: vanetza/asn1/its/SignalHeadLocationList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_373) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalHeadLocationList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_394) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalHeadLocationList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SignalHeadLocationList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SignalHeadLocationList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalHeadLocationList.c.i: cmake_force
@@ -4927,7 +5200,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalHeadLocationList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequest.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequest.c.o: vanetza/asn1/its/SignalRequest.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_374) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequest.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_395) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequest.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SignalRequest.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SignalRequest.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequest.c.i: cmake_force
@@ -4940,7 +5213,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequest.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequestList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequestList.c.o: vanetza/asn1/its/SignalRequestList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_375) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequestList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_396) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequestList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SignalRequestList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SignalRequestList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequestList.c.i: cmake_force
@@ -4953,7 +5226,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequestList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequestMessage.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequestMessage.c.o: vanetza/asn1/its/SignalRequestMessage.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_376) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequestMessage.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_397) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequestMessage.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SignalRequestMessage.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SignalRequestMessage.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequestMessage.c.i: cmake_force
@@ -4966,7 +5239,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequestMessage.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequestPackage.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequestPackage.c.o: vanetza/asn1/its/SignalRequestPackage.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_377) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequestPackage.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_398) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequestPackage.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SignalRequestPackage.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SignalRequestPackage.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequestPackage.c.i: cmake_force
@@ -4979,7 +5252,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequestPackage.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequesterInfo.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequesterInfo.c.o: vanetza/asn1/its/SignalRequesterInfo.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_378) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequesterInfo.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_399) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequesterInfo.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SignalRequesterInfo.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SignalRequesterInfo.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequesterInfo.c.i: cmake_force
@@ -4992,7 +5265,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalRequesterInfo.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatus.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatus.c.o: vanetza/asn1/its/SignalStatus.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_379) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatus.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_400) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatus.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SignalStatus.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SignalStatus.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatus.c.i: cmake_force
@@ -5005,7 +5278,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatus.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusList.c.o: vanetza/asn1/its/SignalStatusList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_380) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_401) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SignalStatusList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SignalStatusList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusList.c.i: cmake_force
@@ -5018,7 +5291,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusMessage.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusMessage.c.o: vanetza/asn1/its/SignalStatusMessage.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_381) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusMessage.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_402) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusMessage.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SignalStatusMessage.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SignalStatusMessage.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusMessage.c.i: cmake_force
@@ -5031,7 +5304,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusMessage.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusPackage-addGrpC.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusPackage-addGrpC.c.o: vanetza/asn1/its/SignalStatusPackage-addGrpC.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_382) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusPackage-addGrpC.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_403) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusPackage-addGrpC.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SignalStatusPackage-addGrpC.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SignalStatusPackage-addGrpC.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusPackage-addGrpC.c.i: cmake_force
@@ -5044,7 +5317,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusPackage-addGrpC.c.s: cmake_
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusPackage.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusPackage.c.o: vanetza/asn1/its/SignalStatusPackage.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_383) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusPackage.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_404) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusPackage.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SignalStatusPackage.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SignalStatusPackage.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusPackage.c.i: cmake_force
@@ -5057,7 +5330,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusPackage.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusPackageList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusPackageList.c.o: vanetza/asn1/its/SignalStatusPackageList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_384) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusPackageList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_405) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusPackageList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SignalStatusPackageList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SignalStatusPackageList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusPackageList.c.i: cmake_force
@@ -5070,7 +5343,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalStatusPackageList.c.s: cmake_forc
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalViolationSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalViolationSubCauseCode.c.o: vanetza/asn1/its/SignalViolationSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_385) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalViolationSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_406) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalViolationSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SignalViolationSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SignalViolationSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalViolationSubCauseCode.c.i: cmake_force
@@ -5083,7 +5356,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalViolationSubCauseCode.c.s: cmake_
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SituationContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SituationContainer.c.o: vanetza/asn1/its/SituationContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_386) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SituationContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_407) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SituationContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SituationContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SituationContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SituationContainer.c.i: cmake_force
@@ -5096,7 +5369,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SituationContainer.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SlowVehicleSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SlowVehicleSubCauseCode.c.o: vanetza/asn1/its/SlowVehicleSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_387) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SlowVehicleSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_408) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SlowVehicleSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SlowVehicleSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SlowVehicleSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SlowVehicleSubCauseCode.c.i: cmake_force
@@ -5109,7 +5382,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SlowVehicleSubCauseCode.c.s: cmake_forc
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpecialTransportContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpecialTransportContainer.c.o: vanetza/asn1/its/SpecialTransportContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_388) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpecialTransportContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_409) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpecialTransportContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SpecialTransportContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SpecialTransportContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpecialTransportContainer.c.i: cmake_force
@@ -5122,7 +5395,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpecialTransportContainer.c.s: cmake_fo
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpecialTransportType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpecialTransportType.c.o: vanetza/asn1/its/SpecialTransportType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_389) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpecialTransportType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_410) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpecialTransportType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SpecialTransportType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SpecialTransportType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpecialTransportType.c.i: cmake_force
@@ -5135,7 +5408,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpecialTransportType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpecialVehicleContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpecialVehicleContainer.c.o: vanetza/asn1/its/SpecialVehicleContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_390) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpecialVehicleContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_411) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpecialVehicleContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SpecialVehicleContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SpecialVehicleContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpecialVehicleContainer.c.i: cmake_force
@@ -5148,7 +5421,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpecialVehicleContainer.c.s: cmake_forc
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Speed.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Speed.c.o: vanetza/asn1/its/Speed.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_391) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Speed.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_412) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Speed.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Speed.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Speed.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Speed.c.i: cmake_force
@@ -5161,7 +5434,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Speed.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedAdvice.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedAdvice.c.o: vanetza/asn1/its/SpeedAdvice.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_392) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedAdvice.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_413) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedAdvice.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SpeedAdvice.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SpeedAdvice.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedAdvice.c.i: cmake_force
@@ -5174,7 +5447,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedAdvice.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedConfidence.c.o: vanetza/asn1/its/SpeedConfidence.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_393) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedConfidence.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_414) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedConfidence.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SpeedConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SpeedConfidence.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedConfidence.c.i: cmake_force
@@ -5187,7 +5460,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedConfidence.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedConfidenceIso.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedConfidenceIso.c.o: vanetza/asn1/its/SpeedConfidenceIso.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_394) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedConfidenceIso.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_415) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedConfidenceIso.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SpeedConfidenceIso.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SpeedConfidenceIso.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedConfidenceIso.c.i: cmake_force
@@ -5200,7 +5473,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedConfidenceIso.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedExtended.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedExtended.c.o: vanetza/asn1/its/SpeedExtended.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_395) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedExtended.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_416) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedExtended.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SpeedExtended.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SpeedExtended.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedExtended.c.i: cmake_force
@@ -5213,7 +5486,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedExtended.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedLimit.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedLimit.c.o: vanetza/asn1/its/SpeedLimit.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_396) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedLimit.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_417) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedLimit.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SpeedLimit.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SpeedLimit.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedLimit.c.i: cmake_force
@@ -5226,7 +5499,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedLimit.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedLimitList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedLimitList.c.o: vanetza/asn1/its/SpeedLimitList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_397) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedLimitList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_418) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedLimitList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SpeedLimitList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SpeedLimitList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedLimitList.c.i: cmake_force
@@ -5239,7 +5512,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedLimitList.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedLimitType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedLimitType.c.o: vanetza/asn1/its/SpeedLimitType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_398) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedLimitType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_419) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedLimitType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SpeedLimitType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SpeedLimitType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedLimitType.c.i: cmake_force
@@ -5252,7 +5525,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedLimitType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedValue.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedValue.c.o: vanetza/asn1/its/SpeedValue.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_399) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedValue.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_420) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedValue.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SpeedValue.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SpeedValue.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedValue.c.i: cmake_force
@@ -5265,7 +5538,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedValue.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedValueExtended.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedValueExtended.c.o: vanetza/asn1/its/SpeedValueExtended.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_400) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedValueExtended.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_421) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedValueExtended.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SpeedValueExtended.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SpeedValueExtended.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedValueExtended.c.i: cmake_force
@@ -5278,7 +5551,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedValueExtended.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedandHeadingIsoandThrottleConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedandHeadingIsoandThrottleConfidence.c.o: vanetza/asn1/its/SpeedandHeadingIsoandThrottleConfidence.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_401) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedandHeadingIsoandThrottleConfidence.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_422) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedandHeadingIsoandThrottleConfidence.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SpeedandHeadingIsoandThrottleConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SpeedandHeadingIsoandThrottleConfidence.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedandHeadingIsoandThrottleConfidence.c.i: cmake_force
@@ -5291,7 +5564,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedandHeadingIsoandThrottleConfidence
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StartTime.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StartTime.c.o: vanetza/asn1/its/StartTime.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_402) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/StartTime.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_423) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/StartTime.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/StartTime.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/StartTime.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StartTime.c.i: cmake_force
@@ -5302,9 +5575,35 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/StartTime.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/StartTime.c.s"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/StartTime.c -o CMakeFiles/asn1_its.dir/its/StartTime.c.s
 
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/StabilityChangeIndication.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/StabilityChangeIndication.c.o: vanetza/asn1/its/StabilityChangeIndication.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_424) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/StabilityChangeIndication.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/StabilityChangeIndication.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/StabilityChangeIndication.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/StabilityChangeIndication.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/StabilityChangeIndication.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/StabilityChangeIndication.c > CMakeFiles/asn1_its.dir/its/StabilityChangeIndication.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/StabilityChangeIndication.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/StabilityChangeIndication.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/StabilityChangeIndication.c -o CMakeFiles/asn1_its.dir/its/StabilityChangeIndication.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/StabilityLossProbability.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/StabilityLossProbability.c.o: vanetza/asn1/its/StabilityLossProbability.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_425) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/StabilityLossProbability.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/StabilityLossProbability.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/StabilityLossProbability.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/StabilityLossProbability.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/StabilityLossProbability.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/StabilityLossProbability.c > CMakeFiles/asn1_its.dir/its/StabilityLossProbability.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/StabilityLossProbability.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/StabilityLossProbability.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/StabilityLossProbability.c -o CMakeFiles/asn1_its.dir/its/StabilityLossProbability.c.s
+
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationDataContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationDataContainer.c.o: vanetza/asn1/its/StationDataContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_403) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationDataContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_426) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationDataContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/StationDataContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/StationDataContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationDataContainer.c.i: cmake_force
@@ -5317,7 +5616,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationDataContainer.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationID.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationID.c.o: vanetza/asn1/its/StationID.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_404) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationID.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_427) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationID.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/StationID.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/StationID.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationID.c.i: cmake_force
@@ -5328,9 +5627,22 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationID.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/StationID.c.s"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/StationID.c -o CMakeFiles/asn1_its.dir/its/StationID.c.s
 
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationSafeDistanceIndication.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationSafeDistanceIndication.c.o: vanetza/asn1/its/StationSafeDistanceIndication.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_428) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationSafeDistanceIndication.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/StationSafeDistanceIndication.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/StationSafeDistanceIndication.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationSafeDistanceIndication.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/StationSafeDistanceIndication.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/StationSafeDistanceIndication.c > CMakeFiles/asn1_its.dir/its/StationSafeDistanceIndication.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationSafeDistanceIndication.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/StationSafeDistanceIndication.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/StationSafeDistanceIndication.c -o CMakeFiles/asn1_its.dir/its/StationSafeDistanceIndication.c.s
+
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationType.c.o: vanetza/asn1/its/StationType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_405) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_429) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/StationType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/StationType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationType.c.i: cmake_force
@@ -5343,7 +5655,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationarySince.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationarySince.c.o: vanetza/asn1/its/StationarySince.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_406) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationarySince.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_430) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationarySince.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/StationarySince.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/StationarySince.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationarySince.c.i: cmake_force
@@ -5356,7 +5668,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationarySince.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationaryVehicleContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationaryVehicleContainer.c.o: vanetza/asn1/its/StationaryVehicleContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_407) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationaryVehicleContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_431) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationaryVehicleContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/StationaryVehicleContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/StationaryVehicleContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationaryVehicleContainer.c.i: cmake_force
@@ -5369,7 +5681,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationaryVehicleContainer.c.s: cmake_f
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationaryVehicleSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationaryVehicleSubCauseCode.c.o: vanetza/asn1/its/StationaryVehicleSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_408) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationaryVehicleSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_432) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationaryVehicleSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/StationaryVehicleSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/StationaryVehicleSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationaryVehicleSubCauseCode.c.i: cmake_force
@@ -5382,7 +5694,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationaryVehicleSubCauseCode.c.s: cmak
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SteeringWheelAngle.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SteeringWheelAngle.c.o: vanetza/asn1/its/SteeringWheelAngle.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_409) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SteeringWheelAngle.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_433) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SteeringWheelAngle.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SteeringWheelAngle.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SteeringWheelAngle.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SteeringWheelAngle.c.i: cmake_force
@@ -5395,7 +5707,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SteeringWheelAngle.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SteeringWheelAngleConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SteeringWheelAngleConfidence.c.o: vanetza/asn1/its/SteeringWheelAngleConfidence.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_410) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SteeringWheelAngleConfidence.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_434) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SteeringWheelAngleConfidence.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SteeringWheelAngleConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SteeringWheelAngleConfidence.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SteeringWheelAngleConfidence.c.i: cmake_force
@@ -5408,7 +5720,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SteeringWheelAngleConfidence.c.s: cmake
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SteeringWheelAngleValue.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SteeringWheelAngleValue.c.o: vanetza/asn1/its/SteeringWheelAngleValue.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_411) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SteeringWheelAngleValue.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_435) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SteeringWheelAngleValue.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SteeringWheelAngleValue.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SteeringWheelAngleValue.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SteeringWheelAngleValue.c.i: cmake_force
@@ -5421,7 +5733,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SteeringWheelAngleValue.c.s: cmake_forc
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StopTime.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StopTime.c.o: vanetza/asn1/its/StopTime.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_412) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/StopTime.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_436) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/StopTime.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/StopTime.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/StopTime.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/StopTime.c.i: cmake_force
@@ -5434,7 +5746,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/StopTime.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SubCauseCodeType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SubCauseCodeType.c.o: vanetza/asn1/its/SubCauseCodeType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_413) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SubCauseCodeType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_437) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/SubCauseCodeType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/SubCauseCodeType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/SubCauseCodeType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/SubCauseCodeType.c.i: cmake_force
@@ -5447,7 +5759,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/SubCauseCodeType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TaxCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TaxCode.c.o: vanetza/asn1/its/TaxCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_414) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TaxCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_438) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TaxCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TaxCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TaxCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TaxCode.c.i: cmake_force
@@ -5460,7 +5772,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/TaxCode.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Temperature.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Temperature.c.o: vanetza/asn1/its/Temperature.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_415) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Temperature.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_439) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Temperature.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Temperature.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Temperature.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Temperature.c.i: cmake_force
@@ -5473,7 +5785,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Temperature.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TemporaryID.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TemporaryID.c.o: vanetza/asn1/its/TemporaryID.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_416) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TemporaryID.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_440) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TemporaryID.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TemporaryID.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TemporaryID.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TemporaryID.c.i: cmake_force
@@ -5486,7 +5798,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/TemporaryID.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Termination.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Termination.c.o: vanetza/asn1/its/Termination.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_417) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Termination.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_441) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Termination.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Termination.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Termination.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Termination.c.i: cmake_force
@@ -5499,7 +5811,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Termination.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ThrottleConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ThrottleConfidence.c.o: vanetza/asn1/its/ThrottleConfidence.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_418) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ThrottleConfidence.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_442) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ThrottleConfidence.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ThrottleConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ThrottleConfidence.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ThrottleConfidence.c.i: cmake_force
@@ -5512,7 +5824,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ThrottleConfidence.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeChangeDetails.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeChangeDetails.c.o: vanetza/asn1/its/TimeChangeDetails.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_419) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeChangeDetails.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_443) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeChangeDetails.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TimeChangeDetails.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TimeChangeDetails.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeChangeDetails.c.i: cmake_force
@@ -5525,7 +5837,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeChangeDetails.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeConfidence.c.o: vanetza/asn1/its/TimeConfidence.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_420) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeConfidence.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_444) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeConfidence.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TimeConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TimeConfidence.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeConfidence.c.i: cmake_force
@@ -5538,7 +5850,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeConfidence.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeIntervalConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeIntervalConfidence.c.o: vanetza/asn1/its/TimeIntervalConfidence.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_421) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeIntervalConfidence.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_445) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeIntervalConfidence.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TimeIntervalConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TimeIntervalConfidence.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeIntervalConfidence.c.i: cmake_force
@@ -5551,7 +5863,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeIntervalConfidence.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeMark.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeMark.c.o: vanetza/asn1/its/TimeMark.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_422) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeMark.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_446) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeMark.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TimeMark.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TimeMark.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeMark.c.i: cmake_force
@@ -5564,7 +5876,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeMark.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeOfMeasurement.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeOfMeasurement.c.o: vanetza/asn1/its/TimeOfMeasurement.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_423) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeOfMeasurement.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_447) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeOfMeasurement.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TimeOfMeasurement.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TimeOfMeasurement.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeOfMeasurement.c.i: cmake_force
@@ -5577,7 +5889,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeOfMeasurement.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeReference.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeReference.c.o: vanetza/asn1/its/TimeReference.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_424) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeReference.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_448) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeReference.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TimeReference.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TimeReference.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeReference.c.i: cmake_force
@@ -5590,7 +5902,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeReference.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimestampIts.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimestampIts.c.o: vanetza/asn1/its/TimestampIts.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_425) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimestampIts.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_449) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimestampIts.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TimestampIts.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TimestampIts.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimestampIts.c.i: cmake_force
@@ -5603,7 +5915,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimestampIts.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Traces.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Traces.c.o: vanetza/asn1/its/Traces.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_426) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Traces.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_450) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Traces.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Traces.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Traces.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Traces.c.i: cmake_force
@@ -5616,7 +5928,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Traces.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficConditionSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficConditionSubCauseCode.c.o: vanetza/asn1/its/TrafficConditionSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_427) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficConditionSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_451) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficConditionSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TrafficConditionSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TrafficConditionSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficConditionSubCauseCode.c.i: cmake_force
@@ -5627,9 +5939,22 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficConditionSubCauseCode.c.s: cmake
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/TrafficConditionSubCauseCode.c.s"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TrafficConditionSubCauseCode.c -o CMakeFiles/asn1_its.dir/its/TrafficConditionSubCauseCode.c.s
 
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficIslandPosition.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficIslandPosition.c.o: vanetza/asn1/its/TrafficIslandPosition.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_452) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficIslandPosition.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TrafficIslandPosition.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TrafficIslandPosition.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficIslandPosition.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/TrafficIslandPosition.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TrafficIslandPosition.c > CMakeFiles/asn1_its.dir/its/TrafficIslandPosition.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficIslandPosition.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/TrafficIslandPosition.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TrafficIslandPosition.c -o CMakeFiles/asn1_its.dir/its/TrafficIslandPosition.c.s
+
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficRule.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficRule.c.o: vanetza/asn1/its/TrafficRule.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_428) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficRule.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_453) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficRule.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TrafficRule.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TrafficRule.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficRule.c.i: cmake_force
@@ -5642,7 +5967,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficRule.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrailerData.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrailerData.c.o: vanetza/asn1/its/TrailerData.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_429) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrailerData.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_454) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrailerData.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TrailerData.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TrailerData.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrailerData.c.i: cmake_force
@@ -5655,7 +5980,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrailerData.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrailerDataContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrailerDataContainer.c.o: vanetza/asn1/its/TrailerDataContainer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_430) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrailerDataContainer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_455) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrailerDataContainer.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TrailerDataContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TrailerDataContainer.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrailerDataContainer.c.i: cmake_force
@@ -5668,7 +5993,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrailerDataContainer.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransitVehicleOccupancy.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransitVehicleOccupancy.c.o: vanetza/asn1/its/TransitVehicleOccupancy.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_431) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransitVehicleOccupancy.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_456) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransitVehicleOccupancy.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TransitVehicleOccupancy.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TransitVehicleOccupancy.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransitVehicleOccupancy.c.i: cmake_force
@@ -5681,7 +6006,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransitVehicleOccupancy.c.s: cmake_forc
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransitVehicleStatus.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransitVehicleStatus.c.o: vanetza/asn1/its/TransitVehicleStatus.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_432) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransitVehicleStatus.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_457) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransitVehicleStatus.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TransitVehicleStatus.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TransitVehicleStatus.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransitVehicleStatus.c.i: cmake_force
@@ -5694,7 +6019,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransitVehicleStatus.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransmissionAndSpeed.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransmissionAndSpeed.c.o: vanetza/asn1/its/TransmissionAndSpeed.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_433) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransmissionAndSpeed.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_458) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransmissionAndSpeed.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TransmissionAndSpeed.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TransmissionAndSpeed.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransmissionAndSpeed.c.i: cmake_force
@@ -5705,9 +6030,48 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransmissionAndSpeed.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/TransmissionAndSpeed.c.s"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TransmissionAndSpeed.c -o CMakeFiles/asn1_its.dir/its/TransmissionAndSpeed.c.s
 
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionConfidence.c.o: vanetza/asn1/its/TrajectoryInterceptionConfidence.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_459) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionConfidence.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TrajectoryInterceptionConfidence.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionConfidence.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionConfidence.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TrajectoryInterceptionConfidence.c > CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionConfidence.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionConfidence.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionConfidence.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TrajectoryInterceptionConfidence.c -o CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionConfidence.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionIndication.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionIndication.c.o: vanetza/asn1/its/TrajectoryInterceptionIndication.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_460) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionIndication.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionIndication.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TrajectoryInterceptionIndication.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionIndication.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionIndication.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TrajectoryInterceptionIndication.c > CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionIndication.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionIndication.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionIndication.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TrajectoryInterceptionIndication.c -o CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionIndication.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionProbability.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionProbability.c.o: vanetza/asn1/its/TrajectoryInterceptionProbability.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_461) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionProbability.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionProbability.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TrajectoryInterceptionProbability.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionProbability.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionProbability.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TrajectoryInterceptionProbability.c > CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionProbability.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionProbability.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionProbability.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TrajectoryInterceptionProbability.c -o CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionProbability.c.s
+
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransmissionInterval.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransmissionInterval.c.o: vanetza/asn1/its/TransmissionInterval.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_434) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransmissionInterval.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_462) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransmissionInterval.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TransmissionInterval.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TransmissionInterval.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransmissionInterval.c.i: cmake_force
@@ -5720,7 +6084,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransmissionInterval.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransmissionState.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransmissionState.c.o: vanetza/asn1/its/TransmissionState.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_435) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransmissionState.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_463) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransmissionState.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TransmissionState.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TransmissionState.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransmissionState.c.i: cmake_force
@@ -5733,7 +6097,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransmissionState.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TurningRadius.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TurningRadius.c.o: vanetza/asn1/its/TurningRadius.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_436) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TurningRadius.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_464) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/TurningRadius.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/TurningRadius.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TurningRadius.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/TurningRadius.c.i: cmake_force
@@ -5744,9 +6108,22 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/TurningRadius.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/TurningRadius.c.s"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/TurningRadius.c -o CMakeFiles/asn1_its.dir/its/TurningRadius.c.s
 
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VAM.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VAM.c.o: vanetza/asn1/its/VAM.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_465) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VAM.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VAM.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VAM.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VAM.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VAM.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VAM.c > CMakeFiles/asn1_its.dir/its/VAM.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VAM.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VAM.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VAM.c -o CMakeFiles/asn1_its.dir/its/VAM.c.s
+
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VDS.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VDS.c.o: vanetza/asn1/its/VDS.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_437) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VDS.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_466) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VDS.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VDS.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VDS.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VDS.c.i: cmake_force
@@ -5759,7 +6136,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/VDS.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ValidityDuration.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ValidityDuration.c.o: vanetza/asn1/its/ValidityDuration.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_438) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ValidityDuration.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_467) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ValidityDuration.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ValidityDuration.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ValidityDuration.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ValidityDuration.c.i: cmake_force
@@ -5770,9 +6147,22 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ValidityDuration.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/ValidityDuration.c.s"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ValidityDuration.c -o CMakeFiles/asn1_its.dir/its/ValidityDuration.c.s
 
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VamParameters.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VamParameters.c.o: vanetza/asn1/its/VamParameters.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_468) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VamParameters.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VamParameters.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VamParameters.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VamParameters.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VamParameters.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VamParameters.c > CMakeFiles/asn1_its.dir/its/VamParameters.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VamParameters.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VamParameters.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VamParameters.c -o CMakeFiles/asn1_its.dir/its/VamParameters.c.s
+
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VanetzaTest.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VanetzaTest.c.o: vanetza/asn1/its/VanetzaTest.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_439) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VanetzaTest.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_469) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VanetzaTest.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VanetzaTest.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VanetzaTest.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VanetzaTest.c.i: cmake_force
@@ -5785,7 +6175,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/VanetzaTest.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleBreakdownSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleBreakdownSubCauseCode.c.o: vanetza/asn1/its/VehicleBreakdownSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_440) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleBreakdownSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_470) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleBreakdownSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VehicleBreakdownSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VehicleBreakdownSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleBreakdownSubCauseCode.c.i: cmake_force
@@ -5798,7 +6188,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleBreakdownSubCauseCode.c.s: cmake
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleHeight.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleHeight.c.o: vanetza/asn1/its/VehicleHeight.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_441) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleHeight.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_471) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleHeight.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VehicleHeight.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VehicleHeight.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleHeight.c.i: cmake_force
@@ -5811,7 +6201,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleHeight.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleID.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleID.c.o: vanetza/asn1/its/VehicleID.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_442) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleID.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_472) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleID.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VehicleID.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VehicleID.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleID.c.i: cmake_force
@@ -5824,7 +6214,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleID.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleIdentification.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleIdentification.c.o: vanetza/asn1/its/VehicleIdentification.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_443) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleIdentification.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_473) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleIdentification.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VehicleIdentification.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VehicleIdentification.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleIdentification.c.i: cmake_force
@@ -5837,7 +6227,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleIdentification.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleLength.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleLength.c.o: vanetza/asn1/its/VehicleLength.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_444) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleLength.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_474) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleLength.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VehicleLength.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VehicleLength.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleLength.c.i: cmake_force
@@ -5850,7 +6240,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleLength.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleLengthConfidenceIndication.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleLengthConfidenceIndication.c.o: vanetza/asn1/its/VehicleLengthConfidenceIndication.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_445) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleLengthConfidenceIndication.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_475) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleLengthConfidenceIndication.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VehicleLengthConfidenceIndication.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VehicleLengthConfidenceIndication.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleLengthConfidenceIndication.c.i: cmake_force
@@ -5863,7 +6253,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleLengthConfidenceIndication.c.s: 
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleLengthValue.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleLengthValue.c.o: vanetza/asn1/its/VehicleLengthValue.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_446) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleLengthValue.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_476) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleLengthValue.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VehicleLengthValue.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VehicleLengthValue.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleLengthValue.c.i: cmake_force
@@ -5876,7 +6266,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleLengthValue.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleMass.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleMass.c.o: vanetza/asn1/its/VehicleMass.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_447) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleMass.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_477) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleMass.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VehicleMass.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VehicleMass.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleMass.c.i: cmake_force
@@ -5889,7 +6279,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleMass.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleRole.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleRole.c.o: vanetza/asn1/its/VehicleRole.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_448) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleRole.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_478) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleRole.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VehicleRole.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VehicleRole.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleRole.c.i: cmake_force
@@ -5902,7 +6292,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleRole.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSensor.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSensor.c.o: vanetza/asn1/its/VehicleSensor.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_449) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSensor.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_479) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSensor.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VehicleSensor.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VehicleSensor.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSensor.c.i: cmake_force
@@ -5915,7 +6305,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSensor.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSensorProperties.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSensorProperties.c.o: vanetza/asn1/its/VehicleSensorProperties.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_450) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSensorProperties.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_480) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSensorProperties.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VehicleSensorProperties.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VehicleSensorProperties.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSensorProperties.c.i: cmake_force
@@ -5928,7 +6318,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSensorProperties.c.s: cmake_forc
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSensorPropertyList.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSensorPropertyList.c.o: vanetza/asn1/its/VehicleSensorPropertyList.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_451) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSensorPropertyList.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_481) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSensorPropertyList.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VehicleSensorPropertyList.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VehicleSensorPropertyList.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSensorPropertyList.c.i: cmake_force
@@ -5941,7 +6331,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSensorPropertyList.c.s: cmake_fo
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSubclass.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSubclass.c.o: vanetza/asn1/its/VehicleSubclass.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_452) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSubclass.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_482) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSubclass.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VehicleSubclass.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VehicleSubclass.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSubclass.c.i: cmake_force
@@ -5954,7 +6344,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSubclass.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSubclassType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSubclassType.c.o: vanetza/asn1/its/VehicleSubclassType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_453) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSubclassType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_483) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSubclassType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VehicleSubclassType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VehicleSubclassType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSubclassType.c.i: cmake_force
@@ -5967,7 +6357,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleSubclassType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleType.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleType.c.o: vanetza/asn1/its/VehicleType.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_454) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleType.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_484) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleType.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VehicleType.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VehicleType.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleType.c.i: cmake_force
@@ -5980,7 +6370,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleType.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleWidth.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleWidth.c.o: vanetza/asn1/its/VehicleWidth.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_455) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleWidth.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_485) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleWidth.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VehicleWidth.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VehicleWidth.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleWidth.c.i: cmake_force
@@ -5993,7 +6383,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleWidth.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Velocity.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Velocity.c.o: vanetza/asn1/its/Velocity.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_456) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Velocity.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_486) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/Velocity.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/Velocity.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/Velocity.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/Velocity.c.i: cmake_force
@@ -6006,7 +6396,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/Velocity.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VerticalAcceleration.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VerticalAcceleration.c.o: vanetza/asn1/its/VerticalAcceleration.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_457) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VerticalAcceleration.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_487) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VerticalAcceleration.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VerticalAcceleration.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VerticalAcceleration.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VerticalAcceleration.c.i: cmake_force
@@ -6019,7 +6409,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/VerticalAcceleration.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VerticalAccelerationValue.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VerticalAccelerationValue.c.o: vanetza/asn1/its/VerticalAccelerationValue.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_458) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VerticalAccelerationValue.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_488) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VerticalAccelerationValue.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VerticalAccelerationValue.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VerticalAccelerationValue.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/VerticalAccelerationValue.c.i: cmake_force
@@ -6030,9 +6420,321 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/VerticalAccelerationValue.c.s: cmake_fo
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VerticalAccelerationValue.c.s"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VerticalAccelerationValue.c -o CMakeFiles/asn1_its.dir/its/VerticalAccelerationValue.c.s
 
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruAwareness.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruAwareness.c.o: vanetza/asn1/its/VruAwareness.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_489) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruAwareness.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruAwareness.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruAwareness.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruAwareness.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruAwareness.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruAwareness.c > CMakeFiles/asn1_its.dir/its/VruAwareness.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruAwareness.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruAwareness.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruAwareness.c -o CMakeFiles/asn1_its.dir/its/VruAwareness.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterInformationContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterInformationContainer.c.o: vanetza/asn1/its/VruClusterInformationContainer.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_490) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterInformationContainer.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruClusterInformationContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruClusterInformationContainer.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterInformationContainer.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruClusterInformationContainer.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruClusterInformationContainer.c > CMakeFiles/asn1_its.dir/its/VruClusterInformationContainer.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterInformationContainer.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruClusterInformationContainer.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruClusterInformationContainer.c -o CMakeFiles/asn1_its.dir/its/VruClusterInformationContainer.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterOpTimestamp.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterOpTimestamp.c.o: vanetza/asn1/its/VruClusterOpTimestamp.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_491) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterOpTimestamp.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruClusterOpTimestamp.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruClusterOpTimestamp.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterOpTimestamp.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruClusterOpTimestamp.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruClusterOpTimestamp.c > CMakeFiles/asn1_its.dir/its/VruClusterOpTimestamp.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterOpTimestamp.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruClusterOpTimestamp.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruClusterOpTimestamp.c -o CMakeFiles/asn1_its.dir/its/VruClusterOpTimestamp.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterOperationContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterOperationContainer.c.o: vanetza/asn1/its/VruClusterOperationContainer.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_492) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterOperationContainer.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruClusterOperationContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruClusterOperationContainer.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterOperationContainer.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruClusterOperationContainer.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruClusterOperationContainer.c > CMakeFiles/asn1_its.dir/its/VruClusterOperationContainer.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterOperationContainer.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruClusterOperationContainer.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruClusterOperationContainer.c -o CMakeFiles/asn1_its.dir/its/VruClusterOperationContainer.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruDeviceUsage.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruDeviceUsage.c.o: vanetza/asn1/its/VruDeviceUsage.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_493) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruDeviceUsage.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruDeviceUsage.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruDeviceUsage.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruDeviceUsage.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruDeviceUsage.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruDeviceUsage.c > CMakeFiles/asn1_its.dir/its/VruDeviceUsage.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruDeviceUsage.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruDeviceUsage.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruDeviceUsage.c -o CMakeFiles/asn1_its.dir/its/VruDeviceUsage.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruEnvironment.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruEnvironment.c.o: vanetza/asn1/its/VruEnvironment.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_494) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruEnvironment.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruEnvironment.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruEnvironment.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruEnvironment.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruEnvironment.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruEnvironment.c > CMakeFiles/asn1_its.dir/its/VruEnvironment.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruEnvironment.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruEnvironment.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruEnvironment.c -o CMakeFiles/asn1_its.dir/its/VruEnvironment.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruExteriorLights.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruExteriorLights.c.o: vanetza/asn1/its/VruExteriorLights.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_495) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruExteriorLights.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruExteriorLights.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruExteriorLights.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruExteriorLights.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruExteriorLights.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruExteriorLights.c > CMakeFiles/asn1_its.dir/its/VruExteriorLights.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruExteriorLights.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruExteriorLights.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruExteriorLights.c -o CMakeFiles/asn1_its.dir/its/VruExteriorLights.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruHighFrequencyContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruHighFrequencyContainer.c.o: vanetza/asn1/its/VruHighFrequencyContainer.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_496) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruHighFrequencyContainer.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruHighFrequencyContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruHighFrequencyContainer.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruHighFrequencyContainer.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruHighFrequencyContainer.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruHighFrequencyContainer.c > CMakeFiles/asn1_its.dir/its/VruHighFrequencyContainer.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruHighFrequencyContainer.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruHighFrequencyContainer.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruHighFrequencyContainer.c -o CMakeFiles/asn1_its.dir/its/VruHighFrequencyContainer.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruLanePosition.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruLanePosition.c.o: vanetza/asn1/its/VruLanePosition.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_497) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruLanePosition.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruLanePosition.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruLanePosition.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruLanePosition.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruLanePosition.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruLanePosition.c > CMakeFiles/asn1_its.dir/its/VruLanePosition.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruLanePosition.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruLanePosition.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruLanePosition.c -o CMakeFiles/asn1_its.dir/its/VruLanePosition.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruLowFrequencyContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruLowFrequencyContainer.c.o: vanetza/asn1/its/VruLowFrequencyContainer.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_498) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruLowFrequencyContainer.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruLowFrequencyContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruLowFrequencyContainer.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruLowFrequencyContainer.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruLowFrequencyContainer.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruLowFrequencyContainer.c > CMakeFiles/asn1_its.dir/its/VruLowFrequencyContainer.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruLowFrequencyContainer.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruLowFrequencyContainer.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruLowFrequencyContainer.c -o CMakeFiles/asn1_its.dir/its/VruLowFrequencyContainer.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruMotionPredictionContainer.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruMotionPredictionContainer.c.o: vanetza/asn1/its/VruMotionPredictionContainer.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_499) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruMotionPredictionContainer.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruMotionPredictionContainer.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruMotionPredictionContainer.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruMotionPredictionContainer.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruMotionPredictionContainer.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruMotionPredictionContainer.c > CMakeFiles/asn1_its.dir/its/VruMotionPredictionContainer.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruMotionPredictionContainer.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruMotionPredictionContainer.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruMotionPredictionContainer.c -o CMakeFiles/asn1_its.dir/its/VruMotionPredictionContainer.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruMovementControl.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruMovementControl.c.o: vanetza/asn1/its/VruMovementControl.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_500) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruMovementControl.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruMovementControl.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruMovementControl.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruMovementControl.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruMovementControl.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruMovementControl.c > CMakeFiles/asn1_its.dir/its/VruMovementControl.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruMovementControl.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruMovementControl.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruMovementControl.c -o CMakeFiles/asn1_its.dir/its/VruMovementControl.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruOrientation.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruOrientation.c.o: vanetza/asn1/its/VruOrientation.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_501) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruOrientation.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruOrientation.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruOrientation.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruOrientation.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruOrientation.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruOrientation.c > CMakeFiles/asn1_its.dir/its/VruOrientation.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruOrientation.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruOrientation.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruOrientation.c -o CMakeFiles/asn1_its.dir/its/VruOrientation.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruPathPoint.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruPathPoint.c.o: vanetza/asn1/its/VruPathPoint.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_502) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruPathPoint.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruPathPoint.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruPathPoint.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruPathPoint.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruPathPoint.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruPathPoint.c > CMakeFiles/asn1_its.dir/its/VruPathPoint.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruPathPoint.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruPathPoint.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruPathPoint.c -o CMakeFiles/asn1_its.dir/its/VruPathPoint.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruProfile.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruProfile.c.o: vanetza/asn1/its/VruProfile.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_503) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruProfile.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruProfile.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruProfile.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruProfile.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruProfile.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruProfile.c > CMakeFiles/asn1_its.dir/its/VruProfile.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruProfile.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruProfile.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruProfile.c -o CMakeFiles/asn1_its.dir/its/VruProfile.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruProfileAndSubprofile.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruProfileAndSubprofile.c.o: vanetza/asn1/its/VruProfileAndSubprofile.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_504) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruProfileAndSubprofile.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruProfileAndSubprofile.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruProfileAndSubprofile.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruProfileAndSubprofile.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruProfileAndSubprofile.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruProfileAndSubprofile.c > CMakeFiles/asn1_its.dir/its/VruProfileAndSubprofile.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruProfileAndSubprofile.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruProfileAndSubprofile.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruProfileAndSubprofile.c -o CMakeFiles/asn1_its.dir/its/VruProfileAndSubprofile.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruRollAngle.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruRollAngle.c.o: vanetza/asn1/its/VruRollAngle.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_505) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruRollAngle.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruRollAngle.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruRollAngle.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruRollAngle.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruRollAngle.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruRollAngle.c > CMakeFiles/asn1_its.dir/its/VruRollAngle.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruRollAngle.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruRollAngle.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruRollAngle.c -o CMakeFiles/asn1_its.dir/its/VruRollAngle.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSafeDistanceIndication.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSafeDistanceIndication.c.o: vanetza/asn1/its/VruSafeDistanceIndication.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_506) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSafeDistanceIndication.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruSafeDistanceIndication.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruSafeDistanceIndication.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSafeDistanceIndication.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruSafeDistanceIndication.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruSafeDistanceIndication.c > CMakeFiles/asn1_its.dir/its/VruSafeDistanceIndication.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSafeDistanceIndication.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruSafeDistanceIndication.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruSafeDistanceIndication.c -o CMakeFiles/asn1_its.dir/its/VruSafeDistanceIndication.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSizeClass.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSizeClass.c.o: vanetza/asn1/its/VruSizeClass.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_507) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSizeClass.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruSizeClass.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruSizeClass.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSizeClass.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruSizeClass.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruSizeClass.c > CMakeFiles/asn1_its.dir/its/VruSizeClass.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSizeClass.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruSizeClass.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruSizeClass.c -o CMakeFiles/asn1_its.dir/its/VruSizeClass.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSpecificExteriorLights.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSpecificExteriorLights.c.o: vanetza/asn1/its/VruSpecificExteriorLights.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_508) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSpecificExteriorLights.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruSpecificExteriorLights.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruSpecificExteriorLights.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSpecificExteriorLights.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruSpecificExteriorLights.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruSpecificExteriorLights.c > CMakeFiles/asn1_its.dir/its/VruSpecificExteriorLights.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSpecificExteriorLights.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruSpecificExteriorLights.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruSpecificExteriorLights.c -o CMakeFiles/asn1_its.dir/its/VruSpecificExteriorLights.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileAnimal.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileAnimal.c.o: vanetza/asn1/its/VruSubProfileAnimal.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_509) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileAnimal.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruSubProfileAnimal.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruSubProfileAnimal.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileAnimal.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruSubProfileAnimal.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruSubProfileAnimal.c > CMakeFiles/asn1_its.dir/its/VruSubProfileAnimal.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileAnimal.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruSubProfileAnimal.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruSubProfileAnimal.c -o CMakeFiles/asn1_its.dir/its/VruSubProfileAnimal.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileBicyclist.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileBicyclist.c.o: vanetza/asn1/its/VruSubProfileBicyclist.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_510) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileBicyclist.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruSubProfileBicyclist.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruSubProfileBicyclist.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileBicyclist.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruSubProfileBicyclist.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruSubProfileBicyclist.c > CMakeFiles/asn1_its.dir/its/VruSubProfileBicyclist.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileBicyclist.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruSubProfileBicyclist.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruSubProfileBicyclist.c -o CMakeFiles/asn1_its.dir/its/VruSubProfileBicyclist.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileMotorcyclist.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileMotorcyclist.c.o: vanetza/asn1/its/VruSubProfileMotorcyclist.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_511) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileMotorcyclist.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruSubProfileMotorcyclist.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruSubProfileMotorcyclist.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileMotorcyclist.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruSubProfileMotorcyclist.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruSubProfileMotorcyclist.c > CMakeFiles/asn1_its.dir/its/VruSubProfileMotorcyclist.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileMotorcyclist.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruSubProfileMotorcyclist.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruSubProfileMotorcyclist.c -o CMakeFiles/asn1_its.dir/its/VruSubProfileMotorcyclist.c.s
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfilePedestrian.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfilePedestrian.c.o: vanetza/asn1/its/VruSubProfilePedestrian.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_512) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfilePedestrian.c.o"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/VruSubProfilePedestrian.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruSubProfilePedestrian.c
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfilePedestrian.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/asn1_its.dir/its/VruSubProfilePedestrian.c.i"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruSubProfilePedestrian.c > CMakeFiles/asn1_its.dir/its/VruSubProfilePedestrian.c.i
+
+vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfilePedestrian.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/asn1_its.dir/its/VruSubProfilePedestrian.c.s"
+	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/VruSubProfilePedestrian.c -o CMakeFiles/asn1_its.dir/its/VruSubProfilePedestrian.c.s
+
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/WGS84Angle.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/WGS84Angle.c.o: vanetza/asn1/its/WGS84Angle.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_459) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/WGS84Angle.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_513) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/WGS84Angle.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/WGS84Angle.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/WGS84Angle.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/WGS84Angle.c.i: cmake_force
@@ -6045,7 +6747,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/WGS84Angle.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/WGS84AngleValue.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/WGS84AngleValue.c.o: vanetza/asn1/its/WGS84AngleValue.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_460) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/WGS84AngleValue.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_514) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/WGS84AngleValue.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/WGS84AngleValue.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/WGS84AngleValue.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/WGS84AngleValue.c.i: cmake_force
@@ -6058,7 +6760,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/WGS84AngleValue.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/WMInumber.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/WMInumber.c.o: vanetza/asn1/its/WMInumber.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_461) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/WMInumber.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_515) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/WMInumber.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/WMInumber.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/WMInumber.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/WMInumber.c.i: cmake_force
@@ -6071,7 +6773,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/WMInumber.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/WaitOnStopline.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/WaitOnStopline.c.o: vanetza/asn1/its/WaitOnStopline.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_462) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/WaitOnStopline.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_516) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/WaitOnStopline.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/WaitOnStopline.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/WaitOnStopline.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/WaitOnStopline.c.i: cmake_force
@@ -6084,7 +6786,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/WaitOnStopline.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/WheelBaseVehicle.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/WheelBaseVehicle.c.o: vanetza/asn1/its/WheelBaseVehicle.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_463) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/WheelBaseVehicle.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_517) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/WheelBaseVehicle.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/WheelBaseVehicle.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/WheelBaseVehicle.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/WheelBaseVehicle.c.i: cmake_force
@@ -6097,7 +6799,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/WheelBaseVehicle.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/WrongWayDrivingSubCauseCode.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/WrongWayDrivingSubCauseCode.c.o: vanetza/asn1/its/WrongWayDrivingSubCauseCode.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_464) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/WrongWayDrivingSubCauseCode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_518) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/WrongWayDrivingSubCauseCode.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/WrongWayDrivingSubCauseCode.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/WrongWayDrivingSubCauseCode.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/WrongWayDrivingSubCauseCode.c.i: cmake_force
@@ -6110,7 +6812,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/WrongWayDrivingSubCauseCode.c.s: cmake_
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/XSensorOffset.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/XSensorOffset.c.o: vanetza/asn1/its/XSensorOffset.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_465) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/XSensorOffset.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_519) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/XSensorOffset.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/XSensorOffset.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/XSensorOffset.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/XSensorOffset.c.i: cmake_force
@@ -6123,7 +6825,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/XSensorOffset.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/YSensorOffset.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/YSensorOffset.c.o: vanetza/asn1/its/YSensorOffset.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_466) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/YSensorOffset.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_520) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/YSensorOffset.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/YSensorOffset.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/YSensorOffset.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/YSensorOffset.c.i: cmake_force
@@ -6136,7 +6838,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/YSensorOffset.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/YawRate.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/YawRate.c.o: vanetza/asn1/its/YawRate.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_467) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/YawRate.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_521) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/YawRate.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/YawRate.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/YawRate.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/YawRate.c.i: cmake_force
@@ -6149,7 +6851,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/YawRate.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/YawRateConfidence.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/YawRateConfidence.c.o: vanetza/asn1/its/YawRateConfidence.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_468) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/YawRateConfidence.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_522) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/YawRateConfidence.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/YawRateConfidence.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/YawRateConfidence.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/YawRateConfidence.c.i: cmake_force
@@ -6162,7 +6864,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/YawRateConfidence.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/YawRateValue.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/YawRateValue.c.o: vanetza/asn1/its/YawRateValue.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_469) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/YawRateValue.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_523) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/YawRateValue.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/YawRateValue.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/YawRateValue.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/YawRateValue.c.i: cmake_force
@@ -6175,7 +6877,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/YawRateValue.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ZSensorOffset.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ZSensorOffset.c.o: vanetza/asn1/its/ZSensorOffset.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_470) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ZSensorOffset.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_524) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ZSensorOffset.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ZSensorOffset.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ZSensorOffset.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ZSensorOffset.c.i: cmake_force
@@ -6188,7 +6890,7 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ZSensorOffset.c.s: cmake_force
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ZoneLength.c.o: vanetza/asn1/CMakeFiles/asn1_its.dir/flags.make
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ZoneLength.c.o: vanetza/asn1/its/ZoneLength.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_471) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ZoneLength.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_525) "Building C object vanetza/asn1/CMakeFiles/asn1_its.dir/its/ZoneLength.c.o"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/asn1_its.dir/its/ZoneLength.c.o -c /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1/its/ZoneLength.c
 
 vanetza/asn1/CMakeFiles/asn1_its.dir/its/ZoneLength.c.i: cmake_force
@@ -6201,9 +6903,12 @@ vanetza/asn1/CMakeFiles/asn1_its.dir/its/ZoneLength.c.s: cmake_force
 
 # Object files for target asn1_its
 asn1_its_OBJECTS = \
+"CMakeFiles/asn1_its.dir/its/AccelOrDecel.c.o" \
+"CMakeFiles/asn1_its.dir/its/AccelerationChangeIndication.c.o" \
 "CMakeFiles/asn1_its.dir/its/AccelerationConfidence.c.o" \
 "CMakeFiles/asn1_its.dir/its/AccelerationControl.c.o" \
 "CMakeFiles/asn1_its.dir/its/AccidentSubCauseCode.c.o" \
+"CMakeFiles/asn1_its.dir/its/ActionDeltaTime.c.o" \
 "CMakeFiles/asn1_its.dir/its/ActionID.c.o" \
 "CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-AdhesionSubCauseCode.c.o" \
 "CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-ExtremeWeatherConditionSubCauseCode.c.o" \
@@ -6253,6 +6958,15 @@ asn1_its_OBJECTS = \
 "CMakeFiles/asn1_its.dir/its/CenDsrcTollingZoneID.c.o" \
 "CMakeFiles/asn1_its.dir/its/ClassConfidence.c.o" \
 "CMakeFiles/asn1_its.dir/its/ClosedLanes.c.o" \
+"CMakeFiles/asn1_its.dir/its/ClusterBoundingBoxShape.c.o" \
+"CMakeFiles/asn1_its.dir/its/ClusterBreakupInfo.c.o" \
+"CMakeFiles/asn1_its.dir/its/ClusterBreakupReason.c.o" \
+"CMakeFiles/asn1_its.dir/its/ClusterCardinalitySize.c.o" \
+"CMakeFiles/asn1_its.dir/its/ClusterId.c.o" \
+"CMakeFiles/asn1_its.dir/its/ClusterJoinInfo.c.o" \
+"CMakeFiles/asn1_its.dir/its/ClusterLeaveInfo.c.o" \
+"CMakeFiles/asn1_its.dir/its/ClusterLeaveReason.c.o" \
+"CMakeFiles/asn1_its.dir/its/ClusterProfiles.c.o" \
 "CMakeFiles/asn1_its.dir/its/CollectivePerceptionMessage.c.o" \
 "CMakeFiles/asn1_its.dir/its/CollisionRiskSubCauseCode.c.o" \
 "CMakeFiles/asn1_its.dir/its/ComputedLane.c.o" \
@@ -6339,6 +7053,7 @@ asn1_its_OBJECTS = \
 "CMakeFiles/asn1_its.dir/its/HazardousLocation-ObstacleOnTheRoadSubCauseCode.c.o" \
 "CMakeFiles/asn1_its.dir/its/HazardousLocation-SurfaceConditionSubCauseCode.c.o" \
 "CMakeFiles/asn1_its.dir/its/Heading.c.o" \
+"CMakeFiles/asn1_its.dir/its/HeadingChangeIndication.c.o" \
 "CMakeFiles/asn1_its.dir/its/HeadingConfidence.c.o" \
 "CMakeFiles/asn1_its.dir/its/HeadingIso.c.o" \
 "CMakeFiles/asn1_its.dir/its/HeadingIsoConfidenceIso.c.o" \
@@ -6380,6 +7095,7 @@ asn1_its_OBJECTS = \
 "CMakeFiles/asn1_its.dir/its/LaneDataAttribute.c.o" \
 "CMakeFiles/asn1_its.dir/its/LaneDataAttributeList.c.o" \
 "CMakeFiles/asn1_its.dir/its/LaneDirection.c.o" \
+"CMakeFiles/asn1_its.dir/its/ItsPduHeaderVam.c.o" \
 "CMakeFiles/asn1_its.dir/its/LaneID.c.o" \
 "CMakeFiles/asn1_its.dir/its/LaneList.c.o" \
 "CMakeFiles/asn1_its.dir/its/LanePosition.c.o" \
@@ -6392,6 +7108,7 @@ asn1_its_OBJECTS = \
 "CMakeFiles/asn1_its.dir/its/LayerID.c.o" \
 "CMakeFiles/asn1_its.dir/its/LayerType.c.o" \
 "CMakeFiles/asn1_its.dir/its/LicPlateNumber.c.o" \
+"CMakeFiles/asn1_its.dir/its/LeftOrRight.c.o" \
 "CMakeFiles/asn1_its.dir/its/LightBarSirenInUse.c.o" \
 "CMakeFiles/asn1_its.dir/its/LocationContainer.c.o" \
 "CMakeFiles/asn1_its.dir/its/Longitude.c.o" \
@@ -6407,6 +7124,7 @@ asn1_its_OBJECTS = \
 "CMakeFiles/asn1_its.dir/its/ManufacturerIdentifier.c.o" \
 "CMakeFiles/asn1_its.dir/its/MapData-addGrpC.c.o" \
 "CMakeFiles/asn1_its.dir/its/MapData.c.o" \
+"CMakeFiles/asn1_its.dir/its/MapPosition.c.o" \
 "CMakeFiles/asn1_its.dir/its/MatchedPosition.c.o" \
 "CMakeFiles/asn1_its.dir/its/MergeDivergeNodeAngle.c.o" \
 "CMakeFiles/asn1_its.dir/its/MinuteOfTheYear.c.o" \
@@ -6435,6 +7153,7 @@ asn1_its_OBJECTS = \
 "CMakeFiles/asn1_its.dir/its/NodeOffsetPointZ.c.o" \
 "CMakeFiles/asn1_its.dir/its/NodeSetXY.c.o" \
 "CMakeFiles/asn1_its.dir/its/NodeXY.c.o" \
+"CMakeFiles/asn1_its.dir/its/NonIslandLanePosition.c.o" \
 "CMakeFiles/asn1_its.dir/its/NumberOfOccupants.c.o" \
 "CMakeFiles/asn1_its.dir/its/NumberOfPerceivedObjects.c.o" \
 "CMakeFiles/asn1_its.dir/its/ObjectAge.c.o" \
@@ -6447,6 +7166,7 @@ asn1_its_OBJECTS = \
 "CMakeFiles/asn1_its.dir/its/ObjectDistanceWithConfidence.c.o" \
 "CMakeFiles/asn1_its.dir/its/ObjectRefPoint.c.o" \
 "CMakeFiles/asn1_its.dir/its/Offset-B09.c.o" \
+"CMakeFiles/asn1_its.dir/its/OffRoadLanePosition.c.o" \
 "CMakeFiles/asn1_its.dir/its/Offset-B10.c.o" \
 "CMakeFiles/asn1_its.dir/its/Offset-B11.c.o" \
 "CMakeFiles/asn1_its.dir/its/Offset-B12.c.o" \
@@ -6569,6 +7289,9 @@ asn1_its_OBJECTS = \
 "CMakeFiles/asn1_its.dir/its/SequenceNumber.c.o" \
 "CMakeFiles/asn1_its.dir/its/ServiceApplicationLimit.c.o" \
 "CMakeFiles/asn1_its.dir/its/ServiceNumber.c.o" \
+"CMakeFiles/asn1_its.dir/its/SequenceOfTrajectoryInterceptionIndication.c.o" \
+"CMakeFiles/asn1_its.dir/its/SequenceOfVruPathPoint.c.o" \
+"CMakeFiles/asn1_its.dir/its/SequenceOfVruSafeDistanceIndication.c.o" \
 "CMakeFiles/asn1_its.dir/its/ShadowingApplies.c.o" \
 "CMakeFiles/asn1_its.dir/its/SignalControlZone.c.o" \
 "CMakeFiles/asn1_its.dir/its/SignalGroupID.c.o" \
@@ -6603,8 +7326,11 @@ asn1_its_OBJECTS = \
 "CMakeFiles/asn1_its.dir/its/SpeedValueExtended.c.o" \
 "CMakeFiles/asn1_its.dir/its/SpeedandHeadingIsoandThrottleConfidence.c.o" \
 "CMakeFiles/asn1_its.dir/its/StartTime.c.o" \
+"CMakeFiles/asn1_its.dir/its/StabilityChangeIndication.c.o" \
+"CMakeFiles/asn1_its.dir/its/StabilityLossProbability.c.o" \
 "CMakeFiles/asn1_its.dir/its/StationDataContainer.c.o" \
 "CMakeFiles/asn1_its.dir/its/StationID.c.o" \
+"CMakeFiles/asn1_its.dir/its/StationSafeDistanceIndication.c.o" \
 "CMakeFiles/asn1_its.dir/its/StationType.c.o" \
 "CMakeFiles/asn1_its.dir/its/StationarySince.c.o" \
 "CMakeFiles/asn1_its.dir/its/StationaryVehicleContainer.c.o" \
@@ -6628,17 +7354,23 @@ asn1_its_OBJECTS = \
 "CMakeFiles/asn1_its.dir/its/TimestampIts.c.o" \
 "CMakeFiles/asn1_its.dir/its/Traces.c.o" \
 "CMakeFiles/asn1_its.dir/its/TrafficConditionSubCauseCode.c.o" \
+"CMakeFiles/asn1_its.dir/its/TrafficIslandPosition.c.o" \
 "CMakeFiles/asn1_its.dir/its/TrafficRule.c.o" \
 "CMakeFiles/asn1_its.dir/its/TrailerData.c.o" \
 "CMakeFiles/asn1_its.dir/its/TrailerDataContainer.c.o" \
 "CMakeFiles/asn1_its.dir/its/TransitVehicleOccupancy.c.o" \
 "CMakeFiles/asn1_its.dir/its/TransitVehicleStatus.c.o" \
 "CMakeFiles/asn1_its.dir/its/TransmissionAndSpeed.c.o" \
+"CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionConfidence.c.o" \
+"CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionIndication.c.o" \
+"CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionProbability.c.o" \
 "CMakeFiles/asn1_its.dir/its/TransmissionInterval.c.o" \
 "CMakeFiles/asn1_its.dir/its/TransmissionState.c.o" \
 "CMakeFiles/asn1_its.dir/its/TurningRadius.c.o" \
+"CMakeFiles/asn1_its.dir/its/VAM.c.o" \
 "CMakeFiles/asn1_its.dir/its/VDS.c.o" \
 "CMakeFiles/asn1_its.dir/its/ValidityDuration.c.o" \
+"CMakeFiles/asn1_its.dir/its/VamParameters.c.o" \
 "CMakeFiles/asn1_its.dir/its/VanetzaTest.c.o" \
 "CMakeFiles/asn1_its.dir/its/VehicleBreakdownSubCauseCode.c.o" \
 "CMakeFiles/asn1_its.dir/its/VehicleHeight.c.o" \
@@ -6659,6 +7391,30 @@ asn1_its_OBJECTS = \
 "CMakeFiles/asn1_its.dir/its/Velocity.c.o" \
 "CMakeFiles/asn1_its.dir/its/VerticalAcceleration.c.o" \
 "CMakeFiles/asn1_its.dir/its/VerticalAccelerationValue.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruAwareness.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruClusterInformationContainer.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruClusterOpTimestamp.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruClusterOperationContainer.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruDeviceUsage.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruEnvironment.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruExteriorLights.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruHighFrequencyContainer.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruLanePosition.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruLowFrequencyContainer.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruMotionPredictionContainer.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruMovementControl.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruOrientation.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruPathPoint.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruProfile.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruProfileAndSubprofile.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruRollAngle.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruSafeDistanceIndication.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruSizeClass.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruSpecificExteriorLights.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruSubProfileAnimal.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruSubProfileBicyclist.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruSubProfileMotorcyclist.c.o" \
+"CMakeFiles/asn1_its.dir/its/VruSubProfilePedestrian.c.o" \
 "CMakeFiles/asn1_its.dir/its/WGS84Angle.c.o" \
 "CMakeFiles/asn1_its.dir/its/WGS84AngleValue.c.o" \
 "CMakeFiles/asn1_its.dir/its/WMInumber.c.o" \
@@ -6676,9 +7432,12 @@ asn1_its_OBJECTS = \
 # External object files for target asn1_its
 asn1_its_EXTERNAL_OBJECTS =
 
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelOrDecel.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationChangeIndication.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationConfidence.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationControl.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccidentSubCauseCode.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ActionDeltaTime.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ActionID.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-AdhesionSubCauseCode.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/AdverseWeatherCondition-ExtremeWeatherConditionSubCauseCode.c.o
@@ -6728,6 +7487,15 @@ lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/CenDs
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/CenDsrcTollingZoneID.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClassConfidence.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClosedLanes.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBoundingBoxShape.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBreakupInfo.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBreakupReason.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterCardinalitySize.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterId.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterJoinInfo.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterLeaveInfo.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterLeaveReason.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterProfiles.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/CollectivePerceptionMessage.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/CollisionRiskSubCauseCode.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ComputedLane.c.o
@@ -6814,6 +7582,7 @@ lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/Hazar
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-ObstacleOnTheRoadSubCauseCode.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/HazardousLocation-SurfaceConditionSubCauseCode.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/Heading.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingChangeIndication.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingConfidence.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingIso.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingIsoConfidenceIso.c.o
@@ -6855,6 +7624,7 @@ lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneC
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneDataAttribute.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneDataAttributeList.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneDirection.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsPduHeaderVam.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneID.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/LaneList.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/LanePosition.c.o
@@ -6867,6 +7637,7 @@ lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/Latit
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/LayerID.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/LayerType.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/LicPlateNumber.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/LeftOrRight.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/LightBarSirenInUse.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/LocationContainer.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/Longitude.c.o
@@ -6882,6 +7653,7 @@ lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/Maneu
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ManufacturerIdentifier.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapData-addGrpC.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapData.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapPosition.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/MatchedPosition.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/MergeDivergeNodeAngle.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/MinuteOfTheYear.c.o
@@ -6910,6 +7682,7 @@ lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeO
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeOffsetPointZ.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeSetXY.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeXY.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/NonIslandLanePosition.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/NumberOfOccupants.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/NumberOfPerceivedObjects.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectAge.c.o
@@ -6922,6 +7695,7 @@ lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/Objec
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectDistanceWithConfidence.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectRefPoint.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B09.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/OffRoadLanePosition.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B10.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B11.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/Offset-B12.c.o
@@ -7044,6 +7818,9 @@ lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/Senso
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceNumber.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ServiceApplicationLimit.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ServiceNumber.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfTrajectoryInterceptionIndication.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfVruPathPoint.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfVruSafeDistanceIndication.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ShadowingApplies.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalControlZone.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/SignalGroupID.c.o
@@ -7078,8 +7855,11 @@ lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/Speed
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedValueExtended.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedandHeadingIsoandThrottleConfidence.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/StartTime.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/StabilityChangeIndication.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/StabilityLossProbability.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationDataContainer.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationID.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationSafeDistanceIndication.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationType.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationarySince.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationaryVehicleContainer.c.o
@@ -7103,17 +7883,23 @@ lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimeR
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/TimestampIts.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/Traces.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficConditionSubCauseCode.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficIslandPosition.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficRule.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrailerData.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrailerDataContainer.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransitVehicleOccupancy.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransitVehicleStatus.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransmissionAndSpeed.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionConfidence.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionIndication.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionProbability.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransmissionInterval.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/TransmissionState.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/TurningRadius.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VAM.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VDS.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ValidityDuration.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VamParameters.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VanetzaTest.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleBreakdownSubCauseCode.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VehicleHeight.c.o
@@ -7134,6 +7920,30 @@ lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/Vehic
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/Velocity.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VerticalAcceleration.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VerticalAccelerationValue.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruAwareness.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterInformationContainer.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterOpTimestamp.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterOperationContainer.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruDeviceUsage.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruEnvironment.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruExteriorLights.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruHighFrequencyContainer.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruLanePosition.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruLowFrequencyContainer.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruMotionPredictionContainer.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruMovementControl.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruOrientation.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruPathPoint.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruProfile.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruProfileAndSubprofile.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruRollAngle.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSafeDistanceIndication.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSizeClass.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSpecificExteriorLights.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileAnimal.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileBicyclist.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileMotorcyclist.c.o
+lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfilePedestrian.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/WGS84Angle.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/WGS84AngleValue.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/WMInumber.c.o
@@ -7149,7 +7959,7 @@ lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ZSens
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/its/ZoneLength.c.o
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/build.make
 lib/static/libvanetza_asn1_its.a: vanetza/asn1/CMakeFiles/asn1_its.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_472) "Linking C static library ../../lib/static/libvanetza_asn1_its.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/rrosmaninho/Repos/IT/vanetza/CMakeFiles --progress-num=$(CMAKE_PROGRESS_526) "Linking C static library ../../lib/static/libvanetza_asn1_its.a"
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && $(CMAKE_COMMAND) -P CMakeFiles/asn1_its.dir/cmake_clean_target.cmake
 	cd /home/rrosmaninho/Repos/IT/vanetza/vanetza/asn1 && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/asn1_its.dir/link.txt --verbose=$(VERBOSE)
 

@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 #set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wno-narrowing")
 
 if(NOT TARGET Boost::system)
     message(STATUS "Skip build of socktap because of missing Boost::system dependency")
@@ -23,6 +24,9 @@ add_executable(socktap
     cam_application.cpp
     denm_application.cpp
     cpm_application.cpp
+    vam_application.cpp
+    spatem_application.cpp
+    mapem_application.cpp
     complete_packet.cpp
     dcc_passthrough.cpp
     ethernet_device.cpp

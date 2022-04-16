@@ -18,8 +18,8 @@ typedef struct message_config {
 } message_config_t;
 
 typedef struct config {
-    int StationID;
-    int StationType;
+    int station_id;
+    int station_type;
     string mac_address;
     bool use_hardcoded_gps;
     double latitude;
@@ -30,6 +30,7 @@ typedef struct config {
     int prometheus_port;
     int rssi_port;
     bool ignore_own_messages;
+    bool ignore_rsu_messages;
     message_config_t cam;
     message_config_t denm;
     message_config_t cpm;

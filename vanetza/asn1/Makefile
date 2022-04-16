@@ -277,6 +277,60 @@ asn1c_wrapper.cpp.s:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1.dir/build.make vanetza/asn1/CMakeFiles/asn1.dir/asn1c_wrapper.cpp.s
 .PHONY : asn1c_wrapper.cpp.s
 
+its/AccelOrDecel.o: its/AccelOrDecel.c.o
+
+.PHONY : its/AccelOrDecel.o
+
+# target to build an object file
+its/AccelOrDecel.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelOrDecel.c.o
+.PHONY : its/AccelOrDecel.c.o
+
+its/AccelOrDecel.i: its/AccelOrDecel.c.i
+
+.PHONY : its/AccelOrDecel.i
+
+# target to preprocess a source file
+its/AccelOrDecel.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelOrDecel.c.i
+.PHONY : its/AccelOrDecel.c.i
+
+its/AccelOrDecel.s: its/AccelOrDecel.c.s
+
+.PHONY : its/AccelOrDecel.s
+
+# target to generate assembly for a file
+its/AccelOrDecel.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelOrDecel.c.s
+.PHONY : its/AccelOrDecel.c.s
+
+its/AccelerationChangeIndication.o: its/AccelerationChangeIndication.c.o
+
+.PHONY : its/AccelerationChangeIndication.o
+
+# target to build an object file
+its/AccelerationChangeIndication.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationChangeIndication.c.o
+.PHONY : its/AccelerationChangeIndication.c.o
+
+its/AccelerationChangeIndication.i: its/AccelerationChangeIndication.c.i
+
+.PHONY : its/AccelerationChangeIndication.i
+
+# target to preprocess a source file
+its/AccelerationChangeIndication.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationChangeIndication.c.i
+.PHONY : its/AccelerationChangeIndication.c.i
+
+its/AccelerationChangeIndication.s: its/AccelerationChangeIndication.c.s
+
+.PHONY : its/AccelerationChangeIndication.s
+
+# target to generate assembly for a file
+its/AccelerationChangeIndication.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccelerationChangeIndication.c.s
+.PHONY : its/AccelerationChangeIndication.c.s
+
 its/AccelerationConfidence.o: its/AccelerationConfidence.c.o
 
 .PHONY : its/AccelerationConfidence.o
@@ -357,6 +411,33 @@ its/AccidentSubCauseCode.s: its/AccidentSubCauseCode.c.s
 its/AccidentSubCauseCode.c.s:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/AccidentSubCauseCode.c.s
 .PHONY : its/AccidentSubCauseCode.c.s
+
+its/ActionDeltaTime.o: its/ActionDeltaTime.c.o
+
+.PHONY : its/ActionDeltaTime.o
+
+# target to build an object file
+its/ActionDeltaTime.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ActionDeltaTime.c.o
+.PHONY : its/ActionDeltaTime.c.o
+
+its/ActionDeltaTime.i: its/ActionDeltaTime.c.i
+
+.PHONY : its/ActionDeltaTime.i
+
+# target to preprocess a source file
+its/ActionDeltaTime.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ActionDeltaTime.c.i
+.PHONY : its/ActionDeltaTime.c.i
+
+its/ActionDeltaTime.s: its/ActionDeltaTime.c.s
+
+.PHONY : its/ActionDeltaTime.s
+
+# target to generate assembly for a file
+its/ActionDeltaTime.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ActionDeltaTime.c.s
+.PHONY : its/ActionDeltaTime.c.s
 
 its/ActionID.o: its/ActionID.c.o
 
@@ -1680,6 +1761,249 @@ its/ClosedLanes.s: its/ClosedLanes.c.s
 its/ClosedLanes.c.s:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClosedLanes.c.s
 .PHONY : its/ClosedLanes.c.s
+
+its/ClusterBoundingBoxShape.o: its/ClusterBoundingBoxShape.c.o
+
+.PHONY : its/ClusterBoundingBoxShape.o
+
+# target to build an object file
+its/ClusterBoundingBoxShape.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBoundingBoxShape.c.o
+.PHONY : its/ClusterBoundingBoxShape.c.o
+
+its/ClusterBoundingBoxShape.i: its/ClusterBoundingBoxShape.c.i
+
+.PHONY : its/ClusterBoundingBoxShape.i
+
+# target to preprocess a source file
+its/ClusterBoundingBoxShape.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBoundingBoxShape.c.i
+.PHONY : its/ClusterBoundingBoxShape.c.i
+
+its/ClusterBoundingBoxShape.s: its/ClusterBoundingBoxShape.c.s
+
+.PHONY : its/ClusterBoundingBoxShape.s
+
+# target to generate assembly for a file
+its/ClusterBoundingBoxShape.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBoundingBoxShape.c.s
+.PHONY : its/ClusterBoundingBoxShape.c.s
+
+its/ClusterBreakupInfo.o: its/ClusterBreakupInfo.c.o
+
+.PHONY : its/ClusterBreakupInfo.o
+
+# target to build an object file
+its/ClusterBreakupInfo.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBreakupInfo.c.o
+.PHONY : its/ClusterBreakupInfo.c.o
+
+its/ClusterBreakupInfo.i: its/ClusterBreakupInfo.c.i
+
+.PHONY : its/ClusterBreakupInfo.i
+
+# target to preprocess a source file
+its/ClusterBreakupInfo.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBreakupInfo.c.i
+.PHONY : its/ClusterBreakupInfo.c.i
+
+its/ClusterBreakupInfo.s: its/ClusterBreakupInfo.c.s
+
+.PHONY : its/ClusterBreakupInfo.s
+
+# target to generate assembly for a file
+its/ClusterBreakupInfo.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBreakupInfo.c.s
+.PHONY : its/ClusterBreakupInfo.c.s
+
+its/ClusterBreakupReason.o: its/ClusterBreakupReason.c.o
+
+.PHONY : its/ClusterBreakupReason.o
+
+# target to build an object file
+its/ClusterBreakupReason.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBreakupReason.c.o
+.PHONY : its/ClusterBreakupReason.c.o
+
+its/ClusterBreakupReason.i: its/ClusterBreakupReason.c.i
+
+.PHONY : its/ClusterBreakupReason.i
+
+# target to preprocess a source file
+its/ClusterBreakupReason.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBreakupReason.c.i
+.PHONY : its/ClusterBreakupReason.c.i
+
+its/ClusterBreakupReason.s: its/ClusterBreakupReason.c.s
+
+.PHONY : its/ClusterBreakupReason.s
+
+# target to generate assembly for a file
+its/ClusterBreakupReason.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterBreakupReason.c.s
+.PHONY : its/ClusterBreakupReason.c.s
+
+its/ClusterCardinalitySize.o: its/ClusterCardinalitySize.c.o
+
+.PHONY : its/ClusterCardinalitySize.o
+
+# target to build an object file
+its/ClusterCardinalitySize.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterCardinalitySize.c.o
+.PHONY : its/ClusterCardinalitySize.c.o
+
+its/ClusterCardinalitySize.i: its/ClusterCardinalitySize.c.i
+
+.PHONY : its/ClusterCardinalitySize.i
+
+# target to preprocess a source file
+its/ClusterCardinalitySize.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterCardinalitySize.c.i
+.PHONY : its/ClusterCardinalitySize.c.i
+
+its/ClusterCardinalitySize.s: its/ClusterCardinalitySize.c.s
+
+.PHONY : its/ClusterCardinalitySize.s
+
+# target to generate assembly for a file
+its/ClusterCardinalitySize.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterCardinalitySize.c.s
+.PHONY : its/ClusterCardinalitySize.c.s
+
+its/ClusterId.o: its/ClusterId.c.o
+
+.PHONY : its/ClusterId.o
+
+# target to build an object file
+its/ClusterId.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterId.c.o
+.PHONY : its/ClusterId.c.o
+
+its/ClusterId.i: its/ClusterId.c.i
+
+.PHONY : its/ClusterId.i
+
+# target to preprocess a source file
+its/ClusterId.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterId.c.i
+.PHONY : its/ClusterId.c.i
+
+its/ClusterId.s: its/ClusterId.c.s
+
+.PHONY : its/ClusterId.s
+
+# target to generate assembly for a file
+its/ClusterId.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterId.c.s
+.PHONY : its/ClusterId.c.s
+
+its/ClusterJoinInfo.o: its/ClusterJoinInfo.c.o
+
+.PHONY : its/ClusterJoinInfo.o
+
+# target to build an object file
+its/ClusterJoinInfo.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterJoinInfo.c.o
+.PHONY : its/ClusterJoinInfo.c.o
+
+its/ClusterJoinInfo.i: its/ClusterJoinInfo.c.i
+
+.PHONY : its/ClusterJoinInfo.i
+
+# target to preprocess a source file
+its/ClusterJoinInfo.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterJoinInfo.c.i
+.PHONY : its/ClusterJoinInfo.c.i
+
+its/ClusterJoinInfo.s: its/ClusterJoinInfo.c.s
+
+.PHONY : its/ClusterJoinInfo.s
+
+# target to generate assembly for a file
+its/ClusterJoinInfo.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterJoinInfo.c.s
+.PHONY : its/ClusterJoinInfo.c.s
+
+its/ClusterLeaveInfo.o: its/ClusterLeaveInfo.c.o
+
+.PHONY : its/ClusterLeaveInfo.o
+
+# target to build an object file
+its/ClusterLeaveInfo.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterLeaveInfo.c.o
+.PHONY : its/ClusterLeaveInfo.c.o
+
+its/ClusterLeaveInfo.i: its/ClusterLeaveInfo.c.i
+
+.PHONY : its/ClusterLeaveInfo.i
+
+# target to preprocess a source file
+its/ClusterLeaveInfo.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterLeaveInfo.c.i
+.PHONY : its/ClusterLeaveInfo.c.i
+
+its/ClusterLeaveInfo.s: its/ClusterLeaveInfo.c.s
+
+.PHONY : its/ClusterLeaveInfo.s
+
+# target to generate assembly for a file
+its/ClusterLeaveInfo.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterLeaveInfo.c.s
+.PHONY : its/ClusterLeaveInfo.c.s
+
+its/ClusterLeaveReason.o: its/ClusterLeaveReason.c.o
+
+.PHONY : its/ClusterLeaveReason.o
+
+# target to build an object file
+its/ClusterLeaveReason.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterLeaveReason.c.o
+.PHONY : its/ClusterLeaveReason.c.o
+
+its/ClusterLeaveReason.i: its/ClusterLeaveReason.c.i
+
+.PHONY : its/ClusterLeaveReason.i
+
+# target to preprocess a source file
+its/ClusterLeaveReason.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterLeaveReason.c.i
+.PHONY : its/ClusterLeaveReason.c.i
+
+its/ClusterLeaveReason.s: its/ClusterLeaveReason.c.s
+
+.PHONY : its/ClusterLeaveReason.s
+
+# target to generate assembly for a file
+its/ClusterLeaveReason.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterLeaveReason.c.s
+.PHONY : its/ClusterLeaveReason.c.s
+
+its/ClusterProfiles.o: its/ClusterProfiles.c.o
+
+.PHONY : its/ClusterProfiles.o
+
+# target to build an object file
+its/ClusterProfiles.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterProfiles.c.o
+.PHONY : its/ClusterProfiles.c.o
+
+its/ClusterProfiles.i: its/ClusterProfiles.c.i
+
+.PHONY : its/ClusterProfiles.i
+
+# target to preprocess a source file
+its/ClusterProfiles.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterProfiles.c.i
+.PHONY : its/ClusterProfiles.c.i
+
+its/ClusterProfiles.s: its/ClusterProfiles.c.s
+
+.PHONY : its/ClusterProfiles.s
+
+# target to generate assembly for a file
+its/ClusterProfiles.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ClusterProfiles.c.s
+.PHONY : its/ClusterProfiles.c.s
 
 its/CollectivePerceptionMessage.o: its/CollectivePerceptionMessage.c.o
 
@@ -4003,6 +4327,33 @@ its/Heading.c.s:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/Heading.c.s
 .PHONY : its/Heading.c.s
 
+its/HeadingChangeIndication.o: its/HeadingChangeIndication.c.o
+
+.PHONY : its/HeadingChangeIndication.o
+
+# target to build an object file
+its/HeadingChangeIndication.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingChangeIndication.c.o
+.PHONY : its/HeadingChangeIndication.c.o
+
+its/HeadingChangeIndication.i: its/HeadingChangeIndication.c.i
+
+.PHONY : its/HeadingChangeIndication.i
+
+# target to preprocess a source file
+its/HeadingChangeIndication.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingChangeIndication.c.i
+.PHONY : its/HeadingChangeIndication.c.i
+
+its/HeadingChangeIndication.s: its/HeadingChangeIndication.c.s
+
+.PHONY : its/HeadingChangeIndication.s
+
+# target to generate assembly for a file
+its/HeadingChangeIndication.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/HeadingChangeIndication.c.s
+.PHONY : its/HeadingChangeIndication.c.s
+
 its/HeadingConfidence.o: its/HeadingConfidence.c.o
 
 .PHONY : its/HeadingConfidence.o
@@ -4677,6 +5028,33 @@ its/ItsPduHeader.s: its/ItsPduHeader.c.s
 its/ItsPduHeader.c.s:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsPduHeader.c.s
 .PHONY : its/ItsPduHeader.c.s
+
+its/ItsPduHeaderVam.o: its/ItsPduHeaderVam.c.o
+
+.PHONY : its/ItsPduHeaderVam.o
+
+# target to build an object file
+its/ItsPduHeaderVam.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsPduHeaderVam.c.o
+.PHONY : its/ItsPduHeaderVam.c.o
+
+its/ItsPduHeaderVam.i: its/ItsPduHeaderVam.c.i
+
+.PHONY : its/ItsPduHeaderVam.i
+
+# target to preprocess a source file
+its/ItsPduHeaderVam.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsPduHeaderVam.c.i
+.PHONY : its/ItsPduHeaderVam.c.i
+
+its/ItsPduHeaderVam.s: its/ItsPduHeaderVam.c.s
+
+.PHONY : its/ItsPduHeaderVam.s
+
+# target to generate assembly for a file
+its/ItsPduHeaderVam.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ItsPduHeaderVam.c.s
+.PHONY : its/ItsPduHeaderVam.c.s
 
 its/ItsStationPosition.o: its/ItsStationPosition.c.o
 
@@ -5407,6 +5785,33 @@ its/LayerType.c.s:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/LayerType.c.s
 .PHONY : its/LayerType.c.s
 
+its/LeftOrRight.o: its/LeftOrRight.c.o
+
+.PHONY : its/LeftOrRight.o
+
+# target to build an object file
+its/LeftOrRight.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/LeftOrRight.c.o
+.PHONY : its/LeftOrRight.c.o
+
+its/LeftOrRight.i: its/LeftOrRight.c.i
+
+.PHONY : its/LeftOrRight.i
+
+# target to preprocess a source file
+its/LeftOrRight.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/LeftOrRight.c.i
+.PHONY : its/LeftOrRight.c.i
+
+its/LeftOrRight.s: its/LeftOrRight.c.s
+
+.PHONY : its/LeftOrRight.s
+
+# target to generate assembly for a file
+its/LeftOrRight.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/LeftOrRight.c.s
+.PHONY : its/LeftOrRight.c.s
+
 its/LicPlateNumber.o: its/LicPlateNumber.c.o
 
 .PHONY : its/LicPlateNumber.o
@@ -5838,6 +6243,33 @@ its/MapData.s: its/MapData.c.s
 its/MapData.c.s:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapData.c.s
 .PHONY : its/MapData.c.s
+
+its/MapPosition.o: its/MapPosition.c.o
+
+.PHONY : its/MapPosition.o
+
+# target to build an object file
+its/MapPosition.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapPosition.c.o
+.PHONY : its/MapPosition.c.o
+
+its/MapPosition.i: its/MapPosition.c.i
+
+.PHONY : its/MapPosition.i
+
+# target to preprocess a source file
+its/MapPosition.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapPosition.c.i
+.PHONY : its/MapPosition.c.i
+
+its/MapPosition.s: its/MapPosition.c.s
+
+.PHONY : its/MapPosition.s
+
+# target to generate assembly for a file
+its/MapPosition.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/MapPosition.c.s
+.PHONY : its/MapPosition.c.s
 
 its/MatchedPosition.o: its/MatchedPosition.c.o
 
@@ -6595,6 +7027,33 @@ its/NodeXY.c.s:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/NodeXY.c.s
 .PHONY : its/NodeXY.c.s
 
+its/NonIslandLanePosition.o: its/NonIslandLanePosition.c.o
+
+.PHONY : its/NonIslandLanePosition.o
+
+# target to build an object file
+its/NonIslandLanePosition.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/NonIslandLanePosition.c.o
+.PHONY : its/NonIslandLanePosition.c.o
+
+its/NonIslandLanePosition.i: its/NonIslandLanePosition.c.i
+
+.PHONY : its/NonIslandLanePosition.i
+
+# target to preprocess a source file
+its/NonIslandLanePosition.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/NonIslandLanePosition.c.i
+.PHONY : its/NonIslandLanePosition.c.i
+
+its/NonIslandLanePosition.s: its/NonIslandLanePosition.c.s
+
+.PHONY : its/NonIslandLanePosition.s
+
+# target to generate assembly for a file
+its/NonIslandLanePosition.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/NonIslandLanePosition.c.s
+.PHONY : its/NonIslandLanePosition.c.s
+
 its/NumberOfOccupants.o: its/NumberOfOccupants.c.o
 
 .PHONY : its/NumberOfOccupants.o
@@ -6891,6 +7350,33 @@ its/ObjectRefPoint.s: its/ObjectRefPoint.c.s
 its/ObjectRefPoint.c.s:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ObjectRefPoint.c.s
 .PHONY : its/ObjectRefPoint.c.s
+
+its/OffRoadLanePosition.o: its/OffRoadLanePosition.c.o
+
+.PHONY : its/OffRoadLanePosition.o
+
+# target to build an object file
+its/OffRoadLanePosition.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/OffRoadLanePosition.c.o
+.PHONY : its/OffRoadLanePosition.c.o
+
+its/OffRoadLanePosition.i: its/OffRoadLanePosition.c.i
+
+.PHONY : its/OffRoadLanePosition.i
+
+# target to preprocess a source file
+its/OffRoadLanePosition.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/OffRoadLanePosition.c.i
+.PHONY : its/OffRoadLanePosition.c.i
+
+its/OffRoadLanePosition.s: its/OffRoadLanePosition.c.s
+
+.PHONY : its/OffRoadLanePosition.s
+
+# target to generate assembly for a file
+its/OffRoadLanePosition.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/OffRoadLanePosition.c.s
+.PHONY : its/OffRoadLanePosition.c.s
 
 its/Offset-B09.o: its/Offset-B09.c.o
 
@@ -10159,6 +10645,87 @@ its/SequenceNumber.c.s:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceNumber.c.s
 .PHONY : its/SequenceNumber.c.s
 
+its/SequenceOfTrajectoryInterceptionIndication.o: its/SequenceOfTrajectoryInterceptionIndication.c.o
+
+.PHONY : its/SequenceOfTrajectoryInterceptionIndication.o
+
+# target to build an object file
+its/SequenceOfTrajectoryInterceptionIndication.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfTrajectoryInterceptionIndication.c.o
+.PHONY : its/SequenceOfTrajectoryInterceptionIndication.c.o
+
+its/SequenceOfTrajectoryInterceptionIndication.i: its/SequenceOfTrajectoryInterceptionIndication.c.i
+
+.PHONY : its/SequenceOfTrajectoryInterceptionIndication.i
+
+# target to preprocess a source file
+its/SequenceOfTrajectoryInterceptionIndication.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfTrajectoryInterceptionIndication.c.i
+.PHONY : its/SequenceOfTrajectoryInterceptionIndication.c.i
+
+its/SequenceOfTrajectoryInterceptionIndication.s: its/SequenceOfTrajectoryInterceptionIndication.c.s
+
+.PHONY : its/SequenceOfTrajectoryInterceptionIndication.s
+
+# target to generate assembly for a file
+its/SequenceOfTrajectoryInterceptionIndication.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfTrajectoryInterceptionIndication.c.s
+.PHONY : its/SequenceOfTrajectoryInterceptionIndication.c.s
+
+its/SequenceOfVruPathPoint.o: its/SequenceOfVruPathPoint.c.o
+
+.PHONY : its/SequenceOfVruPathPoint.o
+
+# target to build an object file
+its/SequenceOfVruPathPoint.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfVruPathPoint.c.o
+.PHONY : its/SequenceOfVruPathPoint.c.o
+
+its/SequenceOfVruPathPoint.i: its/SequenceOfVruPathPoint.c.i
+
+.PHONY : its/SequenceOfVruPathPoint.i
+
+# target to preprocess a source file
+its/SequenceOfVruPathPoint.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfVruPathPoint.c.i
+.PHONY : its/SequenceOfVruPathPoint.c.i
+
+its/SequenceOfVruPathPoint.s: its/SequenceOfVruPathPoint.c.s
+
+.PHONY : its/SequenceOfVruPathPoint.s
+
+# target to generate assembly for a file
+its/SequenceOfVruPathPoint.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfVruPathPoint.c.s
+.PHONY : its/SequenceOfVruPathPoint.c.s
+
+its/SequenceOfVruSafeDistanceIndication.o: its/SequenceOfVruSafeDistanceIndication.c.o
+
+.PHONY : its/SequenceOfVruSafeDistanceIndication.o
+
+# target to build an object file
+its/SequenceOfVruSafeDistanceIndication.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfVruSafeDistanceIndication.c.o
+.PHONY : its/SequenceOfVruSafeDistanceIndication.c.o
+
+its/SequenceOfVruSafeDistanceIndication.i: its/SequenceOfVruSafeDistanceIndication.c.i
+
+.PHONY : its/SequenceOfVruSafeDistanceIndication.i
+
+# target to preprocess a source file
+its/SequenceOfVruSafeDistanceIndication.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfVruSafeDistanceIndication.c.i
+.PHONY : its/SequenceOfVruSafeDistanceIndication.c.i
+
+its/SequenceOfVruSafeDistanceIndication.s: its/SequenceOfVruSafeDistanceIndication.c.s
+
+.PHONY : its/SequenceOfVruSafeDistanceIndication.s
+
+# target to generate assembly for a file
+its/SequenceOfVruSafeDistanceIndication.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/SequenceOfVruSafeDistanceIndication.c.s
+.PHONY : its/SequenceOfVruSafeDistanceIndication.c.s
+
 its/ServiceApplicationLimit.o: its/ServiceApplicationLimit.c.o
 
 .PHONY : its/ServiceApplicationLimit.o
@@ -11104,6 +11671,60 @@ its/SpeedandHeadingIsoandThrottleConfidence.c.s:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/SpeedandHeadingIsoandThrottleConfidence.c.s
 .PHONY : its/SpeedandHeadingIsoandThrottleConfidence.c.s
 
+its/StabilityChangeIndication.o: its/StabilityChangeIndication.c.o
+
+.PHONY : its/StabilityChangeIndication.o
+
+# target to build an object file
+its/StabilityChangeIndication.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/StabilityChangeIndication.c.o
+.PHONY : its/StabilityChangeIndication.c.o
+
+its/StabilityChangeIndication.i: its/StabilityChangeIndication.c.i
+
+.PHONY : its/StabilityChangeIndication.i
+
+# target to preprocess a source file
+its/StabilityChangeIndication.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/StabilityChangeIndication.c.i
+.PHONY : its/StabilityChangeIndication.c.i
+
+its/StabilityChangeIndication.s: its/StabilityChangeIndication.c.s
+
+.PHONY : its/StabilityChangeIndication.s
+
+# target to generate assembly for a file
+its/StabilityChangeIndication.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/StabilityChangeIndication.c.s
+.PHONY : its/StabilityChangeIndication.c.s
+
+its/StabilityLossProbability.o: its/StabilityLossProbability.c.o
+
+.PHONY : its/StabilityLossProbability.o
+
+# target to build an object file
+its/StabilityLossProbability.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/StabilityLossProbability.c.o
+.PHONY : its/StabilityLossProbability.c.o
+
+its/StabilityLossProbability.i: its/StabilityLossProbability.c.i
+
+.PHONY : its/StabilityLossProbability.i
+
+# target to preprocess a source file
+its/StabilityLossProbability.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/StabilityLossProbability.c.i
+.PHONY : its/StabilityLossProbability.c.i
+
+its/StabilityLossProbability.s: its/StabilityLossProbability.c.s
+
+.PHONY : its/StabilityLossProbability.s
+
+# target to generate assembly for a file
+its/StabilityLossProbability.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/StabilityLossProbability.c.s
+.PHONY : its/StabilityLossProbability.c.s
+
 its/StartTime.o: its/StartTime.c.o
 
 .PHONY : its/StartTime.o
@@ -11184,6 +11805,33 @@ its/StationID.s: its/StationID.c.s
 its/StationID.c.s:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationID.c.s
 .PHONY : its/StationID.c.s
+
+its/StationSafeDistanceIndication.o: its/StationSafeDistanceIndication.c.o
+
+.PHONY : its/StationSafeDistanceIndication.o
+
+# target to build an object file
+its/StationSafeDistanceIndication.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationSafeDistanceIndication.c.o
+.PHONY : its/StationSafeDistanceIndication.c.o
+
+its/StationSafeDistanceIndication.i: its/StationSafeDistanceIndication.c.i
+
+.PHONY : its/StationSafeDistanceIndication.i
+
+# target to preprocess a source file
+its/StationSafeDistanceIndication.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationSafeDistanceIndication.c.i
+.PHONY : its/StationSafeDistanceIndication.c.i
+
+its/StationSafeDistanceIndication.s: its/StationSafeDistanceIndication.c.s
+
+.PHONY : its/StationSafeDistanceIndication.s
+
+# target to generate assembly for a file
+its/StationSafeDistanceIndication.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/StationSafeDistanceIndication.c.s
+.PHONY : its/StationSafeDistanceIndication.c.s
 
 its/StationType.o: its/StationType.c.o
 
@@ -11806,6 +12454,33 @@ its/TrafficConditionSubCauseCode.c.s:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficConditionSubCauseCode.c.s
 .PHONY : its/TrafficConditionSubCauseCode.c.s
 
+its/TrafficIslandPosition.o: its/TrafficIslandPosition.c.o
+
+.PHONY : its/TrafficIslandPosition.o
+
+# target to build an object file
+its/TrafficIslandPosition.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficIslandPosition.c.o
+.PHONY : its/TrafficIslandPosition.c.o
+
+its/TrafficIslandPosition.i: its/TrafficIslandPosition.c.i
+
+.PHONY : its/TrafficIslandPosition.i
+
+# target to preprocess a source file
+its/TrafficIslandPosition.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficIslandPosition.c.i
+.PHONY : its/TrafficIslandPosition.c.i
+
+its/TrafficIslandPosition.s: its/TrafficIslandPosition.c.s
+
+.PHONY : its/TrafficIslandPosition.s
+
+# target to generate assembly for a file
+its/TrafficIslandPosition.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrafficIslandPosition.c.s
+.PHONY : its/TrafficIslandPosition.c.s
+
 its/TrafficRule.o: its/TrafficRule.c.o
 
 .PHONY : its/TrafficRule.o
@@ -11886,6 +12561,87 @@ its/TrailerDataContainer.s: its/TrailerDataContainer.c.s
 its/TrailerDataContainer.c.s:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrailerDataContainer.c.s
 .PHONY : its/TrailerDataContainer.c.s
+
+its/TrajectoryInterceptionConfidence.o: its/TrajectoryInterceptionConfidence.c.o
+
+.PHONY : its/TrajectoryInterceptionConfidence.o
+
+# target to build an object file
+its/TrajectoryInterceptionConfidence.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionConfidence.c.o
+.PHONY : its/TrajectoryInterceptionConfidence.c.o
+
+its/TrajectoryInterceptionConfidence.i: its/TrajectoryInterceptionConfidence.c.i
+
+.PHONY : its/TrajectoryInterceptionConfidence.i
+
+# target to preprocess a source file
+its/TrajectoryInterceptionConfidence.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionConfidence.c.i
+.PHONY : its/TrajectoryInterceptionConfidence.c.i
+
+its/TrajectoryInterceptionConfidence.s: its/TrajectoryInterceptionConfidence.c.s
+
+.PHONY : its/TrajectoryInterceptionConfidence.s
+
+# target to generate assembly for a file
+its/TrajectoryInterceptionConfidence.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionConfidence.c.s
+.PHONY : its/TrajectoryInterceptionConfidence.c.s
+
+its/TrajectoryInterceptionIndication.o: its/TrajectoryInterceptionIndication.c.o
+
+.PHONY : its/TrajectoryInterceptionIndication.o
+
+# target to build an object file
+its/TrajectoryInterceptionIndication.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionIndication.c.o
+.PHONY : its/TrajectoryInterceptionIndication.c.o
+
+its/TrajectoryInterceptionIndication.i: its/TrajectoryInterceptionIndication.c.i
+
+.PHONY : its/TrajectoryInterceptionIndication.i
+
+# target to preprocess a source file
+its/TrajectoryInterceptionIndication.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionIndication.c.i
+.PHONY : its/TrajectoryInterceptionIndication.c.i
+
+its/TrajectoryInterceptionIndication.s: its/TrajectoryInterceptionIndication.c.s
+
+.PHONY : its/TrajectoryInterceptionIndication.s
+
+# target to generate assembly for a file
+its/TrajectoryInterceptionIndication.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionIndication.c.s
+.PHONY : its/TrajectoryInterceptionIndication.c.s
+
+its/TrajectoryInterceptionProbability.o: its/TrajectoryInterceptionProbability.c.o
+
+.PHONY : its/TrajectoryInterceptionProbability.o
+
+# target to build an object file
+its/TrajectoryInterceptionProbability.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionProbability.c.o
+.PHONY : its/TrajectoryInterceptionProbability.c.o
+
+its/TrajectoryInterceptionProbability.i: its/TrajectoryInterceptionProbability.c.i
+
+.PHONY : its/TrajectoryInterceptionProbability.i
+
+# target to preprocess a source file
+its/TrajectoryInterceptionProbability.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionProbability.c.i
+.PHONY : its/TrajectoryInterceptionProbability.c.i
+
+its/TrajectoryInterceptionProbability.s: its/TrajectoryInterceptionProbability.c.s
+
+.PHONY : its/TrajectoryInterceptionProbability.s
+
+# target to generate assembly for a file
+its/TrajectoryInterceptionProbability.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/TrajectoryInterceptionProbability.c.s
+.PHONY : its/TrajectoryInterceptionProbability.c.s
 
 its/TransitVehicleOccupancy.o: its/TransitVehicleOccupancy.c.o
 
@@ -12049,6 +12805,33 @@ its/TurningRadius.c.s:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/TurningRadius.c.s
 .PHONY : its/TurningRadius.c.s
 
+its/VAM.o: its/VAM.c.o
+
+.PHONY : its/VAM.o
+
+# target to build an object file
+its/VAM.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VAM.c.o
+.PHONY : its/VAM.c.o
+
+its/VAM.i: its/VAM.c.i
+
+.PHONY : its/VAM.i
+
+# target to preprocess a source file
+its/VAM.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VAM.c.i
+.PHONY : its/VAM.c.i
+
+its/VAM.s: its/VAM.c.s
+
+.PHONY : its/VAM.s
+
+# target to generate assembly for a file
+its/VAM.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VAM.c.s
+.PHONY : its/VAM.c.s
+
 its/VDS.o: its/VDS.c.o
 
 .PHONY : its/VDS.o
@@ -12102,6 +12885,33 @@ its/ValidityDuration.s: its/ValidityDuration.c.s
 its/ValidityDuration.c.s:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/ValidityDuration.c.s
 .PHONY : its/ValidityDuration.c.s
+
+its/VamParameters.o: its/VamParameters.c.o
+
+.PHONY : its/VamParameters.o
+
+# target to build an object file
+its/VamParameters.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VamParameters.c.o
+.PHONY : its/VamParameters.c.o
+
+its/VamParameters.i: its/VamParameters.c.i
+
+.PHONY : its/VamParameters.i
+
+# target to preprocess a source file
+its/VamParameters.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VamParameters.c.i
+.PHONY : its/VamParameters.c.i
+
+its/VamParameters.s: its/VamParameters.c.s
+
+.PHONY : its/VamParameters.s
+
+# target to generate assembly for a file
+its/VamParameters.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VamParameters.c.s
+.PHONY : its/VamParameters.c.s
 
 its/VanetzaTest.o: its/VanetzaTest.c.o
 
@@ -12642,6 +13452,654 @@ its/VerticalAccelerationValue.s: its/VerticalAccelerationValue.c.s
 its/VerticalAccelerationValue.c.s:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VerticalAccelerationValue.c.s
 .PHONY : its/VerticalAccelerationValue.c.s
+
+its/VruAwareness.o: its/VruAwareness.c.o
+
+.PHONY : its/VruAwareness.o
+
+# target to build an object file
+its/VruAwareness.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruAwareness.c.o
+.PHONY : its/VruAwareness.c.o
+
+its/VruAwareness.i: its/VruAwareness.c.i
+
+.PHONY : its/VruAwareness.i
+
+# target to preprocess a source file
+its/VruAwareness.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruAwareness.c.i
+.PHONY : its/VruAwareness.c.i
+
+its/VruAwareness.s: its/VruAwareness.c.s
+
+.PHONY : its/VruAwareness.s
+
+# target to generate assembly for a file
+its/VruAwareness.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruAwareness.c.s
+.PHONY : its/VruAwareness.c.s
+
+its/VruClusterInformationContainer.o: its/VruClusterInformationContainer.c.o
+
+.PHONY : its/VruClusterInformationContainer.o
+
+# target to build an object file
+its/VruClusterInformationContainer.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterInformationContainer.c.o
+.PHONY : its/VruClusterInformationContainer.c.o
+
+its/VruClusterInformationContainer.i: its/VruClusterInformationContainer.c.i
+
+.PHONY : its/VruClusterInformationContainer.i
+
+# target to preprocess a source file
+its/VruClusterInformationContainer.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterInformationContainer.c.i
+.PHONY : its/VruClusterInformationContainer.c.i
+
+its/VruClusterInformationContainer.s: its/VruClusterInformationContainer.c.s
+
+.PHONY : its/VruClusterInformationContainer.s
+
+# target to generate assembly for a file
+its/VruClusterInformationContainer.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterInformationContainer.c.s
+.PHONY : its/VruClusterInformationContainer.c.s
+
+its/VruClusterOpTimestamp.o: its/VruClusterOpTimestamp.c.o
+
+.PHONY : its/VruClusterOpTimestamp.o
+
+# target to build an object file
+its/VruClusterOpTimestamp.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterOpTimestamp.c.o
+.PHONY : its/VruClusterOpTimestamp.c.o
+
+its/VruClusterOpTimestamp.i: its/VruClusterOpTimestamp.c.i
+
+.PHONY : its/VruClusterOpTimestamp.i
+
+# target to preprocess a source file
+its/VruClusterOpTimestamp.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterOpTimestamp.c.i
+.PHONY : its/VruClusterOpTimestamp.c.i
+
+its/VruClusterOpTimestamp.s: its/VruClusterOpTimestamp.c.s
+
+.PHONY : its/VruClusterOpTimestamp.s
+
+# target to generate assembly for a file
+its/VruClusterOpTimestamp.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterOpTimestamp.c.s
+.PHONY : its/VruClusterOpTimestamp.c.s
+
+its/VruClusterOperationContainer.o: its/VruClusterOperationContainer.c.o
+
+.PHONY : its/VruClusterOperationContainer.o
+
+# target to build an object file
+its/VruClusterOperationContainer.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterOperationContainer.c.o
+.PHONY : its/VruClusterOperationContainer.c.o
+
+its/VruClusterOperationContainer.i: its/VruClusterOperationContainer.c.i
+
+.PHONY : its/VruClusterOperationContainer.i
+
+# target to preprocess a source file
+its/VruClusterOperationContainer.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterOperationContainer.c.i
+.PHONY : its/VruClusterOperationContainer.c.i
+
+its/VruClusterOperationContainer.s: its/VruClusterOperationContainer.c.s
+
+.PHONY : its/VruClusterOperationContainer.s
+
+# target to generate assembly for a file
+its/VruClusterOperationContainer.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruClusterOperationContainer.c.s
+.PHONY : its/VruClusterOperationContainer.c.s
+
+its/VruDeviceUsage.o: its/VruDeviceUsage.c.o
+
+.PHONY : its/VruDeviceUsage.o
+
+# target to build an object file
+its/VruDeviceUsage.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruDeviceUsage.c.o
+.PHONY : its/VruDeviceUsage.c.o
+
+its/VruDeviceUsage.i: its/VruDeviceUsage.c.i
+
+.PHONY : its/VruDeviceUsage.i
+
+# target to preprocess a source file
+its/VruDeviceUsage.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruDeviceUsage.c.i
+.PHONY : its/VruDeviceUsage.c.i
+
+its/VruDeviceUsage.s: its/VruDeviceUsage.c.s
+
+.PHONY : its/VruDeviceUsage.s
+
+# target to generate assembly for a file
+its/VruDeviceUsage.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruDeviceUsage.c.s
+.PHONY : its/VruDeviceUsage.c.s
+
+its/VruEnvironment.o: its/VruEnvironment.c.o
+
+.PHONY : its/VruEnvironment.o
+
+# target to build an object file
+its/VruEnvironment.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruEnvironment.c.o
+.PHONY : its/VruEnvironment.c.o
+
+its/VruEnvironment.i: its/VruEnvironment.c.i
+
+.PHONY : its/VruEnvironment.i
+
+# target to preprocess a source file
+its/VruEnvironment.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruEnvironment.c.i
+.PHONY : its/VruEnvironment.c.i
+
+its/VruEnvironment.s: its/VruEnvironment.c.s
+
+.PHONY : its/VruEnvironment.s
+
+# target to generate assembly for a file
+its/VruEnvironment.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruEnvironment.c.s
+.PHONY : its/VruEnvironment.c.s
+
+its/VruExteriorLights.o: its/VruExteriorLights.c.o
+
+.PHONY : its/VruExteriorLights.o
+
+# target to build an object file
+its/VruExteriorLights.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruExteriorLights.c.o
+.PHONY : its/VruExteriorLights.c.o
+
+its/VruExteriorLights.i: its/VruExteriorLights.c.i
+
+.PHONY : its/VruExteriorLights.i
+
+# target to preprocess a source file
+its/VruExteriorLights.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruExteriorLights.c.i
+.PHONY : its/VruExteriorLights.c.i
+
+its/VruExteriorLights.s: its/VruExteriorLights.c.s
+
+.PHONY : its/VruExteriorLights.s
+
+# target to generate assembly for a file
+its/VruExteriorLights.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruExteriorLights.c.s
+.PHONY : its/VruExteriorLights.c.s
+
+its/VruHighFrequencyContainer.o: its/VruHighFrequencyContainer.c.o
+
+.PHONY : its/VruHighFrequencyContainer.o
+
+# target to build an object file
+its/VruHighFrequencyContainer.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruHighFrequencyContainer.c.o
+.PHONY : its/VruHighFrequencyContainer.c.o
+
+its/VruHighFrequencyContainer.i: its/VruHighFrequencyContainer.c.i
+
+.PHONY : its/VruHighFrequencyContainer.i
+
+# target to preprocess a source file
+its/VruHighFrequencyContainer.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruHighFrequencyContainer.c.i
+.PHONY : its/VruHighFrequencyContainer.c.i
+
+its/VruHighFrequencyContainer.s: its/VruHighFrequencyContainer.c.s
+
+.PHONY : its/VruHighFrequencyContainer.s
+
+# target to generate assembly for a file
+its/VruHighFrequencyContainer.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruHighFrequencyContainer.c.s
+.PHONY : its/VruHighFrequencyContainer.c.s
+
+its/VruLanePosition.o: its/VruLanePosition.c.o
+
+.PHONY : its/VruLanePosition.o
+
+# target to build an object file
+its/VruLanePosition.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruLanePosition.c.o
+.PHONY : its/VruLanePosition.c.o
+
+its/VruLanePosition.i: its/VruLanePosition.c.i
+
+.PHONY : its/VruLanePosition.i
+
+# target to preprocess a source file
+its/VruLanePosition.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruLanePosition.c.i
+.PHONY : its/VruLanePosition.c.i
+
+its/VruLanePosition.s: its/VruLanePosition.c.s
+
+.PHONY : its/VruLanePosition.s
+
+# target to generate assembly for a file
+its/VruLanePosition.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruLanePosition.c.s
+.PHONY : its/VruLanePosition.c.s
+
+its/VruLowFrequencyContainer.o: its/VruLowFrequencyContainer.c.o
+
+.PHONY : its/VruLowFrequencyContainer.o
+
+# target to build an object file
+its/VruLowFrequencyContainer.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruLowFrequencyContainer.c.o
+.PHONY : its/VruLowFrequencyContainer.c.o
+
+its/VruLowFrequencyContainer.i: its/VruLowFrequencyContainer.c.i
+
+.PHONY : its/VruLowFrequencyContainer.i
+
+# target to preprocess a source file
+its/VruLowFrequencyContainer.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruLowFrequencyContainer.c.i
+.PHONY : its/VruLowFrequencyContainer.c.i
+
+its/VruLowFrequencyContainer.s: its/VruLowFrequencyContainer.c.s
+
+.PHONY : its/VruLowFrequencyContainer.s
+
+# target to generate assembly for a file
+its/VruLowFrequencyContainer.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruLowFrequencyContainer.c.s
+.PHONY : its/VruLowFrequencyContainer.c.s
+
+its/VruMotionPredictionContainer.o: its/VruMotionPredictionContainer.c.o
+
+.PHONY : its/VruMotionPredictionContainer.o
+
+# target to build an object file
+its/VruMotionPredictionContainer.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruMotionPredictionContainer.c.o
+.PHONY : its/VruMotionPredictionContainer.c.o
+
+its/VruMotionPredictionContainer.i: its/VruMotionPredictionContainer.c.i
+
+.PHONY : its/VruMotionPredictionContainer.i
+
+# target to preprocess a source file
+its/VruMotionPredictionContainer.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruMotionPredictionContainer.c.i
+.PHONY : its/VruMotionPredictionContainer.c.i
+
+its/VruMotionPredictionContainer.s: its/VruMotionPredictionContainer.c.s
+
+.PHONY : its/VruMotionPredictionContainer.s
+
+# target to generate assembly for a file
+its/VruMotionPredictionContainer.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruMotionPredictionContainer.c.s
+.PHONY : its/VruMotionPredictionContainer.c.s
+
+its/VruMovementControl.o: its/VruMovementControl.c.o
+
+.PHONY : its/VruMovementControl.o
+
+# target to build an object file
+its/VruMovementControl.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruMovementControl.c.o
+.PHONY : its/VruMovementControl.c.o
+
+its/VruMovementControl.i: its/VruMovementControl.c.i
+
+.PHONY : its/VruMovementControl.i
+
+# target to preprocess a source file
+its/VruMovementControl.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruMovementControl.c.i
+.PHONY : its/VruMovementControl.c.i
+
+its/VruMovementControl.s: its/VruMovementControl.c.s
+
+.PHONY : its/VruMovementControl.s
+
+# target to generate assembly for a file
+its/VruMovementControl.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruMovementControl.c.s
+.PHONY : its/VruMovementControl.c.s
+
+its/VruOrientation.o: its/VruOrientation.c.o
+
+.PHONY : its/VruOrientation.o
+
+# target to build an object file
+its/VruOrientation.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruOrientation.c.o
+.PHONY : its/VruOrientation.c.o
+
+its/VruOrientation.i: its/VruOrientation.c.i
+
+.PHONY : its/VruOrientation.i
+
+# target to preprocess a source file
+its/VruOrientation.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruOrientation.c.i
+.PHONY : its/VruOrientation.c.i
+
+its/VruOrientation.s: its/VruOrientation.c.s
+
+.PHONY : its/VruOrientation.s
+
+# target to generate assembly for a file
+its/VruOrientation.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruOrientation.c.s
+.PHONY : its/VruOrientation.c.s
+
+its/VruPathPoint.o: its/VruPathPoint.c.o
+
+.PHONY : its/VruPathPoint.o
+
+# target to build an object file
+its/VruPathPoint.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruPathPoint.c.o
+.PHONY : its/VruPathPoint.c.o
+
+its/VruPathPoint.i: its/VruPathPoint.c.i
+
+.PHONY : its/VruPathPoint.i
+
+# target to preprocess a source file
+its/VruPathPoint.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruPathPoint.c.i
+.PHONY : its/VruPathPoint.c.i
+
+its/VruPathPoint.s: its/VruPathPoint.c.s
+
+.PHONY : its/VruPathPoint.s
+
+# target to generate assembly for a file
+its/VruPathPoint.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruPathPoint.c.s
+.PHONY : its/VruPathPoint.c.s
+
+its/VruProfile.o: its/VruProfile.c.o
+
+.PHONY : its/VruProfile.o
+
+# target to build an object file
+its/VruProfile.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruProfile.c.o
+.PHONY : its/VruProfile.c.o
+
+its/VruProfile.i: its/VruProfile.c.i
+
+.PHONY : its/VruProfile.i
+
+# target to preprocess a source file
+its/VruProfile.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruProfile.c.i
+.PHONY : its/VruProfile.c.i
+
+its/VruProfile.s: its/VruProfile.c.s
+
+.PHONY : its/VruProfile.s
+
+# target to generate assembly for a file
+its/VruProfile.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruProfile.c.s
+.PHONY : its/VruProfile.c.s
+
+its/VruProfileAndSubprofile.o: its/VruProfileAndSubprofile.c.o
+
+.PHONY : its/VruProfileAndSubprofile.o
+
+# target to build an object file
+its/VruProfileAndSubprofile.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruProfileAndSubprofile.c.o
+.PHONY : its/VruProfileAndSubprofile.c.o
+
+its/VruProfileAndSubprofile.i: its/VruProfileAndSubprofile.c.i
+
+.PHONY : its/VruProfileAndSubprofile.i
+
+# target to preprocess a source file
+its/VruProfileAndSubprofile.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruProfileAndSubprofile.c.i
+.PHONY : its/VruProfileAndSubprofile.c.i
+
+its/VruProfileAndSubprofile.s: its/VruProfileAndSubprofile.c.s
+
+.PHONY : its/VruProfileAndSubprofile.s
+
+# target to generate assembly for a file
+its/VruProfileAndSubprofile.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruProfileAndSubprofile.c.s
+.PHONY : its/VruProfileAndSubprofile.c.s
+
+its/VruRollAngle.o: its/VruRollAngle.c.o
+
+.PHONY : its/VruRollAngle.o
+
+# target to build an object file
+its/VruRollAngle.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruRollAngle.c.o
+.PHONY : its/VruRollAngle.c.o
+
+its/VruRollAngle.i: its/VruRollAngle.c.i
+
+.PHONY : its/VruRollAngle.i
+
+# target to preprocess a source file
+its/VruRollAngle.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruRollAngle.c.i
+.PHONY : its/VruRollAngle.c.i
+
+its/VruRollAngle.s: its/VruRollAngle.c.s
+
+.PHONY : its/VruRollAngle.s
+
+# target to generate assembly for a file
+its/VruRollAngle.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruRollAngle.c.s
+.PHONY : its/VruRollAngle.c.s
+
+its/VruSafeDistanceIndication.o: its/VruSafeDistanceIndication.c.o
+
+.PHONY : its/VruSafeDistanceIndication.o
+
+# target to build an object file
+its/VruSafeDistanceIndication.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSafeDistanceIndication.c.o
+.PHONY : its/VruSafeDistanceIndication.c.o
+
+its/VruSafeDistanceIndication.i: its/VruSafeDistanceIndication.c.i
+
+.PHONY : its/VruSafeDistanceIndication.i
+
+# target to preprocess a source file
+its/VruSafeDistanceIndication.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSafeDistanceIndication.c.i
+.PHONY : its/VruSafeDistanceIndication.c.i
+
+its/VruSafeDistanceIndication.s: its/VruSafeDistanceIndication.c.s
+
+.PHONY : its/VruSafeDistanceIndication.s
+
+# target to generate assembly for a file
+its/VruSafeDistanceIndication.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSafeDistanceIndication.c.s
+.PHONY : its/VruSafeDistanceIndication.c.s
+
+its/VruSizeClass.o: its/VruSizeClass.c.o
+
+.PHONY : its/VruSizeClass.o
+
+# target to build an object file
+its/VruSizeClass.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSizeClass.c.o
+.PHONY : its/VruSizeClass.c.o
+
+its/VruSizeClass.i: its/VruSizeClass.c.i
+
+.PHONY : its/VruSizeClass.i
+
+# target to preprocess a source file
+its/VruSizeClass.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSizeClass.c.i
+.PHONY : its/VruSizeClass.c.i
+
+its/VruSizeClass.s: its/VruSizeClass.c.s
+
+.PHONY : its/VruSizeClass.s
+
+# target to generate assembly for a file
+its/VruSizeClass.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSizeClass.c.s
+.PHONY : its/VruSizeClass.c.s
+
+its/VruSpecificExteriorLights.o: its/VruSpecificExteriorLights.c.o
+
+.PHONY : its/VruSpecificExteriorLights.o
+
+# target to build an object file
+its/VruSpecificExteriorLights.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSpecificExteriorLights.c.o
+.PHONY : its/VruSpecificExteriorLights.c.o
+
+its/VruSpecificExteriorLights.i: its/VruSpecificExteriorLights.c.i
+
+.PHONY : its/VruSpecificExteriorLights.i
+
+# target to preprocess a source file
+its/VruSpecificExteriorLights.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSpecificExteriorLights.c.i
+.PHONY : its/VruSpecificExteriorLights.c.i
+
+its/VruSpecificExteriorLights.s: its/VruSpecificExteriorLights.c.s
+
+.PHONY : its/VruSpecificExteriorLights.s
+
+# target to generate assembly for a file
+its/VruSpecificExteriorLights.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSpecificExteriorLights.c.s
+.PHONY : its/VruSpecificExteriorLights.c.s
+
+its/VruSubProfileAnimal.o: its/VruSubProfileAnimal.c.o
+
+.PHONY : its/VruSubProfileAnimal.o
+
+# target to build an object file
+its/VruSubProfileAnimal.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileAnimal.c.o
+.PHONY : its/VruSubProfileAnimal.c.o
+
+its/VruSubProfileAnimal.i: its/VruSubProfileAnimal.c.i
+
+.PHONY : its/VruSubProfileAnimal.i
+
+# target to preprocess a source file
+its/VruSubProfileAnimal.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileAnimal.c.i
+.PHONY : its/VruSubProfileAnimal.c.i
+
+its/VruSubProfileAnimal.s: its/VruSubProfileAnimal.c.s
+
+.PHONY : its/VruSubProfileAnimal.s
+
+# target to generate assembly for a file
+its/VruSubProfileAnimal.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileAnimal.c.s
+.PHONY : its/VruSubProfileAnimal.c.s
+
+its/VruSubProfileBicyclist.o: its/VruSubProfileBicyclist.c.o
+
+.PHONY : its/VruSubProfileBicyclist.o
+
+# target to build an object file
+its/VruSubProfileBicyclist.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileBicyclist.c.o
+.PHONY : its/VruSubProfileBicyclist.c.o
+
+its/VruSubProfileBicyclist.i: its/VruSubProfileBicyclist.c.i
+
+.PHONY : its/VruSubProfileBicyclist.i
+
+# target to preprocess a source file
+its/VruSubProfileBicyclist.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileBicyclist.c.i
+.PHONY : its/VruSubProfileBicyclist.c.i
+
+its/VruSubProfileBicyclist.s: its/VruSubProfileBicyclist.c.s
+
+.PHONY : its/VruSubProfileBicyclist.s
+
+# target to generate assembly for a file
+its/VruSubProfileBicyclist.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileBicyclist.c.s
+.PHONY : its/VruSubProfileBicyclist.c.s
+
+its/VruSubProfileMotorcyclist.o: its/VruSubProfileMotorcyclist.c.o
+
+.PHONY : its/VruSubProfileMotorcyclist.o
+
+# target to build an object file
+its/VruSubProfileMotorcyclist.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileMotorcyclist.c.o
+.PHONY : its/VruSubProfileMotorcyclist.c.o
+
+its/VruSubProfileMotorcyclist.i: its/VruSubProfileMotorcyclist.c.i
+
+.PHONY : its/VruSubProfileMotorcyclist.i
+
+# target to preprocess a source file
+its/VruSubProfileMotorcyclist.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileMotorcyclist.c.i
+.PHONY : its/VruSubProfileMotorcyclist.c.i
+
+its/VruSubProfileMotorcyclist.s: its/VruSubProfileMotorcyclist.c.s
+
+.PHONY : its/VruSubProfileMotorcyclist.s
+
+# target to generate assembly for a file
+its/VruSubProfileMotorcyclist.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfileMotorcyclist.c.s
+.PHONY : its/VruSubProfileMotorcyclist.c.s
+
+its/VruSubProfilePedestrian.o: its/VruSubProfilePedestrian.c.o
+
+.PHONY : its/VruSubProfilePedestrian.o
+
+# target to build an object file
+its/VruSubProfilePedestrian.c.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfilePedestrian.c.o
+.PHONY : its/VruSubProfilePedestrian.c.o
+
+its/VruSubProfilePedestrian.i: its/VruSubProfilePedestrian.c.i
+
+.PHONY : its/VruSubProfilePedestrian.i
+
+# target to preprocess a source file
+its/VruSubProfilePedestrian.c.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfilePedestrian.c.i
+.PHONY : its/VruSubProfilePedestrian.c.i
+
+its/VruSubProfilePedestrian.s: its/VruSubProfilePedestrian.c.s
+
+.PHONY : its/VruSubProfilePedestrian.s
+
+# target to generate assembly for a file
+its/VruSubProfilePedestrian.c.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f vanetza/asn1/CMakeFiles/asn1_its.dir/build.make vanetza/asn1/CMakeFiles/asn1_its.dir/its/VruSubProfilePedestrian.c.s
+.PHONY : its/VruSubProfilePedestrian.c.s
 
 its/WGS84Angle.o: its/WGS84Angle.c.o
 
@@ -25488,6 +26946,12 @@ help:
 	@echo "... asn1c_wrapper.o"
 	@echo "... asn1c_wrapper.i"
 	@echo "... asn1c_wrapper.s"
+	@echo "... its/AccelOrDecel.o"
+	@echo "... its/AccelOrDecel.i"
+	@echo "... its/AccelOrDecel.s"
+	@echo "... its/AccelerationChangeIndication.o"
+	@echo "... its/AccelerationChangeIndication.i"
+	@echo "... its/AccelerationChangeIndication.s"
 	@echo "... its/AccelerationConfidence.o"
 	@echo "... its/AccelerationConfidence.i"
 	@echo "... its/AccelerationConfidence.s"
@@ -25497,6 +26961,9 @@ help:
 	@echo "... its/AccidentSubCauseCode.o"
 	@echo "... its/AccidentSubCauseCode.i"
 	@echo "... its/AccidentSubCauseCode.s"
+	@echo "... its/ActionDeltaTime.o"
+	@echo "... its/ActionDeltaTime.i"
+	@echo "... its/ActionDeltaTime.s"
 	@echo "... its/ActionID.o"
 	@echo "... its/ActionID.i"
 	@echo "... its/ActionID.s"
@@ -25644,6 +27111,33 @@ help:
 	@echo "... its/ClosedLanes.o"
 	@echo "... its/ClosedLanes.i"
 	@echo "... its/ClosedLanes.s"
+	@echo "... its/ClusterBoundingBoxShape.o"
+	@echo "... its/ClusterBoundingBoxShape.i"
+	@echo "... its/ClusterBoundingBoxShape.s"
+	@echo "... its/ClusterBreakupInfo.o"
+	@echo "... its/ClusterBreakupInfo.i"
+	@echo "... its/ClusterBreakupInfo.s"
+	@echo "... its/ClusterBreakupReason.o"
+	@echo "... its/ClusterBreakupReason.i"
+	@echo "... its/ClusterBreakupReason.s"
+	@echo "... its/ClusterCardinalitySize.o"
+	@echo "... its/ClusterCardinalitySize.i"
+	@echo "... its/ClusterCardinalitySize.s"
+	@echo "... its/ClusterId.o"
+	@echo "... its/ClusterId.i"
+	@echo "... its/ClusterId.s"
+	@echo "... its/ClusterJoinInfo.o"
+	@echo "... its/ClusterJoinInfo.i"
+	@echo "... its/ClusterJoinInfo.s"
+	@echo "... its/ClusterLeaveInfo.o"
+	@echo "... its/ClusterLeaveInfo.i"
+	@echo "... its/ClusterLeaveInfo.s"
+	@echo "... its/ClusterLeaveReason.o"
+	@echo "... its/ClusterLeaveReason.i"
+	@echo "... its/ClusterLeaveReason.s"
+	@echo "... its/ClusterProfiles.o"
+	@echo "... its/ClusterProfiles.i"
+	@echo "... its/ClusterProfiles.s"
 	@echo "... its/CollectivePerceptionMessage.o"
 	@echo "... its/CollectivePerceptionMessage.i"
 	@echo "... its/CollectivePerceptionMessage.s"
@@ -25902,6 +27396,9 @@ help:
 	@echo "... its/Heading.o"
 	@echo "... its/Heading.i"
 	@echo "... its/Heading.s"
+	@echo "... its/HeadingChangeIndication.o"
+	@echo "... its/HeadingChangeIndication.i"
+	@echo "... its/HeadingChangeIndication.s"
 	@echo "... its/HeadingConfidence.o"
 	@echo "... its/HeadingConfidence.i"
 	@echo "... its/HeadingConfidence.s"
@@ -25977,6 +27474,9 @@ help:
 	@echo "... its/ItsPduHeader.o"
 	@echo "... its/ItsPduHeader.i"
 	@echo "... its/ItsPduHeader.s"
+	@echo "... its/ItsPduHeaderVam.o"
+	@echo "... its/ItsPduHeaderVam.i"
+	@echo "... its/ItsPduHeaderVam.s"
 	@echo "... its/ItsStationPosition.o"
 	@echo "... its/ItsStationPosition.i"
 	@echo "... its/ItsStationPosition.s"
@@ -26058,6 +27558,9 @@ help:
 	@echo "... its/LayerType.o"
 	@echo "... its/LayerType.i"
 	@echo "... its/LayerType.s"
+	@echo "... its/LeftOrRight.o"
+	@echo "... its/LeftOrRight.i"
+	@echo "... its/LeftOrRight.s"
 	@echo "... its/LicPlateNumber.o"
 	@echo "... its/LicPlateNumber.i"
 	@echo "... its/LicPlateNumber.s"
@@ -26106,6 +27609,9 @@ help:
 	@echo "... its/MapData.o"
 	@echo "... its/MapData.i"
 	@echo "... its/MapData.s"
+	@echo "... its/MapPosition.o"
+	@echo "... its/MapPosition.i"
+	@echo "... its/MapPosition.s"
 	@echo "... its/MatchedPosition.o"
 	@echo "... its/MatchedPosition.i"
 	@echo "... its/MatchedPosition.s"
@@ -26190,6 +27696,9 @@ help:
 	@echo "... its/NodeXY.o"
 	@echo "... its/NodeXY.i"
 	@echo "... its/NodeXY.s"
+	@echo "... its/NonIslandLanePosition.o"
+	@echo "... its/NonIslandLanePosition.i"
+	@echo "... its/NonIslandLanePosition.s"
 	@echo "... its/NumberOfOccupants.o"
 	@echo "... its/NumberOfOccupants.i"
 	@echo "... its/NumberOfOccupants.s"
@@ -26223,6 +27732,9 @@ help:
 	@echo "... its/ObjectRefPoint.o"
 	@echo "... its/ObjectRefPoint.i"
 	@echo "... its/ObjectRefPoint.s"
+	@echo "... its/OffRoadLanePosition.o"
+	@echo "... its/OffRoadLanePosition.i"
+	@echo "... its/OffRoadLanePosition.s"
 	@echo "... its/Offset-B09.o"
 	@echo "... its/Offset-B09.i"
 	@echo "... its/Offset-B09.s"
@@ -26586,6 +28098,15 @@ help:
 	@echo "... its/SequenceNumber.o"
 	@echo "... its/SequenceNumber.i"
 	@echo "... its/SequenceNumber.s"
+	@echo "... its/SequenceOfTrajectoryInterceptionIndication.o"
+	@echo "... its/SequenceOfTrajectoryInterceptionIndication.i"
+	@echo "... its/SequenceOfTrajectoryInterceptionIndication.s"
+	@echo "... its/SequenceOfVruPathPoint.o"
+	@echo "... its/SequenceOfVruPathPoint.i"
+	@echo "... its/SequenceOfVruPathPoint.s"
+	@echo "... its/SequenceOfVruSafeDistanceIndication.o"
+	@echo "... its/SequenceOfVruSafeDistanceIndication.i"
+	@echo "... its/SequenceOfVruSafeDistanceIndication.s"
 	@echo "... its/ServiceApplicationLimit.o"
 	@echo "... its/ServiceApplicationLimit.i"
 	@echo "... its/ServiceApplicationLimit.s"
@@ -26691,6 +28212,12 @@ help:
 	@echo "... its/SpeedandHeadingIsoandThrottleConfidence.o"
 	@echo "... its/SpeedandHeadingIsoandThrottleConfidence.i"
 	@echo "... its/SpeedandHeadingIsoandThrottleConfidence.s"
+	@echo "... its/StabilityChangeIndication.o"
+	@echo "... its/StabilityChangeIndication.i"
+	@echo "... its/StabilityChangeIndication.s"
+	@echo "... its/StabilityLossProbability.o"
+	@echo "... its/StabilityLossProbability.i"
+	@echo "... its/StabilityLossProbability.s"
 	@echo "... its/StartTime.o"
 	@echo "... its/StartTime.i"
 	@echo "... its/StartTime.s"
@@ -26700,6 +28227,9 @@ help:
 	@echo "... its/StationID.o"
 	@echo "... its/StationID.i"
 	@echo "... its/StationID.s"
+	@echo "... its/StationSafeDistanceIndication.o"
+	@echo "... its/StationSafeDistanceIndication.i"
+	@echo "... its/StationSafeDistanceIndication.s"
 	@echo "... its/StationType.o"
 	@echo "... its/StationType.i"
 	@echo "... its/StationType.s"
@@ -26769,6 +28299,9 @@ help:
 	@echo "... its/TrafficConditionSubCauseCode.o"
 	@echo "... its/TrafficConditionSubCauseCode.i"
 	@echo "... its/TrafficConditionSubCauseCode.s"
+	@echo "... its/TrafficIslandPosition.o"
+	@echo "... its/TrafficIslandPosition.i"
+	@echo "... its/TrafficIslandPosition.s"
 	@echo "... its/TrafficRule.o"
 	@echo "... its/TrafficRule.i"
 	@echo "... its/TrafficRule.s"
@@ -26778,6 +28311,15 @@ help:
 	@echo "... its/TrailerDataContainer.o"
 	@echo "... its/TrailerDataContainer.i"
 	@echo "... its/TrailerDataContainer.s"
+	@echo "... its/TrajectoryInterceptionConfidence.o"
+	@echo "... its/TrajectoryInterceptionConfidence.i"
+	@echo "... its/TrajectoryInterceptionConfidence.s"
+	@echo "... its/TrajectoryInterceptionIndication.o"
+	@echo "... its/TrajectoryInterceptionIndication.i"
+	@echo "... its/TrajectoryInterceptionIndication.s"
+	@echo "... its/TrajectoryInterceptionProbability.o"
+	@echo "... its/TrajectoryInterceptionProbability.i"
+	@echo "... its/TrajectoryInterceptionProbability.s"
 	@echo "... its/TransitVehicleOccupancy.o"
 	@echo "... its/TransitVehicleOccupancy.i"
 	@echo "... its/TransitVehicleOccupancy.s"
@@ -26796,12 +28338,18 @@ help:
 	@echo "... its/TurningRadius.o"
 	@echo "... its/TurningRadius.i"
 	@echo "... its/TurningRadius.s"
+	@echo "... its/VAM.o"
+	@echo "... its/VAM.i"
+	@echo "... its/VAM.s"
 	@echo "... its/VDS.o"
 	@echo "... its/VDS.i"
 	@echo "... its/VDS.s"
 	@echo "... its/ValidityDuration.o"
 	@echo "... its/ValidityDuration.i"
 	@echo "... its/ValidityDuration.s"
+	@echo "... its/VamParameters.o"
+	@echo "... its/VamParameters.i"
+	@echo "... its/VamParameters.s"
 	@echo "... its/VanetzaTest.o"
 	@echo "... its/VanetzaTest.i"
 	@echo "... its/VanetzaTest.s"
@@ -26862,6 +28410,78 @@ help:
 	@echo "... its/VerticalAccelerationValue.o"
 	@echo "... its/VerticalAccelerationValue.i"
 	@echo "... its/VerticalAccelerationValue.s"
+	@echo "... its/VruAwareness.o"
+	@echo "... its/VruAwareness.i"
+	@echo "... its/VruAwareness.s"
+	@echo "... its/VruClusterInformationContainer.o"
+	@echo "... its/VruClusterInformationContainer.i"
+	@echo "... its/VruClusterInformationContainer.s"
+	@echo "... its/VruClusterOpTimestamp.o"
+	@echo "... its/VruClusterOpTimestamp.i"
+	@echo "... its/VruClusterOpTimestamp.s"
+	@echo "... its/VruClusterOperationContainer.o"
+	@echo "... its/VruClusterOperationContainer.i"
+	@echo "... its/VruClusterOperationContainer.s"
+	@echo "... its/VruDeviceUsage.o"
+	@echo "... its/VruDeviceUsage.i"
+	@echo "... its/VruDeviceUsage.s"
+	@echo "... its/VruEnvironment.o"
+	@echo "... its/VruEnvironment.i"
+	@echo "... its/VruEnvironment.s"
+	@echo "... its/VruExteriorLights.o"
+	@echo "... its/VruExteriorLights.i"
+	@echo "... its/VruExteriorLights.s"
+	@echo "... its/VruHighFrequencyContainer.o"
+	@echo "... its/VruHighFrequencyContainer.i"
+	@echo "... its/VruHighFrequencyContainer.s"
+	@echo "... its/VruLanePosition.o"
+	@echo "... its/VruLanePosition.i"
+	@echo "... its/VruLanePosition.s"
+	@echo "... its/VruLowFrequencyContainer.o"
+	@echo "... its/VruLowFrequencyContainer.i"
+	@echo "... its/VruLowFrequencyContainer.s"
+	@echo "... its/VruMotionPredictionContainer.o"
+	@echo "... its/VruMotionPredictionContainer.i"
+	@echo "... its/VruMotionPredictionContainer.s"
+	@echo "... its/VruMovementControl.o"
+	@echo "... its/VruMovementControl.i"
+	@echo "... its/VruMovementControl.s"
+	@echo "... its/VruOrientation.o"
+	@echo "... its/VruOrientation.i"
+	@echo "... its/VruOrientation.s"
+	@echo "... its/VruPathPoint.o"
+	@echo "... its/VruPathPoint.i"
+	@echo "... its/VruPathPoint.s"
+	@echo "... its/VruProfile.o"
+	@echo "... its/VruProfile.i"
+	@echo "... its/VruProfile.s"
+	@echo "... its/VruProfileAndSubprofile.o"
+	@echo "... its/VruProfileAndSubprofile.i"
+	@echo "... its/VruProfileAndSubprofile.s"
+	@echo "... its/VruRollAngle.o"
+	@echo "... its/VruRollAngle.i"
+	@echo "... its/VruRollAngle.s"
+	@echo "... its/VruSafeDistanceIndication.o"
+	@echo "... its/VruSafeDistanceIndication.i"
+	@echo "... its/VruSafeDistanceIndication.s"
+	@echo "... its/VruSizeClass.o"
+	@echo "... its/VruSizeClass.i"
+	@echo "... its/VruSizeClass.s"
+	@echo "... its/VruSpecificExteriorLights.o"
+	@echo "... its/VruSpecificExteriorLights.i"
+	@echo "... its/VruSpecificExteriorLights.s"
+	@echo "... its/VruSubProfileAnimal.o"
+	@echo "... its/VruSubProfileAnimal.i"
+	@echo "... its/VruSubProfileAnimal.s"
+	@echo "... its/VruSubProfileBicyclist.o"
+	@echo "... its/VruSubProfileBicyclist.i"
+	@echo "... its/VruSubProfileBicyclist.s"
+	@echo "... its/VruSubProfileMotorcyclist.o"
+	@echo "... its/VruSubProfileMotorcyclist.i"
+	@echo "... its/VruSubProfileMotorcyclist.s"
+	@echo "... its/VruSubProfilePedestrian.o"
+	@echo "... its/VruSubProfilePedestrian.i"
+	@echo "... its/VruSubProfilePedestrian.s"
 	@echo "... its/WGS84Angle.o"
 	@echo "... its/WGS84Angle.i"
 	@echo "... its/WGS84Angle.s"

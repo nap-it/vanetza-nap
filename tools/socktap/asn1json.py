@@ -6,7 +6,7 @@ import time, sys
 ######
 
 base_dir = "../../asn1"
-asn1_files = ["TS102894-2v131-CDD.asn", "EN302637-2v141-CAM.asn", "EN302637-3v131-DENM.asn",
+asn1_files = ["TS102894-2v131-CDD.asn", "EN302637-2v141-CAM.asn", "EN302637-3v131-DENM.asn", "TS103300-3v211-VAM.asn",
               "DSRC.asn", "DSRC_REGION_noCircular.asn", "TR103562v211-CPM.asn", "TS103301v211-MAPEM.asn", "TS103301v211-SPATEM.asn"]
 
 default_types = ["INTEGER", "BOOLEAN", "ENUMERATED", "BIT STRING", "IA5String",
@@ -328,11 +328,13 @@ namespace nlohmann {
 }
 
 void to_json(json& j, const TimestampIts_t& p) {
-    //std::cout << "TIMESTAMP " << j << std::endl;
+    long tmp;
+    asn_INTEGER2long(&p, &tmp);
+    j = tmp;
 }
 
 void from_json(const json& j, TimestampIts_t& p) {
-    std::cout << "TIMESTAMP " << j << std::endl;
+    asn_long2INTEGER(&p, stol(j.dump()));
 }
 """
 
@@ -349,6 +351,7 @@ header_intro = """/*
 #include <vanetza/asn1/cam.hpp>
 #include <vanetza/asn1/denm.hpp>
 #include <vanetza/asn1/cpm.hpp>
+#include <vanetza/asn1/vam.hpp>
 #include <vanetza/asn1/spatem.hpp>
 #include <vanetza/asn1/mapem.hpp>
 

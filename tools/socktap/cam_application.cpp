@@ -12,10 +12,6 @@
 #include <functional>
 #include <iostream>
 
-// This is a very simple CA application sending CAMs at a fixed rate.
-
-//static CamApplication* object;
-
 using namespace vanetza;
 using namespace vanetza::facilities;
 using namespace std::chrono;
@@ -23,15 +19,16 @@ using json = nlohmann::json;
 using namespace boost::asio;
 
 std::map<long, std::map<std::string, double>> persistence;
+
 prometheus::Counter *cam_rx_counter;
 prometheus::Counter *cam_tx_counter;
 prometheus::Counter *cam_rx_latency;
 prometheus::Counter *cam_tx_latency;
 
-boost::asio::io_service io_service_;
-ip::udp::socket udp_socket(io_service_);
-ip::udp::endpoint remote_endpoint;
-boost::system::error_code err;
+boost::asio::io_service cam_io_service_;
+ip::udp::socket cam_udp_socket(cam_io_service_);
+ip::udp::endpoint cam_remote_endpoint;
+boost::system::error_code cam_err;
 
 CamApplication::CamApplication(PositionProvider& positioning, Runtime& rt, Mqtt *mqtt_, config_t config_s_, metrics_t metrics_s_) :
     positioning_(positioning), runtime_(rt), cam_interval_(seconds(1)), mqtt(mqtt_), config_s(config_s_), metrics_s(metrics_s_)
@@ -45,8 +42,8 @@ CamApplication::CamApplication(PositionProvider& positioning, Runtime& rt, Mqtt 
     cam_tx_latency = &((*metrics_s.latency_counter).Add({{"message", "cam"}, {"direction", "tx"}}));
 
     if(config_s.cam.udp_out_port != 0) {
-        udp_socket.open(ip::udp::v4());
-        remote_endpoint = ip::udp::endpoint(ip::address::from_string(config_s.cam.udp_out_addr), config_s.cam.udp_out_port);
+        cam_udp_socket.open(ip::udp::v4());
+        cam_remote_endpoint = ip::udp::endpoint(ip::address::from_string(config_s.cam.udp_out_addr), config_s.cam.udp_out_port);
     }
 }
 
@@ -98,7 +95,7 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
         string json_dump = full_json.dump();
         mqtt->publish(config_s.full_cam_topic_out, json_dump);
         if(config_s.cam.udp_out_port != 0) {
-            udp_socket.send_to(buffer(json_dump, json_dump.length()), remote_endpoint, 0, err);
+            cam_udp_socket.send_to(buffer(json_dump, json_dump.length()), cam_remote_endpoint, 0, cam_err);
         }
     }
 }
@@ -210,7 +207,7 @@ void CamApplication::on_message(string mqtt_message) {
     ItsPduHeader_t& header = message->header;
     header.protocolVersion = 2;
     header.messageID = ItsPduHeader__messageID_cam;
-    header.stationID = 1; // some dummy value
+    header.stationID = config_s.station_id;
 
     cam.camParameters.highFrequencyContainer.present = HighFrequencyContainer_PR_basicVehicleContainerHighFrequency;
 
@@ -245,7 +242,7 @@ void CamApplication::on_timer(Clock::time_point)
     ItsPduHeader_t& header = message->header;
     header.protocolVersion = 2;
     header.messageID = ItsPduHeader__messageID_cam;
-    header.stationID = 1; // some dummy value
+    header.stationID = config_s.station_id;
 
     const auto time_now = duration_cast<milliseconds>(runtime_.now().time_since_epoch());
     uint16_t gen_delta_time = time_now.count();
@@ -261,7 +258,7 @@ void CamApplication::on_timer(Clock::time_point)
     //}
 
     BasicContainer_t& basic = cam.camParameters.basicContainer;
-    basic.stationType = StationType_passengerCar;
+    basic.stationType = config_s.station_type;
     copy(position, basic.referencePosition);
 
     cam.camParameters.highFrequencyContainer.present = HighFrequencyContainer_PR_basicVehicleContainerHighFrequency;

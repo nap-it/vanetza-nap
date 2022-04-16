@@ -17,7 +17,7 @@ class TimeTrigger;
 class RouterContext
 {
 public:
-    RouterContext(const vanetza::geonet::MIB&, TimeTrigger&, vanetza::PositionProvider&, vanetza::security::SecurityEntity*, bool ignore_own_messages_);
+    RouterContext(const vanetza::geonet::MIB&, TimeTrigger&, vanetza::PositionProvider&, vanetza::security::SecurityEntity*, bool ignore_own_messages_, bool ignore_rsu_messages_);
     ~RouterContext();
     void enable(Application*);
     void disable(Application*);
@@ -46,6 +46,7 @@ private:
     std::list<Application*> applications_;
     bool require_position_fix_ = false;
     bool ignore_own_messages = true;
+    bool ignore_rsu_messages = false;
 };
 
 #endif /* ROUTER_CONTEXT_HPP_KIPUYBY2 */

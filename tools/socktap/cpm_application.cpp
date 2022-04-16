@@ -6,22 +6,27 @@
 #include <boost/units/cmath.hpp>
 #include <boost/units/systems/si/prefixes.hpp>
 #include <vanetza/facilities/cam_functions.hpp>
+#include <boost/asio.hpp>
 #include <chrono>
 #include <exception>
 #include <functional>
 #include <iostream>
 
-// This is a very simple CA application sending CAMs at a fixed rate.
-
 using namespace vanetza;
 using namespace vanetza::facilities;
 using namespace std::chrono;
 using json = nlohmann::json;
+using namespace boost::asio;
 
 prometheus::Counter *cpm_rx_counter;
 prometheus::Counter *cpm_tx_counter;
 prometheus::Counter *cpm_rx_latency;
 prometheus::Counter *cpm_tx_latency;
+
+boost::asio::io_service cpm_io_service_;
+ip::udp::socket cpm_udp_socket(cpm_io_service_);
+ip::udp::endpoint cpm_remote_endpoint;
+boost::system::error_code cpm_err;
 
 CpmApplication::CpmApplication(PositionProvider& positioning, Runtime& rt, Mqtt* mqtt_, config_t config_s_, metrics_t metrics_s_) :
     positioning_(positioning), runtime_(rt), cpm_interval_(seconds(1)), mqtt(mqtt_), config_s(config_s_), metrics_s(metrics_s_)
@@ -33,6 +38,11 @@ CpmApplication::CpmApplication(PositionProvider& positioning, Runtime& rt, Mqtt*
     cpm_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "cpm"}, {"direction", "tx"}}));
     cpm_rx_latency = &((*metrics_s.latency_counter).Add({{"message", "cpm"}, {"direction", "rx"}}));
     cpm_tx_latency = &((*metrics_s.latency_counter).Add({{"message", "cpm"}, {"direction", "tx"}}));
+
+    if(config_s.cpm.udp_out_port != 0) {
+        cpm_udp_socket.open(ip::udp::v4());
+        cpm_remote_endpoint = ip::udp::endpoint(ip::address::from_string(config_s.cpm.udp_out_addr), config_s.cpm.udp_out_port);
+    }
 }
 
 void CpmApplication::set_interval(Clock::duration interval)
@@ -69,6 +79,10 @@ void CpmApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     mqtt->publish(config_s.cpm.topic_out, cpm_json);
     std::cout << "CPM JSON: " << cpm_json << std::endl;
     cpm_rx_counter->Increment();
+
+    if(config_s.cpm.udp_out_port != 0) {
+        cpm_udp_socket.send_to(buffer(cpm_json, cpm_json.length()), cpm_remote_endpoint, 0, cpm_err);
+    }
 }
 
 void CpmApplication::schedule_timer()
@@ -122,7 +136,7 @@ void CpmApplication::on_message(string mqtt_message) {
     ItsPduHeader_t& header = message->header;
     header.protocolVersion = 1;
     header.messageID = ItsPduHeader__messageID_cpm;
-    header.stationID = 1; // TODO
+    header.stationID = config_s.station_id;
 
     message->cpm = cpm;
 
@@ -130,7 +144,7 @@ void CpmApplication::on_message(string mqtt_message) {
     packet->layer(OsiLayer::Application) = std::move(message);
 
     DataRequest request;
-    request.its_aid = aid::CA;
+    request.its_aid = aid::CP;
     request.transport_type = geonet::TransportType::SHB;
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 

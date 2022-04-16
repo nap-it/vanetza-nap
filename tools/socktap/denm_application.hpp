@@ -7,13 +7,14 @@
 #include <vanetza/common/runtime.hpp>
 #include <vanetza/asn1/denm.hpp>
 
-class DenmApplication : public Application
+class DenmApplication : public Application, public Mqtt_client
 {
 public:
     DenmApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, Mqtt* mqtt_, config_t config_s_, metrics_t metrics_s_);
     PortType port() override;
     void indicate(const DataIndication&, UpPacketPtr) override;
     void set_interval(vanetza::Clock::duration);
+    void on_message(string);
 
 private:
     void schedule_timer();

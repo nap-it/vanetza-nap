@@ -32,26 +32,6 @@ algorithm
 limits
 -
 
-/home/rrosmaninho/Repos/IT/vanetza/vanetza/facilities/path_history.cpp
-vanetza/facilities/path_history.hpp
--
-vanetza/units/angle.hpp
--
-vanetza/units/length.hpp
--
-boost/units/cmath.hpp
--
-cassert
--
-
-/home/rrosmaninho/Repos/IT/vanetza/vanetza/facilities/path_point.cpp
-vanetza/facilities/path_point.hpp
--
-boost/units/cmath.hpp
--
-boost/units/systems/si/prefixes.hpp
--
-
 vanetza/asn1/asn1c_conversion.hpp
 vanetza/asn1/asn1c_wrapper.hpp
 -

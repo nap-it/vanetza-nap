@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
-*   Auto-generated from the asn1 directory by asn1json.py on 2022-04-14 23:37:34.522358
+*   Auto-generated from the asn1 directory by asn1json.py on 2022-04-16 03:03:21.031852
 */
 
 #include "asn1json.hpp"
@@ -32,11 +32,13 @@ namespace nlohmann {
 }
 
 void to_json(json& j, const TimestampIts_t& p) {
-    //std::cout << "TIMESTAMP " << j << std::endl;
+    long tmp;
+    asn_INTEGER2long(&p, &tmp);
+    j = tmp;
 }
 
 void from_json(const json& j, TimestampIts_t& p) {
-    std::cout << "TIMESTAMP " << j << std::endl;
+    asn_long2INTEGER(&p, stol(j.dump()));
 }
 
 
@@ -1130,6 +1132,252 @@ void from_json(const json& j, ReferenceDenms& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+}
+
+/*
+*   VruProfileAndSubprofile - Type CHOICE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruProfileAndSubprofile& p) {
+    j = json{};
+    if (p.present == VruProfileAndSubprofile_PR_pedestrian) {
+        j["pedestrian"] = p.choice.pedestrian;
+    } else if (p.present == VruProfileAndSubprofile_PR_bicyclist) {
+        j["bicyclist"] = p.choice.bicyclist;
+    } else if (p.present == VruProfileAndSubprofile_PR_motorcylist) {
+        j["motorcylist"] = p.choice.motorcylist;
+    } else if (p.present == VruProfileAndSubprofile_PR_animal) {
+        j["animal"] = p.choice.animal;
+    }
+}
+
+void from_json(const json& j, VruProfileAndSubprofile& p) {
+    if (j.contains("pedestrian")) {
+        p.present = VruProfileAndSubprofile_PR_pedestrian;
+        j.at("pedestrian").get_to(p.choice.pedestrian);
+    } else if (j.contains("bicyclist")) {
+        p.present = VruProfileAndSubprofile_PR_bicyclist;
+        j.at("bicyclist").get_to(p.choice.bicyclist);
+    } else if (j.contains("motorcylist")) {
+        p.present = VruProfileAndSubprofile_PR_motorcylist;
+        j.at("motorcylist").get_to(p.choice.motorcylist);
+    } else if (j.contains("animal")) {
+        p.present = VruProfileAndSubprofile_PR_animal;
+        j.at("animal").get_to(p.choice.animal);
+    } else {
+        p.present = VruProfileAndSubprofile_PR_NOTHING;
+    }
+}
+
+/*
+*   VruSpecificExteriorLights - Type BIT STRING
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+json to_json_VruSpecificExteriorLights(const VruSpecificExteriorLights_t p) {
+    return json{{"unavailable", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"backFlashLight", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}, {"helmetLight", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8))))}, {"armLight", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8))))}, {"legLight", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8))))}, {"wheelLight", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8))))}};
+}
+
+void from_json_VruSpecificExteriorLights(const json& j, VruSpecificExteriorLights_t& p) {
+    VruSpecificExteriorLights_t* p_tmp = vanetza::asn1::allocate<VruSpecificExteriorLights_t>();
+    bool unavailable;
+    bool backFlashLight;
+    bool helmetLight;
+    bool armLight;
+    bool legLight;
+    bool wheelLight;
+    j.at("unavailable").get_to((unavailable));
+    j.at("backFlashLight").get_to((backFlashLight));
+    j.at("helmetLight").get_to((helmetLight));
+    j.at("armLight").get_to((armLight));
+    j.at("legLight").get_to((legLight));
+    j.at("wheelLight").get_to((wheelLight));
+    p_tmp->size = (6 / 8) + 1;
+    p_tmp->bits_unused = 8 - (6 % 8);
+    p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+    *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+    if (unavailable) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
+    if (backFlashLight) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
+    if (helmetLight) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 5);
+    if (armLight) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 4);
+    if (legLight) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 3);
+    if (wheelLight) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 2);
+    p = *p_tmp;
+}
+
+/*
+*   ClusterProfiles - Type BIT STRING
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+json to_json_ClusterProfiles(const ClusterProfiles_t p) {
+    return json{{"pedestrian", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"bicyclist", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}, {"motorcyclist", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8))))}, {"animal", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8))))}};
+}
+
+void from_json_ClusterProfiles(const json& j, ClusterProfiles_t& p) {
+    ClusterProfiles_t* p_tmp = vanetza::asn1::allocate<ClusterProfiles_t>();
+    bool pedestrian;
+    bool bicyclist;
+    bool motorcyclist;
+    bool animal;
+    j.at("pedestrian").get_to((pedestrian));
+    j.at("bicyclist").get_to((bicyclist));
+    j.at("motorcyclist").get_to((motorcyclist));
+    j.at("animal").get_to((animal));
+    p_tmp->size = (4 / 8) + 1;
+    p_tmp->bits_unused = 8 - (4 % 8);
+    p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+    *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+    if (pedestrian) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
+    if (bicyclist) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
+    if (motorcyclist) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 5);
+    if (animal) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 4);
+    p = *p_tmp;
+}
+
+/*
+*   ClusterJoinInfo - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const ClusterJoinInfo& p) {
+    j = json{{"clusterId", (p.clusterId)}, {"joinTime", (p.joinTime)}};
+    
+}
+
+void from_json(const json& j, ClusterJoinInfo& p) {
+    j.at("clusterId").get_to((p.clusterId));
+    j.at("joinTime").get_to((p.joinTime));
+    
+    
+}
+
+/*
+*   ClusterLeaveInfo - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const ClusterLeaveInfo& p) {
+    j = json{{"clusterId", (p.clusterId)}, {"clusterLeaveReason", (p.clusterLeaveReason)}};
+    
+}
+
+void from_json(const json& j, ClusterLeaveInfo& p) {
+    j.at("clusterId").get_to((p.clusterId));
+    j.at("clusterLeaveReason").get_to((p.clusterLeaveReason));
+    
+    
+}
+
+/*
+*   ClusterBreakupInfo - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const ClusterBreakupInfo& p) {
+    j = json{{"clusterBreakupReason", (p.clusterBreakupReason)}, {"breakupTime", (p.breakupTime)}};
+    
+}
+
+void from_json(const json& j, ClusterBreakupInfo& p) {
+    j.at("clusterBreakupReason").get_to((p.clusterBreakupReason));
+    j.at("breakupTime").get_to((p.breakupTime));
+    
+    
+}
+
+/*
+*   VruSafeDistanceIndication - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruSafeDistanceIndication& p) {
+    j = json{{"stationSafeDistanceIndication", (p.stationSafeDistanceIndication)}};
+    if (p.subjectStation != 0) j["subjectStation"] = *(p.subjectStation);
+    if (p.timeToCollision != 0) j["timeToCollision"] = *(p.timeToCollision);
+}
+
+void from_json(const json& j, VruSafeDistanceIndication& p) {
+    if (j.contains("subjectStation")) { p.subjectStation = vanetza::asn1::allocate<StationID_t>(); j.at("subjectStation").get_to(*(p.subjectStation)); } 
+    else { p.subjectStation=nullptr; }
+    j.at("stationSafeDistanceIndication").get_to((p.stationSafeDistanceIndication));
+    if (j.contains("timeToCollision")) { p.timeToCollision = vanetza::asn1::allocate<ActionDeltaTime_t>(); j.at("timeToCollision").get_to(*(p.timeToCollision)); } 
+    else { p.timeToCollision=nullptr; }
+    
+    
+}
+
+/*
+*   TrajectoryInterceptionIndication - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const TrajectoryInterceptionIndication& p) {
+    j = json{{"trajectoryInterceptionProbability", (p.trajectoryInterceptionProbability)}};
+    if (p.subjectStation != 0) j["subjectStation"] = *(p.subjectStation);
+    if (p.trajectoryInterceptionConfidence != 0) j["trajectoryInterceptionConfidence"] = *(p.trajectoryInterceptionConfidence);
+}
+
+void from_json(const json& j, TrajectoryInterceptionIndication& p) {
+    if (j.contains("subjectStation")) { p.subjectStation = vanetza::asn1::allocate<StationID_t>(); j.at("subjectStation").get_to(*(p.subjectStation)); } 
+    else { p.subjectStation=nullptr; }
+    j.at("trajectoryInterceptionProbability").get_to((p.trajectoryInterceptionProbability));
+    if (j.contains("trajectoryInterceptionConfidence")) { p.trajectoryInterceptionConfidence = vanetza::asn1::allocate<TrajectoryInterceptionConfidence_t>(); j.at("trajectoryInterceptionConfidence").get_to(*(p.trajectoryInterceptionConfidence)); } 
+    else { p.trajectoryInterceptionConfidence=nullptr; }
+    
+    
+}
+
+/*
+*   HeadingChangeIndication - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const HeadingChangeIndication& p) {
+    j = json{{"direction", (p.direction)}, {"actionDeltaTime", (p.actionDeltaTime)}};
+    
+}
+
+void from_json(const json& j, HeadingChangeIndication& p) {
+    j.at("direction").get_to((p.direction));
+    j.at("actionDeltaTime").get_to((p.actionDeltaTime));
+    
+    
+}
+
+/*
+*   AccelerationChangeIndication - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const AccelerationChangeIndication& p) {
+    j = json{{"accelOrDecel", (p.accelOrDecel)}, {"actionDeltaTime", (p.actionDeltaTime)}};
+    
+}
+
+void from_json(const json& j, AccelerationChangeIndication& p) {
+    j.at("accelOrDecel").get_to((p.accelOrDecel));
+    j.at("actionDeltaTime").get_to((p.actionDeltaTime));
+    
+    
+}
+
+/*
+*   StabilityChangeIndication - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const StabilityChangeIndication& p) {
+    j = json{{"lossProbability", (p.lossProbability)}, {"actionDeltaTime", (p.actionDeltaTime)}};
+    
+}
+
+void from_json(const json& j, StabilityChangeIndication& p) {
+    j.at("lossProbability").get_to((p.lossProbability));
+    j.at("actionDeltaTime").get_to((p.actionDeltaTime));
+    
+    
 }
 
 /*
@@ -3028,6 +3276,134 @@ void from_json(const json& j, AlacarteContainer& p) {
 }
 
 /*
+*   MapPosition - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const MapPosition& p) {
+    j = json{{"intersectionId", (p.intersectionId)}, {"lane", (p.lane)}};
+    
+}
+
+void from_json(const json& j, MapPosition& p) {
+    j.at("intersectionId").get_to((p.intersectionId));
+    j.at("lane").get_to((p.lane));
+    
+    
+}
+
+/*
+*   VruExteriorLights - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruExteriorLights& p) {
+    j = json{{"vruSpecific", to_json_VruSpecificExteriorLights((p.vruSpecific))}, {"vehicular", to_json_ExteriorLights((p.vehicular))}};
+    
+}
+
+void from_json(const json& j, VruExteriorLights& p) {
+    
+    from_json_VruSpecificExteriorLights(j["vruSpecific"],(p.vruSpecific));
+    from_json_ExteriorLights(j["vehicular"],(p.vehicular));
+    
+}
+
+/*
+*   VruClusterOperationContainer - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruClusterOperationContainer& p) {
+    j = json{};
+    if (p.clusterJoinInfo != 0) j["clusterJoinInfo"] = *(p.clusterJoinInfo);
+    if (p.clusterLeaveInfo != 0) j["clusterLeaveInfo"] = *(p.clusterLeaveInfo);
+    if (p.clusterBreakupInfo != 0) j["clusterBreakupInfo"] = *(p.clusterBreakupInfo);
+    if (p.clusterIdChangeTimeInfo != 0) j["clusterIdChangeTimeInfo"] = *(p.clusterIdChangeTimeInfo);
+}
+
+void from_json(const json& j, VruClusterOperationContainer& p) {
+    if (j.contains("clusterJoinInfo")) { p.clusterJoinInfo = vanetza::asn1::allocate<ClusterJoinInfo_t>(); j.at("clusterJoinInfo").get_to(*(p.clusterJoinInfo)); } 
+    else { p.clusterJoinInfo=nullptr; }
+    if (j.contains("clusterLeaveInfo")) { p.clusterLeaveInfo = vanetza::asn1::allocate<ClusterLeaveInfo_t>(); j.at("clusterLeaveInfo").get_to(*(p.clusterLeaveInfo)); } 
+    else { p.clusterLeaveInfo=nullptr; }
+    if (j.contains("clusterBreakupInfo")) { p.clusterBreakupInfo = vanetza::asn1::allocate<ClusterBreakupInfo_t>(); j.at("clusterBreakupInfo").get_to(*(p.clusterBreakupInfo)); } 
+    else { p.clusterBreakupInfo=nullptr; }
+    if (j.contains("clusterIdChangeTimeInfo")) { p.clusterIdChangeTimeInfo = vanetza::asn1::allocate<VruClusterOpTimestamp_t>(); j.at("clusterIdChangeTimeInfo").get_to(*(p.clusterIdChangeTimeInfo)); } 
+    else { p.clusterIdChangeTimeInfo=nullptr; }
+    
+    
+}
+
+/*
+*   VruPathPoint - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruPathPoint& p) {
+    j = json{{"pathPosition", (p.pathPosition)}};
+    if (p.pathDeltaTime != 0) j["pathDeltaTime"] = *(p.pathDeltaTime);
+}
+
+void from_json(const json& j, VruPathPoint& p) {
+    j.at("pathPosition").get_to((p.pathPosition));
+    if (j.contains("pathDeltaTime")) { p.pathDeltaTime = vanetza::asn1::allocate<PathDeltaTime_t>(); j.at("pathDeltaTime").get_to(*(p.pathDeltaTime)); } 
+    else { p.pathDeltaTime=nullptr; }
+    
+    
+}
+
+/*
+*   SequenceOfVruSafeDistanceIndication - Type SEQUENCE OF
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const SequenceOfVruSafeDistanceIndication& p) {
+    for(int i = 0; i < p.list.count; i++) {
+        json obj;
+        const VruSafeDistanceIndication_t po = *(p.list.array[i]);
+        to_json(obj, po);
+        j.push_back(obj);
+    }
+}
+
+void from_json(const json& j, SequenceOfVruSafeDistanceIndication& p) {
+    SequenceOfVruSafeDistanceIndication* p_tmp = vanetza::asn1::allocate<SequenceOfVruSafeDistanceIndication>();
+    for (const auto& item : j.items())
+    {
+        VruSafeDistanceIndication_t *element = vanetza::asn1::allocate<VruSafeDistanceIndication_t>();
+        item.value().get_to(*element);
+        asn_set_add(&(p_tmp->list), element);
+    }
+    p = *p_tmp;
+}
+
+/*
+*   SequenceOfTrajectoryInterceptionIndication - Type SEQUENCE OF
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const SequenceOfTrajectoryInterceptionIndication& p) {
+    for(int i = 0; i < p.list.count; i++) {
+        json obj;
+        const TrajectoryInterceptionIndication_t po = *(p.list.array[i]);
+        to_json(obj, po);
+        j.push_back(obj);
+    }
+}
+
+void from_json(const json& j, SequenceOfTrajectoryInterceptionIndication& p) {
+    SequenceOfTrajectoryInterceptionIndication* p_tmp = vanetza::asn1::allocate<SequenceOfTrajectoryInterceptionIndication>();
+    for (const auto& item : j.items())
+    {
+        TrajectoryInterceptionIndication_t *element = vanetza::asn1::allocate<TrajectoryInterceptionIndication_t>();
+        item.value().get_to(*element);
+        asn_set_add(&(p_tmp->list), element);
+    }
+    p = *p_tmp;
+}
+
+/*
 *   ConnectingLane - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -3543,6 +3919,85 @@ void from_json(const json& j, DecentralizedEnvironmentalNotificationMessage& p) 
 }
 
 /*
+*   NonIslandLanePosition - Type CHOICE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const NonIslandLanePosition& p) {
+    j = json{};
+    if (p.present == NonIslandLanePosition_PR_offRoadLanePosition) {
+        j["offRoadLanePosition"] = p.choice.offRoadLanePosition;
+    } else if (p.present == NonIslandLanePosition_PR_vehicularLanePosition) {
+        j["vehicularLanePosition"] = p.choice.vehicularLanePosition;
+    } else if (p.present == NonIslandLanePosition_PR_mapPosition) {
+        j["mapPosition"] = p.choice.mapPosition;
+    }
+}
+
+void from_json(const json& j, NonIslandLanePosition& p) {
+    if (j.contains("offRoadLanePosition")) {
+        p.present = NonIslandLanePosition_PR_offRoadLanePosition;
+        j.at("offRoadLanePosition").get_to(p.choice.offRoadLanePosition);
+    } else if (j.contains("vehicularLanePosition")) {
+        p.present = NonIslandLanePosition_PR_vehicularLanePosition;
+        j.at("vehicularLanePosition").get_to(p.choice.vehicularLanePosition);
+    } else if (j.contains("mapPosition")) {
+        p.present = NonIslandLanePosition_PR_mapPosition;
+        j.at("mapPosition").get_to(p.choice.mapPosition);
+    } else {
+        p.present = NonIslandLanePosition_PR_NOTHING;
+    }
+}
+
+/*
+*   VruLowFrequencyContainer - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruLowFrequencyContainer& p) {
+    j = json{};
+    if (p.profileAndSubprofile != 0) j["profileAndSubprofile"] = *(p.profileAndSubprofile);
+    if (p.exteriorLights != 0) j["exteriorLights"] = *(p.exteriorLights);
+    if (p.sizeClass != 0) j["sizeClass"] = *(p.sizeClass);
+}
+
+void from_json(const json& j, VruLowFrequencyContainer& p) {
+    if (j.contains("profileAndSubprofile")) { p.profileAndSubprofile = vanetza::asn1::allocate<VruProfileAndSubprofile_t>(); j.at("profileAndSubprofile").get_to(*(p.profileAndSubprofile)); } 
+    else { p.profileAndSubprofile=nullptr; }
+    if (j.contains("exteriorLights")) { p.exteriorLights = vanetza::asn1::allocate<VruExteriorLights_t>(); j.at("exteriorLights").get_to(*(p.exteriorLights)); } 
+    else { p.exteriorLights=nullptr; }
+    if (j.contains("sizeClass")) { p.sizeClass = vanetza::asn1::allocate<VruSizeClass_t>(); j.at("sizeClass").get_to(*(p.sizeClass)); } 
+    else { p.sizeClass=nullptr; }
+    
+    
+}
+
+/*
+*   SequenceOfVruPathPoint - Type SEQUENCE OF
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const SequenceOfVruPathPoint& p) {
+    for(int i = 0; i < p.list.count; i++) {
+        json obj;
+        const VruPathPoint_t po = *(p.list.array[i]);
+        to_json(obj, po);
+        j.push_back(obj);
+    }
+}
+
+void from_json(const json& j, SequenceOfVruPathPoint& p) {
+    SequenceOfVruPathPoint* p_tmp = vanetza::asn1::allocate<SequenceOfVruPathPoint>();
+    for (const auto& item : j.items())
+    {
+        VruPathPoint_t *element = vanetza::asn1::allocate<VruPathPoint_t>();
+        item.value().get_to(*element);
+        asn_set_add(&(p_tmp->list), element);
+    }
+    p = *p_tmp;
+}
+
+/*
 *   ConnectsToList - Type SEQUENCE OF
 *   From DSRC - File DSRC.asn
 */
@@ -3943,6 +4398,58 @@ void from_json(const json& j, DENM& p) {
 }
 
 /*
+*   TrafficIslandPosition - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const TrafficIslandPosition& p) {
+    j = json{{"oneSide", (p.oneSide)}, {"otherSide", (p.otherSide)}};
+    
+}
+
+void from_json(const json& j, TrafficIslandPosition& p) {
+    j.at("oneSide").get_to((p.oneSide));
+    j.at("otherSide").get_to((p.otherSide));
+    
+    
+}
+
+/*
+*   VruMotionPredictionContainer - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruMotionPredictionContainer& p) {
+    j = json{};
+    if (p.pathHistory != 0) j["pathHistory"] = *(p.pathHistory);
+    if (p.pathPrediction != 0) j["pathPrediction"] = *(p.pathPrediction);
+    if (p.safeDistance != 0) j["safeDistance"] = *(p.safeDistance);
+    if (p.trajectoryInterceptionIndication != 0) j["trajectoryInterceptionIndication"] = *(p.trajectoryInterceptionIndication);
+    if (p.accelerationChangeIndication != 0) j["accelerationChangeIndication"] = *(p.accelerationChangeIndication);
+    if (p.headingChangeIndication != 0) j["headingChangeIndication"] = *(p.headingChangeIndication);
+    if (p.stabilityChangeIndication != 0) j["stabilityChangeIndication"] = *(p.stabilityChangeIndication);
+}
+
+void from_json(const json& j, VruMotionPredictionContainer& p) {
+    if (j.contains("pathHistory")) { p.pathHistory = vanetza::asn1::allocate<PathHistory_t>(); j.at("pathHistory").get_to(*(p.pathHistory)); } 
+    else { p.pathHistory=nullptr; }
+    if (j.contains("pathPrediction")) { p.pathPrediction = vanetza::asn1::allocate<SequenceOfVruPathPoint_t>(); j.at("pathPrediction").get_to(*(p.pathPrediction)); } 
+    else { p.pathPrediction=nullptr; }
+    if (j.contains("safeDistance")) { p.safeDistance = vanetza::asn1::allocate<SequenceOfVruSafeDistanceIndication_t>(); j.at("safeDistance").get_to(*(p.safeDistance)); } 
+    else { p.safeDistance=nullptr; }
+    if (j.contains("trajectoryInterceptionIndication")) { p.trajectoryInterceptionIndication = vanetza::asn1::allocate<SequenceOfTrajectoryInterceptionIndication_t>(); j.at("trajectoryInterceptionIndication").get_to(*(p.trajectoryInterceptionIndication)); } 
+    else { p.trajectoryInterceptionIndication=nullptr; }
+    if (j.contains("accelerationChangeIndication")) { p.accelerationChangeIndication = vanetza::asn1::allocate<AccelerationChangeIndication_t>(); j.at("accelerationChangeIndication").get_to(*(p.accelerationChangeIndication)); } 
+    else { p.accelerationChangeIndication=nullptr; }
+    if (j.contains("headingChangeIndication")) { p.headingChangeIndication = vanetza::asn1::allocate<HeadingChangeIndication_t>(); j.at("headingChangeIndication").get_to(*(p.headingChangeIndication)); } 
+    else { p.headingChangeIndication=nullptr; }
+    if (j.contains("stabilityChangeIndication")) { p.stabilityChangeIndication = vanetza::asn1::allocate<StabilityChangeIndication_t>(); j.at("stabilityChangeIndication").get_to(*(p.stabilityChangeIndication)); } 
+    else { p.stabilityChangeIndication=nullptr; }
+    
+    
+}
+
+/*
 *   MovementList - Type SEQUENCE OF
 *   From DSRC - File DSRC.asn
 */
@@ -4152,6 +4659,73 @@ void from_json(const json& j, CoopAwareness& p) {
 }
 
 /*
+*   VruLanePosition - Type CHOICE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruLanePosition& p) {
+    j = json{};
+    if (p.present == VruLanePosition_PR_offRoadLanePosition) {
+        j["offRoadLanePosition"] = p.choice.offRoadLanePosition;
+    } else if (p.present == VruLanePosition_PR_vehicularLanePosition) {
+        j["vehicularLanePosition"] = p.choice.vehicularLanePosition;
+    } else if (p.present == VruLanePosition_PR_trafficIslandPosition) {
+        j["trafficIslandPosition"] = p.choice.trafficIslandPosition;
+    } else if (p.present == VruLanePosition_PR_mapPosition) {
+        j["mapPosition"] = p.choice.mapPosition;
+    }
+}
+
+void from_json(const json& j, VruLanePosition& p) {
+    if (j.contains("offRoadLanePosition")) {
+        p.present = VruLanePosition_PR_offRoadLanePosition;
+        j.at("offRoadLanePosition").get_to(p.choice.offRoadLanePosition);
+    } else if (j.contains("vehicularLanePosition")) {
+        p.present = VruLanePosition_PR_vehicularLanePosition;
+        j.at("vehicularLanePosition").get_to(p.choice.vehicularLanePosition);
+    } else if (j.contains("trafficIslandPosition")) {
+        p.present = VruLanePosition_PR_trafficIslandPosition;
+        j.at("trafficIslandPosition").get_to(p.choice.trafficIslandPosition);
+    } else if (j.contains("mapPosition")) {
+        p.present = VruLanePosition_PR_mapPosition;
+        j.at("mapPosition").get_to(p.choice.mapPosition);
+    } else {
+        p.present = VruLanePosition_PR_NOTHING;
+    }
+}
+
+/*
+*   ClusterBoundingBoxShape - Type CHOICE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const ClusterBoundingBoxShape& p) {
+    j = json{};
+    if (p.present == ClusterBoundingBoxShape_PR_clusterRectangle) {
+        j["clusterRectangle"] = p.choice.clusterRectangle;
+    } else if (p.present == ClusterBoundingBoxShape_PR_clusterCircle) {
+        j["clusterCircle"] = p.choice.clusterCircle;
+    } else if (p.present == ClusterBoundingBoxShape_PR_clusterPolygon) {
+        j["clusterPolygon"] = p.choice.clusterPolygon;
+    }
+}
+
+void from_json(const json& j, ClusterBoundingBoxShape& p) {
+    if (j.contains("clusterRectangle")) {
+        p.present = ClusterBoundingBoxShape_PR_clusterRectangle;
+        j.at("clusterRectangle").get_to(p.choice.clusterRectangle);
+    } else if (j.contains("clusterCircle")) {
+        p.present = ClusterBoundingBoxShape_PR_clusterCircle;
+        j.at("clusterCircle").get_to(p.choice.clusterCircle);
+    } else if (j.contains("clusterPolygon")) {
+        p.present = ClusterBoundingBoxShape_PR_clusterPolygon;
+        j.at("clusterPolygon").get_to(p.choice.clusterPolygon);
+    } else {
+        p.present = ClusterBoundingBoxShape_PR_NOTHING;
+    }
+}
+
+/*
 *   IntersectionState - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -4336,6 +4910,74 @@ void from_json(const json& j, CAM& p) {
     j.at("header").get_to((p.header));
     j.at("cam").get_to((p.cam));
     
+    
+}
+
+/*
+*   VruHighFrequencyContainer - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruHighFrequencyContainer& p) {
+    j = json{{"heading", (p.heading)}, {"speed", (p.speed)}, {"longitudinalAcceleration", (p.longitudinalAcceleration)}};
+    if (p.curvature != 0) j["curvature"] = *(p.curvature);
+    if (p.curvatureCalculationMode != 0) j["curvatureCalculationMode"] = *(p.curvatureCalculationMode);
+    if (p.yawRate != 0) j["yawRate"] = *(p.yawRate);
+    if (p.lateralAcceleration != 0) j["lateralAcceleration"] = *(p.lateralAcceleration);
+    if (p.verticalAcceleration != 0) j["verticalAcceleration"] = *(p.verticalAcceleration);
+    if (p.vruLanePosition != 0) j["vruLanePosition"] = *(p.vruLanePosition);
+    if (p.environment != 0) j["environment"] = *(p.environment);
+    if (p.movementControl != 0) j["movementControl"] = *(p.movementControl);
+    if (p.orientation != 0) j["orientation"] = *(p.orientation);
+    if (p.rollAngle != 0) j["rollAngle"] = *(p.rollAngle);
+    if (p.deviceUsage != 0) j["deviceUsage"] = *(p.deviceUsage);
+}
+
+void from_json(const json& j, VruHighFrequencyContainer& p) {
+    j.at("heading").get_to((p.heading));
+    j.at("speed").get_to((p.speed));
+    j.at("longitudinalAcceleration").get_to((p.longitudinalAcceleration));
+    if (j.contains("curvature")) { p.curvature = vanetza::asn1::allocate<Curvature_t>(); j.at("curvature").get_to(*(p.curvature)); } 
+    else { p.curvature=nullptr; }
+    if (j.contains("curvatureCalculationMode")) { p.curvatureCalculationMode = vanetza::asn1::allocate<CurvatureCalculationMode_t>(); j.at("curvatureCalculationMode").get_to(*(p.curvatureCalculationMode)); } 
+    else { p.curvatureCalculationMode=nullptr; }
+    if (j.contains("yawRate")) { p.yawRate = vanetza::asn1::allocate<YawRate_t>(); j.at("yawRate").get_to(*(p.yawRate)); } 
+    else { p.yawRate=nullptr; }
+    if (j.contains("lateralAcceleration")) { p.lateralAcceleration = vanetza::asn1::allocate<LateralAcceleration_t>(); j.at("lateralAcceleration").get_to(*(p.lateralAcceleration)); } 
+    else { p.lateralAcceleration=nullptr; }
+    if (j.contains("verticalAcceleration")) { p.verticalAcceleration = vanetza::asn1::allocate<VerticalAcceleration_t>(); j.at("verticalAcceleration").get_to(*(p.verticalAcceleration)); } 
+    else { p.verticalAcceleration=nullptr; }
+    if (j.contains("vruLanePosition")) { p.vruLanePosition = vanetza::asn1::allocate<VruLanePosition_t>(); j.at("vruLanePosition").get_to(*(p.vruLanePosition)); } 
+    else { p.vruLanePosition=nullptr; }
+    if (j.contains("environment")) { p.environment = vanetza::asn1::allocate<VruEnvironment_t>(); j.at("environment").get_to(*(p.environment)); } 
+    else { p.environment=nullptr; }
+    if (j.contains("movementControl")) { p.movementControl = vanetza::asn1::allocate<VruMovementControl_t>(); j.at("movementControl").get_to(*(p.movementControl)); } 
+    else { p.movementControl=nullptr; }
+    if (j.contains("orientation")) { p.orientation = vanetza::asn1::allocate<VruOrientation_t>(); j.at("orientation").get_to(*(p.orientation)); } 
+    else { p.orientation=nullptr; }
+    if (j.contains("rollAngle")) { p.rollAngle = vanetza::asn1::allocate<VruRollAngle_t>(); j.at("rollAngle").get_to(*(p.rollAngle)); } 
+    else { p.rollAngle=nullptr; }
+    if (j.contains("deviceUsage")) { p.deviceUsage = vanetza::asn1::allocate<VruDeviceUsage_t>(); j.at("deviceUsage").get_to(*(p.deviceUsage)); } 
+    else { p.deviceUsage=nullptr; }
+    
+    
+}
+
+/*
+*   VruClusterInformationContainer - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruClusterInformationContainer& p) {
+    j = json{{"clusterId", (p.clusterId)}, {"clusterBoundingBoxShape", (p.clusterBoundingBoxShape)}, {"clusterCardinalitySize", (p.clusterCardinalitySize)}, {"clusterProfiles", to_json_ClusterProfiles((p.clusterProfiles))}};
+    
+}
+
+void from_json(const json& j, VruClusterInformationContainer& p) {
+    j.at("clusterId").get_to((p.clusterId));
+    j.at("clusterBoundingBoxShape").get_to((p.clusterBoundingBoxShape));
+    j.at("clusterCardinalitySize").get_to((p.clusterCardinalitySize));
+    from_json_ClusterProfiles(j["clusterProfiles"],(p.clusterProfiles));
     
 }
 
@@ -4553,6 +5195,36 @@ void from_json(const json& j, SPATEM& p) {
 }
 
 /*
+*   VamParameters - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VamParameters& p) {
+    j = json{{"basicContainer", (p.basicContainer)}};
+    if (p.vruHighFrequencyContainer != 0) j["vruHighFrequencyContainer"] = *(p.vruHighFrequencyContainer);
+    if (p.vruLowFrequencyContainer != 0) j["vruLowFrequencyContainer"] = *(p.vruLowFrequencyContainer);
+    if (p.vruClusterInformationContainer != 0) j["vruClusterInformationContainer"] = *(p.vruClusterInformationContainer);
+    if (p.vruClusterOperationContainer != 0) j["vruClusterOperationContainer"] = *(p.vruClusterOperationContainer);
+    if (p.vruMotionPredictionContainer != 0) j["vruMotionPredictionContainer"] = *(p.vruMotionPredictionContainer);
+}
+
+void from_json(const json& j, VamParameters& p) {
+    j.at("basicContainer").get_to((p.basicContainer));
+    if (j.contains("vruHighFrequencyContainer")) { p.vruHighFrequencyContainer = vanetza::asn1::allocate<VruHighFrequencyContainer_t>(); j.at("vruHighFrequencyContainer").get_to(*(p.vruHighFrequencyContainer)); } 
+    else { p.vruHighFrequencyContainer=nullptr; }
+    if (j.contains("vruLowFrequencyContainer")) { p.vruLowFrequencyContainer = vanetza::asn1::allocate<VruLowFrequencyContainer_t>(); j.at("vruLowFrequencyContainer").get_to(*(p.vruLowFrequencyContainer)); } 
+    else { p.vruLowFrequencyContainer=nullptr; }
+    if (j.contains("vruClusterInformationContainer")) { p.vruClusterInformationContainer = vanetza::asn1::allocate<VruClusterInformationContainer_t>(); j.at("vruClusterInformationContainer").get_to(*(p.vruClusterInformationContainer)); } 
+    else { p.vruClusterInformationContainer=nullptr; }
+    if (j.contains("vruClusterOperationContainer")) { p.vruClusterOperationContainer = vanetza::asn1::allocate<VruClusterOperationContainer_t>(); j.at("vruClusterOperationContainer").get_to(*(p.vruClusterOperationContainer)); } 
+    else { p.vruClusterOperationContainer=nullptr; }
+    if (j.contains("vruMotionPredictionContainer")) { p.vruMotionPredictionContainer = vanetza::asn1::allocate<VruMotionPredictionContainer_t>(); j.at("vruMotionPredictionContainer").get_to(*(p.vruMotionPredictionContainer)); } 
+    else { p.vruMotionPredictionContainer=nullptr; }
+    
+    
+}
+
+/*
 *   IntersectionGeometry - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -4626,6 +5298,23 @@ void from_json(const json& j, SensorInformationContainer& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+}
+
+/*
+*   VruAwareness - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruAwareness& p) {
+    j = json{{"generationDeltaTime", (p.generationDeltaTime)}, {"vamParameters", (p.vamParameters)}};
+    
+}
+
+void from_json(const json& j, VruAwareness& p) {
+    j.at("generationDeltaTime").get_to((p.generationDeltaTime));
+    j.at("vamParameters").get_to((p.vamParameters));
+    
+    
 }
 
 /*
@@ -4705,6 +5394,23 @@ void to_json(json& j, const MAPEM& p) {
 void from_json(const json& j, MAPEM& p) {
     j.at("header").get_to((p.header));
     j.at("map").get_to((p.map));
+    
+    
+}
+
+/*
+*   VAM - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VAM& p) {
+    j = json{{"header", (p.header)}, {"vam", (p.vam)}};
+    
+}
+
+void from_json(const json& j, VAM& p) {
+    j.at("header").get_to((p.header));
+    j.at("vam").get_to((p.vam));
     
     
 }

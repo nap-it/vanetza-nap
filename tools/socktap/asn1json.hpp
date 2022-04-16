@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
-*   Auto-generated from the asn1 directory by asn1json.py on 2022-04-14 23:37:42.739486
+*   Auto-generated from the asn1 directory by asn1json.py on 2022-04-16 00:51:04.352719
 */
 
 #ifndef ASN1_JSON_HPP
@@ -11,6 +11,7 @@
 #include <vanetza/asn1/cam.hpp>
 #include <vanetza/asn1/denm.hpp>
 #include <vanetza/asn1/cpm.hpp>
+#include <vanetza/asn1/vam.hpp>
 #include <vanetza/asn1/spatem.hpp>
 #include <vanetza/asn1/mapem.hpp>
 
@@ -501,6 +502,116 @@ void from_json(const json& j, StationaryVehicleContainer& p);
 void to_json(json& j, const ReferenceDenms& p);
 
 void from_json(const json& j, ReferenceDenms& p);
+
+
+/*
+*   VruProfileAndSubprofile - Type CHOICE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruProfileAndSubprofile& p);
+
+void from_json(const json& j, VruProfileAndSubprofile& p);
+
+
+/*
+*   VruSpecificExteriorLights - Type BIT STRING
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+json to_json_VruSpecificExteriorLights(const VruSpecificExteriorLights_t p);
+
+void from_json_VruSpecificExteriorLights(const json& j, VruSpecificExteriorLights_t& p);
+
+
+/*
+*   ClusterProfiles - Type BIT STRING
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+json to_json_ClusterProfiles(const ClusterProfiles_t p);
+
+void from_json_ClusterProfiles(const json& j, ClusterProfiles_t& p);
+
+
+/*
+*   ClusterJoinInfo - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const ClusterJoinInfo& p);
+
+void from_json(const json& j, ClusterJoinInfo& p);
+
+
+/*
+*   ClusterLeaveInfo - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const ClusterLeaveInfo& p);
+
+void from_json(const json& j, ClusterLeaveInfo& p);
+
+
+/*
+*   ClusterBreakupInfo - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const ClusterBreakupInfo& p);
+
+void from_json(const json& j, ClusterBreakupInfo& p);
+
+
+/*
+*   VruSafeDistanceIndication - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruSafeDistanceIndication& p);
+
+void from_json(const json& j, VruSafeDistanceIndication& p);
+
+
+/*
+*   TrajectoryInterceptionIndication - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const TrajectoryInterceptionIndication& p);
+
+void from_json(const json& j, TrajectoryInterceptionIndication& p);
+
+
+/*
+*   HeadingChangeIndication - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const HeadingChangeIndication& p);
+
+void from_json(const json& j, HeadingChangeIndication& p);
+
+
+/*
+*   AccelerationChangeIndication - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const AccelerationChangeIndication& p);
+
+void from_json(const json& j, AccelerationChangeIndication& p);
+
+
+/*
+*   StabilityChangeIndication - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const StabilityChangeIndication& p);
+
+void from_json(const json& j, StabilityChangeIndication& p);
 
 
 /*
@@ -1244,6 +1355,66 @@ void from_json(const json& j, AlacarteContainer& p);
 
 
 /*
+*   MapPosition - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const MapPosition& p);
+
+void from_json(const json& j, MapPosition& p);
+
+
+/*
+*   VruExteriorLights - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruExteriorLights& p);
+
+void from_json(const json& j, VruExteriorLights& p);
+
+
+/*
+*   VruClusterOperationContainer - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruClusterOperationContainer& p);
+
+void from_json(const json& j, VruClusterOperationContainer& p);
+
+
+/*
+*   VruPathPoint - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruPathPoint& p);
+
+void from_json(const json& j, VruPathPoint& p);
+
+
+/*
+*   SequenceOfVruSafeDistanceIndication - Type SEQUENCE OF
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const SequenceOfVruSafeDistanceIndication& p);
+
+void from_json(const json& j, SequenceOfVruSafeDistanceIndication& p);
+
+
+/*
+*   SequenceOfTrajectoryInterceptionIndication - Type SEQUENCE OF
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const SequenceOfTrajectoryInterceptionIndication& p);
+
+void from_json(const json& j, SequenceOfTrajectoryInterceptionIndication& p);
+
+
+/*
 *   ConnectingLane - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -1411,6 +1582,36 @@ void from_json(const json& j, SpecialVehicleContainer& p);
 void to_json(json& j, const DecentralizedEnvironmentalNotificationMessage& p);
 
 void from_json(const json& j, DecentralizedEnvironmentalNotificationMessage& p);
+
+
+/*
+*   NonIslandLanePosition - Type CHOICE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const NonIslandLanePosition& p);
+
+void from_json(const json& j, NonIslandLanePosition& p);
+
+
+/*
+*   VruLowFrequencyContainer - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruLowFrequencyContainer& p);
+
+void from_json(const json& j, VruLowFrequencyContainer& p);
+
+
+/*
+*   SequenceOfVruPathPoint - Type SEQUENCE OF
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const SequenceOfVruPathPoint& p);
+
+void from_json(const json& j, SequenceOfVruPathPoint& p);
 
 
 /*
@@ -1584,6 +1785,26 @@ void from_json(const json& j, DENM& p);
 
 
 /*
+*   TrafficIslandPosition - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const TrafficIslandPosition& p);
+
+void from_json(const json& j, TrafficIslandPosition& p);
+
+
+/*
+*   VruMotionPredictionContainer - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruMotionPredictionContainer& p);
+
+void from_json(const json& j, VruMotionPredictionContainer& p);
+
+
+/*
 *   MovementList - Type SEQUENCE OF
 *   From DSRC - File DSRC.asn
 */
@@ -1654,6 +1875,26 @@ void from_json(const json& j, CoopAwareness& p);
 
 
 /*
+*   VruLanePosition - Type CHOICE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruLanePosition& p);
+
+void from_json(const json& j, VruLanePosition& p);
+
+
+/*
+*   ClusterBoundingBoxShape - Type CHOICE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const ClusterBoundingBoxShape& p);
+
+void from_json(const json& j, ClusterBoundingBoxShape& p);
+
+
+/*
 *   IntersectionState - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -1721,6 +1962,26 @@ void from_json(const json& j, FreeSpaceAddendum& p);
 void to_json(json& j, const CAM& p);
 
 void from_json(const json& j, CAM& p);
+
+
+/*
+*   VruHighFrequencyContainer - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruHighFrequencyContainer& p);
+
+void from_json(const json& j, VruHighFrequencyContainer& p);
+
+
+/*
+*   VruClusterInformationContainer - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruClusterInformationContainer& p);
+
+void from_json(const json& j, VruClusterInformationContainer& p);
 
 
 /*
@@ -1814,6 +2075,16 @@ void from_json(const json& j, SPATEM& p);
 
 
 /*
+*   VamParameters - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VamParameters& p);
+
+void from_json(const json& j, VamParameters& p);
+
+
+/*
 *   IntersectionGeometry - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -1844,6 +2115,16 @@ void from_json(const json& j, SensorInformationContainer& p);
 
 
 /*
+*   VruAwareness - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VruAwareness& p);
+
+void from_json(const json& j, VruAwareness& p);
+
+
+/*
 *   MapData - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -1871,6 +2152,16 @@ void from_json(const json& j, CpmParameters& p);
 void to_json(json& j, const MAPEM& p);
 
 void from_json(const json& j, MAPEM& p);
+
+
+/*
+*   VAM - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+void to_json(json& j, const VAM& p);
+
+void from_json(const json& j, VAM& p);
 
 
 /*

@@ -487,6 +487,33 @@ main.cpp.s:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f tools/socktap/CMakeFiles/socktap.dir/build.make tools/socktap/CMakeFiles/socktap.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+mapem_application.o: mapem_application.cpp.o
+
+.PHONY : mapem_application.o
+
+# target to build an object file
+mapem_application.cpp.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f tools/socktap/CMakeFiles/socktap.dir/build.make tools/socktap/CMakeFiles/socktap.dir/mapem_application.cpp.o
+.PHONY : mapem_application.cpp.o
+
+mapem_application.i: mapem_application.cpp.i
+
+.PHONY : mapem_application.i
+
+# target to preprocess a source file
+mapem_application.cpp.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f tools/socktap/CMakeFiles/socktap.dir/build.make tools/socktap/CMakeFiles/socktap.dir/mapem_application.cpp.i
+.PHONY : mapem_application.cpp.i
+
+mapem_application.s: mapem_application.cpp.s
+
+.PHONY : mapem_application.s
+
+# target to generate assembly for a file
+mapem_application.cpp.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f tools/socktap/CMakeFiles/socktap.dir/build.make tools/socktap/CMakeFiles/socktap.dir/mapem_application.cpp.s
+.PHONY : mapem_application.cpp.s
+
 mqtt.o: mqtt.cpp.o
 
 .PHONY : mqtt.o
@@ -622,6 +649,33 @@ security.cpp.s:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f tools/socktap/CMakeFiles/socktap.dir/build.make tools/socktap/CMakeFiles/socktap.dir/security.cpp.s
 .PHONY : security.cpp.s
 
+spatem_application.o: spatem_application.cpp.o
+
+.PHONY : spatem_application.o
+
+# target to build an object file
+spatem_application.cpp.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f tools/socktap/CMakeFiles/socktap.dir/build.make tools/socktap/CMakeFiles/socktap.dir/spatem_application.cpp.o
+.PHONY : spatem_application.cpp.o
+
+spatem_application.i: spatem_application.cpp.i
+
+.PHONY : spatem_application.i
+
+# target to preprocess a source file
+spatem_application.cpp.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f tools/socktap/CMakeFiles/socktap.dir/build.make tools/socktap/CMakeFiles/socktap.dir/spatem_application.cpp.i
+.PHONY : spatem_application.cpp.i
+
+spatem_application.s: spatem_application.cpp.s
+
+.PHONY : spatem_application.s
+
+# target to generate assembly for a file
+spatem_application.cpp.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f tools/socktap/CMakeFiles/socktap.dir/build.make tools/socktap/CMakeFiles/socktap.dir/spatem_application.cpp.s
+.PHONY : spatem_application.cpp.s
+
 time_trigger.o: time_trigger.cpp.o
 
 .PHONY : time_trigger.o
@@ -648,6 +702,33 @@ time_trigger.s: time_trigger.cpp.s
 time_trigger.cpp.s:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f tools/socktap/CMakeFiles/socktap.dir/build.make tools/socktap/CMakeFiles/socktap.dir/time_trigger.cpp.s
 .PHONY : time_trigger.cpp.s
+
+vam_application.o: vam_application.cpp.o
+
+.PHONY : vam_application.o
+
+# target to build an object file
+vam_application.cpp.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f tools/socktap/CMakeFiles/socktap.dir/build.make tools/socktap/CMakeFiles/socktap.dir/vam_application.cpp.o
+.PHONY : vam_application.cpp.o
+
+vam_application.i: vam_application.cpp.i
+
+.PHONY : vam_application.i
+
+# target to preprocess a source file
+vam_application.cpp.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f tools/socktap/CMakeFiles/socktap.dir/build.make tools/socktap/CMakeFiles/socktap.dir/vam_application.cpp.i
+.PHONY : vam_application.cpp.i
+
+vam_application.s: vam_application.cpp.s
+
+.PHONY : vam_application.s
+
+# target to generate assembly for a file
+vam_application.cpp.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f tools/socktap/CMakeFiles/socktap.dir/build.make tools/socktap/CMakeFiles/socktap.dir/vam_application.cpp.s
+.PHONY : vam_application.cpp.s
 
 # Help Target
 help:
@@ -695,6 +776,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... mapem_application.o"
+	@echo "... mapem_application.i"
+	@echo "... mapem_application.s"
 	@echo "... mqtt.o"
 	@echo "... mqtt.i"
 	@echo "... mqtt.s"
@@ -710,9 +794,15 @@ help:
 	@echo "... security.o"
 	@echo "... security.i"
 	@echo "... security.s"
+	@echo "... spatem_application.o"
+	@echo "... spatem_application.i"
+	@echo "... spatem_application.s"
 	@echo "... time_trigger.o"
 	@echo "... time_trigger.i"
 	@echo "... time_trigger.s"
+	@echo "... vam_application.o"
+	@echo "... vam_application.i"
+	@echo "... vam_application.s"
 .PHONY : help
 
 
