@@ -106,8 +106,8 @@ std::string VamApplication::buildJSON(VAM_t message, double time_reception, int 
             },
             {"fields", j},
             {"stationID", (long) header.stationID},
-            {"receiverID", 1},
-            {"receiverType", 15}
+            {"receiverID", config_s.station_id},
+            {"receiverType", config_s.station_type}
     };
 
     vam_rx_latency->Increment(time_now - time_reception);

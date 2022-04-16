@@ -30,6 +30,12 @@ ip::udp::socket cam_udp_socket(cam_io_service_);
 ip::udp::endpoint cam_remote_endpoint;
 boost::system::error_code cam_err;
 
+SpeedValue_t last_speed = LLONG_MIN;
+double time_speed = 0;
+
+HeadingValue_t last_heading = LLONG_MIN;
+double time_heading = 0;
+
 CamApplication::CamApplication(PositionProvider& positioning, Runtime& rt, Mqtt *mqtt_, config_t config_s_, metrics_t metrics_s_) :
     positioning_(positioning), runtime_(rt), cam_interval_(seconds(1)), mqtt(mqtt_), config_s(config_s_), metrics_s(metrics_s_)
 {
@@ -146,6 +152,8 @@ std::string CamApplication::buildJSON(CAM_t message, double time_reception, int 
             },
             {"stationID", (long) header.stationID},
             {"stationType", (long) basic.stationType},
+            {"receiverID", config_s.station_id},
+            {"receiverType", config_s.station_type},
             {"latitude", latitude},
             {"longitude", longitude},
             {"semiMajorConf", (long) basic.referencePosition.positionConfidenceEllipse.semiMajorConfidence},
@@ -252,6 +260,32 @@ void CamApplication::on_timer(Clock::time_point)
 
     auto position = positioning_.position_fix();
 
+    SpeedValue_t speed = SpeedValue_unavailable;
+    if (position.speed.value().value() >= 0 && position.speed.value().value() <= 16382) speed = position.speed.value().value();
+    LongitudinalAccelerationValue_t acceleration = LongitudinalAccelerationValue_unavailable;
+
+    const double millis_now = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
+
+    if(time_speed == 0) time_speed = millis_now;
+    if (last_speed != LLONG_MIN && (speed != last_speed || millis_now - time_speed >= 1)) {
+        acceleration = (int)((speed - last_speed) * 10);
+        if (acceleration < -160 && acceleration > 160) acceleration = LongitudinalAccelerationValue_unavailable;
+        time_speed = millis_now;
+    }
+    last_speed = speed;
+
+    HeadingValue_t heading = HeadingValue_unavailable;
+    if (position.course.value().value() >= 0 && position.course.value().value() <= 3600) heading = position.course.value().value();
+    YawRateValue_t yaw_rate = YawRateValue_unavailable;
+
+    if(time_heading == 0) time_heading = millis_now;
+    if (last_heading != LLONG_MIN && (heading != last_heading || millis_now - time_heading >= 1)) {
+        yaw_rate = (int)((heading - last_heading) * 100);
+        if (yaw_rate < -32766 && yaw_rate > 32766) yaw_rate = YawRateValue_unavailable;
+        time_heading = millis_now;
+    }
+    last_heading = heading;
+
     //if (!position.confidence) {
     //    std::cerr << "Skipping CAM, because no good position is available, yet." << std::endl;
     //    return;
@@ -264,24 +298,24 @@ void CamApplication::on_timer(Clock::time_point)
     cam.camParameters.highFrequencyContainer.present = HighFrequencyContainer_PR_basicVehicleContainerHighFrequency;
 
     BasicVehicleContainerHighFrequency& bvc = cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency;
-    bvc.heading.headingValue = 0;
-    bvc.heading.headingConfidence = HeadingConfidence_equalOrWithinOneDegree;
+    bvc.heading.headingValue = heading;
+    bvc.heading.headingConfidence = HeadingConfidence_unavailable; //position.course.confidence().value();
 
-    bvc.speed.speedValue = 0;
-    bvc.speed.speedConfidence = SpeedConfidence_equalOrWithinOneCentimeterPerSec;
+    bvc.speed.speedValue = speed;
+    bvc.speed.speedConfidence = SpeedConfidence_unavailable; //position.speed.confidence().value();
 
     bvc.driveDirection = DriveDirection_forward;
-    bvc.longitudinalAcceleration.longitudinalAccelerationValue = LongitudinalAccelerationValue_unavailable;
+    bvc.longitudinalAcceleration.longitudinalAccelerationValue = acceleration;
 
-    bvc.vehicleLength.vehicleLengthValue = VehicleLengthValue_unavailable;
+    bvc.vehicleLength.vehicleLengthValue = config_s.length * 10;
     bvc.vehicleLength.vehicleLengthConfidenceIndication = VehicleLengthConfidenceIndication_noTrailerPresent;
-    bvc.vehicleWidth = VehicleWidth_unavailable;
+    bvc.vehicleWidth = config_s.width * 10;
 
-    bvc.curvature.curvatureValue = 0;
+    bvc.curvature.curvatureValue = CurvatureValue_unavailable;
     bvc.curvature.curvatureConfidence = CurvatureConfidence_unavailable;
     bvc.curvatureCalculationMode = CurvatureCalculationMode_yawRateUsed;
 
-    bvc.yawRate.yawRateValue = YawRateValue_unavailable;
+    bvc.yawRate.yawRateValue = yaw_rate;
 
     bvc.accelerationControl = new AccelerationControl_t();
     bvc.accelerationControl->buf = (uint8_t *) calloc(1, sizeof(uint8_t));

@@ -24,6 +24,8 @@ typedef struct config {
     bool use_hardcoded_gps;
     double latitude;
     double longitude;
+    double length;
+    double width;
     string interface;
     string mqtt_broker;
     int mqtt_port;

@@ -106,8 +106,8 @@ std::string SpatemApplication::buildJSON(SPATEM_t message, double time_reception
             },
             {"fields", j},
             {"stationID", (long) header.stationID},
-            {"receiverID", 1},
-            {"receiverType", 15}
+            {"receiverID", config_s.station_id},
+            {"receiverType", config_s.station_type}
     };
 
     spatem_rx_latency->Increment(time_now - time_reception);

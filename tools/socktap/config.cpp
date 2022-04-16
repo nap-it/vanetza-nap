@@ -20,7 +20,9 @@ void read_config(config_t* config_s, string path) {
     config_s->mac_address = getenv("VANETZA_MAC_ADDRESS") == NULL ? reader.Get("station", "mac_address", "") : getenv("VANETZA_MAC_ADDRESS");
     config_s->use_hardcoded_gps = getenv("VANETZA_USE_HARDCODED_GPS") == NULL ? reader.GetBoolean("station", "use_hardcoded_gps", true) : getenv("VANETZA_USE_HARDCODED_GPS") == "true";
     config_s->latitude = getenv("VANETZA_LATITUDE") == NULL ? reader.GetReal("station", "latitude", 40) : stod(getenv("VANETZA_LATITUDE"));
-    config_s->longitude = getenv("VANETZA_LONGITUDE") == NULL ? reader.GetReal("station", "longitude", 8) : stod(getenv("VANETZA_LONGITUDE"));
+    config_s->longitude = getenv("VANETZA_LONGITUDE") == NULL ? reader.GetReal("station", "longitude", -8) : stod(getenv("VANETZA_LONGITUDE"));
+    config_s->length = getenv("VANETZA_LENGTH") == NULL ? reader.GetReal("station", "length", 10) : stod(getenv("VANETZA_LENGTH"));
+    config_s->width = getenv("VANETZA_WIDTH") == NULL ? reader.GetReal("station", "width", 3) : stod(getenv("VANETZA_WIDTH"));
     config_s->interface = getenv("VANETZA_INTERFACE") == NULL ? reader.Get("general", "interface", "wlan0") : getenv("VANETZA_INTERFACE");
     config_s->mqtt_broker = getenv("VANETZA_MQTT_BROKER") == NULL ? reader.Get("general", "mqtt_broker", "127.0.0.1") : getenv("VANETZA_MQTT_BROKER");
     config_s->mqtt_port = getenv("VANETZA_MQTT_PORT") == NULL ? reader.GetInteger("general", "mqtt_port", 1883) : stoi(getenv("VANETZA_MQTT_PORT"));
