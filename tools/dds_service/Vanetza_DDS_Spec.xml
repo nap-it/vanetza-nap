@@ -1,0 +1,107 @@
+<dds>
+    <!-- Qos Library -->
+    <qos_library name="QosLibrary">
+      <qos_profile name="DefaultProfile" base_name="BuiltinQosLibExp::Generic.StrictReliable" is_default_qos="true">
+        <participant_qos>
+          <transport_builtin>
+            <mask>UDPV4 | SHMEM</mask>
+          </transport_builtin>
+        </participant_qos>
+      </qos_profile>
+    </qos_library>
+    <!-- types -->
+    <types>
+      <struct name="message_type" extensibility="extensible">
+        <member name="message" stringMaxLength="9999" id="0" type="string" key="true"/>
+      </struct>
+    </types>
+    <!-- Domain Library -->
+    <domain_library name="domain_library">
+      <domain name="domain" domain_id="0">
+        <register_type name="message_type" type_ref="message_type"/>
+        <topic name="vanetza/in/cam" register_type_ref="message_type"/>
+        <topic name="vanetza/in/cam_full" register_type_ref="message_type"/>
+        <topic name="vanetza/out/cam" register_type_ref="message_type"/>
+        <topic name="vanetza/out/cam_full" register_type_ref="message_type"/>
+        <topic name="vanetza/in/denm" register_type_ref="message_type"/>
+        <topic name="vanetza/out/denm" register_type_ref="message_type"/>
+        <topic name="vanetza/in/cpm" register_type_ref="message_type"/>
+        <topic name="vanetza/out/cpm" register_type_ref="message_type"/>
+        <topic name="vanetza/in/spatem" register_type_ref="message_type"/>
+        <topic name="vanetza/out/spatem" register_type_ref="message_type"/>
+        <topic name="vanetza/in/mapem" register_type_ref="message_type"/>
+        <topic name="vanetza/out/mapem" register_type_ref="message_type"/>
+        <topic name="vanetza/in/vam" register_type_ref="message_type"/>
+        <topic name="vanetza/in/vam_full" register_type_ref="message_type"/>
+        <topic name="vanetza/out/vam" register_type_ref="message_type"/>
+        <topic name="vanetza/out/vam_full" register_type_ref="message_type"/>
+      </domain>
+    </domain_library>
+    <!-- Participant library -->
+    <domain_participant_library name="participant_library">
+      <domain_participant name="its_app" domain_ref="domain_library::domain">
+        <publisher name="its_publisher">
+          <data_writer name="vanetza/in/cam" topic_ref="vanetza/in/cam"/>
+          <data_writer name="vanetza/in/cam_full" topic_ref="vanetza/in/cam_full"/>
+          <data_writer name="vanetza/in/denm" topic_ref="vanetza/in/denm"/>
+          <data_writer name="vanetza/in/cpm" topic_ref="vanetza/in/cpm"/>
+          <data_writer name="vanetza/in/spatem" topic_ref="vanetza/in/spatem"/>
+          <data_writer name="vanetza/in/mapem" topic_ref="vanetza/in/mapem"/>
+          <data_writer name="vanetza/in/vam" topic_ref="vanetza/in/vam"/>
+          <data_writer name="vanetza/in/vam_full" topic_ref="vanetza/in/vam_full"/>
+        </publisher>
+        <subscriber name="its_subscriber">
+          <data_reader name="vanetza/out/cam" topic_ref="vanetza/out/cam"/>
+          <data_reader name="vanetza/out/cam_full" topic_ref="vanetza/out/cam_full"/>
+          <data_reader name="vanetza/out/denm" topic_ref="vanetza/out/denm"/>
+          <data_reader name="vanetza/out/cpm" topic_ref="vanetza/out/cpm"/>
+          <data_reader name="vanetza/out/spatem" topic_ref="vanetza/out/spatem"/>
+          <data_reader name="vanetza/out/mapem" topic_ref="vanetza/out/mapem"/>
+          <data_reader name="vanetza/out/vam" topic_ref="vanetza/out/vam"/>
+          <data_reader name="vanetza/out/vam_full" topic_ref="vanetza/out/vam_full"/>
+        </subscriber>
+      </domain_participant>
+      <domain_participant name="vanetza" domain_ref="domain_library::domain">
+        <publisher name="vanetza_publisher">
+          <data_writer name="vanetza/out/cam" topic_ref="vanetza/out/cam"/>
+          <data_writer name="vanetza/out/cam_full" topic_ref="vanetza/out/cam_full"/>
+          <data_writer name="vanetza/out/denm" topic_ref="vanetza/out/denm"/>
+          <data_writer name="vanetza/out/cpm" topic_ref="vanetza/out/cpm"/>
+          <data_writer name="vanetza/out/spatem" topic_ref="vanetza/out/spatem"/>
+          <data_writer name="vanetza/out/mapem" topic_ref="vanetza/out/mapem"/>
+          <data_writer name="vanetza/out/vam" topic_ref="vanetza/out/vam"/>
+          <data_writer name="vanetza/out/vam_full" topic_ref="vanetza/out/vam_full"/>
+        </publisher>
+        <subscriber name="vanetza_subscriber">
+          <data_reader name="vanetza/in/cam" topic_ref="vanetza/in/cam"/>
+          <data_reader name="vanetza/in/cam_full" topic_ref="vanetza/in/cam_full"/>
+          <data_reader name="vanetza/in/denm" topic_ref="vanetza/in/denm"/>
+          <data_reader name="vanetza/in/cpm" topic_ref="vanetza/in/cpm"/>
+          <data_reader name="vanetza/in/spatem" topic_ref="vanetza/in/spatem"/>
+          <data_reader name="vanetza/in/mapem" topic_ref="vanetza/in/mapem"/>
+          <data_reader name="vanetza/in/vam" topic_ref="vanetza/in/vam"/>
+          <data_reader name="vanetza/in/vam_full" topic_ref="vanetza/in/vam_full"/>
+        </subscriber>
+      </domain_participant>
+      <domain_participant name="adapter" domain_ref="domain_library::domain">
+        <subscriber name="adapter_subscriber">
+          <data_reader name="vanetza/in/cam" topic_ref="vanetza/in/cam"/>
+          <data_reader name="vanetza/in/cam_full" topic_ref="vanetza/in/cam_full"/>
+          <data_reader name="vanetza/out/cam" topic_ref="vanetza/out/cam"/>
+          <data_reader name="vanetza/out/cam_full" topic_ref="vanetza/out/cam_full"/>
+          <data_reader name="vanetza/in/denm" topic_ref="vanetza/in/denm"/>
+          <data_reader name="vanetza/out/denm" topic_ref="vanetza/out/denm"/>
+          <data_reader name="vanetza/in/cpm" topic_ref="vanetza/in/cpm"/>
+          <data_reader name="vanetza/out/cpm" topic_ref="vanetza/out/cpm"/>
+          <data_reader name="vanetza/in/spatem" topic_ref="vanetza/in/spatem"/>
+          <data_reader name="vanetza/out/spatem" topic_ref="vanetza/out/spatem"/>
+          <data_reader name="vanetza/in/mapem" topic_ref="vanetza/in/mapem"/>
+          <data_reader name="vanetza/out/mapem" topic_ref="vanetza/out/mapem"/>
+          <data_reader name="vanetza/in/vam" topic_ref="vanetza/in/vam"/>
+          <data_reader name="vanetza/in/vam_full" topic_ref="vanetza/in/vam_full"/>
+          <data_reader name="vanetza/out/vam" topic_ref="vanetza/out/vam"/>
+          <data_reader name="vanetza/out/vam_full" topic_ref="vanetza/out/vam_full"/>
+        </subscriber>
+      </domain_participant>
+    </domain_participant_library>
+  </dds>

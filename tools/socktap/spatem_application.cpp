@@ -28,11 +28,12 @@ ip::udp::socket spatem_udp_socket(spatem_io_service_);
 ip::udp::endpoint spatem_remote_endpoint;
 boost::system::error_code spatem_err;
 
-SpatemApplication::SpatemApplication(PositionProvider& positioning, Runtime& rt, Mqtt* mqtt_, config_t config_s_, metrics_t metrics_s_) :
-    positioning_(positioning), runtime_(rt), spatem_interval_(seconds(1)), mqtt(mqtt_), config_s(config_s_), metrics_s(metrics_s_)
+SpatemApplication::SpatemApplication(PositionProvider& positioning, Runtime& rt, Mqtt* mqtt_, Dds* dds_, config_t config_s_, metrics_t metrics_s_) :
+    positioning_(positioning), runtime_(rt), spatem_interval_(seconds(1)), mqtt(mqtt_), dds(dds_), config_s(config_s_), metrics_s(metrics_s_)
 {
     //persistence = {};
-    mqtt->subscribe(config_s.spatem.topic_in, this);
+    if(config_s.spatem.mqtt_enabled) mqtt->subscribe(config_s.spatem.topic_in, this);
+    if(config_s.spatem.dds_enabled) dds->subscribe(config_s.spatem.topic_in, this);
     
     spatem_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "spatem"}, {"direction", "rx"}}));
     spatem_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "spatem"}, {"direction", "tx"}}));
@@ -76,7 +77,8 @@ void SpatemApplication::indicate(const DataIndication& indication, UpPacketPtr p
     SPATEM_t spatem_t = {(*spatem)->header, (*spatem)->spat};
     string spatem_json = buildJSON(spatem_t, cp.time_received, cp.rssi);
 
-    mqtt->publish(config_s.spatem.topic_out, spatem_json);
+    if(config_s.spatem.mqtt_enabled) mqtt->publish(config_s.spatem.topic_out, spatem_json);
+    if(config_s.spatem.dds_enabled) dds->publish(config_s.spatem.topic_out, spatem_json);
     std::cout << "SPATEM JSON: " << spatem_json << std::endl;
     spatem_rx_counter->Increment();
 
@@ -114,7 +116,7 @@ std::string SpatemApplication::buildJSON(SPATEM_t message, double time_reception
     return json_payload.dump();
 }
 
-void SpatemApplication::on_message(string mqtt_message) {
+void SpatemApplication::on_message(string topic, string mqtt_message) {
 
     const double time_reception = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
 

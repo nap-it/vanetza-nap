@@ -10,11 +10,11 @@
 class CamApplication : public Application, public Mqtt_client
 {
 public:
-    CamApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, Mqtt* mqtt_, config_t config_s_, metrics_t metrics_s_);
+    CamApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, Mqtt* mqtt_, Dds* dds_, config_t config_s_, metrics_t metrics_s_);
     PortType port() override;
     void indicate(const DataIndication&, UpPacketPtr) override;
     void set_interval(vanetza::Clock::duration);
-    void on_message(string);
+    void on_message(string, string);
 
 private:
     void schedule_timer();
@@ -24,6 +24,7 @@ private:
     vanetza::Runtime& runtime_;
     vanetza::Clock::duration cam_interval_;
     Mqtt *mqtt;
+    Dds *dds;
     config_t config_s;
     metrics_t metrics_s;
 

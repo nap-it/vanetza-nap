@@ -20,6 +20,7 @@ add_executable(socktap
     config_reader.hpp
     config.hpp config.cpp
     mqtt.h mqtt.cpp
+    dds.h dds.cpp
     application.cpp
     cam_application.cpp
     denm_application.cpp

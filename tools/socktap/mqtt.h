@@ -1,21 +1,17 @@
-//
-// Created by rrosmaninho on 9/2/21.
-//
-
 #include <mosquittopp.h>
 #include <iostream>
 #include <cstring>
 #include <string>
 #include <vector>
 
-#define TAG "Mqtt.cpp: "
+#define TAG "mqtt.cpp: "
 
 using namespace std;
 
 class Mqtt_client
 {
 public:
-    virtual void on_message(string){};
+    virtual void on_message(string, string){};
 };
 
 
@@ -27,8 +23,6 @@ class Mqtt : public mosqpp::mosquittopp {
 private:
     string id;
     string host;
-    string publish_topic;
-    vector<string> subscription_topic_list;
     int port;
 
 

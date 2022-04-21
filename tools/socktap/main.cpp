@@ -103,6 +103,7 @@ int main(int argc, const char** argv)
         mib.itsGnLocalGnAddr.is_manually_configured(true);
         mib.itsGnLocalAddrConfMethod = geonet::AddrConfMethod::Managed;
         mib.itsGnSecurity = false;
+        mib.vanetzaDisableBeaconing = !config_s.beacons_enabled;
 
         // NON_STRICT
         mib.itsGnSnDecapResultHandling = vanetza::geonet::SecurityDecapHandling::Non_Strict;
@@ -124,6 +125,7 @@ int main(int argc, const char** argv)
 
         const auto host_name = boost::asio::ip::host_name();
         Mqtt *mqtt = new Mqtt(host_name + "_" + to_string(uni(rng)), config_s.mqtt_broker, config_s.mqtt_port);
+        Dds *dds = new Dds(config_s.to_dds_port, config_s.from_dds_port);
 
         Exposer exposer{"0.0.0.0:" + to_string(config_s.prometheus_port)};
         metrics_t metrics_s = {};
@@ -150,7 +152,7 @@ int main(int argc, const char** argv)
 
         if (config_s.cam.enabled) {
             std::unique_ptr<CamApplication> cam_app {
-                new CamApplication(*positioning, trigger.runtime(), mqtt, config_s, metrics_s)
+                new CamApplication(*positioning, trigger.runtime(), mqtt, dds, config_s, metrics_s)
             };
             cam_app->set_interval(std::chrono::milliseconds(config_s.cam.periodicity));
             apps.emplace("cam", std::move(cam_app));
@@ -158,7 +160,7 @@ int main(int argc, const char** argv)
 
         if (config_s.denm.enabled) {
             std::unique_ptr<DenmApplication> denm_app {
-                new DenmApplication(*positioning, trigger.runtime(), mqtt, config_s, metrics_s)
+                new DenmApplication(*positioning, trigger.runtime(), mqtt, dds, config_s, metrics_s)
             };
             denm_app->set_interval(std::chrono::milliseconds(config_s.denm.periodicity));
             apps.emplace("denm", std::move(denm_app));
@@ -166,7 +168,7 @@ int main(int argc, const char** argv)
 
         if (config_s.cpm.enabled) {
             std::unique_ptr<CpmApplication> cpm_app {
-                    new CpmApplication(*positioning, trigger.runtime(), mqtt, config_s, metrics_s)
+                    new CpmApplication(*positioning, trigger.runtime(), mqtt, dds, config_s, metrics_s)
             };
             cpm_app->set_interval(std::chrono::milliseconds(config_s.cpm.periodicity));
             apps.emplace("cpm", std::move(cpm_app));
@@ -174,7 +176,7 @@ int main(int argc, const char** argv)
 
         if (config_s.vam.enabled) {
             std::unique_ptr<VamApplication> vam_app {
-                    new VamApplication(*positioning, trigger.runtime(), mqtt, config_s, metrics_s)
+                    new VamApplication(*positioning, trigger.runtime(), mqtt, dds, config_s, metrics_s)
             };
             vam_app->set_interval(std::chrono::milliseconds(config_s.vam.periodicity));
             apps.emplace("vam", std::move(vam_app));
@@ -182,7 +184,7 @@ int main(int argc, const char** argv)
 
         if (config_s.spatem.enabled) {
             std::unique_ptr<SpatemApplication> spatem_app {
-                    new SpatemApplication(*positioning, trigger.runtime(), mqtt, config_s, metrics_s)
+                    new SpatemApplication(*positioning, trigger.runtime(), mqtt, dds, config_s, metrics_s)
             };
             spatem_app->set_interval(std::chrono::milliseconds(config_s.spatem.periodicity));
             apps.emplace("spatem", std::move(spatem_app));
@@ -190,7 +192,7 @@ int main(int argc, const char** argv)
 
         if (config_s.mapem.enabled) {
             std::unique_ptr<MapemApplication> mapem_app {
-                    new MapemApplication(*positioning, trigger.runtime(), mqtt, config_s, metrics_s)
+                    new MapemApplication(*positioning, trigger.runtime(), mqtt, dds, config_s, metrics_s)
             };
             mapem_app->set_interval(std::chrono::milliseconds(config_s.mapem.periodicity));
             apps.emplace("mapem", std::move(mapem_app));

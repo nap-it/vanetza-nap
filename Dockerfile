@@ -16,6 +16,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libssl-dev \
     zlib1g-dev \
     libcurl4-openssl-dev \
+    golang-go \
+    ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 RUN printf "\nlistener 1883 0.0.0.0\nallow_anonymous true\n\n" > /etc/mosquitto/mosquitto.conf
 RUN mkdir /vanetza
@@ -24,8 +26,14 @@ WORKDIR /vanetza
 RUN dpkg -i deps/*.deb
 RUN rm CMakeCache.txt
 RUN cmake .
-RUN cmake --build . --target socktap -j 8
+RUN cmake --build . --target socktap -j 4
 RUN cp /vanetza/bin/socktap /usr/local/bin/socktap
+RUN mkdir -p /root/go/src/dds-vanetza-service
+RUN cp -r /vanetza/tools/dds_service/* /root/go/src/dds-vanetza-service
+WORKDIR /root/go/src/dds-vanetza-service
+RUN go mod tidy
+RUN go build main.go
+WORKDIR /vanetza
 RUN chmod +x /vanetza/entrypoint.sh
 #SHELL ["/bin/bash", "-c"]
 #ENTRYPOINT ["/usr/bin/sleep", " 5000"]

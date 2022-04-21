@@ -1,7 +1,3 @@
-//
-// Created by rrosmaninho on 9/2/21.
-//
-
 #include "mqtt.h"
 #include <map>  
 
@@ -91,7 +87,7 @@ void Mqtt::on_message(const struct mosquitto_message *message) {
     string payload = string(static_cast<char *>(message->payload));
     string topic = string(message->topic);
 
-    subscribers[topic]->on_message(payload);
+    subscribers[topic]->on_message(topic, payload);
 
     //cout<< TAG << "payload: " << payload << endl;
     //cout<< TAG << "topic: " << topic << endl;

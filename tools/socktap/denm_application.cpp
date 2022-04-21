@@ -27,10 +27,11 @@ ip::udp::socket denm_udp_socket(denm_io_service_);
 ip::udp::endpoint denm_remote_endpoint;
 boost::system::error_code denm_err;
 
-DenmApplication::DenmApplication(PositionProvider& positioning, Runtime& rt, Mqtt* mqtt_, config_t config_s_, metrics_t metrics_s_) :
-    positioning_(positioning), runtime_(rt), denm_interval_(seconds(1)), mqtt(mqtt_), config_s(config_s_), metrics_s(metrics_s_)
+DenmApplication::DenmApplication(PositionProvider& positioning, Runtime& rt, Mqtt* mqtt_, Dds* dds_, config_t config_s_, metrics_t metrics_s_) :
+    positioning_(positioning), runtime_(rt), denm_interval_(seconds(1)), mqtt(mqtt_), dds(dds_), config_s(config_s_), metrics_s(metrics_s_)
 {
-    mqtt->subscribe(config_s.denm.topic_in, this);
+    if(config_s.denm.mqtt_enabled) mqtt->subscribe(config_s.denm.topic_in, this);
+    if(config_s.denm.dds_enabled)  dds->subscribe(config_s.denm.topic_in, this);
 
     denm_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "denm"}, {"direction", "rx"}}));
     denm_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "denm"}, {"direction", "tx"}}));
@@ -74,7 +75,8 @@ void DenmApplication::indicate(const DataIndication& indication, UpPacketPtr pac
     DENM_t denm_t = {(*denm)->header, (*denm)->denm};
     string denm_json = buildJSON(denm_t, cp.time_received, cp.rssi);
 
-    mqtt->publish(config_s.denm.topic_out, denm_json);
+    if(config_s.denm.mqtt_enabled) mqtt->publish(config_s.denm.topic_out, denm_json);
+    if(config_s.denm.dds_enabled) dds->publish(config_s.denm.topic_out, denm_json);
     std::cout << "DENM JSON: " << denm_json << std::endl;
     denm_rx_counter->Increment();
 
@@ -104,15 +106,15 @@ std::string DenmApplication::buildJSON(DENM_t message, double time_reception, in
             },
             {"fields", j},
             {"stationID", (long) header.stationID},
-            {"receiverID", 1},
-            {"receiverType", 15}
+            {"receiverID", config_s.station_id},
+            {"receiverType", config_s.station_type}
     };
 
     denm_rx_latency->Increment(time_now - time_reception);
     return json_payload.dump();
 }
 
-void DenmApplication::on_message(string mqtt_message) {
+void DenmApplication::on_message(string topic, string mqtt_message) {
 
     const double time_reception = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
 

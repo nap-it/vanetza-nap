@@ -15,12 +15,15 @@ typedef struct message_config {
     string topic_out;
     string udp_out_addr;
     int udp_out_port;
+    bool mqtt_enabled;
+    bool dds_enabled;
 } message_config_t;
 
 typedef struct config {
     int station_id;
     int station_type;
     string mac_address;
+    bool beacons_enabled;
     bool use_hardcoded_gps;
     double latitude;
     double longitude;
@@ -33,13 +36,18 @@ typedef struct config {
     int rssi_port;
     bool ignore_own_messages;
     bool ignore_rsu_messages;
+    int to_dds_port;
+    int from_dds_port;
     message_config_t cam;
     message_config_t denm;
     message_config_t cpm;
     message_config_t vam;
     message_config_t spatem;
     message_config_t mapem;
+    string full_cam_topic_in;
     string full_cam_topic_out;
+    string full_vam_topic_in;
+    string full_vam_topic_out;
 } config_t;
 
 typedef struct metrics {

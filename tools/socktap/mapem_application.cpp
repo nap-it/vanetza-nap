@@ -28,11 +28,12 @@ ip::udp::socket mapem_udp_socket(mapem_io_service_);
 ip::udp::endpoint mapem_remote_endpoint;
 boost::system::error_code mapem_err;
 
-MapemApplication::MapemApplication(PositionProvider& positioning, Runtime& rt, Mqtt* mqtt_, config_t config_s_, metrics_t metrics_s_) :
-    positioning_(positioning), runtime_(rt), mapem_interval_(seconds(1)), mqtt(mqtt_), config_s(config_s_), metrics_s(metrics_s_)
+MapemApplication::MapemApplication(PositionProvider& positioning, Runtime& rt, Mqtt* mqtt_, Dds* dds_, config_t config_s_, metrics_t metrics_s_) :
+    positioning_(positioning), runtime_(rt), mapem_interval_(seconds(1)), mqtt(mqtt_), dds(dds_), config_s(config_s_), metrics_s(metrics_s_)
 {
     //persistence = {};
-    mqtt->subscribe(config_s.mapem.topic_in, this);
+    if(config_s.mapem.mqtt_enabled) mqtt->subscribe(config_s.mapem.topic_in, this);
+    if(config_s.mapem.dds_enabled) dds->subscribe(config_s.mapem.topic_in, this);
     
     mapem_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "mapem"}, {"direction", "rx"}}));
     mapem_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "mapem"}, {"direction", "tx"}}));
@@ -76,7 +77,8 @@ void MapemApplication::indicate(const DataIndication& indication, UpPacketPtr pa
     MAPEM_t mapem_t = {(*mapem)->header, (*mapem)->map};
     string mapem_json = buildJSON(mapem_t, cp.time_received, cp.rssi);
 
-    mqtt->publish(config_s.mapem.topic_out, mapem_json);
+    if(config_s.mapem.mqtt_enabled) mqtt->publish(config_s.mapem.topic_out, mapem_json);
+    if(config_s.mapem.dds_enabled) dds->publish(config_s.mapem.topic_out, mapem_json);
     std::cout << "MAPEM JSON: " << mapem_json << std::endl;
     mapem_rx_counter->Increment();
 
@@ -114,7 +116,7 @@ std::string MapemApplication::buildJSON(MAPEM_t message, double time_reception, 
     return json_payload.dump();
 }
 
-void MapemApplication::on_message(string mqtt_message) {
+void MapemApplication::on_message(string topic, string mqtt_message) {
 
     const double time_reception = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
 

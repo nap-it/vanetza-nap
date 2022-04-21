@@ -36,11 +36,13 @@ double time_speed = 0;
 HeadingValue_t last_heading = LLONG_MIN;
 double time_heading = 0;
 
-CamApplication::CamApplication(PositionProvider& positioning, Runtime& rt, Mqtt *mqtt_, config_t config_s_, metrics_t metrics_s_) :
-    positioning_(positioning), runtime_(rt), cam_interval_(seconds(1)), mqtt(mqtt_), config_s(config_s_), metrics_s(metrics_s_)
+CamApplication::CamApplication(PositionProvider& positioning, Runtime& rt, Mqtt *mqtt_, Dds* dds_, config_t config_s_, metrics_t metrics_s_) :
+    positioning_(positioning), runtime_(rt), cam_interval_(seconds(1)), mqtt(mqtt_), dds(dds_), config_s(config_s_), metrics_s(metrics_s_)
 {
     persistence = {};
-    mqtt->subscribe(config_s.cam.topic_in, this);
+    if(config_s.cam.mqtt_enabled) mqtt->subscribe(config_s.cam.topic_in, this);
+    if(config_s.cam.mqtt_enabled) mqtt->subscribe(config_s.full_cam_topic_in, this);
+    if(config_s.cam.dds_enabled) dds->subscribe(config_s.cam.topic_in, this);
     
     cam_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "cam"}, {"direction", "rx"}}));
     cam_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "cam"}, {"direction", "tx"}}));
@@ -84,7 +86,8 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     CAM_t cam_t = {(*cam)->header, (*cam)->cam};
     string cam_json = buildJSON(cam_t, cp.time_received, cp.rssi);
 
-    mqtt->publish(config_s.cam.topic_out, cam_json);
+    if(config_s.cam.mqtt_enabled) mqtt->publish(config_s.cam.topic_out, cam_json);
+    if(config_s.cam.dds_enabled) dds->publish(config_s.cam.topic_out, cam_json);
     std::cout << "CAM JSON: " << cam_json << std::endl;
     cam_rx_counter->Increment();
 
@@ -99,7 +102,8 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
             {"fields", fields_json}
         };
         string json_dump = full_json.dump();
-        mqtt->publish(config_s.full_cam_topic_out, json_dump);
+        if(config_s.cam.mqtt_enabled) mqtt->publish(config_s.full_cam_topic_out, json_dump);
+        if(config_s.cam.dds_enabled) dds->publish(config_s.full_cam_topic_out, json_dump);
         if(config_s.cam.udp_out_port != 0) {
             cam_udp_socket.send_to(buffer(json_dump, json_dump.length()), cam_remote_endpoint, 0, cam_err);
         }
@@ -166,7 +170,7 @@ std::string CamApplication::buildJSON(CAM_t message, double time_reception, int 
             {"speed", (long) bvc.speed.speedValue},
             {"speedConf", (long) bvc.speed.speedConfidence},
             {"driveDirection", driveDirection},
-            {"lenght",(long) bvc.vehicleLength.vehicleLengthValue},
+            {"length",(long) bvc.vehicleLength.vehicleLengthValue},
             {"width", (long) bvc.vehicleWidth},
             {"acceleration", (long) bvc.longitudinalAcceleration.longitudinalAccelerationValue},
             {"curvature", (long) bvc.curvature.curvatureValue},
@@ -193,17 +197,16 @@ std::string CamApplication::buildJSON(CAM_t message, double time_reception, int 
     return json_payload.dump();
 }
 
-void CamApplication::on_message(string mqtt_message) {
+void CamApplication::on_message(string topic, string mqtt_message) {
 
     const double time_reception = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
 
-    CoopAwareness_t cam;
+    json payload;
 
     try {
-        json payload = json::parse(mqtt_message);
-        cam = payload.get<CoopAwareness_t>();
+        payload = json::parse(mqtt_message);
     } catch(nlohmann::detail::type_error& e) {
-        std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows ETSI spec\n" << e.what() << std::endl;
+        std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows JSON spec\n" << e.what() << std::endl;
         return;
     } catch(...) {
         std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
@@ -211,17 +214,92 @@ void CamApplication::on_message(string mqtt_message) {
     }
 
     vanetza::asn1::Cam message;
-
+    CoopAwareness_t cam;
     ItsPduHeader_t& header = message->header;
-    header.protocolVersion = 2;
+    header.protocolVersion = 2;  
     header.messageID = ItsPduHeader__messageID_cam;
-    header.stationID = config_s.station_id;
 
-    cam.camParameters.highFrequencyContainer.present = HighFrequencyContainer_PR_basicVehicleContainerHighFrequency;
+    if(topic == config_s.full_cam_topic_in) {
+        try {
+            cam = payload.get<CoopAwareness_t>();
+        } catch(nlohmann::detail::type_error& e) {
+            std::cout << "-- Vanetza ETSI Decoding Error --\nCheck that the message format follows ETSI spec\n" << e.what() << std::endl;
+            return;
+        } catch(...) {
+            std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
+            return;
+        }
 
-    message->cam = cam;
-
-    json j = message->cam;
+        header.stationID = config_s.station_id;
+        message->cam = cam;
+    }
+    else if(topic == config_s.cam.topic_in) {
+        try {
+            header.stationID = payload["stationID"];
+            const auto time_now = duration_cast<milliseconds>(runtime_.now().time_since_epoch());
+            uint16_t gen_delta_time = time_now.count();
+            cam.generationDeltaTime = gen_delta_time * GenerationDeltaTime_oneMilliSec;
+            cam.camParameters.basicContainer.referencePosition.latitude = payload["latitude"];
+            cam.camParameters.basicContainer.referencePosition.longitude = payload["longitude"];
+            cam.camParameters.basicContainer.referencePosition.positionConfidenceEllipse.semiMajorConfidence = payload["semiMajorConf"];
+            cam.camParameters.basicContainer.referencePosition.positionConfidenceEllipse.semiMinorConfidence = payload["semiMinorConf"];
+            cam.camParameters.basicContainer.referencePosition.positionConfidenceEllipse.semiMajorOrientation = payload["semiMajorOrient"];
+            cam.camParameters.basicContainer.referencePosition.altitude.altitudeValue = payload["altitude"];
+            cam.camParameters.basicContainer.referencePosition.altitude.altitudeConfidence = payload["altitudeConf"];
+            cam.camParameters.basicContainer.stationType = payload["stationType"];
+            cam.camParameters.highFrequencyContainer.present = HighFrequencyContainer_PR_basicVehicleContainerHighFrequency;
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.heading.headingValue = payload["heading"];
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.heading.headingConfidence = payload["headingConf"];
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.speed.speedValue = payload["speed"];
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.speed.speedConfidence = payload["speedConf"];
+            if(payload["driveDirection"] == "FORWARD") cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.driveDirection = DriveDirection_forward;
+            else if(payload["driveDirection"] == "BACKWARD") cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.driveDirection = DriveDirection_backward;
+            else cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.driveDirection = DriveDirection_unavailable;
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.vehicleLength.vehicleLengthValue = payload["length"];
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.vehicleWidth = payload["width"];
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.longitudinalAcceleration.longitudinalAccelerationValue = payload["acceleration"];
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.curvature.curvatureValue = payload["curvature"];
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.yawRate.yawRateValue = payload["yawRate"];
+            AccelerationControl_t* p_tmp = vanetza::asn1::allocate<AccelerationControl_t>();
+            bool brakePedalEngaged;
+            bool gasPedalEngaged;
+            bool emergencyBrakeEngaged;
+            bool collisionWarningEngaged;
+            bool accEngaged;
+            bool cruiseControlEngaged;
+            bool speedLimiterEngaged;
+            payload.at("brakePedal").get_to((brakePedalEngaged));
+            payload.at("gasPedal").get_to((gasPedalEngaged));
+            payload.at("emergencyBrake").get_to((emergencyBrakeEngaged));
+            payload.at("collisionWarning").get_to((collisionWarningEngaged));
+            payload.at("accEngaged").get_to((accEngaged));
+            payload.at("cruiseControl").get_to((cruiseControlEngaged));
+            payload.at("speedLimiter").get_to((speedLimiterEngaged));
+            p_tmp->size = (7 / 8) + 1;
+            p_tmp->bits_unused = 8 - (7 % 8);
+            p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+            *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+            if (brakePedalEngaged) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
+            if (gasPedalEngaged) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
+            if (emergencyBrakeEngaged) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 5);
+            if (collisionWarningEngaged) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 4);
+            if (accEngaged) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 3);
+            if (cruiseControlEngaged) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 2);
+            if (speedLimiterEngaged) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 1);
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.accelerationControl = p_tmp;
+            //SpecialVehicleContainer_t svc = payload.at("specialVehicle").get<SpecialVehicleContainer_t>();
+            //cam.camParameters.specialVehicleContainer = &svc;
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.heading.headingConfidence = HeadingConfidence_unavailable;
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.speed.speedConfidence = SpeedConfidence_unavailable;
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.curvature.curvatureConfidence = CurvatureConfidence_unavailable;
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.curvatureCalculationMode = CurvatureCalculationMode_yawRateUsed;
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.vehicleLength.vehicleLengthConfidenceIndication = VehicleLengthConfidenceIndication_noTrailerPresent;
+            vanetza::asn1::encode_per(asn_DEF_HighFrequencyContainer, &(cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency));
+        } catch(...) {
+            std::cout << "-- Vanetza JSON Decoding Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
+            return;
+        }
+    }
 
     DownPacketPtr packet { new DownPacket() };
     packet->layer(OsiLayer::Application) = std::move(message);
@@ -231,9 +309,15 @@ void CamApplication::on_message(string mqtt_message) {
     request.transport_type = geonet::TransportType::SHB;
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
-    auto confirm = Application::request(request, std::move(packet));
-    if (!confirm.accepted()) {
-        throw std::runtime_error("CAM application data request failed");
+    try {
+        auto confirm = Application::request(request, std::move(packet));
+        if (!confirm.accepted()) {
+            throw std::runtime_error("CAM application data request failed");
+        }
+    } catch(std::runtime_error& e) {
+        std::cout << "-- Vanetza UPER Encoding Error --\nCheck that the message format follows ETSI spec\n" << e.what() << std::endl;
+    } catch(...) {
+        std::cout << "-- Unexpected Error --\nVanetza couldn't send the requested message but did not throw a runtime error on UPER encode.\nNo other info available\n" << std::endl;
     }
 
     const double time_now = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;

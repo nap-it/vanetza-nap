@@ -379,6 +379,33 @@ dcc_passthrough.cpp.s:
 	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f tools/socktap/CMakeFiles/socktap.dir/build.make tools/socktap/CMakeFiles/socktap.dir/dcc_passthrough.cpp.s
 .PHONY : dcc_passthrough.cpp.s
 
+dds.o: dds.cpp.o
+
+.PHONY : dds.o
+
+# target to build an object file
+dds.cpp.o:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f tools/socktap/CMakeFiles/socktap.dir/build.make tools/socktap/CMakeFiles/socktap.dir/dds.cpp.o
+.PHONY : dds.cpp.o
+
+dds.i: dds.cpp.i
+
+.PHONY : dds.i
+
+# target to preprocess a source file
+dds.cpp.i:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f tools/socktap/CMakeFiles/socktap.dir/build.make tools/socktap/CMakeFiles/socktap.dir/dds.cpp.i
+.PHONY : dds.cpp.i
+
+dds.s: dds.cpp.s
+
+.PHONY : dds.s
+
+# target to generate assembly for a file
+dds.cpp.s:
+	cd /home/rrosmaninho/Repos/IT/vanetza && $(MAKE) $(MAKESILENT) -f tools/socktap/CMakeFiles/socktap.dir/build.make tools/socktap/CMakeFiles/socktap.dir/dds.cpp.s
+.PHONY : dds.cpp.s
+
 denm_application.o: denm_application.cpp.o
 
 .PHONY : denm_application.o
@@ -764,6 +791,9 @@ help:
 	@echo "... dcc_passthrough.o"
 	@echo "... dcc_passthrough.i"
 	@echo "... dcc_passthrough.s"
+	@echo "... dds.o"
+	@echo "... dds.i"
+	@echo "... dds.s"
 	@echo "... denm_application.o"
 	@echo "... denm_application.i"
 	@echo "... denm_application.s"
