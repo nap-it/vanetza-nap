@@ -122,11 +122,22 @@ void CpmApplication::on_message(string topic, string mqtt_message) {
 
     CollectivePerceptionMessage_t cpm;
 
+    json payload;
+
     try {
-        json payload = json::parse(mqtt_message);
+        payload = json::parse(mqtt_message);
+    } catch(nlohmann::detail::type_error& e) {
+        std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows JSON spec\n" << e.what() << std::endl;
+        return;
+    } catch(...) {
+        std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
+        return;
+    }
+
+    try {
         cpm = payload.get<CollectivePerceptionMessage_t>();
     } catch(nlohmann::detail::type_error& e) {
-        std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows ETSI spec\n" << e.what() << std::endl;
+        std::cout << "-- Vanetza ETSI Decoding Error --\nCheck that the message format follows ETSI spec\n" << e.what() << std::endl;
         return;
     } catch(...) {
         std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;

@@ -35,7 +35,6 @@ func vanetza_to_dds(wg *sync.WaitGroup) {
 			fmt.Println("read data failed!", err)
 			continue
 		}
-		fmt.Printf("%s\n\n", data)
 		str_data := string(data)
 		index := strings.Index(str_data, ";")
 		topic := str_data[:index]

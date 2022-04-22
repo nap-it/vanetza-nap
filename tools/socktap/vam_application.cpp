@@ -83,8 +83,28 @@ void VamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     std::cout << "VAM JSON: " << vam_json << std::endl;
     vam_rx_counter->Increment();
 
-    if(config_s.vam.udp_out_port != 0) {
-        vam_udp_socket.send_to(buffer(vam_json, vam_json.length()), vam_remote_endpoint, 0, vam_err);
+    if(config_s.full_vam_topic_out != "") {
+        const double time_now = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
+        json fields_json = vam_t;
+        json full_json = {
+            {"timestamp", cp.time_received},
+            {"newInfo", true},
+            {"rssi", cp.rssi},
+            {"test", {
+                    {"json_timestamp", time_now}
+                },
+            },
+            {"fields", fields_json},
+            {"stationID", (long) vam_t.header.stationID},
+            {"receiverID", config_s.station_id},
+            {"receiverType", config_s.station_type}
+        };
+        string json_dump = full_json.dump();
+        if(config_s.vam.mqtt_enabled) mqtt->publish(config_s.full_vam_topic_out, json_dump);
+        if(config_s.vam.dds_enabled) dds->publish(config_s.full_vam_topic_out, json_dump);
+        if(config_s.vam.udp_out_port != 0) {
+            vam_udp_socket.send_to(buffer(json_dump, json_dump.length()), vam_remote_endpoint, 0, vam_err);
+        }
     }
 }
 
@@ -95,6 +115,7 @@ void VamApplication::schedule_timer()
 
 std::string VamApplication::buildJSON(VAM_t message, double time_reception, int rssi) {
     ItsPduHeader_t& header = message.header;
+    VruAwareness_t& vam = message.vam;
     nlohmann::json j = message;
 
     const double time_now = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
@@ -123,11 +144,22 @@ void VamApplication::on_message(string topic, string mqtt_message) {
 
     VruAwareness_t vam;
 
+    json payload;
+
     try {
-        json payload = json::parse(mqtt_message);
+        payload = json::parse(mqtt_message);
+    } catch(nlohmann::detail::type_error& e) {
+        std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows JSON spec\n" << e.what() << std::endl;
+        return;
+    } catch(...) {
+        std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
+        return;
+    }
+
+    try {
         vam = payload.get<VruAwareness_t>();
     } catch(nlohmann::detail::type_error& e) {
-        std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows ETSI spec\n" << e.what() << std::endl;
+        std::cout << "-- Vanetza ETSI Decoding Error --\nCheck that the message format follows ETSI spec\n" << e.what() << std::endl;
         return;
     } catch(...) {
         std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;

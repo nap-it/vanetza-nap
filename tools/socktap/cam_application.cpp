@@ -183,9 +183,8 @@ std::string CamApplication::buildJSON(CAM_t message, double time_reception, int 
             {"cruiseControl", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-5)))},
             {"speedLimiter", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-6)))},
             {"specialVehicle", {
-                  {"publicTransport", {
-                     {"embarkationStatus", false},
-                     {"ptActivation", nullptr}
+                  {"publicTransportContainer", {
+                     {"embarkationStatus", false}
                   }
                   }
             }}
@@ -235,6 +234,7 @@ void CamApplication::on_message(string topic, string mqtt_message) {
     }
     else if(topic == config_s.cam.topic_in) {
         try {
+            cam = message->cam;
             header.stationID = payload["stationID"];
             const auto time_now = duration_cast<milliseconds>(runtime_.now().time_since_epoch());
             uint16_t gen_delta_time = time_now.count();
@@ -287,19 +287,35 @@ void CamApplication::on_message(string topic, string mqtt_message) {
             if (cruiseControlEngaged) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 2);
             if (speedLimiterEngaged) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 1);
             cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.accelerationControl = p_tmp;
-            //SpecialVehicleContainer_t svc = payload.at("specialVehicle").get<SpecialVehicleContainer_t>();
-            //cam.camParameters.specialVehicleContainer = &svc;
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.lanePosition = nullptr;
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.steeringWheelAngle = nullptr;
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.lateralAcceleration = nullptr;
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.verticalAcceleration = nullptr;
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.performanceClass = nullptr;
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.cenDsrcTollingZone = nullptr;
+            cam.camParameters.lowFrequencyContainer = nullptr;
+            cam.camParameters.specialVehicleContainer = nullptr;
+            SpecialVehicleContainer_t svc = payload.at("specialVehicle").get<SpecialVehicleContainer_t>();
+            cam.camParameters.specialVehicleContainer = &svc;
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.longitudinalAcceleration.longitudinalAccelerationConfidence = AccelerationConfidence_unavailable;
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.yawRate.yawRateConfidence = YawRateConfidence_unavailable;
             cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.heading.headingConfidence = HeadingConfidence_unavailable;
             cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.speed.speedConfidence = SpeedConfidence_unavailable;
             cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.curvature.curvatureConfidence = CurvatureConfidence_unavailable;
             cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.curvatureCalculationMode = CurvatureCalculationMode_yawRateUsed;
             cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.vehicleLength.vehicleLengthConfidenceIndication = VehicleLengthConfidenceIndication_noTrailerPresent;
-            vanetza::asn1::encode_per(asn_DEF_HighFrequencyContainer, &(cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency));
+
+            // TEMPORARY
+            json j = cam;
+            CoopAwareness_t cam2 = j.get<CoopAwareness_t>();
+            message->cam = cam2;
         } catch(...) {
             std::cout << "-- Vanetza JSON Decoding Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
             return;
         }
     }
+
+    
 
     DownPacketPtr packet { new DownPacket() };
     packet->layer(OsiLayer::Application) = std::move(message);

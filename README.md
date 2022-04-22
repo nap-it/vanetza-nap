@@ -23,7 +23,7 @@ The following diagram examplifies a common usage pattern:
 
 ![Generic Diagram](https://i.ibb.co/PxRWMz5/generic-diagram.png)
 
-Note: In the case of CAMs, NAP-Vanetza also has a pre-defined "hard-coded" CAM messsage which is periodically sent at a configurable frequency and with updated GPS values, without the need for an external application to publish JSON CAMs (which is also allowed). This behaviour can be disabled.
+Note: In the case of CAMs, NAP-Vanetza also has a pre-defined "hard-coded" CAM message which is periodically sent at a configurable frequency and with updated GPS values, without the need for an external application to publish JSON CAMs (which is also allowed). This behaviour can be disabled.
 
 ## Building (Docker)
 
@@ -127,7 +127,7 @@ mosquitto_sub -h 192.168.98.10 -t "vanetza/out/cam" -v
 
 To publish an MQTT message to a specific topic use:
 ```
-mosquitto_pub -h 192.168.98.10 -t "vanetza/in/cam_full" -m ""
+mosquitto_pub -h 192.168.98.10 -t "vanetza/in/cam" -m "{\"accEngaged\":true,\"acceleration\":0,\"altitude\":800001,\"altitudeConf\":15,\"brakePedal\":true,\"collisionWarning\":true,\"cruiseControl\":true,\"curvature\":1023,\"driveDirection\":\"FORWARD\",\"emergencyBrake\":true,\"gasPedal\":false,\"heading\":3601,\"headingConf\":127,\"latitude\":400000000,\"length\":100,\"longitude\":-80000000,\"semiMajorConf\":4095,\"semiMajorOrient\":3601,\"semiMinorConf\":4095,\"specialVehicle\":{\"publicTransportContainer\":{\"embarkationStatus\":false}},\"speed\":16383,\"speedConf\":127,\"speedLimiter\":true,\"stationID\":1,\"stationType\":15,\"width\":30,\"yawRate\":0}"
 ```
 
 MQTT can also be easily integrated into your application's code by using third-party libraries such as [paho-mqtt](https://pypi.org/project/paho-mqtt/), available for multiple programming languages.
@@ -163,6 +163,8 @@ As such, CAMs and VAMs use four MQTT topics each, ie:
 
 The topic names are fully configurable.
 
+Note: The simpler format for VAMs is not yet fully implemented. For the time being, both vam and vam_full topics behave as vam_full.
+
 #### Error Messages
 
 If your application publishes an invalid JSON ETSI C-ITS message, the following errors will appear in the respective Vanetza container's logs:
@@ -172,7 +174,7 @@ If your application publishes an invalid JSON ETSI C-ITS message, the following 
 Check that the message format follows JSON spec
 <Exception Info>
 ```
-* JSON is valid but can't be parsed as the specified ETSI C-ITS message. Verify that all required fields are present and that the messages folow the respective ETSI format correctly. 
+* JSON is valid but can't be parsed as the specified ETSI C-ITS message. Verify that all required fields are present and that the messages follow the respective ETSI format correctly. 
 ```
 -- Vanetza ETSI Decoding Error --
 Check that the message format follows ETSI spec
@@ -301,7 +303,7 @@ This may be useful for:
 
 ### Prometheus Metrics
 
-When running, Vanetza continously computes a set of metrics regarding its current status, message statistics, and latency information. These are exposed using the Prometheus format, at the port specified in the configuration file.
+When running, Vanetza continuously computes a set of metrics regarding its current status, message statistics, and latency information. These are exposed using the Prometheus format, at the port specified in the configuration file.
 
 ```
 observed_packets_count_total{direction="tx",message="spatem"} 
