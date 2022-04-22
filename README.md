@@ -14,14 +14,23 @@ The following message types are supported:
 * MAP (topology) Extended Message (MAPEM)
 * GeoNetworking Beacons
 
+Put simply, NAP-Vanetza's purpose is to manage the encoding, decoding, sending, and receiving of ETSI C-ITS messages, thus abstracting those layers from VANET application developers.
 
+Applications that need to send ETSI C-ITS messages interact with the service by building a JSON representation of the given message and publishing it in a specific MQTT topic, which Vanetza subscribes to.
+Likewise, applications that need to receive incoming messages do so by subscribing to the respective MQTT topics, that Vanetza publishes JSON to.
+
+![Generic Diagram](https://i.ibb.co/PxRWMz5/generic-diagram.png)
+
+Note: In the case of CAMs, NAP-Vanetza also has a pre-defined "hard-coded" CAM messsage which is periodically sent at a configurable frequency and with updated GPS values, without the need for an external application to publish JSON CAMs (which is also allowed). This behaviour can be disabled.
 
 ## Building (Docker)
 
 1. Install docker and docker-compose
 ```
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo bash -c 'echo "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker-ce.list'
 sudo apt update
-sudo apt install docker docker-compose
+sudo apt install docker-ce docker-compose
 ```
 
 2. Clone NAP-Vanetza's repository and navigate to the project's root directory
@@ -43,12 +52,20 @@ To start the Vanetza containers run:
 ```
 docker-compose up
 ```
+To stop use CTRL-C.
 
 
-By default, docker-compose creates a container 
+By default, docker-compose creates two containers, emulating an RSU and OBU pair. This can, however, be freely extended just by duplicating the existing container specifications in **docker-compose.yml** (while making sure to set a unique IP address for each one).
 
+Refer to the configuration section for more details on how to configure each container.
 
-To run in the background:
+Each container includes an embeded MQTT broker in order to fully simulate the common environment described in the first section. This feature can be disabled if required.
+
+![Docker Diagram](https://i.ibb.co/XxCzVZK/docker-diagram.png)
+
+#### Running in the background
+
+To run the containers in the background:
 
 ```
 docker-compose up -d
@@ -94,11 +111,19 @@ For quick tests on the command line, install the mosquitto-clients package
 ```
 sudo apt install mosquitto-clients
 ```
-
+To subscribe to MQTT topics and see every new message on the command line use:
 ```
+# All topics
 mosquitto_sub -h 192.168.98.10 -t "#" -v
+
+# Subset of topics
+mosquitto_sub -h 192.168.98.10 -t "vanetza/out/#" -v
+
+# Specific topic
+mosquitto_sub -h 192.168.98.10 -t "vanetza/out/cam" -v
 ```
 
+To publish an MQTT message to a specific topic use:
 ```
 mosquitto_pub -h 192.168.98.10 -t "vanetza/in/cam_full" -m ""
 ```
@@ -108,12 +133,91 @@ MQTT can also be easily integrated into your application's code by using third-p
 
 ### Constructing the JSON messages according to ETSI specifications
 
+In order to make the encoding and decoding process possible, the JSON messages received and sent by Vanetza through MQTT are required to follow the strict format specified in each message type's respective ETSI specification document.
+
+You may consult those documents in the following links:
+* [Common to all messages - ETSI TS 102 894-2 V1.2.1](https://www.etsi.org/deliver/etsi_ts/102800_102899/10289402/01.02.01_60/ts_10289402v010201p.pdf) - Annex A & B
+* [CAM - ETSI EN 302 637-2 V1.4.1](https://www.etsi.org/deliver/etsi_EN/302600_302699/30263702/01.04.01_30/en_30263702v010401v.pdf) - Annex A & B
+* [DENM - ETSI EN 302 637-3 V1.2.1](https://www.etsi.org/deliver/etsi_en/302600_302699/30263703/01.02.01_30/en_30263703v010201v.pdf) - Annex A & B
+* [CPM - ETSI TR 103 562 V2.1.1](https://www.etsi.org/deliver/etsi_tr/103500_103599/103562/02.01.01_60/tr_103562v020101p.pdf) - Annex A & B
+* [VAM - ETSI TS 103 300-3 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103300_103399/10330003/02.01.01_60/ts_10330003v020101p.pdf) - Annex A & B
+* [SPATEM - ETSI TS 103 301 V1.1.1](https://www.etsi.org/deliver/etsi_ts/103300_103399/103301/01.01.01_60/ts_103301v010101p.pdf) - Annex A (and Common Data Types)
+* [MAPEM - ETSI TS 103 301 V1.1.1](https://www.etsi.org/deliver/etsi_ts/103300_103399/103301/01.01.01_60/ts_103301v010101p.pdf) - Annex B (and Common Data Types)
+  
+
+NAP-Vanetza includes some examples of valid JSON messages in the examples folder.
+
+Note that the ITS PDU Header must not be included in messages published to Vanetza, as it's automatically filled at encode time. It is, however, present in messages published by Vanetza, so as to give developers access to the StationID field.
+
+#### Simpler Formats
+
+In the case of CAMs and VAMs, NAP maintains a seperate, simpler, format, which Vanetza also accepts (see examples folder).
+
+As such, CAMs and VAMs use four MQTT topics each, ie:
+* vanetza/in/cam - input CAMs using the simple format
+* vanetza/in/cam_full - input CAMs using the full ETSI format
+* vanetza/out/cam - output CAMs using the simple format
+* vanetza/out/cam_full - output CAMs using the full ETSI format
+
+The topic names are fully configurable.
+
+#### Error Messages
+
+If your application publishes an invalid JSON ETSI C-ITS message, the following errors will appear in the respective Vanetza container's logs:
+* JSON is malformed and can't be parsed. Verify that the message follows JSON's schema rules.
+```
+-- Vanetza JSON Decoding Error --
+Check that the message format follows JSON spec
+<Exception Info>
+```
+* JSON is valid but can't be parsed as the specified ETSI C-ITS message. Verify that all required fields are present and that the messages folow the respective ETSI format correctly. 
+```
+-- Vanetza ETSI Decoding Error --
+Check that the message format follows ETSI spec
+<Exception Info>
+```
+* One or more values does not fit the type or constraints specified in ETSI documents listed above.
+```
+-- Vanetza UPER Encoding Error --
+Check that the message format follows ETSI spec
+<Exception Info>
+```
+* An unexpected error occurred. Please report it.
+```
+-- Unexpected Error --
+Vanetza couldn't decode the JSON message. No other info available
+
+or
+
+-- Unexpected Error --
+Vanetza couldn't send the requested message but did not throw a runtime error on UPER encode.
+No other info available
+```
+
 ## Configuration
 
-NAP-Vanetza has a set of configurable attributes to allow for fine-tuning of its mode of operation. 
+NAP-Vanetza has a set of configurable attributes with the goal of allowing for fine-tuning its operation. 
 
-These attributes are generally set in the **config.ini** file located in tools/socktap/config.ini
-However
+These attributes are generally set in the **config.ini** file located in **tools/socktap/config.ini**
+
+However, this becomes impractical for docker-compose deployments which include several Vanetza containers with heterogeneous configuration needs.
+These situations would require a separate config file for each container mounted as a volume. 
+
+To solve this, NAP-Vanetza also accepts configuration via environment variables that can be set in the environment section of **docker-compose.yml**. 
+Any values set via environment variables have priority over the ones found in config.ini, thus making it possible to use config.ini for common configurations and environment variables for values that are unique to each container (i.e: Station ID, MAC Address, etc)
+
+Note: The vanetza docker image must be rebuilt after every change to the config.ini file. 
+```
+docker build -t vanetza:test .
+```
+
+Environment variable changes, however, only require a restart of the running containers.
+```
+docker-compose restart
+```
+
+The following table summarizes the available configuration options:
+
 
 | .ini file key | Environment var key | Description | Default | Notes |
 | ----------- | ----------- | ----------- | ----------- | ----------- |
@@ -141,18 +245,18 @@ However
 | vam.full_topic_out | VANETZA_VAM_FULL_TOPIC_OUT | MQTT/DDS topic to which Vanetza sends JSON VAMs in the full ETSI spec format | vanetza/out/vam_full | |
 | --- | START_EMBEDDED_MOSQUITTO | Start an MQTT server inside the container to simulate a full OBU or RSU with a local MQTT broker | false | |
 
+Each supported type of message (CAM, DENM, CPM, VAM, SPATEM, MAPEM) has its own set of configurations, which are specified in the following table (using CAMs as an example):
  
 | .ini file key | Environment var key | Description | Default | Notes |
 | ----------- | ----------- | ----------- | ----------- | ----------- |
-| cam.enabled | VANETZA_CAM_ENABLED | Enable the CAM application | true | |
+| cam.enabled | VANETZA_CAM_ENABLED | Enable the CAM module | true | |
 | cam.mqtt_enabled | VANETZA_CAM_MQTT_ENABLED | Enable publishing and subscribing to MQTT topics | true | |
-| cam.dds_enabled | VANETZA_CAM_DDS_ENABLED | Enable publishing and subscribing to DDS topics | true  | |
+| cam.dds_enabled | VANETZA_CAM_DDS_ENABLED | Enable publishing and subscribing to DDS topics | true  | Advanced usage only |
 | cam.periodicity | VANETZA_CAM_PERIODICITY | Periodicity with which to send the default CAM, in milliseconds | 1000 | Only available on CAMs, 0 to disable |
 | cam.topic_in | VANETZA_CAM_TOPIC_IN | MQTT/DDS topic from which Vanetza receives JSON CAMs to encode and send | vanetza/in/cam |  |
 | cam.topic_out | VANETZA_CAM_TOPIC_OUT | MQTT/DDS topic to which Vanetza sends JSON CAMs that were received and decoded | vanetza/out/cam | |
 | cam.udp_out_addr | VANETZA_CAM_UDP_OUT_ADDR | Address of the UDP server to which Vanetza sends decoded JSON CAMs, in order to minimize communication latency - Used in NAP's Connection Manager v1 | 127.0.0.1 | |
 | cam.udp_out_port | VANETZA_CAM_UDP_OUT_PORT | Port of the UDP server to which Vanetza sends decoded JSON CAMs, in order to minimize communication latency - Used in NAP's Connection Manager v1 | 5051 | 0 to disable |
-
 
 ## Project's State and Missing Fields
 
@@ -160,6 +264,7 @@ The NAP-Vanetza project is still under active development and is frequently upda
 Please report any problems you encounter.
 
 The following field types are not yet supported by Vanetza. As such, they will be absent from JSON messages generated by Vanetza and ignored in messages received by Vanetza.
+
 These fields are generally optional and relatively unimportant. They will be added later on a case-by-case basis, should they become necessary.
 
 * PhoneNumber
@@ -177,13 +282,61 @@ These fields are generally optional and relatively unimportant. They will be add
 * VDS
 * TemporaryID
 
+## Advanced Usage
+
+### DDS
+
+In order to minimize communication latency between Vanetza and any critical producer/consumer applications, NAP-Vanetza also supports publishing and subscribing to OMG Data Distribution Service (DDS) topics. This is accomplished using an external Golang DDS module that  is included in the Vanetza container.
+
+To use it, simply activate the <message_type>.dds_enabled configuration flags. NAP-Vanetza will use the same topic names configured for MQTT. In fact, both technologies may be used simultaneously, if required.
+
+The **tools/dds_service** folder includes simple python examples for producer and subscriber applications.
+
+You may also use NAP's [dds-mqtt-adapter](https://code.nap.av.it.pt/atcll/dds-mqtt-adapter) project, which subscribes to every Vanetza DDS topic and relays any published messages to an MQTT broker.
+This may be useful for:
+* Allowing developers easy access to the exchanged messages, for debugging or monitoring purposes
+* Allowing less critical services to effectively subscribe to a DDS topic via MQTT, if NAP-Vanetza's MQTT functionality is disabled for performance reasons.
+
+### Prometheus Metrics
+
+When running, Vanetza continously computes a set of metrics regarding its current status, message statistics, and latency information. These are exposed using the Prometheus format, at the port specified in the configuration file.
+
+```
+observed_packets_count_total{direction="tx",message="spatem"} 
+observed_packets_count_total{direction="rx",message="spatem"} 
+observed_packets_count_total{direction="tx",message="vam"} 
+observed_packets_count_total{direction="rx",message="vam"} 
+observed_packets_count_total{direction="rx",message="mapem"} 
+observed_packets_count_total{direction="tx",message="cpm"} 
+observed_packets_count_total{direction="tx",message="mapem"} 
+observed_packets_count_total{direction="tx",message="denm"} 
+observed_packets_count_total{direction="rx",message="denm"} 
+observed_packets_count_total{direction="tx",message="cam"} 
+observed_packets_count_total{direction="rx",message="cpm"} 
+observed_packets_count_total{direction="rx",message="cam"} 
+# ---
+observed_packets_latency_total{direction="tx",message="spatem"} 
+observed_packets_latency_total{direction="rx",message="spatem"} 
+observed_packets_latency_total{direction="tx",message="vam"} 
+observed_packets_latency_total{direction="rx",message="vam"} 
+observed_packets_latency_total{direction="rx",message="mapem"} 
+observed_packets_latency_total{direction="tx",message="cpm"} 
+observed_packets_latency_total{direction="tx",message="mapem"} 
+observed_packets_latency_total{direction="tx",message="denm"} 
+observed_packets_latency_total{direction="rx",message="denm"} 
+observed_packets_latency_total{direction="tx",message="cam"} 
+observed_packets_latency_total{direction="rx",message="cpm"} 
+observed_packets_latency_total{direction="rx",message="cam"} 
+```
+
+These are easily extensible.
 
 ## Authors
 
 Development of Vanetza is part of ongoing research work at [Technische Hochschule Ingolstadt](https://www.thi.de/forschung/carissma/labore/car2x-labor/).
 Maintenance is coordinated by Raphael Riebl.
 
-Development of NAP-Vanetza is part of ongoing research work at [Instituto de Telecomunicações's Network Protocols and Architectures Group](https://www.it.pt/Groups/Index/36).
+Development of NAP-Vanetza is part of ongoing research work at [Instituto de Telecomunicações' Network Architectures and Protocols Group](https://www.it.pt/Groups/Index/36).
 
 Questions and Bug Reports: @rrosmaninho / r.rosmaninho@av.it.pt
 
