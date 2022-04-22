@@ -19,6 +19,8 @@ Put simply, NAP-Vanetza's purpose is to manage the encoding, decoding, sending, 
 Applications that need to send ETSI C-ITS messages interact with the service by building a JSON representation of the given message and publishing it in a specific MQTT topic, which Vanetza subscribes to.
 Likewise, applications that need to receive incoming messages do so by subscribing to the respective MQTT topics, that Vanetza publishes JSON to.
 
+The following diagram examplifies a common usage pattern:
+
 ![Generic Diagram](https://i.ibb.co/PxRWMz5/generic-diagram.png)
 
 Note: In the case of CAMs, NAP-Vanetza also has a pre-defined "hard-coded" CAM messsage which is periodically sent at a configurable frequency and with updated GPS values, without the need for an external application to publish JSON CAMs (which is also allowed). This behaviour can be disabled.
