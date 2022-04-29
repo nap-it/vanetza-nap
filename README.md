@@ -232,8 +232,8 @@ The following table summarizes the available configuration options:
 | general.rssi_port | VANETZA_RSSI_PORT | Port on which Vanetza communicates with the RSSI_Discovery service | 3000 | Not used on Docker; 0 to disable |
 | general.ignore_own_messages | VANETZA_IGNORE_OWN_MESSAGES | Don't capture or decode messages originating from the station itself | true | |
 | general.ignore_rsu_messages | VANETZA_IGNORE_RSU_MESSAGES | Ignore messages from RSUs - Usually set on RSUs | false | |
-| general.to_dds_port | VANETZA_TO_DDS_PORT | Port on which Vanetza sends JSON to be published in DDS topics | 6060 | Advanced usage to minimize communication latency |
-| general.from_dds_port | VANETZA_FROM_DDS_PORT | Port on which Vanetza receives JSON from DDS topics | 6061 | Advanced usage to minimize communication latency |
+| general.to_dds_key | VANETZA_TO_DDS_KEY | SysV Message Queue Key which Vanetza uses to send JSON to be published in DDS topics | 6060 | Advanced usage to minimize communication latency |
+| general.from_dds_key | VANETZA_FROM_DDS_KEY | SysV Message Queue Key which Vanetza uses to receive JSON from DDS topics | 6061 | Advanced usage to minimize communication latency |
 | station.id | VANETZA_STATION_ID | ETSI Station ID field | 99 | |
 | station.type | VANETZA_STATION_TYPE | ETSI Station Type field | 15 | |
 | station.mac_address | VANETZA_MAC_ADDRESS | Virtual Mac Address used as the source on L2 ethernet headers | interface's address | |
@@ -290,7 +290,7 @@ These fields are generally optional and relatively unimportant. They will be add
 
 ### DDS
 
-In order to minimize communication latency between Vanetza and any critical producer/consumer applications, NAP-Vanetza also supports publishing and subscribing to OMG Data Distribution Service (DDS) topics. This is accomplished using an external Golang DDS module that  is included in the Vanetza container.
+In order to minimize communication latency between Vanetza and any critical producer/consumer applications, NAP-Vanetza also supports publishing and subscribing to OMG Data Distribution Service (DDS) topics. This is accomplished using an external Golang DDS module that is included in the Vanetza container, and SysV Message Queues.
 
 To use it, simply activate the <message_type>.dds_enabled configuration flags. NAP-Vanetza will use the same topic names configured for MQTT. In fact, both technologies may be used simultaneously, if required.
 

@@ -125,7 +125,7 @@ int main(int argc, const char** argv)
 
         const auto host_name = boost::asio::ip::host_name();
         Mqtt *mqtt = new Mqtt(host_name + "_" + to_string(uni(rng)), config_s.mqtt_broker, config_s.mqtt_port);
-        Dds *dds = new Dds(config_s.to_dds_port, config_s.from_dds_port);
+        Dds *dds = new Dds(config_s.to_dds_key, config_s.from_dds_key);
 
         Exposer exposer{"0.0.0.0:" + to_string(config_s.prometheus_port)};
         metrics_t metrics_s = {};

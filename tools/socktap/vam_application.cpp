@@ -35,6 +35,7 @@ VamApplication::VamApplication(PositionProvider& positioning, Runtime& rt, Mqtt*
     if(config_s.vam.mqtt_enabled) mqtt->subscribe(config_s.vam.topic_in, this);
     if(config_s.vam.mqtt_enabled) mqtt->subscribe(config_s.full_vam_topic_in, this);
     if(config_s.vam.dds_enabled) dds->subscribe(config_s.vam.topic_in, this);
+    if(config_s.vam.dds_enabled) dds->subscribe(config_s.full_vam_topic_in, this);
 
     vam_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "vam"}, {"direction", "rx"}}));
     vam_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "vam"}, {"direction", "tx"}}));

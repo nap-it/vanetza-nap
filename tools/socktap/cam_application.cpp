@@ -43,6 +43,7 @@ CamApplication::CamApplication(PositionProvider& positioning, Runtime& rt, Mqtt 
     if(config_s.cam.mqtt_enabled) mqtt->subscribe(config_s.cam.topic_in, this);
     if(config_s.cam.mqtt_enabled) mqtt->subscribe(config_s.full_cam_topic_in, this);
     if(config_s.cam.dds_enabled) dds->subscribe(config_s.cam.topic_in, this);
+    if(config_s.cam.dds_enabled) dds->subscribe(config_s.full_cam_topic_in, this);
     
     cam_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "cam"}, {"direction", "rx"}}));
     cam_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "cam"}, {"direction", "tx"}}));

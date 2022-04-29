@@ -8,9 +8,10 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/Shopify/sysv_mq"
 	xml "github.com/antchfx/xmlquery"
 	rti "github.com/rticommunity/rticonnextdds-connector-go"
-	ini "gopkg.in/ini.v1"
+	"gopkg.in/ini.v1"
 )
 
 type tuple struct {
@@ -24,19 +25,19 @@ var inputs []tuple
 var server_socket *net.UDPConn
 var client_socket *net.UDPConn
 
-func vanetza_to_dds(wg *sync.WaitGroup) {
+func vanetza_to_dds(wg *sync.WaitGroup, mq *sysv_mq.MessageQueue) {
 	defer wg.Done()
 
 	for {
-		// read data
-		data := make([]byte, 9999)
-		_, _, err := server_socket.ReadFromUDP(data)
+		str_data, _, err := mq.ReceiveString(0, 0)
 		if err != nil {
-			fmt.Println("read data failed!", err)
+			fmt.Println(err)
+		}
+		index := strings.Index(str_data, ";")
+		if index == -1 {
+			fmt.Printf("Error: vanetza_to_dds missing ';', message: %s\n", str_data)
 			continue
 		}
-		str_data := string(data)
-		index := strings.Index(str_data, ";")
 		topic := str_data[:index]
 		message := str_data[index+1:]
 		outputs[topic].Instance.SetString("message", message)
@@ -44,7 +45,7 @@ func vanetza_to_dds(wg *sync.WaitGroup) {
 	}
 }
 
-func dds_to_vanetza(wg *sync.WaitGroup) {
+func dds_to_vanetza(wg *sync.WaitGroup, mq *sysv_mq.MessageQueue) {
 	defer wg.Done()
 
 	for {
@@ -59,11 +60,9 @@ func dds_to_vanetza(wg *sync.WaitGroup) {
 					if err != nil {
 						log.Println(err)
 					} else {
-						senddata := []byte(tuple.topic + ";" + message)
-						_, err = client_socket.Write(senddata)
+						err = mq.SendString(tuple.topic+";"+message, 1, 0)
 						if err != nil {
-							fmt.Println("send data failed!", err)
-							return
+							fmt.Println(err)
 						}
 					}
 				}
@@ -78,20 +77,20 @@ func main() {
 		fmt.Println("Config file read error", err)
 		os.Exit(1)
 	}
-	server_port, _ := cfg.Section("general").Key("to_dds_port").Int()
-	client_port, _ := cfg.Section("general").Key("from_dds_port").Int()
+	to_dds_key, _ := cfg.Section("general").Key("to_dds_key").Int()
+	from_dds_key, _ := cfg.Section("general").Key("from_dds_key").Int()
 
-	server_socket, _ = net.ListenUDP("udp4", &net.UDPAddr{
-		IP:   net.IPv4(127, 0, 0, 1),
-		Port: server_port,
+	to_dds_mq, err := sysv_mq.NewMessageQueue(&sysv_mq.QueueConfig{
+		Key:     to_dds_key,               // SysV IPC key
+		MaxSize: 15008,                    // Max size of a message
+		Mode:    sysv_mq.IPC_CREAT | 0600, // Creates if it doesn't exist, 0600 permissions
 	})
-	defer server_socket.Close()
 
-	client_socket, _ = net.DialUDP("udp4", nil, &net.UDPAddr{
-		IP:   net.IPv4(127, 0, 0, 1),
-		Port: client_port,
+	from_dds_mq, err := sysv_mq.NewMessageQueue(&sysv_mq.QueueConfig{
+		Key:     from_dds_key,             // SysV IPC key
+		MaxSize: 15008,                    // Max size of a message
+		Mode:    sysv_mq.IPC_CREAT | 0600, // Creates if it doesn't exist, 0600 permissions
 	})
-	defer client_socket.Close()
 
 	connector, _ = rti.NewConnector("participant_library::vanetza", os.Args[2])
 	defer connector.Delete()
@@ -123,8 +122,8 @@ func main() {
 	wg.Add(2)
 	fmt.Println("Starting")
 
-	go dds_to_vanetza(&wg)
-	go vanetza_to_dds(&wg)
+	go dds_to_vanetza(&wg, from_dds_mq)
+	go vanetza_to_dds(&wg, to_dds_mq)
 
 	wg.Wait()
 

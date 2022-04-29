@@ -12,7 +12,7 @@
     <!-- types -->
     <types>
       <struct name="message_type" extensibility="extensible">
-        <member name="message" stringMaxLength="9999" id="0" type="string" key="true"/>
+        <member name="message" stringMaxLength="15000" id="0" type="string" key="true"/>
       </struct>
     </types>
     <!-- Domain Library -->

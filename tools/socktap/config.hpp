@@ -36,8 +36,8 @@ typedef struct config {
     int rssi_port;
     bool ignore_own_messages;
     bool ignore_rsu_messages;
-    int to_dds_port;
-    int from_dds_port;
+    int to_dds_key;
+    int from_dds_key;
     message_config_t cam;
     message_config_t denm;
     message_config_t cpm;
