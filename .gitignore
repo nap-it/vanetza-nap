@@ -10,7 +10,12 @@ bin/
 cmake-build-debug/
 cmake-config/
 CMakeFiles/
+Makefile
 .travis.yml
+*.cmake
+*.a
 
 tools/socktap/CMakeFiles/
 tools/socktap/cmake-build-debug/
+
+CMakeCache.txt

@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../lib/static/libvanetza_access.a CMakeFiles/access.dir/access_category.cpp.o CMakeFiles/access.dir/data_rates.cpp.o CMakeFiles/access.dir/g5_link_layer.cpp.o
-/usr/bin/ranlib ../../lib/static/libvanetza_access.a

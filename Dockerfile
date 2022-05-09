@@ -24,7 +24,7 @@ RUN mkdir /vanetza
 COPY . /vanetza
 WORKDIR /vanetza
 RUN dpkg -i deps/*.deb
-RUN rm CMakeCache.txt
+RUN rm -f CMakeCache.txt
 RUN cmake .
 RUN cmake --build . --target socktap -j 4
 RUN cp /vanetza/bin/socktap /usr/local/bin/socktap
