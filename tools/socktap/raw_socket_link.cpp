@@ -98,7 +98,7 @@ void RawSocketLink::on_read(const boost::system::error_code& ec, std::size_t rea
 {
     if (!ec) {
         ByteBuffer buffer(receive_buffer_.begin(), receive_buffer_.begin() + read_bytes);
-        double time_reception = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
+        double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
         CohesivePacket packet(std::move(buffer), OsiLayer::Physical);
         boost::optional<EthernetHeader> eth = parse_ethernet_header(packet);
         packet.ethHeader = *eth;
