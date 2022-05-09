@@ -85,7 +85,7 @@ void VamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     vam_rx_counter->Increment();
 
     if(config_s.full_vam_topic_out != "") {
-        const double time_now = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
+        const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
         json fields_json = vam_t;
         json full_json = {
             {"timestamp", cp.time_received},
@@ -119,7 +119,7 @@ std::string VamApplication::buildJSON(VAM_t message, double time_reception, int 
     VruAwareness_t& vam = message.vam;
     nlohmann::json j = message;
 
-    const double time_now = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
+    const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
     nlohmann::json json_payload = {
             {"timestamp", time_reception},
@@ -141,7 +141,7 @@ std::string VamApplication::buildJSON(VAM_t message, double time_reception, int 
 
 void VamApplication::on_message(string topic, string mqtt_message) {
 
-    const double time_reception = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
+    const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
     VruAwareness_t vam;
 
@@ -195,7 +195,7 @@ void VamApplication::on_message(string topic, string mqtt_message) {
         std::cout << "-- Unexpected Error --\nVanetza couldn't send the requested message but did not throw a runtime error on UPER encode.\nNo other info available\n" << std::endl;
     }
 
-    const double time_now = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
+    const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
     vam_tx_counter->Increment();
     vam_tx_latency->Increment(time_now - time_reception);

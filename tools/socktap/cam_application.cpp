@@ -98,7 +98,7 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
             {"timestamp", cp.time_received},
             {"rssi", cp.rssi},
             {"others", {
-                "json_timestamp", (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0}
+                "json_timestamp", (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0}
             },
             {"fields", fields_json}
         };
@@ -145,7 +145,7 @@ std::string CamApplication::buildJSON(CAM_t message, double time_reception, int 
     
     bool new_info = last_map == persistence.end() || ((last_map->second)["lat"] != (double) latitude) || ((last_map->second)["lng"] != (double) longitude) || ( time_reception - (last_map->second)["time"] >= 1);
 
-    const double time_now = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
+    const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
     json json_payload = {
             {"timestamp", time_reception},
@@ -199,7 +199,7 @@ std::string CamApplication::buildJSON(CAM_t message, double time_reception, int 
 
 void CamApplication::on_message(string topic, string mqtt_message) {
 
-    const double time_reception = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
+    const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
     json payload;
 
@@ -337,7 +337,7 @@ void CamApplication::on_message(string topic, string mqtt_message) {
         std::cout << "-- Unexpected Error --\nVanetza couldn't send the requested message but did not throw a runtime error on UPER encode.\nNo other info available\n" << std::endl;
     }
 
-    const double time_now = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
+    const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
     cam_tx_counter->Increment();
     cam_tx_latency->Increment(time_now - time_reception);
@@ -365,7 +365,7 @@ void CamApplication::on_timer(Clock::time_point)
     if (position.speed.value().value() >= 0 && position.speed.value().value() <= 16382) speed = position.speed.value().value();
     LongitudinalAccelerationValue_t acceleration = LongitudinalAccelerationValue_unavailable;
 
-    const double millis_now = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
+    const double millis_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
     if(time_speed == 0) time_speed = millis_now;
     if (last_speed != LLONG_MIN && (speed != last_speed || millis_now - time_speed >= 1)) {

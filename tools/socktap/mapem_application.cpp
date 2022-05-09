@@ -96,7 +96,7 @@ std::string MapemApplication::buildJSON(MAPEM_t message, double time_reception, 
     ItsPduHeader_t& header = message.header;
     nlohmann::json j = message;
 
-    const double time_now = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
+    const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
     nlohmann::json json_payload = {
             {"timestamp", time_reception},
@@ -118,7 +118,7 @@ std::string MapemApplication::buildJSON(MAPEM_t message, double time_reception, 
 
 void MapemApplication::on_message(string topic, string mqtt_message) {
 
-    const double time_reception = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
+    const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
     MapData_t mapem;
 
@@ -172,7 +172,7 @@ void MapemApplication::on_message(string topic, string mqtt_message) {
         std::cout << "-- Unexpected Error --\nVanetza couldn't send the requested message but did not throw a runtime error on UPER encode.\nNo other info available\n" << std::endl;
     }
 
-    const double time_now = (double) duration_cast< milliseconds >(system_clock::now().time_since_epoch()).count() / 1000.0;
+    const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
     mapem_tx_counter->Increment();
     mapem_tx_latency->Increment(time_now - time_reception);
