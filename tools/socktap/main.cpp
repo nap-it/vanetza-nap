@@ -112,7 +112,7 @@ int main(int argc, const char** argv)
             throw std::runtime_error("Unsupported GeoNetworking version, only version 0 and 1 are supported.");
         }
 
-        auto positioning = create_position_provider(io_service, config_s, trigger.runtime());
+        auto positioning = create_position_provider(io_service, vm, config_s, trigger.runtime());
         if (!positioning) {
             std::cerr << "Requested positioning method is not available\n";
             return 1;

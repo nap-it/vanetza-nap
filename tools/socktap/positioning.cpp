@@ -9,7 +9,7 @@ using namespace vanetza;
 namespace po = boost::program_options;
 
 std::unique_ptr<vanetza::PositionProvider>
-create_position_provider(boost::asio::io_service& io_service, config_t config_s, const Runtime& runtime)
+create_position_provider(boost::asio::io_service& io_service, const po::variables_map& vm, config_t config_s, const Runtime& runtime)
 {
     std::unique_ptr<vanetza::PositionProvider> positioning;
 

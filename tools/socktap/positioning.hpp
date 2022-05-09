@@ -10,12 +10,14 @@
 #include <stdexcept>
 #include "config.hpp"
 
+namespace po = boost::program_options;
+
 class PositioningException : public std::runtime_error
 {
     using std::runtime_error::runtime_error;
 };
 
 std::unique_ptr<vanetza::PositionProvider>
-create_position_provider(boost::asio::io_service&, config_t config_s, const vanetza::Runtime&);
+create_position_provider(boost::asio::io_service&, const po::variables_map& vm, config_t config_s, const vanetza::Runtime&);
 
 #endif /* POSITIONING_HPP_VZRIW7PB */
