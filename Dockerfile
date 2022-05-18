@@ -1,22 +1,24 @@
-FROM ubuntu:impish
+FROM debian:buster-slim
 ENV TZ=Europe/Lisbon
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN printf "deb http://httpredir.debian.org/debian buster-backports main non-free\ndeb-src http://httpredir.debian.org/debian buster-backports main non-free" > /etc/apt/sources.list.d/backports.list
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
-    cmake \
+    cmake/buster-backports \
     git \
     mosquitto \
     libboost-date-time-dev \
     libmosquittopp-dev \
     libboost-program-options-dev \
-    nlohmann-json3-dev \
+    nlohmann-json3-dev/buster-backports \
     libboost-system-dev \
     libcrypto++-dev \
     libgeographic-dev \
     libssl-dev \
     zlib1g-dev \
     libcurl4-openssl-dev \
-    golang-go \
+    golang-src/buster-backports \
+    golang-go/buster-backports \
     ca-certificates \
     file \
     && rm -rf /var/lib/apt/lists/*
@@ -37,22 +39,22 @@ RUN cp /vanetza/bin/socktap /usr/local/bin/socktap
 RUN mkdir -p /root/go/src/dds-vanetza-service
 RUN cp -r /vanetza/tools/dds_service/* /root/go/src/dds-vanetza-service
 WORKDIR /root/go/src/dds-vanetza-service
-RUN go mod tidy
-RUN go build main.go
+RUN GO111MODULE="on" go mod tidy
+RUN GO111MODULE="on" go build main.go
 WORKDIR /vanetza
 
-FROM ubuntu:impish
+FROM debian:buster-slim
 ENV TZ=Europe/Lisbon
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update && apt-get install -y --no-install-recommends \
     mosquitto \
-    libboost-date-time1.74.0 \
+    libboost-date-time1.67.0 \
     libmosquittopp1 \
-    libboost-program-options1.74.0 \
+    libboost-program-options1.67.0 \
     nlohmann-json3-dev \
-    libboost-system1.74.0 \
+    libboost-system1.67.0 \
     libcrypto++ \
-    libgeographic19 \
+    libgeographic17 \
     libssl1.1 \
     zlib1g \
     libcurl4-openssl-dev \
