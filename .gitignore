@@ -19,3 +19,8 @@ tools/socktap/CMakeFiles/
 tools/socktap/cmake-build-debug/
 
 CMakeCache.txt
+
+.ninja_deps
+.ninja_log
+Testing/
+build.ninja

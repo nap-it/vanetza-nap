@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
-*   Auto-generated from the asn1 directory by asn1json.py on 2022-04-16 03:03:21.031852
+*   Auto-generated from the asn1 directory by asn1json.py on 2022-05-19 18:49:36.552026
 */
 
 #include "asn1json.hpp"
@@ -170,7 +170,7 @@ void from_json_AccelerationControl(const json& j, AccelerationControl_t& p) {
     j.at("cruiseControlEngaged").get_to((cruiseControlEngaged));
     j.at("speedLimiterEngaged").get_to((speedLimiterEngaged));
     p_tmp->size = (7 / 8) + 1;
-    p_tmp->bits_unused = 8 - (7 % 8);
+    p_tmp->bits_unused = (7 % 8) != 0 ? 8 - (7 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     if (brakePedalEngaged) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
@@ -248,7 +248,7 @@ void from_json_DrivingLaneStatus(const json& j, DrivingLaneStatus_t& p) {
     
     
     p_tmp->size = (0 / 8) + 1;
-    p_tmp->bits_unused = 8 - (0 % 8);
+    p_tmp->bits_unused = (0 % 8) != 0 ? 8 - (0 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     
@@ -351,7 +351,7 @@ void from_json_ExteriorLights(const json& j, ExteriorLights_t& p) {
     j.at("fogLightOn").get_to((fogLightOn));
     j.at("parkingLightsOn").get_to((parkingLightsOn));
     p_tmp->size = (8 / 8) + 1;
-    p_tmp->bits_unused = 8 - (8 % 8);
+    p_tmp->bits_unused = (8 % 8) != 0 ? 8 - (8 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     *(p_tmp->buf + (sizeof(uint8_t) * 1)) = (uint8_t) 0;
@@ -411,7 +411,7 @@ void from_json_SpecialTransportType(const json& j, SpecialTransportType_t& p) {
     j.at("excessLength").get_to((excessLength));
     j.at("excessHeight").get_to((excessHeight));
     p_tmp->size = (4 / 8) + 1;
-    p_tmp->bits_unused = 8 - (4 % 8);
+    p_tmp->bits_unused = (4 % 8) != 0 ? 8 - (4 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     if (heavyLoad) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
@@ -437,7 +437,7 @@ void from_json_LightBarSirenInUse(const json& j, LightBarSirenInUse_t& p) {
     j.at("lightBarActivated").get_to((lightBarActivated));
     j.at("sirenActivated").get_to((sirenActivated));
     p_tmp->size = (2 / 8) + 1;
-    p_tmp->bits_unused = 8 - (2 % 8);
+    p_tmp->bits_unused = (2 % 8) != 0 ? 8 - (2 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     if (lightBarActivated) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
@@ -497,7 +497,7 @@ void from_json_PositionOfOccupants(const json& j, PositionOfOccupants_t& p) {
     j.at("row4NotDetectable").get_to((row4NotDetectable));
     j.at("row4NotPresent").get_to((row4NotPresent));
     p_tmp->size = (20 / 8) + 1;
-    p_tmp->bits_unused = 8 - (20 % 8);
+    p_tmp->bits_unused = (20 % 8) != 0 ? 8 - (20 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     *(p_tmp->buf + (sizeof(uint8_t) * 1)) = (uint8_t) 0;
@@ -568,7 +568,7 @@ void from_json_EnergyStorageType(const json& j, EnergyStorageType_t& p) {
     j.at("gasoline").get_to((gasoline));
     j.at("ammonia").get_to((ammonia));
     p_tmp->size = (7 / 8) + 1;
-    p_tmp->bits_unused = 8 - (7 % 8);
+    p_tmp->bits_unused = (7 % 8) != 0 ? 8 - (7 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     if (hydrogenStorage) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
@@ -639,7 +639,7 @@ void from_json_EmergencyPriority(const json& j, EmergencyPriority_t& p) {
     j.at("requestForRightOfWay").get_to((requestForRightOfWay));
     j.at("requestForFreeCrossingAtATrafficLight").get_to((requestForFreeCrossingAtATrafficLight));
     p_tmp->size = (2 / 8) + 1;
-    p_tmp->bits_unused = 8 - (2 % 8);
+    p_tmp->bits_unused = (2 % 8) != 0 ? 8 - (2 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     if (requestForRightOfWay) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
@@ -1194,7 +1194,7 @@ void from_json_VruSpecificExteriorLights(const json& j, VruSpecificExteriorLight
     j.at("legLight").get_to((legLight));
     j.at("wheelLight").get_to((wheelLight));
     p_tmp->size = (6 / 8) + 1;
-    p_tmp->bits_unused = 8 - (6 % 8);
+    p_tmp->bits_unused = (6 % 8) != 0 ? 8 - (6 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     if (unavailable) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
@@ -1226,7 +1226,7 @@ void from_json_ClusterProfiles(const json& j, ClusterProfiles_t& p) {
     j.at("motorcyclist").get_to((motorcyclist));
     j.at("animal").get_to((animal));
     p_tmp->size = (4 / 8) + 1;
-    p_tmp->bits_unused = 8 - (4 % 8);
+    p_tmp->bits_unused = (4 % 8) != 0 ? 8 - (4 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     if (pedestrian) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
@@ -1669,7 +1669,7 @@ void from_json_LaneSharing(const json& j, LaneSharing_t& p) {
     j.at("trackedVehicleTraffic").get_to((trackedVehicleTraffic));
     j.at("pedestrianTraffic").get_to((pedestrianTraffic));
     p_tmp->size = (10 / 8) + 1;
-    p_tmp->bits_unused = 8 - (10 % 8);
+    p_tmp->bits_unused = (10 % 8) != 0 ? 8 - (10 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     *(p_tmp->buf + (sizeof(uint8_t) * 1)) = (uint8_t) 0;
@@ -1915,7 +1915,7 @@ void from_json_AllowedManeuvers(const json& j, AllowedManeuvers_t& p) {
     j.at("caution").get_to((caution));
     j.at("reserved1").get_to((reserved1));
     p_tmp->size = (12 / 8) + 1;
-    p_tmp->bits_unused = 8 - (12 % 8);
+    p_tmp->bits_unused = (12 % 8) != 0 ? 8 - (12 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     *(p_tmp->buf + (sizeof(uint8_t) * 1)) = (uint8_t) 0;
@@ -1974,7 +1974,7 @@ void from_json_IntersectionStatusObject(const json& j, IntersectionStatusObject_
     j.at("noValidMAPisAvailableAtThisTime").get_to((noValidMAPisAvailableAtThisTime));
     j.at("noValidSPATisAvailableAtThisTime").get_to((noValidSPATisAvailableAtThisTime));
     p_tmp->size = (14 / 8) + 1;
-    p_tmp->bits_unused = 8 - (14 % 8);
+    p_tmp->bits_unused = (14 % 8) != 0 ? 8 - (14 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     *(p_tmp->buf + (sizeof(uint8_t) * 1)) = (uint8_t) 0;
@@ -2027,7 +2027,7 @@ void from_json_LaneAttributes_Barrier(const json& j, LaneAttributes_Barrier_t& p
     j.at("lowCurbs").get_to((lowCurbs));
     j.at("highCurbs").get_to((highCurbs));
     p_tmp->size = (10 / 8) + 1;
-    p_tmp->bits_unused = 8 - (10 % 8);
+    p_tmp->bits_unused = (10 % 8) != 0 ? 8 - (10 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     *(p_tmp->buf + (sizeof(uint8_t) * 1)) = (uint8_t) 0;
@@ -2070,7 +2070,7 @@ void from_json_LaneAttributes_Bike(const json& j, LaneAttributes_Bike_t& p) {
     j.at("isolatedByBarrier").get_to((isolatedByBarrier));
     j.at("unsignalizedSegmentsPresent").get_to((unsignalizedSegmentsPresent));
     p_tmp->size = (7 / 8) + 1;
-    p_tmp->bits_unused = 8 - (7 % 8);
+    p_tmp->bits_unused = (7 % 8) != 0 ? 8 - (7 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     if (bikeRevocableLane) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
@@ -2113,7 +2113,7 @@ void from_json_LaneAttributes_Crosswalk(const json& j, LaneAttributes_Crosswalk_
     j.at("rfSignalRequestPresent").get_to((rfSignalRequestPresent));
     j.at("unsignalizedSegmentsPresent").get_to((unsignalizedSegmentsPresent));
     p_tmp->size = (9 / 8) + 1;
-    p_tmp->bits_unused = 8 - (9 % 8);
+    p_tmp->bits_unused = (9 % 8) != 0 ? 8 - (9 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     *(p_tmp->buf + (sizeof(uint8_t) * 1)) = (uint8_t) 0;
@@ -2155,7 +2155,7 @@ void from_json_LaneAttributes_Parking(const json& j, LaneAttributes_Parking_t& p
     j.at("parkingForTaxiUse").get_to((parkingForTaxiUse));
     j.at("noPublicParkingUse").get_to((noPublicParkingUse));
     p_tmp->size = (7 / 8) + 1;
-    p_tmp->bits_unused = 8 - (7 % 8);
+    p_tmp->bits_unused = (7 % 8) != 0 ? 8 - (7 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     if (parkingRevocableLane) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
@@ -2188,7 +2188,7 @@ void from_json_LaneAttributes_Sidewalk(const json& j, LaneAttributes_Sidewalk_t&
     j.at("isSidewalkFlyOverLane").get_to((isSidewalkFlyOverLane));
     j.at("walkBikes").get_to((walkBikes));
     p_tmp->size = (4 / 8) + 1;
-    p_tmp->bits_unused = 8 - (4 % 8);
+    p_tmp->bits_unused = (4 % 8) != 0 ? 8 - (4 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     if (sidewalk_RevocableLane) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
@@ -2222,7 +2222,7 @@ void from_json_LaneAttributes_Striping(const json& j, LaneAttributes_Striping_t&
     j.at("stripeToConnectingLanesRight").get_to((stripeToConnectingLanesRight));
     j.at("stripeToConnectingLanesAhead").get_to((stripeToConnectingLanesAhead));
     p_tmp->size = (6 / 8) + 1;
-    p_tmp->bits_unused = 8 - (6 % 8);
+    p_tmp->bits_unused = (6 % 8) != 0 ? 8 - (6 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     if (stripeToConnectingLanesRevocableLane) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
@@ -2256,7 +2256,7 @@ void from_json_LaneAttributes_TrackedVehicle(const json& j, LaneAttributes_Track
     j.at("spec-heavyRailRoadTrack").get_to((spec_heavyRailRoadTrack));
     j.at("spec-otherRailType").get_to((spec_otherRailType));
     p_tmp->size = (5 / 8) + 1;
-    p_tmp->bits_unused = 8 - (5 % 8);
+    p_tmp->bits_unused = (5 % 8) != 0 ? 8 - (5 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     if (spec_RevocableLane) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
@@ -2295,7 +2295,7 @@ void from_json_LaneAttributes_Vehicle(const json& j, LaneAttributes_Vehicle_t& p
     j.at("hasIRbeaconCoverage").get_to((hasIRbeaconCoverage));
     j.at("permissionOnRequest").get_to((permissionOnRequest));
     p_tmp->size = (8 / 8) + 1;
-    p_tmp->bits_unused = 8 - (8 % 8);
+    p_tmp->bits_unused = (8 % 8) != 0 ? 8 - (8 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     *(p_tmp->buf + (sizeof(uint8_t) * 1)) = (uint8_t) 0;
@@ -2326,7 +2326,7 @@ void from_json_LaneDirection(const json& j, LaneDirection_t& p) {
     j.at("ingressPath").get_to((ingressPath));
     j.at("egressPath").get_to((egressPath));
     p_tmp->size = (2 / 8) + 1;
-    p_tmp->bits_unused = 8 - (2 % 8);
+    p_tmp->bits_unused = (2 % 8) != 0 ? 8 - (2 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     if (ingressPath) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
@@ -2358,7 +2358,7 @@ void from_json_TransitVehicleStatus(const json& j, TransitVehicleStatus_t& p) {
     j.at("charging").get_to((charging));
     j.at("atStopLine").get_to((atStopLine));
     p_tmp->size = (6 / 8) + 1;
-    p_tmp->bits_unused = 8 - (6 % 8);
+    p_tmp->bits_unused = (6 % 8) != 0 ? 8 - (6 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     if (loading) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);

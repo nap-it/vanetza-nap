@@ -147,7 +147,7 @@ void MapemApplication::on_message(string topic, string mqtt_message) {
     vanetza::asn1::Mapem message;
 
     ItsPduHeader_t& header = message->header;
-    header.protocolVersion = 1;
+    header.protocolVersion = 2;
     header.messageID = ItsPduHeader__messageID_mapem;
     header.stationID = config_s.station_id;
 

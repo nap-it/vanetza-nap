@@ -215,7 +215,7 @@ void from_json_""" + self.name.replace("-", "_") + """(const json& j, """ + self
     """ + '\n    '.join(["bool " + m[0].replace("-", "_") + ";" for m in self.members]) + """
     """ + '\n    '.join(['j.at("' + m[0] + '").get_to(' + '(' + m[0].replace("-", "_") + '));' for m in self.members]) + """
     p_tmp->size = (""" + str(len(self.members)) + """ / 8) + 1;
-    p_tmp->bits_unused = 8 - (""" + str(len(self.members)) + """ % 8);
+    p_tmp->bits_unused = (""" + str(len(self.members)) + """ % 8) != 0 ? 8 - (""" + str(len(self.members)) + """ % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
     """ + '\n    '.join(['*(p_tmp->buf + (sizeof(uint8_t) * ' + str(i) + ')) = (uint8_t) 0;' for i in range(int(len(self.members) / 8) + 1)]) + """
     """ + '\n    '.join(['if (' + m[0].replace("-", "_") + ') *(p_tmp->buf + (sizeof(uint8_t) * ' + str(int(int(m[1])/8)) + ')) |= (1 << ' + str(7 - (int(m[1]) % 8)) + ');' for m in self.members]) + """
