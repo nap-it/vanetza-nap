@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
-*   Auto-generated from the asn1 directory by asn1json.py on 2022-05-19 18:49:36.552026
+*   Auto-generated from the asn1 directory by asn1json.py on 2022-05-25 19:24:48.485940
 */
 
 #include "asn1json.hpp"
@@ -84,13 +84,13 @@ void from_json(const json& j, DeltaReferencePosition_t& p) {
 */
 
 void to_json(json& j, const Altitude& p) {
-    j = json{{"altitudeValue", (p.altitudeValue)}, {"altitudeConfidence", (p.altitudeConfidence)}};
+    j = json{{"altitudeValue", (p.altitudeValue / 100)}, {"altitudeConfidence", (p.altitudeConfidence / 100)}};
     
 }
 
 void from_json(const json& j, Altitude& p) {
-    j.at("altitudeValue").get_to((p.altitudeValue));
-    j.at("altitudeConfidence").get_to((p.altitudeConfidence));
+    j.at("altitudeValue").get_to((p.altitudeValue)); (p.altitudeValue) *= 100;
+    j.at("altitudeConfidence").get_to((p.altitudeConfidence)); (p.altitudeConfidence) *= 100;
     
     
 }
@@ -101,14 +101,14 @@ void from_json(const json& j, Altitude& p) {
 */
 
 void to_json(json& j, const PosConfidenceEllipse& p) {
-    j = json{{"semiMajorConfidence", (p.semiMajorConfidence)}, {"semiMinorConfidence", (p.semiMinorConfidence)}, {"semiMajorOrientation", (p.semiMajorOrientation)}};
+    j = json{{"semiMajorConfidence", (p.semiMajorConfidence)}, {"semiMinorConfidence", (p.semiMinorConfidence)}, {"semiMajorOrientation", (p.semiMajorOrientation / 10)}};
     
 }
 
 void from_json(const json& j, PosConfidenceEllipse& p) {
     j.at("semiMajorConfidence").get_to((p.semiMajorConfidence));
     j.at("semiMinorConfidence").get_to((p.semiMinorConfidence));
-    j.at("semiMajorOrientation").get_to((p.semiMajorOrientation));
+    j.at("semiMajorOrientation").get_to((p.semiMajorOrientation)); (p.semiMajorOrientation) *= 10;
     
     
 }
@@ -223,13 +223,13 @@ void from_json(const json& j, Curvature& p) {
 */
 
 void to_json(json& j, const Heading& p) {
-    j = json{{"headingValue", (p.headingValue)}, {"headingConfidence", (p.headingConfidence)}};
+    j = json{{"headingValue", (p.headingValue / 10)}, {"headingConfidence", (p.headingConfidence / 10)}};
     
 }
 
 void from_json(const json& j, Heading& p) {
-    j.at("headingValue").get_to((p.headingValue));
-    j.at("headingConfidence").get_to((p.headingConfidence));
+    j.at("headingValue").get_to((p.headingValue)); (p.headingValue) *= 10;
+    j.at("headingConfidence").get_to((p.headingConfidence)); (p.headingConfidence) *= 10;
     
     
 }
@@ -261,13 +261,13 @@ void from_json_DrivingLaneStatus(const json& j, DrivingLaneStatus_t& p) {
 */
 
 void to_json(json& j, const Speed& p) {
-    j = json{{"speedValue", (p.speedValue)}, {"speedConfidence", (p.speedConfidence)}};
+    j = json{{"speedValue", (p.speedValue / 100)}, {"speedConfidence", (p.speedConfidence / 100)}};
     
 }
 
 void from_json(const json& j, Speed& p) {
-    j.at("speedValue").get_to((p.speedValue));
-    j.at("speedConfidence").get_to((p.speedConfidence));
+    j.at("speedValue").get_to((p.speedValue)); (p.speedValue) *= 100;
+    j.at("speedConfidence").get_to((p.speedConfidence)); (p.speedConfidence) *= 100;
     
     
 }
@@ -278,12 +278,12 @@ void from_json(const json& j, Speed& p) {
 */
 
 void to_json(json& j, const LongitudinalAcceleration& p) {
-    j = json{{"longitudinalAccelerationValue", (p.longitudinalAccelerationValue)}, {"longitudinalAccelerationConfidence", (p.longitudinalAccelerationConfidence)}};
+    j = json{{"longitudinalAccelerationValue", (p.longitudinalAccelerationValue / 10)}, {"longitudinalAccelerationConfidence", (p.longitudinalAccelerationConfidence)}};
     
 }
 
 void from_json(const json& j, LongitudinalAcceleration& p) {
-    j.at("longitudinalAccelerationValue").get_to((p.longitudinalAccelerationValue));
+    j.at("longitudinalAccelerationValue").get_to((p.longitudinalAccelerationValue)); (p.longitudinalAccelerationValue) *= 10;
     j.at("longitudinalAccelerationConfidence").get_to((p.longitudinalAccelerationConfidence));
     
     
@@ -295,12 +295,12 @@ void from_json(const json& j, LongitudinalAcceleration& p) {
 */
 
 void to_json(json& j, const LateralAcceleration& p) {
-    j = json{{"lateralAccelerationValue", (p.lateralAccelerationValue)}, {"lateralAccelerationConfidence", (p.lateralAccelerationConfidence)}};
+    j = json{{"lateralAccelerationValue", (p.lateralAccelerationValue / 10)}, {"lateralAccelerationConfidence", (p.lateralAccelerationConfidence)}};
     
 }
 
 void from_json(const json& j, LateralAcceleration& p) {
-    j.at("lateralAccelerationValue").get_to((p.lateralAccelerationValue));
+    j.at("lateralAccelerationValue").get_to((p.lateralAccelerationValue)); (p.lateralAccelerationValue) *= 10;
     j.at("lateralAccelerationConfidence").get_to((p.lateralAccelerationConfidence));
     
     
@@ -312,12 +312,12 @@ void from_json(const json& j, LateralAcceleration& p) {
 */
 
 void to_json(json& j, const VerticalAcceleration_t& p) {
-    j = json{{"verticalAccelerationValue", (p.verticalAccelerationValue)}, {"verticalAccelerationConfidence", (p.verticalAccelerationConfidence)}};
+    j = json{{"verticalAccelerationValue", (p.verticalAccelerationValue / 10)}, {"verticalAccelerationConfidence", (p.verticalAccelerationConfidence)}};
     
 }
 
 void from_json(const json& j, VerticalAcceleration_t& p) {
-    j.at("verticalAccelerationValue").get_to((p.verticalAccelerationValue));
+    j.at("verticalAccelerationValue").get_to((p.verticalAccelerationValue)); (p.verticalAccelerationValue) *= 10;
     j.at("verticalAccelerationConfidence").get_to((p.verticalAccelerationConfidence));
     
     
@@ -587,12 +587,12 @@ void from_json_EnergyStorageType(const json& j, EnergyStorageType_t& p) {
 */
 
 void to_json(json& j, const VehicleLength_t& p) {
-    j = json{{"vehicleLengthValue", (p.vehicleLengthValue)}, {"vehicleLengthConfidenceIndication", (p.vehicleLengthConfidenceIndication)}};
+    j = json{{"vehicleLengthValue", (p.vehicleLengthValue / 10)}, {"vehicleLengthConfidenceIndication", (p.vehicleLengthConfidenceIndication)}};
     
 }
 
 void from_json(const json& j, VehicleLength_t& p) {
-    j.at("vehicleLengthValue").get_to((p.vehicleLengthValue));
+    j.at("vehicleLengthValue").get_to((p.vehicleLengthValue)); (p.vehicleLengthValue) *= 10;
     j.at("vehicleLengthConfidenceIndication").get_to((p.vehicleLengthConfidenceIndication));
     
     
@@ -670,12 +670,12 @@ void from_json(const json& j, SteeringWheelAngle& p) {
 */
 
 void to_json(json& j, const YawRate& p) {
-    j = json{{"yawRateValue", (p.yawRateValue)}, {"yawRateConfidence", (p.yawRateConfidence)}};
+    j = json{{"yawRateValue", (p.yawRateValue / 100)}, {"yawRateConfidence", (p.yawRateConfidence)}};
     
 }
 
 void from_json(const json& j, YawRate& p) {
-    j.at("yawRateValue").get_to((p.yawRateValue));
+    j.at("yawRateValue").get_to((p.yawRateValue)); (p.yawRateValue) *= 100;
     j.at("yawRateConfidence").get_to((p.yawRateConfidence));
     
     
@@ -704,15 +704,15 @@ void from_json(const json& j, ActionID& p) {
 */
 
 void to_json(json& j, const ProtectedCommunicationZone& p) {
-    j = json{{"protectedZoneType", (p.protectedZoneType)}, {"protectedZoneLatitude", (p.protectedZoneLatitude)}, {"protectedZoneLongitude", (p.protectedZoneLongitude)}};
+    j = json{{"protectedZoneType", (p.protectedZoneType)}, {"protectedZoneLatitude", (p.protectedZoneLatitude / 10000000)}, {"protectedZoneLongitude", (p.protectedZoneLongitude / 10000000)}};
     if (p.protectedZoneRadius != 0) j["protectedZoneRadius"] = *(p.protectedZoneRadius);
     if (p.protectedZoneID != 0) j["protectedZoneID"] = *(p.protectedZoneID);
 }
 
 void from_json(const json& j, ProtectedCommunicationZone& p) {
     j.at("protectedZoneType").get_to((p.protectedZoneType));
-    j.at("protectedZoneLatitude").get_to((p.protectedZoneLatitude));
-    j.at("protectedZoneLongitude").get_to((p.protectedZoneLongitude));
+    j.at("protectedZoneLatitude").get_to((p.protectedZoneLatitude)); (p.protectedZoneLatitude) *= 10000000;
+    j.at("protectedZoneLongitude").get_to((p.protectedZoneLongitude)); (p.protectedZoneLongitude) *= 10000000;
     if (j.contains("protectedZoneRadius")) { p.protectedZoneRadius = vanetza::asn1::allocate<ProtectedZoneRadius_t>(); j.at("protectedZoneRadius").get_to(*(p.protectedZoneRadius)); } 
     else { p.protectedZoneRadius=nullptr; }
     if (j.contains("protectedZoneID")) { p.protectedZoneID = vanetza::asn1::allocate<ProtectedZoneID_t>(); j.at("protectedZoneID").get_to(*(p.protectedZoneID)); } 
@@ -846,13 +846,13 @@ void from_json(const json& j, ProtectedCommunicationZonesRSU& p) {
 */
 
 void to_json(json& j, const CenDsrcTollingZone& p) {
-    j = json{{"protectedZoneLatitude", (p.protectedZoneLatitude)}, {"protectedZoneLongitude", (p.protectedZoneLongitude)}};
+    j = json{{"protectedZoneLatitude", (p.protectedZoneLatitude / 10000000)}, {"protectedZoneLongitude", (p.protectedZoneLongitude / 10000000)}};
     if (p.cenDsrcTollingZoneID != 0) j["cenDsrcTollingZoneID"] = *(p.cenDsrcTollingZoneID);
 }
 
 void from_json(const json& j, CenDsrcTollingZone& p) {
-    j.at("protectedZoneLatitude").get_to((p.protectedZoneLatitude));
-    j.at("protectedZoneLongitude").get_to((p.protectedZoneLongitude));
+    j.at("protectedZoneLatitude").get_to((p.protectedZoneLatitude)); (p.protectedZoneLatitude) *= 10000000;
+    j.at("protectedZoneLongitude").get_to((p.protectedZoneLongitude)); (p.protectedZoneLongitude) *= 10000000;
     if (j.contains("cenDsrcTollingZoneID")) { p.cenDsrcTollingZoneID = vanetza::asn1::allocate<CenDsrcTollingZoneID_t>(); j.at("cenDsrcTollingZoneID").get_to(*(p.cenDsrcTollingZoneID)); } 
     else { p.cenDsrcTollingZoneID=nullptr; }
     
@@ -865,7 +865,7 @@ void from_json(const json& j, CenDsrcTollingZone& p) {
 */
 
 void to_json(json& j, const BasicVehicleContainerHighFrequency& p) {
-    j = json{{"heading", (p.heading)}, {"speed", (p.speed)}, {"driveDirection", (p.driveDirection)}, {"vehicleLength", (p.vehicleLength)}, {"vehicleWidth", (p.vehicleWidth)}, {"longitudinalAcceleration", (p.longitudinalAcceleration)}, {"curvature", (p.curvature)}, {"curvatureCalculationMode", (p.curvatureCalculationMode)}, {"yawRate", (p.yawRate)}};
+    j = json{{"heading", (p.heading)}, {"speed", (p.speed)}, {"driveDirection", (p.driveDirection)}, {"vehicleLength", (p.vehicleLength)}, {"vehicleWidth", (p.vehicleWidth / 10)}, {"longitudinalAcceleration", (p.longitudinalAcceleration)}, {"curvature", (p.curvature)}, {"curvatureCalculationMode", (p.curvatureCalculationMode)}, {"yawRate", (p.yawRate)}};
     if (p.accelerationControl != 0) j["accelerationControl"] = to_json_AccelerationControl(*(p.accelerationControl));
     if (p.lanePosition != 0) j["lanePosition"] = *(p.lanePosition);
     if (p.steeringWheelAngle != 0) j["steeringWheelAngle"] = *(p.steeringWheelAngle);
@@ -880,7 +880,7 @@ void from_json(const json& j, BasicVehicleContainerHighFrequency& p) {
     j.at("speed").get_to((p.speed));
     j.at("driveDirection").get_to((p.driveDirection));
     j.at("vehicleLength").get_to((p.vehicleLength));
-    j.at("vehicleWidth").get_to((p.vehicleWidth));
+    j.at("vehicleWidth").get_to((p.vehicleWidth)); (p.vehicleWidth) *= 10;
     j.at("longitudinalAcceleration").get_to((p.longitudinalAcceleration));
     j.at("curvature").get_to((p.curvature));
     j.at("curvatureCalculationMode").get_to((p.curvatureCalculationMode));
@@ -1397,7 +1397,7 @@ void from_json(const json& j, AdvisorySpeed& p) {
     j.at("type").get_to((p.type));
     if (j.contains("speed")) { p.speed = vanetza::asn1::allocate<SpeedAdvice_t>(); j.at("speed").get_to(*(p.speed)); } 
     else { p.speed=nullptr; }
-    if (j.contains("confidence")) { p.confidence = vanetza::asn1::allocate<SpeedConfidence_t>(); j.at("confidence").get_to(*(p.confidence)); } 
+    if (j.contains("confidence")) { p.confidence = vanetza::asn1::allocate<SpeedConfidence_t>(); j.at("confidence").get_to(*(p.confidence)); *(p.confidence) *= 100; } 
     else { p.confidence=nullptr; }
     if (j.contains("distance")) { p.distance = vanetza::asn1::allocate<ZoneLength_t>(); j.at("distance").get_to(*(p.distance)); } 
     else { p.distance=nullptr; }
@@ -1717,13 +1717,13 @@ void from_json(const json& j, ManeuverAssistList& p) {
 */
 
 void to_json(json& j, const Node_LLmD_64b& p) {
-    j = json{{"lon", (p.lon)}, {"lat", (p.lat)}};
+    j = json{{"lon", (p.lon / 10000000)}, {"lat", (p.lat / 10000000)}};
     
 }
 
 void from_json(const json& j, Node_LLmD_64b& p) {
-    j.at("lon").get_to((p.lon));
-    j.at("lat").get_to((p.lat));
+    j.at("lon").get_to((p.lon)); (p.lon) *= 10000000;
+    j.at("lat").get_to((p.lat)); (p.lat) *= 10000000;
     
     
 }
@@ -1759,13 +1759,13 @@ void from_json(const json& j, OverlayLaneList& p) {
 */
 
 void to_json(json& j, const Position3D_t& p) {
-    j = json{{"lat", (p.lat)}, {"long", (p.Long)}};
+    j = json{{"lat", (p.lat / 10000000)}, {"long", (p.Long / 10000000)}};
     if (p.elevation != 0) j["elevation"] = *(p.elevation);
 }
 
 void from_json(const json& j, Position3D_t& p) {
-    j.at("lat").get_to((p.lat));
-    j.at("long").get_to((p.Long));
+    j.at("lat").get_to((p.lat)); (p.lat) *= 10000000;
+    j.at("long").get_to((p.Long)); (p.Long) *= 10000000;
     if (j.contains("elevation")) { p.elevation = vanetza::asn1::allocate<Elevation_t>(); j.at("elevation").get_to(*(p.elevation)); } 
     else { p.elevation=nullptr; }
     
@@ -2596,18 +2596,18 @@ void from_json(const json& j, OriginatingRSUContainer& p) {
 */
 
 void to_json(json& j, const VehicleSensorProperties& p) {
-    j = json{{"range", (p.range)}, {"horizontalOpeningAngleStart", (p.horizontalOpeningAngleStart)}, {"horizontalOpeningAngleEnd", (p.horizontalOpeningAngleEnd)}};
+    j = json{{"range", (p.range)}, {"horizontalOpeningAngleStart", (p.horizontalOpeningAngleStart / 10)}, {"horizontalOpeningAngleEnd", (p.horizontalOpeningAngleEnd / 10)}};
     if (p.verticalOpeningAngleStart != 0) j["verticalOpeningAngleStart"] = *(p.verticalOpeningAngleStart);
     if (p.verticalOpeningAngleEnd != 0) j["verticalOpeningAngleEnd"] = *(p.verticalOpeningAngleEnd);
 }
 
 void from_json(const json& j, VehicleSensorProperties& p) {
     j.at("range").get_to((p.range));
-    j.at("horizontalOpeningAngleStart").get_to((p.horizontalOpeningAngleStart));
-    j.at("horizontalOpeningAngleEnd").get_to((p.horizontalOpeningAngleEnd));
-    if (j.contains("verticalOpeningAngleStart")) { p.verticalOpeningAngleStart = vanetza::asn1::allocate<CartesianAngleValue_t>(); j.at("verticalOpeningAngleStart").get_to(*(p.verticalOpeningAngleStart)); } 
+    j.at("horizontalOpeningAngleStart").get_to((p.horizontalOpeningAngleStart)); (p.horizontalOpeningAngleStart) *= 10;
+    j.at("horizontalOpeningAngleEnd").get_to((p.horizontalOpeningAngleEnd)); (p.horizontalOpeningAngleEnd) *= 10;
+    if (j.contains("verticalOpeningAngleStart")) { p.verticalOpeningAngleStart = vanetza::asn1::allocate<CartesianAngleValue_t>(); j.at("verticalOpeningAngleStart").get_to(*(p.verticalOpeningAngleStart)); *(p.verticalOpeningAngleStart) *= 10; } 
     else { p.verticalOpeningAngleStart=nullptr; }
-    if (j.contains("verticalOpeningAngleEnd")) { p.verticalOpeningAngleEnd = vanetza::asn1::allocate<CartesianAngleValue_t>(); j.at("verticalOpeningAngleEnd").get_to(*(p.verticalOpeningAngleEnd)); } 
+    if (j.contains("verticalOpeningAngleEnd")) { p.verticalOpeningAngleEnd = vanetza::asn1::allocate<CartesianAngleValue_t>(); j.at("verticalOpeningAngleEnd").get_to(*(p.verticalOpeningAngleEnd)); *(p.verticalOpeningAngleEnd) *= 10; } 
     else { p.verticalOpeningAngleEnd=nullptr; }
     
     
@@ -2619,12 +2619,12 @@ void from_json(const json& j, VehicleSensorProperties& p) {
 */
 
 void to_json(json& j, const ObjectDistanceWithConfidence& p) {
-    j = json{{"value", (p.value)}, {"confidence", (p.confidence)}};
+    j = json{{"value", (p.value / 100)}, {"confidence", (p.confidence)}};
     
 }
 
 void from_json(const json& j, ObjectDistanceWithConfidence& p) {
-    j.at("value").get_to((p.value));
+    j.at("value").get_to((p.value)); (p.value) *= 100;
     j.at("confidence").get_to((p.confidence));
     
     
@@ -2636,12 +2636,12 @@ void from_json(const json& j, ObjectDistanceWithConfidence& p) {
 */
 
 void to_json(json& j, const ObjectDimension& p) {
-    j = json{{"value", (p.value)}, {"confidence", (p.confidence)}};
+    j = json{{"value", (p.value / 10)}, {"confidence", (p.confidence)}};
     
 }
 
 void from_json(const json& j, ObjectDimension& p) {
-    j.at("value").get_to((p.value));
+    j.at("value").get_to((p.value)); (p.value) *= 10;
     j.at("confidence").get_to((p.confidence));
     
     
@@ -2653,12 +2653,12 @@ void from_json(const json& j, ObjectDimension& p) {
 */
 
 void to_json(json& j, const CartesianAngle& p) {
-    j = json{{"value", (p.value)}, {"confidence", (p.confidence)}};
+    j = json{{"value", (p.value / 10)}, {"confidence", (p.confidence)}};
     
 }
 
 void from_json(const json& j, CartesianAngle& p) {
-    j.at("value").get_to((p.value));
+    j.at("value").get_to((p.value)); (p.value) *= 10;
     j.at("confidence").get_to((p.confidence));
     
     
@@ -2670,12 +2670,12 @@ void from_json(const json& j, CartesianAngle& p) {
 */
 
 void to_json(json& j, const WGS84Angle& p) {
-    j = json{{"value", (p.value)}, {"confidence", (p.confidence)}};
+    j = json{{"value", (p.value / 10)}, {"confidence", (p.confidence)}};
     
 }
 
 void from_json(const json& j, WGS84Angle& p) {
-    j.at("value").get_to((p.value));
+    j.at("value").get_to((p.value)); (p.value) *= 10;
     j.at("confidence").get_to((p.confidence));
     
     
@@ -2687,13 +2687,13 @@ void from_json(const json& j, WGS84Angle& p) {
 */
 
 void to_json(json& j, const SpeedExtended& p) {
-    j = json{{"value", (p.value)}, {"confidence", (p.confidence)}};
+    j = json{{"value", (p.value / 100)}, {"confidence", (p.confidence / 100)}};
     
 }
 
 void from_json(const json& j, SpeedExtended& p) {
-    j.at("value").get_to((p.value));
-    j.at("confidence").get_to((p.confidence));
+    j.at("value").get_to((p.value)); (p.value) *= 100;
+    j.at("confidence").get_to((p.confidence)); (p.confidence) *= 100;
     
     
 }
@@ -2739,7 +2739,7 @@ void from_json(const json& j, TrailerData& p) {
     j.at("hitchPointOffset").get_to((p.hitchPointOffset));
     j.at("frontOverhang").get_to((p.frontOverhang));
     j.at("rearOverhang").get_to((p.rearOverhang));
-    if (j.contains("trailerWidth")) { p.trailerWidth = vanetza::asn1::allocate<VehicleWidth_t>(); j.at("trailerWidth").get_to(*(p.trailerWidth)); } 
+    if (j.contains("trailerWidth")) { p.trailerWidth = vanetza::asn1::allocate<VehicleWidth_t>(); j.at("trailerWidth").get_to(*(p.trailerWidth)); *(p.trailerWidth) *= 10; } 
     else { p.trailerWidth=nullptr; }
     if (j.contains("hitchAngle")) { p.hitchAngle = vanetza::asn1::allocate<CartesianAngle_t>(); j.at("hitchAngle").get_to(*(p.hitchAngle)); } 
     else { p.hitchAngle=nullptr; }
@@ -2921,13 +2921,13 @@ void from_json(const json& j, NodeOffsetPointZ& p) {
 */
 
 void to_json(json& j, const ReferencePosition& p) {
-    j = json{{"latitude", (p.latitude)}, {"longitude", (p.longitude)}, {"positionConfidenceEllipse", (p.positionConfidenceEllipse)}, {"altitude", (p.altitude)}};
+    j = json{{"latitude", (p.latitude / 10000000)}, {"longitude", (p.longitude / 10000000)}, {"positionConfidenceEllipse", (p.positionConfidenceEllipse)}, {"altitude", (p.altitude)}};
     
 }
 
 void from_json(const json& j, ReferencePosition& p) {
-    j.at("latitude").get_to((p.latitude));
-    j.at("longitude").get_to((p.longitude));
+    j.at("latitude").get_to((p.latitude)); (p.latitude) *= 10000000;
+    j.at("longitude").get_to((p.longitude)); (p.longitude) *= 10000000;
     j.at("positionConfidenceEllipse").get_to((p.positionConfidenceEllipse));
     j.at("altitude").get_to((p.altitude));
     
@@ -4184,7 +4184,7 @@ void from_json(const json& j, OriginatingVehicleContainer& p) {
     else { p.rollAngle=nullptr; }
     if (j.contains("vehicleLength")) { p.vehicleLength = vanetza::asn1::allocate<VehicleLength_t>(); j.at("vehicleLength").get_to(*(p.vehicleLength)); } 
     else { p.vehicleLength=nullptr; }
-    if (j.contains("vehicleWidth")) { p.vehicleWidth = vanetza::asn1::allocate<VehicleWidth_t>(); j.at("vehicleWidth").get_to(*(p.vehicleWidth)); } 
+    if (j.contains("vehicleWidth")) { p.vehicleWidth = vanetza::asn1::allocate<VehicleWidth_t>(); j.at("vehicleWidth").get_to(*(p.vehicleWidth)); *(p.vehicleWidth) *= 10; } 
     else { p.vehicleWidth=nullptr; }
     if (j.contains("vehicleHeight")) { p.vehicleHeight = vanetza::asn1::allocate<VehicleHeight_t>(); j.at("vehicleHeight").get_to(*(p.vehicleHeight)); } 
     else { p.vehicleHeight=nullptr; }
@@ -4239,7 +4239,7 @@ void from_json(const json& j, AreaCircular& p) {
 */
 
 void to_json(json& j, const AreaEllipse& p) {
-    j = json{{"semiMinorRangeLength", (p.semiMinorRangeLength)}, {"semiMajorRangeLength", (p.semiMajorRangeLength)}, {"semiMajorRangeOrientation", (p.semiMajorRangeOrientation)}};
+    j = json{{"semiMinorRangeLength", (p.semiMinorRangeLength / 10)}, {"semiMajorRangeLength", (p.semiMajorRangeLength / 10)}, {"semiMajorRangeOrientation", (p.semiMajorRangeOrientation / 10)}};
     if (p.nodeCenterPoint != 0) j["nodeCenterPoint"] = *(p.nodeCenterPoint);
     if (p.semiHeight != 0) j["semiHeight"] = *(p.semiHeight);
 }
@@ -4247,10 +4247,10 @@ void to_json(json& j, const AreaEllipse& p) {
 void from_json(const json& j, AreaEllipse& p) {
     if (j.contains("nodeCenterPoint")) { p.nodeCenterPoint = vanetza::asn1::allocate<OffsetPoint_t>(); j.at("nodeCenterPoint").get_to(*(p.nodeCenterPoint)); } 
     else { p.nodeCenterPoint=nullptr; }
-    j.at("semiMinorRangeLength").get_to((p.semiMinorRangeLength));
-    j.at("semiMajorRangeLength").get_to((p.semiMajorRangeLength));
-    j.at("semiMajorRangeOrientation").get_to((p.semiMajorRangeOrientation));
-    if (j.contains("semiHeight")) { p.semiHeight = vanetza::asn1::allocate<SemiRangeLength_t>(); j.at("semiHeight").get_to(*(p.semiHeight)); } 
+    j.at("semiMinorRangeLength").get_to((p.semiMinorRangeLength)); (p.semiMinorRangeLength) *= 10;
+    j.at("semiMajorRangeLength").get_to((p.semiMajorRangeLength)); (p.semiMajorRangeLength) *= 10;
+    j.at("semiMajorRangeOrientation").get_to((p.semiMajorRangeOrientation)); (p.semiMajorRangeOrientation) *= 10;
+    if (j.contains("semiHeight")) { p.semiHeight = vanetza::asn1::allocate<SemiRangeLength_t>(); j.at("semiHeight").get_to(*(p.semiHeight)); *(p.semiHeight) *= 10; } 
     else { p.semiHeight=nullptr; }
     
     
@@ -4262,7 +4262,7 @@ void from_json(const json& j, AreaEllipse& p) {
 */
 
 void to_json(json& j, const AreaRectangle& p) {
-    j = json{{"semiMajorRangeLength", (p.semiMajorRangeLength)}, {"semiMinorRangeLength", (p.semiMinorRangeLength)}, {"semiMajorRangeOrientation", (p.semiMajorRangeOrientation)}};
+    j = json{{"semiMajorRangeLength", (p.semiMajorRangeLength / 10)}, {"semiMinorRangeLength", (p.semiMinorRangeLength / 10)}, {"semiMajorRangeOrientation", (p.semiMajorRangeOrientation / 10)}};
     if (p.nodeCenterPoint != 0) j["nodeCenterPoint"] = *(p.nodeCenterPoint);
     if (p.semiHeight != 0) j["semiHeight"] = *(p.semiHeight);
 }
@@ -4270,10 +4270,10 @@ void to_json(json& j, const AreaRectangle& p) {
 void from_json(const json& j, AreaRectangle& p) {
     if (j.contains("nodeCenterPoint")) { p.nodeCenterPoint = vanetza::asn1::allocate<OffsetPoint_t>(); j.at("nodeCenterPoint").get_to(*(p.nodeCenterPoint)); } 
     else { p.nodeCenterPoint=nullptr; }
-    j.at("semiMajorRangeLength").get_to((p.semiMajorRangeLength));
-    j.at("semiMinorRangeLength").get_to((p.semiMinorRangeLength));
-    j.at("semiMajorRangeOrientation").get_to((p.semiMajorRangeOrientation));
-    if (j.contains("semiHeight")) { p.semiHeight = vanetza::asn1::allocate<SemiRangeLength_t>(); j.at("semiHeight").get_to(*(p.semiHeight)); } 
+    j.at("semiMajorRangeLength").get_to((p.semiMajorRangeLength)); (p.semiMajorRangeLength) *= 10;
+    j.at("semiMinorRangeLength").get_to((p.semiMinorRangeLength)); (p.semiMinorRangeLength) *= 10;
+    j.at("semiMajorRangeOrientation").get_to((p.semiMajorRangeOrientation)); (p.semiMajorRangeOrientation) *= 10;
+    if (j.contains("semiHeight")) { p.semiHeight = vanetza::asn1::allocate<SemiRangeLength_t>(); j.at("semiHeight").get_to(*(p.semiHeight)); *(p.semiHeight) *= 10; } 
     else { p.semiHeight=nullptr; }
     
     
@@ -4310,7 +4310,7 @@ void from_json(const json& j, PolyPointList& p) {
 */
 
 void to_json(json& j, const AreaRadial& p) {
-    j = json{{"range", (p.range)}, {"stationaryHorizontalOpeningAngleStart", (p.stationaryHorizontalOpeningAngleStart)}, {"stationaryHorizontalOpeningAngleEnd", (p.stationaryHorizontalOpeningAngleEnd)}};
+    j = json{{"range", (p.range)}, {"stationaryHorizontalOpeningAngleStart", (p.stationaryHorizontalOpeningAngleStart / 10)}, {"stationaryHorizontalOpeningAngleEnd", (p.stationaryHorizontalOpeningAngleEnd / 10)}};
     if (p.verticalOpeningAngleStart != 0) j["verticalOpeningAngleStart"] = *(p.verticalOpeningAngleStart);
     if (p.verticalOpeningAngleEnd != 0) j["verticalOpeningAngleEnd"] = *(p.verticalOpeningAngleEnd);
     if (p.sensorPositionOffset != 0) j["sensorPositionOffset"] = *(p.sensorPositionOffset);
@@ -4319,15 +4319,15 @@ void to_json(json& j, const AreaRadial& p) {
 
 void from_json(const json& j, AreaRadial& p) {
     j.at("range").get_to((p.range));
-    j.at("stationaryHorizontalOpeningAngleStart").get_to((p.stationaryHorizontalOpeningAngleStart));
-    j.at("stationaryHorizontalOpeningAngleEnd").get_to((p.stationaryHorizontalOpeningAngleEnd));
-    if (j.contains("verticalOpeningAngleStart")) { p.verticalOpeningAngleStart = vanetza::asn1::allocate<CartesianAngleValue_t>(); j.at("verticalOpeningAngleStart").get_to(*(p.verticalOpeningAngleStart)); } 
+    j.at("stationaryHorizontalOpeningAngleStart").get_to((p.stationaryHorizontalOpeningAngleStart)); (p.stationaryHorizontalOpeningAngleStart) *= 10;
+    j.at("stationaryHorizontalOpeningAngleEnd").get_to((p.stationaryHorizontalOpeningAngleEnd)); (p.stationaryHorizontalOpeningAngleEnd) *= 10;
+    if (j.contains("verticalOpeningAngleStart")) { p.verticalOpeningAngleStart = vanetza::asn1::allocate<CartesianAngleValue_t>(); j.at("verticalOpeningAngleStart").get_to(*(p.verticalOpeningAngleStart)); *(p.verticalOpeningAngleStart) *= 10; } 
     else { p.verticalOpeningAngleStart=nullptr; }
-    if (j.contains("verticalOpeningAngleEnd")) { p.verticalOpeningAngleEnd = vanetza::asn1::allocate<CartesianAngleValue_t>(); j.at("verticalOpeningAngleEnd").get_to(*(p.verticalOpeningAngleEnd)); } 
+    if (j.contains("verticalOpeningAngleEnd")) { p.verticalOpeningAngleEnd = vanetza::asn1::allocate<CartesianAngleValue_t>(); j.at("verticalOpeningAngleEnd").get_to(*(p.verticalOpeningAngleEnd)); *(p.verticalOpeningAngleEnd) *= 10; } 
     else { p.verticalOpeningAngleEnd=nullptr; }
     if (j.contains("sensorPositionOffset")) { p.sensorPositionOffset = vanetza::asn1::allocate<OffsetPoint_t>(); j.at("sensorPositionOffset").get_to(*(p.sensorPositionOffset)); } 
     else { p.sensorPositionOffset=nullptr; }
-    if (j.contains("sensorHeight")) { p.sensorHeight = vanetza::asn1::allocate<SensorHeight_t>(); j.at("sensorHeight").get_to(*(p.sensorHeight)); } 
+    if (j.contains("sensorHeight")) { p.sensorHeight = vanetza::asn1::allocate<SensorHeight_t>(); j.at("sensorHeight").get_to(*(p.sensorHeight)); *(p.sensorHeight) *= 100; } 
     else { p.sensorHeight=nullptr; }
     
     
