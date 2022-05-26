@@ -46,6 +46,7 @@ WORKDIR /vanetza
 FROM debian:buster-slim
 ENV TZ=Europe/Lisbon
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN printf "deb http://httpredir.debian.org/debian buster-backports main non-free\ndeb-src http://httpredir.debian.org/debian buster-backports main non-free" > /etc/apt/sources.list.d/backports.list
 RUN apt-get update && apt-get install -y --no-install-recommends \
     mosquitto \
     libboost-date-time1.67.0 \
@@ -57,6 +58,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libgeographic17 \
     libssl1.1 \
     zlib1g \
+    iproute2/buster-backports \
+    iptables \
+    bridge-utils \
+    ebtables \
+    tcpdump \
     libcurl4-openssl-dev \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*

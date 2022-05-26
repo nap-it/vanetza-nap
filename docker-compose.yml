@@ -3,12 +3,15 @@ services:
     rsu:
         hostname: rsu
         image: vanetza:test
+        cap_add:
+            - "NET_ADMIN"
         environment:
             - VANETZA_STATION_ID=1
             - VANETZA_STATION_TYPE=15
             - VANETZA_MAC_ADDRESS=6e:06:e0:03:00:01
-            - VANETZA_INTERFACE=eth0
+            - VANETZA_INTERFACE=br0
             - START_EMBEDDED_MOSQUITTO=true
+            - SUPPORT_MAC_BLOCKING=true
         networks:
             vanetzalan0:
                 ipv4_address: 192.168.98.10
@@ -18,12 +21,15 @@ services:
     obu:
         hostname: obu
         image: vanetza:test
+        cap_add:
+            - "NET_ADMIN"
         environment:
             - VANETZA_STATION_ID=2
             - VANETZA_STATION_TYPE=5
             - VANETZA_MAC_ADDRESS=6e:06:e0:03:00:02
-            - VANETZA_INTERFACE=eth0
+            - VANETZA_INTERFACE=br0
             - START_EMBEDDED_MOSQUITTO=true
+            - SUPPORT_MAC_BLOCKING=true
         networks:
             vanetzalan0:
                 ipv4_address: 192.168.98.20

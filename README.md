@@ -81,6 +81,12 @@ To consult the logs of a particular container:
 docker-compose logs obu
 ```
 
+If docker-compose throws an error regarding version incompatibility on Ubuntu 18.04 hosts, run:
+```
+sudo apt install docker-compose-plugin
+```
+And run the commands above, replacing *docker-compose* with *docker compose*
+
 ### Wireshark
 
 Wireshark can be used to sniff and analyse the ETSI C-ITS messages exchanged between the different containers on the virtual network interface created by Docker
@@ -104,6 +110,7 @@ To circumvent this, compile Wireshark 3.7 from source by running:
 wget -q -O - https://gist.githubusercontent.com/RodrigoRosmaninho/be85885b1cd415a2b1621d2ac9875cb8/raw/2bea6639e1eddbaee1ca316668f48792893888b3/build.sh | bash
 ```
 The script will print out further instructions on how to run the compiled binary.
+
 
 ### MQTT
 
@@ -225,7 +232,7 @@ The following table summarizes the available configuration options:
 
 | .ini file key | Environment var key | Description | Default | Notes |
 | ----------- | ----------- | ----------- | ----------- | ----------- |
-| general.interface | VANETZA_INTERFACE | Network interface where the ETSI messages are exchanged | wlan0 | Docker: eth0 |
+| general.interface | VANETZA_INTERFACE | Network interface where the ETSI messages are exchanged | wlan0 | Docker: br0/eth0 |
 | general.mqtt_broker | VANETZA_MQTT_BROKER | MQTT Broker's IP address or DNS name | 127.0.0.1 | |
 | general.mqtt_port | VANETZA_MQTT_PORT | MQTT Broker's Port | 1883 | |
 | general.prometheus_port | VANETZA_PROMETHEUS_PORT | Port on which Vanetza exposes metrics | 9100 | |
@@ -248,6 +255,7 @@ The following table summarizes the available configuration options:
 | vam.full_topic_in | VANETZA_VAM_FULL_TOPIC_IN | MQTT/DDS topic from which Vanetza receives JSON VAMs in the full ETSI spec format | vanetza/in/vam_full | |
 | vam.full_topic_out | VANETZA_VAM_FULL_TOPIC_OUT | MQTT/DDS topic to which Vanetza sends JSON VAMs in the full ETSI spec format | vanetza/out/vam_full | |
 | --- | START_EMBEDDED_MOSQUITTO | Start an MQTT server inside the container to simulate a full OBU or RSU with a local MQTT broker | false | |
+| --- | SUPPORT_MAC_BLOCKING | Start the container with ebtables support in order to dynamically block and unblock MAC addresses, simulating out-of-range scenarios | false | |
 
 Each supported type of message (CAM, DENM, CPM, VAM, SPATEM, MAPEM) has its own set of configurations, which are specified in the following table (using CAMs as an example):
  
@@ -287,6 +295,30 @@ These fields are generally optional and relatively unimportant. They will be add
 * TemporaryID
 
 ## Advanced Usage
+
+### Simulating situations where stations become out of range from each other
+
+Within the Docker network every Vanetza container will always have conectivity with any other, meaning that out-of-range scenarios (which are common in VANETs) cannot be easily simulated.
+To solve this, NAP-Vanetza uses ebtables to dynamically block L2 packets from certain source MAC addresses, on a per-container basis.
+
+As an example, the following commands will simulate a condition where the OBU stops receiving any ETSI messages sent from the RSU and vice-versa:
+```
+# Enters the OBU container and starts blocking all messages with the RSU's MAC Address as the source
+docker-compose exec obu block 6e:06:e0:03:00:01
+
+# Enters the RSU container and starts blocking all messages with the OBU's MAC Address as the source
+docker-compose exec rsu block 6e:06:e0:03:00:02
+```
+
+To simulate a scenario where connectivity is regained, execute:
+```
+docker-compose exec obu unblock 6e:06:e0:03:00:01
+# ...
+```
+
+On Windows hosts this functionality will not work. To run Vanetza containers without this feature, the following environment variables must be set in docker-compose.yml:
+- VANETZA_INTERFACE=eth0
+- SUPPORT_MAC_BLOCKING=false
 
 ### DDS
 
