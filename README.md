@@ -310,6 +310,8 @@ docker-compose exec obu block 6e:06:e0:03:00:01
 docker-compose exec rsu block 6e:06:e0:03:00:02
 ```
 
+Note that 'obu' and 'rsu' are the names of the respective containers, as specified in docker-compose.yml
+
 To simulate a scenario where connectivity is regained, execute:
 ```
 docker-compose exec obu unblock 6e:06:e0:03:00:01
