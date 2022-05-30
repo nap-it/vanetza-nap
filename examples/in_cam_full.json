@@ -6,8 +6,8 @@
                     "altitudeConfidence": 15,
                     "altitudeValue": 800001
                 },
-                "latitude": 400000000,
-                "longitude": -80000000,
+                "latitude": 40.0000000,
+                "longitude": -8.0000000,
                 "positionConfidenceEllipse": {
                     "semiMajorConfidence": 4095,
                     "semiMajorOrientation": 3601,
@@ -49,7 +49,7 @@
                     "vehicleLengthConfidenceIndication": 0,
                     "vehicleLengthValue": 100
                 },
-                "vehicleWidth": 30,
+                "vehicleWidth": 3.0,
                 "yawRate": {
                     "yawRateConfidence": 0,
                     "yawRateValue": 0

@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
-*   Auto-generated from the asn1 directory by asn1json.py on 2022-05-26 04:24:54.562554
+*   Auto-generated from the asn1 directory by asn1json.py on 2022-05-30 20:19:23.378023
 */
 
 #include "asn1json.hpp"
@@ -3160,6 +3160,7 @@ void to_json(json& j, const ManagementContainer& p) {
     if (p.termination != 0) j["termination"] = *(p.termination);
     if (p.relevanceDistance != 0) j["relevanceDistance"] = *(p.relevanceDistance);
     if (p.relevanceTrafficDirection != 0) j["relevanceTrafficDirection"] = *(p.relevanceTrafficDirection);
+    if (p.validityDuration != 0) j["validityDuration"] = *(p.validityDuration);
     if (p.transmissionInterval != 0) j["transmissionInterval"] = *(p.transmissionInterval);
 }
 
@@ -3174,6 +3175,8 @@ void from_json(const json& j, ManagementContainer& p) {
     else { p.relevanceDistance=nullptr; }
     if (j.contains("relevanceTrafficDirection")) { p.relevanceTrafficDirection = vanetza::asn1::allocate<RelevanceTrafficDirection_t>(); j.at("relevanceTrafficDirection").get_to(*(p.relevanceTrafficDirection)); } 
     else { p.relevanceTrafficDirection=nullptr; }
+    if (j.contains("validityDuration")) { p.validityDuration = vanetza::asn1::allocate<ValidityDuration_t>(); j.at("validityDuration").get_to(*(p.validityDuration)); } 
+    else { p.validityDuration=nullptr; }
     if (j.contains("transmissionInterval")) { p.transmissionInterval = vanetza::asn1::allocate<TransmissionInterval_t>(); j.at("transmissionInterval").get_to(*(p.transmissionInterval)); } 
     else { p.transmissionInterval=nullptr; }
     j.at("stationType").get_to((p.stationType));

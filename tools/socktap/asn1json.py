@@ -56,9 +56,11 @@ include = ["NodeXY", "VehicleID", "TransitVehicleStatus", "TransmissionAndSpeed"
 add_t = ["ObjectClass", "VehicleID", "VehicleLength", "VerticalAcceleration", "DeltaReferencePosition", "ItsPduHeader", "PtActivationData", "MapData",
          "NodeAttributeSetXY", "NodeXY", "DigitalMap", "TransmissionAndSpeed", "Position3D", "IntersectionAccessPoint", "ComputedLane", "AdvisorySpeedList", "ConnectionManeuverAssist", "DataParameters", "EnabledLaneList", "PerceivedObjectContainer"]
 
-ignore_member_names = ['regional', 'shadowingApplies', 'expiryTime', 'validityDuration']
+ignore_member_names = ['regional', 'shadowingApplies', 'expiryTime']
 ignore_member_types = ["PhoneNumber", "OpeningDaysHours", "MessageFrame", "DescriptiveName", "RegionalExtension", "Iso3833VehicleType",
                                                                                                 "REG-EXT-ID-AND-TYPE.&id", "REG-EXT-ID-AND-TYPE.&Type", 'MESSAGE-ID-AND-TYPE.&id', 'MESSAGE-ID-AND-TYPE.&Type', 'PreemptPriorityList', "WMInumber", "VDS", "TemporaryID"]
+
+treat_as_optional = ["validityDuration"]
 
 capitalize_first_letter = ["class", "long"]
 
@@ -80,6 +82,10 @@ class ASN1Sequence:
             m for m in self.members if m["type"] not in default_types]
         self.parent_name = parent_name
         self.parent_file = parent_file
+
+        for m in self.members:
+            if m["name"] in treat_as_optional:
+                m["optional"] = True
 
     def header_str(self):
         return """
@@ -117,8 +123,7 @@ class ASN1Choice:
         self.name = name
         self.definition = definition
         self.actual_type = definition['actual_type'] if 'actual_type' in definition else None
-        self.members = [m for m in definition["members"] if m is not None and m["type"] not in ["TimestampIts", "PhoneNumber", "OpeningDaysHours", "MessageFrame", "DescriptiveName", "RegionalExtension", "Iso3833VehicleType",
-                                                                                                "REG-EXT-ID-AND-TYPE.&id", "REG-EXT-ID-AND-TYPE.&Type", 'MESSAGE-ID-AND-TYPE.&id', 'MESSAGE-ID-AND-TYPE.&Type', 'PreemptPriorityList', "WMInumber", "VDS", "TemporaryID"] and m['name'] not in ['regional', 'shadowingApplies', 'expiryTime', 'validityDuration']]
+        self.members = [m for m in definition["members"] if m is not None and m["type"] not in ignore_member_types and m['name'] not in ignore_member_names]
         self.dependencies = [
             m for m in self.members if m["type"] not in default_types]
         self.parent_name = parent_name
