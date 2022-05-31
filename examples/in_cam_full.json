@@ -47,7 +47,7 @@
                 },
                 "vehicleLength": {
                     "vehicleLengthConfidenceIndication": 0,
-                    "vehicleLengthValue": 100
+                    "vehicleLengthValue": 10.0
                 },
                 "vehicleWidth": 3.0,
                 "yawRate": {

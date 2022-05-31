@@ -6,6 +6,7 @@
 #include <vanetza/common/position_provider.hpp>
 #include <vanetza/common/runtime.hpp>
 #include <vanetza/asn1/cam.hpp>
+#include <math.h> 
 
 class CamApplication : public Application, public Mqtt_client
 {

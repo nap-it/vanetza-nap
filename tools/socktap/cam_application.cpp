@@ -159,23 +159,23 @@ std::string CamApplication::buildJSON(CAM_t message, double time_reception, int 
             {"stationType", (long) basic.stationType},
             {"receiverID", config_s.station_id},
             {"receiverType", config_s.station_type},
-            {"latitude", latitude},
-            {"longitude", longitude},
+            {"latitude", (latitude == 900000001) ? latitude : (double) ((double) latitude / pow(10, 7))},
+            {"longitude", (longitude == 1800000001) ? longitude : (double) ((double) longitude / pow(10, 7))},
             {"semiMajorConf", (long) basic.referencePosition.positionConfidenceEllipse.semiMajorConfidence},
             {"semiMinorConf", (long) basic.referencePosition.positionConfidenceEllipse.semiMinorConfidence},
             {"semiMajorOrient", (long) basic.referencePosition.positionConfidenceEllipse.semiMajorOrientation},
-            {"altitude", (long) basic.referencePosition.altitude.altitudeValue},
+            {"altitude", (basic.referencePosition.altitude.altitudeValue == 800001) ? (long) basic.referencePosition.altitude.altitudeValue : (double) ((double) basic.referencePosition.altitude.altitudeValue / pow(10, 2))},
             {"altitudeConf", (long) basic.referencePosition.altitude.altitudeConfidence},
-            {"heading", (long) bvc.heading.headingValue},
-            {"headingConf", (long) bvc.heading.headingConfidence},
-            {"speed", (long) bvc.speed.speedValue},
-            {"speedConf", (long) bvc.speed.speedConfidence},
+            {"heading", (((long) bvc.heading.headingValue) == 3601) ? ((long) bvc.heading.headingValue) : (double) ((double) bvc.heading.headingValue / pow(10, 1))},
+            {"headingConf", ((bvc.heading.headingConfidence) == 126 || (bvc.heading.headingConfidence) == 127) ? (bvc.heading.headingConfidence) : (double) ((double) (bvc.heading.headingConfidence) / pow(10, 1))},
+            {"speed", ((bvc.speed.speedValue) == 16383) ? (bvc.speed.speedValue) : (double)((double) (bvc.speed.speedValue) / pow(10, 2))},
+            {"speedConf", ((bvc.speed.speedConfidence) == 126 || (bvc.speed.speedConfidence) == 127) ? (bvc.speed.speedConfidence) : (double) ((double)(bvc.speed.speedConfidence) / pow(10, 2))},
             {"driveDirection", driveDirection},
-            {"length",(long) bvc.vehicleLength.vehicleLengthValue},
-            {"width", (long) bvc.vehicleWidth},
-            {"acceleration", (long) bvc.longitudinalAcceleration.longitudinalAccelerationValue},
+            {"length", ((bvc.vehicleLength.vehicleLengthValue) == 1023) ? (bvc.vehicleLength.vehicleLengthValue) : (double)((double) (bvc.vehicleLength.vehicleLengthValue) / pow(10, 1))},
+            {"width", ((bvc.vehicleWidth) == 61 || (bvc.vehicleWidth) == 62) ? (bvc.vehicleWidth) : (double)((double) (bvc.vehicleWidth) / pow(10,1))},
+            {"acceleration", ((bvc.longitudinalAcceleration.longitudinalAccelerationValue) == 161) ? (bvc.longitudinalAcceleration.longitudinalAccelerationValue) : (double)((double) (bvc.longitudinalAcceleration.longitudinalAccelerationValue) / pow(10,1))},
             {"curvature", (long) bvc.curvature.curvatureValue},
-            {"yawRate", (long) bvc.yawRate.yawRateValue},
+            {"yawRate", ((bvc.yawRate.yawRateValue) == 32767) ? (bvc.yawRate.yawRateValue) : (double)((double) (bvc.yawRate.yawRateValue) / pow(10,2))},
             {"brakePedal", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-0)))},
             {"gasPedal", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-1)))},
             {"emergencyBrake", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-2)))},
@@ -240,27 +240,27 @@ void CamApplication::on_message(string topic, string mqtt_message) {
             const auto time_now = duration_cast<milliseconds>(runtime_.now().time_since_epoch());
             uint16_t gen_delta_time = time_now.count();
             cam.generationDeltaTime = gen_delta_time * GenerationDeltaTime_oneMilliSec;
-            cam.camParameters.basicContainer.referencePosition.latitude = payload["latitude"];
-            cam.camParameters.basicContainer.referencePosition.longitude = payload["longitude"];
+            cam.camParameters.basicContainer.referencePosition.latitude = (payload["latitude"] == 900000001) ? (long) payload["latitude"] : (long) ((double) payload["latitude"] * pow(10, 7));
+            cam.camParameters.basicContainer.referencePosition.longitude = (payload["longitude"] == 1800000001) ? (long) payload["longitude"] : (long) ((double) payload["longitude"] * pow(10, 7));
             cam.camParameters.basicContainer.referencePosition.positionConfidenceEllipse.semiMajorConfidence = payload["semiMajorConf"];
             cam.camParameters.basicContainer.referencePosition.positionConfidenceEllipse.semiMinorConfidence = payload["semiMinorConf"];
             cam.camParameters.basicContainer.referencePosition.positionConfidenceEllipse.semiMajorOrientation = payload["semiMajorOrient"];
-            cam.camParameters.basicContainer.referencePosition.altitude.altitudeValue = payload["altitude"];
+            cam.camParameters.basicContainer.referencePosition.altitude.altitudeValue = (payload["altitude"] == 800001) ? (long) payload["altitude"] : (long) ((double) payload["altitude"] * pow(10, 2));
             cam.camParameters.basicContainer.referencePosition.altitude.altitudeConfidence = payload["altitudeConf"];
             cam.camParameters.basicContainer.stationType = payload["stationType"];
             cam.camParameters.highFrequencyContainer.present = HighFrequencyContainer_PR_basicVehicleContainerHighFrequency;
-            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.heading.headingValue = payload["heading"];
-            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.heading.headingConfidence = payload["headingConf"];
-            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.speed.speedValue = payload["speed"];
-            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.speed.speedConfidence = payload["speedConf"];
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.heading.headingValue = (payload["heading"] == 3601) ? ((long) payload["heading"]) : (long) ((double) payload["heading"] * pow(10, 1));
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.heading.headingConfidence = (payload["headingConf"] == 126 || payload["headingConf"] == 127) ? (long) payload["headingConf"] : (long) ((double) payload["headingConf"] * pow(10, 1));
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.speed.speedValue = (payload["speed"] == 16383) ? (long) payload["speed"] : (long) ((double) payload["speed"] * pow(10, 2));
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.speed.speedConfidence = (payload["speedConf"] == 126 || payload["speedConf"] == 127) ? (long) payload["speedConf"] : (long) ((double) payload["speedConf"] * pow(10, 2));
             if(payload["driveDirection"] == "FORWARD") cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.driveDirection = DriveDirection_forward;
             else if(payload["driveDirection"] == "BACKWARD") cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.driveDirection = DriveDirection_backward;
             else cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.driveDirection = DriveDirection_unavailable;
-            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.vehicleLength.vehicleLengthValue = payload["length"];
-            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.vehicleWidth = payload["width"];
-            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.longitudinalAcceleration.longitudinalAccelerationValue = payload["acceleration"];
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.vehicleLength.vehicleLengthValue = (payload["length"] == 1023) ? (long) payload["length"] : (long) ((double) payload["length"] * pow(10, 1));
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.vehicleWidth = (payload["width"] == 61 || payload["width"] == 62) ? (long) payload["width"] : (long) ((double) payload["width"] * pow(10,1));
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.longitudinalAcceleration.longitudinalAccelerationValue = (payload["acceleration"] == 161) ? (long) payload["acceleration"] : (long) ((double) payload["acceleration"] * pow(10,1));
             cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.curvature.curvatureValue = payload["curvature"];
-            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.yawRate.yawRateValue = payload["yawRate"];
+            cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.yawRate.yawRateValue = (payload["yawRate"] == 32767) ? (long) payload["yawRate"] : (long) ((double) payload["yawRate"] * pow(10,2));
             AccelerationControl_t* p_tmp = vanetza::asn1::allocate<AccelerationControl_t>();
             bool brakePedalEngaged;
             bool gasPedalEngaged;
