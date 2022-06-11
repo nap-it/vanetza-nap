@@ -70,14 +70,14 @@ void DenmApplication::indicate(const DataIndication& indication, UpPacketPtr pac
     asn1::PacketVisitor<asn1::Denm> visitor;
     std::shared_ptr<const asn1::Denm> denm = boost::apply_visitor(visitor, *packet);
 
-    std::cout << "DENM application received a packet with " << (denm ? "decodable" : "broken") << " content" << std::endl;
+    //std::cout << "DENM application received a packet with " << (denm ? "decodable" : "broken") << " content" << std::endl;
 
     DENM_t denm_t = {(*denm)->header, (*denm)->denm};
     string denm_json = buildJSON(denm_t, cp.time_received, cp.rssi);
 
     if(config_s.denm.mqtt_enabled) mqtt->publish(config_s.denm.topic_out, denm_json);
     if(config_s.denm.dds_enabled) dds->publish(config_s.denm.topic_out, denm_json);
-    std::cout << "DENM JSON: " << denm_json << std::endl;
+    //std::cout << "DENM JSON: " << denm_json << std::endl;
     denm_rx_counter->Increment();
 
     if(config_s.denm.udp_out_port != 0) {

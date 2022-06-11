@@ -16,7 +16,8 @@ services:
             vanetzalan0:
                 ipv4_address: 192.168.98.10
         sysctls:      
-            kernel.msgmax:  16384
+            kernel.msgmax:  65536
+            kernel.msgmnb:  65536
 
     obu:
         hostname: obu
@@ -34,7 +35,8 @@ services:
             vanetzalan0:
                 ipv4_address: 192.168.98.20
         sysctls:      
-            kernel.msgmax:  16384
+            kernel.msgmax:  65536
+            kernel.msgmnb:  65536
             
 networks:
   vanetzalan0:

@@ -72,14 +72,14 @@ void MapemApplication::indicate(const DataIndication& indication, UpPacketPtr pa
     asn1::PacketVisitor<asn1::Mapem> visitor;
     std::shared_ptr<const asn1::Mapem> mapem = boost::apply_visitor(visitor, *packet);
 
-    std::cout << "MAPEM application received a packet with " << (mapem ? "decodable" : "broken") << " content" << std::endl;
+    //std::cout << "MAPEM application received a packet with " << (mapem ? "decodable" : "broken") << " content" << std::endl;
 
     MAPEM_t mapem_t = {(*mapem)->header, (*mapem)->map};
     string mapem_json = buildJSON(mapem_t, cp.time_received, cp.rssi);
 
     if(config_s.mapem.mqtt_enabled) mqtt->publish(config_s.mapem.topic_out, mapem_json);
     if(config_s.mapem.dds_enabled) dds->publish(config_s.mapem.topic_out, mapem_json);
-    std::cout << "MAPEM JSON: " << mapem_json << std::endl;
+    //std::cout << "MAPEM JSON: " << mapem_json << std::endl;
     mapem_rx_counter->Increment();
 
     if(config_s.mapem.udp_out_port != 0) {

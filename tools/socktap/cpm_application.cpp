@@ -72,14 +72,14 @@ void CpmApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     asn1::PacketVisitor<asn1::Cpm> visitor;
     std::shared_ptr<const asn1::Cpm> cpm = boost::apply_visitor(visitor, *packet);
 
-    std::cout << "CPM application received a packet with " << (cpm ? "decodable" : "broken") << " content" << std::endl;
+    //std::cout << "CPM application received a packet with " << (cpm ? "decodable" : "broken") << " content" << std::endl;
 
     CPM_t cpm_t = {(*cpm)->header, (*cpm)->cpm};
     string cpm_json = buildJSON(cpm_t, cp.time_received, cp.rssi);
 
     if(config_s.cpm.mqtt_enabled) mqtt->publish(config_s.cpm.topic_out, cpm_json);
     if(config_s.cpm.dds_enabled) dds->publish(config_s.cpm.topic_out, cpm_json);
-    std::cout << "CPM JSON: " << cpm_json << std::endl;
+    //std::cout << "CPM JSON: " << cpm_json << std::endl;
     cpm_rx_counter->Increment();
 
     if(config_s.cpm.udp_out_port != 0) {

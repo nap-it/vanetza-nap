@@ -74,14 +74,14 @@ void VamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     asn1::PacketVisitor<asn1::Vam> visitor;
     std::shared_ptr<const asn1::Vam> vam = boost::apply_visitor(visitor, *packet);
 
-    std::cout << "VAM application received a packet with " << (vam ? "decodable" : "broken") << " content" << std::endl;
+    //std::cout << "VAM application received a packet with " << (vam ? "decodable" : "broken") << " content" << std::endl;
 
     VAM_t vam_t = {(*vam)->header, (*vam)->vam};
     string vam_json = buildJSON(vam_t, cp.time_received, cp.rssi);
 
     if(config_s.vam.mqtt_enabled) mqtt->publish(config_s.vam.topic_out, vam_json);
     if(config_s.vam.dds_enabled) dds->publish(config_s.vam.topic_out, vam_json);
-    std::cout << "VAM JSON: " << vam_json << std::endl;
+    //std::cout << "VAM JSON: " << vam_json << std::endl;
     vam_rx_counter->Increment();
 
     if(config_s.full_vam_topic_out != "") {

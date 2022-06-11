@@ -72,14 +72,14 @@ void SpatemApplication::indicate(const DataIndication& indication, UpPacketPtr p
     asn1::PacketVisitor<asn1::Spatem> visitor;
     std::shared_ptr<const asn1::Spatem> spatem = boost::apply_visitor(visitor, *packet);
 
-    std::cout << "SPATEM application received a packet with " << (spatem ? "decodable" : "broken") << " content" << std::endl;
+    //std::cout << "SPATEM application received a packet with " << (spatem ? "decodable" : "broken") << " content" << std::endl;
 
     SPATEM_t spatem_t = {(*spatem)->header, (*spatem)->spat};
     string spatem_json = buildJSON(spatem_t, cp.time_received, cp.rssi);
 
     if(config_s.spatem.mqtt_enabled) mqtt->publish(config_s.spatem.topic_out, spatem_json);
     if(config_s.spatem.dds_enabled) dds->publish(config_s.spatem.topic_out, spatem_json);
-    std::cout << "SPATEM JSON: " << spatem_json << std::endl;
+    //std::cout << "SPATEM JSON: " << spatem_json << std::endl;
     spatem_rx_counter->Increment();
 
     if(config_s.spatem.udp_out_port != 0) {
