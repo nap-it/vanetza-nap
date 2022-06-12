@@ -48,6 +48,8 @@ typedef struct config {
     string full_cam_topic_out;
     string full_vam_topic_in;
     string full_vam_topic_out;
+    string own_cam_topic_out;
+    string own_full_cam_topic_out;
 } config_t;
 
 typedef struct metrics {

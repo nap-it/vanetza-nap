@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
-*   Auto-generated from the asn1 directory by asn1json.py on 2022-05-30 20:19:23.378023
+*   Auto-generated from the asn1 directory by asn1json.py on 2022-06-12 19:01:35.205365
 */
 
 #include "asn1json.hpp"
@@ -38,6 +38,7 @@ void to_json(json& j, const TimestampIts_t& p) {
 }
 
 void from_json(const json& j, TimestampIts_t& p) {
+    p.buf = nullptr;
     asn_long2INTEGER(&p, stol(j.dump()));
 }
 
@@ -53,6 +54,7 @@ void to_json(json& j, const ItsPduHeader_t& p) {
 }
 
 void from_json(const json& j, ItsPduHeader_t& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("protocolVersion").get_to((p.protocolVersion));
     j.at("messageID").get_to((p.messageID));
     j.at("stationID").get_to((p.stationID));
@@ -71,6 +73,7 @@ void to_json(json& j, const DeltaReferencePosition_t& p) {
 }
 
 void from_json(const json& j, DeltaReferencePosition_t& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("deltaLatitude").get_to((p.deltaLatitude));
     j.at("deltaLongitude").get_to((p.deltaLongitude));
     j.at("deltaAltitude").get_to((p.deltaAltitude));
@@ -89,6 +92,7 @@ void to_json(json& j, const Altitude& p) {
 }
 
 void from_json(const json& j, Altitude& p) {
+    p._asn_ctx.ptr= nullptr;
     double altitudeValue; j.at("altitudeValue").get_to((altitudeValue)); (p.altitudeValue) = ((altitudeValue) != 800001) ? altitudeValue * 100 : altitudeValue;
     j.at("altitudeConfidence").get_to((p.altitudeConfidence));
     
@@ -106,6 +110,7 @@ void to_json(json& j, const PosConfidenceEllipse& p) {
 }
 
 void from_json(const json& j, PosConfidenceEllipse& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("semiMajorConfidence").get_to((p.semiMajorConfidence));
     j.at("semiMinorConfidence").get_to((p.semiMinorConfidence));
     double semiMajorOrientation; j.at("semiMajorOrientation").get_to((semiMajorOrientation)); (p.semiMajorOrientation) = ((semiMajorOrientation) != 3601) ? semiMajorOrientation * 10 : semiMajorOrientation;
@@ -124,6 +129,7 @@ void to_json(json& j, const PathPoint& p) {
 }
 
 void from_json(const json& j, PathPoint& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("pathPosition").get_to((p.pathPosition));
     if (j.contains("pathDeltaTime")) { p.pathDeltaTime = vanetza::asn1::allocate<PathDeltaTime_t>(); j.at("pathDeltaTime").get_to(*(p.pathDeltaTime)); } 
     else { p.pathDeltaTime=nullptr; }
@@ -181,6 +187,7 @@ void from_json_AccelerationControl(const json& j, AccelerationControl_t& p) {
     if (cruiseControlEngaged) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 2);
     if (speedLimiterEngaged) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 1);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -194,6 +201,7 @@ void to_json(json& j, const CauseCode& p) {
 }
 
 void from_json(const json& j, CauseCode& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("causeCode").get_to((p.causeCode));
     j.at("subCauseCode").get_to((p.subCauseCode));
     
@@ -211,6 +219,7 @@ void to_json(json& j, const Curvature& p) {
 }
 
 void from_json(const json& j, Curvature& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("curvatureValue").get_to((p.curvatureValue));
     j.at("curvatureConfidence").get_to((p.curvatureConfidence));
     
@@ -228,6 +237,7 @@ void to_json(json& j, const Heading& p) {
 }
 
 void from_json(const json& j, Heading& p) {
+    p._asn_ctx.ptr= nullptr;
     double headingValue; j.at("headingValue").get_to((headingValue)); (p.headingValue) = ((headingValue) != 3601) ? headingValue * 10 : headingValue;
     double headingConfidence; j.at("headingConfidence").get_to((headingConfidence)); (p.headingConfidence) = ((headingConfidence) != 126 && (headingConfidence) != 127) ? headingConfidence * 10 : headingConfidence;
     
@@ -253,6 +263,7 @@ void from_json_DrivingLaneStatus(const json& j, DrivingLaneStatus_t& p) {
     *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
     
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -266,6 +277,7 @@ void to_json(json& j, const Speed& p) {
 }
 
 void from_json(const json& j, Speed& p) {
+    p._asn_ctx.ptr= nullptr;
     double speedValue; j.at("speedValue").get_to((speedValue)); (p.speedValue) = ((speedValue) != 16383) ? speedValue * 100 : speedValue;
     double speedConfidence; j.at("speedConfidence").get_to((speedConfidence)); (p.speedConfidence) = ((speedConfidence) != 126 && (speedConfidence) != 127) ? speedConfidence * 100 : speedConfidence;
     
@@ -283,6 +295,7 @@ void to_json(json& j, const LongitudinalAcceleration& p) {
 }
 
 void from_json(const json& j, LongitudinalAcceleration& p) {
+    p._asn_ctx.ptr= nullptr;
     double longitudinalAccelerationValue; j.at("longitudinalAccelerationValue").get_to((longitudinalAccelerationValue)); (p.longitudinalAccelerationValue) = ((longitudinalAccelerationValue) != 161) ? longitudinalAccelerationValue * 10 : longitudinalAccelerationValue;
     double longitudinalAccelerationConfidence; j.at("longitudinalAccelerationConfidence").get_to((longitudinalAccelerationConfidence)); (p.longitudinalAccelerationConfidence) = ((longitudinalAccelerationConfidence) != 102) ? longitudinalAccelerationConfidence * 10 : longitudinalAccelerationConfidence;
     
@@ -300,6 +313,7 @@ void to_json(json& j, const LateralAcceleration& p) {
 }
 
 void from_json(const json& j, LateralAcceleration& p) {
+    p._asn_ctx.ptr= nullptr;
     double lateralAccelerationValue; j.at("lateralAccelerationValue").get_to((lateralAccelerationValue)); (p.lateralAccelerationValue) = ((lateralAccelerationValue) != 161) ? lateralAccelerationValue * 10 : lateralAccelerationValue;
     double lateralAccelerationConfidence; j.at("lateralAccelerationConfidence").get_to((lateralAccelerationConfidence)); (p.lateralAccelerationConfidence) = ((lateralAccelerationConfidence) != 102) ? lateralAccelerationConfidence * 10 : lateralAccelerationConfidence;
     
@@ -317,6 +331,7 @@ void to_json(json& j, const VerticalAcceleration_t& p) {
 }
 
 void from_json(const json& j, VerticalAcceleration_t& p) {
+    p._asn_ctx.ptr= nullptr;
     double verticalAccelerationValue; j.at("verticalAccelerationValue").get_to((verticalAccelerationValue)); (p.verticalAccelerationValue) = ((verticalAccelerationValue) != 161) ? verticalAccelerationValue * 10 : verticalAccelerationValue;
     double verticalAccelerationConfidence; j.at("verticalAccelerationConfidence").get_to((verticalAccelerationConfidence)); (p.verticalAccelerationConfidence) = ((verticalAccelerationConfidence) != 102) ? verticalAccelerationConfidence * 10 : verticalAccelerationConfidence;
     
@@ -364,6 +379,7 @@ void from_json_ExteriorLights(const json& j, ExteriorLights_t& p) {
     if (fogLightOn) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 1);
     if (parkingLightsOn) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 0);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -378,6 +394,7 @@ void to_json(json& j, const DangerousGoodsExtended& p) {
 }
 
 void from_json(const json& j, DangerousGoodsExtended& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("dangerousGoodsType").get_to((p.dangerousGoodsType));
     j.at("unNumber").get_to((p.unNumber));
     j.at("elevatedTemperature").get_to((p.elevatedTemperature));
@@ -419,6 +436,7 @@ void from_json_SpecialTransportType(const json& j, SpecialTransportType_t& p) {
     if (excessLength) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 5);
     if (excessHeight) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 4);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -443,6 +461,7 @@ void from_json_LightBarSirenInUse(const json& j, LightBarSirenInUse_t& p) {
     if (lightBarActivated) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
     if (sirenActivated) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -523,6 +542,7 @@ void from_json_PositionOfOccupants(const json& j, PositionOfOccupants_t& p) {
     if (row4NotDetectable) *(p_tmp->buf + (sizeof(uint8_t) * 2)) |= (1 << 5);
     if (row4NotPresent) *(p_tmp->buf + (sizeof(uint8_t) * 2)) |= (1 << 4);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -536,6 +556,7 @@ void to_json(json& j, const VehicleIdentification& p) {
 }
 
 void from_json(const json& j, VehicleIdentification& p) {
+    p._asn_ctx.ptr= nullptr;
     
     
     p.wMInumber=nullptr;
@@ -579,6 +600,7 @@ void from_json_EnergyStorageType(const json& j, EnergyStorageType_t& p) {
     if (gasoline) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 2);
     if (ammonia) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 1);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -592,6 +614,7 @@ void to_json(json& j, const VehicleLength_t& p) {
 }
 
 void from_json(const json& j, VehicleLength_t& p) {
+    p._asn_ctx.ptr= nullptr;
     double vehicleLengthValue; j.at("vehicleLengthValue").get_to((vehicleLengthValue)); (p.vehicleLengthValue) = ((vehicleLengthValue) != 1023) ? vehicleLengthValue * 10 : vehicleLengthValue;
     j.at("vehicleLengthConfidenceIndication").get_to((p.vehicleLengthConfidenceIndication));
     
@@ -621,6 +644,7 @@ void from_json(const json& j, PathHistory& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -645,6 +669,7 @@ void from_json_EmergencyPriority(const json& j, EmergencyPriority_t& p) {
     if (requestForRightOfWay) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
     if (requestForFreeCrossingAtATrafficLight) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -658,6 +683,7 @@ void to_json(json& j, const SteeringWheelAngle& p) {
 }
 
 void from_json(const json& j, SteeringWheelAngle& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("steeringWheelAngleValue").get_to((p.steeringWheelAngleValue));
     j.at("steeringWheelAngleConfidence").get_to((p.steeringWheelAngleConfidence));
     
@@ -675,6 +701,7 @@ void to_json(json& j, const YawRate& p) {
 }
 
 void from_json(const json& j, YawRate& p) {
+    p._asn_ctx.ptr= nullptr;
     double yawRateValue; j.at("yawRateValue").get_to((yawRateValue)); (p.yawRateValue) = ((yawRateValue) != 32767) ? yawRateValue * 100 : yawRateValue;
     j.at("yawRateConfidence").get_to((p.yawRateConfidence));
     
@@ -692,6 +719,7 @@ void to_json(json& j, const ActionID& p) {
 }
 
 void from_json(const json& j, ActionID& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("originatingStationID").get_to((p.originatingStationID));
     j.at("sequenceNumber").get_to((p.sequenceNumber));
     
@@ -710,6 +738,7 @@ void to_json(json& j, const ProtectedCommunicationZone& p) {
 }
 
 void from_json(const json& j, ProtectedCommunicationZone& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("protectedZoneType").get_to((p.protectedZoneType));
     double protectedZoneLatitude; j.at("protectedZoneLatitude").get_to((protectedZoneLatitude)); (p.protectedZoneLatitude) = ((protectedZoneLatitude) != 900000001) ? protectedZoneLatitude * 10000000 : protectedZoneLatitude;
     double protectedZoneLongitude; j.at("protectedZoneLongitude").get_to((protectedZoneLongitude)); (p.protectedZoneLongitude) = ((protectedZoneLongitude) != 1800000001) ? protectedZoneLongitude * 10000000 : protectedZoneLongitude;
@@ -744,6 +773,7 @@ void from_json(const json& j, Traces& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -769,6 +799,7 @@ void from_json(const json& j, PositionOfPillars& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -794,6 +825,7 @@ void from_json(const json& j, RestrictedTypes& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -807,6 +839,7 @@ void to_json(json& j, const EventPoint& p) {
 }
 
 void from_json(const json& j, EventPoint& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("eventPosition").get_to((p.eventPosition));
     if (j.contains("eventDeltaTime")) { p.eventDeltaTime = vanetza::asn1::allocate<PathDeltaTime_t>(); j.at("eventDeltaTime").get_to(*(p.eventDeltaTime)); } 
     else { p.eventDeltaTime=nullptr; }
@@ -838,6 +871,7 @@ void from_json(const json& j, ProtectedCommunicationZonesRSU& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -851,6 +885,7 @@ void to_json(json& j, const CenDsrcTollingZone& p) {
 }
 
 void from_json(const json& j, CenDsrcTollingZone& p) {
+    p._asn_ctx.ptr= nullptr;
     double protectedZoneLatitude; j.at("protectedZoneLatitude").get_to((protectedZoneLatitude)); (p.protectedZoneLatitude) = ((protectedZoneLatitude) != 900000001) ? protectedZoneLatitude * 10000000 : protectedZoneLatitude;
     double protectedZoneLongitude; j.at("protectedZoneLongitude").get_to((protectedZoneLongitude)); (p.protectedZoneLongitude) = ((protectedZoneLongitude) != 1800000001) ? protectedZoneLongitude * 10000000 : protectedZoneLongitude;
     if (j.contains("cenDsrcTollingZoneID")) { p.cenDsrcTollingZoneID = vanetza::asn1::allocate<CenDsrcTollingZoneID_t>(); j.at("cenDsrcTollingZoneID").get_to(*(p.cenDsrcTollingZoneID)); } 
@@ -876,6 +911,7 @@ void to_json(json& j, const BasicVehicleContainerHighFrequency& p) {
 }
 
 void from_json(const json& j, BasicVehicleContainerHighFrequency& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("heading").get_to((p.heading));
     j.at("speed").get_to((p.speed));
     j.at("driveDirection").get_to((p.driveDirection));
@@ -913,6 +949,7 @@ void to_json(json& j, const BasicVehicleContainerLowFrequency& p) {
 }
 
 void from_json(const json& j, BasicVehicleContainerLowFrequency& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("vehicleRole").get_to((p.vehicleRole));
     j.at("pathHistory").get_to((p.pathHistory));
     from_json_ExteriorLights(j["exteriorLights"],(p.exteriorLights));
@@ -930,6 +967,7 @@ void to_json(json& j, const SpecialTransportContainer& p) {
 }
 
 void from_json(const json& j, SpecialTransportContainer& p) {
+    p._asn_ctx.ptr= nullptr;
     
     from_json_SpecialTransportType(j["specialTransportType"],(p.specialTransportType));
     from_json_LightBarSirenInUse(j["lightBarSirenInUse"],(p.lightBarSirenInUse));
@@ -947,6 +985,7 @@ void to_json(json& j, const DangerousGoodsContainer& p) {
 }
 
 void from_json(const json& j, DangerousGoodsContainer& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("dangerousGoodsBasic").get_to((p.dangerousGoodsBasic));
     
     
@@ -963,6 +1002,7 @@ void to_json(json& j, const RescueContainer& p) {
 }
 
 void from_json(const json& j, RescueContainer& p) {
+    p._asn_ctx.ptr= nullptr;
     
     from_json_LightBarSirenInUse(j["lightBarSirenInUse"],(p.lightBarSirenInUse));
     
@@ -980,6 +1020,7 @@ void to_json(json& j, const EmergencyContainer& p) {
 }
 
 void from_json(const json& j, EmergencyContainer& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("incidentIndication")) { p.incidentIndication = vanetza::asn1::allocate<CauseCode_t>(); j.at("incidentIndication").get_to(*(p.incidentIndication)); } 
     else { p.incidentIndication=nullptr; }
     from_json_LightBarSirenInUse(j["lightBarSirenInUse"],(p.lightBarSirenInUse));
@@ -1001,6 +1042,7 @@ void to_json(json& j, const SafetyCarContainer& p) {
 }
 
 void from_json(const json& j, SafetyCarContainer& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("incidentIndication")) { p.incidentIndication = vanetza::asn1::allocate<CauseCode_t>(); j.at("incidentIndication").get_to(*(p.incidentIndication)); } 
     else { p.incidentIndication=nullptr; }
     if (j.contains("trafficRule")) { p.trafficRule = vanetza::asn1::allocate<TrafficRule_t>(); j.at("trafficRule").get_to(*(p.trafficRule)); } 
@@ -1022,6 +1064,7 @@ void to_json(json& j, const RSUContainerHighFrequency& p) {
 }
 
 void from_json(const json& j, RSUContainerHighFrequency& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("protectedCommunicationZonesRSU")) { p.protectedCommunicationZonesRSU = vanetza::asn1::allocate<ProtectedCommunicationZonesRSU_t>(); j.at("protectedCommunicationZonesRSU").get_to(*(p.protectedCommunicationZonesRSU)); } 
     else { p.protectedCommunicationZonesRSU=nullptr; }
     
@@ -1041,6 +1084,7 @@ void to_json(json& j, const LocationContainer& p) {
 }
 
 void from_json(const json& j, LocationContainer& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("eventSpeed")) { p.eventSpeed = vanetza::asn1::allocate<Speed_t>(); j.at("eventSpeed").get_to(*(p.eventSpeed)); } 
     else { p.eventSpeed=nullptr; }
     if (j.contains("eventPositionHeading")) { p.eventPositionHeading = vanetza::asn1::allocate<Heading_t>(); j.at("eventPositionHeading").get_to(*(p.eventPositionHeading)); } 
@@ -1063,6 +1107,7 @@ void to_json(json& j, const ImpactReductionContainer& p) {
 }
 
 void from_json(const json& j, ImpactReductionContainer& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("heightLonCarrLeft").get_to((p.heightLonCarrLeft));
     j.at("heightLonCarrRight").get_to((p.heightLonCarrRight));
     j.at("posLonCarrLeft").get_to((p.posLonCarrLeft));
@@ -1094,6 +1139,7 @@ void to_json(json& j, const StationaryVehicleContainer& p) {
 }
 
 void from_json(const json& j, StationaryVehicleContainer& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("stationarySince")) { p.stationarySince = vanetza::asn1::allocate<StationarySince_t>(); j.at("stationarySince").get_to(*(p.stationarySince)); } 
     else { p.stationarySince=nullptr; }
     if (j.contains("stationaryCause")) { p.stationaryCause = vanetza::asn1::allocate<CauseCode_t>(); j.at("stationaryCause").get_to(*(p.stationaryCause)); } 
@@ -1132,6 +1178,7 @@ void from_json(const json& j, ReferenceDenms& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -1204,6 +1251,7 @@ void from_json_VruSpecificExteriorLights(const json& j, VruSpecificExteriorLight
     if (legLight) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 3);
     if (wheelLight) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 2);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -1234,6 +1282,7 @@ void from_json_ClusterProfiles(const json& j, ClusterProfiles_t& p) {
     if (motorcyclist) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 5);
     if (animal) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 4);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -1247,6 +1296,7 @@ void to_json(json& j, const ClusterJoinInfo& p) {
 }
 
 void from_json(const json& j, ClusterJoinInfo& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("clusterId").get_to((p.clusterId));
     j.at("joinTime").get_to((p.joinTime));
     
@@ -1264,6 +1314,7 @@ void to_json(json& j, const ClusterLeaveInfo& p) {
 }
 
 void from_json(const json& j, ClusterLeaveInfo& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("clusterId").get_to((p.clusterId));
     j.at("clusterLeaveReason").get_to((p.clusterLeaveReason));
     
@@ -1281,6 +1332,7 @@ void to_json(json& j, const ClusterBreakupInfo& p) {
 }
 
 void from_json(const json& j, ClusterBreakupInfo& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("clusterBreakupReason").get_to((p.clusterBreakupReason));
     j.at("breakupTime").get_to((p.breakupTime));
     
@@ -1299,6 +1351,7 @@ void to_json(json& j, const VruSafeDistanceIndication& p) {
 }
 
 void from_json(const json& j, VruSafeDistanceIndication& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("subjectStation")) { p.subjectStation = vanetza::asn1::allocate<StationID_t>(); j.at("subjectStation").get_to(*(p.subjectStation)); } 
     else { p.subjectStation=nullptr; }
     j.at("stationSafeDistanceIndication").get_to((p.stationSafeDistanceIndication));
@@ -1320,6 +1373,7 @@ void to_json(json& j, const TrajectoryInterceptionIndication& p) {
 }
 
 void from_json(const json& j, TrajectoryInterceptionIndication& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("subjectStation")) { p.subjectStation = vanetza::asn1::allocate<StationID_t>(); j.at("subjectStation").get_to(*(p.subjectStation)); } 
     else { p.subjectStation=nullptr; }
     j.at("trajectoryInterceptionProbability").get_to((p.trajectoryInterceptionProbability));
@@ -1340,6 +1394,7 @@ void to_json(json& j, const HeadingChangeIndication& p) {
 }
 
 void from_json(const json& j, HeadingChangeIndication& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("direction").get_to((p.direction));
     j.at("actionDeltaTime").get_to((p.actionDeltaTime));
     
@@ -1357,6 +1412,7 @@ void to_json(json& j, const AccelerationChangeIndication& p) {
 }
 
 void from_json(const json& j, AccelerationChangeIndication& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("accelOrDecel").get_to((p.accelOrDecel));
     j.at("actionDeltaTime").get_to((p.actionDeltaTime));
     
@@ -1374,6 +1430,7 @@ void to_json(json& j, const StabilityChangeIndication& p) {
 }
 
 void from_json(const json& j, StabilityChangeIndication& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("lossProbability").get_to((p.lossProbability));
     j.at("actionDeltaTime").get_to((p.actionDeltaTime));
     
@@ -1394,6 +1451,7 @@ void to_json(json& j, const AdvisorySpeed& p) {
 }
 
 void from_json(const json& j, AdvisorySpeed& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("type").get_to((p.type));
     if (j.contains("speed")) { p.speed = vanetza::asn1::allocate<SpeedAdvice_t>(); j.at("speed").get_to(*(p.speed)); } 
     else { p.speed=nullptr; }
@@ -1430,6 +1488,7 @@ void from_json(const json& j, AdvisorySpeedList_t& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -1497,6 +1556,7 @@ void to_json(json& j, const ComputedLane_t& p) {
 }
 
 void from_json(const json& j, ComputedLane_t& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("referenceLaneId").get_to((p.referenceLaneId));
     j.at("offsetXaxis").get_to((p.offsetXaxis));
     j.at("offsetYaxis").get_to((p.offsetYaxis));
@@ -1524,6 +1584,7 @@ void to_json(json& j, const ConnectionManeuverAssist_t& p) {
 }
 
 void from_json(const json& j, ConnectionManeuverAssist_t& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("connectionID").get_to((p.connectionID));
     if (j.contains("queueLength")) { p.queueLength = vanetza::asn1::allocate<ZoneLength_t>(); j.at("queueLength").get_to(*(p.queueLength)); } 
     else { p.queueLength=nullptr; }
@@ -1551,6 +1612,7 @@ void to_json(json& j, const DataParameters_t& p) {
 }
 
 void from_json(const json& j, DataParameters_t& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("processMethod")) { p.processMethod = vanetza::asn1::allocate<IA5String_t>(); j.at("processMethod").get_to(*(p.processMethod)); } 
     else { p.processMethod=nullptr; }
     if (j.contains("processAgency")) { p.processAgency = vanetza::asn1::allocate<IA5String_t>(); j.at("processAgency").get_to(*(p.processAgency)); } 
@@ -1586,6 +1648,7 @@ void from_json(const json& j, EnabledLaneList_t& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -1630,6 +1693,7 @@ void to_json(json& j, const IntersectionReferenceID& p) {
 }
 
 void from_json(const json& j, IntersectionReferenceID& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("region")) { p.region = vanetza::asn1::allocate<RoadRegulatorID_t>(); j.at("region").get_to(*(p.region)); } 
     else { p.region=nullptr; }
     j.at("id").get_to((p.id));
@@ -1684,6 +1748,7 @@ void from_json_LaneSharing(const json& j, LaneSharing_t& p) {
     if (trackedVehicleTraffic) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 7);
     if (pedestrianTraffic) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 6);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -1709,6 +1774,7 @@ void from_json(const json& j, ManeuverAssistList& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -1722,6 +1788,7 @@ void to_json(json& j, const Node_LLmD_64b& p) {
 }
 
 void from_json(const json& j, Node_LLmD_64b& p) {
+    p._asn_ctx.ptr= nullptr;
     double lon; j.at("lon").get_to((lon)); (p.lon) = ((lon) != 1800000001) ? lon * 10000000 : lon;
     double lat; j.at("lat").get_to((lat)); (p.lat) = ((lat) != 900000001) ? lat * 10000000 : lat;
     
@@ -1751,6 +1818,7 @@ void from_json(const json& j, OverlayLaneList& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -1764,6 +1832,7 @@ void to_json(json& j, const Position3D_t& p) {
 }
 
 void from_json(const json& j, Position3D_t& p) {
+    p._asn_ctx.ptr= nullptr;
     double lat; j.at("lat").get_to((lat)); (p.lat) = ((lat) != 900000001) ? lat * 10000000 : lat;
     double Long; j.at("long").get_to((Long)); (p.Long) = ((Long) != 1800000001) ? Long * 10000000 : Long;
     if (j.contains("elevation")) { p.elevation = vanetza::asn1::allocate<Elevation_t>(); j.at("elevation").get_to(*(p.elevation)); } 
@@ -1804,6 +1873,7 @@ void to_json(json& j, const RoadSegmentReferenceID& p) {
 }
 
 void from_json(const json& j, RoadSegmentReferenceID& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("region")) { p.region = vanetza::asn1::allocate<RoadRegulatorID_t>(); j.at("region").get_to(*(p.region)); } 
     else { p.region=nullptr; }
     j.at("id").get_to((p.id));
@@ -1826,6 +1896,7 @@ void to_json(json& j, const TimeChangeDetails& p) {
 }
 
 void from_json(const json& j, TimeChangeDetails& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("startTime")) { p.startTime = vanetza::asn1::allocate<TimeMark_t>(); j.at("startTime").get_to(*(p.startTime)); } 
     else { p.startTime=nullptr; }
     j.at("minEndTime").get_to((p.minEndTime));
@@ -1852,6 +1923,7 @@ void to_json(json& j, const TransmissionAndSpeed_t& p) {
 }
 
 void from_json(const json& j, TransmissionAndSpeed_t& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("transmisson").get_to((p.transmisson));
     j.at("speed").get_to((p.speed));
     
@@ -1932,6 +2004,7 @@ void from_json_AllowedManeuvers(const json& j, AllowedManeuvers_t& p) {
     if (caution) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 5);
     if (reserved1) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 4);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -1993,6 +2066,7 @@ void from_json_IntersectionStatusObject(const json& j, IntersectionStatusObject_
     if (noValidMAPisAvailableAtThisTime) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 3);
     if (noValidSPATisAvailableAtThisTime) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 2);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -2042,6 +2116,7 @@ void from_json_LaneAttributes_Barrier(const json& j, LaneAttributes_Barrier_t& p
     if (lowCurbs) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 7);
     if (highCurbs) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 6);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -2081,6 +2156,7 @@ void from_json_LaneAttributes_Bike(const json& j, LaneAttributes_Bike_t& p) {
     if (isolatedByBarrier) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 2);
     if (unsignalizedSegmentsPresent) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 1);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -2127,6 +2203,7 @@ void from_json_LaneAttributes_Crosswalk(const json& j, LaneAttributes_Crosswalk_
     if (rfSignalRequestPresent) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 0);
     if (unsignalizedSegmentsPresent) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 7);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -2166,6 +2243,7 @@ void from_json_LaneAttributes_Parking(const json& j, LaneAttributes_Parking_t& p
     if (parkingForTaxiUse) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 2);
     if (noPublicParkingUse) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 1);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -2196,6 +2274,7 @@ void from_json_LaneAttributes_Sidewalk(const json& j, LaneAttributes_Sidewalk_t&
     if (isSidewalkFlyOverLane) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 5);
     if (walkBikes) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 4);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -2232,6 +2311,7 @@ void from_json_LaneAttributes_Striping(const json& j, LaneAttributes_Striping_t&
     if (stripeToConnectingLanesRight) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 3);
     if (stripeToConnectingLanesAhead) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 2);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -2265,6 +2345,7 @@ void from_json_LaneAttributes_TrackedVehicle(const json& j, LaneAttributes_Track
     if (spec_heavyRailRoadTrack) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 4);
     if (spec_otherRailType) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 3);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -2308,6 +2389,7 @@ void from_json_LaneAttributes_Vehicle(const json& j, LaneAttributes_Vehicle_t& p
     if (hasIRbeaconCoverage) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 1);
     if (permissionOnRequest) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 0);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -2332,6 +2414,7 @@ void from_json_LaneDirection(const json& j, LaneDirection_t& p) {
     if (ingressPath) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
     if (egressPath) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -2368,6 +2451,7 @@ void from_json_TransitVehicleStatus(const json& j, TransitVehicleStatus_t& p) {
     if (charging) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 3);
     if (atStopLine) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 2);
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -2381,6 +2465,7 @@ void to_json(json& j, const Node_XY_20b& p) {
 }
 
 void from_json(const json& j, Node_XY_20b& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("x").get_to((p.x));
     j.at("y").get_to((p.y));
     
@@ -2398,6 +2483,7 @@ void to_json(json& j, const Node_XY_22b& p) {
 }
 
 void from_json(const json& j, Node_XY_22b& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("x").get_to((p.x));
     j.at("y").get_to((p.y));
     
@@ -2415,6 +2501,7 @@ void to_json(json& j, const Node_XY_24b& p) {
 }
 
 void from_json(const json& j, Node_XY_24b& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("x").get_to((p.x));
     j.at("y").get_to((p.y));
     
@@ -2432,6 +2519,7 @@ void to_json(json& j, const Node_XY_26b& p) {
 }
 
 void from_json(const json& j, Node_XY_26b& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("x").get_to((p.x));
     j.at("y").get_to((p.y));
     
@@ -2449,6 +2537,7 @@ void to_json(json& j, const Node_XY_28b& p) {
 }
 
 void from_json(const json& j, Node_XY_28b& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("x").get_to((p.x));
     j.at("y").get_to((p.y));
     
@@ -2466,6 +2555,7 @@ void to_json(json& j, const Node_XY_32b& p) {
 }
 
 void from_json(const json& j, Node_XY_32b& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("x").get_to((p.x));
     j.at("y").get_to((p.y));
     
@@ -2495,6 +2585,7 @@ void from_json(const json& j, NodeAttributeXYList& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -2508,6 +2599,7 @@ void to_json(json& j, const RegulatorySpeedLimit& p) {
 }
 
 void from_json(const json& j, RegulatorySpeedLimit& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("type").get_to((p.type));
     j.at("speed").get_to((p.speed));
     
@@ -2537,6 +2629,7 @@ void from_json(const json& j, SegmentAttributeXYList& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -2562,6 +2655,7 @@ void from_json(const json& j, SpeedLimitList& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -2602,6 +2696,7 @@ void to_json(json& j, const VehicleSensorProperties& p) {
 }
 
 void from_json(const json& j, VehicleSensorProperties& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("range").get_to((p.range));
     double horizontalOpeningAngleStart; j.at("horizontalOpeningAngleStart").get_to((horizontalOpeningAngleStart)); (p.horizontalOpeningAngleStart) = ((horizontalOpeningAngleStart) != 3601) ? horizontalOpeningAngleStart * 10 : horizontalOpeningAngleStart;
     double horizontalOpeningAngleEnd; j.at("horizontalOpeningAngleEnd").get_to((horizontalOpeningAngleEnd)); (p.horizontalOpeningAngleEnd) = ((horizontalOpeningAngleEnd) != 3601) ? horizontalOpeningAngleEnd * 10 : horizontalOpeningAngleEnd;
@@ -2624,6 +2719,7 @@ void to_json(json& j, const ObjectDistanceWithConfidence& p) {
 }
 
 void from_json(const json& j, ObjectDistanceWithConfidence& p) {
+    p._asn_ctx.ptr= nullptr;
     double value; j.at("value").get_to((value)); (p.value) = value * 100;
     double confidence; j.at("confidence").get_to((confidence)); (p.confidence) = ((confidence) != 101 && (confidence) != 102) ? confidence * 100 : confidence;
     
@@ -2641,6 +2737,7 @@ void to_json(json& j, const ObjectDimension& p) {
 }
 
 void from_json(const json& j, ObjectDimension& p) {
+    p._asn_ctx.ptr= nullptr;
     double value; j.at("value").get_to((value)); (p.value) = value * 10;
     j.at("confidence").get_to((p.confidence));
     
@@ -2658,6 +2755,7 @@ void to_json(json& j, const CartesianAngle& p) {
 }
 
 void from_json(const json& j, CartesianAngle& p) {
+    p._asn_ctx.ptr= nullptr;
     double value; j.at("value").get_to((value)); (p.value) = ((value) != 3601) ? value * 10 : value;
     j.at("confidence").get_to((p.confidence));
     
@@ -2675,6 +2773,7 @@ void to_json(json& j, const WGS84Angle& p) {
 }
 
 void from_json(const json& j, WGS84Angle& p) {
+    p._asn_ctx.ptr= nullptr;
     double value; j.at("value").get_to((value)); (p.value) = ((value) != 3601) ? value * 10 : value;
     j.at("confidence").get_to((p.confidence));
     
@@ -2692,6 +2791,7 @@ void to_json(json& j, const SpeedExtended& p) {
 }
 
 void from_json(const json& j, SpeedExtended& p) {
+    p._asn_ctx.ptr= nullptr;
     double value; j.at("value").get_to((value)); (p.value) = ((value) != 16383) ? value * 100 : value;
     double confidence; j.at("confidence").get_to((confidence)); (p.confidence) = ((confidence) != 126 && (confidence) != 127) ? confidence * 100 : confidence;
     
@@ -2721,6 +2821,7 @@ void from_json(const json& j, SensorIdList& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -2735,6 +2836,7 @@ void to_json(json& j, const TrailerData& p) {
 }
 
 void from_json(const json& j, TrailerData& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("refPointId").get_to((p.refPointId));
     j.at("hitchPointOffset").get_to((p.hitchPointOffset));
     j.at("frontOverhang").get_to((p.frontOverhang));
@@ -2758,6 +2860,7 @@ void to_json(json& j, const LongitudinalLanePosition& p) {
 }
 
 void from_json(const json& j, LongitudinalLanePosition& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("longitudinalLanePositionValue").get_to((p.longitudinalLanePositionValue));
     j.at("longitudinalLanePositionConfidence").get_to((p.longitudinalLanePositionConfidence));
     
@@ -2776,6 +2879,7 @@ void to_json(json& j, const MatchedPosition& p) {
 }
 
 void from_json(const json& j, MatchedPosition& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("laneID")) { p.laneID = vanetza::asn1::allocate<LaneID_t>(); j.at("laneID").get_to(*(p.laneID)); } 
     else { p.laneID=nullptr; }
     if (j.contains("longitudinalLanePosition")) { p.longitudinalLanePosition = vanetza::asn1::allocate<LongitudinalLanePosition_t>(); j.at("longitudinalLanePosition").get_to(*(p.longitudinalLanePosition)); } 
@@ -2795,6 +2899,7 @@ void to_json(json& j, const PerceivedObjectContainerSegmentInfo& p) {
 }
 
 void from_json(const json& j, PerceivedObjectContainerSegmentInfo& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("totalMsgSegments").get_to((p.totalMsgSegments));
     j.at("thisSegmentNum").get_to((p.thisSegmentNum));
     
@@ -2812,6 +2917,7 @@ void to_json(json& j, const VehicleSubclass& p) {
 }
 
 void from_json(const json& j, VehicleSubclass& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("type").get_to((p.type));
     j.at("confidence").get_to((p.confidence));
     
@@ -2829,6 +2935,7 @@ void to_json(json& j, const PersonSubclass& p) {
 }
 
 void from_json(const json& j, PersonSubclass& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("type").get_to((p.type));
     j.at("confidence").get_to((p.confidence));
     
@@ -2846,6 +2953,7 @@ void to_json(json& j, const AnimalSubclass& p) {
 }
 
 void from_json(const json& j, AnimalSubclass& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("type").get_to((p.type));
     j.at("confidence").get_to((p.confidence));
     
@@ -2863,6 +2971,7 @@ void to_json(json& j, const OtherSubclass& p) {
 }
 
 void from_json(const json& j, OtherSubclass& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("type").get_to((p.type));
     j.at("confidence").get_to((p.confidence));
     
@@ -2926,6 +3035,7 @@ void to_json(json& j, const ReferencePosition& p) {
 }
 
 void from_json(const json& j, ReferencePosition& p) {
+    p._asn_ctx.ptr= nullptr;
     double latitude; j.at("latitude").get_to((latitude)); (p.latitude) = ((latitude) != 900000001) ? latitude * 10000000 : latitude;
     double longitude; j.at("longitude").get_to((longitude)); (p.longitude) = ((longitude) != 1800000001) ? longitude * 10000000 : longitude;
     j.at("positionConfidenceEllipse").get_to((p.positionConfidenceEllipse));
@@ -2945,6 +3055,7 @@ void to_json(json& j, const PtActivation& p) {
 }
 
 void from_json(const json& j, PtActivation& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("ptActivationType").get_to((p.ptActivationType));
     j.at("ptActivationData").get_to((p.ptActivationData));
     
@@ -2964,6 +3075,7 @@ void to_json(json& j, const ClosedLanes& p) {
 }
 
 void from_json(const json& j, ClosedLanes& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("innerhardShoulderStatus")) { p.innerhardShoulderStatus = vanetza::asn1::allocate<HardShoulderStatus_t>(); j.at("innerhardShoulderStatus").get_to(*(p.innerhardShoulderStatus)); } 
     else { p.innerhardShoulderStatus=nullptr; }
     if (j.contains("outerhardShoulderStatus")) { p.outerhardShoulderStatus = vanetza::asn1::allocate<HardShoulderStatus_t>(); j.at("outerhardShoulderStatus").get_to(*(p.outerhardShoulderStatus)); } 
@@ -2996,6 +3108,7 @@ void from_json(const json& j, ItineraryPath& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -3021,6 +3134,7 @@ void from_json(const json& j, EventHistory& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -3046,6 +3160,7 @@ void from_json(const json& j, DigitalMap_t& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -3106,6 +3221,7 @@ void to_json(json& j, const BasicContainer& p) {
 }
 
 void from_json(const json& j, BasicContainer& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("stationType").get_to((p.stationType));
     j.at("referencePosition").get_to((p.referencePosition));
     
@@ -3123,6 +3239,7 @@ void to_json(json& j, const PublicTransportContainer& p) {
 }
 
 void from_json(const json& j, PublicTransportContainer& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("embarkationStatus").get_to((p.embarkationStatus));
     if (j.contains("ptActivation")) { p.ptActivation = vanetza::asn1::allocate<PtActivation_t>(); j.at("ptActivation").get_to(*(p.ptActivation)); } 
     else { p.ptActivation=nullptr; }
@@ -3142,6 +3259,7 @@ void to_json(json& j, const RoadWorksContainerBasic& p) {
 }
 
 void from_json(const json& j, RoadWorksContainerBasic& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("roadworksSubCauseCode")) { p.roadworksSubCauseCode = vanetza::asn1::allocate<RoadworksSubCauseCode_t>(); j.at("roadworksSubCauseCode").get_to(*(p.roadworksSubCauseCode)); } 
     else { p.roadworksSubCauseCode=nullptr; }
     if (j.contains("closedLanes")) { p.closedLanes = vanetza::asn1::allocate<ClosedLanes_t>(); j.at("closedLanes").get_to(*(p.closedLanes)); } 
@@ -3165,6 +3283,7 @@ void to_json(json& j, const ManagementContainer& p) {
 }
 
 void from_json(const json& j, ManagementContainer& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("actionID").get_to((p.actionID));
     j.at("detectionTime").get_to((p.detectionTime));
     j.at("referenceTime").get_to((p.referenceTime));
@@ -3196,6 +3315,7 @@ void to_json(json& j, const SituationContainer& p) {
 }
 
 void from_json(const json& j, SituationContainer& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("informationQuality").get_to((p.informationQuality));
     j.at("eventType").get_to((p.eventType));
     if (j.contains("linkedCause")) { p.linkedCause = vanetza::asn1::allocate<CauseCode_t>(); j.at("linkedCause").get_to(*(p.linkedCause)); } 
@@ -3225,6 +3345,7 @@ void to_json(json& j, const RoadWorksContainerExtended& p) {
 }
 
 void from_json(const json& j, RoadWorksContainerExtended& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("closedLanes")) { p.closedLanes = vanetza::asn1::allocate<ClosedLanes_t>(); j.at("closedLanes").get_to(*(p.closedLanes)); } 
     else { p.closedLanes=nullptr; }
     if (j.contains("restriction")) { p.restriction = vanetza::asn1::allocate<RestrictedTypes_t>(); j.at("restriction").get_to(*(p.restriction)); } 
@@ -3262,6 +3383,7 @@ void to_json(json& j, const AlacarteContainer& p) {
 }
 
 void from_json(const json& j, AlacarteContainer& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("lanePosition")) { p.lanePosition = vanetza::asn1::allocate<LanePosition_t>(); j.at("lanePosition").get_to(*(p.lanePosition)); } 
     else { p.lanePosition=nullptr; }
     if (j.contains("impactReduction")) { p.impactReduction = vanetza::asn1::allocate<ImpactReductionContainer_t>(); j.at("impactReduction").get_to(*(p.impactReduction)); } 
@@ -3289,6 +3411,7 @@ void to_json(json& j, const MapPosition& p) {
 }
 
 void from_json(const json& j, MapPosition& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("intersectionId").get_to((p.intersectionId));
     j.at("lane").get_to((p.lane));
     
@@ -3306,6 +3429,7 @@ void to_json(json& j, const VruExteriorLights& p) {
 }
 
 void from_json(const json& j, VruExteriorLights& p) {
+    p._asn_ctx.ptr= nullptr;
     
     from_json_VruSpecificExteriorLights(j["vruSpecific"],(p.vruSpecific));
     from_json_ExteriorLights(j["vehicular"],(p.vehicular));
@@ -3326,6 +3450,7 @@ void to_json(json& j, const VruClusterOperationContainer& p) {
 }
 
 void from_json(const json& j, VruClusterOperationContainer& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("clusterJoinInfo")) { p.clusterJoinInfo = vanetza::asn1::allocate<ClusterJoinInfo_t>(); j.at("clusterJoinInfo").get_to(*(p.clusterJoinInfo)); } 
     else { p.clusterJoinInfo=nullptr; }
     if (j.contains("clusterLeaveInfo")) { p.clusterLeaveInfo = vanetza::asn1::allocate<ClusterLeaveInfo_t>(); j.at("clusterLeaveInfo").get_to(*(p.clusterLeaveInfo)); } 
@@ -3349,6 +3474,7 @@ void to_json(json& j, const VruPathPoint& p) {
 }
 
 void from_json(const json& j, VruPathPoint& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("pathPosition").get_to((p.pathPosition));
     if (j.contains("pathDeltaTime")) { p.pathDeltaTime = vanetza::asn1::allocate<PathDeltaTime_t>(); j.at("pathDeltaTime").get_to(*(p.pathDeltaTime)); } 
     else { p.pathDeltaTime=nullptr; }
@@ -3379,6 +3505,7 @@ void from_json(const json& j, SequenceOfVruSafeDistanceIndication& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -3404,6 +3531,7 @@ void from_json(const json& j, SequenceOfTrajectoryInterceptionIndication& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -3417,6 +3545,7 @@ void to_json(json& j, const ConnectingLane& p) {
 }
 
 void from_json(const json& j, ConnectingLane& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("lane").get_to((p.lane));
     if (j.contains("maneuver")) { p.maneuver = vanetza::asn1::allocate<AllowedManeuvers_t>(); from_json_AllowedManeuvers(j["maneuver"],*(p.maneuver)); } 
     else { p.maneuver=nullptr; }
@@ -3437,6 +3566,7 @@ void to_json(json& j, const Connection& p) {
 }
 
 void from_json(const json& j, Connection& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("connectingLane").get_to((p.connectingLane));
     if (j.contains("remoteIntersection")) { p.remoteIntersection = vanetza::asn1::allocate<IntersectionReferenceID_t>(); j.at("remoteIntersection").get_to(*(p.remoteIntersection)); } 
     else { p.remoteIntersection=nullptr; }
@@ -3518,6 +3648,7 @@ void to_json(json& j, const MovementEvent& p) {
 }
 
 void from_json(const json& j, MovementEvent& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("eventState").get_to((p.eventState));
     if (j.contains("timing")) { p.timing = vanetza::asn1::allocate<TimeChangeDetails_t>(); j.at("timing").get_to(*(p.timing)); } 
     else { p.timing=nullptr; }
@@ -3550,6 +3681,7 @@ void from_json(const json& j, RestrictionUserTypeList& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -3621,6 +3753,7 @@ void from_json(const json& j, LaneDataAttributeList& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -3690,6 +3823,7 @@ void to_json(json& j, const NodeAttributeSetXY_t& p) {
 }
 
 void from_json(const json& j, NodeAttributeSetXY_t& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("localNode")) { p.localNode = vanetza::asn1::allocate<NodeAttributeXYList_t>(); j.at("localNode").get_to(*(p.localNode)); } 
     else { p.localNode=nullptr; }
     if (j.contains("disabled")) { p.disabled = vanetza::asn1::allocate<SegmentAttributeXYList_t>(); j.at("disabled").get_to(*(p.disabled)); } 
@@ -3717,6 +3851,7 @@ void to_json(json& j, const CpmManagementContainer& p) {
 }
 
 void from_json(const json& j, CpmManagementContainer& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("stationType").get_to((p.stationType));
     if (j.contains("perceivedObjectContainerSegmentInfo")) { p.perceivedObjectContainerSegmentInfo = vanetza::asn1::allocate<PerceivedObjectContainerSegmentInfo_t>(); j.at("perceivedObjectContainerSegmentInfo").get_to(*(p.perceivedObjectContainerSegmentInfo)); } 
     else { p.perceivedObjectContainerSegmentInfo=nullptr; }
@@ -3748,6 +3883,7 @@ void from_json(const json& j, VehicleSensorPropertyList& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -3773,6 +3909,7 @@ void from_json(const json& j, TrailerDataContainer& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -3822,6 +3959,7 @@ void to_json(json& j, const ObjectClass_t& p) {
 }
 
 void from_json(const json& j, ObjectClass_t& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("confidence").get_to((p.confidence));
     j.at("class").get_to((p.Class));
     
@@ -3839,6 +3977,7 @@ void to_json(json& j, const OffsetPoint& p) {
 }
 
 void from_json(const json& j, OffsetPoint& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("nodeOffsetPointxy").get_to((p.nodeOffsetPointxy));
     if (j.contains("nodeOffsetPointZ")) { p.nodeOffsetPointZ = vanetza::asn1::allocate<NodeOffsetPointZ_t>(); j.at("nodeOffsetPointZ").get_to(*(p.nodeOffsetPointZ)); } 
     else { p.nodeOffsetPointZ=nullptr; }
@@ -3910,6 +4049,7 @@ void to_json(json& j, const DecentralizedEnvironmentalNotificationMessage& p) {
 }
 
 void from_json(const json& j, DecentralizedEnvironmentalNotificationMessage& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("management").get_to((p.management));
     if (j.contains("situation")) { p.situation = vanetza::asn1::allocate<SituationContainer_t>(); j.at("situation").get_to(*(p.situation)); } 
     else { p.situation=nullptr; }
@@ -3965,6 +4105,7 @@ void to_json(json& j, const VruLowFrequencyContainer& p) {
 }
 
 void from_json(const json& j, VruLowFrequencyContainer& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("profileAndSubprofile")) { p.profileAndSubprofile = vanetza::asn1::allocate<VruProfileAndSubprofile_t>(); j.at("profileAndSubprofile").get_to(*(p.profileAndSubprofile)); } 
     else { p.profileAndSubprofile=nullptr; }
     if (j.contains("exteriorLights")) { p.exteriorLights = vanetza::asn1::allocate<VruExteriorLights_t>(); j.at("exteriorLights").get_to(*(p.exteriorLights)); } 
@@ -3998,6 +4139,7 @@ void from_json(const json& j, SequenceOfVruPathPoint& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -4023,6 +4165,7 @@ void from_json(const json& j, ConnectsToList& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -4036,6 +4179,7 @@ void to_json(json& j, const LaneAttributes& p) {
 }
 
 void from_json(const json& j, LaneAttributes& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("laneType").get_to((p.laneType));
     from_json_LaneDirection(j["directionalUse"],(p.directionalUse));
     from_json_LaneSharing(j["sharedWith"],(p.sharedWith));
@@ -4065,6 +4209,7 @@ void from_json(const json& j, MovementEventList& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -4078,6 +4223,7 @@ void to_json(json& j, const MovementState& p) {
 }
 
 void from_json(const json& j, MovementState& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("signalGroup").get_to((p.signalGroup));
     j.at("state-time-speed").get_to((p.state_time_speed));
     if (j.contains("maneuverAssistList")) { p.maneuverAssistList = vanetza::asn1::allocate<ManeuverAssistList_t>(); j.at("maneuverAssistList").get_to(*(p.maneuverAssistList)); } 
@@ -4098,6 +4244,7 @@ void to_json(json& j, const RestrictionClassAssignment& p) {
 }
 
 void from_json(const json& j, RestrictionClassAssignment& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("id").get_to((p.id));
     j.at("users").get_to((p.users));
     
@@ -4127,6 +4274,7 @@ void from_json(const json& j, RestrictionClassList& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -4140,6 +4288,7 @@ void to_json(json& j, const NodeXY_t& p) {
 }
 
 void from_json(const json& j, NodeXY_t& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("delta").get_to((p.delta));
     if (j.contains("attributes")) { p.attributes = vanetza::asn1::allocate<NodeAttributeSetXY_t>(); j.at("attributes").get_to(*(p.attributes)); } 
     else { p.attributes=nullptr; }
@@ -4168,6 +4317,7 @@ void to_json(json& j, const OriginatingVehicleContainer& p) {
 }
 
 void from_json(const json& j, OriginatingVehicleContainer& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("heading").get_to((p.heading));
     j.at("speed").get_to((p.speed));
     if (j.contains("vehicleOrientationAngle")) { p.vehicleOrientationAngle = vanetza::asn1::allocate<WGS84Angle_t>(); j.at("vehicleOrientationAngle").get_to(*(p.vehicleOrientationAngle)); } 
@@ -4208,6 +4358,7 @@ void to_json(json& j, const VehicleSensor& p) {
 }
 
 void from_json(const json& j, VehicleSensor& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("refPointId").get_to((p.refPointId));
     j.at("xSensorOffset").get_to((p.xSensorOffset));
     j.at("ySensorOffset").get_to((p.ySensorOffset));
@@ -4229,6 +4380,7 @@ void to_json(json& j, const AreaCircular& p) {
 }
 
 void from_json(const json& j, AreaCircular& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("nodeCenterPoint")) { p.nodeCenterPoint = vanetza::asn1::allocate<OffsetPoint_t>(); j.at("nodeCenterPoint").get_to(*(p.nodeCenterPoint)); } 
     else { p.nodeCenterPoint=nullptr; }
     double radius; j.at("radius").get_to((radius)); (p.radius) = radius * 10;
@@ -4248,6 +4400,7 @@ void to_json(json& j, const AreaEllipse& p) {
 }
 
 void from_json(const json& j, AreaEllipse& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("nodeCenterPoint")) { p.nodeCenterPoint = vanetza::asn1::allocate<OffsetPoint_t>(); j.at("nodeCenterPoint").get_to(*(p.nodeCenterPoint)); } 
     else { p.nodeCenterPoint=nullptr; }
     double semiMinorRangeLength; j.at("semiMinorRangeLength").get_to((semiMinorRangeLength)); (p.semiMinorRangeLength) = semiMinorRangeLength * 10;
@@ -4271,6 +4424,7 @@ void to_json(json& j, const AreaRectangle& p) {
 }
 
 void from_json(const json& j, AreaRectangle& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("nodeCenterPoint")) { p.nodeCenterPoint = vanetza::asn1::allocate<OffsetPoint_t>(); j.at("nodeCenterPoint").get_to(*(p.nodeCenterPoint)); } 
     else { p.nodeCenterPoint=nullptr; }
     double semiMajorRangeLength; j.at("semiMajorRangeLength").get_to((semiMajorRangeLength)); (p.semiMajorRangeLength) = semiMajorRangeLength * 10;
@@ -4305,6 +4459,7 @@ void from_json(const json& j, PolyPointList& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -4321,6 +4476,7 @@ void to_json(json& j, const AreaRadial& p) {
 }
 
 void from_json(const json& j, AreaRadial& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("range").get_to((p.range));
     double stationaryHorizontalOpeningAngleStart; j.at("stationaryHorizontalOpeningAngleStart").get_to((stationaryHorizontalOpeningAngleStart)); (p.stationaryHorizontalOpeningAngleStart) = ((stationaryHorizontalOpeningAngleStart) != 3601) ? stationaryHorizontalOpeningAngleStart * 10 : stationaryHorizontalOpeningAngleStart;
     double stationaryHorizontalOpeningAngleEnd; j.at("stationaryHorizontalOpeningAngleEnd").get_to((stationaryHorizontalOpeningAngleEnd)); (p.stationaryHorizontalOpeningAngleEnd) = ((stationaryHorizontalOpeningAngleEnd) != 3601) ? stationaryHorizontalOpeningAngleEnd * 10 : stationaryHorizontalOpeningAngleEnd;
@@ -4359,6 +4515,7 @@ void from_json(const json& j, ObjectClassDescription& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -4373,6 +4530,7 @@ void to_json(json& j, const CamParameters& p) {
 }
 
 void from_json(const json& j, CamParameters& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("basicContainer").get_to((p.basicContainer));
     j.at("highFrequencyContainer").get_to((p.highFrequencyContainer));
     if (j.contains("lowFrequencyContainer")) { p.lowFrequencyContainer = vanetza::asn1::allocate<LowFrequencyContainer_t>(); j.at("lowFrequencyContainer").get_to(*(p.lowFrequencyContainer)); } 
@@ -4394,6 +4552,7 @@ void to_json(json& j, const DENM& p) {
 }
 
 void from_json(const json& j, DENM& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("header").get_to((p.header));
     j.at("denm").get_to((p.denm));
     
@@ -4411,6 +4570,7 @@ void to_json(json& j, const TrafficIslandPosition& p) {
 }
 
 void from_json(const json& j, TrafficIslandPosition& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("oneSide").get_to((p.oneSide));
     j.at("otherSide").get_to((p.otherSide));
     
@@ -4434,6 +4594,7 @@ void to_json(json& j, const VruMotionPredictionContainer& p) {
 }
 
 void from_json(const json& j, VruMotionPredictionContainer& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("pathHistory")) { p.pathHistory = vanetza::asn1::allocate<PathHistory_t>(); j.at("pathHistory").get_to(*(p.pathHistory)); } 
     else { p.pathHistory=nullptr; }
     if (j.contains("pathPrediction")) { p.pathPrediction = vanetza::asn1::allocate<SequenceOfVruPathPoint_t>(); j.at("pathPrediction").get_to(*(p.pathPrediction)); } 
@@ -4475,6 +4636,7 @@ void from_json(const json& j, MovementList& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -4500,6 +4662,7 @@ void from_json(const json& j, NodeSetXY& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -4552,6 +4715,7 @@ void to_json(json& j, const PerceivedObject& p) {
 }
 
 void from_json(const json& j, PerceivedObject& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("objectID").get_to((p.objectID));
     if (j.contains("sensorIDList")) { p.sensorIDList = vanetza::asn1::allocate<SensorIdList_t>(); j.at("sensorIDList").get_to(*(p.sensorIDList)); } 
     else { p.sensorIDList=nullptr; }
@@ -4603,6 +4767,7 @@ void to_json(json& j, const AreaPolygon& p) {
 }
 
 void from_json(const json& j, AreaPolygon& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("polyPointList").get_to((p.polyPointList));
     
     
@@ -4655,6 +4820,7 @@ void to_json(json& j, const CoopAwareness& p) {
 }
 
 void from_json(const json& j, CoopAwareness& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("generationDeltaTime").get_to((p.generationDeltaTime));
     j.at("camParameters").get_to((p.camParameters));
     
@@ -4742,6 +4908,7 @@ void to_json(json& j, const IntersectionState& p) {
 }
 
 void from_json(const json& j, IntersectionState& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("id").get_to((p.id));
     j.at("revision").get_to((p.revision));
     if (j.contains("moy")) { p.moy = vanetza::asn1::allocate<MinuteOfTheYear_t>(); j.at("moy").get_to(*(p.moy)); } 
@@ -4781,6 +4948,7 @@ void from_json(const json& j, IntersectionStateList& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -4832,6 +5000,7 @@ void from_json(const json& j, PerceivedObjectContainer_t& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -4891,6 +5060,7 @@ void to_json(json& j, const FreeSpaceAddendum& p) {
 }
 
 void from_json(const json& j, FreeSpaceAddendum& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("freeSpaceConfidence").get_to((p.freeSpaceConfidence));
     j.at("freeSpaceArea").get_to((p.freeSpaceArea));
     if (j.contains("sensorIDList")) { p.sensorIDList = vanetza::asn1::allocate<SensorIdList_t>(); j.at("sensorIDList").get_to(*(p.sensorIDList)); } 
@@ -4910,6 +5080,7 @@ void to_json(json& j, const CAM& p) {
 }
 
 void from_json(const json& j, CAM& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("header").get_to((p.header));
     j.at("cam").get_to((p.cam));
     
@@ -4937,6 +5108,7 @@ void to_json(json& j, const VruHighFrequencyContainer& p) {
 }
 
 void from_json(const json& j, VruHighFrequencyContainer& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("heading").get_to((p.heading));
     j.at("speed").get_to((p.speed));
     j.at("longitudinalAcceleration").get_to((p.longitudinalAcceleration));
@@ -4977,6 +5149,7 @@ void to_json(json& j, const VruClusterInformationContainer& p) {
 }
 
 void from_json(const json& j, VruClusterInformationContainer& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("clusterId").get_to((p.clusterId));
     j.at("clusterBoundingBoxShape").get_to((p.clusterBoundingBoxShape));
     j.at("clusterCardinalitySize").get_to((p.clusterCardinalitySize));
@@ -4995,6 +5168,7 @@ void to_json(json& j, const SPAT& p) {
 }
 
 void from_json(const json& j, SPAT& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("timeStamp")) { p.timeStamp = vanetza::asn1::allocate<MinuteOfTheYear_t>(); j.at("timeStamp").get_to(*(p.timeStamp)); } 
     else { p.timeStamp=nullptr; }
     j.at("intersections").get_to((p.intersections));
@@ -5018,6 +5192,7 @@ void to_json(json& j, const GenericLane& p) {
 }
 
 void from_json(const json& j, GenericLane& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("laneID").get_to((p.laneID));
     if (j.contains("ingressApproach")) { p.ingressApproach = vanetza::asn1::allocate<ApproachID_t>(); j.at("ingressApproach").get_to(*(p.ingressApproach)); } 
     else { p.ingressApproach=nullptr; }
@@ -5058,6 +5233,7 @@ void from_json(const json& j, LaneList& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -5083,6 +5259,7 @@ void from_json(const json& j, RoadLaneSetList& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -5097,6 +5274,7 @@ void to_json(json& j, const RoadSegment& p) {
 }
 
 void from_json(const json& j, RoadSegment& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("id").get_to((p.id));
     j.at("revision").get_to((p.revision));
     j.at("refPoint").get_to((p.refPoint));
@@ -5133,6 +5311,7 @@ void from_json(const json& j, RoadSegmentList& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -5146,6 +5325,7 @@ void to_json(json& j, const SensorInformation& p) {
 }
 
 void from_json(const json& j, SensorInformation& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("sensorID").get_to((p.sensorID));
     j.at("type").get_to((p.type));
     j.at("detectionArea").get_to((p.detectionArea));
@@ -5178,6 +5358,7 @@ void from_json(const json& j, FreeSpaceAddendumContainer& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -5191,6 +5372,7 @@ void to_json(json& j, const SPATEM& p) {
 }
 
 void from_json(const json& j, SPATEM& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("header").get_to((p.header));
     j.at("spat").get_to((p.spat));
     
@@ -5212,6 +5394,7 @@ void to_json(json& j, const VamParameters& p) {
 }
 
 void from_json(const json& j, VamParameters& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("basicContainer").get_to((p.basicContainer));
     if (j.contains("vruHighFrequencyContainer")) { p.vruHighFrequencyContainer = vanetza::asn1::allocate<VruHighFrequencyContainer_t>(); j.at("vruHighFrequencyContainer").get_to(*(p.vruHighFrequencyContainer)); } 
     else { p.vruHighFrequencyContainer=nullptr; }
@@ -5239,6 +5422,7 @@ void to_json(json& j, const IntersectionGeometry& p) {
 }
 
 void from_json(const json& j, IntersectionGeometry& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("id").get_to((p.id));
     j.at("revision").get_to((p.revision));
     j.at("refPoint").get_to((p.refPoint));
@@ -5276,6 +5460,7 @@ void from_json(const json& j, IntersectionGeometryList& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -5301,6 +5486,7 @@ void from_json(const json& j, SensorInformationContainer& p) {
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }
 
 /*
@@ -5314,6 +5500,7 @@ void to_json(json& j, const VruAwareness& p) {
 }
 
 void from_json(const json& j, VruAwareness& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("generationDeltaTime").get_to((p.generationDeltaTime));
     j.at("vamParameters").get_to((p.vamParameters));
     
@@ -5337,6 +5524,7 @@ void to_json(json& j, const MapData_t& p) {
 }
 
 void from_json(const json& j, MapData_t& p) {
+    p._asn_ctx.ptr= nullptr;
     if (j.contains("timeStamp")) { p.timeStamp = vanetza::asn1::allocate<MinuteOfTheYear_t>(); j.at("timeStamp").get_to(*(p.timeStamp)); } 
     else { p.timeStamp=nullptr; }
     j.at("msgIssueRevision").get_to((p.msgIssueRevision));
@@ -5370,6 +5558,7 @@ void to_json(json& j, const CpmParameters& p) {
 }
 
 void from_json(const json& j, CpmParameters& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("managementContainer").get_to((p.managementContainer));
     if (j.contains("stationDataContainer")) { p.stationDataContainer = vanetza::asn1::allocate<StationDataContainer_t>(); j.at("stationDataContainer").get_to(*(p.stationDataContainer)); } 
     else { p.stationDataContainer=nullptr; }
@@ -5395,6 +5584,7 @@ void to_json(json& j, const MAPEM& p) {
 }
 
 void from_json(const json& j, MAPEM& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("header").get_to((p.header));
     j.at("map").get_to((p.map));
     
@@ -5412,6 +5602,7 @@ void to_json(json& j, const VAM& p) {
 }
 
 void from_json(const json& j, VAM& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("header").get_to((p.header));
     j.at("vam").get_to((p.vam));
     
@@ -5429,6 +5620,7 @@ void to_json(json& j, const CollectivePerceptionMessage& p) {
 }
 
 void from_json(const json& j, CollectivePerceptionMessage& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("generationDeltaTime").get_to((p.generationDeltaTime));
     j.at("cpmParameters").get_to((p.cpmParameters));
     
@@ -5446,6 +5638,7 @@ void to_json(json& j, const CPM& p) {
 }
 
 void from_json(const json& j, CPM& p) {
+    p._asn_ctx.ptr= nullptr;
     j.at("header").get_to((p.header));
     j.at("cpm").get_to((p.cpm));
     

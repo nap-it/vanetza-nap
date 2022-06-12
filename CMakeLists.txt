@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.1)
 project(Vanetza VERSION 0.8)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
+#set(CMAKE_BUILD_TYPE Debug)
+
 # enable convenient CMake policies if available
 if(POLICY CMP0074)
   # find_package() employs <package>_ROOT (since CMake 3.12)

@@ -34,7 +34,6 @@ Mqtt::Mqtt(string id, string host, int port) : mosquittopp(id.c_str())
     this->host = host;
 
 
-
     /*
      * Connect to an MQTT broker. This is a non-blocking call. If you use mosquitto_connect_async your client must use
      * the threaded interface mosquitto_loop_start.

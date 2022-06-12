@@ -6,11 +6,14 @@
 #include <vanetza/dcc/mapping.hpp>
 #include <vanetza/net/chunk_packet.hpp>
 #include <iostream>
+#include <thread>
 
 using namespace vanetza;
 
-DccPassthrough::DccPassthrough(access::Interface& access, TimeTrigger& trigger) :
-        access_(access), trigger_(trigger) {}
+std::map<std::thread::id, TimeTrigger*> triggers_;
+
+DccPassthrough::DccPassthrough(access::Interface& access, boost::asio::io_context& io_context) :
+        access_(access), io_context_(io_context) {}
 
 
 void DccPassthrough::request(const dcc::DataRequest& request, std::unique_ptr<ChunkPacket> packet)
@@ -20,7 +23,7 @@ void DccPassthrough::request(const dcc::DataRequest& request, std::unique_ptr<Ch
         return;
     }
 
-    trigger_.schedule();
+    get_trigger().schedule();
 
     access::DataRequest acc_req;
     acc_req.ether_type = request.ether_type;
@@ -38,4 +41,12 @@ void DccPassthrough::allow_packet_flow(bool allow)
 bool DccPassthrough::allow_packet_flow()
 {
     return allow_packet_flow_;
+}
+
+TimeTrigger &DccPassthrough::get_trigger() {
+    std::thread::id curr_id = std::this_thread::get_id();
+    if (!triggers_.count(curr_id)) {
+        triggers_[curr_id] = new TimeTrigger(io_context_);
+    }
+    return *(triggers_[curr_id]);
 }

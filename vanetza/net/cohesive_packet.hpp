@@ -86,7 +86,6 @@ public:
 
     int rssi;
     double time_received;
-    EthernetHeader& ethHeader;
 
 private:
     void reset_iterators(OsiLayer layer);

@@ -112,6 +112,7 @@ void to_json(json& j, const """ + (self.name.replace("-", "_") + "_t" if self.na
 }
 
 void from_json(const json& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p) {
+    p._asn_ctx.ptr= nullptr;
     """ + '\n    '.join([(("double " + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + "; ") if m["type"] in transformation else "") + (('if (j.contains("' + m["name"] + '")) { p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + ' = vanetza::asn1::allocate<' + m["type"].replace("-", "_") + '_t>(); ') if "optional" in m and m["optional"] else '') + 'j.at("' + m["name"] + '").get_to(' + ((('*' if "optional" in m and m["optional"] else '') + '(p.' + ('choice.' if self.definition["type"] == "CHOICE" else '')) if m["type"] not in transformation else "(") + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + '));' + ((' *' if "optional" in m and m["optional"] else ' ') + '(p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + ") =" + ((" (" + " && ".join([(("(" + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title())).replace("-", "_") + ") != " + str(n)) for n in transformation[m["type"]][1]]) + ")" if len(transformation[m["type"]][1]) > 0 else "") + (" ? " if len(transformation[m["type"]][1]) > 0 else " ") + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + " * " + str(int(transformation[m["type"]][0])) + (" : " + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") if len(transformation[m["type"]][1]) > 0 else "") + ";") if m["type"] in transformation else "") + (' } ' if "optional" in m and m["optional"] else '') + ('\n    else { ' + 'p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + '=nullptr; }' if "optional" in m and m["optional"] else '') for m in self.members if m["type"] not in bitstrings]) + """
     """ + '\n    '.join([(('if (j.contains("' + m["name"] + '")) { p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + ' = vanetza::asn1::allocate<' + m["type"].replace("-", "_") + '_t>(); ') if "optional" in m and m["optional"] else '') + 'from_json_' + m["type"].replace("-", "_") + '(j["' + m["name"] + '"],' + ('*' if "optional" in m and m["optional"] else '') + '(p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + '));' + (' } ' if "optional" in m and m["optional"] else '') + ('\n    else { ' + 'p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + '=nullptr; }' if "optional" in m and m["optional"] else '') for m in self.members if m["type"] in bitstrings]) + """
     """ + '\n    '.join(['p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + '=nullptr;' for m in self.ignored_members if "optional" in m and m["optional"]]) + """
@@ -213,6 +214,7 @@ void from_json(const json& j, """ + (self.name.replace("-", "_") + "_t" if self.
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
+    delete p_tmp;
 }"""
 
 
@@ -258,6 +260,7 @@ void from_json_""" + self.name.replace("-", "_") + """(const json& j, """ + self
     """ + '\n    '.join(['*(p_tmp->buf + (sizeof(uint8_t) * ' + str(i) + ')) = (uint8_t) 0;' for i in range(int(len(self.members) / 8) + 1)]) + """
     """ + '\n    '.join(['if (' + m[0].replace("-", "_") + ') *(p_tmp->buf + (sizeof(uint8_t) * ' + str(int(int(m[1])/8)) + ')) |= (1 << ' + str(7 - (int(m[1]) % 8)) + ');' for m in self.members]) + """
     p = *p_tmp;
+    delete p_tmp;
 }"""
 
 
@@ -372,6 +375,7 @@ void to_json(json& j, const TimestampIts_t& p) {
 }
 
 void from_json(const json& j, TimestampIts_t& p) {
+    p.buf = nullptr;
     asn_long2INTEGER(&p, stol(j.dump()));
 }
 """

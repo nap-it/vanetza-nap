@@ -47,6 +47,7 @@ void Dds::from_dds_thread() {
         {
             on_message(data.substr(0,pos), data.substr(pos+1, data.length()));
         }
+        delete m;
     }
 }
 

@@ -10,16 +10,17 @@
 class DccPassthrough : public vanetza::dcc::RequestInterface
 {
 public:
-    DccPassthrough(vanetza::access::Interface&, TimeTrigger& trigger);
+    DccPassthrough(vanetza::access::Interface&, boost::asio::io_context&);
 
     void request(const vanetza::dcc::DataRequest& request, std::unique_ptr<vanetza::ChunkPacket> packet) override;
 
     void allow_packet_flow(bool allow);
     bool allow_packet_flow();
+    TimeTrigger& get_trigger();
 
 private:
     vanetza::access::Interface& access_;
-    TimeTrigger& trigger_;
+    boost::asio::io_context& io_context_;
     bool allow_packet_flow_ = true;
 };
 

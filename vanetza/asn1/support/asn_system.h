@@ -108,9 +108,9 @@ typedef	unsigned int	uint32_t;
 #endif
 
 /* Figure out if thread safety is requested */
-#if !defined(ASN_THREAD_SAFE) && (defined(THREAD_SAFE) || defined(_REENTRANT))
+//#if !defined(ASN_THREAD_SAFE) && (defined(THREAD_SAFE) || defined(_REENTRANT))
 #define	ASN_THREAD_SAFE
-#endif	/* Thread safety */
+//#endif	/* Thread safety */
 
 #ifndef	offsetof	/* If not defined by <stddef.h> */
 #define	offsetof(s, m)	((ptrdiff_t)&(((s *)0)->m) - (ptrdiff_t)((s *)0))

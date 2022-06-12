@@ -8,6 +8,7 @@
 #include "mqtt.h"
 #include <sys/ipc.h>
 #include <sys/msg.h>
+#include "time_trigger.hpp"
 
 using namespace std;
 

@@ -17,7 +17,7 @@ class TimeTrigger;
 class RouterContext
 {
 public:
-    RouterContext(const vanetza::geonet::MIB&, TimeTrigger&, vanetza::PositionProvider&, vanetza::security::SecurityEntity*, bool ignore_own_messages_, bool ignore_rsu_messages_);
+    RouterContext(const vanetza::geonet::MIB&, TimeTrigger&, vanetza::PositionProvider&, vanetza::security::SecurityEntity*, bool ignore_own_messages_, bool ignore_rsu_messages_, boost::asio::io_service&);
     ~RouterContext();
     void enable(Application*);
     void disable(Application*);
@@ -31,6 +31,8 @@ public:
 
     void set_link_layer(LinkLayer*);
 
+    DccPassthrough& get_dccp();
+
 private:
     void indicate(vanetza::CohesivePacket&& packet, const vanetza::EthernetHeader& hdr);
     void log_packet_drop(vanetza::geonet::Router::PacketDropReason);
@@ -39,7 +41,7 @@ private:
 
     vanetza::geonet::MIB mib_;
     vanetza::geonet::Router router_;
-    TimeTrigger& trigger_;
+    boost::asio::io_service& io_context_;
     vanetza::PositionProvider& positioning_;
     vanetza::btp::PortDispatcher dispatcher_;
     std::unique_ptr<DccPassthrough> request_interface_;

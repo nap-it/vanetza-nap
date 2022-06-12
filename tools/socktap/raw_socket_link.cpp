@@ -1,5 +1,5 @@
 #include "raw_socket_link.hpp"
-#include "complete_packet.hpp"
+#include "vanetza/access/ethertype.hpp"
 #include <vanetza/access/data_request.hpp>
 #include <vanetza/net/ethernet_header.hpp>
 #include <iostream>
@@ -22,34 +22,37 @@
 using namespace vanetza;
 using namespace std::chrono;
 
-bool rssi_enabled;
+bool rssi_enabled = false;
 std::map<std::string, int> *rssi_map;
 
 static void rssi_handler(int port) {
-    boost::asio::io_context io_context;
-    boost::asio::ip::udp::endpoint receiver(boost::asio::ip::udp::v4(), port);
-    boost::asio::ip::udp::socket udp_socket(io_context, receiver);
+    if (port > 0) {
+        rssi_enabled = true;
+        boost::asio::io_context io_context;
+        boost::asio::ip::udp::endpoint receiver(boost::asio::ip::udp::v4(), port);
+        boost::asio::ip::udp::socket udp_socket(io_context, receiver);
 
-    for(;;)
-    {
-        char buffer[1024];
-        boost::asio::ip::udp::endpoint sender;
-        std::size_t bytes_transferred = udp_socket.receive_from(boost::asio::buffer(buffer), sender);
-        std::string tmpstr(buffer);
-        std::istringstream is(tmpstr);
+        for(;;)
+        {
+            char buffer[1024];
+            boost::asio::ip::udp::endpoint sender;
+            std::size_t bytes_transferred = udp_socket.receive_from(boost::asio::buffer(buffer), sender);
+            std::string tmpstr(buffer);
+            std::istringstream is(tmpstr);
 
-        std::map<std::string, int> tmp_map;
-        std::string line;
-        while (getline(is,line)) {
-            int delimiter = line.find("|");
-            if(delimiter == std::string::npos) break;
-            std::string mac = line.substr(0, delimiter);
-            int rssi = stoi(line.substr(delimiter, line.length()));
-            tmp_map[mac] = rssi;
+            std::map<std::string, int> tmp_map;
+            std::string line;
+            while (getline(is,line)) {
+                int delimiter = line.find("|");
+                if(delimiter == std::string::npos) break;
+                std::string mac = line.substr(0, delimiter);
+                int rssi = stoi(line.substr(delimiter, line.length()));
+                tmp_map[mac] = rssi;
+            }
+
+            rssi_map = &tmp_map;
         }
-
-        rssi_map = &tmp_map;
-    }  
+    }
 }
 
 RawSocketLink::RawSocketLink(boost::asio::generic::raw_protocol::socket&& socket) :
@@ -57,7 +60,7 @@ RawSocketLink::RawSocketLink(boost::asio::generic::raw_protocol::socket&& socket
     receive_endpoint_(socket_.local_endpoint())
 {   
     if (true) {
-        std::thread rssi_th(rssi_handler, 1111);
+        std::thread rssi_th(rssi_handler, 0);
         rssi_th.detach();
     }
     do_receive();
@@ -98,20 +101,23 @@ void RawSocketLink::on_read(const boost::system::error_code& ec, std::size_t rea
 {
     if (!ec) {
         ByteBuffer buffer(receive_buffer_.begin(), receive_buffer_.begin() + read_bytes);
-        double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
         CohesivePacket packet(std::move(buffer), OsiLayer::Physical);
         boost::optional<EthernetHeader> eth = parse_ethernet_header(packet);
-        packet.ethHeader = *eth;
-        std::stringstream stream;
-        stream << eth->source;
-        std::string result( stream.str() );
-        if (rssi_enabled && (*rssi_map).count(result.substr(result.length() - 4))) {
-            packet.rssi = (*rssi_map)[result.substr(result.length() - 4)];
-        }
-        else packet.rssi = -255;
-        packet.time_received = time_reception;
-        if (callback_ && eth) {
-            callback_(std::move(packet), *eth);
+        if(eth->type == access::ethertype::GeoNetworking) {
+            double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+            if(rssi_enabled) {
+                std::stringstream stream;
+                stream << eth->source;
+                std::string result(stream.str());
+                if ((*rssi_map).count(result.substr(result.length() - 4))) {
+                    packet.rssi = (*rssi_map)[result.substr(result.length() - 4)];
+                }
+            }
+            else packet.rssi = -255;
+            packet.time_received = time_reception;
+            if (callback_ && eth) {
+                callback_(std::move(packet), *eth);
+            }
         }
         do_receive();
     }

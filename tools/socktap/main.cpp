@@ -144,7 +144,7 @@ int main(int argc, const char** argv)
 
         exposer.RegisterCollectable(metrics_s.registry);
 
-        RouterContext context(mib, trigger, *positioning, security.get(), config_s.ignore_own_messages, config_s.ignore_rsu_messages);
+        RouterContext context(mib, trigger, *positioning, security.get(), config_s.ignore_own_messages, config_s.ignore_rsu_messages, io_service);
         context.require_position_fix(vm.count("require-gnss-fix") > 0);
         context.set_link_layer(link_layer.get());
 
@@ -152,7 +152,7 @@ int main(int argc, const char** argv)
 
         if (config_s.cam.enabled) {
             std::unique_ptr<CamApplication> cam_app {
-                new CamApplication(*positioning, trigger.runtime(), mqtt, dds, config_s, metrics_s)
+                new CamApplication(*positioning, context.get_dccp().get_trigger().runtime(), mqtt, dds, config_s, metrics_s)
             };
             cam_app->set_interval(std::chrono::milliseconds(config_s.cam.periodicity));
             apps.emplace("cam", std::move(cam_app));
@@ -160,7 +160,7 @@ int main(int argc, const char** argv)
 
         if (config_s.denm.enabled) {
             std::unique_ptr<DenmApplication> denm_app {
-                new DenmApplication(*positioning, trigger.runtime(), mqtt, dds, config_s, metrics_s)
+                new DenmApplication(*positioning, context.get_dccp().get_trigger().runtime(), mqtt, dds, config_s, metrics_s)
             };
             denm_app->set_interval(std::chrono::milliseconds(config_s.denm.periodicity));
             apps.emplace("denm", std::move(denm_app));
@@ -168,7 +168,7 @@ int main(int argc, const char** argv)
 
         if (config_s.cpm.enabled) {
             std::unique_ptr<CpmApplication> cpm_app {
-                    new CpmApplication(*positioning, trigger.runtime(), mqtt, dds, config_s, metrics_s)
+                    new CpmApplication(*positioning, context.get_dccp().get_trigger().runtime(), mqtt, dds, config_s, metrics_s)
             };
             cpm_app->set_interval(std::chrono::milliseconds(config_s.cpm.periodicity));
             apps.emplace("cpm", std::move(cpm_app));
@@ -176,7 +176,7 @@ int main(int argc, const char** argv)
 
         if (config_s.vam.enabled) {
             std::unique_ptr<VamApplication> vam_app {
-                    new VamApplication(*positioning, trigger.runtime(), mqtt, dds, config_s, metrics_s)
+                    new VamApplication(*positioning, context.get_dccp().get_trigger().runtime(), mqtt, dds, config_s, metrics_s)
             };
             vam_app->set_interval(std::chrono::milliseconds(config_s.vam.periodicity));
             apps.emplace("vam", std::move(vam_app));
@@ -184,7 +184,7 @@ int main(int argc, const char** argv)
 
         if (config_s.spatem.enabled) {
             std::unique_ptr<SpatemApplication> spatem_app {
-                    new SpatemApplication(*positioning, trigger.runtime(), mqtt, dds, config_s, metrics_s)
+                    new SpatemApplication(*positioning, context.get_dccp().get_trigger().runtime(), mqtt, dds, config_s, metrics_s)
             };
             spatem_app->set_interval(std::chrono::milliseconds(config_s.spatem.periodicity));
             apps.emplace("spatem", std::move(spatem_app));
@@ -192,7 +192,7 @@ int main(int argc, const char** argv)
 
         if (config_s.mapem.enabled) {
             std::unique_ptr<MapemApplication> mapem_app {
-                    new MapemApplication(*positioning, trigger.runtime(), mqtt, dds, config_s, metrics_s)
+                    new MapemApplication(*positioning, context.get_dccp().get_trigger().runtime(), mqtt, dds, config_s, metrics_s)
             };
             mapem_app->set_interval(std::chrono::milliseconds(config_s.mapem.periodicity));
             apps.emplace("mapem", std::move(mapem_app));

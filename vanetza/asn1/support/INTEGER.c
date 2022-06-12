@@ -359,7 +359,7 @@ asn_imax2INTEGER(INTEGER_t *st, intmax_t value) {
 	for(bp = buf, pend1 += add; p != pend1; p += add)
 		*bp++ = *p;
 
-	//if(st->buf) FREEMEM(st->buf);
+	if(st->buf) FREEMEM(st->buf);
 	st->buf = buf;
 	st->size = bp - buf;
 

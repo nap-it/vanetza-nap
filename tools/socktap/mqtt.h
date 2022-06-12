@@ -3,6 +3,7 @@
 #include <cstring>
 #include <string>
 #include <vector>
+#include "time_trigger.hpp"
 
 #define TAG "mqtt.cpp: "
 

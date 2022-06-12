@@ -182,7 +182,7 @@ CHOICE_free(const asn_TYPE_descriptor_t *td, void *ptr,
 
     switch(method) {
     case ASFM_FREE_EVERYTHING:
-        //FREEMEM(ptr);
+        FREEMEM(ptr);
         break;
     case ASFM_FREE_UNDERLYING:
         break;
