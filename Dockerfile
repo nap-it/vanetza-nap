@@ -68,7 +68,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /
-RUN printf "\nlistener 1883 0.0.0.0\nallow_anonymous true\n\n" > /etc/mosquitto/mosquitto.conf
+ENV EMBEDDED_MOSQUITTO_PORT=1883
 COPY --from=0 /vanetza/bin/socktap /usr/local/bin/socktap
 COPY --from=0 /root/go/src/dds-vanetza-service/Vanetza_DDS_Spec.xml /Vanetza_DDS_Spec.xml
 COPY --from=0 /vanetza/tools/socktap/config.ini /config.ini

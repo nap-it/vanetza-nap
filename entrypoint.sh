@@ -19,7 +19,8 @@ chmod +x /bin/block
 chmod +x /bin/unblock
 
 if [ $START_EMBEDDED_MOSQUITTO = true ] ; then
-    /usr/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf &>/dev/null &
+    printf "\nlistener ${EMBEDDED_MOSQUITTO_PORT} 0.0.0.0\nallow_anonymous true\n\n" > mosquitto.conf
+    /usr/sbin/mosquitto -c mosquitto.conf &>/dev/null &
     sleep 2
 fi
 
