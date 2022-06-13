@@ -250,10 +250,12 @@ The following table summarizes the available configuration options:
 | station.longitude | VANETZA_LONGITUDE | Hardcoded GPS longitude - Usually set on static RSUs | -8 | |
 | station.length | VANETZA_LENGTH | Vehicle lenght in meters | 10 | |
 | station.width | VANETZA_WIDTH | Vehicle width in meters | 3 | |
-| cam.full_topic_in | VANETZA_CAM_FULL_TOPIC_IN | MQTT/DDS topic from which Vanetza receives JSON CAMs in the full ETSI spec format | vanetza/in/cam_full | |
-| cam.full_topic_out | VANETZA_CAM_FULL_TOPIC_OUT | MQTT/DDS topic to which Vanetza sends JSON CAMs in the full ETSI spec format | vanetza/out/cam_full | |
-| vam.full_topic_in | VANETZA_VAM_FULL_TOPIC_IN | MQTT/DDS topic from which Vanetza receives JSON VAMs in the full ETSI spec format | vanetza/in/vam_full | |
-| vam.full_topic_out | VANETZA_VAM_FULL_TOPIC_OUT | MQTT/DDS topic to which Vanetza sends JSON VAMs in the full ETSI spec format | vanetza/out/vam_full | |
+| cam.full_topic_in | VANETZA_CAM_FULL_TOPIC_IN | MQTT/DDS topic from which Vanetza receives JSON CAMs in the full ETSI spec format | vanetza/in/cam_full | "" to disable |
+| cam.full_topic_out | VANETZA_CAM_FULL_TOPIC_OUT | MQTT/DDS topic to which Vanetza sends JSON CAMs in the full ETSI spec format | vanetza/out/cam_full | "" to disable |
+| vam.full_topic_in | VANETZA_VAM_FULL_TOPIC_IN | MQTT/DDS topic from which Vanetza receives JSON VAMs in the full ETSI spec format | vanetza/in/vam_full | "" to disable |
+| vam.full_topic_out | VANETZA_VAM_FULL_TOPIC_OUT | MQTT/DDS topic to which Vanetza sends JSON VAMs in the full ETSI spec format | vanetza/out/vam_full | "" to disable |
+| cam.own_topic_out | VANETZA_CAM_OWN_TOPIC_OUT | MQTT/DDS topic to which Vanetza sends a JSON representation of the hardcoded CAMs in the simple format | vanetza/own/cam | "" to disable |
+| cam.own_full_topic_out | VANETZA_CAM_OWN_FULL_TOPIC_OUT | MQTT/DDS topic to which Vanetza sends a JSON representation of the hardcoded CAMs in the full ETSI spec format | vanetza/own/cam_full | "" to disable |
 | --- | START_EMBEDDED_MOSQUITTO | Start an MQTT server inside the container to simulate a full OBU or RSU with a local MQTT broker | false | |
 | --- | SUPPORT_MAC_BLOCKING | Start the container with ebtables support in order to dynamically block and unblock MAC addresses, simulating out-of-range scenarios | false | |
 
