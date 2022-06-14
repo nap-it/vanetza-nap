@@ -1,15 +1,13 @@
 ogp=$(pwd)
 if [ $(uname -m) != "x86_64" ] ; then
     cd ../../pkg/mod/github.com/rticommunity/*/
-    echo $(pwd)
-    echo $(ls)
     SRCDIR=$(pwd)
-    CGO_CFLAGS="-I${SRCDIR}/include -I${SRCDIR}/rticonnextdds-connector/include -DRTI_UNIX -DRTI_LINUX"
-    CGO_LDFLAGS="-L${SRCDIR}/rticonnextdds-connector/lib/linux-arm -lrtiddsconnector -ldl -lnsl -lm -lpthread -lrt"
+    export CGO_CFLAGS="-I${SRCDIR}/include -I${SRCDIR}/rticonnextdds-connector/include -DRTI_UNIX -DRTI_LINUX"
+    export CGO_LDFLAGS="-L${SRCDIR}/rticonnextdds-connector/lib/linux-arm -lrtiddsconnector -ldl -lnsl -lm -lpthread -lrt"
     if [ $(uname -m) = "aarch64" ] ; then
-        rm -rf rticonnextdds-connector/lib/linux-arm
-        mv rticonnextdds-connector/lib/linux-arm64 rticonnextdds-connector/lib/linux-arm
+    	export CGO_LDFLAGS="-L${SRCDIR}/rticonnextdds-connector/lib/linux-arm64 -lrtiddsconnector -ldl -lnsl -lm -lpthread -lrt"
     fi
     cd $ogp
 fi
-GO111MODULE="on" go build -v main.go
+export GO111MODULE="on"
+go build main.go
