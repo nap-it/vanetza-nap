@@ -40,7 +40,8 @@ RUN mkdir -p /root/go/src/dds-vanetza-service
 RUN cp -r /vanetza/tools/dds_service/* /root/go/src/dds-vanetza-service
 WORKDIR /root/go/src/dds-vanetza-service
 RUN GO111MODULE="on" go mod tidy
-RUN GO111MODULE="on" go build main.go
+RUN chmod +x build.sh
+RUN ./build.sh
 WORKDIR /vanetza
 
 FROM debian:buster-slim

@@ -257,6 +257,7 @@ The following table summarizes the available configuration options:
 | cam.own_topic_out | VANETZA_CAM_OWN_TOPIC_OUT | MQTT/DDS topic to which Vanetza sends a JSON representation of the hardcoded CAMs in the simple format | vanetza/own/cam | "" to disable |
 | cam.own_full_topic_out | VANETZA_CAM_OWN_FULL_TOPIC_OUT | MQTT/DDS topic to which Vanetza sends a JSON representation of the hardcoded CAMs in the full ETSI spec format | vanetza/own/cam_full | "" to disable |
 | --- | START_EMBEDDED_MOSQUITTO | Start an MQTT server inside the container to simulate a full OBU or RSU with a local MQTT broker | false | |
+| --- | EMBEDDED_MOSQUITTO_PORT | The port on which the embedded MQTT broker listens for connections | 1883 | |
 | --- | SUPPORT_MAC_BLOCKING | Start the container with ebtables support in order to dynamically block and unblock MAC addresses, simulating out-of-range scenarios | false | |
 
 Each supported type of message (CAM, DENM, CPM, VAM, SPATEM, MAPEM) has its own set of configurations, which are specified in the following table (using CAMs as an example):
