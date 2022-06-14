@@ -24,6 +24,15 @@ if [ $START_EMBEDDED_MOSQUITTO = true ] ; then
     sleep 2
 fi
 
+if [ $(uname -m) = "armv7l" ] ; then
+    cd /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/linux-arm/
+    export LD_LIBRARY_PATH=$(pwd)
+fi
+if [ $(uname -m) = "aarch64" ] ; then
+    cd /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/linux-arm64/
+    export LD_LIBRARY_PATH=$(pwd)
+fi
+
 /root/go/src/dds-vanetza-service/main /config.ini /Vanetza_DDS_Spec.xml &>/dev/null &
 sleep 1
 /usr/local/bin/socktap -c /config.ini

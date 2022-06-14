@@ -33,7 +33,6 @@ services:
             - VANETZA_INTERFACE=br0
             - START_EMBEDDED_MOSQUITTO=true
             - SUPPORT_MAC_BLOCKING=true
-            - EMBEDDED_MOSQUITTO_PORT=1884
         networks:
             vanetzalan0:
                 ipv4_address: 192.168.98.20
@@ -44,4 +43,3 @@ services:
 networks:
   vanetzalan0:
     external: true
-    name: vanetzalan0
