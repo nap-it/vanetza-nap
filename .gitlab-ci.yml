@@ -8,8 +8,8 @@ build:
   stage: build
   image: carlallen/docker:buildx
   before_script:
-    #- docker buildx create --driver=docker-container --name=buildkit-builder --use
-    #- docker login -u vanetza-ci -p $CI_TOKEN code.nap.av.it.pt:5050
+    - docker buildx use builder
+    - docker login -u vanetza-ci -p $CI_TOKEN code.nap.av.it.pt:5050
   script: |
     docker buildx build \
           --platform=linux/amd64,linux/arm64,linux/armhf \
