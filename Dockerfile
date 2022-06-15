@@ -39,7 +39,7 @@ RUN cp /vanetza/bin/socktap /usr/local/bin/socktap
 RUN mkdir -p /root/go/src/dds-vanetza-service
 RUN cp -r /vanetza/tools/dds_service/* /root/go/src/dds-vanetza-service
 WORKDIR /root/go/src/dds-vanetza-service
-RUN GO111MODULE="on" go mod tidy
+RUN GOMAXPROCS=1 GO111MODULE="on" go mod tidy
 RUN chmod +x build.sh
 RUN ./build.sh
 WORKDIR /vanetza

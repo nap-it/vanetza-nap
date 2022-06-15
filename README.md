@@ -25,7 +25,7 @@ The following diagram examplifies a common usage pattern:
 
 Note: In the case of CAMs, NAP-Vanetza also has a pre-defined "hard-coded" CAM message which is periodically sent at a configurable frequency and with updated GPS values, without the need for an external application to publish JSON CAMs (which is also allowed). This behaviour can be disabled.
 
-## Building (Docker)
+## Setting up (Docker)
 
 1. Install docker and docker-compose
 ```
@@ -37,12 +37,7 @@ sudo apt install docker-ce docker-compose
 
 2. Clone NAP-Vanetza's repository and navigate to the project's root directory
 
-3. Build the docker image
-
-```
-docker build -t vanetza:test .
-```
-2. Create the Docker network that the Vanetza containers will use to exchange ETSI C-ITS messages 
+3. Create the Docker network that the Vanetza containers will use to exchange ETSI C-ITS messages 
 
 ```
 docker network create vanetzalan0 --subnet 192.168.98.0/24
@@ -64,6 +59,16 @@ Refer to the configuration section for more details on how to configure each con
 Each container includes an embeded MQTT broker in order to fully simulate the common environment described in the first section. This feature can be disabled if required.
 
 ![Docker Diagram](https://i.ibb.co/XxCzVZK/docker-diagram.png)
+
+#### Updating the Vanetza image
+
+You may update Vanetza to the lastest version by running the following command:
+
+```
+docker pull code.nap.av.it.pt:5050/mobility-networks/vanetza:latest
+```
+
+Try to do this regularly, since NAP-Vanetza is in active development and new features and bug fixes are frequently added.
 
 #### Running in the background
 
@@ -217,9 +222,11 @@ These situations would require a separate config file for each container mounted
 To solve this, NAP-Vanetza also accepts configuration via environment variables that can be set in the environment section of **docker-compose.yml**. 
 Any values set via environment variables have priority over the ones found in config.ini, thus making it possible to use config.ini for common configurations and environment variables for values that are unique to each container (i.e: Station ID, MAC Address, etc)
 
-Note: The vanetza docker image must be rebuilt after every change to the config.ini file. 
+Note: If you decide to change the default values present in config.ini you must map the changed file inside the containers using volumes in each container's section in docker-compose.yml
 ```
-docker build -t vanetza:test .
+volumes:
+    - tools/socktap/config.ini:/config.ini
+
 ```
 
 Environment variable changes, however, only require a restart of the running containers.

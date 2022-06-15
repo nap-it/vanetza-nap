@@ -10,4 +10,5 @@ if [ $(uname -m) != "x86_64" ] ; then
     cd $ogp
 fi
 export GO111MODULE="on"
+export GOMAXPROCS=1
 go build main.go
