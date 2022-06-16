@@ -79,7 +79,7 @@ void CpmApplication::indicate(const DataIndication& indication, UpPacketPtr pack
 
     if(config_s.cpm.mqtt_enabled) mqtt->publish(config_s.cpm.topic_out, cpm_json);
     if(config_s.cpm.dds_enabled) dds->publish(config_s.cpm.topic_out, cpm_json);
-    //std::cout << "CPM JSON: " << cpm_json << std::endl;
+    if(config_s.enable_json_prints) std::cout << "CPM JSON: " << cpm_json << std::endl;
     cpm_rx_counter->Increment();
 
     if(config_s.cpm.udp_out_port != 0) {

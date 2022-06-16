@@ -77,7 +77,7 @@ void DenmApplication::indicate(const DataIndication& indication, UpPacketPtr pac
 
     if(config_s.denm.mqtt_enabled) mqtt->publish(config_s.denm.topic_out, denm_json);
     if(config_s.denm.dds_enabled) dds->publish(config_s.denm.topic_out, denm_json);
-    //std::cout << "DENM JSON: " << denm_json << std::endl;
+    if(config_s.enable_json_prints) std::cout << "DENM JSON: " << denm_json << std::endl;
     denm_rx_counter->Increment();
 
     if(config_s.denm.udp_out_port != 0) {

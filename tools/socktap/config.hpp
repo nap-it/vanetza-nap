@@ -38,6 +38,7 @@ typedef struct config {
     bool ignore_rsu_messages;
     int to_dds_key;
     int from_dds_key;
+    bool enable_json_prints;
     message_config_t cam;
     message_config_t denm;
     message_config_t cpm;

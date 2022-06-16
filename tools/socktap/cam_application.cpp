@@ -88,7 +88,7 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
 
     if(config_s.cam.mqtt_enabled) mqtt->publish(config_s.cam.topic_out, cam_json);
     if(config_s.cam.dds_enabled) dds->publish(config_s.cam.topic_out, cam_json);
-    //std::cout << "CAM JSON: " << cam_json << std::endl;
+    if(config_s.enable_json_prints) std::cout << "CAM JSON: " << cam_json << std::endl;
     cam_rx_counter->Increment();
 
     if(config_s.full_cam_topic_out != "") { 
@@ -173,13 +173,13 @@ std::string CamApplication::buildJSON(CAM_t message, double time_reception, int 
             {"accEngaged", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-4)))},
             {"cruiseControl", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-5)))},
             {"speedLimiter", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-6)))},
-            {"specialVehicle", {
-                  {"publicTransportContainer", {
-                     {"embarkationStatus", false}
-                  }
-                  }
-            }}
+            {"specialVehicle", nullptr}
     };
+
+    if (cam.camParameters.specialVehicleContainer != 0) {
+        json svc = *(cam.camParameters.specialVehicleContainer);
+        json_payload["specialVehicle"] = svc;
+    }
 
     if(include_fields) {
         json_payload["timestamp"] = time_reception;
@@ -297,8 +297,12 @@ void CamApplication::on_message(string topic, string mqtt_message) {
             cam->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.cenDsrcTollingZone = nullptr;
             cam->camParameters.lowFrequencyContainer = nullptr;
             cam->camParameters.specialVehicleContainer = nullptr;
-            cam->camParameters.specialVehicleContainer = vanetza::asn1::allocate<SpecialVehicleContainer_t>();
-            payload.at("specialVehicle").get_to(*(cam->camParameters.specialVehicleContainer));
+            if (payload.contains("specialVehicle")) {
+                cam->camParameters.specialVehicleContainer = vanetza::asn1::allocate<SpecialVehicleContainer_t>();
+                payload.at("specialVehicle").get_to(*(cam->camParameters.specialVehicleContainer));
+            } else {
+                cam->camParameters.specialVehicleContainer = nullptr;
+            }
             cam->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.longitudinalAcceleration.longitudinalAccelerationConfidence = AccelerationConfidence_unavailable;
             cam->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.yawRate.yawRateConfidence = YawRateConfidence_unavailable;
             cam->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.heading.headingConfidence = HeadingConfidence_unavailable;

@@ -81,7 +81,7 @@ void VamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
 
     if(config_s.vam.mqtt_enabled) mqtt->publish(config_s.vam.topic_out, vam_json);
     if(config_s.vam.dds_enabled) dds->publish(config_s.vam.topic_out, vam_json);
-    //std::cout << "VAM JSON: " << vam_json << std::endl;
+    if(config_s.enable_json_prints) std::cout << "VAM JSON: " << vam_json << std::endl;
     vam_rx_counter->Increment();
 
     if(config_s.full_vam_topic_out != "") {

@@ -79,7 +79,7 @@ void SpatemApplication::indicate(const DataIndication& indication, UpPacketPtr p
 
     if(config_s.spatem.mqtt_enabled) mqtt->publish(config_s.spatem.topic_out, spatem_json);
     if(config_s.spatem.dds_enabled) dds->publish(config_s.spatem.topic_out, spatem_json);
-    //std::cout << "SPATEM JSON: " << spatem_json << std::endl;
+    if(config_s.enable_json_prints) std::cout << "SPATEM JSON: " << spatem_json << std::endl;
     spatem_rx_counter->Increment();
 
     if(config_s.spatem.udp_out_port != 0) {

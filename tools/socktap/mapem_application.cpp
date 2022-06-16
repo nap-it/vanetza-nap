@@ -79,7 +79,7 @@ void MapemApplication::indicate(const DataIndication& indication, UpPacketPtr pa
 
     if(config_s.mapem.mqtt_enabled) mqtt->publish(config_s.mapem.topic_out, mapem_json);
     if(config_s.mapem.dds_enabled) dds->publish(config_s.mapem.topic_out, mapem_json);
-    //std::cout << "MAPEM JSON: " << mapem_json << std::endl;
+    if(config_s.enable_json_prints) std::cout << "MAPEM JSON: " << mapem_json << std::endl;
     mapem_rx_counter->Increment();
 
     if(config_s.mapem.udp_out_port != 0) {

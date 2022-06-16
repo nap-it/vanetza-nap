@@ -248,6 +248,7 @@ The following table summarizes the available configuration options:
 | general.ignore_rsu_messages | VANETZA_IGNORE_RSU_MESSAGES | Ignore messages from RSUs - Usually set on RSUs | false | |
 | general.to_dds_key | VANETZA_TO_DDS_KEY | SysV Message Queue Key which Vanetza uses to send JSON to be published in DDS topics | 6060 | Advanced usage to minimize communication latency |
 | general.from_dds_key | VANETZA_FROM_DDS_KEY | SysV Message Queue Key which Vanetza uses to receive JSON from DDS topics | 6061 | Advanced usage to minimize communication latency |
+| general.enable_json_prints | VANETZA_ENABLE_JSON_PRINTS | Print a JSON representation of incoming messages on the terminal/logs | true | |
 | station.id | VANETZA_STATION_ID | ETSI Station ID field | 99 | |
 | station.type | VANETZA_STATION_TYPE | ETSI Station Type field | 15 | |
 | station.mac_address | VANETZA_MAC_ADDRESS | Virtual Mac Address used as the source on L2 ethernet headers | interface's address | |
