@@ -18,8 +18,3 @@ build:
           --push \
           --tag $CI_REGISTRY_IMAGE:latest \
           .
-  only:
-    changes:
-      - Dockerfile
-      - ./**/*.{py,cpp,hpp,c,go,sh,xml,ini}
-      - entrypoint.sh
