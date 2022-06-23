@@ -3,7 +3,7 @@ services:
     rsu:
         hostname: rsu
         restart: always
-        image: code.nap.av.it.pt:5050/mobility-networks/vanetza:latest
+        image: vanetza:test
         cap_add:
             - "NET_ADMIN"
         environment:
@@ -23,7 +23,7 @@ services:
     obu:
         hostname: obu
         restart: always
-        image: code.nap.av.it.pt:5050/mobility-networks/vanetza:latest
+        image: vanetza:test
         cap_add:
             - "NET_ADMIN"
         environment:
