@@ -174,6 +174,18 @@ void SpatemApplication::on_message(string topic, string mqtt_message) {
 
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
+    if(config_s.spatem.mqtt_time_enabled) {
+        nlohmann::json json_payload = {
+            {"timestamp", time_reception},
+            {"test", {
+                    {"wave_timestamp", time_now}
+                },
+            },
+            {"fields", payload},
+        };
+        mqtt->publish(config_s.spatem.topic_time, json_payload.dump());
+    }
+
     spatem_tx_counter->Increment();
     spatem_tx_latency->Increment(time_now - time_reception);
 }

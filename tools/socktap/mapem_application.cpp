@@ -174,6 +174,18 @@ void MapemApplication::on_message(string topic, string mqtt_message) {
 
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
+    if(config_s.mapem.mqtt_time_enabled) {
+        nlohmann::json json_payload = {
+            {"timestamp", time_reception},
+            {"test", {
+                    {"wave_timestamp", time_now}
+                },
+            },
+            {"fields", payload},
+        };
+        mqtt->publish(config_s.mapem.topic_time, json_payload.dump());
+    }
+
     mapem_tx_counter->Increment();
     mapem_tx_latency->Increment(time_now - time_reception);
 }

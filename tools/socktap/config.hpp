@@ -13,9 +13,11 @@ typedef struct message_config {
     int periodicity;
     string topic_in;
     string topic_out;
+    string topic_time;
     string udp_out_addr;
     int udp_out_port;
     bool mqtt_enabled;
+    bool mqtt_time_enabled;
     bool dds_enabled;
 } message_config_t;
 
