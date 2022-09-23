@@ -27,10 +27,11 @@ ip::udp::socket denm_udp_socket(denm_io_service_);
 ip::udp::endpoint denm_remote_endpoint;
 boost::system::error_code denm_err;
 
-DenmApplication::DenmApplication(PositionProvider& positioning, Runtime& rt, Mqtt* mqtt_, Dds* dds_, config_t config_s_, metrics_t metrics_s_) :
-    positioning_(positioning), runtime_(rt), denm_interval_(seconds(1)), mqtt(mqtt_), dds(dds_), config_s(config_s_), metrics_s(metrics_s_)
+DenmApplication::DenmApplication(PositionProvider& positioning, Runtime& rt, Mqtt *local_mqtt_, Mqtt *remote_mqtt_, Dds* dds_, config_t config_s_, metrics_t metrics_s_) :
+    positioning_(positioning), runtime_(rt), denm_interval_(seconds(1)), local_mqtt(local_mqtt_),remote_mqtt(remote_mqtt_), dds(dds_), config_s(config_s_), metrics_s(metrics_s_)
 {
-    if(config_s.denm.mqtt_enabled) mqtt->subscribe(config_s.denm.topic_in, this);
+    if(config_s.denm.mqtt_enabled) local_mqtt->subscribe(config_s.denm.topic_in, this);
+    if(config_s.denm.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe("obu" + std::to_string(config_s.station_id) + "/" + config_s.denm.topic_in, this);
     if(config_s.denm.dds_enabled)  dds->subscribe(config_s.denm.topic_in, this);
 
     denm_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "denm"}, {"direction", "rx"}}));
@@ -75,7 +76,8 @@ void DenmApplication::indicate(const DataIndication& indication, UpPacketPtr pac
     DENM_t denm_t = {(*denm)->header, (*denm)->denm};
     string denm_json = buildJSON(denm_t, cp.time_received, cp.rssi);
 
-    if(config_s.denm.mqtt_enabled) mqtt->publish(config_s.denm.topic_out, denm_json);
+    if(config_s.denm.mqtt_enabled) local_mqtt->publish(config_s.denm.topic_out, denm_json);
+    if(config_s.denm.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.denm.topic_out, denm_json);
     if(config_s.denm.dds_enabled) dds->publish(config_s.denm.topic_out, denm_json);
     if(config_s.enable_json_prints) std::cout << "DENM JSON: " << denm_json << std::endl;
     denm_rx_counter->Increment();
@@ -181,7 +183,8 @@ void DenmApplication::on_message(string topic, string mqtt_message) {
             },
             {"fields", payload},
         };
-        mqtt->publish(config_s.denm.topic_time, json_payload.dump());
+        local_mqtt->publish(config_s.denm.topic_time, json_payload.dump());
+        if(remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.denm.topic_time, json_payload.dump());
     }
 
     denm_tx_counter->Increment();

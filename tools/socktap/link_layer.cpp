@@ -8,7 +8,7 @@
 #endif
 
 std::unique_ptr<LinkLayer>
-create_link_layer(boost::asio::io_service& io_service, const EthernetDevice& device, const std::string& name)
+create_link_layer(boost::asio::io_service& io_service, const EthernetDevice& device, const std::string& name, const int rssi_port)
 {
     std::unique_ptr<LinkLayer> link_layer;
 
@@ -18,7 +18,7 @@ create_link_layer(boost::asio::io_service& io_service, const EthernetDevice& dev
         raw_socket.bind(device.endpoint(AF_PACKET));
 
         if (name == "ethernet") {
-            link_layer.reset(new RawSocketLink { std::move(raw_socket) });
+            link_layer.reset(new RawSocketLink { std::move(raw_socket), rssi_port });
         } else if (name == "cohda") {
 #ifdef SOCKTAP_WITH_COHDA_LLC
             link_layer.reset(new CohdaLink { std::move(raw_socket) });

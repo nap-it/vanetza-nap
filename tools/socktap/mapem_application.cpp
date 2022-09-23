@@ -28,11 +28,12 @@ ip::udp::socket mapem_udp_socket(mapem_io_service_);
 ip::udp::endpoint mapem_remote_endpoint;
 boost::system::error_code mapem_err;
 
-MapemApplication::MapemApplication(PositionProvider& positioning, Runtime& rt, Mqtt* mqtt_, Dds* dds_, config_t config_s_, metrics_t metrics_s_) :
-    positioning_(positioning), runtime_(rt), mapem_interval_(seconds(1)), mqtt(mqtt_), dds(dds_), config_s(config_s_), metrics_s(metrics_s_)
+MapemApplication::MapemApplication(PositionProvider& positioning, Runtime& rt, Mqtt *local_mqtt_, Mqtt *remote_mqtt_, Dds* dds_, config_t config_s_, metrics_t metrics_s_) :
+    positioning_(positioning), runtime_(rt), mapem_interval_(seconds(1)), local_mqtt(local_mqtt_), remote_mqtt(remote_mqtt_), dds(dds_), config_s(config_s_), metrics_s(metrics_s_)
 {
     //persistence = {};
-    if(config_s.mapem.mqtt_enabled) mqtt->subscribe(config_s.mapem.topic_in, this);
+    if(config_s.mapem.mqtt_enabled) local_mqtt->subscribe(config_s.mapem.topic_in, this);
+    if(config_s.mapem.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe("obu" + std::to_string(config_s.station_id) + "/" + "obu" + std::to_string(config_s.station_id) + "/" + config_s.mapem.topic_in, this);
     if(config_s.mapem.dds_enabled) dds->subscribe(config_s.mapem.topic_in, this);
     
     mapem_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "mapem"}, {"direction", "rx"}}));
@@ -77,7 +78,8 @@ void MapemApplication::indicate(const DataIndication& indication, UpPacketPtr pa
     MAPEM_t mapem_t = {(*mapem)->header, (*mapem)->map};
     string mapem_json = buildJSON(mapem_t, cp.time_received, cp.rssi);
 
-    if(config_s.mapem.mqtt_enabled) mqtt->publish(config_s.mapem.topic_out, mapem_json);
+    if(config_s.mapem.mqtt_enabled) local_mqtt->publish(config_s.mapem.topic_out, mapem_json);
+    if(config_s.mapem.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.mapem.topic_out, mapem_json);
     if(config_s.mapem.dds_enabled) dds->publish(config_s.mapem.topic_out, mapem_json);
     if(config_s.enable_json_prints) std::cout << "MAPEM JSON: " << mapem_json << std::endl;
     mapem_rx_counter->Increment();
@@ -183,7 +185,8 @@ void MapemApplication::on_message(string topic, string mqtt_message) {
             },
             {"fields", payload},
         };
-        mqtt->publish(config_s.mapem.topic_time, json_payload.dump());
+        local_mqtt->publish(config_s.mapem.topic_time, json_payload.dump());
+        if(remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.mapem.topic_time, json_payload.dump());
     }
 
     mapem_tx_counter->Increment();

@@ -1,7 +1,7 @@
 #include "mqtt.h"
 #include <map>  
 
-map<string, Mqtt_client*> subscribers;
+
 
 Mqtt::Mqtt(string id, string host, int port, string username, string password){
 
@@ -72,7 +72,7 @@ bool Mqtt::publish(string topic, string message)
 }
 
 bool Mqtt::subscribe(string topic, Mqtt_client* object) {
-    subscribers[topic] = object;
+    this->subscribers[topic] = object;
     int answer = mosquittopp::subscribe(nullptr, topic.c_str());
     return answer == MOSQ_ERR_SUCCESS;
 }
@@ -86,7 +86,7 @@ void Mqtt::on_message(const struct mosquitto_message *message) {
     string payload = string(static_cast<char *>(message->payload));
     string topic = string(message->topic);
 
-    subscribers[topic]->on_message(topic, payload);
+    this->subscribers[topic]->on_message(topic, payload);
 
     //cout<< TAG << "payload: " << payload << endl;
     //cout<< TAG << "topic: " << topic << endl;

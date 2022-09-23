@@ -234,9 +234,13 @@ The following table summarizes the available configuration options:
 | .ini file key | Environment var key | Description | Default | Notes |
 | ----------- | ----------- | ----------- | ----------- | ----------- |
 | general.interface | VANETZA_INTERFACE | Network interface where the ETSI messages are exchanged | wlan0 | Docker: br0/eth0 |
-| general.mqtt_broker | VANETZA_MQTT_BROKER | MQTT Broker's IP address or DNS name | 127.0.0.1 | |
-| general.mqtt_port | VANETZA_MQTT_PORT | MQTT Broker's Port | 1883 | |
-| general.prometheus_port | VANETZA_PROMETHEUS_PORT | Port on which Vanetza exposes metrics | 9100 | |
+| general.local_mqtt_broker | VANETZA_LOCAL_MQTT_BROKER | Local MQTT Broker's IP address or DNS name | 127.0.0.1 | |
+| general.local_mqtt_port | VANETZA_LOCAL_MQTT_PORT | Local MQTT Broker's Port | 1883 | |
+| general.remote_mqtt_broker | VANETZA_REMOTE_MQTT_BROKER | Remote MQTT Broker's IP address or DNS name | "" | Empty to disable |
+| general.remote_mqtt_port | VANETZA_REMOTE_MQTT_PORT | Remote MQTT Broker's Port | 0 | 0 to disable |
+| general.remote_mqtt_username | VANETZA_REMOTE_MQTT_USERNAME | Remote MQTT Broker's Auth Username | "" | Empty to disable |
+| general.remote_mqtt_password | VANETZA_REMOTE_MQTT_PASSWORD | Remote MQTT Broker's Auth Password | "" | Empty to disable |
+| general.prometheus_port | VANETZA_PROMETHEUS_PORT | Port on which Vanetza exposes metrics | 9100 | 0 to disable |
 | general.rssi_port | VANETZA_RSSI_PORT | Port on which Vanetza communicates with the RSSI_Discovery service | 3000 | Not used on Docker; 0 to disable |
 | general.ignore_own_messages | VANETZA_IGNORE_OWN_MESSAGES | Don't capture or decode messages originating from the station itself | true | |
 | general.ignore_rsu_messages | VANETZA_IGNORE_RSU_MESSAGES | Ignore messages from RSUs - Usually set on RSUs | false | |
@@ -268,10 +272,12 @@ Each supported type of message (CAM, DENM, CPM, VAM, SPATEM, MAPEM) has its own 
 | ----------- | ----------- | ----------- | ----------- | ----------- |
 | cam.enabled | VANETZA_CAM_ENABLED | Enable the CAM module | true | |
 | cam.mqtt_enabled | VANETZA_CAM_MQTT_ENABLED | Enable publishing and subscribing to MQTT topics | true | |
+| cam.mqtt_time_enabled | VANETZA_CAM_MQTT_TIME_ENABLED | Enable publishing to the respective time topic for performance measurement purposes | true | |
 | cam.dds_enabled | VANETZA_CAM_DDS_ENABLED | Enable publishing and subscribing to DDS topics | true  | Advanced usage only |
 | cam.periodicity | VANETZA_CAM_PERIODICITY | Periodicity with which to send the default CAM, in milliseconds | 1000 | Only available on CAMs, 0 to disable |
 | cam.topic_in | VANETZA_CAM_TOPIC_IN | MQTT/DDS topic from which Vanetza receives JSON CAMs to encode and send | vanetza/in/cam |  |
 | cam.topic_out | VANETZA_CAM_TOPIC_OUT | MQTT/DDS topic to which Vanetza sends JSON CAMs that were received and decoded | vanetza/out/cam | |
+| cam.topic_time | VANETZA_CAM_TOPIC_TIME | MQTT/DDS topic to which Vanetza sends JSON CAMs that were received in vanetza/in/cam and sent through the WAVE interface | vanetza/time/cam | |
 | cam.udp_out_addr | VANETZA_CAM_UDP_OUT_ADDR | Address of the UDP server to which Vanetza sends decoded JSON CAMs, in order to minimize communication latency - Used in NAP's Connection Manager v1 | 127.0.0.1 | |
 | cam.udp_out_port | VANETZA_CAM_UDP_OUT_PORT | Port of the UDP server to which Vanetza sends decoded JSON CAMs, in order to minimize communication latency - Used in NAP's Connection Manager v1 | 5051 | 0 to disable |
 
@@ -300,6 +306,42 @@ These fields are generally optional and relatively unimportant. They will be add
 * TemporaryID
 
 ## Advanced Usage
+
+### Measuring processing performance & MQTT/DDS latency
+
+Each JSON payload that is output by Vanetza contains two different timestamps in UNIX time format.
+
+#### vanetza/out/xxx
+
+- "timestamp": The instant at which the ASN.1 encoded message was received at the WAVE interface
+- "test/json_timestamp": The instant at which Vanetza finished preparing the JSON payload in order to send it via MQTT and/or DDS.
+
+The difference between these timestamps represents the total time elapsed while performing the decoding, parsing, and JSON generation tasks.
+
+The difference between the "test/json_timestamp" field and the time at which a given client receives a message on this topic represents the total latency introduced by MQTT/DDS and the underlying network
+
+#### vanetza/own/cam
+
+- "timestamp": The instant at which the internal timer scheduled the transmission of a new self-generated CAM message
+- "test/json_timestamp": The instant at which Vanetza finished preparing the JSON payload in order to send it via MQTT and/or DDS.
+
+The difference between these timestamps represents the total time elapsed while performing the encoding and queueing of the ASN.1 message and the JSON generation pipeline.
+
+The difference between the "test/json_timestamp" field and the time at which a given client receives a message on this topic represents the total latency introduced by MQTT/DDS and the underlying network
+
+#### vanetza/time/xxx
+
+- "timestamp": The instant at which the JSON payload was received in the "vanetza/in/xxx" MQTT/DDS topic
+- "test/wave_timestamp": The instant at which Vanetza finished preparing and sending the ASN.1 encoded message through the WAVE interface
+
+The difference between these timestamps represents the total time elapsed while parsing the JSON message and encoding and queueing the ASN.1 message. 
+
+The difference between the "test/wave_timestamp" field and the time at which a given client receives a message on this topic represents the total latency introduced by MQTT/DDS and the underlying network
+
+
+**Note**: The "json_timestamp" fields need to be included in the JSON payload itself. This introduces a slight error margin that is unavoidable in this scenario.
+
+**Note**: For legacy reasons, the "vanetza/out/cam_full" topic uses "others" instead of "test".
 
 ### Simulating situations where stations become out of range from each other
 

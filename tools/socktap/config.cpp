@@ -29,8 +29,12 @@ void read_config(config_t* config_s, string path) {
     config_s->length = getenv("VANETZA_LENGTH") == NULL ? reader.GetReal("station", "length", 10) : stod(getenv("VANETZA_LENGTH"));
     config_s->width = getenv("VANETZA_WIDTH") == NULL ? reader.GetReal("station", "width", 3) : stod(getenv("VANETZA_WIDTH"));
     config_s->interface = getenv("VANETZA_INTERFACE") == NULL ? reader.Get("general", "interface", "wlan0") : getenv("VANETZA_INTERFACE");
-    config_s->mqtt_broker = getenv("VANETZA_MQTT_BROKER") == NULL ? reader.Get("general", "mqtt_broker", "127.0.0.1") : getenv("VANETZA_MQTT_BROKER");
-    config_s->mqtt_port = getenv("VANETZA_MQTT_PORT") == NULL ? reader.GetInteger("general", "mqtt_port", 1883) : stoi(getenv("VANETZA_MQTT_PORT"));
+    config_s->local_mqtt_broker = getenv("VANETZA_LOCAL_MQTT_BROKER") == NULL ? reader.Get("general", "local_mqtt_broker", "127.0.0.1") : getenv("VANETZA_LOCAL_MQTT_BROKER");
+    config_s->local_mqtt_port = getenv("VANETZA_LOCAL_MQTT_PORT") == NULL ? reader.GetInteger("general", "local_mqtt_port", 1883) : stoi(getenv("VANETZA_LOCAL_MQTT_PORT"));
+    config_s->remote_mqtt_broker = getenv("VANETZA_REMOTE_MQTT_BROKER") == NULL ? reader.Get("general", "remote_mqtt_broker", "") : getenv("VANETZA_REMOTE_MQTT_BROKER");
+    config_s->remote_mqtt_port = getenv("VANETZA_REMOTE_MQTT_PORT") == NULL ? reader.GetInteger("general", "remote_mqtt_port", 0) : stoi(getenv("VANETZA_REMOTE_MQTT_PORT"));
+    config_s->remote_mqtt_username = getenv("VANETZA_REMOTE_MQTT_USERNAME") == NULL ? reader.Get("general", "remote_mqtt_username", "") : getenv("VANETZA_REMOTE_MQTT_USERNAME");
+    config_s->remote_mqtt_password = getenv("VANETZA_REMOTE_MQTT_PASSWORD") == NULL ? reader.Get("general", "remote_mqtt_password", "") : getenv("VANETZA_REMOTE_MQTT_PASSWORD");
     config_s->prometheus_port = getenv("VANETZA_PROMETHEUS_PORT") == NULL ? reader.GetInteger("general", "prometheus_port", 9100) : stoi(getenv("VANETZA_PROMETHEUS_PORT"));
     config_s->rssi_port = getenv("VANETZA_RSSI_PORT") == NULL ? reader.GetInteger("general", "rssi_port", 3000) : stoi(getenv("VANETZA_RSSI_PORT"));
     config_s->ignore_own_messages = getenv("VANETZA_IGNORE_OWN_MESSAGES") == NULL ? reader.GetBoolean("general", "ignore_own_messages", true) : (strcmp((getenv("VANETZA_IGNORE_OWN_MESSAGES")), "true") == 0);

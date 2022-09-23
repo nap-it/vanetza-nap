@@ -10,7 +10,7 @@
 class DenmApplication : public Application, public Mqtt_client
 {
 public:
-    DenmApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, Mqtt* mqtt_, Dds* dds_, config_t config_s_, metrics_t metrics_s_);
+    DenmApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, Mqtt *local_mqtt_, Mqtt *remote_mqtt_, Dds* dds_, config_t config_s_, metrics_t metrics_s_);
     PortType port() override;
     void indicate(const DataIndication&, UpPacketPtr) override;
     void set_interval(vanetza::Clock::duration);
@@ -23,7 +23,8 @@ private:
     vanetza::PositionProvider& positioning_;
     vanetza::Runtime& runtime_;
     vanetza::Clock::duration denm_interval_;
-    Mqtt *mqtt;
+    Mqtt *local_mqtt;
+    Mqtt *remote_mqtt;
     Dds *dds;
     config_t config_s;
     metrics_t metrics_s;

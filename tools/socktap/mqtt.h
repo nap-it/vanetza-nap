@@ -25,6 +25,7 @@ private:
     string id;
     string host;
     int port;
+    map<string, Mqtt_client*> subscribers;
 
 
     /**

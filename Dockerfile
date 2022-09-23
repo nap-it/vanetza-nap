@@ -29,12 +29,12 @@ RUN git clone https://github.com/jupp0r/prometheus-cpp.git
 WORKDIR /tmp/prometheus-cpp
 RUN git submodule update --init
 RUN cmake -B_build -DCPACK_GENERATOR=DEB -DBUILD_SHARED_LIBS=ON
-RUN cmake --build _build --target package --parallel 4
+RUN cmake --build _build --target package --parallel $(nproc)
 RUN dpkg -i _build/*.deb
 WORKDIR /vanetza
 RUN rm -f CMakeCache.txt
 RUN cmake .
-RUN cmake --build . --target socktap -j 4
+RUN cmake --build . --target socktap -j $(nproc)
 RUN cp /vanetza/bin/socktap /usr/local/bin/socktap
 RUN mkdir -p /root/go/src/dds-vanetza-service
 RUN cp -r /vanetza/tools/dds_service/* /root/go/src/dds-vanetza-service

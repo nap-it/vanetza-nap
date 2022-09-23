@@ -32,8 +32,12 @@ typedef struct config {
     double length;
     double width;
     string interface;
-    string mqtt_broker;
-    int mqtt_port;
+    string local_mqtt_broker;
+    int local_mqtt_port;
+    string remote_mqtt_broker;
+    int remote_mqtt_port;
+    string remote_mqtt_username;
+    string remote_mqtt_password;
     int prometheus_port;
     int rssi_port;
     bool ignore_own_messages;

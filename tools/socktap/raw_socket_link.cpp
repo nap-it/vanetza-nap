@@ -55,14 +55,12 @@ static void rssi_handler(int port) {
     }
 }
 
-RawSocketLink::RawSocketLink(boost::asio::generic::raw_protocol::socket&& socket) :
+RawSocketLink::RawSocketLink(boost::asio::generic::raw_protocol::socket&& socket, const int rssi_port) :
     socket_(std::move(socket)), receive_buffer_(2048, 0x00),
     receive_endpoint_(socket_.local_endpoint())
 {   
-    if (true) {
-        std::thread rssi_th(rssi_handler, 0);
-        rssi_th.detach();
-    }
+    std::thread rssi_th(rssi_handler, rssi_port);
+    rssi_th.detach();
     do_receive();
 }
 
@@ -105,6 +103,7 @@ void RawSocketLink::on_read(const boost::system::error_code& ec, std::size_t rea
         boost::optional<EthernetHeader> eth = parse_ethernet_header(packet);
         if(eth->type == access::ethertype::GeoNetworking) {
             double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+            packet.rssi = -255;
             if(rssi_enabled) {
                 std::stringstream stream;
                 stream << eth->source;
@@ -113,7 +112,6 @@ void RawSocketLink::on_read(const boost::system::error_code& ec, std::size_t rea
                     packet.rssi = (*rssi_map)[result.substr(result.length() - 4)];
                 }
             }
-            else packet.rssi = -255;
             packet.time_received = time_reception;
             if (callback_ && eth) {
                 callback_(std::move(packet), *eth);
