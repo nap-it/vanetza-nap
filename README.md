@@ -240,6 +240,8 @@ The following table summarizes the available configuration options:
 | general.remote_mqtt_port | VANETZA_REMOTE_MQTT_PORT | Remote MQTT Broker's Port | 0 | 0 to disable |
 | general.remote_mqtt_username | VANETZA_REMOTE_MQTT_USERNAME | Remote MQTT Broker's Auth Username | "" | Empty to disable |
 | general.remote_mqtt_password | VANETZA_REMOTE_MQTT_PASSWORD | Remote MQTT Broker's Auth Password | "" | Empty to disable |
+| general.gpsd_host | VANETZA_GPSD_HOST | GPSD position provider host | 127.0.0.1 | |
+| general.gpsd_port | VANETZA_GPSD_PORT | GPSD position provider port | 2947 | |
 | general.prometheus_port | VANETZA_PROMETHEUS_PORT | Port on which Vanetza exposes metrics | 9100 | 0 to disable |
 | general.rssi_port | VANETZA_RSSI_PORT | Port on which Vanetza communicates with the RSSI_Discovery service | 3000 | Not used on Docker; 0 to disable |
 | general.ignore_own_messages | VANETZA_IGNORE_OWN_MESSAGES | Don't capture or decode messages originating from the station itself | true | |
