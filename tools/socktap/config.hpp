@@ -38,6 +38,8 @@ typedef struct config {
     int remote_mqtt_port;
     string remote_mqtt_username;
     string remote_mqtt_password;
+    string gpsd_host;
+    string gpsd_port;
     int prometheus_port;
     int rssi_port;
     bool ignore_own_messages;

@@ -35,6 +35,8 @@ void read_config(config_t* config_s, string path) {
     config_s->remote_mqtt_port = getenv("VANETZA_REMOTE_MQTT_PORT") == NULL ? reader.GetInteger("general", "remote_mqtt_port", 0) : stoi(getenv("VANETZA_REMOTE_MQTT_PORT"));
     config_s->remote_mqtt_username = getenv("VANETZA_REMOTE_MQTT_USERNAME") == NULL ? reader.Get("general", "remote_mqtt_username", "") : getenv("VANETZA_REMOTE_MQTT_USERNAME");
     config_s->remote_mqtt_password = getenv("VANETZA_REMOTE_MQTT_PASSWORD") == NULL ? reader.Get("general", "remote_mqtt_password", "") : getenv("VANETZA_REMOTE_MQTT_PASSWORD");
+    config_s->gpsd_host = getenv("VANETZA_GPSD_HOST") == NULL ? reader.Get("general", "gpsd_host", "127.0.0.1") : getenv("VANETZA_GPSD_HOST");
+    config_s->gpsd_port = getenv("VANETZA_GPSD_PORT") == NULL ? reader.Get("general", "gpsd_port", "2947") : getenv("VANETZA_GPSD_PORT");
     config_s->prometheus_port = getenv("VANETZA_PROMETHEUS_PORT") == NULL ? reader.GetInteger("general", "prometheus_port", 9100) : stoi(getenv("VANETZA_PROMETHEUS_PORT"));
     config_s->rssi_port = getenv("VANETZA_RSSI_PORT") == NULL ? reader.GetInteger("general", "rssi_port", 3000) : stoi(getenv("VANETZA_RSSI_PORT"));
     config_s->ignore_own_messages = getenv("VANETZA_IGNORE_OWN_MESSAGES") == NULL ? reader.GetBoolean("general", "ignore_own_messages", true) : (strcmp((getenv("VANETZA_IGNORE_OWN_MESSAGES")), "true") == 0);

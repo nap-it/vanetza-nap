@@ -33,6 +33,7 @@ add_executable(socktap
     link_layer.cpp
     main.cpp
     positioning.cpp
+#    gps_position_provider.cpp
     raw_socket_link.cpp
     router_context.cpp
     security.cpp
@@ -52,7 +53,7 @@ if(SOCKTAP_WITH_COHDA_LLC)
 endif()
 
 find_package(GPS QUIET)
-option(SOCKTAP_WITH_GPSD "Enable gpsd positioning for socktap" ${GPS_FOUND})
+option(SOCKTAP_WITH_GPSD "Enable gpsd positioning for socktap" true)
 if(SOCKTAP_WITH_GPSD)
     find_package(GPS REQUIRED)
     target_compile_definitions(socktap PUBLIC "SOCKTAP_WITH_GPSD")

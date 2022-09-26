@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libcrypto++-dev \
     libgeographic-dev \
     libssl-dev \
+    libgps-dev \
     zlib1g-dev \
     libcurl4-openssl-dev \
     golang-src/buster-backports \
@@ -58,6 +59,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libcrypto++ \
     libgeographic17 \
     libssl1.1 \
+    libgps-dev \
     zlib1g \
     iproute2/buster-backports \
     iptables \
