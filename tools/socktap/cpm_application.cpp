@@ -183,6 +183,8 @@ void CpmApplication::on_message(string topic, string mqtt_message) {
                     {"wave_timestamp", time_now}
                 },
             },
+            {"receiverID", config_s.station_id},
+            {"receiverType", config_s.station_type},
             {"fields", payload},
         };
         local_mqtt->publish(config_s.cpm.topic_time, json_payload.dump());

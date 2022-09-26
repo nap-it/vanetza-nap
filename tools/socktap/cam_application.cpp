@@ -103,6 +103,8 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
                     {"json_timestamp", (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0}
                 }
             },
+            {"receiverID", config_s.station_id},
+            {"receiverType", config_s.station_type},
             {"fields", fields_json}
         };
         string json_dump = full_json.dump();
@@ -351,6 +353,8 @@ void CamApplication::on_message(string topic, string mqtt_message) {
                     {"wave_timestamp", time_now}
                 },
             },
+            {"receiverID", config_s.station_id},
+            {"receiverType", config_s.station_type},
             {"fields", payload},
         };
         local_mqtt->publish(config_s.cam.topic_time, json_payload.dump());
@@ -459,6 +463,8 @@ void CamApplication::on_timer(Clock::time_point)
                     {"json_timestamp", (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0}
                 }
             },
+            {"receiverID", config_s.station_id},
+            {"receiverType", config_s.station_type},
             {"fields", fields_json}
         };
         string json_dump = full_json.dump();
