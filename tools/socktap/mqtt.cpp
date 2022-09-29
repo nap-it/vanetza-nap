@@ -100,6 +100,11 @@ void Mqtt::on_connect(int rc)
 {
     if ( rc == 0 ) {
         cout << TAG << "connected with server" << endl;
+        if (this->subscribers.size() > 0) {
+            for ( const auto &sub : this->subscribers ) {
+                this->subscribe(sub.first, this->subscribers[sub.first]);
+            }
+        }
     } else {
         cout << TAG << "impossible to connect with server(" << rc << ")" << endl;
     }
