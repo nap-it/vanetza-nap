@@ -128,9 +128,11 @@ void DenmApplication::on_message(string topic, string mqtt_message) {
         payload = json::parse(mqtt_message);
     } catch(nlohmann::detail::type_error& e) {
         std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows JSON spec\n" << e.what() << std::endl;
+        std::cout << "Invalid payload: " << mqtt_message << std::endl;
         return;
     } catch(...) {
         std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
+        std::cout << "Invalid payload: " << mqtt_message << std::endl;
         return;
     }
 
@@ -138,9 +140,11 @@ void DenmApplication::on_message(string topic, string mqtt_message) {
         denm = payload.get<DecentralizedEnvironmentalNotificationMessage_t>();
     } catch(nlohmann::detail::type_error& e) {
         std::cout << "-- Vanetza ETSI Decoding Error --\nCheck that the message format follows ETSI spec\n" << e.what() << std::endl;
+        std::cout << "Invalid payload: " << mqtt_message << std::endl;
         return;
     } catch(...) {
         std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
+        std::cout << "Invalid payload: " << mqtt_message << std::endl;
         return;
     }
 
@@ -168,8 +172,12 @@ void DenmApplication::on_message(string topic, string mqtt_message) {
         }
     } catch(std::runtime_error& e) {
         std::cout << "-- Vanetza UPER Encoding Error --\nCheck that the message format follows ETSI spec\n" << e.what() << std::endl;
+        std::cout << "Invalid payload: " << mqtt_message << std::endl;
+        return;
     } catch(...) {
         std::cout << "-- Unexpected Error --\nVanetza couldn't send the requested message but did not throw a runtime error on UPER encode.\nNo other info available\n" << std::endl;
+        std::cout << "Invalid payload: " << mqtt_message << std::endl;
+        return;
     }
 
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
