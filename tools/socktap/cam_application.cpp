@@ -86,7 +86,7 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     //std::cout << "CAM application received a packet with " << (cam ? "decodable" : "broken") << " content" << std::endl;
 
     CAM_t cam_t = {(*cam)->header, (*cam)->cam};
-    string cam_json = buildJSON(cam_t, cp.time_received, cp.rssi, true);
+    string cam_json = buildJSON(cam_t, cp.time_received, cp.rssi, true, true);
 
     if(config_s.cam.mqtt_enabled) local_mqtt->publish(config_s.cam.topic_out, cam_json);
     if(config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_out, cam_json);
@@ -122,7 +122,7 @@ void CamApplication::schedule_timer()
     runtime_.schedule(cam_interval_, std::bind(&CamApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-std::string CamApplication::buildJSON(CAM_t message, double time_reception, int rssi, bool include_fields) { 
+std::string CamApplication::buildJSON(CAM_t message, double time_reception, int rssi, bool include_fields, bool rx) { 
     ItsPduHeader_t& header = message.header;
     CoopAwareness_t& cam = message.cam;
     BasicContainer_t& basic = cam.camParameters.basicContainer;
@@ -201,7 +201,7 @@ std::string CamApplication::buildJSON(CAM_t message, double time_reception, int 
 
     if(new_info) persistence[header.stationID] = {{"lat", (double) latitude}, {"lng", (double) longitude}, {"time", time_reception}};
 
-    cam_rx_latency->Increment(time_now - time_reception);
+    if (rx) cam_rx_latency->Increment(time_now - time_reception);
     return json_payload.dump();
 }
 
@@ -458,7 +458,7 @@ void CamApplication::on_timer(Clock::time_point)
     *(bvc.accelerationControl->buf) = (uint8_t) 0b10111110;
 
     CAM_t cam_t = {message->header, message->cam};
-    string cam_json = buildJSON(cam_t, time_now_mqtt, 0, true);
+    string cam_json = buildJSON(cam_t, time_now_mqtt, 0, true, false);
     if(config_s.cam.mqtt_enabled) local_mqtt->publish(config_s.own_cam_topic_out, cam_json);
     if(config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.own_cam_topic_out, cam_json);
     if(config_s.cam.dds_enabled) dds->publish(config_s.own_cam_topic_out, cam_json);
@@ -507,4 +507,5 @@ void CamApplication::on_timer(Clock::time_point)
     }
 
     cam_tx_counter->Increment();
+    cam_tx_latency->Increment((double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0 - time_now);
 }
