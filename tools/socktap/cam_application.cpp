@@ -506,6 +506,8 @@ void CamApplication::on_timer(Clock::time_point)
         std::cout << "-- Unexpected Error --\nVanetza couldn't send the requested message but did not throw a runtime error on UPER encode.\nNo other info available\n" << std::endl;
     }
 
+    const double time_now_latency = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+
     cam_tx_counter->Increment();
-    cam_tx_latency->Increment((double) (duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0) - time_now);
+    cam_tx_latency->Increment(time_now_latency - time_now_mqtt);
 }
