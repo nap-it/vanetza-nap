@@ -507,5 +507,5 @@ void CamApplication::on_timer(Clock::time_point)
     }
 
     cam_tx_counter->Increment();
-    cam_tx_latency->Increment((double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0 - time_now);
+    cam_tx_latency->Increment((double) (duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0) - time_now);
 }
