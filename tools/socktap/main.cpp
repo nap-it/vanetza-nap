@@ -149,9 +149,10 @@ int main(int argc, const char** argv)
                              .Help("Processing latency of observed packets")
                              .Register(*(metrics_s.registry)));
 
-        if (config_s.prometheus_port != 0) { 
-            Exposer exposer{"0.0.0.0:" + to_string(config_s.prometheus_port)};
-            exposer.RegisterCollectable(metrics_s.registry);
+        Exposer* exposer;
+        if (config_s.prometheus_port != 0) {
+            exposer = new Exposer("0.0.0.0:" + to_string(config_s.prometheus_port),2,nullptr);
+            exposer->RegisterCollectable(metrics_s.registry);
         }
 
         RouterContext context(mib, trigger, *positioning, security.get(), config_s.ignore_own_messages, config_s.ignore_rsu_messages, io_service);
