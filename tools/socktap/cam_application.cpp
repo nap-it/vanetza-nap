@@ -393,7 +393,7 @@ void CamApplication::on_timer(Clock::time_point)
     cam.generationDeltaTime = gen_delta_time * GenerationDeltaTime_oneMilliSec;
 
     auto position = positioning_.position_fix();
-
+    
     SpeedValue_t speed = SpeedValue_unavailable;
     if (position.speed.value().value() >= 0 && position.speed.value().value() <= 16382) speed = position.speed.value().value();
     LongitudinalAccelerationValue_t acceleration = LongitudinalAccelerationValue_unavailable;
@@ -433,10 +433,13 @@ void CamApplication::on_timer(Clock::time_point)
 
     BasicVehicleContainerHighFrequency& bvc = cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency;
     bvc.heading.headingValue = heading;
-    bvc.heading.headingConfidence = HeadingConfidence_unavailable; //position.course.confidence().value();
+    bvc.heading.headingConfidence = HeadingConfidence_unavailable;
+    if (position.course.confidence().value() > 0 && position.course.confidence().value() <= 125) bvc.heading.headingConfidence = position.course.confidence().value();
+
 
     bvc.speed.speedValue = speed;
-    bvc.speed.speedConfidence = SpeedConfidence_unavailable; //position.speed.confidence().value();
+    bvc.speed.speedConfidence = SpeedConfidence_unavailable; 
+    if (position.speed.confidence().value() > 0 && position.speed.confidence().value() <= 125) bvc.speed.speedConfidence = position.speed.confidence().value();
 
     bvc.driveDirection = DriveDirection_forward;
     bvc.longitudinalAcceleration.longitudinalAccelerationValue = acceleration;

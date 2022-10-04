@@ -14,14 +14,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libboost-system-dev \
     libcrypto++-dev \
     libgeographic-dev \
-    libssl-dev \
     libgps-dev \
+    libssl-dev \
     zlib1g-dev \
     libcurl4-openssl-dev \
     golang-src/buster-backports \
     golang-go/buster-backports \
     ca-certificates \
     file \
+    && rm -rf /var/lib/apt/lists/*
+RUN printf "deb http://httpredir.debian.org/debian bullseye main non-free\ndeb-src http://httpredir.debian.org/debian bullseye main non-free" > /etc/apt/sources.list.d/backports.list
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgps-dev/bullseye \
+    && rm -rf /var/lib/apt/lists/*
+RUN printf "deb http://httpredir.debian.org/debian sid main non-free\ndeb-src http://httpredir.debian.org/debian sid main non-free" > /etc/apt/sources.list.d/backports.list
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgps-dev/sid \
     && rm -rf /var/lib/apt/lists/*
 RUN mkdir /vanetza
 COPY . /vanetza
@@ -59,9 +67,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libcrypto++ \
     libgeographic17 \
     libssl1.1 \
-    libgps-dev \
     zlib1g \
     iproute2/buster-backports \
+    libgps-dev \
     iptables \
     bridge-utils \
     ebtables \
@@ -69,7 +77,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libcurl4-openssl-dev \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
-
+RUN printf "deb http://httpredir.debian.org/debian bullseye main non-free\ndeb-src http://httpredir.debian.org/debian bullseye main non-free" > /etc/apt/sources.list.d/backports.list
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgps-dev/bullseye \
+    && rm -rf /var/lib/apt/lists/*
+RUN printf "deb http://httpredir.debian.org/debian sid main non-free\ndeb-src http://httpredir.debian.org/debian sid main non-free" > /etc/apt/sources.list.d/backports.list
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgps-dev/sid \
+    && rm -rf /var/lib/apt/lists/*
+RUN rm /etc/apt/sources.list.d/backports.list
 WORKDIR /
 ENV EMBEDDED_MOSQUITTO_PORT=1883
 COPY --from=0 /vanetza/bin/socktap /usr/local/bin/socktap

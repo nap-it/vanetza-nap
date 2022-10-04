@@ -5,44 +5,34 @@
 #include <vanetza/units/length.hpp>
 #include <cmath>
 
-static_assert(GPSD_API_MAJOR_VERSION >= 5 && GPSD_API_MAJOR_VERSION <= 12, "libgps has incompatible API");
+//static_assert(GPSD_API_MAJOR_VERSION >= 5 && GPSD_API_MAJOR_VERSION <= 14, "libgps has incompatible API");
 
 namespace
 {
 
-#if GPSD_API_MAJOR_VERSION < 9
-using gpsd_timestamp = timestamp_t;
-#else
 using gpsd_timestamp = timespec_t;
-#endif
 
 int gpsd_read(gps_data_t& data)
 {
-#if GPSD_API_MAJOR_VERSION < 7
-    return gps_read(&data);
-#else
-    return gps_read(&data, nullptr, 0);
-#endif
+return gps_read(&data, nullptr, 0);
 }
 
 constexpr int gpsd_status(const gps_data_t& data)
 {
-#if GPSD_API_MAJOR_VERSION < 10
-    return data.status;
-#else
     return data.fix.status;
-#endif
 }
 
-#if GPSD_API_MAJOR_VERSION < 12
-    constexpr int cStatusFix = STATUS_FIX;
-#else
-    constexpr int cStatusFix = STATUS_GPS;
-#endif
+constexpr int cStatusFix = STATUS_FIX;
 
 constexpr bool gpsd_has_useful_fix(const gps_data_t& data)
 {
-    return gpsd_status(data) >= cStatusFix && data.fix.mode >= MODE_2D;
+    //return gpsd_status(data) >= cStatusFix && data.fix.mode >= MODE_2D;
+    return data.fix.mode >= MODE_2D;
+}
+
+constexpr double gpsd_get_altitude(const gps_data_t& data)
+{
+    return data.fix.altHAE;
 }
 
 vanetza::Clock::time_point convert_gps_time(gpsd_timestamp gpstime)
@@ -50,14 +40,8 @@ vanetza::Clock::time_point convert_gps_time(gpsd_timestamp gpstime)
     namespace posix = boost::posix_time;
 
     static const boost::gregorian::date posix_epoch(1970, boost::gregorian::Jan, 1);
-#if GPSD_API_MAJOR_VERSION < 9
-    // gpsd's timestamp_t is UNIX time (UTC) with fractional seconds
-    const posix::time_duration::fractional_seconds_type posix_ticks(gpstime * posix::time_duration::ticks_per_second());
-    const posix::ptime posix_time { posix_epoch, posix::time_duration(0, 0, 0, posix_ticks) };
-#else
     // standard timespec_t is used from gpsd API version 9 on; use microsec for compatibility reasons
     const posix::ptime posix_time { posix_epoch, posix::seconds(gpstime.tv_sec) + posix::microsec(gpstime.tv_nsec / 1000) };
-#endif
 
     // TAI has some seconds bias compared to UTC
     const auto tai_utc_bias = posix::seconds(37); // 37 seconds since 1st January 2017
@@ -147,10 +131,10 @@ void GpsPositionProvider::fetch_position_fix()
             fetched_position_fix.confidence = vanetza::PositionConfidence();
         }
         if (gps_data.fix.mode == MODE_3D) {
-            fetched_position_fix.altitude = vanetza::ConfidentQuantity<vanetza::units::Length>(gps_data.fix.altitude * si::meter, gps_data.fix.epv * si::meter);
+            fetched_position_fix.altitude = vanetza::ConfidentQuantity<vanetza::units::Length> {
+                gpsd_get_altitude(gps_data) * si::meter, gps_data.fix.epv * si::meter };
         } else {
             fetched_position_fix.altitude = boost::none;
         }
     }
 }
-
