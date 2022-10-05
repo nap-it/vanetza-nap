@@ -112,6 +112,10 @@ void GpsPositionProvider::fetch_position_fix()
         using namespace vanetza::units;
         static const TrueNorth north = TrueNorth::from_value(0.0);
 
+        if(gps_data.fix.latitude == 0 && fetched_position_fix.latitude != 0) {
+            return
+        }
+
         fetched_position_fix.timestamp = convert_gps_time(gps_data.fix.time);
         fetched_position_fix.latitude = gps_data.fix.latitude * degree;
         fetched_position_fix.longitude = gps_data.fix.longitude * degree;
