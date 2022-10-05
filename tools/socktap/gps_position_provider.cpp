@@ -113,7 +113,7 @@ void GpsPositionProvider::fetch_position_fix()
         static const TrueNorth north = TrueNorth::from_value(0.0);
 
         if(gps_data.fix.latitude == 0 && fetched_position_fix.latitude != 0) {
-            return
+            return;
         }
 
         fetched_position_fix.timestamp = convert_gps_time(gps_data.fix.time);
