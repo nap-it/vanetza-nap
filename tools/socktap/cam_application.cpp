@@ -395,7 +395,7 @@ void CamApplication::on_timer(Clock::time_point)
     auto position = positioning_.position_fix();
     
     SpeedValue_t speed = SpeedValue_unavailable;
-    if (position.speed.value().value() >= 0 && position.speed.value().value() <= 16382) speed = position.speed.value().value();
+    if (position.speed.value().value() >= 0 && position.speed.value().value() <= 16382) speed = position.speed.value().value() * 100;
     LongitudinalAccelerationValue_t acceleration = LongitudinalAccelerationValue_unavailable;
 
     const double millis_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
