@@ -166,9 +166,13 @@ void DenmApplication::on_message(string topic, string mqtt_message) {
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        auto confirm = Application::request(request, std::move(packet));
-        if (!confirm.accepted()) {
-            throw std::runtime_error("DENM application data request failed");
+        auto confirm = Application::request(request, std::move(packet), &(mqtt_message));
+        if (confirm == nullptr) {
+            return;
+        }
+        if (!confirm->accepted()) {
+            std::cout << "DENM application data request failed" << std::endl;
+            return;
         }
     } catch(std::runtime_error& e) {
         std::cout << "-- Vanetza UPER Encoding Error --\nCheck that the message format follows ETSI spec\n" << e.what() << std::endl;

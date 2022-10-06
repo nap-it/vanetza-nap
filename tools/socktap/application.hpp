@@ -42,7 +42,7 @@ public:
     void on_message(string);
 
 protected:
-    DataConfirm request(const DataRequest&, DownPacketPtr);
+    DataConfirm* request(const DataRequest&, DownPacketPtr, std::string* mqtt_message);
 
 private:
     friend class RouterContext;

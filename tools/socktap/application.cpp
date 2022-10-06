@@ -50,6 +50,7 @@ typedef struct queued_request {
     vanetza::geonet::DataConfirm* confirm;
     vanetza::geonet::Router* router;
     std::mutex*  mutex;
+    std::string* mqtt_message;
     bool done;
 } queued_request;
 
@@ -84,7 +85,7 @@ public:
 
 thread_queue* q;
 
-Application::DataConfirm Application::request(const DataRequest& request, DownPacketPtr packet)
+Application::DataConfirm* Application::request(const DataRequest& request, DownPacketPtr packet, std::string* mqtt_message)
 {
     std::condition_variable condition;
     std::mutex  mutex;
@@ -92,8 +93,8 @@ Application::DataConfirm Application::request(const DataRequest& request, DownPa
     btp_header.destination_port = this->port();
     btp_header.destination_port_info = host_cast<uint16_t>(0);
     packet->layer(OsiLayer::Transport) = btp_header;
-    queued_request qr{request, &packet, &condition, nullptr, router_, &mutex, false};
-    return *(q->push(&qr));
+    queued_request qr{request, &packet, &condition, nullptr, router_, &mutex, mqtt_message, false};
+    return q->push(&qr);
 }
 
 void application_thread() {
@@ -101,20 +102,30 @@ void application_thread() {
     while (true) {
         queued_request* qr = q->pop();
         vanetza::geonet::DataConfirm confirm(vanetza::geonet::DataConfirm::ResultCode::Rejected_Unspecified);
-        if (qr->router && qr->packet) {
-            switch (qr->request.transport_type) {
-                case geonet::TransportType::SHB:
-                    confirm = qr->router->request(request_shb(qr->request, qr->router), std::move(*(qr->packet)));
-                    break;
-                case geonet::TransportType::GBC:
-                    confirm = qr->router->request(request_gbc(qr->request, qr->router), std::move(*(qr->packet)));
-                    break;
-                default:
-                    // TODO remaining transport types are not implemented
-                    break;
+        try {
+            if (qr->router && qr->packet) {
+                switch (qr->request.transport_type) {
+                    case geonet::TransportType::SHB:
+                        confirm = qr->router->request(request_shb(qr->request, qr->router), std::move(*(qr->packet)));
+                        break;
+                    case geonet::TransportType::GBC:
+                        confirm = qr->router->request(request_gbc(qr->request, qr->router), std::move(*(qr->packet)));
+                        break;
+                    default:
+                        // TODO remaining transport types are not implemented
+                        break;
+                }
             }
+            qr->confirm = &(confirm);
+        } catch(std::runtime_error& e) {
+            std::cout << "--- Vanetza UPER Encoding Error ---\nCheck that the message format follows ETSI spec\n" << e.what() << std::endl;
+            if (qr->mqtt_message != nullptr) std::cout << "Invalid payload: " << *(qr->mqtt_message) << std::endl;
+            qr->confirm = nullptr;
+        } catch(...) {
+            std::cout << "--- Unexpected Error ---\nVanetza couldn't send the requested message but did not throw a runtime error on UPER encode.\nNo other info available\n" << std::endl;
+            if (qr->mqtt_message != nullptr) std::cout << "Invalid payload: " << *(qr->mqtt_message) << std::endl;
+            qr->confirm = nullptr;
         }
-        qr->confirm = &(confirm);
         qr->done = true;
         qr->condition->notify_one();
     }
