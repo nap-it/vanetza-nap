@@ -233,7 +233,8 @@ volumes:
 
 Environment variable changes, however, only require a restart of the running containers.
 ```
-docker-compose restart
+docker-compose down
+docker-compose up
 ```
 
 The following table summarizes the available configuration options:
