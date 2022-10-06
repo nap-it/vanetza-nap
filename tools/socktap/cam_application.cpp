@@ -403,7 +403,7 @@ void CamApplication::on_timer(Clock::time_point)
     if(time_speed == 0) time_speed = millis_now;
     if (last_speed != LLONG_MIN && (speed != last_speed || millis_now - time_speed >= 1)) {
         acceleration = (int)((speed - last_speed) * 10);
-        if (acceleration < -160 && acceleration > 160) acceleration = LongitudinalAccelerationValue_unavailable;
+        if (acceleration < -160 || acceleration > 160) acceleration = LongitudinalAccelerationValue_unavailable;
         time_speed = millis_now;
     }
     last_speed = speed;
@@ -415,7 +415,7 @@ void CamApplication::on_timer(Clock::time_point)
     if(time_heading == 0) time_heading = millis_now;
     if (last_heading != LLONG_MIN && (heading != last_heading || millis_now - time_heading >= 1)) {
         yaw_rate = (int)((heading - last_heading) * 100);
-        if (yaw_rate < -32766 && yaw_rate > 32766) yaw_rate = YawRateValue_unavailable;
+        if (yaw_rate < -32766 || yaw_rate > 32766) yaw_rate = YawRateValue_unavailable;
         time_heading = millis_now;
     }
     last_heading = heading;
