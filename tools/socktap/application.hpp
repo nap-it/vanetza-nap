@@ -17,6 +17,10 @@
 #include <prometheus/counter.h>
 #include <prometheus/registry.h>
 
+static vanetza::geonet::GbcDataRequest request_gbc(const vanetza::btp::DataRequestGeoNetParams&, vanetza::geonet::Router* router);
+static vanetza::geonet::ShbDataRequest request_shb(const vanetza::btp::DataRequestGeoNetParams&, vanetza::geonet::Router* router);
+void start_application_thread();
+
 class Application : public vanetza::btp::IndicationInterface
 {
 public:
@@ -42,8 +46,6 @@ protected:
 
 private:
     friend class RouterContext;
-    vanetza::geonet::GbcDataRequest request_gbc(const DataRequest&);
-    vanetza::geonet::ShbDataRequest request_shb(const DataRequest&);
     vanetza::geonet::Router* router_;
 };
 

@@ -161,6 +161,8 @@ int main(int argc, const char** argv)
 
         std::map<std::string, std::unique_ptr<Application>> apps;
 
+        start_application_thread();
+
         if (config_s.cam.enabled) {
             std::unique_ptr<CamApplication> cam_app {
                 new CamApplication(*positioning, context.get_dccp().get_trigger().runtime(), local_mqtt, remote_mqtt, dds, config_s, metrics_s)
