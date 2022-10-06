@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 #set(CMAKE_BUILD_TYPE Debug)
-set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wno-narrowing")
+set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wno-narrowing -I/usr/include/libnl3 -lnl-genl-3 -lnl-3")
 
 if(NOT TARGET Boost::system)
     message(STATUS "Skip build of socktap because of missing Boost::system dependency")
@@ -33,7 +33,7 @@ add_executable(socktap
     link_layer.cpp
     main.cpp
     positioning.cpp
-#    gps_position_provider.cpp
+    rssi_reader.cpp
     raw_socket_link.cpp
     router_context.cpp
     security.cpp

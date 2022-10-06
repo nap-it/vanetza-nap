@@ -16,6 +16,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libgeographic-dev \
     libgps-dev/buster-backports \
     libssl-dev \
+    libnl-3-dev \
+    libnl-genl-3-dev \
     zlib1g-dev \
     libcurl4-openssl-dev \
     golang-src/buster-backports \
@@ -58,6 +60,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libboost-system1.67.0 \
     libcrypto++ \
     libgeographic17 \
+    libnl-3-dev \
+    libnl-genl-3-dev \
     libssl1.1 \
     zlib1g \
     iproute2/buster-backports \

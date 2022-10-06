@@ -14,6 +14,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
+#include "rssi_reader.hpp"
 
 #include <boost/asio.hpp>
 
@@ -23,44 +24,13 @@ using namespace vanetza;
 using namespace std::chrono;
 
 bool rssi_enabled = false;
-std::map<std::string, int> *rssi_map;
 
-static void rssi_handler(int port) {
-    if (port > 0) {
-        rssi_enabled = true;
-        boost::asio::io_context io_context;
-        boost::asio::ip::udp::endpoint receiver(boost::asio::ip::udp::v4(), port);
-        boost::asio::ip::udp::socket udp_socket(io_context, receiver);
-
-        for(;;)
-        {
-            char buffer[1024];
-            boost::asio::ip::udp::endpoint sender;
-            std::size_t bytes_transferred = udp_socket.receive_from(boost::asio::buffer(buffer), sender);
-            std::string tmpstr(buffer);
-            std::istringstream is(tmpstr);
-
-            std::map<std::string, int> tmp_map;
-            std::string line;
-            while (getline(is,line)) {
-                int delimiter = line.find("|");
-                if(delimiter == std::string::npos) break;
-                std::string mac = line.substr(0, delimiter);
-                int rssi = stoi(line.substr(delimiter, line.length()));
-                tmp_map[mac] = rssi;
-            }
-
-            rssi_map = &tmp_map;
-        }
-    }
-}
-
-RawSocketLink::RawSocketLink(boost::asio::generic::raw_protocol::socket&& socket, const int rssi_port) :
+RawSocketLink::RawSocketLink(boost::asio::generic::raw_protocol::socket&& socket, bool _rssi_enabled) :
     socket_(std::move(socket)), receive_buffer_(2048, 0x00),
     receive_endpoint_(socket_.local_endpoint())
 {   
-    std::thread rssi_th(rssi_handler, rssi_port);
-    rssi_th.detach();
+    rssi_enabled = _rssi_enabled;
+    if (rssi_enabled) start_rssi_reader();
     do_receive();
 }
 
@@ -104,12 +74,13 @@ void RawSocketLink::on_read(const boost::system::error_code& ec, std::size_t rea
         if(eth->type == access::ethertype::GeoNetworking) {
             double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
             packet.rssi = -255;
+            std::stringstream stream;
+            stream << eth->source;
+            std::string source_mac(stream.str());
             if(rssi_enabled) {
-                std::stringstream stream;
-                stream << eth->source;
-                std::string result(stream.str());
-                if ((*rssi_map).count(result.substr(result.length() - 4))) {
-                    packet.rssi = (*rssi_map)[result.substr(result.length() - 4)];
+                int nrssi = get_rssi(source_mac);
+                if (nrssi != 1) {
+                    packet.rssi = nrssi;
                 }
             }
             packet.time_received = time_reception;

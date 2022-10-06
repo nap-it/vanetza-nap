@@ -37,13 +37,8 @@ sudo apt install docker-ce docker-compose
 
 2. Clone NAP-Vanetza's repository and navigate to the project's root directory
 
-3. Build the docker image
 
-```
-docker build -t vanetza:test .
-```
-
-4. Create the Docker network that the Vanetza containers will use to exchange ETSI C-ITS messages 
+3. Create the Docker network that the Vanetza containers will use to exchange ETSI C-ITS messages 
 
 ```
 docker network create vanetzalan0 --subnet 192.168.98.0/24
@@ -65,6 +60,17 @@ Refer to the configuration section for more details on how to configure each con
 Each container includes an embeded MQTT broker in order to fully simulate the common environment described in the first section. This feature can be disabled if required.
 
 ![Docker Diagram](https://i.ibb.co/XxCzVZK/docker-diagram.png)
+
+#### Updating the Vanetza image
+
+You may update Vanetza to the lastest version by running the following command:
+
+```
+docker pull code.nap.av.it.pt:5050/mobility-networks/vanetza:latest
+```
+
+Try to do this regularly, since NAP-Vanetza is in active development and new features and bug fixes are frequently added.
+
 
 #### Running in the background
 
@@ -218,9 +224,11 @@ These situations would require a separate config file for each container mounted
 To solve this, NAP-Vanetza also accepts configuration via environment variables that can be set in the environment section of **docker-compose.yml**. 
 Any values set via environment variables have priority over the ones found in config.ini, thus making it possible to use config.ini for common configurations and environment variables for values that are unique to each container (i.e: Station ID, MAC Address, etc)
 
-Note: The vanetza docker image must be rebuilt after every change to the config.ini file. 
+Note: If you decide to change the default values present in config.ini you must map the changed file inside the containers using volumes in each container's section in docker-compose.yml
 ```
-docker build -t vanetza:test .
+volumes:
+    - tools/socktap/config.ini:/config.ini
+
 ```
 
 Environment variable changes, however, only require a restart of the running containers.
@@ -243,7 +251,7 @@ The following table summarizes the available configuration options:
 | general.gpsd_host | VANETZA_GPSD_HOST | GPSD position provider host | 127.0.0.1 | |
 | general.gpsd_port | VANETZA_GPSD_PORT | GPSD position provider port | 2947 | |
 | general.prometheus_port | VANETZA_PROMETHEUS_PORT | Port on which Vanetza exposes metrics | 9100 | 0 to disable |
-| general.rssi_port | VANETZA_RSSI_PORT | Port on which Vanetza communicates with the RSSI_Discovery service | 3000 | Not used on Docker; 0 to disable |
+| general.rssi_enabled | VANETZA_RSSI_ENABLED | Enable discovering the RSSI (signal strength) value associated with each inbound ITS-G5 message by interfacing with the kernel | true |  |
 | general.ignore_own_messages | VANETZA_IGNORE_OWN_MESSAGES | Don't capture or decode messages originating from the station itself | true | |
 | general.ignore_rsu_messages | VANETZA_IGNORE_RSU_MESSAGES | Ignore messages from RSUs - Usually set on RSUs | false | |
 | general.to_dds_key | VANETZA_TO_DDS_KEY | SysV Message Queue Key which Vanetza uses to send JSON to be published in DDS topics | 6060 | Advanced usage to minimize communication latency |

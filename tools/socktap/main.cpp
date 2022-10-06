@@ -81,7 +81,7 @@ int main(int argc, const char** argv)
         }
 
         const std::string link_layer_name = "ethernet";
-        auto link_layer =  create_link_layer(io_service, device, link_layer_name, config_s.rssi_port);
+        auto link_layer =  create_link_layer(io_service, device, link_layer_name, config_s.rssi_enabled);
         if (!link_layer) {
             std::cerr << "No link layer '" << link_layer_name << "' found." << std::endl;
             return 1;

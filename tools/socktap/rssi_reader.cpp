@@ -1,105 +1,20 @@
-
-
-/*
-
-NL80211 and LibNL application adapted from https://github.com/Alamot/code-snippets/blob/master/nl80211_info/nl80211_info.c and IW source code.
-
-It collects and dumps some information about nearby AP's.
-
-libnl3 is required.
-
-TO COMPILE: gcc -Wall RSSI_Discovery.c -o RSSI_Discovery -I/usr/include/libnl3 -lnl-genl-3 -lnl-3 -std=c99 -lpthread
-
-*/
+#include "rssi_reader.hpp"
 
 #define _XOPEN_SOURCE 700
-#include <stdio.h>
-#include <signal.h>
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <errno.h>
-#include <time.h>
-#include <netlink/netlink.h>    //lots of netlink functions
-#include <netlink/genl/genl.h>  //genl_connect, genlmsg_put
-#include <netlink/genl/family.h>
-#include <netlink/genl/ctrl.h>  //genl_ctrl_resolve
-#include <linux/nl80211.h>      //NL80211 definitions
-
-//
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <pthread.h>
-//
-
 #define ETH_ALEN 6
 
-typedef struct {
-  int id;
-  struct nl_sock* socket;
-  struct nl_cb* cb1,* cb2;
-  int result1, result2;
-} Netlink;
+std::map<std::string, int> last;
 
-typedef struct {
-  char ifname[30];
-  u_int32_t inac_time;
-  int ifindex;
-  int signal;
-  float txrate;
-  char mac_address[20];
-  u_int32_t i_throughput;
-  u_int32_t d_throughput;
-
-
-} Neighbour;
-
-struct thread_arg_struct {
-    int socket;
-    unsigned int port;
-};
-
-typedef struct {
-  char mac[18];
-  char ip[16];
-} RSU;
-
-struct sockaddr_in serv_addr;
-
-int stations_num = 0;
-char req_buff[1024];
-int client = 0;
-int reqlen = 0;
 Netlink nl;
 Neighbour w;
 
-static struct nla_policy stats_policy[NL80211_STA_INFO_MAX + 1] = {
-  [NL80211_STA_INFO_INACTIVE_TIME] = { .type = NLA_U32 },
-  [NL80211_STA_INFO_RX_BYTES] = { .type = NLA_U32 },
-  [NL80211_STA_INFO_TX_BYTES] = { .type = NLA_U32 },
-  [NL80211_STA_INFO_RX_PACKETS] = { .type = NLA_U32 },
-  [NL80211_STA_INFO_TX_PACKETS] = { .type = NLA_U32 },
-  [NL80211_STA_INFO_SIGNAL] = { .type = NLA_U8 },
-  [NL80211_STA_INFO_TX_BITRATE] = { .type = NLA_NESTED },
-  [NL80211_STA_INFO_LLID] = { .type = NLA_U16 },
-  [NL80211_STA_INFO_PLID] = { .type = NLA_U16 },
-  [NL80211_STA_INFO_PLINK_STATE] = { .type = NLA_U8 },
-};
+struct stats_parse_policy {
+        ::nla_policy pol[NL80211_STA_INFO_MAX + 1];
+} stats_policy;
 
-static struct nla_policy rate_policy[NL80211_RATE_INFO_MAX + 1] = {
-  [NL80211_RATE_INFO_BITRATE] = { .type = NLA_U16 },
-  [NL80211_RATE_INFO_MCS] = { .type = NLA_U8 },
-  [NL80211_RATE_INFO_40_MHZ_WIDTH] = { .type = NLA_FLAG },
-  [NL80211_RATE_INFO_SHORT_GI] = { .type = NLA_FLAG },
-};
-
-
-static int initNl80211(Netlink* nl, Neighbour* w);
-static int finish_handler1(struct nl_msg *msg, void *arg);
-static int finish_handler2(struct nl_msg *msg, void *arg);
-static int getInterfaceName(struct nl_msg *msg, void *arg);
-static int getNeighbourInfo_callback(struct nl_msg *msg, void *arg);
-static int send_message(Netlink* nl, Neighbour* w);
+struct rate_parse_policy {
+        ::nla_policy pol[NL80211_RATE_INFO_MAX + 1];
+} rate_policy;
 
 void mac_addr_n2a(char *mac_addr, const unsigned char *arg)
 {
@@ -116,8 +31,6 @@ void mac_addr_n2a(char *mac_addr, const unsigned char *arg)
 		}
 	}
 }
-
-
 
 static int initNl80211(Netlink* nl, Neighbour* w) {
   nl->socket = nl_socket_alloc();
@@ -162,41 +75,21 @@ static int initNl80211(Netlink* nl, Neighbour* w) {
 
 
 static int finish_handler1(struct nl_msg *msg, void *arg) {
-  int *ret = arg;
+  int *ret = (int *) arg;
   *ret = 0;
   return NL_SKIP;
 }
 
 static int finish_handler2(struct nl_msg *msg, void *arg) {
-  int *ret = arg;
+  int *ret = (int *) arg;
   *ret = 0;
-
-  if(stations_num == 0) {
-    //printf("[sock_callback] No station found\n");
-    strcpy(req_buff, "N/A\n");
-    if(sendto(client, req_buff, 5, 0,
-         (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0){
-      perror("send");
-    }
-  }
-  else {
-    //printf("[sock_callback] %s", req_buff);
-    if(sendto(client, req_buff, stations_num * 11, 0,
-         (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0){
-      perror("send");
-    }
-  }
-
-  stations_num = 0;
-  reqlen = 0;
-  memset(req_buff, 0, 1024);
   return NL_SKIP;
 }
 
 
 static int getInterfaceName(struct nl_msg *msg, void *arg) {
 
-  struct genlmsghdr *gnlh = nlmsg_data(nlmsg_hdr(msg));
+  struct genlmsghdr *gnlh = (genlmsghdr*) nlmsg_data(nlmsg_hdr(msg));
 
   struct nlattr *tb_msg[NL80211_ATTR_MAX + 1];
 
@@ -222,12 +115,10 @@ static int getInterfaceName(struct nl_msg *msg, void *arg) {
 
 static int getNeighbourInfo_callback(struct nl_msg *msg, void *arg) {
   struct nlattr *tb[NL80211_ATTR_MAX + 1];
-  struct genlmsghdr *gnlh = nlmsg_data(nlmsg_hdr(msg));
+  struct genlmsghdr *gnlh = (genlmsghdr*) nlmsg_data(nlmsg_hdr(msg));
   struct nlattr *sinfo[NL80211_STA_INFO_MAX + 1];
   struct nlattr *rinfo[NL80211_RATE_INFO_MAX + 1];
   char mac_addr[20];
-
-
 
   nla_parse(tb,
             NL80211_ATTR_MAX,
@@ -235,7 +126,7 @@ static int getNeighbourInfo_callback(struct nl_msg *msg, void *arg) {
             genlmsg_attrlen(gnlh, 0),
             NULL);
 
-  mac_addr_n2a(mac_addr, nla_data(tb[NL80211_ATTR_MAC]));
+  mac_addr_n2a(mac_addr, (const unsigned char*) nla_data(tb[NL80211_ATTR_MAC]));
   strcpy(((Neighbour*)arg)->mac_address, mac_addr);
 
   if (!tb[NL80211_ATTR_STA_INFO]) {
@@ -243,13 +134,13 @@ static int getNeighbourInfo_callback(struct nl_msg *msg, void *arg) {
   }
 
   if (nla_parse_nested(sinfo, NL80211_STA_INFO_MAX,
-                       tb[NL80211_ATTR_STA_INFO], stats_policy)) {
+                       tb[NL80211_ATTR_STA_INFO], stats_policy.pol)) {
     fprintf(stderr, "failed to parse nested attributes!\n"); return NL_SKIP;
   }
 
   if (sinfo[NL80211_STA_INFO_TX_BITRATE]) {
     if (nla_parse_nested(rinfo, NL80211_RATE_INFO_MAX,
-                         sinfo[NL80211_STA_INFO_TX_BITRATE], rate_policy)) {
+                         sinfo[NL80211_STA_INFO_TX_BITRATE], rate_policy.pol)) {
       fprintf(stderr, "failed to parse nested rate attributes!\n"); }
     else {
       if (rinfo[NL80211_RATE_INFO_BITRATE]) {
@@ -286,19 +177,10 @@ static int getNeighbourInfo_callback(struct nl_msg *msg, void *arg) {
             ((Neighbour*)arg)->inac_time);
   */
 
-
-  // ---------------------------------------------------------
-  char str[25];
-  sprintf(str, "%s|%d\n", &(((Neighbour*)arg)->mac_address)[13], ((Neighbour*)arg)->signal);
-  strcpy(req_buff+reqlen, str);
-  reqlen = reqlen + strlen(str);
-  stations_num++;
-  // ---------------------------------------------------------
-
-
+  std::string mac(((Neighbour*)arg)->mac_address);
+  last[mac] = ((Neighbour*)arg)->signal;
 
   return NL_SKIP;
-
 }
 
 
@@ -352,7 +234,24 @@ static int send_message(Netlink* nl, Neighbour* w) {
   return 0;
 }
 
-int main(int argc, char **argv) {
+int rssi_main() {
+
+  stats_policy.pol[NL80211_STA_INFO_INACTIVE_TIME].type = NLA_U32;
+  stats_policy.pol[NL80211_STA_INFO_RX_BYTES].type = NLA_U32;
+  stats_policy.pol[NL80211_STA_INFO_TX_BYTES].type = NLA_U32;
+  stats_policy.pol[NL80211_STA_INFO_RX_PACKETS].type = NLA_U32;
+  stats_policy.pol[NL80211_STA_INFO_TX_PACKETS].type = NLA_U32;
+  stats_policy.pol[NL80211_STA_INFO_SIGNAL].type = NLA_U8;
+  stats_policy.pol[NL80211_STA_INFO_TX_BITRATE].type = NLA_NESTED;
+  stats_policy.pol[NL80211_STA_INFO_LLID].type = NLA_U16;
+  stats_policy.pol[NL80211_STA_INFO_PLID].type = NLA_U16;
+  stats_policy.pol[NL80211_STA_INFO_PLINK_STATE].type = NLA_U8;
+
+  rate_policy.pol[NL80211_RATE_INFO_BITRATE].type = NLA_U16;
+  rate_policy.pol[NL80211_RATE_INFO_MCS].type = NLA_U8;
+  rate_policy.pol[NL80211_RATE_INFO_40_MHZ_WIDTH].type = NLA_FLAG;
+  rate_policy.pol[NL80211_RATE_INFO_SHORT_GI].type = NLA_FLAG;
+
   printf("Initializing netlink 802.11\n");
   nl.id = initNl80211(&nl, &w);
   if (nl.id < 0) {
@@ -360,16 +259,8 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  client = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-
-  serv_addr.sin_family = AF_INET;
-  serv_addr.sin_addr.s_addr = htonl((in_addr_t) 0x7f000001); // 127.0.0.1 (localhost)
-  serv_addr.sin_port = htons(4346);
-
   while(1){
-    if(client != 0){
-      send_message(&nl, &w);
-    }
+    send_message(&nl, &w);
     nanosleep((const struct timespec[]){{0, 50000000L}}, NULL);
   }
 
@@ -378,4 +269,17 @@ int main(int argc, char **argv) {
   nl_close(nl.socket);
   nl_socket_free(nl.socket);
   return 0;
+}
+
+void start_rssi_reader()
+{
+  std::thread t1(rssi_main);
+  t1.detach();
+}
+
+int get_rssi(std::string mac) {
+  if(last.count(mac)) {
+      return last[mac];
+  }
+  return 1;
 }
