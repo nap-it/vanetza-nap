@@ -465,7 +465,7 @@ void CamApplication::on_timer(Clock::time_point)
     *(bvc.accelerationControl->buf) = (uint8_t) 0b10111110;
 
     CAM_t cam_t = {message->header, message->cam};
-    string cam_json = buildJSON(cam_t, time_now_mqtt, 0, true, false);
+    string cam_json = buildJSON(cam_t, time_now_mqtt, -255, true, false);
     if(config_s.cam.mqtt_enabled) local_mqtt->publish(config_s.own_cam_topic_out, cam_json);
     if(config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.own_cam_topic_out, cam_json);
     if(config_s.cam.dds_enabled) dds->publish(config_s.own_cam_topic_out, cam_json);
