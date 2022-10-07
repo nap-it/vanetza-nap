@@ -126,8 +126,11 @@ void application_thread() {
             if (qr->mqtt_message != nullptr) std::cout << "Invalid payload: " << *(qr->mqtt_message) << std::endl;
             qr->confirm = nullptr;
         }
-        qr->done = true;
-        qr->condition->notify_one();
+        {
+            std::unique_lock<std::mutex> lock(*(qr->mutex));
+            qr->done = true;
+            qr->condition->notify_one();
+        }
     }
 }
 
