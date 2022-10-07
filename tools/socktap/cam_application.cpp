@@ -474,7 +474,7 @@ void CamApplication::on_timer(Clock::time_point)
         json fields_json = cam_t;
         json full_json = {
             {"timestamp", time_now_mqtt},
-            {"rssi", 0},
+            {"rssi", -255},
             {"others", {
                     {"json_timestamp", (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0}
                 }
