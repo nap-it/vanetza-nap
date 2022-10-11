@@ -65,6 +65,28 @@ void deserialize(BasicHeader& hdr, InputArchive& ar)
     deserialize(hdr.reserved, ar);
     deserialize(hdr.lifetime, ar);
     deserialize(hdr.hop_limit, ar);
+
+    if (hdr.next_header == vanetza::geonet::NextHeaderBasic::Secured) {
+        uint8_t secureProtocolVersion;
+        deserialize(secureProtocolVersion, ar);
+        if(secureProtocolVersion == 3) {
+            hdr.next_header = vanetza::geonet::NextHeaderBasic::Common;
+            uint8_t ignore;
+            uint8_t i = 1;
+            while(1) {
+                deserialize(ignore, ar);
+                if (ignore == 0x20) break;
+                else i++;
+            }
+            hdr.reserved = i;
+        } else {
+            uint8_t ignore;
+            deserialize(ignore, ar);
+        }
+    } else {
+        uint8_t ignore;
+        deserialize(ignore, ar);
+    }
 }
 
 } // namespace geonet

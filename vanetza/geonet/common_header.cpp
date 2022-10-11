@@ -78,8 +78,8 @@ void serialize(const CommonHeader& hdr, OutputArchive& ar)
 
 void deserialize(CommonHeader& hdr, InputArchive& ar)
 {
-    uint8_t nextHeaderAndReserved;
-    deserialize(nextHeaderAndReserved, ar);
+    uint8_t nextHeaderAndReserved = 0x20;
+    //deserialize(nextHeaderAndReserved, ar);
     hdr.next_header = static_cast<NextHeaderCommon>(nextHeaderAndReserved >> 4);
     hdr.reserved1 = nextHeaderAndReserved & 0x0f;
     typename std::underlying_type<HeaderType>::type headerType;

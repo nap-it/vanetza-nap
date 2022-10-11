@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 #set(CMAKE_BUILD_TYPE Debug)
-set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wno-narrowing -I/usr/include/libnl3 -lnl-genl-3 -lnl-3")
+set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wno-narrowing -I/usr/include/libnl3 -lnl-genl-3 -lnl-3 -ldl")
 
 if(NOT TARGET Boost::system)
     message(STATUS "Skip build of socktap because of missing Boost::system dependency")

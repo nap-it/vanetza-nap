@@ -31,7 +31,7 @@ std::size_t Parser::parse_basic(BasicHeader& basic)
     } catch (InputArchive::Exception&) {
     }
 
-    m_read_bytes += bytes;
+    m_read_bytes += bytes + basic.reserved;
     return bytes;
 }
 

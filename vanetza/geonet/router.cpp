@@ -1159,7 +1159,8 @@ bool Router::decide_pass_up(bool within_destination, const GeoBroadcastHeader& g
 {
     if (m_mib.vanetzaGbcMemoryCapacity == 0) {
         // classic pass up: suppress only GBCs outside of destination area
-        return within_destination;
+        //return within_destination;
+        return true;
     } else if (within_destination) {
         // modified pass up: suppress passing up duplicate GBC packets
         return !m_gbc_memory.remember(std::make_tuple(gbc.source_position.gn_addr, gbc.sequence_number));

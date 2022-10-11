@@ -72,6 +72,8 @@ bitstrings = {}
 
 initial_len = len(printed)
 
+# Sorry for the one-liners on the __str__() methods :(
+
 class ASN1Sequence:
     def __init__(self, name, definition, parent_name, parent_file):
         self.name = name

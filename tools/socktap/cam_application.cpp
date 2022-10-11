@@ -10,6 +10,7 @@
 #include <exception>
 #include <functional>
 #include <iostream>
+//#include <boost/stacktrace.hpp>
 
 using namespace vanetza;
 using namespace vanetza::facilities;
@@ -83,6 +84,7 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     asn1::PacketVisitor<asn1::Cam> visitor;
     std::shared_ptr<const asn1::Cam> cam = boost::apply_visitor(visitor, *packet);
 
+    //std::cout << boost::stacktrace::stacktrace();
     //std::cout << "CAM application received a packet with " << (cam ? "decodable" : "broken") << " content" << std::endl;
 
     CAM_t cam_t = {(*cam)->header, (*cam)->cam};

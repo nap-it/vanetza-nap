@@ -80,8 +80,8 @@ void serialize(OutputArchive& ar, const SecuredMessage& message)
 
 size_t deserialize(InputArchive& ar, SecuredMessage& message)
 {
-    uint8_t protocol_version = 0;
-    ar >> protocol_version;
+    uint8_t protocol_version = 2;
+    //ar >> protocol_version;
     size_t length = sizeof(protocol_version);
     if (protocol_version == 2) {
         const size_t hdr_length = deserialize(ar, message.header_fields);
