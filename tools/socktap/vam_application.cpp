@@ -193,12 +193,7 @@ void VamApplication::on_message(string topic, string mqtt_message) {
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        auto confirm = Application::request(request, std::move(packet), &(mqtt_message));
-        if (confirm == nullptr) {
-            return;
-        }
-        if (!confirm->accepted()) {
-            std::cout << "VAM application data request failed" << std::endl;
+        if (!Application::request(request, std::move(packet), nullptr)) {
             return;
         }
     } catch(std::runtime_error& e) {

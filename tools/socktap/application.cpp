@@ -52,6 +52,7 @@ typedef struct queued_request {
     std::mutex*  mutex;
     std::string* mqtt_message;
     bool done;
+    bool successful;
 } queued_request;
 
 class thread_queue
@@ -64,7 +65,7 @@ public:
     thread_queue() {
 
     }
-    vanetza::geonet::DataConfirm* push(queued_request* value) {
+    bool push(queued_request* value) {
         {
             std::unique_lock<std::mutex> lock(this->d_mutex);
             d_queue.push_front(value);
@@ -72,7 +73,7 @@ public:
         this->d_condition.notify_one();
         std::unique_lock<std::mutex> lock2(*(value->mutex));
         value->condition->wait(lock2, [=]{ return value->done; });
-        return value->confirm;
+        return value->successful;
     }
     queued_request* pop() {
         std::unique_lock<std::mutex> lock(this->d_mutex);
@@ -85,7 +86,7 @@ public:
 
 thread_queue* q;
 
-Application::DataConfirm* Application::request(const DataRequest& request, DownPacketPtr packet, std::string* mqtt_message)
+bool Application::request(const DataRequest& request, DownPacketPtr packet, std::string* mqtt_message)
 {
     std::condition_variable condition;
     std::mutex  mutex;
@@ -93,7 +94,7 @@ Application::DataConfirm* Application::request(const DataRequest& request, DownP
     btp_header.destination_port = this->port();
     btp_header.destination_port_info = host_cast<uint16_t>(0);
     packet->layer(OsiLayer::Transport) = btp_header;
-    queued_request qr{request, &packet, &condition, nullptr, router_, &mutex, mqtt_message, false};
+    queued_request qr{request, &packet, &condition, nullptr, router_, &mutex, mqtt_message, false, false};
     return q->push(&qr);
 }
 
@@ -115,6 +116,11 @@ void application_thread() {
                         // TODO remaining transport types are not implemented
                         break;
                 }
+            }
+            if (confirm.accepted()) {
+                qr->successful = true;
+            } else {
+                std::cout << "CAM application data request failed" << std::endl;
             }
             qr->confirm = &(confirm);
         } catch(std::runtime_error& e) {
