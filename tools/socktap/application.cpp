@@ -120,7 +120,7 @@ void application_thread() {
             if (confirm.accepted()) {
                 qr->successful = true;
             } else {
-                std::cout << "CAM application data request failed" << std::endl;
+                std::cout << "Application data request failed" << std::endl;
             }
             qr->confirm = &(confirm);
         } catch(std::runtime_error& e) {
