@@ -1,0 +1,17 @@
+version: '2.4'
+services:
+    vanetza:
+        hostname: vanetza
+        restart: always
+        image: code.nap.av.it.pt:5050/mobility-networks/vanetza:latest
+        volumes:
+          - ./config.ini:/config.ini
+        cap_add:
+            - "NET_ADMIN"
+        environment:
+            - START_EMBEDDED_MOSQUITTO=false
+            - SUPPORT_MAC_BLOCKING=false
+        network_mode: "host"
+        sysctls:
+            kernel.msgmax:  65536
+            kernel.msgmnb:  65536
