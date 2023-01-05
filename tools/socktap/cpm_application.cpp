@@ -76,7 +76,7 @@ void CpmApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     //std::cout << "CPM application received a packet with " << (cpm ? "decodable" : "broken") << " content" << std::endl;
 
     CPM_t cpm_t = {(*cpm)->header, (*cpm)->cpm};
-    string cpm_json = buildJSON(cpm_t, cp.time_received, cp.rssi, cp.size);
+    string cpm_json = buildJSON(cpm_t, cp.time_received, cp.rssi, cp.size());
 
     if(config_s.cpm.mqtt_enabled) local_mqtt->publish(config_s.cpm.topic_out, cpm_json);
     if(config_s.cpm.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.cpm.topic_out, cpm_json);
