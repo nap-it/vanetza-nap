@@ -106,7 +106,7 @@ std::string CpmApplication::buildJSON(CPM_t message, double time_reception, int 
             {"rssi", rssi},
             {"test", {
                     {"json_timestamp", time_now},
-                    {"packet_size", packet_size}s
+                    {"packet_size", packet_size}
                 },
             },
             {"fields", j},
