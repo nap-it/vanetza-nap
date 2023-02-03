@@ -167,7 +167,7 @@ std::string CamApplication::buildJSON(CAM_t message, std::string & cam_json_full
 
     if (full)
     {
-        json_payload_full = {"fields", cam_t};
+        json json_payload_full = {"fields", cam_t};
         json_payload_full.merge_patch(json_payload);
         cam_json_full = full_json.dump();
         std::cout << "CAM JSON FULL: " << cam_json_full << std::endl;
@@ -470,28 +470,17 @@ void CamApplication::on_timer(Clock::time_point)
     *(bvc.accelerationControl->buf) = (uint8_t) 0b10111110;
 
     CAM_t cam_t = {message->header, message->cam};
-    string cam_json = buildJSON(cam_t, time_now_mqtt, -255, 0, true, false);
+    string cam_json_full;
+    string cam_json = buildJSON(cam_t, cam_json_full, time_now_mqtt, -255, 0, true, false, true);
     if(config_s.cam.mqtt_enabled) local_mqtt->publish(config_s.own_cam_topic_out, cam_json);
     if(config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.own_cam_topic_out, cam_json);
     if(config_s.cam.dds_enabled) dds->publish(config_s.own_cam_topic_out, cam_json);
 
     if(config_s.full_cam_topic_out != "") { 
-        json fields_json = cam_t;
-        json full_json = {
-            {"timestamp", time_now_mqtt},
-            {"rssi", -255},
-            {"others", {
-                    {"json_timestamp", (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0}
-                }
-            },
-            {"receiverID", config_s.station_id},
-            {"receiverType", config_s.station_type},
-            {"fields", fields_json}
-        };
-        string json_dump = full_json.dump();
-        if(config_s.cam.mqtt_enabled && config_s.own_full_cam_topic_out != "") local_mqtt->publish(config_s.own_full_cam_topic_out, json_dump);
-        if(config_s.cam.mqtt_enabled && config_s.own_full_cam_topic_out != "" && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.own_full_cam_topic_out, json_dump);
-        if(config_s.cam.dds_enabled && config_s.own_full_cam_topic_out != "") dds->publish(config_s.own_full_cam_topic_out, json_dump);
+
+        if(config_s.cam.mqtt_enabled && config_s.own_full_cam_topic_out != "") local_mqtt->publish(config_s.own_full_cam_topic_out, cam_json_full);
+        if(config_s.cam.mqtt_enabled && config_s.own_full_cam_topic_out != "" && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.own_full_cam_topic_out, cam_json_full);
+        if(config_s.cam.dds_enabled && config_s.own_full_cam_topic_out != "") dds->publish(config_s.own_full_cam_topic_out, cam_json_full);
     }
 
     std::string error;
