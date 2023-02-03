@@ -167,7 +167,7 @@ std::string CamApplication::buildJSON(CAM_t message, std::string & cam_json_full
 
     if (full)
     {
-        json json_payload_full = {"fields", cam_t};
+        json json_payload_full = {"fields", message};
         json_payload_full.merge_patch(json_payload);
         cam_json_full = full_json.dump();
         std::cout << "CAM JSON FULL: " << cam_json_full << std::endl;
