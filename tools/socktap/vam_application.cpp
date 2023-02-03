@@ -79,7 +79,7 @@ void VamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     //std::cout << "VAM application received a packet with " << (vam ? "decodable" : "broken") << " content" << std::endl;
 
     VAM_t vam_t = {(*vam)->header, (*vam)->vam};
-    string vam_json = buildJSON(vam_t, cp.time_received, cp.rssi);
+    string vam_json = buildJSON(vam_t, cp.time_received, cp.rssi, cp.size());
 
     if(config_s.vam.mqtt_enabled) local_mqtt->publish(config_s.vam.topic_out, vam_json);
     if(config_s.vam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.vam.topic_out, vam_json);
@@ -118,7 +118,7 @@ void VamApplication::schedule_timer()
     runtime_.schedule(vam_interval_, std::bind(&VamApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-std::string VamApplication::buildJSON(VAM_t message, double time_reception, int rssi) {
+std::string VamApplication::buildJSON(VAM_t message, double time_reception, int rssi, int packet_size) {
     ItsPduHeader_t& header = message.header;
     VruAwareness_t& vam = message.vam;
     nlohmann::json j = message;
@@ -130,7 +130,8 @@ std::string VamApplication::buildJSON(VAM_t message, double time_reception, int 
             {"newInfo", true},
             {"rssi", rssi},
             {"test", {
-                    {"json_timestamp", time_now}
+                    {"json_timestamp", time_now},
+                    {"packet_size", packet_size}
                 },
             },
             {"fields", j},

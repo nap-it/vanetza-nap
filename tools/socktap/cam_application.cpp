@@ -88,7 +88,7 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     //std::cout << "CAM application received a packet with " << (cam ? "decodable" : "broken") << " content" << std::endl;
 
     CAM_t cam_t = {(*cam)->header, (*cam)->cam};
-    string cam_json = buildJSON(cam_t, cp.time_received, cp.rssi, true, true);
+    string cam_json = buildJSON(cam_t, cp.time_received, cp.rssi, cp.size(), true, true);
 
     if(config_s.cam.mqtt_enabled) local_mqtt->publish(config_s.cam.topic_out, cam_json);
     if(config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_out, cam_json);
@@ -124,7 +124,7 @@ void CamApplication::schedule_timer()
     runtime_.schedule(cam_interval_, std::bind(&CamApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-std::string CamApplication::buildJSON(CAM_t message, double time_reception, int rssi, bool include_fields, bool rx) { 
+std::string CamApplication::buildJSON(CAM_t message, double time_reception, int rssi, int packet_size, bool include_fields, bool rx) {
     ItsPduHeader_t& header = message.header;
     CoopAwareness_t& cam = message.cam;
     BasicContainer_t& basic = cam.camParameters.basicContainer;
@@ -195,7 +195,8 @@ std::string CamApplication::buildJSON(CAM_t message, double time_reception, int 
         json_payload["newInfo"] = new_info;
         json_payload["rssi"] = rssi;
         json_payload["test"] = {
-                {"json_timestamp", time_now}
+                {"json_timestamp", time_now},
+                {"packet_size", packet_size}
             };
         json_payload["receiverID"] = config_s.station_id;
         json_payload["receiverType"] = config_s.station_type;

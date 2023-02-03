@@ -76,7 +76,7 @@ void MapemApplication::indicate(const DataIndication& indication, UpPacketPtr pa
     //std::cout << "MAPEM application received a packet with " << (mapem ? "decodable" : "broken") << " content" << std::endl;
 
     MAPEM_t mapem_t = {(*mapem)->header, (*mapem)->map};
-    string mapem_json = buildJSON(mapem_t, cp.time_received, cp.rssi);
+    string mapem_json = buildJSON(mapem_t, cp.time_received, cp.rssi, cp.size());
 
     if(config_s.mapem.mqtt_enabled) local_mqtt->publish(config_s.mapem.topic_out, mapem_json);
     if(config_s.mapem.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.mapem.topic_out, mapem_json);
@@ -94,7 +94,7 @@ void MapemApplication::schedule_timer()
     runtime_.schedule(mapem_interval_, std::bind(&MapemApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-std::string MapemApplication::buildJSON(MAPEM_t message, double time_reception, int rssi) {
+std::string MapemApplication::buildJSON(MAPEM_t message, double time_reception, int rssi, int packet_size) {
     ItsPduHeader_t& header = message.header;
     nlohmann::json j = message;
 
@@ -105,7 +105,8 @@ std::string MapemApplication::buildJSON(MAPEM_t message, double time_reception, 
             {"newInfo", true},
             {"rssi", rssi},
             {"test", {
-                    {"json_timestamp", time_now}
+                    {"json_timestamp", time_now},
+                    {"packet_size", packet_size}
                 },
             },
             {"fields", j},

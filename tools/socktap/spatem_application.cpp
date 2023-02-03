@@ -76,7 +76,7 @@ void SpatemApplication::indicate(const DataIndication& indication, UpPacketPtr p
     //std::cout << "SPATEM application received a packet with " << (spatem ? "decodable" : "broken") << " content" << std::endl;
 
     SPATEM_t spatem_t = {(*spatem)->header, (*spatem)->spat};
-    string spatem_json = buildJSON(spatem_t, cp.time_received, cp.rssi);
+    string spatem_json = buildJSON(spatem_t, cp.time_received, cp.rssi, cp.size());
 
     if(config_s.spatem.mqtt_enabled) local_mqtt->publish(config_s.spatem.topic_out, spatem_json);
     if(config_s.spatem.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.spatem.topic_out, spatem_json);
@@ -94,7 +94,7 @@ void SpatemApplication::schedule_timer()
     runtime_.schedule(spatem_interval_, std::bind(&SpatemApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-std::string SpatemApplication::buildJSON(SPATEM_t message, double time_reception, int rssi) {
+std::string SpatemApplication::buildJSON(SPATEM_t message, double time_reception, int rssi, int packet_size) {
     ItsPduHeader_t& header = message.header;
     nlohmann::json j = message;
 
@@ -105,7 +105,8 @@ std::string SpatemApplication::buildJSON(SPATEM_t message, double time_reception
             {"newInfo", true},
             {"rssi", rssi},
             {"test", {
-                    {"json_timestamp", time_now}
+                    {"json_timestamp", time_now},
+                    {"packet_size", packet_size}
                 },
             },
             {"fields", j},
