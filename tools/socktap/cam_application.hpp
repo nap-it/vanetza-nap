@@ -30,7 +30,8 @@ private:
     config_t config_s;
     metrics_t metrics_s;
 
-    std::string buildJSON(CAM_t cam, double time_reception, int rssi, int packet_size, bool include_fields, bool rx);
+    std::string buildJSON(CAM_t cam, std::string & cam_json_full, double time_reception, int rssi, int packet_size, bool include_fields, bool rx, bool full);
+
 };
 
 #endif /* CAM_APPLICATION_HPP_EUIC2VFR */

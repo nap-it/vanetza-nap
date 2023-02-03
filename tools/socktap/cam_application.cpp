@@ -88,7 +88,8 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     //std::cout << "CAM application received a packet with " << (cam ? "decodable" : "broken") << " content" << std::endl;
 
     CAM_t cam_t = {(*cam)->header, (*cam)->cam};
-    string cam_json = buildJSON(cam_t, cp.time_received, cp.rssi, cp.size(), true, true);
+    string cam_json_full;
+    string cam_json = buildJSON(cam_t, cam_json_full, cp.time_received, cp.rssi, cp.size(), true, true, true);
 
     if(config_s.cam.mqtt_enabled) local_mqtt->publish(config_s.cam.topic_out, cam_json);
     if(config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_out, cam_json);
@@ -97,24 +98,11 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     cam_rx_counter->Increment();
 
     if(config_s.full_cam_topic_out != "") { 
-        json fields_json = cam_t;
-        json full_json = {
-            {"timestamp", cp.time_received},
-            {"rssi", cp.rssi},
-            {"others", {
-                    {"json_timestamp", (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0}
-                }
-            },
-            {"receiverID", config_s.station_id},
-            {"receiverType", config_s.station_type},
-            {"fields", fields_json}
-        };
-        string json_dump = full_json.dump();
-        if(config_s.cam.mqtt_enabled && config_s.full_cam_topic_out != "") local_mqtt->publish(config_s.full_cam_topic_out, json_dump);
-        if(config_s.cam.mqtt_enabled && config_s.full_cam_topic_out != "" && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.full_cam_topic_out, json_dump);
-        if(config_s.cam.dds_enabled && config_s.full_cam_topic_out != "") dds->publish(config_s.full_cam_topic_out, json_dump);
+        if(config_s.cam.mqtt_enabled && config_s.full_cam_topic_out != "") local_mqtt->publish(config_s.full_cam_topic_out, cam_json_full);
+        if(config_s.cam.mqtt_enabled && config_s.full_cam_topic_out != "" && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.full_cam_topic_out, cam_json_full);
+        if(config_s.cam.dds_enabled && config_s.full_cam_topic_out != "") dds->publish(config_s.full_cam_topic_out, cam_json_full);
         if(config_s.cam.udp_out_port != 0) {
-            cam_udp_socket.send_to(buffer(json_dump, json_dump.length()), cam_remote_endpoint, 0, cam_err);
+            cam_udp_socket.send_to(buffer(cam_json_full, cam_json_full.length()), cam_remote_endpoint, 0, cam_err);
         }
     }
 }
@@ -124,7 +112,7 @@ void CamApplication::schedule_timer()
     runtime_.schedule(cam_interval_, std::bind(&CamApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-std::string CamApplication::buildJSON(CAM_t message, double time_reception, int rssi, int packet_size, bool include_fields, bool rx) {
+std::string CamApplication::buildJSON(CAM_t message, std::string & cam_json_full, double time_reception, int rssi, int packet_size, bool include_fields, bool rx, bool full) {
     ItsPduHeader_t& header = message.header;
     CoopAwareness_t& cam = message.cam;
     BasicContainer_t& basic = cam.camParameters.basicContainer;
@@ -136,6 +124,7 @@ std::string CamApplication::buildJSON(CAM_t message, double time_reception, int 
     string driveDirection = "UNAVAILABLE"; 
     switch(bvc.driveDirection) {
         case(0):
+            driveDirection = "FORWARD";
             driveDirection = "FORWARD";
             break;
         case(1):
@@ -153,7 +142,38 @@ std::string CamApplication::buildJSON(CAM_t message, double time_reception, int 
     
     bool new_info = last_map == persistence.end() || ((last_map->second)["lat"] != (double) latitude) || ((last_map->second)["lng"] != (double) longitude) || ( time_reception - (last_map->second)["time"] >= 1);
 
-    json json_payload = {
+    json json_payload;
+
+    const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+
+    if(include_fields) {
+        json_payload["timestamp"] = time_reception;
+        json_payload["newInfo"] = new_info;
+        json_payload["rssi"] = rssi;
+        if (rx) {
+            json_payload["test"] = {
+                    {"json_timestamp", time_now},
+                    {"packet_size",    packet_size}
+            };
+        }
+        else{
+            json_payload["test"] = {
+                    {"json_timestamp", time_now}
+            };
+        }
+        json_payload["receiverID"] = config_s.station_id;
+        json_payload["receiverType"] = config_s.station_type;
+    }
+
+    if (full)
+    {
+        json_payload_full = {"fields", cam_t};
+        json_payload_full.merge_patch(json_payload);
+        cam_json_full = full_json.dump();
+        std::cout << "CAM JSON FULL: " << cam_json_full << std::endl;
+    }
+
+    json_payload = {
             {"stationID", (long) header.stationID},
             {"stationType", (long) basic.stationType},
             {"latitude", (latitude == 900000001) ? latitude : (double) ((double) latitude / pow(10, 7))},
@@ -188,26 +208,6 @@ std::string CamApplication::buildJSON(CAM_t message, double time_reception, int 
         json_payload["specialVehicle"] = svc;
     }
 
-    const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-
-    if(include_fields) {
-        json_payload["timestamp"] = time_reception;
-        json_payload["newInfo"] = new_info;
-        json_payload["rssi"] = rssi;
-        if (rx) {
-            json_payload["test"] = {
-                    {"json_timestamp", time_now},
-                    {"packet_size",    packet_size}
-            };
-        }
-        else{
-            json_payload["test"] = {
-                    {"json_timestamp", time_now}
-            };
-        }
-        json_payload["receiverID"] = config_s.station_id;
-        json_payload["receiverType"] = config_s.station_type;
-    }
 
     if(new_info) persistence[header.stationID] = {{"lat", (double) latitude}, {"lng", (double) longitude}, {"time", time_reception}};
 
