@@ -74,7 +74,7 @@ void DenmApplication::indicate(const DataIndication& indication, UpPacketPtr pac
     //std::cout << "DENM application received a packet with " << (denm ? "decodable" : "broken") << " content" << std::endl;
 
     DENM_t denm_t = {(*denm)->header, (*denm)->denm};
-    string denm_json = buildJSON(denm_t, cp.time_received, cp.size());
+    string denm_json = buildJSON(denm_t, cp.time_received, cp.rssi, cp.size());
 
     if(config_s.denm.mqtt_enabled) local_mqtt->publish(config_s.denm.topic_out, denm_json);
     if(config_s.denm.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.denm.topic_out, denm_json);

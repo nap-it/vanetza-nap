@@ -194,10 +194,17 @@ std::string CamApplication::buildJSON(CAM_t message, double time_reception, int 
         json_payload["timestamp"] = time_reception;
         json_payload["newInfo"] = new_info;
         json_payload["rssi"] = rssi;
-        json_payload["test"] = {
-                {"json_timestamp", time_now},
-                {"packet_size", packet_size}
+        if (rx) {
+            json_payload["test"] = {
+                    {"json_timestamp", time_now},
+                    {"packet_size",    packet_size}
             };
+        }
+        else{
+            json_payload["test"] = {
+                    {"json_timestamp", time_now}
+            };
+        }
         json_payload["receiverID"] = config_s.station_id;
         json_payload["receiverType"] = config_s.station_type;
     }
@@ -463,7 +470,7 @@ void CamApplication::on_timer(Clock::time_point)
     *(bvc.accelerationControl->buf) = (uint8_t) 0b10111110;
 
     CAM_t cam_t = {message->header, message->cam};
-    string cam_json = buildJSON(cam_t, time_now_mqtt, -255, true, false);
+    string cam_json = buildJSON(cam_t, time_now_mqtt, -255, 0, true, false);
     if(config_s.cam.mqtt_enabled) local_mqtt->publish(config_s.own_cam_topic_out, cam_json);
     if(config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.own_cam_topic_out, cam_json);
     if(config_s.cam.dds_enabled) dds->publish(config_s.own_cam_topic_out, cam_json);
