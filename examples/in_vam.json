@@ -35,9 +35,6 @@
             "profileAndSubprofile": {
                 "pedestrian": 1
             }
-        },
-        "vruClusterInformationContainer": {},
-        "vruClusterOperationContainer": {},
-        "vruMotionPredictionContainer": {}
+        }
     }
 }
