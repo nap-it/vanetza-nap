@@ -142,77 +142,102 @@ std::string CamApplication::buildJSON(CAM_t message, std::string & cam_json_full
     
     bool new_info = last_map == persistence.end() || ((last_map->second)["lat"] != (double) latitude) || ((last_map->second)["lng"] != (double) longitude) || ( time_reception - (last_map->second)["time"] >= 1);
 
-    json json_payload;
+    json general_payload, json_payload;
 
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
     if(include_fields) {
-        json_payload["timestamp"] = time_reception;
-        json_payload["newInfo"] = new_info;
-        json_payload["rssi"] = rssi;
+        general_payload = {
+                {"timestamp",time_reception},
+                {"newInfo", new_info},
+                {"rssi", rssi},
+                {"receiverID", config_s.station_id},
+                {"receiverType", config_s.station_type}
+        };
+
         if (rx) {
-            json_payload["test"] = {
+            general_payload["test"] = {
                     {"json_timestamp", time_now},
                     {"packet_size",    packet_size}
             };
         }
         else{
-            json_payload["test"] = {
+            general_payload["test"] = {
                     {"json_timestamp", time_now}
             };
         }
-        json_payload["receiverID"] = config_s.station_id;
-        json_payload["receiverType"] = config_s.station_type;
+
     }
 
     if (full)
     {
-        json json_payload_full = {"fields", message};
-        json_payload_full.merge_patch(json_payload);
-        std::cout << "JSON FULL: " << json_payload_full << std::endl;
-        cam_json_full = json_payload_full.dump();
-        std::cout << "CAM JSON FULL: " << cam_json_full << std::endl;
+        json_payload = {
+                {"fields", message}
+        };
+        json_payload.merge_patch(general_payload);            // join json_payload_full and json_payload
+        //cam_json_full = json_payload_full.dump();
+        //std::cout << "CAM JSON FULL: " << cam_json_full << std::endl;
     }
+    else {
+        json_payload = {
+                {"stationID",        (long) header.stationID},
+                {"stationType",      (long) basic.stationType},
+                {"latitude",         (latitude == 900000001) ? latitude : (double) ((double) latitude / pow(10, 7))},
+                {"longitude",        (longitude == 1800000001) ? longitude : (double) ((double) longitude /
+                                                                                       pow(10, 7))},
+                {"semiMajorConf",    (long) basic.referencePosition.positionConfidenceEllipse.semiMajorConfidence},
+                {"semiMinorConf",    (long) basic.referencePosition.positionConfidenceEllipse.semiMinorConfidence},
+                {"semiMajorOrient",  (long) basic.referencePosition.positionConfidenceEllipse.semiMajorOrientation},
+                {"altitude",         (basic.referencePosition.altitude.altitudeValue == 800001)
+                                     ? (long) basic.referencePosition.altitude.altitudeValue : (double) (
+                                (double) basic.referencePosition.altitude.altitudeValue / pow(10, 2))},
+                {"altitudeConf",     (long) basic.referencePosition.altitude.altitudeConfidence},
+                {"heading",          (((long) bvc.heading.headingValue) == 3601) ? ((long) bvc.heading.headingValue)
+                                                                                 : (double) (
+                                (double) bvc.heading.headingValue / pow(10, 1))},
+                {"headingConf",      ((bvc.heading.headingConfidence) == 126 || (bvc.heading.headingConfidence) == 127)
+                                     ? (bvc.heading.headingConfidence) : (double) (
+                                (double) (bvc.heading.headingConfidence) / pow(10, 1))},
+                {"speed",            ((bvc.speed.speedValue) == 16383) ? (bvc.speed.speedValue) : (double) (
+                        (double) (bvc.speed.speedValue) / pow(10, 2))},
+                {"speedConf",        ((bvc.speed.speedConfidence) == 126 || (bvc.speed.speedConfidence) == 127)
+                                     ? (bvc.speed.speedConfidence) : (double) ((double) (bvc.speed.speedConfidence) /
+                                                                               pow(10, 2))},
+                {"driveDirection",   driveDirection},
+                {"length",           ((bvc.vehicleLength.vehicleLengthValue) == 1023)
+                                     ? (bvc.vehicleLength.vehicleLengthValue) : (double) (
+                                (double) (bvc.vehicleLength.vehicleLengthValue) / pow(10, 1))},
+                {"width",            ((bvc.vehicleWidth) == 61 || (bvc.vehicleWidth) == 62) ? (bvc.vehicleWidth)
+                                                                                            : (double) (
+                                (double) (bvc.vehicleWidth) / pow(10, 1))},
+                {"acceleration",     ((bvc.longitudinalAcceleration.longitudinalAccelerationValue) == 161)
+                                     ? (bvc.longitudinalAcceleration.longitudinalAccelerationValue) : (double) (
+                                (double) (bvc.longitudinalAcceleration.longitudinalAccelerationValue) / pow(10, 1))},
+                {"curvature",        (long) bvc.curvature.curvatureValue},
+                {"yawRate",          ((bvc.yawRate.yawRateValue) == 32767) ? (bvc.yawRate.yawRateValue) : (double) (
+                        (double) (bvc.yawRate.yawRateValue) / pow(10, 2))},
+                {"brakePedal",       (bool) (*(bvc.accelerationControl->buf) & (1 << (7 - 0)))},
+                {"gasPedal",         (bool) (*(bvc.accelerationControl->buf) & (1 << (7 - 1)))},
+                {"emergencyBrake",   (bool) (*(bvc.accelerationControl->buf) & (1 << (7 - 2)))},
+                {"collisionWarning", (bool) (*(bvc.accelerationControl->buf) & (1 << (7 - 3)))},
+                {"accEngaged",       (bool) (*(bvc.accelerationControl->buf) & (1 << (7 - 4)))},
+                {"cruiseControl",    (bool) (*(bvc.accelerationControl->buf) & (1 << (7 - 5)))},
+                {"speedLimiter",     (bool) (*(bvc.accelerationControl->buf) & (1 << (7 - 6)))},
+                {"specialVehicle",   nullptr}
+        };
+        json_payload.merge_patch(general_payload);
 
-    json_payload = {
-            {"stationID", (long) header.stationID},
-            {"stationType", (long) basic.stationType},
-            {"latitude", (latitude == 900000001) ? latitude : (double) ((double) latitude / pow(10, 7))},
-            {"longitude", (longitude == 1800000001) ? longitude : (double) ((double) longitude / pow(10, 7))},
-            {"semiMajorConf", (long) basic.referencePosition.positionConfidenceEllipse.semiMajorConfidence},
-            {"semiMinorConf", (long) basic.referencePosition.positionConfidenceEllipse.semiMinorConfidence},
-            {"semiMajorOrient", (long) basic.referencePosition.positionConfidenceEllipse.semiMajorOrientation},
-            {"altitude", (basic.referencePosition.altitude.altitudeValue == 800001) ? (long) basic.referencePosition.altitude.altitudeValue : (double) ((double) basic.referencePosition.altitude.altitudeValue / pow(10, 2))},
-            {"altitudeConf", (long) basic.referencePosition.altitude.altitudeConfidence},
-            {"heading", (((long) bvc.heading.headingValue) == 3601) ? ((long) bvc.heading.headingValue) : (double) ((double) bvc.heading.headingValue / pow(10, 1))},
-            {"headingConf", ((bvc.heading.headingConfidence) == 126 || (bvc.heading.headingConfidence) == 127) ? (bvc.heading.headingConfidence) : (double) ((double) (bvc.heading.headingConfidence) / pow(10, 1))},
-            {"speed", ((bvc.speed.speedValue) == 16383) ? (bvc.speed.speedValue) : (double)((double) (bvc.speed.speedValue) / pow(10, 2))},
-            {"speedConf", ((bvc.speed.speedConfidence) == 126 || (bvc.speed.speedConfidence) == 127) ? (bvc.speed.speedConfidence) : (double) ((double)(bvc.speed.speedConfidence) / pow(10, 2))},
-            {"driveDirection", driveDirection},
-            {"length", ((bvc.vehicleLength.vehicleLengthValue) == 1023) ? (bvc.vehicleLength.vehicleLengthValue) : (double)((double) (bvc.vehicleLength.vehicleLengthValue) / pow(10, 1))},
-            {"width", ((bvc.vehicleWidth) == 61 || (bvc.vehicleWidth) == 62) ? (bvc.vehicleWidth) : (double)((double) (bvc.vehicleWidth) / pow(10,1))},
-            {"acceleration", ((bvc.longitudinalAcceleration.longitudinalAccelerationValue) == 161) ? (bvc.longitudinalAcceleration.longitudinalAccelerationValue) : (double)((double) (bvc.longitudinalAcceleration.longitudinalAccelerationValue) / pow(10,1))},
-            {"curvature", (long) bvc.curvature.curvatureValue},
-            {"yawRate", ((bvc.yawRate.yawRateValue) == 32767) ? (bvc.yawRate.yawRateValue) : (double)((double) (bvc.yawRate.yawRateValue) / pow(10,2))},
-            {"brakePedal", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-0)))},
-            {"gasPedal", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-1)))},
-            {"emergencyBrake", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-2)))},
-            {"collisionWarning", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-3)))},
-            {"accEngaged", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-4)))},
-            {"cruiseControl", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-5)))},
-            {"speedLimiter", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-6)))},
-            {"specialVehicle", nullptr}
-    };
-
-    if (cam.camParameters.specialVehicleContainer != 0) {
-        json svc = *(cam.camParameters.specialVehicleContainer);
-        json_payload["specialVehicle"] = svc;
+        if (cam.camParameters.specialVehicleContainer != 0) {
+            json svc = *(cam.camParameters.specialVehicleContainer);
+            json_payload["specialVehicle"] = svc;
+        }
     }
 
 
     if(new_info) persistence[header.stationID] = {{"lat", (double) latitude}, {"lng", (double) longitude}, {"time", time_reception}};
 
     if (rx) cam_rx_latency->Increment(time_now - time_reception);
+
     return json_payload.dump();
 }
 
