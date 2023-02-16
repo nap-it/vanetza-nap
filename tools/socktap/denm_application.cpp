@@ -103,14 +103,14 @@ std::string DenmApplication::buildJSON(DENM_t message, double time_reception, in
             {"newInfo", true},
             {"rssi", rssi},
             {"test", {
-                    {"json_timestamp", time_now},
-                    {"packet_size", packet_size}
+                    {"json_timestamp", time_now}
                 },
             },
             {"fields", j},
             {"stationID", (long) header.stationID},
             {"receiverID", config_s.station_id},
-            {"receiverType", config_s.station_type}
+            {"receiverType", config_s.station_type},
+            {"packet_size", packet_size}
     };
 
     denm_rx_latency->Increment(time_now - time_reception);

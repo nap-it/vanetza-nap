@@ -105,14 +105,14 @@ std::string CpmApplication::buildJSON(CPM_t message, double time_reception, int 
             {"newInfo", true},
             {"rssi", rssi},
             {"test", {
-                    {"json_timestamp", time_now},
-                    {"packet_size", packet_size}
+                    {"json_timestamp", time_now}
                 },
             },
             {"fields", j},
             {"stationID", (long) header.stationID},
             {"receiverID", config_s.station_id},
-            {"receiverType", config_s.station_type}
+            {"receiverType", config_s.station_type},
+            {"packet_size", packet_size}
     };
 
     cpm_rx_latency->Increment(time_now - time_reception);
