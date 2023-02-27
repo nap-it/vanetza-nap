@@ -107,6 +107,70 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     }
 }
 
+long double CamApplication::toRadians(const long double & degree) {
+    long double one_deg = (M_PI) / 180;
+    return (one_deg * degree);
+}
+
+long double CamApplication::calcDistance(long double lat1, long double long1, long double lat2, long double long2) {
+    // Convert the latitudes
+    // and longitudes
+    // from degree to radians.
+    lat1 = toRadians(lat1);
+    long1 = toRadians(long1);
+    lat2 = toRadians(lat2);
+    long2 = toRadians(long2);
+     
+    // Haversine Formula
+    long double dlong = long2 - long1;
+    long double dlat = lat2 - lat1;
+ 
+    long double dist = pow(sin(dlat / 2), 2) + cos(lat1) * cos(lat2) * pow(sin(dlong / 2), 2);
+ 
+    dist = 2 * asin(sqrt(dist));
+ 
+    // Radius of Earth in
+    // Kilometers, R = 6371
+    long double R = 6371;
+     
+    // Calculate the result
+    dist = dist * R;
+ 
+    return dist;
+}
+
+bool CamApplication::isNewInfo(long stationID, long latitude, long longitude, double speed, long heading, double time_reception) {
+    // unavailable values
+    if (latitude == 900000001 || longitude == 1800000001 || speed == 16383 || heading == 3601) {
+        return true;
+    }
+
+    auto last_map = persistence.find(stationID);
+    if (last_map == persistence.end()) {
+        return true;
+    }
+    if ((last_map->second)["lat"] == 900000001 || (last_map->second)["lng"] == 1800000001 || (last_map->second)["speed"] == 16383 || (last_map->second)["heading"] == 3601) {
+        return true;
+    }
+
+    // traduzir unidades
+    latitude = (double) ((double) latitude / pow(10, 7));
+    longitude = (double) ((double) longitude / pow(10, 7));
+    speed = (double) ((double) speed / pow(10, 2));
+    heading = (double) ((double) heading / pow(10, 1));
+    long last_lat = (double) ((double) (last_map->second)["lat"] / pow(10, 7));
+    long last_lng = (double) ((double) (last_map->second)["lng"] / pow(10, 7));
+    double last_speed = (double) ((double) (last_map->second)["speed"] / pow(10, 2));
+    long last_heading = (double) ((double) (last_map->second)["heading"] / pow(10, 1));
+
+    double dist = calcDistance(latitude, longitude, last_lat, last_lng);
+
+    double speed_delta = speed - last_speed;
+    double heading_delta = heading - last_heading;
+    
+    return dist >= 4 || speed_delta >= 0.5 || heading_delta >= 4 || (time_reception - (last_map->second)["time"] >= 1);
+}
+
 void CamApplication::schedule_timer()
 {
     runtime_.schedule(cam_interval_, std::bind(&CamApplication::on_timer, this, std::placeholders::_1), this);
@@ -134,13 +198,13 @@ std::string CamApplication::buildJSON(CAM_t message, std::string & cam_json_full
             driveDirection = "UNAVAILABLE";
             break;
     }
-
+    
     long latitude = (long) basic.referencePosition.latitude;
     long longitude = (long) basic.referencePosition.longitude;
+    long speed = (double) bvc.speed.speedValue;
+    long heading = (long) bvc.heading.headingValue;
 
-    auto last_map = persistence.find(header.stationID);
-    
-    bool new_info = last_map == persistence.end() || ((last_map->second)["lat"] != (double) latitude) || ((last_map->second)["lng"] != (double) longitude) || ( time_reception - (last_map->second)["time"] >= 1);
+    bool new_info = isNewInfo(header.stationID, latitude, longitude, speed, heading, time_reception);
 
     json general_payload, json_payload;
 
@@ -177,8 +241,7 @@ std::string CamApplication::buildJSON(CAM_t message, std::string & cam_json_full
             {"stationID",        (long) header.stationID},
             {"stationType",      (long) basic.stationType},
             {"latitude",         (latitude == 900000001) ? latitude : (double) ((double) latitude / pow(10, 7))},
-            {"longitude",        (longitude == 1800000001) ? longitude : (double) ((double) longitude /
-                                                                                    pow(10, 7))},
+            {"longitude",        (longitude == 1800000001) ? longitude : (double) ((double) longitude / pow(10, 7))},
             {"semiMajorConf",    (long) basic.referencePosition.positionConfidenceEllipse.semiMajorConfidence},
             {"semiMinorConf",    (long) basic.referencePosition.positionConfidenceEllipse.semiMinorConfidence},
             {"semiMajorOrient",  (long) basic.referencePosition.positionConfidenceEllipse.semiMajorOrientation},
@@ -186,14 +249,11 @@ std::string CamApplication::buildJSON(CAM_t message, std::string & cam_json_full
                                     ? (long) basic.referencePosition.altitude.altitudeValue : (double) (
                             (double) basic.referencePosition.altitude.altitudeValue / pow(10, 2))},
             {"altitudeConf",     (long) basic.referencePosition.altitude.altitudeConfidence},
-            {"heading",          (((long) bvc.heading.headingValue) == 3601) ? ((long) bvc.heading.headingValue)
-                                                                                : (double) (
-                            (double) bvc.heading.headingValue / pow(10, 1))},
+            {"heading",          (heading == 3601) ? heading : (double) ((double) heading / pow(10, 1))},
             {"headingConf",      ((bvc.heading.headingConfidence) == 126 || (bvc.heading.headingConfidence) == 127)
                                     ? (bvc.heading.headingConfidence) : (double) (
                             (double) (bvc.heading.headingConfidence) / pow(10, 1))},
-            {"speed",            ((bvc.speed.speedValue) == 16383) ? (bvc.speed.speedValue) : (double) (
-                    (double) (bvc.speed.speedValue) / pow(10, 2))},
+            {"speed",            (speed == 16383) ? speed : (double) ((double) speed / pow(10, 2))},
             {"speedConf",        ((bvc.speed.speedConfidence) == 126 || (bvc.speed.speedConfidence) == 127)
                                     ? (bvc.speed.speedConfidence) : (double) ((double) (bvc.speed.speedConfidence) /
                                                                             pow(10, 2))},
@@ -227,7 +287,7 @@ std::string CamApplication::buildJSON(CAM_t message, std::string & cam_json_full
         json_payload["specialVehicle"] = svc;
     }
 
-    if(new_info) persistence[header.stationID] = {{"lat", (double) latitude}, {"lng", (double) longitude}, {"time", time_reception}};
+    if(new_info) persistence[header.stationID] = {{"lat", (double) latitude}, {"lng", (double) longitude}, {"speed", (double) speed}, {"heading", (long) heading}, {"time", time_reception}};
 
     if (rx) cam_rx_latency->Increment(time_now - time_reception);
 
