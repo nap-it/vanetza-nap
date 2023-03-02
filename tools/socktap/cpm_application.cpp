@@ -102,7 +102,6 @@ std::string CpmApplication::buildJSON(CPM_t message, double time_reception, int 
 
     nlohmann::json json_payload = {
             {"timestamp", time_reception},
-            {"newInfo", true},
             {"rssi", rssi},
             {"test", {
                     {"json_timestamp", time_now}

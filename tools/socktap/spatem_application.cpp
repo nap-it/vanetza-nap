@@ -102,7 +102,6 @@ std::string SpatemApplication::buildJSON(SPATEM_t message, double time_reception
 
     nlohmann::json json_payload = {
             {"timestamp", time_reception},
-            {"newInfo", true},
             {"rssi", rssi},
             {"test", {
                     {"json_timestamp", time_now}

@@ -100,7 +100,6 @@ std::string DenmApplication::buildJSON(DENM_t message, double time_reception, in
 
     nlohmann::json json_payload = {
             {"timestamp", time_reception},
-            {"newInfo", true},
             {"rssi", rssi},
             {"test", {
                     {"json_timestamp", time_now}
