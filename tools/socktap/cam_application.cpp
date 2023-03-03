@@ -219,6 +219,7 @@ std::string CamApplication::buildJSON(CAM_t message, std::string & cam_json_full
                         {"json_timestamp", time_now}
                     },
                 },
+                {"stationID", (long) header.stationID},
                 {"receiverID", config_s.station_id},
                 {"receiverType", config_s.station_type},
                 {"packet_size",    packet_size}
@@ -238,7 +239,6 @@ std::string CamApplication::buildJSON(CAM_t message, std::string & cam_json_full
     
     json_payload = {
             {"generationDeltaTime", (long) cam.generationDeltaTime},
-            {"stationID",        (long) header.stationID},
             {"stationType",      (long) basic.stationType},
             {"latitude",         (latitude == 900000001) ? latitude : (double) ((double) latitude / pow(10, 7))},
             {"longitude",        (longitude == 1800000001) ? longitude : (double) ((double) longitude / pow(10, 7))},

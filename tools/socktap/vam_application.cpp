@@ -141,6 +141,7 @@ std::string VamApplication::buildJSON(VAM_t message, std::string & vam_json_full
                     {"json_timestamp", time_now}
                 },
             },
+            {"stationID", (long) header.stationID},
             {"receiverID", config_s.station_id},
             {"receiverType", config_s.station_type},
             {"packet_size",    packet_size}
