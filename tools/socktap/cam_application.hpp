@@ -30,7 +30,12 @@ private:
     config_t config_s;
     metrics_t metrics_s;
 
-    std::string buildJSON(CAM_t cam, double time_reception, int rssi, bool include_fields, bool rx);
+    std::string buildJSON(CAM_t cam, std::string & cam_json_full, double time_reception, int rssi, int packet_size, bool include_fields, bool rx, bool full);
+
+    bool isNewInfo(long stationID, long latitude, long longitude, double speed, long heading, double time_reception);
+    long double calcDistance(long double lat1, long double long1, long double lat2, long double long2);
+    long double toRadians(const long double & degree);
+
 };
 
 #endif /* CAM_APPLICATION_HPP_EUIC2VFR */

@@ -74,7 +74,7 @@ void DenmApplication::indicate(const DataIndication& indication, UpPacketPtr pac
     //std::cout << "DENM application received a packet with " << (denm ? "decodable" : "broken") << " content" << std::endl;
 
     DENM_t denm_t = {(*denm)->header, (*denm)->denm};
-    string denm_json = buildJSON(denm_t, cp.time_received, cp.rssi);
+    string denm_json = buildJSON(denm_t, cp.time_received, cp.rssi, cp.size());
 
     if(config_s.denm.mqtt_enabled) local_mqtt->publish(config_s.denm.topic_out, denm_json);
     if(config_s.denm.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.denm.topic_out, denm_json);
@@ -92,7 +92,7 @@ void DenmApplication::schedule_timer()
     runtime_.schedule(denm_interval_, std::bind(&DenmApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-std::string DenmApplication::buildJSON(DENM_t message, double time_reception, int rssi) {
+std::string DenmApplication::buildJSON(DENM_t message, double time_reception, int rssi, int packet_size) {
     ItsPduHeader_t& header = message.header;
     nlohmann::json j = message;
 
@@ -100,7 +100,6 @@ std::string DenmApplication::buildJSON(DENM_t message, double time_reception, in
 
     nlohmann::json json_payload = {
             {"timestamp", time_reception},
-            {"newInfo", true},
             {"rssi", rssi},
             {"test", {
                     {"json_timestamp", time_now}
@@ -109,7 +108,8 @@ std::string DenmApplication::buildJSON(DENM_t message, double time_reception, in
             {"fields", j},
             {"stationID", (long) header.stationID},
             {"receiverID", config_s.station_id},
-            {"receiverType", config_s.station_type}
+            {"receiverType", config_s.station_type},
+            {"packet_size", packet_size}
     };
 
     denm_rx_latency->Increment(time_now - time_reception);

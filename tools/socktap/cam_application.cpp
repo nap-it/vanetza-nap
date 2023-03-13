@@ -88,7 +88,8 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     //std::cout << "CAM application received a packet with " << (cam ? "decodable" : "broken") << " content" << std::endl;
 
     CAM_t cam_t = {(*cam)->header, (*cam)->cam};
-    string cam_json = buildJSON(cam_t, cp.time_received, cp.rssi, true, true);
+    string cam_json_full;
+    string cam_json = buildJSON(cam_t, cam_json_full, cp.time_received, cp.rssi, cp.size(), true, true, true);
 
     if(config_s.cam.mqtt_enabled) local_mqtt->publish(config_s.cam.topic_out, cam_json);
     if(config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_out, cam_json);
@@ -97,26 +98,77 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     cam_rx_counter->Increment();
 
     if(config_s.full_cam_topic_out != "") { 
-        json fields_json = cam_t;
-        json full_json = {
-            {"timestamp", cp.time_received},
-            {"rssi", cp.rssi},
-            {"others", {
-                    {"json_timestamp", (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0}
-                }
-            },
-            {"receiverID", config_s.station_id},
-            {"receiverType", config_s.station_type},
-            {"fields", fields_json}
-        };
-        string json_dump = full_json.dump();
-        if(config_s.cam.mqtt_enabled && config_s.full_cam_topic_out != "") local_mqtt->publish(config_s.full_cam_topic_out, json_dump);
-        if(config_s.cam.mqtt_enabled && config_s.full_cam_topic_out != "" && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.full_cam_topic_out, json_dump);
-        if(config_s.cam.dds_enabled && config_s.full_cam_topic_out != "") dds->publish(config_s.full_cam_topic_out, json_dump);
+        if(config_s.cam.mqtt_enabled && config_s.full_cam_topic_out != "") local_mqtt->publish(config_s.full_cam_topic_out, cam_json_full);
+        if(config_s.cam.mqtt_enabled && config_s.full_cam_topic_out != "" && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.full_cam_topic_out, cam_json_full);
+        if(config_s.cam.dds_enabled && config_s.full_cam_topic_out != "") dds->publish(config_s.full_cam_topic_out, cam_json_full);
         if(config_s.cam.udp_out_port != 0) {
-            cam_udp_socket.send_to(buffer(json_dump, json_dump.length()), cam_remote_endpoint, 0, cam_err);
+            cam_udp_socket.send_to(buffer(cam_json_full, cam_json_full.length()), cam_remote_endpoint, 0, cam_err);
         }
     }
+}
+
+long double CamApplication::toRadians(const long double & degree) {
+    long double one_deg = (M_PI) / 180;
+    return (one_deg * degree);
+}
+
+long double CamApplication::calcDistance(long double lat1, long double long1, long double lat2, long double long2) {
+    // Convert the latitudes
+    // and longitudes
+    // from degree to radians.
+    lat1 = toRadians(lat1);
+    long1 = toRadians(long1);
+    lat2 = toRadians(lat2);
+    long2 = toRadians(long2);
+     
+    // Haversine Formula
+    long double dlong = long2 - long1;
+    long double dlat = lat2 - lat1;
+ 
+    long double dist = pow(sin(dlat / 2), 2) + cos(lat1) * cos(lat2) * pow(sin(dlong / 2), 2);
+ 
+    dist = 2 * asin(sqrt(dist));
+ 
+    // Radius of Earth in
+    // Kilometers, R = 6371
+    long double R = 6371;
+     
+    // Calculate the result
+    dist = dist * R;
+ 
+    return dist;
+}
+
+bool CamApplication::isNewInfo(long stationID, long latitude, long longitude, double speed, long heading, double time_reception) {
+    // unavailable values
+    if (latitude == 900000001 || longitude == 1800000001 || speed == 16383 || heading == 3601) {
+        return true;
+    }
+
+    auto last_map = persistence.find(stationID);
+    if (last_map == persistence.end()) {
+        return true;
+    }
+    if ((last_map->second)["lat"] == 900000001 || (last_map->second)["lng"] == 1800000001 || (last_map->second)["speed"] == 16383 || (last_map->second)["heading"] == 3601) {
+        return true;
+    }
+
+    // traduzir unidades
+    latitude = (double) ((double) latitude / pow(10, 7));
+    longitude = (double) ((double) longitude / pow(10, 7));
+    speed = (double) ((double) speed / pow(10, 2));
+    heading = (double) ((double) heading / pow(10, 1));
+    long last_lat = (double) ((double) (last_map->second)["lat"] / pow(10, 7));
+    long last_lng = (double) ((double) (last_map->second)["lng"] / pow(10, 7));
+    double last_speed = (double) ((double) (last_map->second)["speed"] / pow(10, 2));
+    long last_heading = (double) ((double) (last_map->second)["heading"] / pow(10, 1));
+
+    double dist = calcDistance(latitude, longitude, last_lat, last_lng);
+
+    double speed_delta = speed - last_speed;
+    double heading_delta = heading - last_heading;
+    
+    return dist >= 4 || speed_delta >= 0.5 || heading_delta >= 4 || (time_reception - (last_map->second)["time"] >= 1);
 }
 
 void CamApplication::schedule_timer()
@@ -124,7 +176,7 @@ void CamApplication::schedule_timer()
     runtime_.schedule(cam_interval_, std::bind(&CamApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-std::string CamApplication::buildJSON(CAM_t message, double time_reception, int rssi, bool include_fields, bool rx) { 
+std::string CamApplication::buildJSON(CAM_t message, std::string & cam_json_full, double time_reception, int rssi, int packet_size, bool include_fields, bool rx, bool full) {
     ItsPduHeader_t& header = message.header;
     CoopAwareness_t& cam = message.cam;
     BasicContainer_t& basic = cam.camParameters.basicContainer;
@@ -137,6 +189,7 @@ std::string CamApplication::buildJSON(CAM_t message, double time_reception, int 
     switch(bvc.driveDirection) {
         case(0):
             driveDirection = "FORWARD";
+            driveDirection = "FORWARD";
             break;
         case(1):
             driveDirection = "BACKWARD";
@@ -145,65 +198,99 @@ std::string CamApplication::buildJSON(CAM_t message, double time_reception, int 
             driveDirection = "UNAVAILABLE";
             break;
     }
-
+    
     long latitude = (long) basic.referencePosition.latitude;
     long longitude = (long) basic.referencePosition.longitude;
+    long speed = (double) bvc.speed.speedValue;
+    long heading = (long) bvc.heading.headingValue;
 
-    auto last_map = persistence.find(header.stationID);
+    bool new_info = isNewInfo(header.stationID, latitude, longitude, speed, heading, time_reception);
+
+    json general_payload, json_payload;
+
+    const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+
+    if(include_fields) {
+        general_payload = {
+                {"timestamp",time_reception},
+                {"newInfo", new_info},
+                {"rssi", rssi},
+                {"test", {
+                        {"json_timestamp", time_now}
+                    },
+                },
+                {"stationID", (long) header.stationID},
+                {"receiverID", config_s.station_id},
+                {"receiverType", config_s.station_type},
+                {"packet_size",    packet_size}
+        };
+
+    }
+
+    if (full)
+    {
+        json_payload = {
+                {"fields", message}
+        };
+        json_payload.merge_patch(general_payload);            // join json_payload and general_payload
+        cam_json_full = json_payload.dump();
+        //std::cout << "CAM JSON FULL: " << cam_json_full << std::endl;
+    }
     
-    bool new_info = last_map == persistence.end() || ((last_map->second)["lat"] != (double) latitude) || ((last_map->second)["lng"] != (double) longitude) || ( time_reception - (last_map->second)["time"] >= 1);
-
-    json json_payload = {
-            {"stationID", (long) header.stationID},
-            {"stationType", (long) basic.stationType},
-            {"latitude", (latitude == 900000001) ? latitude : (double) ((double) latitude / pow(10, 7))},
-            {"longitude", (longitude == 1800000001) ? longitude : (double) ((double) longitude / pow(10, 7))},
-            {"semiMajorConf", (long) basic.referencePosition.positionConfidenceEllipse.semiMajorConfidence},
-            {"semiMinorConf", (long) basic.referencePosition.positionConfidenceEllipse.semiMinorConfidence},
-            {"semiMajorOrient", (long) basic.referencePosition.positionConfidenceEllipse.semiMajorOrientation},
-            {"altitude", (basic.referencePosition.altitude.altitudeValue == 800001) ? (long) basic.referencePosition.altitude.altitudeValue : (double) ((double) basic.referencePosition.altitude.altitudeValue / pow(10, 2))},
-            {"altitudeConf", (long) basic.referencePosition.altitude.altitudeConfidence},
-            {"heading", (((long) bvc.heading.headingValue) == 3601) ? ((long) bvc.heading.headingValue) : (double) ((double) bvc.heading.headingValue / pow(10, 1))},
-            {"headingConf", ((bvc.heading.headingConfidence) == 126 || (bvc.heading.headingConfidence) == 127) ? (bvc.heading.headingConfidence) : (double) ((double) (bvc.heading.headingConfidence) / pow(10, 1))},
-            {"speed", ((bvc.speed.speedValue) == 16383) ? (bvc.speed.speedValue) : (double)((double) (bvc.speed.speedValue) / pow(10, 2))},
-            {"speedConf", ((bvc.speed.speedConfidence) == 126 || (bvc.speed.speedConfidence) == 127) ? (bvc.speed.speedConfidence) : (double) ((double)(bvc.speed.speedConfidence) / pow(10, 2))},
-            {"driveDirection", driveDirection},
-            {"length", ((bvc.vehicleLength.vehicleLengthValue) == 1023) ? (bvc.vehicleLength.vehicleLengthValue) : (double)((double) (bvc.vehicleLength.vehicleLengthValue) / pow(10, 1))},
-            {"width", ((bvc.vehicleWidth) == 61 || (bvc.vehicleWidth) == 62) ? (bvc.vehicleWidth) : (double)((double) (bvc.vehicleWidth) / pow(10,1))},
-            {"acceleration", ((bvc.longitudinalAcceleration.longitudinalAccelerationValue) == 161) ? (bvc.longitudinalAcceleration.longitudinalAccelerationValue) : (double)((double) (bvc.longitudinalAcceleration.longitudinalAccelerationValue) / pow(10,1))},
-            {"curvature", (long) bvc.curvature.curvatureValue},
-            {"yawRate", ((bvc.yawRate.yawRateValue) == 32767) ? (bvc.yawRate.yawRateValue) : (double)((double) (bvc.yawRate.yawRateValue) / pow(10,2))},
-            {"brakePedal", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-0)))},
-            {"gasPedal", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-1)))},
-            {"emergencyBrake", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-2)))},
-            {"collisionWarning", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-3)))},
-            {"accEngaged", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-4)))},
-            {"cruiseControl", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-5)))},
-            {"speedLimiter", (bool) (*(bvc.accelerationControl->buf) & (1 << (7-6)))},
-            {"specialVehicle", nullptr}
+    json_payload = {
+            {"generationDeltaTime", (long) cam.generationDeltaTime},
+            {"stationType",      (long) basic.stationType},
+            {"latitude",         (latitude == 900000001) ? latitude : (double) ((double) latitude / pow(10, 7))},
+            {"longitude",        (longitude == 1800000001) ? longitude : (double) ((double) longitude / pow(10, 7))},
+            {"semiMajorConf",    (long) basic.referencePosition.positionConfidenceEllipse.semiMajorConfidence},
+            {"semiMinorConf",    (long) basic.referencePosition.positionConfidenceEllipse.semiMinorConfidence},
+            {"semiMajorOrient",  (long) basic.referencePosition.positionConfidenceEllipse.semiMajorOrientation},
+            {"altitude",         (basic.referencePosition.altitude.altitudeValue == 800001)
+                                    ? (long) basic.referencePosition.altitude.altitudeValue : (double) (
+                            (double) basic.referencePosition.altitude.altitudeValue / pow(10, 2))},
+            {"altitudeConf",     (long) basic.referencePosition.altitude.altitudeConfidence},
+            {"heading",          (heading == 3601) ? heading : (double) ((double) heading / pow(10, 1))},
+            {"headingConf",      ((bvc.heading.headingConfidence) == 126 || (bvc.heading.headingConfidence) == 127)
+                                    ? (bvc.heading.headingConfidence) : (double) (
+                            (double) (bvc.heading.headingConfidence) / pow(10, 1))},
+            {"speed",            (speed == 16383) ? speed : (double) ((double) speed / pow(10, 2))},
+            {"speedConf",        ((bvc.speed.speedConfidence) == 126 || (bvc.speed.speedConfidence) == 127)
+                                    ? (bvc.speed.speedConfidence) : (double) ((double) (bvc.speed.speedConfidence) /
+                                                                            pow(10, 2))},
+            {"driveDirection",   driveDirection},
+            {"length",           ((bvc.vehicleLength.vehicleLengthValue) == 1023)
+                                    ? (bvc.vehicleLength.vehicleLengthValue) : (double) (
+                            (double) (bvc.vehicleLength.vehicleLengthValue) / pow(10, 1))},
+            {"width",            ((bvc.vehicleWidth) == 61 || (bvc.vehicleWidth) == 62) ? (bvc.vehicleWidth)
+                                                                                        : (double) (
+                            (double) (bvc.vehicleWidth) / pow(10, 1))},
+            {"acceleration",     ((bvc.longitudinalAcceleration.longitudinalAccelerationValue) == 161)
+                                    ? (bvc.longitudinalAcceleration.longitudinalAccelerationValue) : (double) (
+                            (double) (bvc.longitudinalAcceleration.longitudinalAccelerationValue) / pow(10, 1))},
+            {"curvature",        (long) bvc.curvature.curvatureValue},
+            {"yawRate",          ((bvc.yawRate.yawRateValue) == 32767) ? (bvc.yawRate.yawRateValue) : (double) (
+                    (double) (bvc.yawRate.yawRateValue) / pow(10, 2))},
+            {"brakePedal",       (bool) (*(bvc.accelerationControl->buf) & (1 << (7 - 0)))},
+            {"gasPedal",         (bool) (*(bvc.accelerationControl->buf) & (1 << (7 - 1)))},
+            {"emergencyBrake",   (bool) (*(bvc.accelerationControl->buf) & (1 << (7 - 2)))},
+            {"collisionWarning", (bool) (*(bvc.accelerationControl->buf) & (1 << (7 - 3)))},
+            {"accEngaged",       (bool) (*(bvc.accelerationControl->buf) & (1 << (7 - 4)))},
+            {"cruiseControl",    (bool) (*(bvc.accelerationControl->buf) & (1 << (7 - 5)))},
+            {"speedLimiter",     (bool) (*(bvc.accelerationControl->buf) & (1 << (7 - 6)))},
+            {"specialVehicle",   nullptr}
     };
+    
+    json_payload.merge_patch(general_payload);
 
     if (cam.camParameters.specialVehicleContainer != 0) {
         json svc = *(cam.camParameters.specialVehicleContainer);
         json_payload["specialVehicle"] = svc;
     }
 
-    const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-
-    if(include_fields) {
-        json_payload["timestamp"] = time_reception;
-        json_payload["newInfo"] = new_info;
-        json_payload["rssi"] = rssi;
-        json_payload["test"] = {
-                {"json_timestamp", time_now}
-            };
-        json_payload["receiverID"] = config_s.station_id;
-        json_payload["receiverType"] = config_s.station_type;
-    }
-
-    if(new_info) persistence[header.stationID] = {{"lat", (double) latitude}, {"lng", (double) longitude}, {"time", time_reception}};
+    if(new_info) persistence[header.stationID] = {{"lat", (double) latitude}, {"lng", (double) longitude}, {"speed", (double) speed}, {"heading", (long) heading}, {"time", time_reception}};
 
     if (rx) cam_rx_latency->Increment(time_now - time_reception);
+
     return json_payload.dump();
 }
 
@@ -462,28 +549,17 @@ void CamApplication::on_timer(Clock::time_point)
     *(bvc.accelerationControl->buf) = (uint8_t) 0b10111110;
 
     CAM_t cam_t = {message->header, message->cam};
-    string cam_json = buildJSON(cam_t, time_now_mqtt, -255, true, false);
+    string cam_json_full;
+    string cam_json = buildJSON(cam_t, cam_json_full, time_now_mqtt, -255, 0, true, false, true);
     if(config_s.cam.mqtt_enabled) local_mqtt->publish(config_s.own_cam_topic_out, cam_json);
     if(config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.own_cam_topic_out, cam_json);
     if(config_s.cam.dds_enabled) dds->publish(config_s.own_cam_topic_out, cam_json);
 
     if(config_s.full_cam_topic_out != "") { 
-        json fields_json = cam_t;
-        json full_json = {
-            {"timestamp", time_now_mqtt},
-            {"rssi", -255},
-            {"others", {
-                    {"json_timestamp", (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0}
-                }
-            },
-            {"receiverID", config_s.station_id},
-            {"receiverType", config_s.station_type},
-            {"fields", fields_json}
-        };
-        string json_dump = full_json.dump();
-        if(config_s.cam.mqtt_enabled && config_s.own_full_cam_topic_out != "") local_mqtt->publish(config_s.own_full_cam_topic_out, json_dump);
-        if(config_s.cam.mqtt_enabled && config_s.own_full_cam_topic_out != "" && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.own_full_cam_topic_out, json_dump);
-        if(config_s.cam.dds_enabled && config_s.own_full_cam_topic_out != "") dds->publish(config_s.own_full_cam_topic_out, json_dump);
+
+        if(config_s.cam.mqtt_enabled && config_s.own_full_cam_topic_out != "") local_mqtt->publish(config_s.own_full_cam_topic_out, cam_json_full);
+        if(config_s.cam.mqtt_enabled && config_s.own_full_cam_topic_out != "" && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.own_full_cam_topic_out, cam_json_full);
+        if(config_s.cam.dds_enabled && config_s.own_full_cam_topic_out != "") dds->publish(config_s.own_full_cam_topic_out, cam_json_full);
     }
 
     std::string error;

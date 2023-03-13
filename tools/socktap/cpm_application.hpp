@@ -26,6 +26,7 @@ private:
     config_t config_s;
     metrics_t metrics_s;
 
-    std::string buildJSON(CPM_t cpm, double time_reception, int rssi);
+    std::string buildJSON(CPM_t cpm, double time_reception, int rssi,int packet_size);
+
 };
 

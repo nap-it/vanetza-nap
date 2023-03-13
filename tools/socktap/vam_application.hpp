@@ -26,6 +26,11 @@ private:
     config_t config_s;
     metrics_t metrics_s;
 
-    std::string buildJSON(VAM_t vam, double time_reception, int rssi);
+    std::string buildJSON(VAM_t vam, std::string & vam_json_full, double time_reception, int rssi, int packet_size);
+
+    bool isNewInfo(long stationID, long latitude, long longitude, double speed, long heading, double time_reception);
+    bool isNewInfo(long stationID, double time_reception);
+    long double calcDistance(long double lat1, long double long1, long double lat2, long double long2);
+    long double toRadians(const long double & degree);
 };
 
