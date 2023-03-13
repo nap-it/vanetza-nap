@@ -33,7 +33,7 @@ SpatemApplication::SpatemApplication(PositionProvider& positioning, Runtime& rt,
 {
     //persistence = {};
     if(config_s.spatem.mqtt_enabled) local_mqtt->subscribe(config_s.spatem.topic_in, this);
-    if(config_s.spatem.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe("obu" + std::to_string(config_s.station_id) + "/" + config_s.spatem.topic_in, this);
+    if(config_s.spatem.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.spatem.topic_in, this);
     if(config_s.spatem.dds_enabled) dds->subscribe(config_s.spatem.topic_in, this);
     
     spatem_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "spatem"}, {"direction", "rx"}}));
@@ -79,7 +79,7 @@ void SpatemApplication::indicate(const DataIndication& indication, UpPacketPtr p
     string spatem_json = buildJSON(spatem_t, cp.time_received, cp.rssi, cp.size());
 
     if(config_s.spatem.mqtt_enabled) local_mqtt->publish(config_s.spatem.topic_out, spatem_json);
-    if(config_s.spatem.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.spatem.topic_out, spatem_json);
+    if(config_s.spatem.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.spatem.topic_out, spatem_json);
     if(config_s.spatem.dds_enabled) dds->publish(config_s.spatem.topic_out, spatem_json);
     if(config_s.enable_json_prints) std::cout << "SPATEM JSON: " << spatem_json << std::endl;
     spatem_rx_counter->Increment();
@@ -195,7 +195,7 @@ void SpatemApplication::on_message(string topic, string mqtt_message) {
             {"fields", payload},
         };
         local_mqtt->publish(config_s.spatem.topic_time, json_payload.dump());
-        if(remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.spatem.topic_time, json_payload.dump());
+        if(remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.spatem.topic_time, json_payload.dump());
     }
 
     spatem_tx_counter->Increment();

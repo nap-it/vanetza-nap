@@ -42,8 +42,8 @@ CamApplication::CamApplication(PositionProvider& positioning, Runtime& rt, Mqtt 
     persistence = {};
     if(config_s.cam.mqtt_enabled) local_mqtt->subscribe(config_s.cam.topic_in, this);
     if(config_s.cam.mqtt_enabled) local_mqtt->subscribe(config_s.full_cam_topic_in, this);
-    if(config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe("obu" + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_in, this);
-    if(config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe("obu" + std::to_string(config_s.station_id) + "/" + config_s.full_cam_topic_in, this);
+    if(config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_in, this);
+    if(config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_cam_topic_in, this);
     if(config_s.cam.dds_enabled) dds->subscribe(config_s.cam.topic_in, this);
     if(config_s.cam.dds_enabled) dds->subscribe(config_s.full_cam_topic_in, this);
     
@@ -92,14 +92,14 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     string cam_json = buildJSON(cam_t, cam_json_full, cp.time_received, cp.rssi, cp.size(), true, true, true);
 
     if(config_s.cam.mqtt_enabled) local_mqtt->publish(config_s.cam.topic_out, cam_json);
-    if(config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_out, cam_json);
+    if(config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_out, cam_json);
     if(config_s.cam.dds_enabled) dds->publish(config_s.cam.topic_out, cam_json);
     if(config_s.enable_json_prints) std::cout << "CAM JSON: " << cam_json << std::endl;
     cam_rx_counter->Increment();
 
     if(config_s.full_cam_topic_out != "") { 
         if(config_s.cam.mqtt_enabled && config_s.full_cam_topic_out != "") local_mqtt->publish(config_s.full_cam_topic_out, cam_json_full);
-        if(config_s.cam.mqtt_enabled && config_s.full_cam_topic_out != "" && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.full_cam_topic_out, cam_json_full);
+        if(config_s.cam.mqtt_enabled && config_s.full_cam_topic_out != "" && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_cam_topic_out, cam_json_full);
         if(config_s.cam.dds_enabled && config_s.full_cam_topic_out != "") dds->publish(config_s.full_cam_topic_out, cam_json_full);
         if(config_s.cam.udp_out_port != 0) {
             cam_udp_socket.send_to(buffer(cam_json_full, cam_json_full.length()), cam_remote_endpoint, 0, cam_err);
@@ -455,7 +455,7 @@ void CamApplication::on_message(string topic, string mqtt_message) {
             {"fields", payload},
         };
         local_mqtt->publish(config_s.cam.topic_time, json_payload.dump());
-        if (remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_time, json_payload.dump());
+        if (remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_time, json_payload.dump());
     }
 
     cam_tx_counter->Increment();
@@ -552,13 +552,13 @@ void CamApplication::on_timer(Clock::time_point)
     string cam_json_full;
     string cam_json = buildJSON(cam_t, cam_json_full, time_now_mqtt, -255, 0, true, false, true);
     if(config_s.cam.mqtt_enabled) local_mqtt->publish(config_s.own_cam_topic_out, cam_json);
-    if(config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.own_cam_topic_out, cam_json);
+    if(config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.own_cam_topic_out, cam_json);
     if(config_s.cam.dds_enabled) dds->publish(config_s.own_cam_topic_out, cam_json);
 
     if(config_s.full_cam_topic_out != "") { 
 
         if(config_s.cam.mqtt_enabled && config_s.own_full_cam_topic_out != "") local_mqtt->publish(config_s.own_full_cam_topic_out, cam_json_full);
-        if(config_s.cam.mqtt_enabled && config_s.own_full_cam_topic_out != "" && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.own_full_cam_topic_out, cam_json_full);
+        if(config_s.cam.mqtt_enabled && config_s.own_full_cam_topic_out != "" && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.own_full_cam_topic_out, cam_json_full);
         if(config_s.cam.dds_enabled && config_s.own_full_cam_topic_out != "") dds->publish(config_s.own_full_cam_topic_out, cam_json_full);
     }
 

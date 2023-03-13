@@ -33,7 +33,7 @@ CpmApplication::CpmApplication(PositionProvider& positioning, Runtime& rt, Mqtt 
 {
     //persistence = {};
     if(config_s.cpm.mqtt_enabled) local_mqtt->subscribe(config_s.cpm.topic_in, this);
-    if(config_s.cpm.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe("obu" + std::to_string(config_s.station_id) + "/" + config_s.cpm.topic_in, this);
+    if(config_s.cpm.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cpm.topic_in, this);
     if(config_s.cpm.dds_enabled) dds->subscribe(config_s.cpm.topic_in, this);
     
     cpm_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "cpm"}, {"direction", "rx"}}));
@@ -79,7 +79,7 @@ void CpmApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     string cpm_json = buildJSON(cpm_t, cp.time_received, cp.rssi, cp.size());
 
     if(config_s.cpm.mqtt_enabled) local_mqtt->publish(config_s.cpm.topic_out, cpm_json);
-    if(config_s.cpm.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.cpm.topic_out, cpm_json);
+    if(config_s.cpm.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cpm.topic_out, cpm_json);
     if(config_s.cpm.dds_enabled) dds->publish(config_s.cpm.topic_out, cpm_json);
     if(config_s.enable_json_prints) std::cout << "CPM JSON: " << cpm_json << std::endl;
     cpm_rx_counter->Increment();
@@ -195,7 +195,7 @@ void CpmApplication::on_message(string topic, string mqtt_message) {
             {"fields", payload},
         };
         local_mqtt->publish(config_s.cpm.topic_time, json_payload.dump());
-        if(remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.cpm.topic_time, json_payload.dump());
+        if(remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cpm.topic_time, json_payload.dump());
     }
 
     cpm_tx_counter->Increment();

@@ -24,6 +24,7 @@ typedef struct message_config {
 typedef struct config {
     int station_id;
     int station_type;
+    string remote_mqtt_prefix;
     string mac_address;
     bool beacons_enabled;
     bool use_hardcoded_gps;

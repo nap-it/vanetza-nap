@@ -36,8 +36,8 @@ VamApplication::VamApplication(PositionProvider& positioning, Runtime& rt, Mqtt 
     vam_persistence = {};
     if(config_s.vam.mqtt_enabled) local_mqtt->subscribe(config_s.vam.topic_in, this);
     if(config_s.vam.mqtt_enabled) local_mqtt->subscribe(config_s.full_vam_topic_in, this);
-    if(config_s.vam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe("obu" + std::to_string(config_s.station_id) + "/" + config_s.vam.topic_in, this);
-    if(config_s.vam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe("obu" + std::to_string(config_s.station_id) + "/" + config_s.full_vam_topic_in, this);
+    if(config_s.vam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.vam.topic_in, this);
+    if(config_s.vam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_vam_topic_in, this);
     if(config_s.vam.dds_enabled) dds->subscribe(config_s.vam.topic_in, this);
     if(config_s.vam.dds_enabled) dds->subscribe(config_s.full_vam_topic_in, this);
 
@@ -85,14 +85,14 @@ void VamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     string vam_json = buildJSON(vam_t, vam_json_full, cp.time_received, cp.rssi, cp.size());
 
     if(config_s.vam.mqtt_enabled) local_mqtt->publish(config_s.vam.topic_out, vam_json);
-    if(config_s.vam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.vam.topic_out, vam_json);
+    if(config_s.vam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.vam.topic_out, vam_json);
     if(config_s.vam.dds_enabled) dds->publish(config_s.vam.topic_out, vam_json);
     if(config_s.enable_json_prints) std::cout << "VAM JSON: " << vam_json << std::endl;
     vam_rx_counter->Increment();
 
     if(config_s.full_vam_topic_out != "") {
         if(config_s.vam.mqtt_enabled) local_mqtt->publish(config_s.full_vam_topic_out, vam_json_full);
-        if(config_s.vam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.full_vam_topic_out, vam_json_full);
+        if(config_s.vam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_vam_topic_out, vam_json_full);
         if(config_s.vam.dds_enabled) dds->publish(config_s.full_vam_topic_out, vam_json_full);
         if(config_s.vam.udp_out_port != 0) {
             vam_udp_socket.send_to(buffer(vam_json_full, vam_json_full.length()), vam_remote_endpoint, 0, vam_err);
@@ -238,7 +238,7 @@ void VamApplication::on_message(string topic, string mqtt_message) {
             {"fields", payload},
         };
         local_mqtt->publish(config_s.vam.topic_time, json_payload.dump());
-        if(remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.vam.topic_time, json_payload.dump());
+        if(remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.vam.topic_time, json_payload.dump());
     }
 
     vam_tx_counter->Increment();

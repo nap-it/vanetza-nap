@@ -31,7 +31,7 @@ DenmApplication::DenmApplication(PositionProvider& positioning, Runtime& rt, Mqt
     positioning_(positioning), runtime_(rt), denm_interval_(seconds(1)), local_mqtt(local_mqtt_),remote_mqtt(remote_mqtt_), dds(dds_), config_s(config_s_), metrics_s(metrics_s_)
 {
     if(config_s.denm.mqtt_enabled) local_mqtt->subscribe(config_s.denm.topic_in, this);
-    if(config_s.denm.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe("obu" + std::to_string(config_s.station_id) + "/" + config_s.denm.topic_in, this);
+    if(config_s.denm.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.denm.topic_in, this);
     if(config_s.denm.dds_enabled)  dds->subscribe(config_s.denm.topic_in, this);
 
     denm_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "denm"}, {"direction", "rx"}}));
@@ -77,7 +77,7 @@ void DenmApplication::indicate(const DataIndication& indication, UpPacketPtr pac
     string denm_json = buildJSON(denm_t, cp.time_received, cp.rssi, cp.size());
 
     if(config_s.denm.mqtt_enabled) local_mqtt->publish(config_s.denm.topic_out, denm_json);
-    if(config_s.denm.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.denm.topic_out, denm_json);
+    if(config_s.denm.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.denm.topic_out, denm_json);
     if(config_s.denm.dds_enabled) dds->publish(config_s.denm.topic_out, denm_json);
     if(config_s.enable_json_prints) std::cout << "DENM JSON: " << denm_json << std::endl;
     denm_rx_counter->Increment();
@@ -193,7 +193,7 @@ void DenmApplication::on_message(string topic, string mqtt_message) {
             {"fields", payload},
         };
         local_mqtt->publish(config_s.denm.topic_time, json_payload.dump());
-        if(remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.denm.topic_time, json_payload.dump());
+        if(remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.denm.topic_time, json_payload.dump());
     }
 
     denm_tx_counter->Increment();

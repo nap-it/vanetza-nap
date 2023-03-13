@@ -21,6 +21,7 @@ void read_config(config_t* config_s, string path) {
 
     config_s->station_id = getenv("VANETZA_STATION_ID") == NULL ? reader.GetInteger("station", "id", 99) : stoi(getenv("VANETZA_STATION_ID"));
     config_s->station_type = getenv("VANETZA_STATION_TYPE") == NULL ? reader.GetInteger("station", "type", 15) : stoi(getenv("VANETZA_STATION_TYPE"));
+    config_s->remote_mqtt_prefix = config_s->station_type == 15 ? "p" : "obu";
     config_s->mac_address = getenv("VANETZA_MAC_ADDRESS") == NULL ? reader.Get("station", "mac_address", "") : getenv("VANETZA_MAC_ADDRESS");
     config_s->beacons_enabled = getenv("VANETZA_BEACONS_ENABLED") == NULL ? reader.GetBoolean("station", "beacons_enabled", true) : (strcmp((getenv("VANETZA_BEACONS_ENABLED")), "true") == 0);
     config_s->use_hardcoded_gps = getenv("VANETZA_USE_HARDCODED_GPS") == NULL ? reader.GetBoolean("station", "use_hardcoded_gps", true) : (strcmp((getenv("VANETZA_USE_HARDCODED_GPS")), "true") == 0);

@@ -33,7 +33,7 @@ MapemApplication::MapemApplication(PositionProvider& positioning, Runtime& rt, M
 {
     //persistence = {};
     if(config_s.mapem.mqtt_enabled) local_mqtt->subscribe(config_s.mapem.topic_in, this);
-    if(config_s.mapem.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe("obu" + std::to_string(config_s.station_id) + "/" + "obu" + std::to_string(config_s.station_id) + "/" + config_s.mapem.topic_in, this);
+    if(config_s.mapem.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.mapem.topic_in, this);
     if(config_s.mapem.dds_enabled) dds->subscribe(config_s.mapem.topic_in, this);
     
     mapem_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "mapem"}, {"direction", "rx"}}));
@@ -79,7 +79,7 @@ void MapemApplication::indicate(const DataIndication& indication, UpPacketPtr pa
     string mapem_json = buildJSON(mapem_t, cp.time_received, cp.rssi, cp.size());
 
     if(config_s.mapem.mqtt_enabled) local_mqtt->publish(config_s.mapem.topic_out, mapem_json);
-    if(config_s.mapem.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.mapem.topic_out, mapem_json);
+    if(config_s.mapem.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.mapem.topic_out, mapem_json);
     if(config_s.mapem.dds_enabled) dds->publish(config_s.mapem.topic_out, mapem_json);
     if(config_s.enable_json_prints) std::cout << "MAPEM JSON: " << mapem_json << std::endl;
     mapem_rx_counter->Increment();
@@ -195,7 +195,7 @@ void MapemApplication::on_message(string topic, string mqtt_message) {
             {"fields", payload},
         };
         local_mqtt->publish(config_s.mapem.topic_time, json_payload.dump());
-        if(remote_mqtt != NULL) remote_mqtt->publish("obu" + std::to_string(config_s.station_id) + "/" + config_s.mapem.topic_time, json_payload.dump());
+        if(remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.mapem.topic_time, json_payload.dump());
     }
 
     mapem_tx_counter->Increment();
