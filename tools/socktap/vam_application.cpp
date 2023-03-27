@@ -233,9 +233,13 @@ void VamApplication::on_message(string topic, string mqtt_message) {
                     {"wave_timestamp", time_now}
                 },
             },
+            {"stationID", config_s.station_id},
             {"receiverID", config_s.station_id},
             {"receiverType", config_s.station_type},
-            {"fields", payload},
+            {"fields", {
+                    {"vam": payload}
+                },
+            },
         };
         local_mqtt->publish(config_s.vam.topic_time, json_payload.dump());
         if(remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.vam.topic_time, json_payload.dump());
