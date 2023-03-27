@@ -192,7 +192,7 @@ void DenmApplication::on_message(string topic, string mqtt_message) {
             {"receiverID", config_s.station_id},
             {"receiverType", config_s.station_type},
             {"fields", {
-                    {"denm": payload}
+                    {"denm", payload}
                 },
             },
         };

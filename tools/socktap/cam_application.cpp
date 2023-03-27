@@ -454,7 +454,7 @@ void CamApplication::on_message(string topic, string mqtt_message) {
             {"receiverID", config_s.station_id},
             {"receiverType", config_s.station_type},
             {"fields", {
-                    {"cam": payload}
+                    {"cam", payload}
                 },
             },
         };
