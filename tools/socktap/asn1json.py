@@ -255,7 +255,7 @@ json to_json_""" + self.name.replace("-", "_") + """(const """ + self.name.repla
 void from_json_""" + self.name.replace("-", "_") + """(const json& j, """ + self.name.replace("-", "_") + """_t& p) {
     """ + self.name.replace("-", "_") + """_t* p_tmp = vanetza::asn1::allocate<""" + self.name.replace("-", "_") + """_t>();
     """ + '\n    '.join(["bool " + m[0].replace("-", "_") + ";" for m in self.members]) + """
-    """ + '\n    '.join(['j.at("' + m[0] + '").get_to(' + '(' + m[0].replace("-", "_") + '));' for m in self.members]) + """
+    """ + '\n    '.join(['if (j.contains("' + m[0] + '")) j.at("' + m[0] + '").get_to(' + '(' + m[0].replace("-", "_") + '));' for m in self.members]) + """
     p_tmp->size = (""" + str(len(self.members)) + """ / 8) + 1;
     p_tmp->bits_unused = (""" + str(len(self.members)) + """ % 8) != 0 ? 8 - (""" + str(len(self.members)) + """ % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
