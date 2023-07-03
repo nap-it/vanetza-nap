@@ -72,7 +72,10 @@ bitstrings = {}
 
 initial_len = len(printed)
 
-# Sorry for the one-liners on the __str__() methods :(
+def get_element_name(m, self, opt):
+    return ('*' if "optional" in m and m["optional"] and opt else '') + \
+            '(p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + \
+            (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_")
 
 class ASN1Sequence:
     def __init__(self, name, definition, parent_name, parent_file):
@@ -96,29 +99,143 @@ class ASN1Sequence:
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-void to_json(json& j, const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p);
+Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p);
+void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p);
 """
 
     def __str__(self):
-        return """
+        result = """
 /*
 *   """ + self.name + """ - Type """ + self.definition["type"] + """
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
 void to_json(json& j, const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p) {
-    j = json{""" + ', '.join(['{"' + m["name"] + '", ' + ('to_json_' + m["type"].replace("-", "_") + '(' if m["type"] in bitstrings else '') + ((((("(" + " || ".join([('*' if "optional" in m and m["optional"] else '') + ('(p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + ") == " + str(n)) for n in transformation[m["type"]][1]])) + ") ? " + ('(p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + ')') + " : ") if len(transformation[m["type"]][1]) > 0 else "") + (('(double)(p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + ')') + (" / " + str(float(transformation[m["type"]][0])))) ) if m["type"] in transformation else ('(p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + ')')) + (')' if m["type"] in bitstrings else '') + '}' for m in self.members if "optional" not in m or not m["optional"]]) + """};
-    """ + '\n    '.join(['if (p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + ' != 0) j[\"' + m["name"] + '\"] = ' + ('to_json_' + m["type"] + '(' if m["type"] in bitstrings else '') + (((((("(" + " && ".join([('*' if "optional" in m and m["optional"] else '') + ('(p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + ") != " + str(n)) for n in transformation[m["type"]][1]])) + ") ? " + ('*(p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + ')') + " : ") if len(transformation[m["type"]][1]) > 0 else "") + (('(double) *(p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + ')') + (" / " + str(float(transformation[m["type"]][0])))) ) if m["type"] in transformation else ('*(p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + ')'))) + (')' if m["type"] in bitstrings else '') + ';' for m in self.members if "optional" in m and m["optional"]]) + """
+    j = json{"""
+        
+        member_strs = []
+        for m in self.members:
+            if "optional" in m and m["optional"]:
+                continue
+            
+            member_str = ('{"' + m["name"] + '", ' + ('to_json_' + m["type"].replace("-", "_") + '(' if m["type"] in bitstrings else ''))
+            
+            if m["type"] in transformation:
+                condition_str = " || ".join([(get_element_name(m, self, True) + \
+                                            ") == " + str(n)) for n in transformation[m["type"]][1]])
+                
+                if len(transformation[m["type"]][1]) > 0:
+                    member_str += "(" + condition_str + ") ? " + \
+                                    get_element_name(m, self, True) + ') : '
+                
+                member_str += '(double)' + get_element_name(m, self, False) + \
+                                ') / ' + str(float(transformation[m["type"]][0]))
+            else:
+                member_str += get_element_name(m, self, False) + ')'
+            
+            if m["type"] in bitstrings:
+                member_str += ')'
+            
+            member_str += '}'
+            member_strs.append(member_str)
+        
+        result += ', '.join(member_strs) + """};
+"""
+        
+        member_strs = []
+        for m in self.members:
+            if "optional" in m and m["optional"]:
+                member_str = ('if ' + get_element_name(m, self, False) + ' != 0) ' + \
+                                'j["' + m["name"] + '"] = ' + ('to_json_' + m["type"] + '(' if m["type"] in bitstrings else ''))
+                                
+                if m["type"] in transformation:
+                    condition_str = " && ".join([(get_element_name(m, self, True) + \
+                                                ") != " + str(n)) for n in transformation[m["type"]][1]])
+
+                    if len(transformation[m["type"]][1]) > 0:
+                        member_str += "(" + condition_str + ") ? "
+                    
+                    member_str += '(double) *' + get_element_name(m, self, False) + \
+                                    ') / ' + str(float(transformation[m["type"]][0]))
+
+                    if len(transformation[m["type"]][1]) > 0:
+                        member_str += ' : *' + get_element_name(m, self, False) + ')'
+
+                else:
+                    member_str += get_element_name(m, self, True) + ')'
+            
+                if m["type"] in bitstrings:
+                    member_str += ')'
+            
+                member_str += ';'
+                member_strs.append(member_str)
+        
+        result += '    ' + '\n    '.join(member_strs)
+        
+        result += """
 }
 
 void from_json(const json& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p) {
-    p._asn_ctx.ptr= nullptr;
-    """ + '\n    '.join([(("double " + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + "; ") if m["type"] in transformation else "") + (('if (j.contains("' + m["name"] + '")) { p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + ' = vanetza::asn1::allocate<' + m["type"].replace("-", "_") + '_t>(); ') if "optional" in m and m["optional"] else '') + 'j.at("' + m["name"] + '").get_to(' + ((('*' if "optional" in m and m["optional"] else '') + '(p.' + ('choice.' if self.definition["type"] == "CHOICE" else '')) if m["type"] not in transformation else "(") + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + '));' + ((' *' if "optional" in m and m["optional"] else ' ') + '(p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + ") =" + ((" (" + " && ".join([(("(" + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title())).replace("-", "_") + ") != " + str(n)) for n in transformation[m["type"]][1]]) + ")" if len(transformation[m["type"]][1]) > 0 else "") + (" ? " if len(transformation[m["type"]][1]) > 0 else " ") + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + " * " + str(int(transformation[m["type"]][0])) + (" : " + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") if len(transformation[m["type"]][1]) > 0 else "") + ";") if m["type"] in transformation else "") + (' } ' if "optional" in m and m["optional"] else '') + ('\n    else { ' + 'p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + '=nullptr; }' if "optional" in m and m["optional"] else '') for m in self.members if m["type"] not in bitstrings]) + """
-    """ + '\n    '.join([(('if (j.contains("' + m["name"] + '")) { p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + ' = vanetza::asn1::allocate<' + m["type"].replace("-", "_") + '_t>(); ') if "optional" in m and m["optional"] else '') + 'from_json_' + m["type"].replace("-", "_") + '(j["' + m["name"] + '"],' + ('*' if "optional" in m and m["optional"] else '') + '(p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + '));' + (' } ' if "optional" in m and m["optional"] else '') + ('\n    else { ' + 'p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + '=nullptr; }' if "optional" in m and m["optional"] else '') for m in self.members if m["type"] in bitstrings]) + """
-    """ + '\n    '.join(['p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + '=nullptr;' for m in self.ignored_members if "optional" in m and m["optional"]]) + """
-}"""
+    p._asn_ctx.ptr = nullptr;
+    """
+        
+        member_strs = []
+        for m in self.members:
+            needs_closing = False
+            member_str = ""
+
+            if m["type"] in transformation:
+                member_str += 'double ' + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + '; '
+            
+            if "optional" in m and m["optional"]:
+                needs_closing = True
+                member_str += 'if (j.contains("' + m["name"] + '")) { ' + \
+                                get_element_name(m, self, False)[1:] + \
+                                ' = vanetza::asn1::allocate<' + m["type"].replace("-", "_") + '_t>(); '
+            
+            if m["type"] not in bitstrings:
+                member_str += 'j.at("' + m["name"] + '").get_to('
+            else:
+                member_str += 'from_json_' + m["type"].replace("-", "_") + '(j["' + m["name"] + '"],'
+            
+            if m["type"] not in transformation:
+                member_str += get_element_name(m, self, True) + '));'
+            else:
+                member_str += '(' + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + ')); ' + \
+                                get_element_name(m, self, True) + \
+                                ') ='
+                if len(transformation[m["type"]][1]) > 0:
+                    member_str += ' (' + ' && '.join([('(' + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + \
+                                    ') != ' + str(n)) for n in transformation[m["type"]][1]]) + ') ? ' + \
+                                    (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + \
+                                    ' * ' + str(int(transformation[m["type"]][0])) + ' : ' + \
+                                    (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + ';'
+                else:
+                    member_str += (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + \
+                                    ' * ' + str(int(transformation[m["type"]][0])) + ';'
+                                    
+            if needs_closing:
+                member_str += ' }\n    else { ' + \
+                                 get_element_name(m, self, False)[1:] + '=nullptr; }'
+            
+            member_strs.append(member_str)
+
+        for m in self.ignored_members:
+            member_str = ""
+            if "optional" in m and m["optional"]:
+                member_str += get_element_name(m, self, False)[1:] + '=nullptr;'
+            member_strs.append(member_str)
+
+        result += '\n    '.join(member_strs)
+
+        result += """
+}
+
+"""
+        
+        return result
+
 
 
 class ASN1Choice:
@@ -149,7 +266,7 @@ void from_json(const json& j, """ + (self.name.replace("-", "_") + "_t" if self.
 """
 
     def __str__(self):
-        return """
+        result =  """
 /*
 *   """ + self.name + """ - Type """ + self.definition["type"] + """
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
@@ -157,16 +274,50 @@ void from_json(const json& j, """ + (self.name.replace("-", "_") + "_t" if self.
 
 void to_json(json& j, const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p) {
     j = json{};
-    if """ + '\n    } else if '.join(['(p.present == ' + (self.actual_type.replace("-", "_") if self.actual_type is not None else self.name.replace("-", "_")) + '_PR_' + m['name'].replace("-", "_") + ') {\n        j[\"' + m['name'] + '\"] = ' + ('p.choice.' + m['name'].replace("-", "_") if m["type"] not in bitstrings else ('to_json_' + m["type"].replace("-", "_") + '(p.choice.' + m['name'].replace("-", "_") + ')')) + ';' for m in self.members]) + """
+    if """
+
+        member_strs = []
+        for m in self.members:
+            member_str = '(p.present == ' + (self.actual_type.replace("-", "_") if self.actual_type is not None else self.name.replace("-", "_")) + \
+                        '_PR_' + m["name"].replace("-", "_") + ') {\n        j[\"' + m["name"] + '\"] = '
+            
+            if m["type"] not in bitstrings:
+                member_str += 'p.choice.' + m["name"].replace("-", "_") + ';'
+            else:
+                member_str += 'to_json_' + m["type"].replace("-", "_") + '(p.choice.' + m["name"].replace("-", "_") + ');'
+            
+            member_strs.append(member_str)
+
+        result += '\n    } else if '.join(member_strs)
+        result += """
     }
 }
 
 void from_json(const json& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p) {
-    if """ + '\n    } else if '.join(['(j.contains("' + m["name"] + '")) {\n        p.present = ' + (self.actual_type.replace("-", "_") if self.actual_type is not None else self.name.replace("-", "_")) + '_PR_' + m['name'].replace("-", "_") + ';\n        ' + (('j.at("' + m["name"] + '").get_to(') if m["type"] not in bitstrings else ('from_json_' + m["type"].replace("-", "_") + '(' + 'j["' + m["name"] + '"], ')) + 'p.choice.' + m["name"].replace("-", "_") + ');' for m in self.members]) + """
-    } else {
+    if """ 
+
+        member_strs = []
+        for m in self.members:
+            member_str = '(j.contains("' + m["name"] + '")) {\n        p.present = ' + \
+                        (self.actual_type.replace("-", "_") if self.actual_type is not None else self.name.replace("-", "_")) + \
+                        '_PR_' + m["name"].replace("-", "_") + ';\n        '
+            
+            if m["type"] not in bitstrings:
+                member_str += 'j.at("' + m["name"].replace("-", "_") + '").get_to('
+            else:
+                member_str += 'from_json_' + m["type"].replace("-", "_") + '(j["' + m["name"] + '"], '
+
+            member_str += 'p.choice.' + m["name"].replace("-", "_") + ');'
+
+            member_strs.append(member_str)
+
+        result += '\n    } else if '.join(member_strs)
+        result += """} else {
         p.present = """ + (self.actual_type.replace("-", "_") if self.actual_type is not None else self.name.replace("-", "_")) + """_PR_NOTHING;
     }
 }"""
+
+        return result
 
 class ASN1SequenceOf:
     def __init__(self, name, definition, parent_name, parent_file):
@@ -208,7 +359,8 @@ void to_json(json& j, const """ + (self.name.replace("-", "_") + "_t" if self.na
 }
 
 void from_json(const json& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p) {
-    """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """* p_tmp = vanetza::asn1::allocate<""" + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """>();
+    """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """* p_tmp = vanetza::asn1::allocate<""" + \
+          (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """>();
     for (const auto& item : j.items())
     {
         """ + self.element.replace("-", "_") + """_t *element = vanetza::asn1::allocate<""" + self.element.replace("-", "_") + """_t>();
@@ -402,6 +554,12 @@ header_intro = """/*
 """ + '\n'.join(['#include <vanetza/asn1/its/' + inc.replace("-", "_") + '.h>' for inc in include]) + """
 
 using json = nlohmann::json;
+
+#include <rapidjson/document.h>
+#include <rapidjson/writer.h>
+#include <rapidjson/stringbuffer.h>
+
+using namespace rapidjson;
 
 void to_json(json& j, const TimestampIts_t& p);
 void from_json(const json& j, TimestampIts_t& p);
