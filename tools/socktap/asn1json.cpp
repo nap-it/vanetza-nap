@@ -1,46 +1,63 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
-*   Auto-generated from the asn1 directory by asn1json.py on 2023-05-29 16:17:01.417604
+*   Auto-generated from the asn1 directory by asn1json.py on 2023-07-04 08:47:31.103648
 */
 
 #include "asn1json.hpp"
 #include <boost/optional.hpp>
 
-using json = nlohmann::json;
-
-namespace nlohmann {
-    template <typename T>
-    struct adl_serializer<boost::optional<T>> {
-        static void to_json(json& j, const boost::optional<T>& opt) {
-            if (opt == boost::none) {
-                j = nullptr;
-            } else {
-              j = *opt; // this will call adl_serializer<T>::to_json which will
-                        // find the free function to_json in T's namespace!
-            }
-        }
-
-        static void from_json(const json& j, boost::optional<T>& opt) {
-            if (j.is_null()) {
-                opt = boost::none;
-            } else {
-                opt = j.get<T>(); // same as above, but with
-                                  // adl_serializer<T>::from_json
-            }
-        }
-    };
-}
-
-void to_json(json& j, const TimestampIts_t& p) {
+Value to_json(const TimestampIts_t& p, Document::AllocatorType& allocator) {
     long tmp;
     asn_INTEGER2long(&p, &tmp);
-    j = tmp;
+    return Value(tmp);
 }
 
-void from_json(const json& j, TimestampIts_t& p) {
+void from_json(const Value& j, TimestampIts_t& p) {
     p.buf = nullptr;
-    asn_long2INTEGER(&p, stol(j.dump()));
+    asn_long2INTEGER(&p, j.IsDouble() ? static_cast<long>(j.GetDouble()) : j.GetInt64());
 }
+
+Value to_json(const long& p, Document::AllocatorType& allocator) {
+    return Value(p);
+}
+
+void from_json(const Value& j, long& p) {
+    p = j.IsDouble() ? static_cast<long>(j.GetDouble()) : j.GetInt64();
+}
+
+Value to_json(const unsigned long& p, Document::AllocatorType& allocator) {
+    return Value(p);
+}
+
+void from_json(const Value& j, unsigned long& p) {
+    p = j.GetUint64();
+}
+
+Value to_json(const unsigned& p, Document::AllocatorType& allocator) {
+    return Value(p);
+}
+
+void from_json(const Value& j, unsigned& p) {
+    if (j.IsBool()) p = j.GetBool();
+    else p = j.GetUint();
+}
+
+Value to_json(const double& p, Document::AllocatorType& allocator) {
+    return Value(p);
+}
+
+void from_json(const Value& j, double& p) {
+    p = j.GetDouble();
+}
+
+Value to_json(const bool& p, Document::AllocatorType& allocator) {
+    return Value(p);
+}
+
+void from_json(const Value& j, bool& p) {
+    p = j.GetBool();
+}
+
 
 
 /*
@@ -48,105 +65,124 @@ void from_json(const json& j, TimestampIts_t& p) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const ItsPduHeader_t& p) {
-    j = json{{"protocolVersion", (p.protocolVersion)}, {"messageID", (p.messageID)}, {"stationID", (p.stationID)}};
+Value to_json(const ItsPduHeader_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("protocolVersion", to_json((p.protocolVersion), allocator), allocator);
+    json.AddMember("messageID", to_json((p.messageID), allocator), allocator);
+    json.AddMember("stationID", to_json((p.stationID), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, ItsPduHeader_t& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("protocolVersion").get_to((p.protocolVersion));
-    j.at("messageID").get_to((p.messageID));
-    j.at("stationID").get_to((p.stationID));
-    
-    
+void from_json(const Value& j, ItsPduHeader_t& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["protocolVersion"], (p.protocolVersion));
+    from_json(j["messageID"], (p.messageID));
+    from_json(j["stationID"], (p.stationID));
 }
+
+
 
 /*
 *   DeltaReferencePosition - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const DeltaReferencePosition_t& p) {
-    j = json{{"deltaLatitude", (p.deltaLatitude)}, {"deltaLongitude", (p.deltaLongitude)}, {"deltaAltitude", (p.deltaAltitude)}};
+Value to_json(const DeltaReferencePosition_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("deltaLatitude", to_json((p.deltaLatitude), allocator), allocator);
+    json.AddMember("deltaLongitude", to_json((p.deltaLongitude), allocator), allocator);
+    json.AddMember("deltaAltitude", to_json((p.deltaAltitude), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, DeltaReferencePosition_t& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("deltaLatitude").get_to((p.deltaLatitude));
-    j.at("deltaLongitude").get_to((p.deltaLongitude));
-    j.at("deltaAltitude").get_to((p.deltaAltitude));
-    
-    
+void from_json(const Value& j, DeltaReferencePosition_t& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["deltaLatitude"], (p.deltaLatitude));
+    from_json(j["deltaLongitude"], (p.deltaLongitude));
+    from_json(j["deltaAltitude"], (p.deltaAltitude));
 }
+
+
 
 /*
 *   Altitude - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const Altitude& p) {
-    j = json{{"altitudeValue", ((p.altitudeValue) == 800001) ? (p.altitudeValue) : (double)(p.altitudeValue) / 100.0}, {"altitudeConfidence", (p.altitudeConfidence)}};
+Value to_json(const Altitude& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("altitudeValue", to_json(((p.altitudeValue) == 800001) ? (p.altitudeValue) : (double)(p.altitudeValue) / 100.0, allocator), allocator);
+    json.AddMember("altitudeConfidence", to_json((p.altitudeConfidence), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, Altitude& p) {
-    p._asn_ctx.ptr= nullptr;
-    double altitudeValue; j.at("altitudeValue").get_to((altitudeValue)); (p.altitudeValue) = ((altitudeValue) != 800001) ? altitudeValue * 100 : altitudeValue;
-    j.at("altitudeConfidence").get_to((p.altitudeConfidence));
-    
-    
+void from_json(const Value& j, Altitude& p) {
+    p._asn_ctx.ptr = nullptr;
+    double altitudeValue; from_json(j["altitudeValue"], (altitudeValue)); (p.altitudeValue) = ((altitudeValue) != 800001) ? altitudeValue * 100 : altitudeValue;
+    from_json(j["altitudeConfidence"], (p.altitudeConfidence));
 }
+
+
 
 /*
 *   PosConfidenceEllipse - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const PosConfidenceEllipse& p) {
-    j = json{{"semiMajorConfidence", (p.semiMajorConfidence)}, {"semiMinorConfidence", (p.semiMinorConfidence)}, {"semiMajorOrientation", ((p.semiMajorOrientation) == 3601) ? (p.semiMajorOrientation) : (double)(p.semiMajorOrientation) / 10.0}};
+Value to_json(const PosConfidenceEllipse& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("semiMajorConfidence", to_json((p.semiMajorConfidence), allocator), allocator);
+    json.AddMember("semiMinorConfidence", to_json((p.semiMinorConfidence), allocator), allocator);
+    json.AddMember("semiMajorOrientation", to_json(((p.semiMajorOrientation) == 3601) ? (p.semiMajorOrientation) : (double)(p.semiMajorOrientation) / 10.0, allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, PosConfidenceEllipse& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("semiMajorConfidence").get_to((p.semiMajorConfidence));
-    j.at("semiMinorConfidence").get_to((p.semiMinorConfidence));
-    double semiMajorOrientation; j.at("semiMajorOrientation").get_to((semiMajorOrientation)); (p.semiMajorOrientation) = ((semiMajorOrientation) != 3601) ? semiMajorOrientation * 10 : semiMajorOrientation;
-    
-    
+void from_json(const Value& j, PosConfidenceEllipse& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["semiMajorConfidence"], (p.semiMajorConfidence));
+    from_json(j["semiMinorConfidence"], (p.semiMinorConfidence));
+    double semiMajorOrientation; from_json(j["semiMajorOrientation"], (semiMajorOrientation)); (p.semiMajorOrientation) = ((semiMajorOrientation) != 3601) ? semiMajorOrientation * 10 : semiMajorOrientation;
 }
+
+
 
 /*
 *   PathPoint - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const PathPoint& p) {
-    j = json{{"pathPosition", (p.pathPosition)}};
-    if (p.pathDeltaTime != 0) j["pathDeltaTime"] = *(p.pathDeltaTime);
+Value to_json(const PathPoint& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("pathPosition", to_json((p.pathPosition), allocator), allocator);
+    if (p.pathDeltaTime != 0) json.AddMember("pathDeltaTime", to_json(*(p.pathDeltaTime), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, PathPoint& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("pathPosition").get_to((p.pathPosition));
-    if (j.contains("pathDeltaTime")) { p.pathDeltaTime = vanetza::asn1::allocate<PathDeltaTime_t>(); j.at("pathDeltaTime").get_to(*(p.pathDeltaTime)); } 
+void from_json(const Value& j, PathPoint& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["pathPosition"], (p.pathPosition));
+    if (j.HasMember("pathDeltaTime")) { p.pathDeltaTime = vanetza::asn1::allocate<PathDeltaTime_t>(); from_json(j["pathDeltaTime"], *(p.pathDeltaTime)); }
     else { p.pathDeltaTime=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   PtActivationData - Type OCTET STRING
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const PtActivationData_t& p) {
-    j = json{}; // TODO
+Value to_json(const PtActivationData_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType); 
+    return json;
+    // TODO
 }
 
-void from_json(const json& j, PtActivationData_t& p) {
+void from_json(const Value& j, PtActivationData_t& p) {
     // TODO
 }
 
@@ -155,11 +191,19 @@ void from_json(const json& j, PtActivationData_t& p) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-json to_json_AccelerationControl(const AccelerationControl_t p) {
-    return json{{"brakePedalEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"gasPedalEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}, {"emergencyBrakeEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8))))}, {"collisionWarningEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8))))}, {"accEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8))))}, {"cruiseControlEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8))))}, {"speedLimiterEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8))))}};
+Value to_json_AccelerationControl(const AccelerationControl_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("brakePedalEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("gasPedalEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("emergencyBrakeEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("collisionWarningEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("accEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("cruiseControlEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    json.AddMember("speedLimiterEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8)))), allocator);
+    return json;
 }
 
-void from_json_AccelerationControl(const json& j, AccelerationControl_t& p) {
+void from_json_AccelerationControl(const Value& j, AccelerationControl_t& p) {
     AccelerationControl_t* p_tmp = vanetza::asn1::allocate<AccelerationControl_t>();
     bool brakePedalEngaged;
     bool gasPedalEngaged;
@@ -168,13 +212,13 @@ void from_json_AccelerationControl(const json& j, AccelerationControl_t& p) {
     bool accEngaged;
     bool cruiseControlEngaged;
     bool speedLimiterEngaged;
-    if (j.contains("brakePedalEngaged")) j.at("brakePedalEngaged").get_to((brakePedalEngaged));
-    if (j.contains("gasPedalEngaged")) j.at("gasPedalEngaged").get_to((gasPedalEngaged));
-    if (j.contains("emergencyBrakeEngaged")) j.at("emergencyBrakeEngaged").get_to((emergencyBrakeEngaged));
-    if (j.contains("collisionWarningEngaged")) j.at("collisionWarningEngaged").get_to((collisionWarningEngaged));
-    if (j.contains("accEngaged")) j.at("accEngaged").get_to((accEngaged));
-    if (j.contains("cruiseControlEngaged")) j.at("cruiseControlEngaged").get_to((cruiseControlEngaged));
-    if (j.contains("speedLimiterEngaged")) j.at("speedLimiterEngaged").get_to((speedLimiterEngaged));
+    if (j.HasMember("brakePedalEngaged")) from_json(j["brakePedalEngaged"], (brakePedalEngaged));
+    if (j.HasMember("gasPedalEngaged")) from_json(j["gasPedalEngaged"], (gasPedalEngaged));
+    if (j.HasMember("emergencyBrakeEngaged")) from_json(j["emergencyBrakeEngaged"], (emergencyBrakeEngaged));
+    if (j.HasMember("collisionWarningEngaged")) from_json(j["collisionWarningEngaged"], (collisionWarningEngaged));
+    if (j.HasMember("accEngaged")) from_json(j["accEngaged"], (accEngaged));
+    if (j.HasMember("cruiseControlEngaged")) from_json(j["cruiseControlEngaged"], (cruiseControlEngaged));
+    if (j.HasMember("speedLimiterEngaged")) from_json(j["speedLimiterEngaged"], (speedLimiterEngaged));
     p_tmp->size = (7 / 8) + 1;
     p_tmp->bits_unused = (7 % 8) != 0 ? 8 - (7 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -195,65 +239,76 @@ void from_json_AccelerationControl(const json& j, AccelerationControl_t& p) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const CauseCode& p) {
-    j = json{{"causeCode", (p.causeCode)}, {"subCauseCode", (p.subCauseCode)}};
+Value to_json(const CauseCode& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("causeCode", to_json((p.causeCode), allocator), allocator);
+    json.AddMember("subCauseCode", to_json((p.subCauseCode), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, CauseCode& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("causeCode").get_to((p.causeCode));
-    j.at("subCauseCode").get_to((p.subCauseCode));
-    
-    
+void from_json(const Value& j, CauseCode& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["causeCode"], (p.causeCode));
+    from_json(j["subCauseCode"], (p.subCauseCode));
 }
+
+
 
 /*
 *   Curvature - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const Curvature& p) {
-    j = json{{"curvatureValue", (p.curvatureValue)}, {"curvatureConfidence", (p.curvatureConfidence)}};
+Value to_json(const Curvature& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("curvatureValue", to_json((p.curvatureValue), allocator), allocator);
+    json.AddMember("curvatureConfidence", to_json((p.curvatureConfidence), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, Curvature& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("curvatureValue").get_to((p.curvatureValue));
-    j.at("curvatureConfidence").get_to((p.curvatureConfidence));
-    
-    
+void from_json(const Value& j, Curvature& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["curvatureValue"], (p.curvatureValue));
+    from_json(j["curvatureConfidence"], (p.curvatureConfidence));
 }
+
+
 
 /*
 *   Heading - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const Heading& p) {
-    j = json{{"headingValue", ((p.headingValue) == 3601) ? (p.headingValue) : (double)(p.headingValue) / 10.0}, {"headingConfidence", ((p.headingConfidence) == 126 || (p.headingConfidence) == 127) ? (p.headingConfidence) : (double)(p.headingConfidence) / 10.0}};
+Value to_json(const Heading& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("headingValue", to_json(((p.headingValue) == 3601) ? (p.headingValue) : (double)(p.headingValue) / 10.0, allocator), allocator);
+    json.AddMember("headingConfidence", to_json(((p.headingConfidence) == 126 || (p.headingConfidence) == 127) ? (p.headingConfidence) : (double)(p.headingConfidence) / 10.0, allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, Heading& p) {
-    p._asn_ctx.ptr= nullptr;
-    double headingValue; j.at("headingValue").get_to((headingValue)); (p.headingValue) = ((headingValue) != 3601) ? headingValue * 10 : headingValue;
-    double headingConfidence; j.at("headingConfidence").get_to((headingConfidence)); (p.headingConfidence) = ((headingConfidence) != 126 && (headingConfidence) != 127) ? headingConfidence * 10 : headingConfidence;
-    
-    
+void from_json(const Value& j, Heading& p) {
+    p._asn_ctx.ptr = nullptr;
+    double headingValue; from_json(j["headingValue"], (headingValue)); (p.headingValue) = ((headingValue) != 3601) ? headingValue * 10 : headingValue;
+    double headingConfidence; from_json(j["headingConfidence"], (headingConfidence)); (p.headingConfidence) = ((headingConfidence) != 126 && (headingConfidence) != 127) ? headingConfidence * 10 : headingConfidence;
 }
+
+
 
 /*
 *   DrivingLaneStatus - Type BIT STRING
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-json to_json_DrivingLaneStatus(const DrivingLaneStatus_t p) {
-    return json{};
+Value to_json_DrivingLaneStatus(const DrivingLaneStatus_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    return json;
 }
 
-void from_json_DrivingLaneStatus(const json& j, DrivingLaneStatus_t& p) {
+void from_json_DrivingLaneStatus(const Value& j, DrivingLaneStatus_t& p) {
     DrivingLaneStatus_t* p_tmp = vanetza::asn1::allocate<DrivingLaneStatus_t>();
     
     
@@ -271,83 +326,104 @@ void from_json_DrivingLaneStatus(const json& j, DrivingLaneStatus_t& p) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const Speed& p) {
-    j = json{{"speedValue", ((p.speedValue) == 16383) ? (p.speedValue) : (double)(p.speedValue) / 100.0}, {"speedConfidence", ((p.speedConfidence) == 126 || (p.speedConfidence) == 127) ? (p.speedConfidence) : (double)(p.speedConfidence) / 100.0}};
+Value to_json(const Speed& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("speedValue", to_json(((p.speedValue) == 16383) ? (p.speedValue) : (double)(p.speedValue) / 100.0, allocator), allocator);
+    json.AddMember("speedConfidence", to_json(((p.speedConfidence) == 126 || (p.speedConfidence) == 127) ? (p.speedConfidence) : (double)(p.speedConfidence) / 100.0, allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, Speed& p) {
-    p._asn_ctx.ptr= nullptr;
-    double speedValue; j.at("speedValue").get_to((speedValue)); (p.speedValue) = ((speedValue) != 16383) ? speedValue * 100 : speedValue;
-    double speedConfidence; j.at("speedConfidence").get_to((speedConfidence)); (p.speedConfidence) = ((speedConfidence) != 126 && (speedConfidence) != 127) ? speedConfidence * 100 : speedConfidence;
-    
-    
+void from_json(const Value& j, Speed& p) {
+    p._asn_ctx.ptr = nullptr;
+    double speedValue; from_json(j["speedValue"], (speedValue)); (p.speedValue) = ((speedValue) != 16383) ? speedValue * 100 : speedValue;
+    double speedConfidence; from_json(j["speedConfidence"], (speedConfidence)); (p.speedConfidence) = ((speedConfidence) != 126 && (speedConfidence) != 127) ? speedConfidence * 100 : speedConfidence;
 }
+
+
 
 /*
 *   LongitudinalAcceleration - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const LongitudinalAcceleration& p) {
-    j = json{{"longitudinalAccelerationValue", ((p.longitudinalAccelerationValue) == 161) ? (p.longitudinalAccelerationValue) : (double)(p.longitudinalAccelerationValue) / 10.0}, {"longitudinalAccelerationConfidence", ((p.longitudinalAccelerationConfidence) == 102) ? (p.longitudinalAccelerationConfidence) : (double)(p.longitudinalAccelerationConfidence) / 10.0}};
+Value to_json(const LongitudinalAcceleration& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("longitudinalAccelerationValue", to_json(((p.longitudinalAccelerationValue) == 161) ? (p.longitudinalAccelerationValue) : (double)(p.longitudinalAccelerationValue) / 10.0, allocator), allocator);
+    json.AddMember("longitudinalAccelerationConfidence", to_json(((p.longitudinalAccelerationConfidence) == 102) ? (p.longitudinalAccelerationConfidence) : (double)(p.longitudinalAccelerationConfidence) / 10.0, allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, LongitudinalAcceleration& p) {
-    p._asn_ctx.ptr= nullptr;
-    double longitudinalAccelerationValue; j.at("longitudinalAccelerationValue").get_to((longitudinalAccelerationValue)); (p.longitudinalAccelerationValue) = ((longitudinalAccelerationValue) != 161) ? longitudinalAccelerationValue * 10 : longitudinalAccelerationValue;
-    double longitudinalAccelerationConfidence; j.at("longitudinalAccelerationConfidence").get_to((longitudinalAccelerationConfidence)); (p.longitudinalAccelerationConfidence) = ((longitudinalAccelerationConfidence) != 102) ? longitudinalAccelerationConfidence * 10 : longitudinalAccelerationConfidence;
-    
-    
+void from_json(const Value& j, LongitudinalAcceleration& p) {
+    p._asn_ctx.ptr = nullptr;
+    double longitudinalAccelerationValue; from_json(j["longitudinalAccelerationValue"], (longitudinalAccelerationValue)); (p.longitudinalAccelerationValue) = ((longitudinalAccelerationValue) != 161) ? longitudinalAccelerationValue * 10 : longitudinalAccelerationValue;
+    double longitudinalAccelerationConfidence; from_json(j["longitudinalAccelerationConfidence"], (longitudinalAccelerationConfidence)); (p.longitudinalAccelerationConfidence) = ((longitudinalAccelerationConfidence) != 102) ? longitudinalAccelerationConfidence * 10 : longitudinalAccelerationConfidence;
 }
+
+
 
 /*
 *   LateralAcceleration - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const LateralAcceleration& p) {
-    j = json{{"lateralAccelerationValue", ((p.lateralAccelerationValue) == 161) ? (p.lateralAccelerationValue) : (double)(p.lateralAccelerationValue) / 10.0}, {"lateralAccelerationConfidence", ((p.lateralAccelerationConfidence) == 102) ? (p.lateralAccelerationConfidence) : (double)(p.lateralAccelerationConfidence) / 10.0}};
+Value to_json(const LateralAcceleration& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("lateralAccelerationValue", to_json(((p.lateralAccelerationValue) == 161) ? (p.lateralAccelerationValue) : (double)(p.lateralAccelerationValue) / 10.0, allocator), allocator);
+    json.AddMember("lateralAccelerationConfidence", to_json(((p.lateralAccelerationConfidence) == 102) ? (p.lateralAccelerationConfidence) : (double)(p.lateralAccelerationConfidence) / 10.0, allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, LateralAcceleration& p) {
-    p._asn_ctx.ptr= nullptr;
-    double lateralAccelerationValue; j.at("lateralAccelerationValue").get_to((lateralAccelerationValue)); (p.lateralAccelerationValue) = ((lateralAccelerationValue) != 161) ? lateralAccelerationValue * 10 : lateralAccelerationValue;
-    double lateralAccelerationConfidence; j.at("lateralAccelerationConfidence").get_to((lateralAccelerationConfidence)); (p.lateralAccelerationConfidence) = ((lateralAccelerationConfidence) != 102) ? lateralAccelerationConfidence * 10 : lateralAccelerationConfidence;
-    
-    
+void from_json(const Value& j, LateralAcceleration& p) {
+    p._asn_ctx.ptr = nullptr;
+    double lateralAccelerationValue; from_json(j["lateralAccelerationValue"], (lateralAccelerationValue)); (p.lateralAccelerationValue) = ((lateralAccelerationValue) != 161) ? lateralAccelerationValue * 10 : lateralAccelerationValue;
+    double lateralAccelerationConfidence; from_json(j["lateralAccelerationConfidence"], (lateralAccelerationConfidence)); (p.lateralAccelerationConfidence) = ((lateralAccelerationConfidence) != 102) ? lateralAccelerationConfidence * 10 : lateralAccelerationConfidence;
 }
+
+
 
 /*
 *   VerticalAcceleration - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const VerticalAcceleration_t& p) {
-    j = json{{"verticalAccelerationValue", ((p.verticalAccelerationValue) == 161) ? (p.verticalAccelerationValue) : (double)(p.verticalAccelerationValue) / 10.0}, {"verticalAccelerationConfidence", ((p.verticalAccelerationConfidence) == 102) ? (p.verticalAccelerationConfidence) : (double)(p.verticalAccelerationConfidence) / 10.0}};
+Value to_json(const VerticalAcceleration_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("verticalAccelerationValue", to_json(((p.verticalAccelerationValue) == 161) ? (p.verticalAccelerationValue) : (double)(p.verticalAccelerationValue) / 10.0, allocator), allocator);
+    json.AddMember("verticalAccelerationConfidence", to_json(((p.verticalAccelerationConfidence) == 102) ? (p.verticalAccelerationConfidence) : (double)(p.verticalAccelerationConfidence) / 10.0, allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, VerticalAcceleration_t& p) {
-    p._asn_ctx.ptr= nullptr;
-    double verticalAccelerationValue; j.at("verticalAccelerationValue").get_to((verticalAccelerationValue)); (p.verticalAccelerationValue) = ((verticalAccelerationValue) != 161) ? verticalAccelerationValue * 10 : verticalAccelerationValue;
-    double verticalAccelerationConfidence; j.at("verticalAccelerationConfidence").get_to((verticalAccelerationConfidence)); (p.verticalAccelerationConfidence) = ((verticalAccelerationConfidence) != 102) ? verticalAccelerationConfidence * 10 : verticalAccelerationConfidence;
-    
-    
+void from_json(const Value& j, VerticalAcceleration_t& p) {
+    p._asn_ctx.ptr = nullptr;
+    double verticalAccelerationValue; from_json(j["verticalAccelerationValue"], (verticalAccelerationValue)); (p.verticalAccelerationValue) = ((verticalAccelerationValue) != 161) ? verticalAccelerationValue * 10 : verticalAccelerationValue;
+    double verticalAccelerationConfidence; from_json(j["verticalAccelerationConfidence"], (verticalAccelerationConfidence)); (p.verticalAccelerationConfidence) = ((verticalAccelerationConfidence) != 102) ? verticalAccelerationConfidence * 10 : verticalAccelerationConfidence;
 }
+
+
 
 /*
 *   ExteriorLights - Type BIT STRING
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-json to_json_ExteriorLights(const ExteriorLights_t p) {
-    return json{{"lowBeamHeadlightsOn", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"highBeamHeadlightsOn", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}, {"leftTurnSignalOn", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8))))}, {"rightTurnSignalOn", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8))))}, {"daytimeRunningLightsOn", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8))))}, {"reverseLightOn", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8))))}, {"fogLightOn", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8))))}, {"parkingLightsOn", (bool) (*(p.buf + (sizeof(uint8_t) * (7 / 8))) & (1 << ((7 * ((7 / 8) + 1))-(7 % 8))))}};
+Value to_json_ExteriorLights(const ExteriorLights_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("lowBeamHeadlightsOn", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("highBeamHeadlightsOn", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("leftTurnSignalOn", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("rightTurnSignalOn", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("daytimeRunningLightsOn", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("reverseLightOn", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    json.AddMember("fogLightOn", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8)))), allocator);
+    json.AddMember("parkingLightsOn", (bool) (*(p.buf + (sizeof(uint8_t) * (7 / 8))) & (1 << ((7 * ((7 / 8) + 1))-(7 % 8)))), allocator);
+    return json;
 }
 
-void from_json_ExteriorLights(const json& j, ExteriorLights_t& p) {
+void from_json_ExteriorLights(const Value& j, ExteriorLights_t& p) {
     ExteriorLights_t* p_tmp = vanetza::asn1::allocate<ExteriorLights_t>();
     bool lowBeamHeadlightsOn;
     bool highBeamHeadlightsOn;
@@ -357,14 +433,14 @@ void from_json_ExteriorLights(const json& j, ExteriorLights_t& p) {
     bool reverseLightOn;
     bool fogLightOn;
     bool parkingLightsOn;
-    if (j.contains("lowBeamHeadlightsOn")) j.at("lowBeamHeadlightsOn").get_to((lowBeamHeadlightsOn));
-    if (j.contains("highBeamHeadlightsOn")) j.at("highBeamHeadlightsOn").get_to((highBeamHeadlightsOn));
-    if (j.contains("leftTurnSignalOn")) j.at("leftTurnSignalOn").get_to((leftTurnSignalOn));
-    if (j.contains("rightTurnSignalOn")) j.at("rightTurnSignalOn").get_to((rightTurnSignalOn));
-    if (j.contains("daytimeRunningLightsOn")) j.at("daytimeRunningLightsOn").get_to((daytimeRunningLightsOn));
-    if (j.contains("reverseLightOn")) j.at("reverseLightOn").get_to((reverseLightOn));
-    if (j.contains("fogLightOn")) j.at("fogLightOn").get_to((fogLightOn));
-    if (j.contains("parkingLightsOn")) j.at("parkingLightsOn").get_to((parkingLightsOn));
+    if (j.HasMember("lowBeamHeadlightsOn")) from_json(j["lowBeamHeadlightsOn"], (lowBeamHeadlightsOn));
+    if (j.HasMember("highBeamHeadlightsOn")) from_json(j["highBeamHeadlightsOn"], (highBeamHeadlightsOn));
+    if (j.HasMember("leftTurnSignalOn")) from_json(j["leftTurnSignalOn"], (leftTurnSignalOn));
+    if (j.HasMember("rightTurnSignalOn")) from_json(j["rightTurnSignalOn"], (rightTurnSignalOn));
+    if (j.HasMember("daytimeRunningLightsOn")) from_json(j["daytimeRunningLightsOn"], (daytimeRunningLightsOn));
+    if (j.HasMember("reverseLightOn")) from_json(j["reverseLightOn"], (reverseLightOn));
+    if (j.HasMember("fogLightOn")) from_json(j["fogLightOn"], (fogLightOn));
+    if (j.HasMember("parkingLightsOn")) from_json(j["parkingLightsOn"], (parkingLightsOn));
     p_tmp->size = (8 / 8) + 1;
     p_tmp->bits_unused = (8 % 8) != 0 ? 8 - (8 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -387,46 +463,58 @@ void from_json_ExteriorLights(const json& j, ExteriorLights_t& p) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const DangerousGoodsExtended& p) {
-    j = json{{"dangerousGoodsType", (p.dangerousGoodsType)}, {"unNumber", (p.unNumber)}, {"elevatedTemperature", (p.elevatedTemperature)}, {"tunnelsRestricted", (p.tunnelsRestricted)}, {"limitedQuantity", (p.limitedQuantity)}};
-    if (p.emergencyActionCode != 0) j["emergencyActionCode"] = *(p.emergencyActionCode);
-    if (p.companyName != 0) j["companyName"] = *(p.companyName);
+Value to_json(const DangerousGoodsExtended& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("dangerousGoodsType", to_json((p.dangerousGoodsType), allocator), allocator);
+    json.AddMember("unNumber", to_json((p.unNumber), allocator), allocator);
+    json.AddMember("elevatedTemperature", to_json((p.elevatedTemperature), allocator), allocator);
+    json.AddMember("tunnelsRestricted", to_json((p.tunnelsRestricted), allocator), allocator);
+    json.AddMember("limitedQuantity", to_json((p.limitedQuantity), allocator), allocator);
+    if (p.emergencyActionCode != 0) json.AddMember("emergencyActionCode", to_json(*(p.emergencyActionCode), allocator), allocator);
+    if (p.companyName != 0) json.AddMember("companyName", to_json(*(p.companyName), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, DangerousGoodsExtended& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("dangerousGoodsType").get_to((p.dangerousGoodsType));
-    j.at("unNumber").get_to((p.unNumber));
-    j.at("elevatedTemperature").get_to((p.elevatedTemperature));
-    j.at("tunnelsRestricted").get_to((p.tunnelsRestricted));
-    j.at("limitedQuantity").get_to((p.limitedQuantity));
-    if (j.contains("emergencyActionCode")) { p.emergencyActionCode = vanetza::asn1::allocate<IA5String_t>(); j.at("emergencyActionCode").get_to(*(p.emergencyActionCode)); } 
+void from_json(const Value& j, DangerousGoodsExtended& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["dangerousGoodsType"], (p.dangerousGoodsType));
+    from_json(j["unNumber"], (p.unNumber));
+    from_json(j["elevatedTemperature"], (p.elevatedTemperature));
+    from_json(j["tunnelsRestricted"], (p.tunnelsRestricted));
+    from_json(j["limitedQuantity"], (p.limitedQuantity));
+    if (j.HasMember("emergencyActionCode")) { p.emergencyActionCode = vanetza::asn1::allocate<IA5String_t>(); from_json(j["emergencyActionCode"], *(p.emergencyActionCode)); }
     else { p.emergencyActionCode=nullptr; }
-    if (j.contains("companyName")) { p.companyName = vanetza::asn1::allocate<UTF8String_t>(); j.at("companyName").get_to(*(p.companyName)); } 
+    if (j.HasMember("companyName")) { p.companyName = vanetza::asn1::allocate<UTF8String_t>(); from_json(j["companyName"], *(p.companyName)); }
     else { p.companyName=nullptr; }
-    
     p.phoneNumber=nullptr;
 }
+
+
 
 /*
 *   SpecialTransportType - Type BIT STRING
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-json to_json_SpecialTransportType(const SpecialTransportType_t p) {
-    return json{{"heavyLoad", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"excessWidth", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}, {"excessLength", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8))))}, {"excessHeight", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8))))}};
+Value to_json_SpecialTransportType(const SpecialTransportType_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("heavyLoad", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("excessWidth", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("excessLength", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("excessHeight", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    return json;
 }
 
-void from_json_SpecialTransportType(const json& j, SpecialTransportType_t& p) {
+void from_json_SpecialTransportType(const Value& j, SpecialTransportType_t& p) {
     SpecialTransportType_t* p_tmp = vanetza::asn1::allocate<SpecialTransportType_t>();
     bool heavyLoad;
     bool excessWidth;
     bool excessLength;
     bool excessHeight;
-    if (j.contains("heavyLoad")) j.at("heavyLoad").get_to((heavyLoad));
-    if (j.contains("excessWidth")) j.at("excessWidth").get_to((excessWidth));
-    if (j.contains("excessLength")) j.at("excessLength").get_to((excessLength));
-    if (j.contains("excessHeight")) j.at("excessHeight").get_to((excessHeight));
+    if (j.HasMember("heavyLoad")) from_json(j["heavyLoad"], (heavyLoad));
+    if (j.HasMember("excessWidth")) from_json(j["excessWidth"], (excessWidth));
+    if (j.HasMember("excessLength")) from_json(j["excessLength"], (excessLength));
+    if (j.HasMember("excessHeight")) from_json(j["excessHeight"], (excessHeight));
     p_tmp->size = (4 / 8) + 1;
     p_tmp->bits_unused = (4 % 8) != 0 ? 8 - (4 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -444,16 +532,19 @@ void from_json_SpecialTransportType(const json& j, SpecialTransportType_t& p) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-json to_json_LightBarSirenInUse(const LightBarSirenInUse_t p) {
-    return json{{"lightBarActivated", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"sirenActivated", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}};
+Value to_json_LightBarSirenInUse(const LightBarSirenInUse_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("lightBarActivated", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("sirenActivated", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    return json;
 }
 
-void from_json_LightBarSirenInUse(const json& j, LightBarSirenInUse_t& p) {
+void from_json_LightBarSirenInUse(const Value& j, LightBarSirenInUse_t& p) {
     LightBarSirenInUse_t* p_tmp = vanetza::asn1::allocate<LightBarSirenInUse_t>();
     bool lightBarActivated;
     bool sirenActivated;
-    if (j.contains("lightBarActivated")) j.at("lightBarActivated").get_to((lightBarActivated));
-    if (j.contains("sirenActivated")) j.at("sirenActivated").get_to((sirenActivated));
+    if (j.HasMember("lightBarActivated")) from_json(j["lightBarActivated"], (lightBarActivated));
+    if (j.HasMember("sirenActivated")) from_json(j["sirenActivated"], (sirenActivated));
     p_tmp->size = (2 / 8) + 1;
     p_tmp->bits_unused = (2 % 8) != 0 ? 8 - (2 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -469,11 +560,32 @@ void from_json_LightBarSirenInUse(const json& j, LightBarSirenInUse_t& p) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-json to_json_PositionOfOccupants(const PositionOfOccupants_t p) {
-    return json{{"row1LeftOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"row1RightOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}, {"row1MidOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8))))}, {"row1NotDetectable", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8))))}, {"row1NotPresent", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8))))}, {"row2LeftOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8))))}, {"row2RightOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8))))}, {"row2MidOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (7 / 8))) & (1 << ((7 * ((7 / 8) + 1))-(7 % 8))))}, {"row2NotDetectable", (bool) (*(p.buf + (sizeof(uint8_t) * (8 / 8))) & (1 << ((7 * ((8 / 8) + 1))-(8 % 8))))}, {"row2NotPresent", (bool) (*(p.buf + (sizeof(uint8_t) * (9 / 8))) & (1 << ((7 * ((9 / 8) + 1))-(9 % 8))))}, {"row3LeftOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (10 / 8))) & (1 << ((7 * ((10 / 8) + 1))-(10 % 8))))}, {"row3RightOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (11 / 8))) & (1 << ((7 * ((11 / 8) + 1))-(11 % 8))))}, {"row3MidOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (12 / 8))) & (1 << ((7 * ((12 / 8) + 1))-(12 % 8))))}, {"row3NotDetectable", (bool) (*(p.buf + (sizeof(uint8_t) * (13 / 8))) & (1 << ((7 * ((13 / 8) + 1))-(13 % 8))))}, {"row3NotPresent", (bool) (*(p.buf + (sizeof(uint8_t) * (14 / 8))) & (1 << ((7 * ((14 / 8) + 1))-(14 % 8))))}, {"row4LeftOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (15 / 8))) & (1 << ((7 * ((15 / 8) + 1))-(15 % 8))))}, {"row4RightOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (16 / 8))) & (1 << ((7 * ((16 / 8) + 1))-(16 % 8))))}, {"row4MidOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (17 / 8))) & (1 << ((7 * ((17 / 8) + 1))-(17 % 8))))}, {"row4NotDetectable", (bool) (*(p.buf + (sizeof(uint8_t) * (18 / 8))) & (1 << ((7 * ((18 / 8) + 1))-(18 % 8))))}, {"row4NotPresent", (bool) (*(p.buf + (sizeof(uint8_t) * (19 / 8))) & (1 << ((7 * ((19 / 8) + 1))-(19 % 8))))}};
+Value to_json_PositionOfOccupants(const PositionOfOccupants_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("row1LeftOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("row1RightOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("row1MidOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("row1NotDetectable", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("row1NotPresent", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("row2LeftOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    json.AddMember("row2RightOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8)))), allocator);
+    json.AddMember("row2MidOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (7 / 8))) & (1 << ((7 * ((7 / 8) + 1))-(7 % 8)))), allocator);
+    json.AddMember("row2NotDetectable", (bool) (*(p.buf + (sizeof(uint8_t) * (8 / 8))) & (1 << ((7 * ((8 / 8) + 1))-(8 % 8)))), allocator);
+    json.AddMember("row2NotPresent", (bool) (*(p.buf + (sizeof(uint8_t) * (9 / 8))) & (1 << ((7 * ((9 / 8) + 1))-(9 % 8)))), allocator);
+    json.AddMember("row3LeftOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (10 / 8))) & (1 << ((7 * ((10 / 8) + 1))-(10 % 8)))), allocator);
+    json.AddMember("row3RightOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (11 / 8))) & (1 << ((7 * ((11 / 8) + 1))-(11 % 8)))), allocator);
+    json.AddMember("row3MidOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (12 / 8))) & (1 << ((7 * ((12 / 8) + 1))-(12 % 8)))), allocator);
+    json.AddMember("row3NotDetectable", (bool) (*(p.buf + (sizeof(uint8_t) * (13 / 8))) & (1 << ((7 * ((13 / 8) + 1))-(13 % 8)))), allocator);
+    json.AddMember("row3NotPresent", (bool) (*(p.buf + (sizeof(uint8_t) * (14 / 8))) & (1 << ((7 * ((14 / 8) + 1))-(14 % 8)))), allocator);
+    json.AddMember("row4LeftOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (15 / 8))) & (1 << ((7 * ((15 / 8) + 1))-(15 % 8)))), allocator);
+    json.AddMember("row4RightOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (16 / 8))) & (1 << ((7 * ((16 / 8) + 1))-(16 % 8)))), allocator);
+    json.AddMember("row4MidOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (17 / 8))) & (1 << ((7 * ((17 / 8) + 1))-(17 % 8)))), allocator);
+    json.AddMember("row4NotDetectable", (bool) (*(p.buf + (sizeof(uint8_t) * (18 / 8))) & (1 << ((7 * ((18 / 8) + 1))-(18 % 8)))), allocator);
+    json.AddMember("row4NotPresent", (bool) (*(p.buf + (sizeof(uint8_t) * (19 / 8))) & (1 << ((7 * ((19 / 8) + 1))-(19 % 8)))), allocator);
+    return json;
 }
 
-void from_json_PositionOfOccupants(const json& j, PositionOfOccupants_t& p) {
+void from_json_PositionOfOccupants(const Value& j, PositionOfOccupants_t& p) {
     PositionOfOccupants_t* p_tmp = vanetza::asn1::allocate<PositionOfOccupants_t>();
     bool row1LeftOccupied;
     bool row1RightOccupied;
@@ -495,26 +607,26 @@ void from_json_PositionOfOccupants(const json& j, PositionOfOccupants_t& p) {
     bool row4MidOccupied;
     bool row4NotDetectable;
     bool row4NotPresent;
-    if (j.contains("row1LeftOccupied")) j.at("row1LeftOccupied").get_to((row1LeftOccupied));
-    if (j.contains("row1RightOccupied")) j.at("row1RightOccupied").get_to((row1RightOccupied));
-    if (j.contains("row1MidOccupied")) j.at("row1MidOccupied").get_to((row1MidOccupied));
-    if (j.contains("row1NotDetectable")) j.at("row1NotDetectable").get_to((row1NotDetectable));
-    if (j.contains("row1NotPresent")) j.at("row1NotPresent").get_to((row1NotPresent));
-    if (j.contains("row2LeftOccupied")) j.at("row2LeftOccupied").get_to((row2LeftOccupied));
-    if (j.contains("row2RightOccupied")) j.at("row2RightOccupied").get_to((row2RightOccupied));
-    if (j.contains("row2MidOccupied")) j.at("row2MidOccupied").get_to((row2MidOccupied));
-    if (j.contains("row2NotDetectable")) j.at("row2NotDetectable").get_to((row2NotDetectable));
-    if (j.contains("row2NotPresent")) j.at("row2NotPresent").get_to((row2NotPresent));
-    if (j.contains("row3LeftOccupied")) j.at("row3LeftOccupied").get_to((row3LeftOccupied));
-    if (j.contains("row3RightOccupied")) j.at("row3RightOccupied").get_to((row3RightOccupied));
-    if (j.contains("row3MidOccupied")) j.at("row3MidOccupied").get_to((row3MidOccupied));
-    if (j.contains("row3NotDetectable")) j.at("row3NotDetectable").get_to((row3NotDetectable));
-    if (j.contains("row3NotPresent")) j.at("row3NotPresent").get_to((row3NotPresent));
-    if (j.contains("row4LeftOccupied")) j.at("row4LeftOccupied").get_to((row4LeftOccupied));
-    if (j.contains("row4RightOccupied")) j.at("row4RightOccupied").get_to((row4RightOccupied));
-    if (j.contains("row4MidOccupied")) j.at("row4MidOccupied").get_to((row4MidOccupied));
-    if (j.contains("row4NotDetectable")) j.at("row4NotDetectable").get_to((row4NotDetectable));
-    if (j.contains("row4NotPresent")) j.at("row4NotPresent").get_to((row4NotPresent));
+    if (j.HasMember("row1LeftOccupied")) from_json(j["row1LeftOccupied"], (row1LeftOccupied));
+    if (j.HasMember("row1RightOccupied")) from_json(j["row1RightOccupied"], (row1RightOccupied));
+    if (j.HasMember("row1MidOccupied")) from_json(j["row1MidOccupied"], (row1MidOccupied));
+    if (j.HasMember("row1NotDetectable")) from_json(j["row1NotDetectable"], (row1NotDetectable));
+    if (j.HasMember("row1NotPresent")) from_json(j["row1NotPresent"], (row1NotPresent));
+    if (j.HasMember("row2LeftOccupied")) from_json(j["row2LeftOccupied"], (row2LeftOccupied));
+    if (j.HasMember("row2RightOccupied")) from_json(j["row2RightOccupied"], (row2RightOccupied));
+    if (j.HasMember("row2MidOccupied")) from_json(j["row2MidOccupied"], (row2MidOccupied));
+    if (j.HasMember("row2NotDetectable")) from_json(j["row2NotDetectable"], (row2NotDetectable));
+    if (j.HasMember("row2NotPresent")) from_json(j["row2NotPresent"], (row2NotPresent));
+    if (j.HasMember("row3LeftOccupied")) from_json(j["row3LeftOccupied"], (row3LeftOccupied));
+    if (j.HasMember("row3RightOccupied")) from_json(j["row3RightOccupied"], (row3RightOccupied));
+    if (j.HasMember("row3MidOccupied")) from_json(j["row3MidOccupied"], (row3MidOccupied));
+    if (j.HasMember("row3NotDetectable")) from_json(j["row3NotDetectable"], (row3NotDetectable));
+    if (j.HasMember("row3NotPresent")) from_json(j["row3NotPresent"], (row3NotPresent));
+    if (j.HasMember("row4LeftOccupied")) from_json(j["row4LeftOccupied"], (row4LeftOccupied));
+    if (j.HasMember("row4RightOccupied")) from_json(j["row4RightOccupied"], (row4RightOccupied));
+    if (j.HasMember("row4MidOccupied")) from_json(j["row4MidOccupied"], (row4MidOccupied));
+    if (j.HasMember("row4NotDetectable")) from_json(j["row4NotDetectable"], (row4NotDetectable));
+    if (j.HasMember("row4NotPresent")) from_json(j["row4NotPresent"], (row4NotPresent));
     p_tmp->size = (20 / 8) + 1;
     p_tmp->bits_unused = (20 % 8) != 0 ? 8 - (20 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -550,29 +662,39 @@ void from_json_PositionOfOccupants(const json& j, PositionOfOccupants_t& p) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const VehicleIdentification& p) {
-    j = json{};
+Value to_json(const VehicleIdentification& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     
+    
+    return json;
 }
 
-void from_json(const json& j, VehicleIdentification& p) {
-    p._asn_ctx.ptr= nullptr;
-    
-    
+void from_json(const Value& j, VehicleIdentification& p) {
+    p._asn_ctx.ptr = nullptr;
     p.wMInumber=nullptr;
     p.vDS=nullptr;
 }
+
+
 
 /*
 *   EnergyStorageType - Type BIT STRING
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-json to_json_EnergyStorageType(const EnergyStorageType_t p) {
-    return json{{"hydrogenStorage", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"electricEnergyStorage", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}, {"liquidPropaneGas", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8))))}, {"compressedNaturalGas", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8))))}, {"diesel", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8))))}, {"gasoline", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8))))}, {"ammonia", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8))))}};
+Value to_json_EnergyStorageType(const EnergyStorageType_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("hydrogenStorage", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("electricEnergyStorage", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("liquidPropaneGas", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("compressedNaturalGas", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("diesel", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("gasoline", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    json.AddMember("ammonia", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8)))), allocator);
+    return json;
 }
 
-void from_json_EnergyStorageType(const json& j, EnergyStorageType_t& p) {
+void from_json_EnergyStorageType(const Value& j, EnergyStorageType_t& p) {
     EnergyStorageType_t* p_tmp = vanetza::asn1::allocate<EnergyStorageType_t>();
     bool hydrogenStorage;
     bool electricEnergyStorage;
@@ -581,13 +703,13 @@ void from_json_EnergyStorageType(const json& j, EnergyStorageType_t& p) {
     bool diesel;
     bool gasoline;
     bool ammonia;
-    if (j.contains("hydrogenStorage")) j.at("hydrogenStorage").get_to((hydrogenStorage));
-    if (j.contains("electricEnergyStorage")) j.at("electricEnergyStorage").get_to((electricEnergyStorage));
-    if (j.contains("liquidPropaneGas")) j.at("liquidPropaneGas").get_to((liquidPropaneGas));
-    if (j.contains("compressedNaturalGas")) j.at("compressedNaturalGas").get_to((compressedNaturalGas));
-    if (j.contains("diesel")) j.at("diesel").get_to((diesel));
-    if (j.contains("gasoline")) j.at("gasoline").get_to((gasoline));
-    if (j.contains("ammonia")) j.at("ammonia").get_to((ammonia));
+    if (j.HasMember("hydrogenStorage")) from_json(j["hydrogenStorage"], (hydrogenStorage));
+    if (j.HasMember("electricEnergyStorage")) from_json(j["electricEnergyStorage"], (electricEnergyStorage));
+    if (j.HasMember("liquidPropaneGas")) from_json(j["liquidPropaneGas"], (liquidPropaneGas));
+    if (j.HasMember("compressedNaturalGas")) from_json(j["compressedNaturalGas"], (compressedNaturalGas));
+    if (j.HasMember("diesel")) from_json(j["diesel"], (diesel));
+    if (j.HasMember("gasoline")) from_json(j["gasoline"], (gasoline));
+    if (j.HasMember("ammonia")) from_json(j["ammonia"], (ammonia));
     p_tmp->size = (7 / 8) + 1;
     p_tmp->bits_unused = (7 % 8) != 0 ? 8 - (7 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -608,39 +730,44 @@ void from_json_EnergyStorageType(const json& j, EnergyStorageType_t& p) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const VehicleLength_t& p) {
-    j = json{{"vehicleLengthValue", ((p.vehicleLengthValue) == 1023) ? (p.vehicleLengthValue) : (double)(p.vehicleLengthValue) / 10.0}, {"vehicleLengthConfidenceIndication", (p.vehicleLengthConfidenceIndication)}};
+Value to_json(const VehicleLength_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("vehicleLengthValue", to_json(((p.vehicleLengthValue) == 1023) ? (p.vehicleLengthValue) : (double)(p.vehicleLengthValue) / 10.0, allocator), allocator);
+    json.AddMember("vehicleLengthConfidenceIndication", to_json((p.vehicleLengthConfidenceIndication), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, VehicleLength_t& p) {
-    p._asn_ctx.ptr= nullptr;
-    double vehicleLengthValue; j.at("vehicleLengthValue").get_to((vehicleLengthValue)); (p.vehicleLengthValue) = ((vehicleLengthValue) != 1023) ? vehicleLengthValue * 10 : vehicleLengthValue;
-    j.at("vehicleLengthConfidenceIndication").get_to((p.vehicleLengthConfidenceIndication));
-    
-    
+void from_json(const Value& j, VehicleLength_t& p) {
+    p._asn_ctx.ptr = nullptr;
+    double vehicleLengthValue; from_json(j["vehicleLengthValue"], (vehicleLengthValue)); (p.vehicleLengthValue) = ((vehicleLengthValue) != 1023) ? vehicleLengthValue * 10 : vehicleLengthValue;
+    from_json(j["vehicleLengthConfidenceIndication"], (p.vehicleLengthConfidenceIndication));
 }
+
+
 
 /*
 *   PathHistory - Type SEQUENCE OF
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const PathHistory& p) {
+Value to_json(const PathHistory& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const PathPoint_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, PathHistory& p) {
+void from_json(const Value& j, PathHistory& p) {
     PathHistory* p_tmp = vanetza::asn1::allocate<PathHistory>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         PathPoint_t *element = vanetza::asn1::allocate<PathPoint_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -652,16 +779,19 @@ void from_json(const json& j, PathHistory& p) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-json to_json_EmergencyPriority(const EmergencyPriority_t p) {
-    return json{{"requestForRightOfWay", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"requestForFreeCrossingAtATrafficLight", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}};
+Value to_json_EmergencyPriority(const EmergencyPriority_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("requestForRightOfWay", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("requestForFreeCrossingAtATrafficLight", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    return json;
 }
 
-void from_json_EmergencyPriority(const json& j, EmergencyPriority_t& p) {
+void from_json_EmergencyPriority(const Value& j, EmergencyPriority_t& p) {
     EmergencyPriority_t* p_tmp = vanetza::asn1::allocate<EmergencyPriority_t>();
     bool requestForRightOfWay;
     bool requestForFreeCrossingAtATrafficLight;
-    if (j.contains("requestForRightOfWay")) j.at("requestForRightOfWay").get_to((requestForRightOfWay));
-    if (j.contains("requestForFreeCrossingAtATrafficLight")) j.at("requestForFreeCrossingAtATrafficLight").get_to((requestForFreeCrossingAtATrafficLight));
+    if (j.HasMember("requestForRightOfWay")) from_json(j["requestForRightOfWay"], (requestForRightOfWay));
+    if (j.HasMember("requestForFreeCrossingAtATrafficLight")) from_json(j["requestForFreeCrossingAtATrafficLight"], (requestForFreeCrossingAtATrafficLight));
     p_tmp->size = (2 / 8) + 1;
     p_tmp->bits_unused = (2 % 8) != 0 ? 8 - (2 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -677,99 +807,115 @@ void from_json_EmergencyPriority(const json& j, EmergencyPriority_t& p) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const SteeringWheelAngle& p) {
-    j = json{{"steeringWheelAngleValue", (p.steeringWheelAngleValue)}, {"steeringWheelAngleConfidence", (p.steeringWheelAngleConfidence)}};
+Value to_json(const SteeringWheelAngle& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("steeringWheelAngleValue", to_json((p.steeringWheelAngleValue), allocator), allocator);
+    json.AddMember("steeringWheelAngleConfidence", to_json((p.steeringWheelAngleConfidence), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, SteeringWheelAngle& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("steeringWheelAngleValue").get_to((p.steeringWheelAngleValue));
-    j.at("steeringWheelAngleConfidence").get_to((p.steeringWheelAngleConfidence));
-    
-    
+void from_json(const Value& j, SteeringWheelAngle& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["steeringWheelAngleValue"], (p.steeringWheelAngleValue));
+    from_json(j["steeringWheelAngleConfidence"], (p.steeringWheelAngleConfidence));
 }
+
+
 
 /*
 *   YawRate - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const YawRate& p) {
-    j = json{{"yawRateValue", ((p.yawRateValue) == 32767) ? (p.yawRateValue) : (double)(p.yawRateValue) / 100.0}, {"yawRateConfidence", (p.yawRateConfidence)}};
+Value to_json(const YawRate& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("yawRateValue", to_json(((p.yawRateValue) == 32767) ? (p.yawRateValue) : (double)(p.yawRateValue) / 100.0, allocator), allocator);
+    json.AddMember("yawRateConfidence", to_json((p.yawRateConfidence), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, YawRate& p) {
-    p._asn_ctx.ptr= nullptr;
-    double yawRateValue; j.at("yawRateValue").get_to((yawRateValue)); (p.yawRateValue) = ((yawRateValue) != 32767) ? yawRateValue * 100 : yawRateValue;
-    j.at("yawRateConfidence").get_to((p.yawRateConfidence));
-    
-    
+void from_json(const Value& j, YawRate& p) {
+    p._asn_ctx.ptr = nullptr;
+    double yawRateValue; from_json(j["yawRateValue"], (yawRateValue)); (p.yawRateValue) = ((yawRateValue) != 32767) ? yawRateValue * 100 : yawRateValue;
+    from_json(j["yawRateConfidence"], (p.yawRateConfidence));
 }
+
+
 
 /*
 *   ActionID - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const ActionID& p) {
-    j = json{{"originatingStationID", (p.originatingStationID)}, {"sequenceNumber", (p.sequenceNumber)}};
+Value to_json(const ActionID& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("originatingStationID", to_json((p.originatingStationID), allocator), allocator);
+    json.AddMember("sequenceNumber", to_json((p.sequenceNumber), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, ActionID& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("originatingStationID").get_to((p.originatingStationID));
-    j.at("sequenceNumber").get_to((p.sequenceNumber));
-    
-    
+void from_json(const Value& j, ActionID& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["originatingStationID"], (p.originatingStationID));
+    from_json(j["sequenceNumber"], (p.sequenceNumber));
 }
+
+
 
 /*
 *   ProtectedCommunicationZone - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const ProtectedCommunicationZone& p) {
-    j = json{{"protectedZoneType", (p.protectedZoneType)}, {"protectedZoneLatitude", ((p.protectedZoneLatitude) == 900000001) ? (p.protectedZoneLatitude) : (double)(p.protectedZoneLatitude) / 10000000.0}, {"protectedZoneLongitude", ((p.protectedZoneLongitude) == 1800000001) ? (p.protectedZoneLongitude) : (double)(p.protectedZoneLongitude) / 10000000.0}};
-    if (p.protectedZoneRadius != 0) j["protectedZoneRadius"] = *(p.protectedZoneRadius);
-    if (p.protectedZoneID != 0) j["protectedZoneID"] = *(p.protectedZoneID);
+Value to_json(const ProtectedCommunicationZone& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("protectedZoneType", to_json((p.protectedZoneType), allocator), allocator);
+    json.AddMember("protectedZoneLatitude", to_json(((p.protectedZoneLatitude) == 900000001) ? (p.protectedZoneLatitude) : (double)(p.protectedZoneLatitude) / 10000000.0, allocator), allocator);
+    json.AddMember("protectedZoneLongitude", to_json(((p.protectedZoneLongitude) == 1800000001) ? (p.protectedZoneLongitude) : (double)(p.protectedZoneLongitude) / 10000000.0, allocator), allocator);
+    if (p.protectedZoneRadius != 0) json.AddMember("protectedZoneRadius", to_json(*(p.protectedZoneRadius), allocator), allocator);
+    if (p.protectedZoneID != 0) json.AddMember("protectedZoneID", to_json(*(p.protectedZoneID), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, ProtectedCommunicationZone& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("protectedZoneType").get_to((p.protectedZoneType));
-    double protectedZoneLatitude; j.at("protectedZoneLatitude").get_to((protectedZoneLatitude)); (p.protectedZoneLatitude) = ((protectedZoneLatitude) != 900000001) ? protectedZoneLatitude * 10000000 : protectedZoneLatitude;
-    double protectedZoneLongitude; j.at("protectedZoneLongitude").get_to((protectedZoneLongitude)); (p.protectedZoneLongitude) = ((protectedZoneLongitude) != 1800000001) ? protectedZoneLongitude * 10000000 : protectedZoneLongitude;
-    if (j.contains("protectedZoneRadius")) { p.protectedZoneRadius = vanetza::asn1::allocate<ProtectedZoneRadius_t>(); j.at("protectedZoneRadius").get_to(*(p.protectedZoneRadius)); } 
+void from_json(const Value& j, ProtectedCommunicationZone& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["protectedZoneType"], (p.protectedZoneType));
+    double protectedZoneLatitude; from_json(j["protectedZoneLatitude"], (protectedZoneLatitude)); (p.protectedZoneLatitude) = ((protectedZoneLatitude) != 900000001) ? protectedZoneLatitude * 10000000 : protectedZoneLatitude;
+    double protectedZoneLongitude; from_json(j["protectedZoneLongitude"], (protectedZoneLongitude)); (p.protectedZoneLongitude) = ((protectedZoneLongitude) != 1800000001) ? protectedZoneLongitude * 10000000 : protectedZoneLongitude;
+    if (j.HasMember("protectedZoneRadius")) { p.protectedZoneRadius = vanetza::asn1::allocate<ProtectedZoneRadius_t>(); from_json(j["protectedZoneRadius"], *(p.protectedZoneRadius)); }
     else { p.protectedZoneRadius=nullptr; }
-    if (j.contains("protectedZoneID")) { p.protectedZoneID = vanetza::asn1::allocate<ProtectedZoneID_t>(); j.at("protectedZoneID").get_to(*(p.protectedZoneID)); } 
+    if (j.HasMember("protectedZoneID")) { p.protectedZoneID = vanetza::asn1::allocate<ProtectedZoneID_t>(); from_json(j["protectedZoneID"], *(p.protectedZoneID)); }
     else { p.protectedZoneID=nullptr; }
-    
     p.expiryTime=nullptr;
 }
+
+
 
 /*
 *   Traces - Type SEQUENCE OF
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const Traces& p) {
+Value to_json(const Traces& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const PathHistory_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, Traces& p) {
+void from_json(const Value& j, Traces& p) {
     Traces* p_tmp = vanetza::asn1::allocate<Traces>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         PathHistory_t *element = vanetza::asn1::allocate<PathHistory_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -781,21 +927,23 @@ void from_json(const json& j, Traces& p) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const PositionOfPillars& p) {
+Value to_json(const PositionOfPillars& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const PosPillar_t po = *(p.list.array[i]);
-        // to_json(obj, po);
-        j.push_back(po);
+        // Value obj = to_json(po, allocator);
+        json.PushBack(po, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, PositionOfPillars& p) {
+void from_json(const Value& j, PositionOfPillars& p) {
     PositionOfPillars* p_tmp = vanetza::asn1::allocate<PositionOfPillars>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         PosPillar_t *element = vanetza::asn1::allocate<PosPillar_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -807,21 +955,23 @@ void from_json(const json& j, PositionOfPillars& p) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const RestrictedTypes& p) {
+Value to_json(const RestrictedTypes& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const StationType_t po = *(p.list.array[i]);
-        // to_json(obj, po);
-        j.push_back(po);
+        // Value obj = to_json(po, allocator);
+        json.PushBack(po, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, RestrictedTypes& p) {
+void from_json(const Value& j, RestrictedTypes& p) {
     RestrictedTypes* p_tmp = vanetza::asn1::allocate<RestrictedTypes>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         StationType_t *element = vanetza::asn1::allocate<StationType_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -833,41 +983,46 @@ void from_json(const json& j, RestrictedTypes& p) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const EventPoint& p) {
-    j = json{{"eventPosition", (p.eventPosition)}, {"informationQuality", (p.informationQuality)}};
-    if (p.eventDeltaTime != 0) j["eventDeltaTime"] = *(p.eventDeltaTime);
+Value to_json(const EventPoint& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("eventPosition", to_json((p.eventPosition), allocator), allocator);
+    json.AddMember("informationQuality", to_json((p.informationQuality), allocator), allocator);
+    if (p.eventDeltaTime != 0) json.AddMember("eventDeltaTime", to_json(*(p.eventDeltaTime), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, EventPoint& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("eventPosition").get_to((p.eventPosition));
-    if (j.contains("eventDeltaTime")) { p.eventDeltaTime = vanetza::asn1::allocate<PathDeltaTime_t>(); j.at("eventDeltaTime").get_to(*(p.eventDeltaTime)); } 
+void from_json(const Value& j, EventPoint& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["eventPosition"], (p.eventPosition));
+    if (j.HasMember("eventDeltaTime")) { p.eventDeltaTime = vanetza::asn1::allocate<PathDeltaTime_t>(); from_json(j["eventDeltaTime"], *(p.eventDeltaTime)); }
     else { p.eventDeltaTime=nullptr; }
-    j.at("informationQuality").get_to((p.informationQuality));
-    
-    
+    from_json(j["informationQuality"], (p.informationQuality));
 }
+
+
 
 /*
 *   ProtectedCommunicationZonesRSU - Type SEQUENCE OF
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const ProtectedCommunicationZonesRSU& p) {
+Value to_json(const ProtectedCommunicationZonesRSU& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const ProtectedCommunicationZone_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, ProtectedCommunicationZonesRSU& p) {
+void from_json(const Value& j, ProtectedCommunicationZonesRSU& p) {
     ProtectedCommunicationZonesRSU* p_tmp = vanetza::asn1::allocate<ProtectedCommunicationZonesRSU>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         ProtectedCommunicationZone_t *element = vanetza::asn1::allocate<ProtectedCommunicationZone_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -879,302 +1034,357 @@ void from_json(const json& j, ProtectedCommunicationZonesRSU& p) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const CenDsrcTollingZone& p) {
-    j = json{{"protectedZoneLatitude", ((p.protectedZoneLatitude) == 900000001) ? (p.protectedZoneLatitude) : (double)(p.protectedZoneLatitude) / 10000000.0}, {"protectedZoneLongitude", ((p.protectedZoneLongitude) == 1800000001) ? (p.protectedZoneLongitude) : (double)(p.protectedZoneLongitude) / 10000000.0}};
-    if (p.cenDsrcTollingZoneID != 0) j["cenDsrcTollingZoneID"] = *(p.cenDsrcTollingZoneID);
+Value to_json(const CenDsrcTollingZone& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("protectedZoneLatitude", to_json(((p.protectedZoneLatitude) == 900000001) ? (p.protectedZoneLatitude) : (double)(p.protectedZoneLatitude) / 10000000.0, allocator), allocator);
+    json.AddMember("protectedZoneLongitude", to_json(((p.protectedZoneLongitude) == 1800000001) ? (p.protectedZoneLongitude) : (double)(p.protectedZoneLongitude) / 10000000.0, allocator), allocator);
+    if (p.cenDsrcTollingZoneID != 0) json.AddMember("cenDsrcTollingZoneID", to_json(*(p.cenDsrcTollingZoneID), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, CenDsrcTollingZone& p) {
-    p._asn_ctx.ptr= nullptr;
-    double protectedZoneLatitude; j.at("protectedZoneLatitude").get_to((protectedZoneLatitude)); (p.protectedZoneLatitude) = ((protectedZoneLatitude) != 900000001) ? protectedZoneLatitude * 10000000 : protectedZoneLatitude;
-    double protectedZoneLongitude; j.at("protectedZoneLongitude").get_to((protectedZoneLongitude)); (p.protectedZoneLongitude) = ((protectedZoneLongitude) != 1800000001) ? protectedZoneLongitude * 10000000 : protectedZoneLongitude;
-    if (j.contains("cenDsrcTollingZoneID")) { p.cenDsrcTollingZoneID = vanetza::asn1::allocate<CenDsrcTollingZoneID_t>(); j.at("cenDsrcTollingZoneID").get_to(*(p.cenDsrcTollingZoneID)); } 
+void from_json(const Value& j, CenDsrcTollingZone& p) {
+    p._asn_ctx.ptr = nullptr;
+    double protectedZoneLatitude; from_json(j["protectedZoneLatitude"], (protectedZoneLatitude)); (p.protectedZoneLatitude) = ((protectedZoneLatitude) != 900000001) ? protectedZoneLatitude * 10000000 : protectedZoneLatitude;
+    double protectedZoneLongitude; from_json(j["protectedZoneLongitude"], (protectedZoneLongitude)); (p.protectedZoneLongitude) = ((protectedZoneLongitude) != 1800000001) ? protectedZoneLongitude * 10000000 : protectedZoneLongitude;
+    if (j.HasMember("cenDsrcTollingZoneID")) { p.cenDsrcTollingZoneID = vanetza::asn1::allocate<CenDsrcTollingZoneID_t>(); from_json(j["cenDsrcTollingZoneID"], *(p.cenDsrcTollingZoneID)); }
     else { p.cenDsrcTollingZoneID=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   BasicVehicleContainerHighFrequency - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const BasicVehicleContainerHighFrequency& p) {
-    j = json{{"heading", (p.heading)}, {"speed", (p.speed)}, {"driveDirection", (p.driveDirection)}, {"vehicleLength", (p.vehicleLength)}, {"vehicleWidth", ((p.vehicleWidth) == 61 || (p.vehicleWidth) == 62) ? (p.vehicleWidth) : (double)(p.vehicleWidth) / 10.0}, {"longitudinalAcceleration", (p.longitudinalAcceleration)}, {"curvature", (p.curvature)}, {"curvatureCalculationMode", (p.curvatureCalculationMode)}, {"yawRate", (p.yawRate)}};
-    if (p.accelerationControl != 0) j["accelerationControl"] = to_json_AccelerationControl(*(p.accelerationControl));
-    if (p.lanePosition != 0) j["lanePosition"] = *(p.lanePosition);
-    if (p.steeringWheelAngle != 0) j["steeringWheelAngle"] = *(p.steeringWheelAngle);
-    if (p.lateralAcceleration != 0) j["lateralAcceleration"] = *(p.lateralAcceleration);
-    if (p.verticalAcceleration != 0) j["verticalAcceleration"] = *(p.verticalAcceleration);
-    if (p.performanceClass != 0) j["performanceClass"] = *(p.performanceClass);
-    if (p.cenDsrcTollingZone != 0) j["cenDsrcTollingZone"] = *(p.cenDsrcTollingZone);
+Value to_json(const BasicVehicleContainerHighFrequency& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("heading", to_json((p.heading), allocator), allocator);
+    json.AddMember("speed", to_json((p.speed), allocator), allocator);
+    json.AddMember("driveDirection", to_json((p.driveDirection), allocator), allocator);
+    json.AddMember("vehicleLength", to_json((p.vehicleLength), allocator), allocator);
+    json.AddMember("vehicleWidth", to_json(((p.vehicleWidth) == 61 || (p.vehicleWidth) == 62) ? (p.vehicleWidth) : (double)(p.vehicleWidth) / 10.0, allocator), allocator);
+    json.AddMember("longitudinalAcceleration", to_json((p.longitudinalAcceleration), allocator), allocator);
+    json.AddMember("curvature", to_json((p.curvature), allocator), allocator);
+    json.AddMember("curvatureCalculationMode", to_json((p.curvatureCalculationMode), allocator), allocator);
+    json.AddMember("yawRate", to_json((p.yawRate), allocator), allocator);
+    if (p.accelerationControl != 0) json.AddMember("accelerationControl", to_json_AccelerationControl(*(p.accelerationControl), allocator), allocator);
+    if (p.lanePosition != 0) json.AddMember("lanePosition", to_json(*(p.lanePosition), allocator), allocator);
+    if (p.steeringWheelAngle != 0) json.AddMember("steeringWheelAngle", to_json(*(p.steeringWheelAngle), allocator), allocator);
+    if (p.lateralAcceleration != 0) json.AddMember("lateralAcceleration", to_json(*(p.lateralAcceleration), allocator), allocator);
+    if (p.verticalAcceleration != 0) json.AddMember("verticalAcceleration", to_json(*(p.verticalAcceleration), allocator), allocator);
+    if (p.performanceClass != 0) json.AddMember("performanceClass", to_json(*(p.performanceClass), allocator), allocator);
+    if (p.cenDsrcTollingZone != 0) json.AddMember("cenDsrcTollingZone", to_json(*(p.cenDsrcTollingZone), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, BasicVehicleContainerHighFrequency& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("heading").get_to((p.heading));
-    j.at("speed").get_to((p.speed));
-    j.at("driveDirection").get_to((p.driveDirection));
-    j.at("vehicleLength").get_to((p.vehicleLength));
-    double vehicleWidth; j.at("vehicleWidth").get_to((vehicleWidth)); (p.vehicleWidth) = ((vehicleWidth) != 61 && (vehicleWidth) != 62) ? vehicleWidth * 10 : vehicleWidth;
-    j.at("longitudinalAcceleration").get_to((p.longitudinalAcceleration));
-    j.at("curvature").get_to((p.curvature));
-    j.at("curvatureCalculationMode").get_to((p.curvatureCalculationMode));
-    j.at("yawRate").get_to((p.yawRate));
-    if (j.contains("lanePosition")) { p.lanePosition = vanetza::asn1::allocate<LanePosition_t>(); j.at("lanePosition").get_to(*(p.lanePosition)); } 
-    else { p.lanePosition=nullptr; }
-    if (j.contains("steeringWheelAngle")) { p.steeringWheelAngle = vanetza::asn1::allocate<SteeringWheelAngle_t>(); j.at("steeringWheelAngle").get_to(*(p.steeringWheelAngle)); } 
-    else { p.steeringWheelAngle=nullptr; }
-    if (j.contains("lateralAcceleration")) { p.lateralAcceleration = vanetza::asn1::allocate<LateralAcceleration_t>(); j.at("lateralAcceleration").get_to(*(p.lateralAcceleration)); } 
-    else { p.lateralAcceleration=nullptr; }
-    if (j.contains("verticalAcceleration")) { p.verticalAcceleration = vanetza::asn1::allocate<VerticalAcceleration_t>(); j.at("verticalAcceleration").get_to(*(p.verticalAcceleration)); } 
-    else { p.verticalAcceleration=nullptr; }
-    if (j.contains("performanceClass")) { p.performanceClass = vanetza::asn1::allocate<PerformanceClass_t>(); j.at("performanceClass").get_to(*(p.performanceClass)); } 
-    else { p.performanceClass=nullptr; }
-    if (j.contains("cenDsrcTollingZone")) { p.cenDsrcTollingZone = vanetza::asn1::allocate<CenDsrcTollingZone_t>(); j.at("cenDsrcTollingZone").get_to(*(p.cenDsrcTollingZone)); } 
-    else { p.cenDsrcTollingZone=nullptr; }
-    if (j.contains("accelerationControl")) { p.accelerationControl = vanetza::asn1::allocate<AccelerationControl_t>(); from_json_AccelerationControl(j["accelerationControl"],*(p.accelerationControl)); } 
+void from_json(const Value& j, BasicVehicleContainerHighFrequency& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["heading"], (p.heading));
+    from_json(j["speed"], (p.speed));
+    from_json(j["driveDirection"], (p.driveDirection));
+    from_json(j["vehicleLength"], (p.vehicleLength));
+    double vehicleWidth; from_json(j["vehicleWidth"], (vehicleWidth)); (p.vehicleWidth) = ((vehicleWidth) != 61 && (vehicleWidth) != 62) ? vehicleWidth * 10 : vehicleWidth;
+    from_json(j["longitudinalAcceleration"], (p.longitudinalAcceleration));
+    from_json(j["curvature"], (p.curvature));
+    from_json(j["curvatureCalculationMode"], (p.curvatureCalculationMode));
+    from_json(j["yawRate"], (p.yawRate));
+    if (j.HasMember("accelerationControl")) { p.accelerationControl = vanetza::asn1::allocate<AccelerationControl_t>(); from_json_AccelerationControl(j["accelerationControl"],*(p.accelerationControl)); }
     else { p.accelerationControl=nullptr; }
-    
+    if (j.HasMember("lanePosition")) { p.lanePosition = vanetza::asn1::allocate<LanePosition_t>(); from_json(j["lanePosition"], *(p.lanePosition)); }
+    else { p.lanePosition=nullptr; }
+    if (j.HasMember("steeringWheelAngle")) { p.steeringWheelAngle = vanetza::asn1::allocate<SteeringWheelAngle_t>(); from_json(j["steeringWheelAngle"], *(p.steeringWheelAngle)); }
+    else { p.steeringWheelAngle=nullptr; }
+    if (j.HasMember("lateralAcceleration")) { p.lateralAcceleration = vanetza::asn1::allocate<LateralAcceleration_t>(); from_json(j["lateralAcceleration"], *(p.lateralAcceleration)); }
+    else { p.lateralAcceleration=nullptr; }
+    if (j.HasMember("verticalAcceleration")) { p.verticalAcceleration = vanetza::asn1::allocate<VerticalAcceleration_t>(); from_json(j["verticalAcceleration"], *(p.verticalAcceleration)); }
+    else { p.verticalAcceleration=nullptr; }
+    if (j.HasMember("performanceClass")) { p.performanceClass = vanetza::asn1::allocate<PerformanceClass_t>(); from_json(j["performanceClass"], *(p.performanceClass)); }
+    else { p.performanceClass=nullptr; }
+    if (j.HasMember("cenDsrcTollingZone")) { p.cenDsrcTollingZone = vanetza::asn1::allocate<CenDsrcTollingZone_t>(); from_json(j["cenDsrcTollingZone"], *(p.cenDsrcTollingZone)); }
+    else { p.cenDsrcTollingZone=nullptr; }
 }
+
+
 
 /*
 *   BasicVehicleContainerLowFrequency - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const BasicVehicleContainerLowFrequency& p) {
-    j = json{{"vehicleRole", (p.vehicleRole)}, {"exteriorLights", to_json_ExteriorLights((p.exteriorLights))}, {"pathHistory", (p.pathHistory)}};
+Value to_json(const BasicVehicleContainerLowFrequency& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("vehicleRole", to_json((p.vehicleRole), allocator), allocator);
+    json.AddMember("exteriorLights", to_json_ExteriorLights((p.exteriorLights), allocator), allocator);
+    json.AddMember("pathHistory", to_json((p.pathHistory), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, BasicVehicleContainerLowFrequency& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("vehicleRole").get_to((p.vehicleRole));
-    j.at("pathHistory").get_to((p.pathHistory));
+void from_json(const Value& j, BasicVehicleContainerLowFrequency& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["vehicleRole"], (p.vehicleRole));
     from_json_ExteriorLights(j["exteriorLights"],(p.exteriorLights));
-    
+    from_json(j["pathHistory"], (p.pathHistory));
 }
+
+
 
 /*
 *   SpecialTransportContainer - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const SpecialTransportContainer& p) {
-    j = json{{"specialTransportType", to_json_SpecialTransportType((p.specialTransportType))}, {"lightBarSirenInUse", to_json_LightBarSirenInUse((p.lightBarSirenInUse))}};
+Value to_json(const SpecialTransportContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("specialTransportType", to_json_SpecialTransportType((p.specialTransportType), allocator), allocator);
+    json.AddMember("lightBarSirenInUse", to_json_LightBarSirenInUse((p.lightBarSirenInUse), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, SpecialTransportContainer& p) {
-    p._asn_ctx.ptr= nullptr;
-    
+void from_json(const Value& j, SpecialTransportContainer& p) {
+    p._asn_ctx.ptr = nullptr;
     from_json_SpecialTransportType(j["specialTransportType"],(p.specialTransportType));
     from_json_LightBarSirenInUse(j["lightBarSirenInUse"],(p.lightBarSirenInUse));
-    
 }
+
+
 
 /*
 *   DangerousGoodsContainer - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const DangerousGoodsContainer& p) {
-    j = json{{"dangerousGoodsBasic", (p.dangerousGoodsBasic)}};
+Value to_json(const DangerousGoodsContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("dangerousGoodsBasic", to_json((p.dangerousGoodsBasic), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, DangerousGoodsContainer& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("dangerousGoodsBasic").get_to((p.dangerousGoodsBasic));
-    
-    
+void from_json(const Value& j, DangerousGoodsContainer& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["dangerousGoodsBasic"], (p.dangerousGoodsBasic));
 }
+
+
 
 /*
 *   RescueContainer - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const RescueContainer& p) {
-    j = json{{"lightBarSirenInUse", to_json_LightBarSirenInUse((p.lightBarSirenInUse))}};
+Value to_json(const RescueContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("lightBarSirenInUse", to_json_LightBarSirenInUse((p.lightBarSirenInUse), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, RescueContainer& p) {
-    p._asn_ctx.ptr= nullptr;
-    
+void from_json(const Value& j, RescueContainer& p) {
+    p._asn_ctx.ptr = nullptr;
     from_json_LightBarSirenInUse(j["lightBarSirenInUse"],(p.lightBarSirenInUse));
-    
 }
+
+
 
 /*
 *   EmergencyContainer - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const EmergencyContainer& p) {
-    j = json{{"lightBarSirenInUse", to_json_LightBarSirenInUse((p.lightBarSirenInUse))}};
-    if (p.incidentIndication != 0) j["incidentIndication"] = *(p.incidentIndication);
-    if (p.emergencyPriority != 0) j["emergencyPriority"] = to_json_EmergencyPriority(*(p.emergencyPriority));
+Value to_json(const EmergencyContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("lightBarSirenInUse", to_json_LightBarSirenInUse((p.lightBarSirenInUse), allocator), allocator);
+    if (p.incidentIndication != 0) json.AddMember("incidentIndication", to_json(*(p.incidentIndication), allocator), allocator);
+    if (p.emergencyPriority != 0) json.AddMember("emergencyPriority", to_json_EmergencyPriority(*(p.emergencyPriority), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, EmergencyContainer& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("incidentIndication")) { p.incidentIndication = vanetza::asn1::allocate<CauseCode_t>(); j.at("incidentIndication").get_to(*(p.incidentIndication)); } 
-    else { p.incidentIndication=nullptr; }
+void from_json(const Value& j, EmergencyContainer& p) {
+    p._asn_ctx.ptr = nullptr;
     from_json_LightBarSirenInUse(j["lightBarSirenInUse"],(p.lightBarSirenInUse));
-    if (j.contains("emergencyPriority")) { p.emergencyPriority = vanetza::asn1::allocate<EmergencyPriority_t>(); from_json_EmergencyPriority(j["emergencyPriority"],*(p.emergencyPriority)); } 
+    if (j.HasMember("incidentIndication")) { p.incidentIndication = vanetza::asn1::allocate<CauseCode_t>(); from_json(j["incidentIndication"], *(p.incidentIndication)); }
+    else { p.incidentIndication=nullptr; }
+    if (j.HasMember("emergencyPriority")) { p.emergencyPriority = vanetza::asn1::allocate<EmergencyPriority_t>(); from_json_EmergencyPriority(j["emergencyPriority"],*(p.emergencyPriority)); }
     else { p.emergencyPriority=nullptr; }
-    
 }
+
+
 
 /*
 *   SafetyCarContainer - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const SafetyCarContainer& p) {
-    j = json{{"lightBarSirenInUse", to_json_LightBarSirenInUse((p.lightBarSirenInUse))}};
-    if (p.incidentIndication != 0) j["incidentIndication"] = *(p.incidentIndication);
-    if (p.trafficRule != 0) j["trafficRule"] = *(p.trafficRule);
-    if (p.speedLimit != 0) j["speedLimit"] = *(p.speedLimit);
+Value to_json(const SafetyCarContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("lightBarSirenInUse", to_json_LightBarSirenInUse((p.lightBarSirenInUse), allocator), allocator);
+    if (p.incidentIndication != 0) json.AddMember("incidentIndication", to_json(*(p.incidentIndication), allocator), allocator);
+    if (p.trafficRule != 0) json.AddMember("trafficRule", to_json(*(p.trafficRule), allocator), allocator);
+    if (p.speedLimit != 0) json.AddMember("speedLimit", to_json(*(p.speedLimit), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, SafetyCarContainer& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("incidentIndication")) { p.incidentIndication = vanetza::asn1::allocate<CauseCode_t>(); j.at("incidentIndication").get_to(*(p.incidentIndication)); } 
-    else { p.incidentIndication=nullptr; }
-    if (j.contains("trafficRule")) { p.trafficRule = vanetza::asn1::allocate<TrafficRule_t>(); j.at("trafficRule").get_to(*(p.trafficRule)); } 
-    else { p.trafficRule=nullptr; }
-    if (j.contains("speedLimit")) { p.speedLimit = vanetza::asn1::allocate<SpeedLimit_t>(); j.at("speedLimit").get_to(*(p.speedLimit)); } 
-    else { p.speedLimit=nullptr; }
+void from_json(const Value& j, SafetyCarContainer& p) {
+    p._asn_ctx.ptr = nullptr;
     from_json_LightBarSirenInUse(j["lightBarSirenInUse"],(p.lightBarSirenInUse));
-    
+    if (j.HasMember("incidentIndication")) { p.incidentIndication = vanetza::asn1::allocate<CauseCode_t>(); from_json(j["incidentIndication"], *(p.incidentIndication)); }
+    else { p.incidentIndication=nullptr; }
+    if (j.HasMember("trafficRule")) { p.trafficRule = vanetza::asn1::allocate<TrafficRule_t>(); from_json(j["trafficRule"], *(p.trafficRule)); }
+    else { p.trafficRule=nullptr; }
+    if (j.HasMember("speedLimit")) { p.speedLimit = vanetza::asn1::allocate<SpeedLimit_t>(); from_json(j["speedLimit"], *(p.speedLimit)); }
+    else { p.speedLimit=nullptr; }
 }
+
+
 
 /*
 *   RSUContainerHighFrequency - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const RSUContainerHighFrequency& p) {
-    j = json{};
-    if (p.protectedCommunicationZonesRSU != 0) j["protectedCommunicationZonesRSU"] = *(p.protectedCommunicationZonesRSU);
+Value to_json(const RSUContainerHighFrequency& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    if (p.protectedCommunicationZonesRSU != 0) json.AddMember("protectedCommunicationZonesRSU", to_json(*(p.protectedCommunicationZonesRSU), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, RSUContainerHighFrequency& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("protectedCommunicationZonesRSU")) { p.protectedCommunicationZonesRSU = vanetza::asn1::allocate<ProtectedCommunicationZonesRSU_t>(); j.at("protectedCommunicationZonesRSU").get_to(*(p.protectedCommunicationZonesRSU)); } 
+void from_json(const Value& j, RSUContainerHighFrequency& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("protectedCommunicationZonesRSU")) { p.protectedCommunicationZonesRSU = vanetza::asn1::allocate<ProtectedCommunicationZonesRSU_t>(); from_json(j["protectedCommunicationZonesRSU"], *(p.protectedCommunicationZonesRSU)); }
     else { p.protectedCommunicationZonesRSU=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   LocationContainer - Type SEQUENCE
 *   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
 */
 
-void to_json(json& j, const LocationContainer& p) {
-    j = json{{"traces", (p.traces)}};
-    if (p.eventSpeed != 0) j["eventSpeed"] = *(p.eventSpeed);
-    if (p.eventPositionHeading != 0) j["eventPositionHeading"] = *(p.eventPositionHeading);
-    if (p.roadType != 0) j["roadType"] = *(p.roadType);
+Value to_json(const LocationContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("traces", to_json((p.traces), allocator), allocator);
+    if (p.eventSpeed != 0) json.AddMember("eventSpeed", to_json(*(p.eventSpeed), allocator), allocator);
+    if (p.eventPositionHeading != 0) json.AddMember("eventPositionHeading", to_json(*(p.eventPositionHeading), allocator), allocator);
+    if (p.roadType != 0) json.AddMember("roadType", to_json(*(p.roadType), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, LocationContainer& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("eventSpeed")) { p.eventSpeed = vanetza::asn1::allocate<Speed_t>(); j.at("eventSpeed").get_to(*(p.eventSpeed)); } 
+void from_json(const Value& j, LocationContainer& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("eventSpeed")) { p.eventSpeed = vanetza::asn1::allocate<Speed_t>(); from_json(j["eventSpeed"], *(p.eventSpeed)); }
     else { p.eventSpeed=nullptr; }
-    if (j.contains("eventPositionHeading")) { p.eventPositionHeading = vanetza::asn1::allocate<Heading_t>(); j.at("eventPositionHeading").get_to(*(p.eventPositionHeading)); } 
+    if (j.HasMember("eventPositionHeading")) { p.eventPositionHeading = vanetza::asn1::allocate<Heading_t>(); from_json(j["eventPositionHeading"], *(p.eventPositionHeading)); }
     else { p.eventPositionHeading=nullptr; }
-    j.at("traces").get_to((p.traces));
-    if (j.contains("roadType")) { p.roadType = vanetza::asn1::allocate<RoadType_t>(); j.at("roadType").get_to(*(p.roadType)); } 
+    from_json(j["traces"], (p.traces));
+    if (j.HasMember("roadType")) { p.roadType = vanetza::asn1::allocate<RoadType_t>(); from_json(j["roadType"], *(p.roadType)); }
     else { p.roadType=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   ImpactReductionContainer - Type SEQUENCE
 *   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
 */
 
-void to_json(json& j, const ImpactReductionContainer& p) {
-    j = json{{"heightLonCarrLeft", (p.heightLonCarrLeft)}, {"heightLonCarrRight", (p.heightLonCarrRight)}, {"posLonCarrLeft", (p.posLonCarrLeft)}, {"posLonCarrRight", (p.posLonCarrRight)}, {"positionOfPillars", (p.positionOfPillars)}, {"posCentMass", (p.posCentMass)}, {"wheelBaseVehicle", (p.wheelBaseVehicle)}, {"turningRadius", (p.turningRadius)}, {"posFrontAx", (p.posFrontAx)}, {"positionOfOccupants", to_json_PositionOfOccupants((p.positionOfOccupants))}, {"vehicleMass", (p.vehicleMass)}, {"requestResponseIndication", (p.requestResponseIndication)}};
+Value to_json(const ImpactReductionContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("heightLonCarrLeft", to_json((p.heightLonCarrLeft), allocator), allocator);
+    json.AddMember("heightLonCarrRight", to_json((p.heightLonCarrRight), allocator), allocator);
+    json.AddMember("posLonCarrLeft", to_json((p.posLonCarrLeft), allocator), allocator);
+    json.AddMember("posLonCarrRight", to_json((p.posLonCarrRight), allocator), allocator);
+    json.AddMember("positionOfPillars", to_json((p.positionOfPillars), allocator), allocator);
+    json.AddMember("posCentMass", to_json((p.posCentMass), allocator), allocator);
+    json.AddMember("wheelBaseVehicle", to_json((p.wheelBaseVehicle), allocator), allocator);
+    json.AddMember("turningRadius", to_json((p.turningRadius), allocator), allocator);
+    json.AddMember("posFrontAx", to_json((p.posFrontAx), allocator), allocator);
+    json.AddMember("positionOfOccupants", to_json_PositionOfOccupants((p.positionOfOccupants), allocator), allocator);
+    json.AddMember("vehicleMass", to_json((p.vehicleMass), allocator), allocator);
+    json.AddMember("requestResponseIndication", to_json((p.requestResponseIndication), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, ImpactReductionContainer& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("heightLonCarrLeft").get_to((p.heightLonCarrLeft));
-    j.at("heightLonCarrRight").get_to((p.heightLonCarrRight));
-    j.at("posLonCarrLeft").get_to((p.posLonCarrLeft));
-    j.at("posLonCarrRight").get_to((p.posLonCarrRight));
-    j.at("positionOfPillars").get_to((p.positionOfPillars));
-    j.at("posCentMass").get_to((p.posCentMass));
-    j.at("wheelBaseVehicle").get_to((p.wheelBaseVehicle));
-    j.at("turningRadius").get_to((p.turningRadius));
-    j.at("posFrontAx").get_to((p.posFrontAx));
-    j.at("vehicleMass").get_to((p.vehicleMass));
-    j.at("requestResponseIndication").get_to((p.requestResponseIndication));
+void from_json(const Value& j, ImpactReductionContainer& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["heightLonCarrLeft"], (p.heightLonCarrLeft));
+    from_json(j["heightLonCarrRight"], (p.heightLonCarrRight));
+    from_json(j["posLonCarrLeft"], (p.posLonCarrLeft));
+    from_json(j["posLonCarrRight"], (p.posLonCarrRight));
+    from_json(j["positionOfPillars"], (p.positionOfPillars));
+    from_json(j["posCentMass"], (p.posCentMass));
+    from_json(j["wheelBaseVehicle"], (p.wheelBaseVehicle));
+    from_json(j["turningRadius"], (p.turningRadius));
+    from_json(j["posFrontAx"], (p.posFrontAx));
     from_json_PositionOfOccupants(j["positionOfOccupants"],(p.positionOfOccupants));
-    
+    from_json(j["vehicleMass"], (p.vehicleMass));
+    from_json(j["requestResponseIndication"], (p.requestResponseIndication));
 }
+
+
 
 /*
 *   StationaryVehicleContainer - Type SEQUENCE
 *   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
 */
 
-void to_json(json& j, const StationaryVehicleContainer& p) {
-    j = json{};
-    if (p.stationarySince != 0) j["stationarySince"] = *(p.stationarySince);
-    if (p.stationaryCause != 0) j["stationaryCause"] = *(p.stationaryCause);
-    if (p.carryingDangerousGoods != 0) j["carryingDangerousGoods"] = *(p.carryingDangerousGoods);
-    if (p.numberOfOccupants != 0) j["numberOfOccupants"] = *(p.numberOfOccupants);
-    if (p.vehicleIdentification != 0) j["vehicleIdentification"] = *(p.vehicleIdentification);
-    if (p.energyStorageType != 0) j["energyStorageType"] = to_json_EnergyStorageType(*(p.energyStorageType));
+Value to_json(const StationaryVehicleContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    if (p.stationarySince != 0) json.AddMember("stationarySince", to_json(*(p.stationarySince), allocator), allocator);
+    if (p.stationaryCause != 0) json.AddMember("stationaryCause", to_json(*(p.stationaryCause), allocator), allocator);
+    if (p.carryingDangerousGoods != 0) json.AddMember("carryingDangerousGoods", to_json(*(p.carryingDangerousGoods), allocator), allocator);
+    if (p.numberOfOccupants != 0) json.AddMember("numberOfOccupants", to_json(*(p.numberOfOccupants), allocator), allocator);
+    if (p.vehicleIdentification != 0) json.AddMember("vehicleIdentification", to_json(*(p.vehicleIdentification), allocator), allocator);
+    if (p.energyStorageType != 0) json.AddMember("energyStorageType", to_json_EnergyStorageType(*(p.energyStorageType), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, StationaryVehicleContainer& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("stationarySince")) { p.stationarySince = vanetza::asn1::allocate<StationarySince_t>(); j.at("stationarySince").get_to(*(p.stationarySince)); } 
+void from_json(const Value& j, StationaryVehicleContainer& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("stationarySince")) { p.stationarySince = vanetza::asn1::allocate<StationarySince_t>(); from_json(j["stationarySince"], *(p.stationarySince)); }
     else { p.stationarySince=nullptr; }
-    if (j.contains("stationaryCause")) { p.stationaryCause = vanetza::asn1::allocate<CauseCode_t>(); j.at("stationaryCause").get_to(*(p.stationaryCause)); } 
+    if (j.HasMember("stationaryCause")) { p.stationaryCause = vanetza::asn1::allocate<CauseCode_t>(); from_json(j["stationaryCause"], *(p.stationaryCause)); }
     else { p.stationaryCause=nullptr; }
-    if (j.contains("carryingDangerousGoods")) { p.carryingDangerousGoods = vanetza::asn1::allocate<DangerousGoodsExtended_t>(); j.at("carryingDangerousGoods").get_to(*(p.carryingDangerousGoods)); } 
+    if (j.HasMember("carryingDangerousGoods")) { p.carryingDangerousGoods = vanetza::asn1::allocate<DangerousGoodsExtended_t>(); from_json(j["carryingDangerousGoods"], *(p.carryingDangerousGoods)); }
     else { p.carryingDangerousGoods=nullptr; }
-    if (j.contains("numberOfOccupants")) { p.numberOfOccupants = vanetza::asn1::allocate<NumberOfOccupants_t>(); j.at("numberOfOccupants").get_to(*(p.numberOfOccupants)); } 
+    if (j.HasMember("numberOfOccupants")) { p.numberOfOccupants = vanetza::asn1::allocate<NumberOfOccupants_t>(); from_json(j["numberOfOccupants"], *(p.numberOfOccupants)); }
     else { p.numberOfOccupants=nullptr; }
-    if (j.contains("vehicleIdentification")) { p.vehicleIdentification = vanetza::asn1::allocate<VehicleIdentification_t>(); j.at("vehicleIdentification").get_to(*(p.vehicleIdentification)); } 
+    if (j.HasMember("vehicleIdentification")) { p.vehicleIdentification = vanetza::asn1::allocate<VehicleIdentification_t>(); from_json(j["vehicleIdentification"], *(p.vehicleIdentification)); }
     else { p.vehicleIdentification=nullptr; }
-    if (j.contains("energyStorageType")) { p.energyStorageType = vanetza::asn1::allocate<EnergyStorageType_t>(); from_json_EnergyStorageType(j["energyStorageType"],*(p.energyStorageType)); } 
+    if (j.HasMember("energyStorageType")) { p.energyStorageType = vanetza::asn1::allocate<EnergyStorageType_t>(); from_json_EnergyStorageType(j["energyStorageType"],*(p.energyStorageType)); }
     else { p.energyStorageType=nullptr; }
-    
 }
+
+
 
 /*
 *   ReferenceDenms - Type SEQUENCE OF
 *   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
 */
 
-void to_json(json& j, const ReferenceDenms& p) {
+Value to_json(const ReferenceDenms& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const ActionID_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, ReferenceDenms& p) {
+void from_json(const Value& j, ReferenceDenms& p) {
     ReferenceDenms* p_tmp = vanetza::asn1::allocate<ReferenceDenms>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         ActionID_t *element = vanetza::asn1::allocate<ActionID_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -1186,32 +1396,33 @@ void from_json(const json& j, ReferenceDenms& p) {
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruProfileAndSubprofile& p) {
-    j = json{};
+Value to_json(const VruProfileAndSubprofile& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == VruProfileAndSubprofile_PR_pedestrian) {
-        j["pedestrian"] = p.choice.pedestrian;
+        json.AddMember("pedestrian", to_json(p.choice.pedestrian, allocator), allocator);
     } else if (p.present == VruProfileAndSubprofile_PR_bicyclist) {
-        j["bicyclist"] = p.choice.bicyclist;
+        json.AddMember("bicyclist", to_json(p.choice.bicyclist, allocator), allocator);
     } else if (p.present == VruProfileAndSubprofile_PR_motorcylist) {
-        j["motorcylist"] = p.choice.motorcylist;
+        json.AddMember("motorcylist", to_json(p.choice.motorcylist, allocator), allocator);
     } else if (p.present == VruProfileAndSubprofile_PR_animal) {
-        j["animal"] = p.choice.animal;
+        json.AddMember("animal", to_json(p.choice.animal, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, VruProfileAndSubprofile& p) {
-    if (j.contains("pedestrian")) {
+void from_json(const Value& j, VruProfileAndSubprofile& p) {
+    if (j.HasMember("pedestrian")) {
         p.present = VruProfileAndSubprofile_PR_pedestrian;
-        j.at("pedestrian").get_to(p.choice.pedestrian);
-    } else if (j.contains("bicyclist")) {
+        from_json(j["pedestrian"], p.choice.pedestrian);
+    } else if (j.HasMember("bicyclist")) {
         p.present = VruProfileAndSubprofile_PR_bicyclist;
-        j.at("bicyclist").get_to(p.choice.bicyclist);
-    } else if (j.contains("motorcylist")) {
+        from_json(j["bicyclist"], p.choice.bicyclist);
+    } else if (j.HasMember("motorcylist")) {
         p.present = VruProfileAndSubprofile_PR_motorcylist;
-        j.at("motorcylist").get_to(p.choice.motorcylist);
-    } else if (j.contains("animal")) {
+        from_json(j["motorcylist"], p.choice.motorcylist);
+    } else if (j.HasMember("animal")) {
         p.present = VruProfileAndSubprofile_PR_animal;
-        j.at("animal").get_to(p.choice.animal);
+        from_json(j["animal"], p.choice.animal);
     } else {
         p.present = VruProfileAndSubprofile_PR_NOTHING;
     }
@@ -1222,11 +1433,18 @@ void from_json(const json& j, VruProfileAndSubprofile& p) {
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-json to_json_VruSpecificExteriorLights(const VruSpecificExteriorLights_t p) {
-    return json{{"unavailable", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"backFlashLight", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}, {"helmetLight", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8))))}, {"armLight", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8))))}, {"legLight", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8))))}, {"wheelLight", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8))))}};
+Value to_json_VruSpecificExteriorLights(const VruSpecificExteriorLights_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("unavailable", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("backFlashLight", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("helmetLight", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("armLight", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("legLight", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("wheelLight", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    return json;
 }
 
-void from_json_VruSpecificExteriorLights(const json& j, VruSpecificExteriorLights_t& p) {
+void from_json_VruSpecificExteriorLights(const Value& j, VruSpecificExteriorLights_t& p) {
     VruSpecificExteriorLights_t* p_tmp = vanetza::asn1::allocate<VruSpecificExteriorLights_t>();
     bool unavailable;
     bool backFlashLight;
@@ -1234,12 +1452,12 @@ void from_json_VruSpecificExteriorLights(const json& j, VruSpecificExteriorLight
     bool armLight;
     bool legLight;
     bool wheelLight;
-    if (j.contains("unavailable")) j.at("unavailable").get_to((unavailable));
-    if (j.contains("backFlashLight")) j.at("backFlashLight").get_to((backFlashLight));
-    if (j.contains("helmetLight")) j.at("helmetLight").get_to((helmetLight));
-    if (j.contains("armLight")) j.at("armLight").get_to((armLight));
-    if (j.contains("legLight")) j.at("legLight").get_to((legLight));
-    if (j.contains("wheelLight")) j.at("wheelLight").get_to((wheelLight));
+    if (j.HasMember("unavailable")) from_json(j["unavailable"], (unavailable));
+    if (j.HasMember("backFlashLight")) from_json(j["backFlashLight"], (backFlashLight));
+    if (j.HasMember("helmetLight")) from_json(j["helmetLight"], (helmetLight));
+    if (j.HasMember("armLight")) from_json(j["armLight"], (armLight));
+    if (j.HasMember("legLight")) from_json(j["legLight"], (legLight));
+    if (j.HasMember("wheelLight")) from_json(j["wheelLight"], (wheelLight));
     p_tmp->size = (6 / 8) + 1;
     p_tmp->bits_unused = (6 % 8) != 0 ? 8 - (6 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -1259,20 +1477,25 @@ void from_json_VruSpecificExteriorLights(const json& j, VruSpecificExteriorLight
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-json to_json_ClusterProfiles(const ClusterProfiles_t p) {
-    return json{{"pedestrian", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"bicyclist", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}, {"motorcyclist", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8))))}, {"animal", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8))))}};
+Value to_json_ClusterProfiles(const ClusterProfiles_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("pedestrian", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("bicyclist", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("motorcyclist", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("animal", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    return json;
 }
 
-void from_json_ClusterProfiles(const json& j, ClusterProfiles_t& p) {
+void from_json_ClusterProfiles(const Value& j, ClusterProfiles_t& p) {
     ClusterProfiles_t* p_tmp = vanetza::asn1::allocate<ClusterProfiles_t>();
     bool pedestrian;
     bool bicyclist;
     bool motorcyclist;
     bool animal;
-    if (j.contains("pedestrian")) j.at("pedestrian").get_to((pedestrian));
-    if (j.contains("bicyclist")) j.at("bicyclist").get_to((bicyclist));
-    if (j.contains("motorcyclist")) j.at("motorcyclist").get_to((motorcyclist));
-    if (j.contains("animal")) j.at("animal").get_to((animal));
+    if (j.HasMember("pedestrian")) from_json(j["pedestrian"], (pedestrian));
+    if (j.HasMember("bicyclist")) from_json(j["bicyclist"], (bicyclist));
+    if (j.HasMember("motorcyclist")) from_json(j["motorcyclist"], (motorcyclist));
+    if (j.HasMember("animal")) from_json(j["animal"], (animal));
     p_tmp->size = (4 / 8) + 1;
     p_tmp->bits_unused = (4 % 8) != 0 ? 8 - (4 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -1290,201 +1513,228 @@ void from_json_ClusterProfiles(const json& j, ClusterProfiles_t& p) {
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const ClusterJoinInfo& p) {
-    j = json{{"clusterId", (p.clusterId)}, {"joinTime", (p.joinTime)}};
+Value to_json(const ClusterJoinInfo& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("clusterId", to_json((p.clusterId), allocator), allocator);
+    json.AddMember("joinTime", to_json((p.joinTime), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, ClusterJoinInfo& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("clusterId").get_to((p.clusterId));
-    j.at("joinTime").get_to((p.joinTime));
-    
-    
+void from_json(const Value& j, ClusterJoinInfo& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["clusterId"], (p.clusterId));
+    from_json(j["joinTime"], (p.joinTime));
 }
+
+
 
 /*
 *   ClusterLeaveInfo - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const ClusterLeaveInfo& p) {
-    j = json{{"clusterId", (p.clusterId)}, {"clusterLeaveReason", (p.clusterLeaveReason)}};
+Value to_json(const ClusterLeaveInfo& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("clusterId", to_json((p.clusterId), allocator), allocator);
+    json.AddMember("clusterLeaveReason", to_json((p.clusterLeaveReason), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, ClusterLeaveInfo& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("clusterId").get_to((p.clusterId));
-    j.at("clusterLeaveReason").get_to((p.clusterLeaveReason));
-    
-    
+void from_json(const Value& j, ClusterLeaveInfo& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["clusterId"], (p.clusterId));
+    from_json(j["clusterLeaveReason"], (p.clusterLeaveReason));
 }
+
+
 
 /*
 *   ClusterBreakupInfo - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const ClusterBreakupInfo& p) {
-    j = json{{"clusterBreakupReason", (p.clusterBreakupReason)}, {"breakupTime", (p.breakupTime)}};
+Value to_json(const ClusterBreakupInfo& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("clusterBreakupReason", to_json((p.clusterBreakupReason), allocator), allocator);
+    json.AddMember("breakupTime", to_json((p.breakupTime), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, ClusterBreakupInfo& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("clusterBreakupReason").get_to((p.clusterBreakupReason));
-    j.at("breakupTime").get_to((p.breakupTime));
-    
-    
+void from_json(const Value& j, ClusterBreakupInfo& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["clusterBreakupReason"], (p.clusterBreakupReason));
+    from_json(j["breakupTime"], (p.breakupTime));
 }
+
+
 
 /*
 *   VruSafeDistanceIndication - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruSafeDistanceIndication& p) {
-    j = json{{"stationSafeDistanceIndication", (p.stationSafeDistanceIndication)}};
-    if (p.subjectStation != 0) j["subjectStation"] = *(p.subjectStation);
-    if (p.timeToCollision != 0) j["timeToCollision"] = *(p.timeToCollision);
+Value to_json(const VruSafeDistanceIndication& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("stationSafeDistanceIndication", to_json((p.stationSafeDistanceIndication), allocator), allocator);
+    if (p.subjectStation != 0) json.AddMember("subjectStation", to_json(*(p.subjectStation), allocator), allocator);
+    if (p.timeToCollision != 0) json.AddMember("timeToCollision", to_json(*(p.timeToCollision), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, VruSafeDistanceIndication& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("subjectStation")) { p.subjectStation = vanetza::asn1::allocate<StationID_t>(); j.at("subjectStation").get_to(*(p.subjectStation)); } 
+void from_json(const Value& j, VruSafeDistanceIndication& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("subjectStation")) { p.subjectStation = vanetza::asn1::allocate<StationID_t>(); from_json(j["subjectStation"], *(p.subjectStation)); }
     else { p.subjectStation=nullptr; }
-    j.at("stationSafeDistanceIndication").get_to((p.stationSafeDistanceIndication));
-    if (j.contains("timeToCollision")) { p.timeToCollision = vanetza::asn1::allocate<ActionDeltaTime_t>(); j.at("timeToCollision").get_to(*(p.timeToCollision)); } 
+    from_json(j["stationSafeDistanceIndication"], (p.stationSafeDistanceIndication));
+    if (j.HasMember("timeToCollision")) { p.timeToCollision = vanetza::asn1::allocate<ActionDeltaTime_t>(); from_json(j["timeToCollision"], *(p.timeToCollision)); }
     else { p.timeToCollision=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   TrajectoryInterceptionIndication - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const TrajectoryInterceptionIndication& p) {
-    j = json{{"trajectoryInterceptionProbability", (p.trajectoryInterceptionProbability)}};
-    if (p.subjectStation != 0) j["subjectStation"] = *(p.subjectStation);
-    if (p.trajectoryInterceptionConfidence != 0) j["trajectoryInterceptionConfidence"] = *(p.trajectoryInterceptionConfidence);
+Value to_json(const TrajectoryInterceptionIndication& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("trajectoryInterceptionProbability", to_json((p.trajectoryInterceptionProbability), allocator), allocator);
+    if (p.subjectStation != 0) json.AddMember("subjectStation", to_json(*(p.subjectStation), allocator), allocator);
+    if (p.trajectoryInterceptionConfidence != 0) json.AddMember("trajectoryInterceptionConfidence", to_json(*(p.trajectoryInterceptionConfidence), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, TrajectoryInterceptionIndication& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("subjectStation")) { p.subjectStation = vanetza::asn1::allocate<StationID_t>(); j.at("subjectStation").get_to(*(p.subjectStation)); } 
+void from_json(const Value& j, TrajectoryInterceptionIndication& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("subjectStation")) { p.subjectStation = vanetza::asn1::allocate<StationID_t>(); from_json(j["subjectStation"], *(p.subjectStation)); }
     else { p.subjectStation=nullptr; }
-    j.at("trajectoryInterceptionProbability").get_to((p.trajectoryInterceptionProbability));
-    if (j.contains("trajectoryInterceptionConfidence")) { p.trajectoryInterceptionConfidence = vanetza::asn1::allocate<TrajectoryInterceptionConfidence_t>(); j.at("trajectoryInterceptionConfidence").get_to(*(p.trajectoryInterceptionConfidence)); } 
+    from_json(j["trajectoryInterceptionProbability"], (p.trajectoryInterceptionProbability));
+    if (j.HasMember("trajectoryInterceptionConfidence")) { p.trajectoryInterceptionConfidence = vanetza::asn1::allocate<TrajectoryInterceptionConfidence_t>(); from_json(j["trajectoryInterceptionConfidence"], *(p.trajectoryInterceptionConfidence)); }
     else { p.trajectoryInterceptionConfidence=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   HeadingChangeIndication - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const HeadingChangeIndication& p) {
-    j = json{{"direction", (p.direction)}, {"actionDeltaTime", (p.actionDeltaTime)}};
+Value to_json(const HeadingChangeIndication& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("direction", to_json((p.direction), allocator), allocator);
+    json.AddMember("actionDeltaTime", to_json((p.actionDeltaTime), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, HeadingChangeIndication& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("direction").get_to((p.direction));
-    j.at("actionDeltaTime").get_to((p.actionDeltaTime));
-    
-    
+void from_json(const Value& j, HeadingChangeIndication& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["direction"], (p.direction));
+    from_json(j["actionDeltaTime"], (p.actionDeltaTime));
 }
+
+
 
 /*
 *   AccelerationChangeIndication - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const AccelerationChangeIndication& p) {
-    j = json{{"accelOrDecel", (p.accelOrDecel)}, {"actionDeltaTime", (p.actionDeltaTime)}};
+Value to_json(const AccelerationChangeIndication& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("accelOrDecel", to_json((p.accelOrDecel), allocator), allocator);
+    json.AddMember("actionDeltaTime", to_json((p.actionDeltaTime), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, AccelerationChangeIndication& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("accelOrDecel").get_to((p.accelOrDecel));
-    j.at("actionDeltaTime").get_to((p.actionDeltaTime));
-    
-    
+void from_json(const Value& j, AccelerationChangeIndication& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["accelOrDecel"], (p.accelOrDecel));
+    from_json(j["actionDeltaTime"], (p.actionDeltaTime));
 }
+
+
 
 /*
 *   StabilityChangeIndication - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const StabilityChangeIndication& p) {
-    j = json{{"lossProbability", (p.lossProbability)}, {"actionDeltaTime", (p.actionDeltaTime)}};
+Value to_json(const StabilityChangeIndication& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("lossProbability", to_json((p.lossProbability), allocator), allocator);
+    json.AddMember("actionDeltaTime", to_json((p.actionDeltaTime), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, StabilityChangeIndication& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("lossProbability").get_to((p.lossProbability));
-    j.at("actionDeltaTime").get_to((p.actionDeltaTime));
-    
-    
+void from_json(const Value& j, StabilityChangeIndication& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["lossProbability"], (p.lossProbability));
+    from_json(j["actionDeltaTime"], (p.actionDeltaTime));
 }
+
+
 
 /*
 *   AdvisorySpeed - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const AdvisorySpeed& p) {
-    j = json{{"type", (p.type)}};
-    if (p.speed != 0) j["speed"] = *(p.speed);
-    if (p.confidence != 0) j["confidence"] = (*(p.confidence) != 126 && *(p.confidence) != 127) ? *(p.confidence) : (double) *(p.confidence) / 100.0;
-    if (p.distance != 0) j["distance"] = *(p.distance);
-    if (p.Class != 0) j["class"] = *(p.Class);
+Value to_json(const AdvisorySpeed& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("type", to_json((p.type), allocator), allocator);
+    if (p.speed != 0) json.AddMember("speed", to_json(*(p.speed), allocator), allocator);
+    if (p.confidence != 0) json.AddMember("confidence", to_json((*(p.confidence) != 126 && *(p.confidence) != 127) ? (double) *(p.confidence) / 100.0 : *(p.confidence), allocator), allocator);
+    if (p.distance != 0) json.AddMember("distance", to_json(*(p.distance), allocator), allocator);
+    if (p.Class != 0) json.AddMember("class", to_json(*(p.Class), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, AdvisorySpeed& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("type").get_to((p.type));
-    if (j.contains("speed")) { p.speed = vanetza::asn1::allocate<SpeedAdvice_t>(); j.at("speed").get_to(*(p.speed)); } 
+void from_json(const Value& j, AdvisorySpeed& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["type"], (p.type));
+    if (j.HasMember("speed")) { p.speed = vanetza::asn1::allocate<SpeedAdvice_t>(); from_json(j["speed"], *(p.speed)); }
     else { p.speed=nullptr; }
-    double confidence; if (j.contains("confidence")) { p.confidence = vanetza::asn1::allocate<SpeedConfidence_t>(); j.at("confidence").get_to((confidence)); *(p.confidence) = ((confidence) != 126 && (confidence) != 127) ? confidence * 100 : confidence; } 
+    double confidence; if (j.HasMember("confidence")) { p.confidence = vanetza::asn1::allocate<SpeedConfidence_t>(); from_json(j["confidence"], (confidence)); *(p.confidence) = ((confidence) != 126 && (confidence) != 127) ? confidence * 100 : confidence; }
     else { p.confidence=nullptr; }
-    if (j.contains("distance")) { p.distance = vanetza::asn1::allocate<ZoneLength_t>(); j.at("distance").get_to(*(p.distance)); } 
+    if (j.HasMember("distance")) { p.distance = vanetza::asn1::allocate<ZoneLength_t>(); from_json(j["distance"], *(p.distance)); }
     else { p.distance=nullptr; }
-    if (j.contains("class")) { p.Class = vanetza::asn1::allocate<RestrictionClassID_t>(); j.at("class").get_to(*(p.Class)); } 
+    if (j.HasMember("class")) { p.Class = vanetza::asn1::allocate<RestrictionClassID_t>(); from_json(j["class"], *(p.Class)); }
     else { p.Class=nullptr; }
-    
     p.regional=nullptr;
 }
+
+
 
 /*
 *   AdvisorySpeedList - Type SEQUENCE OF
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const AdvisorySpeedList_t& p) {
+Value to_json(const AdvisorySpeedList_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const AdvisorySpeed_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, AdvisorySpeedList_t& p) {
+void from_json(const Value& j, AdvisorySpeedList_t& p) {
     AdvisorySpeedList_t* p_tmp = vanetza::asn1::allocate<AdvisorySpeedList_t>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         AdvisorySpeed_t *element = vanetza::asn1::allocate<AdvisorySpeed_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -1496,22 +1746,23 @@ void from_json(const json& j, AdvisorySpeedList_t& p) {
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const ComputedLane::ComputedLane__offsetXaxis& p) {
-    j = json{};
+Value to_json(const ComputedLane::ComputedLane__offsetXaxis& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == ComputedLane__offsetXaxis_PR_small) {
-        j["small"] = p.choice.small;
+        json.AddMember("small", to_json(p.choice.small, allocator), allocator);
     } else if (p.present == ComputedLane__offsetXaxis_PR_large) {
-        j["large"] = p.choice.large;
+        json.AddMember("large", to_json(p.choice.large, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, ComputedLane::ComputedLane__offsetXaxis& p) {
-    if (j.contains("small")) {
+void from_json(const Value& j, ComputedLane::ComputedLane__offsetXaxis& p) {
+    if (j.HasMember("small")) {
         p.present = ComputedLane__offsetXaxis_PR_small;
-        j.at("small").get_to(p.choice.small);
-    } else if (j.contains("large")) {
+        from_json(j["small"], p.choice.small);
+    } else if (j.HasMember("large")) {
         p.present = ComputedLane__offsetXaxis_PR_large;
-        j.at("large").get_to(p.choice.large);
+        from_json(j["large"], p.choice.large);
     } else {
         p.present = ComputedLane__offsetXaxis_PR_NOTHING;
     }
@@ -1522,22 +1773,23 @@ void from_json(const json& j, ComputedLane::ComputedLane__offsetXaxis& p) {
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const ComputedLane::ComputedLane__offsetYaxis& p) {
-    j = json{};
+Value to_json(const ComputedLane::ComputedLane__offsetYaxis& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == ComputedLane__offsetYaxis_PR_small) {
-        j["small"] = p.choice.small;
+        json.AddMember("small", to_json(p.choice.small, allocator), allocator);
     } else if (p.present == ComputedLane__offsetYaxis_PR_large) {
-        j["large"] = p.choice.large;
+        json.AddMember("large", to_json(p.choice.large, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, ComputedLane::ComputedLane__offsetYaxis& p) {
-    if (j.contains("small")) {
+void from_json(const Value& j, ComputedLane::ComputedLane__offsetYaxis& p) {
+    if (j.HasMember("small")) {
         p.present = ComputedLane__offsetYaxis_PR_small;
-        j.at("small").get_to(p.choice.small);
-    } else if (j.contains("large")) {
+        from_json(j["small"], p.choice.small);
+    } else if (j.HasMember("large")) {
         p.present = ComputedLane__offsetYaxis_PR_large;
-        j.at("large").get_to(p.choice.large);
+        from_json(j["large"], p.choice.large);
     } else {
         p.present = ComputedLane__offsetYaxis_PR_NOTHING;
     }
@@ -1548,103 +1800,115 @@ void from_json(const json& j, ComputedLane::ComputedLane__offsetYaxis& p) {
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const ComputedLane_t& p) {
-    j = json{{"referenceLaneId", (p.referenceLaneId)}, {"offsetXaxis", (p.offsetXaxis)}, {"offsetYaxis", (p.offsetYaxis)}};
-    if (p.rotateXY != 0) j["rotateXY"] = *(p.rotateXY);
-    if (p.scaleXaxis != 0) j["scaleXaxis"] = *(p.scaleXaxis);
-    if (p.scaleYaxis != 0) j["scaleYaxis"] = *(p.scaleYaxis);
+Value to_json(const ComputedLane_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("referenceLaneId", to_json((p.referenceLaneId), allocator), allocator);
+    json.AddMember("offsetXaxis", to_json((p.offsetXaxis), allocator), allocator);
+    json.AddMember("offsetYaxis", to_json((p.offsetYaxis), allocator), allocator);
+    if (p.rotateXY != 0) json.AddMember("rotateXY", to_json(*(p.rotateXY), allocator), allocator);
+    if (p.scaleXaxis != 0) json.AddMember("scaleXaxis", to_json(*(p.scaleXaxis), allocator), allocator);
+    if (p.scaleYaxis != 0) json.AddMember("scaleYaxis", to_json(*(p.scaleYaxis), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, ComputedLane_t& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("referenceLaneId").get_to((p.referenceLaneId));
-    j.at("offsetXaxis").get_to((p.offsetXaxis));
-    j.at("offsetYaxis").get_to((p.offsetYaxis));
-    if (j.contains("rotateXY")) { p.rotateXY = vanetza::asn1::allocate<Angle_t>(); j.at("rotateXY").get_to(*(p.rotateXY)); } 
+void from_json(const Value& j, ComputedLane_t& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["referenceLaneId"], (p.referenceLaneId));
+    from_json(j["offsetXaxis"], (p.offsetXaxis));
+    from_json(j["offsetYaxis"], (p.offsetYaxis));
+    if (j.HasMember("rotateXY")) { p.rotateXY = vanetza::asn1::allocate<Angle_t>(); from_json(j["rotateXY"], *(p.rotateXY)); }
     else { p.rotateXY=nullptr; }
-    if (j.contains("scaleXaxis")) { p.scaleXaxis = vanetza::asn1::allocate<Scale_B12_t>(); j.at("scaleXaxis").get_to(*(p.scaleXaxis)); } 
+    if (j.HasMember("scaleXaxis")) { p.scaleXaxis = vanetza::asn1::allocate<Scale_B12_t>(); from_json(j["scaleXaxis"], *(p.scaleXaxis)); }
     else { p.scaleXaxis=nullptr; }
-    if (j.contains("scaleYaxis")) { p.scaleYaxis = vanetza::asn1::allocate<Scale_B12_t>(); j.at("scaleYaxis").get_to(*(p.scaleYaxis)); } 
+    if (j.HasMember("scaleYaxis")) { p.scaleYaxis = vanetza::asn1::allocate<Scale_B12_t>(); from_json(j["scaleYaxis"], *(p.scaleYaxis)); }
     else { p.scaleYaxis=nullptr; }
-    
     p.regional=nullptr;
 }
+
+
 
 /*
 *   ConnectionManeuverAssist - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const ConnectionManeuverAssist_t& p) {
-    j = json{{"connectionID", (p.connectionID)}};
-    if (p.queueLength != 0) j["queueLength"] = *(p.queueLength);
-    if (p.availableStorageLength != 0) j["availableStorageLength"] = *(p.availableStorageLength);
-    if (p.waitOnStop != 0) j["waitOnStop"] = *(p.waitOnStop);
-    if (p.pedBicycleDetect != 0) j["pedBicycleDetect"] = *(p.pedBicycleDetect);
+Value to_json(const ConnectionManeuverAssist_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("connectionID", to_json((p.connectionID), allocator), allocator);
+    if (p.queueLength != 0) json.AddMember("queueLength", to_json(*(p.queueLength), allocator), allocator);
+    if (p.availableStorageLength != 0) json.AddMember("availableStorageLength", to_json(*(p.availableStorageLength), allocator), allocator);
+    if (p.waitOnStop != 0) json.AddMember("waitOnStop", to_json(*(p.waitOnStop), allocator), allocator);
+    if (p.pedBicycleDetect != 0) json.AddMember("pedBicycleDetect", to_json(*(p.pedBicycleDetect), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, ConnectionManeuverAssist_t& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("connectionID").get_to((p.connectionID));
-    if (j.contains("queueLength")) { p.queueLength = vanetza::asn1::allocate<ZoneLength_t>(); j.at("queueLength").get_to(*(p.queueLength)); } 
+void from_json(const Value& j, ConnectionManeuverAssist_t& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["connectionID"], (p.connectionID));
+    if (j.HasMember("queueLength")) { p.queueLength = vanetza::asn1::allocate<ZoneLength_t>(); from_json(j["queueLength"], *(p.queueLength)); }
     else { p.queueLength=nullptr; }
-    if (j.contains("availableStorageLength")) { p.availableStorageLength = vanetza::asn1::allocate<ZoneLength_t>(); j.at("availableStorageLength").get_to(*(p.availableStorageLength)); } 
+    if (j.HasMember("availableStorageLength")) { p.availableStorageLength = vanetza::asn1::allocate<ZoneLength_t>(); from_json(j["availableStorageLength"], *(p.availableStorageLength)); }
     else { p.availableStorageLength=nullptr; }
-    if (j.contains("waitOnStop")) { p.waitOnStop = vanetza::asn1::allocate<WaitOnStopline_t>(); j.at("waitOnStop").get_to(*(p.waitOnStop)); } 
+    if (j.HasMember("waitOnStop")) { p.waitOnStop = vanetza::asn1::allocate<WaitOnStopline_t>(); from_json(j["waitOnStop"], *(p.waitOnStop)); }
     else { p.waitOnStop=nullptr; }
-    if (j.contains("pedBicycleDetect")) { p.pedBicycleDetect = vanetza::asn1::allocate<PedestrianBicycleDetect_t>(); j.at("pedBicycleDetect").get_to(*(p.pedBicycleDetect)); } 
+    if (j.HasMember("pedBicycleDetect")) { p.pedBicycleDetect = vanetza::asn1::allocate<PedestrianBicycleDetect_t>(); from_json(j["pedBicycleDetect"], *(p.pedBicycleDetect)); }
     else { p.pedBicycleDetect=nullptr; }
-    
     p.regional=nullptr;
 }
+
+
 
 /*
 *   DataParameters - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const DataParameters_t& p) {
-    j = json{};
-    if (p.processMethod != 0) j["processMethod"] = *(p.processMethod);
-    if (p.processAgency != 0) j["processAgency"] = *(p.processAgency);
-    if (p.lastCheckedDate != 0) j["lastCheckedDate"] = *(p.lastCheckedDate);
-    if (p.geoidUsed != 0) j["geoidUsed"] = *(p.geoidUsed);
+Value to_json(const DataParameters_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    if (p.processMethod != 0) json.AddMember("processMethod", to_json(*(p.processMethod), allocator), allocator);
+    if (p.processAgency != 0) json.AddMember("processAgency", to_json(*(p.processAgency), allocator), allocator);
+    if (p.lastCheckedDate != 0) json.AddMember("lastCheckedDate", to_json(*(p.lastCheckedDate), allocator), allocator);
+    if (p.geoidUsed != 0) json.AddMember("geoidUsed", to_json(*(p.geoidUsed), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, DataParameters_t& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("processMethod")) { p.processMethod = vanetza::asn1::allocate<IA5String_t>(); j.at("processMethod").get_to(*(p.processMethod)); } 
+void from_json(const Value& j, DataParameters_t& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("processMethod")) { p.processMethod = vanetza::asn1::allocate<IA5String_t>(); from_json(j["processMethod"], *(p.processMethod)); }
     else { p.processMethod=nullptr; }
-    if (j.contains("processAgency")) { p.processAgency = vanetza::asn1::allocate<IA5String_t>(); j.at("processAgency").get_to(*(p.processAgency)); } 
+    if (j.HasMember("processAgency")) { p.processAgency = vanetza::asn1::allocate<IA5String_t>(); from_json(j["processAgency"], *(p.processAgency)); }
     else { p.processAgency=nullptr; }
-    if (j.contains("lastCheckedDate")) { p.lastCheckedDate = vanetza::asn1::allocate<IA5String_t>(); j.at("lastCheckedDate").get_to(*(p.lastCheckedDate)); } 
+    if (j.HasMember("lastCheckedDate")) { p.lastCheckedDate = vanetza::asn1::allocate<IA5String_t>(); from_json(j["lastCheckedDate"], *(p.lastCheckedDate)); }
     else { p.lastCheckedDate=nullptr; }
-    if (j.contains("geoidUsed")) { p.geoidUsed = vanetza::asn1::allocate<IA5String_t>(); j.at("geoidUsed").get_to(*(p.geoidUsed)); } 
+    if (j.HasMember("geoidUsed")) { p.geoidUsed = vanetza::asn1::allocate<IA5String_t>(); from_json(j["geoidUsed"], *(p.geoidUsed)); }
     else { p.geoidUsed=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   EnabledLaneList - Type SEQUENCE OF
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const EnabledLaneList_t& p) {
+Value to_json(const EnabledLaneList_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const LaneID_t po = *(p.list.array[i]);
-        // to_json(obj, po);
-        j.push_back(po);
+        // Value obj = to_json(po, allocator);
+        json.PushBack(po, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, EnabledLaneList_t& p) {
+void from_json(const Value& j, EnabledLaneList_t& p) {
     EnabledLaneList_t* p_tmp = vanetza::asn1::allocate<EnabledLaneList_t>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         LaneID_t *element = vanetza::asn1::allocate<LaneID_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -1656,27 +1920,28 @@ void from_json(const json& j, EnabledLaneList_t& p) {
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const IntersectionAccessPoint_t& p) {
-    j = json{};
+Value to_json(const IntersectionAccessPoint_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == IntersectionAccessPoint_PR_lane) {
-        j["lane"] = p.choice.lane;
+        json.AddMember("lane", to_json(p.choice.lane, allocator), allocator);
     } else if (p.present == IntersectionAccessPoint_PR_approach) {
-        j["approach"] = p.choice.approach;
+        json.AddMember("approach", to_json(p.choice.approach, allocator), allocator);
     } else if (p.present == IntersectionAccessPoint_PR_connection) {
-        j["connection"] = p.choice.connection;
+        json.AddMember("connection", to_json(p.choice.connection, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, IntersectionAccessPoint_t& p) {
-    if (j.contains("lane")) {
+void from_json(const Value& j, IntersectionAccessPoint_t& p) {
+    if (j.HasMember("lane")) {
         p.present = IntersectionAccessPoint_PR_lane;
-        j.at("lane").get_to(p.choice.lane);
-    } else if (j.contains("approach")) {
+        from_json(j["lane"], p.choice.lane);
+    } else if (j.HasMember("approach")) {
         p.present = IntersectionAccessPoint_PR_approach;
-        j.at("approach").get_to(p.choice.approach);
-    } else if (j.contains("connection")) {
+        from_json(j["approach"], p.choice.approach);
+    } else if (j.HasMember("connection")) {
         p.present = IntersectionAccessPoint_PR_connection;
-        j.at("connection").get_to(p.choice.connection);
+        from_json(j["connection"], p.choice.connection);
     } else {
         p.present = IntersectionAccessPoint_PR_NOTHING;
     }
@@ -1687,30 +1952,43 @@ void from_json(const json& j, IntersectionAccessPoint_t& p) {
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const IntersectionReferenceID& p) {
-    j = json{{"id", (p.id)}};
-    if (p.region != 0) j["region"] = *(p.region);
+Value to_json(const IntersectionReferenceID& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("id", to_json((p.id), allocator), allocator);
+    if (p.region != 0) json.AddMember("region", to_json(*(p.region), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, IntersectionReferenceID& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("region")) { p.region = vanetza::asn1::allocate<RoadRegulatorID_t>(); j.at("region").get_to(*(p.region)); } 
+void from_json(const Value& j, IntersectionReferenceID& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("region")) { p.region = vanetza::asn1::allocate<RoadRegulatorID_t>(); from_json(j["region"], *(p.region)); }
     else { p.region=nullptr; }
-    j.at("id").get_to((p.id));
-    
-    
+    from_json(j["id"], (p.id));
 }
+
+
 
 /*
 *   LaneSharing - Type BIT STRING
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_LaneSharing(const LaneSharing_t p) {
-    return json{{"overlappingLaneDescriptionProvided", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"multipleLanesTreatedAsOneLane", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}, {"otherNonMotorizedTrafficTypes", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8))))}, {"individualMotorizedVehicleTraffic", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8))))}, {"busVehicleTraffic", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8))))}, {"taxiVehicleTraffic", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8))))}, {"pedestriansTraffic", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8))))}, {"cyclistVehicleTraffic", (bool) (*(p.buf + (sizeof(uint8_t) * (7 / 8))) & (1 << ((7 * ((7 / 8) + 1))-(7 % 8))))}, {"trackedVehicleTraffic", (bool) (*(p.buf + (sizeof(uint8_t) * (8 / 8))) & (1 << ((7 * ((8 / 8) + 1))-(8 % 8))))}, {"pedestrianTraffic", (bool) (*(p.buf + (sizeof(uint8_t) * (9 / 8))) & (1 << ((7 * ((9 / 8) + 1))-(9 % 8))))}};
+Value to_json_LaneSharing(const LaneSharing_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("overlappingLaneDescriptionProvided", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("multipleLanesTreatedAsOneLane", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("otherNonMotorizedTrafficTypes", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("individualMotorizedVehicleTraffic", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("busVehicleTraffic", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("taxiVehicleTraffic", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    json.AddMember("pedestriansTraffic", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8)))), allocator);
+    json.AddMember("cyclistVehicleTraffic", (bool) (*(p.buf + (sizeof(uint8_t) * (7 / 8))) & (1 << ((7 * ((7 / 8) + 1))-(7 % 8)))), allocator);
+    json.AddMember("trackedVehicleTraffic", (bool) (*(p.buf + (sizeof(uint8_t) * (8 / 8))) & (1 << ((7 * ((8 / 8) + 1))-(8 % 8)))), allocator);
+    json.AddMember("pedestrianTraffic", (bool) (*(p.buf + (sizeof(uint8_t) * (9 / 8))) & (1 << ((7 * ((9 / 8) + 1))-(9 % 8)))), allocator);
+    return json;
 }
 
-void from_json_LaneSharing(const json& j, LaneSharing_t& p) {
+void from_json_LaneSharing(const Value& j, LaneSharing_t& p) {
     LaneSharing_t* p_tmp = vanetza::asn1::allocate<LaneSharing_t>();
     bool overlappingLaneDescriptionProvided;
     bool multipleLanesTreatedAsOneLane;
@@ -1722,16 +2000,16 @@ void from_json_LaneSharing(const json& j, LaneSharing_t& p) {
     bool cyclistVehicleTraffic;
     bool trackedVehicleTraffic;
     bool pedestrianTraffic;
-    if (j.contains("overlappingLaneDescriptionProvided")) j.at("overlappingLaneDescriptionProvided").get_to((overlappingLaneDescriptionProvided));
-    if (j.contains("multipleLanesTreatedAsOneLane")) j.at("multipleLanesTreatedAsOneLane").get_to((multipleLanesTreatedAsOneLane));
-    if (j.contains("otherNonMotorizedTrafficTypes")) j.at("otherNonMotorizedTrafficTypes").get_to((otherNonMotorizedTrafficTypes));
-    if (j.contains("individualMotorizedVehicleTraffic")) j.at("individualMotorizedVehicleTraffic").get_to((individualMotorizedVehicleTraffic));
-    if (j.contains("busVehicleTraffic")) j.at("busVehicleTraffic").get_to((busVehicleTraffic));
-    if (j.contains("taxiVehicleTraffic")) j.at("taxiVehicleTraffic").get_to((taxiVehicleTraffic));
-    if (j.contains("pedestriansTraffic")) j.at("pedestriansTraffic").get_to((pedestriansTraffic));
-    if (j.contains("cyclistVehicleTraffic")) j.at("cyclistVehicleTraffic").get_to((cyclistVehicleTraffic));
-    if (j.contains("trackedVehicleTraffic")) j.at("trackedVehicleTraffic").get_to((trackedVehicleTraffic));
-    if (j.contains("pedestrianTraffic")) j.at("pedestrianTraffic").get_to((pedestrianTraffic));
+    if (j.HasMember("overlappingLaneDescriptionProvided")) from_json(j["overlappingLaneDescriptionProvided"], (overlappingLaneDescriptionProvided));
+    if (j.HasMember("multipleLanesTreatedAsOneLane")) from_json(j["multipleLanesTreatedAsOneLane"], (multipleLanesTreatedAsOneLane));
+    if (j.HasMember("otherNonMotorizedTrafficTypes")) from_json(j["otherNonMotorizedTrafficTypes"], (otherNonMotorizedTrafficTypes));
+    if (j.HasMember("individualMotorizedVehicleTraffic")) from_json(j["individualMotorizedVehicleTraffic"], (individualMotorizedVehicleTraffic));
+    if (j.HasMember("busVehicleTraffic")) from_json(j["busVehicleTraffic"], (busVehicleTraffic));
+    if (j.HasMember("taxiVehicleTraffic")) from_json(j["taxiVehicleTraffic"], (taxiVehicleTraffic));
+    if (j.HasMember("pedestriansTraffic")) from_json(j["pedestriansTraffic"], (pedestriansTraffic));
+    if (j.HasMember("cyclistVehicleTraffic")) from_json(j["cyclistVehicleTraffic"], (cyclistVehicleTraffic));
+    if (j.HasMember("trackedVehicleTraffic")) from_json(j["trackedVehicleTraffic"], (trackedVehicleTraffic));
+    if (j.HasMember("pedestrianTraffic")) from_json(j["pedestrianTraffic"], (pedestrianTraffic));
     p_tmp->size = (10 / 8) + 1;
     p_tmp->bits_unused = (10 % 8) != 0 ? 8 - (10 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -1756,21 +2034,23 @@ void from_json_LaneSharing(const json& j, LaneSharing_t& p) {
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const ManeuverAssistList& p) {
+Value to_json(const ManeuverAssistList& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const ConnectionManeuverAssist_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, ManeuverAssistList& p) {
+void from_json(const Value& j, ManeuverAssistList& p) {
     ManeuverAssistList* p_tmp = vanetza::asn1::allocate<ManeuverAssistList>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         ConnectionManeuverAssist_t *element = vanetza::asn1::allocate<ConnectionManeuverAssist_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -1782,39 +2062,44 @@ void from_json(const json& j, ManeuverAssistList& p) {
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const Node_LLmD_64b& p) {
-    j = json{{"lon", ((p.lon) == 1800000001) ? (p.lon) : (double)(p.lon) / 10000000.0}, {"lat", ((p.lat) == 900000001) ? (p.lat) : (double)(p.lat) / 10000000.0}};
+Value to_json(const Node_LLmD_64b& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("lon", to_json(((p.lon) == 1800000001) ? (p.lon) : (double)(p.lon) / 10000000.0, allocator), allocator);
+    json.AddMember("lat", to_json(((p.lat) == 900000001) ? (p.lat) : (double)(p.lat) / 10000000.0, allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, Node_LLmD_64b& p) {
-    p._asn_ctx.ptr= nullptr;
-    double lon; j.at("lon").get_to((lon)); (p.lon) = ((lon) != 1800000001) ? lon * 10000000 : lon;
-    double lat; j.at("lat").get_to((lat)); (p.lat) = ((lat) != 900000001) ? lat * 10000000 : lat;
-    
-    
+void from_json(const Value& j, Node_LLmD_64b& p) {
+    p._asn_ctx.ptr = nullptr;
+    double lon; from_json(j["lon"], (lon)); (p.lon) = ((lon) != 1800000001) ? lon * 10000000 : lon;
+    double lat; from_json(j["lat"], (lat)); (p.lat) = ((lat) != 900000001) ? lat * 10000000 : lat;
 }
+
+
 
 /*
 *   OverlayLaneList - Type SEQUENCE OF
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const OverlayLaneList& p) {
+Value to_json(const OverlayLaneList& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const LaneID_t po = *(p.list.array[i]);
-        // to_json(obj, po);
-        j.push_back(po);
+        // Value obj = to_json(po, allocator);
+        json.PushBack(po, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, OverlayLaneList& p) {
+void from_json(const Value& j, OverlayLaneList& p) {
     OverlayLaneList* p_tmp = vanetza::asn1::allocate<OverlayLaneList>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         LaneID_t *element = vanetza::asn1::allocate<LaneID_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -1826,37 +2111,42 @@ void from_json(const json& j, OverlayLaneList& p) {
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const Position3D_t& p) {
-    j = json{{"lat", ((p.lat) == 900000001) ? (p.lat) : (double)(p.lat) / 10000000.0}, {"long", ((p.Long) == 1800000001) ? (p.Long) : (double)(p.Long) / 10000000.0}};
-    if (p.elevation != 0) j["elevation"] = *(p.elevation);
+Value to_json(const Position3D_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("lat", to_json(((p.lat) == 900000001) ? (p.lat) : (double)(p.lat) / 10000000.0, allocator), allocator);
+    json.AddMember("long", to_json(((p.Long) == 1800000001) ? (p.Long) : (double)(p.Long) / 10000000.0, allocator), allocator);
+    if (p.elevation != 0) json.AddMember("elevation", to_json(*(p.elevation), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, Position3D_t& p) {
-    p._asn_ctx.ptr= nullptr;
-    double lat; j.at("lat").get_to((lat)); (p.lat) = ((lat) != 900000001) ? lat * 10000000 : lat;
-    double Long; j.at("long").get_to((Long)); (p.Long) = ((Long) != 1800000001) ? Long * 10000000 : Long;
-    if (j.contains("elevation")) { p.elevation = vanetza::asn1::allocate<Elevation_t>(); j.at("elevation").get_to(*(p.elevation)); } 
+void from_json(const Value& j, Position3D_t& p) {
+    p._asn_ctx.ptr = nullptr;
+    double lat; from_json(j["lat"], (lat)); (p.lat) = ((lat) != 900000001) ? lat * 10000000 : lat;
+    double Long; from_json(j["long"], (Long)); (p.Long) = ((Long) != 1800000001) ? Long * 10000000 : Long;
+    if (j.HasMember("elevation")) { p.elevation = vanetza::asn1::allocate<Elevation_t>(); from_json(j["elevation"], *(p.elevation)); }
     else { p.elevation=nullptr; }
-    
     p.regional=nullptr;
 }
+
+
 
 /*
 *   RestrictionUserType - Type CHOICE
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const RestrictionUserType& p) {
-    j = json{};
+Value to_json(const RestrictionUserType& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == RestrictionUserType_PR_basicType) {
-        j["basicType"] = p.choice.basicType;
+        json.AddMember("basicType", to_json(p.choice.basicType, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, RestrictionUserType& p) {
-    if (j.contains("basicType")) {
+void from_json(const Value& j, RestrictionUserType& p) {
+    if (j.HasMember("basicType")) {
         p.present = RestrictionUserType_PR_basicType;
-        j.at("basicType").get_to(p.choice.basicType);
+        from_json(j["basicType"], p.choice.basicType);
     } else {
         p.present = RestrictionUserType_PR_NOTHING;
     }
@@ -1867,85 +2157,93 @@ void from_json(const json& j, RestrictionUserType& p) {
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const RoadSegmentReferenceID& p) {
-    j = json{{"id", (p.id)}};
-    if (p.region != 0) j["region"] = *(p.region);
+Value to_json(const RoadSegmentReferenceID& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("id", to_json((p.id), allocator), allocator);
+    if (p.region != 0) json.AddMember("region", to_json(*(p.region), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, RoadSegmentReferenceID& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("region")) { p.region = vanetza::asn1::allocate<RoadRegulatorID_t>(); j.at("region").get_to(*(p.region)); } 
+void from_json(const Value& j, RoadSegmentReferenceID& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("region")) { p.region = vanetza::asn1::allocate<RoadRegulatorID_t>(); from_json(j["region"], *(p.region)); }
     else { p.region=nullptr; }
-    j.at("id").get_to((p.id));
-    
-    
+    from_json(j["id"], (p.id));
 }
+
+
 
 /*
 *   TimeChangeDetails - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const TimeChangeDetails& p) {
-    j = json{{"minEndTime", (p.minEndTime)}};
-    if (p.startTime != 0) j["startTime"] = *(p.startTime);
-    if (p.maxEndTime != 0) j["maxEndTime"] = *(p.maxEndTime);
-    if (p.likelyTime != 0) j["likelyTime"] = *(p.likelyTime);
-    if (p.confidence != 0) j["confidence"] = *(p.confidence);
-    if (p.nextTime != 0) j["nextTime"] = *(p.nextTime);
+Value to_json(const TimeChangeDetails& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("minEndTime", to_json((p.minEndTime), allocator), allocator);
+    if (p.startTime != 0) json.AddMember("startTime", to_json(*(p.startTime), allocator), allocator);
+    if (p.maxEndTime != 0) json.AddMember("maxEndTime", to_json(*(p.maxEndTime), allocator), allocator);
+    if (p.likelyTime != 0) json.AddMember("likelyTime", to_json(*(p.likelyTime), allocator), allocator);
+    if (p.confidence != 0) json.AddMember("confidence", to_json(*(p.confidence), allocator), allocator);
+    if (p.nextTime != 0) json.AddMember("nextTime", to_json(*(p.nextTime), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, TimeChangeDetails& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("startTime")) { p.startTime = vanetza::asn1::allocate<TimeMark_t>(); j.at("startTime").get_to(*(p.startTime)); } 
+void from_json(const Value& j, TimeChangeDetails& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("startTime")) { p.startTime = vanetza::asn1::allocate<TimeMark_t>(); from_json(j["startTime"], *(p.startTime)); }
     else { p.startTime=nullptr; }
-    j.at("minEndTime").get_to((p.minEndTime));
-    if (j.contains("maxEndTime")) { p.maxEndTime = vanetza::asn1::allocate<TimeMark_t>(); j.at("maxEndTime").get_to(*(p.maxEndTime)); } 
+    from_json(j["minEndTime"], (p.minEndTime));
+    if (j.HasMember("maxEndTime")) { p.maxEndTime = vanetza::asn1::allocate<TimeMark_t>(); from_json(j["maxEndTime"], *(p.maxEndTime)); }
     else { p.maxEndTime=nullptr; }
-    if (j.contains("likelyTime")) { p.likelyTime = vanetza::asn1::allocate<TimeMark_t>(); j.at("likelyTime").get_to(*(p.likelyTime)); } 
+    if (j.HasMember("likelyTime")) { p.likelyTime = vanetza::asn1::allocate<TimeMark_t>(); from_json(j["likelyTime"], *(p.likelyTime)); }
     else { p.likelyTime=nullptr; }
-    if (j.contains("confidence")) { p.confidence = vanetza::asn1::allocate<TimeIntervalConfidence_t>(); j.at("confidence").get_to(*(p.confidence)); } 
+    if (j.HasMember("confidence")) { p.confidence = vanetza::asn1::allocate<TimeIntervalConfidence_t>(); from_json(j["confidence"], *(p.confidence)); }
     else { p.confidence=nullptr; }
-    if (j.contains("nextTime")) { p.nextTime = vanetza::asn1::allocate<TimeMark_t>(); j.at("nextTime").get_to(*(p.nextTime)); } 
+    if (j.HasMember("nextTime")) { p.nextTime = vanetza::asn1::allocate<TimeMark_t>(); from_json(j["nextTime"], *(p.nextTime)); }
     else { p.nextTime=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   TransmissionAndSpeed - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const TransmissionAndSpeed_t& p) {
-    j = json{{"transmisson", (p.transmisson)}, {"speed", (p.speed)}};
+Value to_json(const TransmissionAndSpeed_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("transmisson", to_json((p.transmisson), allocator), allocator);
+    json.AddMember("speed", to_json((p.speed), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, TransmissionAndSpeed_t& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("transmisson").get_to((p.transmisson));
-    j.at("speed").get_to((p.speed));
-    
-    
+void from_json(const Value& j, TransmissionAndSpeed_t& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["transmisson"], (p.transmisson));
+    from_json(j["speed"], (p.speed));
 }
+
+
 
 /*
 *   VehicleID - Type CHOICE
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const VehicleID_t& p) {
-    j = json{};
+Value to_json(const VehicleID_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == VehicleID_PR_stationID) {
-        j["stationID"] = p.choice.stationID;
+        json.AddMember("stationID", to_json(p.choice.stationID, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, VehicleID_t& p) {
-    if (j.contains("stationID")) {
+void from_json(const Value& j, VehicleID_t& p) {
+    if (j.HasMember("stationID")) {
         p.present = VehicleID_PR_stationID;
-        j.at("stationID").get_to(p.choice.stationID);
+        from_json(j["stationID"], p.choice.stationID);
     } else {
         p.present = VehicleID_PR_NOTHING;
     }
@@ -1956,11 +2254,24 @@ void from_json(const json& j, VehicleID_t& p) {
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_AllowedManeuvers(const AllowedManeuvers_t p) {
-    return json{{"maneuverStraightAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"maneuverLeftAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}, {"maneuverRightAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8))))}, {"maneuverUTurnAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8))))}, {"maneuverLeftTurnOnRedAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8))))}, {"maneuverRightTurnOnRedAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8))))}, {"maneuverLaneChangeAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8))))}, {"maneuverNoStoppingAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (7 / 8))) & (1 << ((7 * ((7 / 8) + 1))-(7 % 8))))}, {"yieldAllwaysRequired", (bool) (*(p.buf + (sizeof(uint8_t) * (8 / 8))) & (1 << ((7 * ((8 / 8) + 1))-(8 % 8))))}, {"goWithHalt", (bool) (*(p.buf + (sizeof(uint8_t) * (9 / 8))) & (1 << ((7 * ((9 / 8) + 1))-(9 % 8))))}, {"caution", (bool) (*(p.buf + (sizeof(uint8_t) * (10 / 8))) & (1 << ((7 * ((10 / 8) + 1))-(10 % 8))))}, {"reserved1", (bool) (*(p.buf + (sizeof(uint8_t) * (11 / 8))) & (1 << ((7 * ((11 / 8) + 1))-(11 % 8))))}};
+Value to_json_AllowedManeuvers(const AllowedManeuvers_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("maneuverStraightAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("maneuverLeftAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("maneuverRightAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("maneuverUTurnAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("maneuverLeftTurnOnRedAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("maneuverRightTurnOnRedAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    json.AddMember("maneuverLaneChangeAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8)))), allocator);
+    json.AddMember("maneuverNoStoppingAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (7 / 8))) & (1 << ((7 * ((7 / 8) + 1))-(7 % 8)))), allocator);
+    json.AddMember("yieldAllwaysRequired", (bool) (*(p.buf + (sizeof(uint8_t) * (8 / 8))) & (1 << ((7 * ((8 / 8) + 1))-(8 % 8)))), allocator);
+    json.AddMember("goWithHalt", (bool) (*(p.buf + (sizeof(uint8_t) * (9 / 8))) & (1 << ((7 * ((9 / 8) + 1))-(9 % 8)))), allocator);
+    json.AddMember("caution", (bool) (*(p.buf + (sizeof(uint8_t) * (10 / 8))) & (1 << ((7 * ((10 / 8) + 1))-(10 % 8)))), allocator);
+    json.AddMember("reserved1", (bool) (*(p.buf + (sizeof(uint8_t) * (11 / 8))) & (1 << ((7 * ((11 / 8) + 1))-(11 % 8)))), allocator);
+    return json;
 }
 
-void from_json_AllowedManeuvers(const json& j, AllowedManeuvers_t& p) {
+void from_json_AllowedManeuvers(const Value& j, AllowedManeuvers_t& p) {
     AllowedManeuvers_t* p_tmp = vanetza::asn1::allocate<AllowedManeuvers_t>();
     bool maneuverStraightAllowed;
     bool maneuverLeftAllowed;
@@ -1974,18 +2285,18 @@ void from_json_AllowedManeuvers(const json& j, AllowedManeuvers_t& p) {
     bool goWithHalt;
     bool caution;
     bool reserved1;
-    if (j.contains("maneuverStraightAllowed")) j.at("maneuverStraightAllowed").get_to((maneuverStraightAllowed));
-    if (j.contains("maneuverLeftAllowed")) j.at("maneuverLeftAllowed").get_to((maneuverLeftAllowed));
-    if (j.contains("maneuverRightAllowed")) j.at("maneuverRightAllowed").get_to((maneuverRightAllowed));
-    if (j.contains("maneuverUTurnAllowed")) j.at("maneuverUTurnAllowed").get_to((maneuverUTurnAllowed));
-    if (j.contains("maneuverLeftTurnOnRedAllowed")) j.at("maneuverLeftTurnOnRedAllowed").get_to((maneuverLeftTurnOnRedAllowed));
-    if (j.contains("maneuverRightTurnOnRedAllowed")) j.at("maneuverRightTurnOnRedAllowed").get_to((maneuverRightTurnOnRedAllowed));
-    if (j.contains("maneuverLaneChangeAllowed")) j.at("maneuverLaneChangeAllowed").get_to((maneuverLaneChangeAllowed));
-    if (j.contains("maneuverNoStoppingAllowed")) j.at("maneuverNoStoppingAllowed").get_to((maneuverNoStoppingAllowed));
-    if (j.contains("yieldAllwaysRequired")) j.at("yieldAllwaysRequired").get_to((yieldAllwaysRequired));
-    if (j.contains("goWithHalt")) j.at("goWithHalt").get_to((goWithHalt));
-    if (j.contains("caution")) j.at("caution").get_to((caution));
-    if (j.contains("reserved1")) j.at("reserved1").get_to((reserved1));
+    if (j.HasMember("maneuverStraightAllowed")) from_json(j["maneuverStraightAllowed"], (maneuverStraightAllowed));
+    if (j.HasMember("maneuverLeftAllowed")) from_json(j["maneuverLeftAllowed"], (maneuverLeftAllowed));
+    if (j.HasMember("maneuverRightAllowed")) from_json(j["maneuverRightAllowed"], (maneuverRightAllowed));
+    if (j.HasMember("maneuverUTurnAllowed")) from_json(j["maneuverUTurnAllowed"], (maneuverUTurnAllowed));
+    if (j.HasMember("maneuverLeftTurnOnRedAllowed")) from_json(j["maneuverLeftTurnOnRedAllowed"], (maneuverLeftTurnOnRedAllowed));
+    if (j.HasMember("maneuverRightTurnOnRedAllowed")) from_json(j["maneuverRightTurnOnRedAllowed"], (maneuverRightTurnOnRedAllowed));
+    if (j.HasMember("maneuverLaneChangeAllowed")) from_json(j["maneuverLaneChangeAllowed"], (maneuverLaneChangeAllowed));
+    if (j.HasMember("maneuverNoStoppingAllowed")) from_json(j["maneuverNoStoppingAllowed"], (maneuverNoStoppingAllowed));
+    if (j.HasMember("yieldAllwaysRequired")) from_json(j["yieldAllwaysRequired"], (yieldAllwaysRequired));
+    if (j.HasMember("goWithHalt")) from_json(j["goWithHalt"], (goWithHalt));
+    if (j.HasMember("caution")) from_json(j["caution"], (caution));
+    if (j.HasMember("reserved1")) from_json(j["reserved1"], (reserved1));
     p_tmp->size = (12 / 8) + 1;
     p_tmp->bits_unused = (12 % 8) != 0 ? 8 - (12 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -2012,11 +2323,26 @@ void from_json_AllowedManeuvers(const json& j, AllowedManeuvers_t& p) {
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_IntersectionStatusObject(const IntersectionStatusObject_t p) {
-    return json{{"manualControlIsEnabled", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"stopTimeIsActivated", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}, {"failureFlash", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8))))}, {"preemptIsActive", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8))))}, {"signalPriorityIsActive", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8))))}, {"fixedTimeOperation", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8))))}, {"trafficDependentOperation", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8))))}, {"standbyOperation", (bool) (*(p.buf + (sizeof(uint8_t) * (7 / 8))) & (1 << ((7 * ((7 / 8) + 1))-(7 % 8))))}, {"failureMode", (bool) (*(p.buf + (sizeof(uint8_t) * (8 / 8))) & (1 << ((7 * ((8 / 8) + 1))-(8 % 8))))}, {"off", (bool) (*(p.buf + (sizeof(uint8_t) * (9 / 8))) & (1 << ((7 * ((9 / 8) + 1))-(9 % 8))))}, {"recentMAPmessageUpdate", (bool) (*(p.buf + (sizeof(uint8_t) * (10 / 8))) & (1 << ((7 * ((10 / 8) + 1))-(10 % 8))))}, {"recentChangeInMAPassignedLanesIDsUsed", (bool) (*(p.buf + (sizeof(uint8_t) * (11 / 8))) & (1 << ((7 * ((11 / 8) + 1))-(11 % 8))))}, {"noValidMAPisAvailableAtThisTime", (bool) (*(p.buf + (sizeof(uint8_t) * (12 / 8))) & (1 << ((7 * ((12 / 8) + 1))-(12 % 8))))}, {"noValidSPATisAvailableAtThisTime", (bool) (*(p.buf + (sizeof(uint8_t) * (13 / 8))) & (1 << ((7 * ((13 / 8) + 1))-(13 % 8))))}};
+Value to_json_IntersectionStatusObject(const IntersectionStatusObject_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("manualControlIsEnabled", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("stopTimeIsActivated", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("failureFlash", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("preemptIsActive", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("signalPriorityIsActive", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("fixedTimeOperation", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    json.AddMember("trafficDependentOperation", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8)))), allocator);
+    json.AddMember("standbyOperation", (bool) (*(p.buf + (sizeof(uint8_t) * (7 / 8))) & (1 << ((7 * ((7 / 8) + 1))-(7 % 8)))), allocator);
+    json.AddMember("failureMode", (bool) (*(p.buf + (sizeof(uint8_t) * (8 / 8))) & (1 << ((7 * ((8 / 8) + 1))-(8 % 8)))), allocator);
+    json.AddMember("off", (bool) (*(p.buf + (sizeof(uint8_t) * (9 / 8))) & (1 << ((7 * ((9 / 8) + 1))-(9 % 8)))), allocator);
+    json.AddMember("recentMAPmessageUpdate", (bool) (*(p.buf + (sizeof(uint8_t) * (10 / 8))) & (1 << ((7 * ((10 / 8) + 1))-(10 % 8)))), allocator);
+    json.AddMember("recentChangeInMAPassignedLanesIDsUsed", (bool) (*(p.buf + (sizeof(uint8_t) * (11 / 8))) & (1 << ((7 * ((11 / 8) + 1))-(11 % 8)))), allocator);
+    json.AddMember("noValidMAPisAvailableAtThisTime", (bool) (*(p.buf + (sizeof(uint8_t) * (12 / 8))) & (1 << ((7 * ((12 / 8) + 1))-(12 % 8)))), allocator);
+    json.AddMember("noValidSPATisAvailableAtThisTime", (bool) (*(p.buf + (sizeof(uint8_t) * (13 / 8))) & (1 << ((7 * ((13 / 8) + 1))-(13 % 8)))), allocator);
+    return json;
 }
 
-void from_json_IntersectionStatusObject(const json& j, IntersectionStatusObject_t& p) {
+void from_json_IntersectionStatusObject(const Value& j, IntersectionStatusObject_t& p) {
     IntersectionStatusObject_t* p_tmp = vanetza::asn1::allocate<IntersectionStatusObject_t>();
     bool manualControlIsEnabled;
     bool stopTimeIsActivated;
@@ -2032,20 +2358,20 @@ void from_json_IntersectionStatusObject(const json& j, IntersectionStatusObject_
     bool recentChangeInMAPassignedLanesIDsUsed;
     bool noValidMAPisAvailableAtThisTime;
     bool noValidSPATisAvailableAtThisTime;
-    if (j.contains("manualControlIsEnabled")) j.at("manualControlIsEnabled").get_to((manualControlIsEnabled));
-    if (j.contains("stopTimeIsActivated")) j.at("stopTimeIsActivated").get_to((stopTimeIsActivated));
-    if (j.contains("failureFlash")) j.at("failureFlash").get_to((failureFlash));
-    if (j.contains("preemptIsActive")) j.at("preemptIsActive").get_to((preemptIsActive));
-    if (j.contains("signalPriorityIsActive")) j.at("signalPriorityIsActive").get_to((signalPriorityIsActive));
-    if (j.contains("fixedTimeOperation")) j.at("fixedTimeOperation").get_to((fixedTimeOperation));
-    if (j.contains("trafficDependentOperation")) j.at("trafficDependentOperation").get_to((trafficDependentOperation));
-    if (j.contains("standbyOperation")) j.at("standbyOperation").get_to((standbyOperation));
-    if (j.contains("failureMode")) j.at("failureMode").get_to((failureMode));
-    if (j.contains("off")) j.at("off").get_to((off));
-    if (j.contains("recentMAPmessageUpdate")) j.at("recentMAPmessageUpdate").get_to((recentMAPmessageUpdate));
-    if (j.contains("recentChangeInMAPassignedLanesIDsUsed")) j.at("recentChangeInMAPassignedLanesIDsUsed").get_to((recentChangeInMAPassignedLanesIDsUsed));
-    if (j.contains("noValidMAPisAvailableAtThisTime")) j.at("noValidMAPisAvailableAtThisTime").get_to((noValidMAPisAvailableAtThisTime));
-    if (j.contains("noValidSPATisAvailableAtThisTime")) j.at("noValidSPATisAvailableAtThisTime").get_to((noValidSPATisAvailableAtThisTime));
+    if (j.HasMember("manualControlIsEnabled")) from_json(j["manualControlIsEnabled"], (manualControlIsEnabled));
+    if (j.HasMember("stopTimeIsActivated")) from_json(j["stopTimeIsActivated"], (stopTimeIsActivated));
+    if (j.HasMember("failureFlash")) from_json(j["failureFlash"], (failureFlash));
+    if (j.HasMember("preemptIsActive")) from_json(j["preemptIsActive"], (preemptIsActive));
+    if (j.HasMember("signalPriorityIsActive")) from_json(j["signalPriorityIsActive"], (signalPriorityIsActive));
+    if (j.HasMember("fixedTimeOperation")) from_json(j["fixedTimeOperation"], (fixedTimeOperation));
+    if (j.HasMember("trafficDependentOperation")) from_json(j["trafficDependentOperation"], (trafficDependentOperation));
+    if (j.HasMember("standbyOperation")) from_json(j["standbyOperation"], (standbyOperation));
+    if (j.HasMember("failureMode")) from_json(j["failureMode"], (failureMode));
+    if (j.HasMember("off")) from_json(j["off"], (off));
+    if (j.HasMember("recentMAPmessageUpdate")) from_json(j["recentMAPmessageUpdate"], (recentMAPmessageUpdate));
+    if (j.HasMember("recentChangeInMAPassignedLanesIDsUsed")) from_json(j["recentChangeInMAPassignedLanesIDsUsed"], (recentChangeInMAPassignedLanesIDsUsed));
+    if (j.HasMember("noValidMAPisAvailableAtThisTime")) from_json(j["noValidMAPisAvailableAtThisTime"], (noValidMAPisAvailableAtThisTime));
+    if (j.HasMember("noValidSPATisAvailableAtThisTime")) from_json(j["noValidSPATisAvailableAtThisTime"], (noValidSPATisAvailableAtThisTime));
     p_tmp->size = (14 / 8) + 1;
     p_tmp->bits_unused = (14 % 8) != 0 ? 8 - (14 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -2074,11 +2400,22 @@ void from_json_IntersectionStatusObject(const json& j, IntersectionStatusObject_
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_LaneAttributes_Barrier(const LaneAttributes_Barrier_t p) {
-    return json{{"median-RevocableLane", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"median", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}, {"whiteLineHashing", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8))))}, {"stripedLines", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8))))}, {"doubleStripedLines", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8))))}, {"trafficCones", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8))))}, {"constructionBarrier", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8))))}, {"trafficChannels", (bool) (*(p.buf + (sizeof(uint8_t) * (7 / 8))) & (1 << ((7 * ((7 / 8) + 1))-(7 % 8))))}, {"lowCurbs", (bool) (*(p.buf + (sizeof(uint8_t) * (8 / 8))) & (1 << ((7 * ((8 / 8) + 1))-(8 % 8))))}, {"highCurbs", (bool) (*(p.buf + (sizeof(uint8_t) * (9 / 8))) & (1 << ((7 * ((9 / 8) + 1))-(9 % 8))))}};
+Value to_json_LaneAttributes_Barrier(const LaneAttributes_Barrier_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("median-RevocableLane", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("median", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("whiteLineHashing", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("stripedLines", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("doubleStripedLines", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("trafficCones", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    json.AddMember("constructionBarrier", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8)))), allocator);
+    json.AddMember("trafficChannels", (bool) (*(p.buf + (sizeof(uint8_t) * (7 / 8))) & (1 << ((7 * ((7 / 8) + 1))-(7 % 8)))), allocator);
+    json.AddMember("lowCurbs", (bool) (*(p.buf + (sizeof(uint8_t) * (8 / 8))) & (1 << ((7 * ((8 / 8) + 1))-(8 % 8)))), allocator);
+    json.AddMember("highCurbs", (bool) (*(p.buf + (sizeof(uint8_t) * (9 / 8))) & (1 << ((7 * ((9 / 8) + 1))-(9 % 8)))), allocator);
+    return json;
 }
 
-void from_json_LaneAttributes_Barrier(const json& j, LaneAttributes_Barrier_t& p) {
+void from_json_LaneAttributes_Barrier(const Value& j, LaneAttributes_Barrier_t& p) {
     LaneAttributes_Barrier_t* p_tmp = vanetza::asn1::allocate<LaneAttributes_Barrier_t>();
     bool median_RevocableLane;
     bool median;
@@ -2090,16 +2427,16 @@ void from_json_LaneAttributes_Barrier(const json& j, LaneAttributes_Barrier_t& p
     bool trafficChannels;
     bool lowCurbs;
     bool highCurbs;
-    if (j.contains("median-RevocableLane")) j.at("median-RevocableLane").get_to((median_RevocableLane));
-    if (j.contains("median")) j.at("median").get_to((median));
-    if (j.contains("whiteLineHashing")) j.at("whiteLineHashing").get_to((whiteLineHashing));
-    if (j.contains("stripedLines")) j.at("stripedLines").get_to((stripedLines));
-    if (j.contains("doubleStripedLines")) j.at("doubleStripedLines").get_to((doubleStripedLines));
-    if (j.contains("trafficCones")) j.at("trafficCones").get_to((trafficCones));
-    if (j.contains("constructionBarrier")) j.at("constructionBarrier").get_to((constructionBarrier));
-    if (j.contains("trafficChannels")) j.at("trafficChannels").get_to((trafficChannels));
-    if (j.contains("lowCurbs")) j.at("lowCurbs").get_to((lowCurbs));
-    if (j.contains("highCurbs")) j.at("highCurbs").get_to((highCurbs));
+    if (j.HasMember("median-RevocableLane")) from_json(j["median-RevocableLane"], (median_RevocableLane));
+    if (j.HasMember("median")) from_json(j["median"], (median));
+    if (j.HasMember("whiteLineHashing")) from_json(j["whiteLineHashing"], (whiteLineHashing));
+    if (j.HasMember("stripedLines")) from_json(j["stripedLines"], (stripedLines));
+    if (j.HasMember("doubleStripedLines")) from_json(j["doubleStripedLines"], (doubleStripedLines));
+    if (j.HasMember("trafficCones")) from_json(j["trafficCones"], (trafficCones));
+    if (j.HasMember("constructionBarrier")) from_json(j["constructionBarrier"], (constructionBarrier));
+    if (j.HasMember("trafficChannels")) from_json(j["trafficChannels"], (trafficChannels));
+    if (j.HasMember("lowCurbs")) from_json(j["lowCurbs"], (lowCurbs));
+    if (j.HasMember("highCurbs")) from_json(j["highCurbs"], (highCurbs));
     p_tmp->size = (10 / 8) + 1;
     p_tmp->bits_unused = (10 % 8) != 0 ? 8 - (10 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -2124,11 +2461,19 @@ void from_json_LaneAttributes_Barrier(const json& j, LaneAttributes_Barrier_t& p
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_LaneAttributes_Bike(const LaneAttributes_Bike_t p) {
-    return json{{"bikeRevocableLane", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"pedestrianUseAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}, {"isBikeFlyOverLane", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8))))}, {"fixedCycleTime", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8))))}, {"biDirectionalCycleTimes", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8))))}, {"isolatedByBarrier", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8))))}, {"unsignalizedSegmentsPresent", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8))))}};
+Value to_json_LaneAttributes_Bike(const LaneAttributes_Bike_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("bikeRevocableLane", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("pedestrianUseAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("isBikeFlyOverLane", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("fixedCycleTime", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("biDirectionalCycleTimes", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("isolatedByBarrier", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    json.AddMember("unsignalizedSegmentsPresent", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8)))), allocator);
+    return json;
 }
 
-void from_json_LaneAttributes_Bike(const json& j, LaneAttributes_Bike_t& p) {
+void from_json_LaneAttributes_Bike(const Value& j, LaneAttributes_Bike_t& p) {
     LaneAttributes_Bike_t* p_tmp = vanetza::asn1::allocate<LaneAttributes_Bike_t>();
     bool bikeRevocableLane;
     bool pedestrianUseAllowed;
@@ -2137,13 +2482,13 @@ void from_json_LaneAttributes_Bike(const json& j, LaneAttributes_Bike_t& p) {
     bool biDirectionalCycleTimes;
     bool isolatedByBarrier;
     bool unsignalizedSegmentsPresent;
-    if (j.contains("bikeRevocableLane")) j.at("bikeRevocableLane").get_to((bikeRevocableLane));
-    if (j.contains("pedestrianUseAllowed")) j.at("pedestrianUseAllowed").get_to((pedestrianUseAllowed));
-    if (j.contains("isBikeFlyOverLane")) j.at("isBikeFlyOverLane").get_to((isBikeFlyOverLane));
-    if (j.contains("fixedCycleTime")) j.at("fixedCycleTime").get_to((fixedCycleTime));
-    if (j.contains("biDirectionalCycleTimes")) j.at("biDirectionalCycleTimes").get_to((biDirectionalCycleTimes));
-    if (j.contains("isolatedByBarrier")) j.at("isolatedByBarrier").get_to((isolatedByBarrier));
-    if (j.contains("unsignalizedSegmentsPresent")) j.at("unsignalizedSegmentsPresent").get_to((unsignalizedSegmentsPresent));
+    if (j.HasMember("bikeRevocableLane")) from_json(j["bikeRevocableLane"], (bikeRevocableLane));
+    if (j.HasMember("pedestrianUseAllowed")) from_json(j["pedestrianUseAllowed"], (pedestrianUseAllowed));
+    if (j.HasMember("isBikeFlyOverLane")) from_json(j["isBikeFlyOverLane"], (isBikeFlyOverLane));
+    if (j.HasMember("fixedCycleTime")) from_json(j["fixedCycleTime"], (fixedCycleTime));
+    if (j.HasMember("biDirectionalCycleTimes")) from_json(j["biDirectionalCycleTimes"], (biDirectionalCycleTimes));
+    if (j.HasMember("isolatedByBarrier")) from_json(j["isolatedByBarrier"], (isolatedByBarrier));
+    if (j.HasMember("unsignalizedSegmentsPresent")) from_json(j["unsignalizedSegmentsPresent"], (unsignalizedSegmentsPresent));
     p_tmp->size = (7 / 8) + 1;
     p_tmp->bits_unused = (7 % 8) != 0 ? 8 - (7 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -2164,11 +2509,21 @@ void from_json_LaneAttributes_Bike(const json& j, LaneAttributes_Bike_t& p) {
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_LaneAttributes_Crosswalk(const LaneAttributes_Crosswalk_t p) {
-    return json{{"crosswalkRevocableLane", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"bicyleUseAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}, {"isXwalkFlyOverLane", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8))))}, {"fixedCycleTime", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8))))}, {"biDirectionalCycleTimes", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8))))}, {"hasPushToWalkButton", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8))))}, {"audioSupport", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8))))}, {"rfSignalRequestPresent", (bool) (*(p.buf + (sizeof(uint8_t) * (7 / 8))) & (1 << ((7 * ((7 / 8) + 1))-(7 % 8))))}, {"unsignalizedSegmentsPresent", (bool) (*(p.buf + (sizeof(uint8_t) * (8 / 8))) & (1 << ((7 * ((8 / 8) + 1))-(8 % 8))))}};
+Value to_json_LaneAttributes_Crosswalk(const LaneAttributes_Crosswalk_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("crosswalkRevocableLane", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("bicyleUseAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("isXwalkFlyOverLane", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("fixedCycleTime", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("biDirectionalCycleTimes", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("hasPushToWalkButton", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    json.AddMember("audioSupport", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8)))), allocator);
+    json.AddMember("rfSignalRequestPresent", (bool) (*(p.buf + (sizeof(uint8_t) * (7 / 8))) & (1 << ((7 * ((7 / 8) + 1))-(7 % 8)))), allocator);
+    json.AddMember("unsignalizedSegmentsPresent", (bool) (*(p.buf + (sizeof(uint8_t) * (8 / 8))) & (1 << ((7 * ((8 / 8) + 1))-(8 % 8)))), allocator);
+    return json;
 }
 
-void from_json_LaneAttributes_Crosswalk(const json& j, LaneAttributes_Crosswalk_t& p) {
+void from_json_LaneAttributes_Crosswalk(const Value& j, LaneAttributes_Crosswalk_t& p) {
     LaneAttributes_Crosswalk_t* p_tmp = vanetza::asn1::allocate<LaneAttributes_Crosswalk_t>();
     bool crosswalkRevocableLane;
     bool bicyleUseAllowed;
@@ -2179,15 +2534,15 @@ void from_json_LaneAttributes_Crosswalk(const json& j, LaneAttributes_Crosswalk_
     bool audioSupport;
     bool rfSignalRequestPresent;
     bool unsignalizedSegmentsPresent;
-    if (j.contains("crosswalkRevocableLane")) j.at("crosswalkRevocableLane").get_to((crosswalkRevocableLane));
-    if (j.contains("bicyleUseAllowed")) j.at("bicyleUseAllowed").get_to((bicyleUseAllowed));
-    if (j.contains("isXwalkFlyOverLane")) j.at("isXwalkFlyOverLane").get_to((isXwalkFlyOverLane));
-    if (j.contains("fixedCycleTime")) j.at("fixedCycleTime").get_to((fixedCycleTime));
-    if (j.contains("biDirectionalCycleTimes")) j.at("biDirectionalCycleTimes").get_to((biDirectionalCycleTimes));
-    if (j.contains("hasPushToWalkButton")) j.at("hasPushToWalkButton").get_to((hasPushToWalkButton));
-    if (j.contains("audioSupport")) j.at("audioSupport").get_to((audioSupport));
-    if (j.contains("rfSignalRequestPresent")) j.at("rfSignalRequestPresent").get_to((rfSignalRequestPresent));
-    if (j.contains("unsignalizedSegmentsPresent")) j.at("unsignalizedSegmentsPresent").get_to((unsignalizedSegmentsPresent));
+    if (j.HasMember("crosswalkRevocableLane")) from_json(j["crosswalkRevocableLane"], (crosswalkRevocableLane));
+    if (j.HasMember("bicyleUseAllowed")) from_json(j["bicyleUseAllowed"], (bicyleUseAllowed));
+    if (j.HasMember("isXwalkFlyOverLane")) from_json(j["isXwalkFlyOverLane"], (isXwalkFlyOverLane));
+    if (j.HasMember("fixedCycleTime")) from_json(j["fixedCycleTime"], (fixedCycleTime));
+    if (j.HasMember("biDirectionalCycleTimes")) from_json(j["biDirectionalCycleTimes"], (biDirectionalCycleTimes));
+    if (j.HasMember("hasPushToWalkButton")) from_json(j["hasPushToWalkButton"], (hasPushToWalkButton));
+    if (j.HasMember("audioSupport")) from_json(j["audioSupport"], (audioSupport));
+    if (j.HasMember("rfSignalRequestPresent")) from_json(j["rfSignalRequestPresent"], (rfSignalRequestPresent));
+    if (j.HasMember("unsignalizedSegmentsPresent")) from_json(j["unsignalizedSegmentsPresent"], (unsignalizedSegmentsPresent));
     p_tmp->size = (9 / 8) + 1;
     p_tmp->bits_unused = (9 % 8) != 0 ? 8 - (9 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -2211,11 +2566,19 @@ void from_json_LaneAttributes_Crosswalk(const json& j, LaneAttributes_Crosswalk_
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_LaneAttributes_Parking(const LaneAttributes_Parking_t p) {
-    return json{{"parkingRevocableLane", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"parallelParkingInUse", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}, {"headInParkingInUse", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8))))}, {"doNotParkZone", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8))))}, {"parkingForBusUse", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8))))}, {"parkingForTaxiUse", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8))))}, {"noPublicParkingUse", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8))))}};
+Value to_json_LaneAttributes_Parking(const LaneAttributes_Parking_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("parkingRevocableLane", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("parallelParkingInUse", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("headInParkingInUse", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("doNotParkZone", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("parkingForBusUse", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("parkingForTaxiUse", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    json.AddMember("noPublicParkingUse", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8)))), allocator);
+    return json;
 }
 
-void from_json_LaneAttributes_Parking(const json& j, LaneAttributes_Parking_t& p) {
+void from_json_LaneAttributes_Parking(const Value& j, LaneAttributes_Parking_t& p) {
     LaneAttributes_Parking_t* p_tmp = vanetza::asn1::allocate<LaneAttributes_Parking_t>();
     bool parkingRevocableLane;
     bool parallelParkingInUse;
@@ -2224,13 +2587,13 @@ void from_json_LaneAttributes_Parking(const json& j, LaneAttributes_Parking_t& p
     bool parkingForBusUse;
     bool parkingForTaxiUse;
     bool noPublicParkingUse;
-    if (j.contains("parkingRevocableLane")) j.at("parkingRevocableLane").get_to((parkingRevocableLane));
-    if (j.contains("parallelParkingInUse")) j.at("parallelParkingInUse").get_to((parallelParkingInUse));
-    if (j.contains("headInParkingInUse")) j.at("headInParkingInUse").get_to((headInParkingInUse));
-    if (j.contains("doNotParkZone")) j.at("doNotParkZone").get_to((doNotParkZone));
-    if (j.contains("parkingForBusUse")) j.at("parkingForBusUse").get_to((parkingForBusUse));
-    if (j.contains("parkingForTaxiUse")) j.at("parkingForTaxiUse").get_to((parkingForTaxiUse));
-    if (j.contains("noPublicParkingUse")) j.at("noPublicParkingUse").get_to((noPublicParkingUse));
+    if (j.HasMember("parkingRevocableLane")) from_json(j["parkingRevocableLane"], (parkingRevocableLane));
+    if (j.HasMember("parallelParkingInUse")) from_json(j["parallelParkingInUse"], (parallelParkingInUse));
+    if (j.HasMember("headInParkingInUse")) from_json(j["headInParkingInUse"], (headInParkingInUse));
+    if (j.HasMember("doNotParkZone")) from_json(j["doNotParkZone"], (doNotParkZone));
+    if (j.HasMember("parkingForBusUse")) from_json(j["parkingForBusUse"], (parkingForBusUse));
+    if (j.HasMember("parkingForTaxiUse")) from_json(j["parkingForTaxiUse"], (parkingForTaxiUse));
+    if (j.HasMember("noPublicParkingUse")) from_json(j["noPublicParkingUse"], (noPublicParkingUse));
     p_tmp->size = (7 / 8) + 1;
     p_tmp->bits_unused = (7 % 8) != 0 ? 8 - (7 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -2251,20 +2614,25 @@ void from_json_LaneAttributes_Parking(const json& j, LaneAttributes_Parking_t& p
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_LaneAttributes_Sidewalk(const LaneAttributes_Sidewalk_t p) {
-    return json{{"sidewalk-RevocableLane", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"bicyleUseAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}, {"isSidewalkFlyOverLane", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8))))}, {"walkBikes", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8))))}};
+Value to_json_LaneAttributes_Sidewalk(const LaneAttributes_Sidewalk_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("sidewalk-RevocableLane", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("bicyleUseAllowed", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("isSidewalkFlyOverLane", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("walkBikes", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    return json;
 }
 
-void from_json_LaneAttributes_Sidewalk(const json& j, LaneAttributes_Sidewalk_t& p) {
+void from_json_LaneAttributes_Sidewalk(const Value& j, LaneAttributes_Sidewalk_t& p) {
     LaneAttributes_Sidewalk_t* p_tmp = vanetza::asn1::allocate<LaneAttributes_Sidewalk_t>();
     bool sidewalk_RevocableLane;
     bool bicyleUseAllowed;
     bool isSidewalkFlyOverLane;
     bool walkBikes;
-    if (j.contains("sidewalk-RevocableLane")) j.at("sidewalk-RevocableLane").get_to((sidewalk_RevocableLane));
-    if (j.contains("bicyleUseAllowed")) j.at("bicyleUseAllowed").get_to((bicyleUseAllowed));
-    if (j.contains("isSidewalkFlyOverLane")) j.at("isSidewalkFlyOverLane").get_to((isSidewalkFlyOverLane));
-    if (j.contains("walkBikes")) j.at("walkBikes").get_to((walkBikes));
+    if (j.HasMember("sidewalk-RevocableLane")) from_json(j["sidewalk-RevocableLane"], (sidewalk_RevocableLane));
+    if (j.HasMember("bicyleUseAllowed")) from_json(j["bicyleUseAllowed"], (bicyleUseAllowed));
+    if (j.HasMember("isSidewalkFlyOverLane")) from_json(j["isSidewalkFlyOverLane"], (isSidewalkFlyOverLane));
+    if (j.HasMember("walkBikes")) from_json(j["walkBikes"], (walkBikes));
     p_tmp->size = (4 / 8) + 1;
     p_tmp->bits_unused = (4 % 8) != 0 ? 8 - (4 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -2282,11 +2650,18 @@ void from_json_LaneAttributes_Sidewalk(const json& j, LaneAttributes_Sidewalk_t&
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_LaneAttributes_Striping(const LaneAttributes_Striping_t p) {
-    return json{{"stripeToConnectingLanesRevocableLane", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"stripeDrawOnLeft", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}, {"stripeDrawOnRight", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8))))}, {"stripeToConnectingLanesLeft", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8))))}, {"stripeToConnectingLanesRight", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8))))}, {"stripeToConnectingLanesAhead", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8))))}};
+Value to_json_LaneAttributes_Striping(const LaneAttributes_Striping_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("stripeToConnectingLanesRevocableLane", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("stripeDrawOnLeft", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("stripeDrawOnRight", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("stripeToConnectingLanesLeft", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("stripeToConnectingLanesRight", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("stripeToConnectingLanesAhead", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    return json;
 }
 
-void from_json_LaneAttributes_Striping(const json& j, LaneAttributes_Striping_t& p) {
+void from_json_LaneAttributes_Striping(const Value& j, LaneAttributes_Striping_t& p) {
     LaneAttributes_Striping_t* p_tmp = vanetza::asn1::allocate<LaneAttributes_Striping_t>();
     bool stripeToConnectingLanesRevocableLane;
     bool stripeDrawOnLeft;
@@ -2294,12 +2669,12 @@ void from_json_LaneAttributes_Striping(const json& j, LaneAttributes_Striping_t&
     bool stripeToConnectingLanesLeft;
     bool stripeToConnectingLanesRight;
     bool stripeToConnectingLanesAhead;
-    if (j.contains("stripeToConnectingLanesRevocableLane")) j.at("stripeToConnectingLanesRevocableLane").get_to((stripeToConnectingLanesRevocableLane));
-    if (j.contains("stripeDrawOnLeft")) j.at("stripeDrawOnLeft").get_to((stripeDrawOnLeft));
-    if (j.contains("stripeDrawOnRight")) j.at("stripeDrawOnRight").get_to((stripeDrawOnRight));
-    if (j.contains("stripeToConnectingLanesLeft")) j.at("stripeToConnectingLanesLeft").get_to((stripeToConnectingLanesLeft));
-    if (j.contains("stripeToConnectingLanesRight")) j.at("stripeToConnectingLanesRight").get_to((stripeToConnectingLanesRight));
-    if (j.contains("stripeToConnectingLanesAhead")) j.at("stripeToConnectingLanesAhead").get_to((stripeToConnectingLanesAhead));
+    if (j.HasMember("stripeToConnectingLanesRevocableLane")) from_json(j["stripeToConnectingLanesRevocableLane"], (stripeToConnectingLanesRevocableLane));
+    if (j.HasMember("stripeDrawOnLeft")) from_json(j["stripeDrawOnLeft"], (stripeDrawOnLeft));
+    if (j.HasMember("stripeDrawOnRight")) from_json(j["stripeDrawOnRight"], (stripeDrawOnRight));
+    if (j.HasMember("stripeToConnectingLanesLeft")) from_json(j["stripeToConnectingLanesLeft"], (stripeToConnectingLanesLeft));
+    if (j.HasMember("stripeToConnectingLanesRight")) from_json(j["stripeToConnectingLanesRight"], (stripeToConnectingLanesRight));
+    if (j.HasMember("stripeToConnectingLanesAhead")) from_json(j["stripeToConnectingLanesAhead"], (stripeToConnectingLanesAhead));
     p_tmp->size = (6 / 8) + 1;
     p_tmp->bits_unused = (6 % 8) != 0 ? 8 - (6 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -2319,22 +2694,28 @@ void from_json_LaneAttributes_Striping(const json& j, LaneAttributes_Striping_t&
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_LaneAttributes_TrackedVehicle(const LaneAttributes_TrackedVehicle_t p) {
-    return json{{"spec-RevocableLane", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"spec-commuterRailRoadTrack", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}, {"spec-lightRailRoadTrack", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8))))}, {"spec-heavyRailRoadTrack", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8))))}, {"spec-otherRailType", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8))))}};
+Value to_json_LaneAttributes_TrackedVehicle(const LaneAttributes_TrackedVehicle_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("spec-RevocableLane", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("spec-commuterRailRoadTrack", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("spec-lightRailRoadTrack", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("spec-heavyRailRoadTrack", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("spec-otherRailType", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    return json;
 }
 
-void from_json_LaneAttributes_TrackedVehicle(const json& j, LaneAttributes_TrackedVehicle_t& p) {
+void from_json_LaneAttributes_TrackedVehicle(const Value& j, LaneAttributes_TrackedVehicle_t& p) {
     LaneAttributes_TrackedVehicle_t* p_tmp = vanetza::asn1::allocate<LaneAttributes_TrackedVehicle_t>();
     bool spec_RevocableLane;
     bool spec_commuterRailRoadTrack;
     bool spec_lightRailRoadTrack;
     bool spec_heavyRailRoadTrack;
     bool spec_otherRailType;
-    if (j.contains("spec-RevocableLane")) j.at("spec-RevocableLane").get_to((spec_RevocableLane));
-    if (j.contains("spec-commuterRailRoadTrack")) j.at("spec-commuterRailRoadTrack").get_to((spec_commuterRailRoadTrack));
-    if (j.contains("spec-lightRailRoadTrack")) j.at("spec-lightRailRoadTrack").get_to((spec_lightRailRoadTrack));
-    if (j.contains("spec-heavyRailRoadTrack")) j.at("spec-heavyRailRoadTrack").get_to((spec_heavyRailRoadTrack));
-    if (j.contains("spec-otherRailType")) j.at("spec-otherRailType").get_to((spec_otherRailType));
+    if (j.HasMember("spec-RevocableLane")) from_json(j["spec-RevocableLane"], (spec_RevocableLane));
+    if (j.HasMember("spec-commuterRailRoadTrack")) from_json(j["spec-commuterRailRoadTrack"], (spec_commuterRailRoadTrack));
+    if (j.HasMember("spec-lightRailRoadTrack")) from_json(j["spec-lightRailRoadTrack"], (spec_lightRailRoadTrack));
+    if (j.HasMember("spec-heavyRailRoadTrack")) from_json(j["spec-heavyRailRoadTrack"], (spec_heavyRailRoadTrack));
+    if (j.HasMember("spec-otherRailType")) from_json(j["spec-otherRailType"], (spec_otherRailType));
     p_tmp->size = (5 / 8) + 1;
     p_tmp->bits_unused = (5 % 8) != 0 ? 8 - (5 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -2353,11 +2734,20 @@ void from_json_LaneAttributes_TrackedVehicle(const json& j, LaneAttributes_Track
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_LaneAttributes_Vehicle(const LaneAttributes_Vehicle_t p) {
-    return json{{"isVehicleRevocableLane", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"isVehicleFlyOverLane", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}, {"hovLaneUseOnly", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8))))}, {"restrictedToBusUse", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8))))}, {"restrictedToTaxiUse", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8))))}, {"restrictedFromPublicUse", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8))))}, {"hasIRbeaconCoverage", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8))))}, {"permissionOnRequest", (bool) (*(p.buf + (sizeof(uint8_t) * (7 / 8))) & (1 << ((7 * ((7 / 8) + 1))-(7 % 8))))}};
+Value to_json_LaneAttributes_Vehicle(const LaneAttributes_Vehicle_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("isVehicleRevocableLane", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("isVehicleFlyOverLane", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("hovLaneUseOnly", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("restrictedToBusUse", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("restrictedToTaxiUse", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("restrictedFromPublicUse", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    json.AddMember("hasIRbeaconCoverage", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8)))), allocator);
+    json.AddMember("permissionOnRequest", (bool) (*(p.buf + (sizeof(uint8_t) * (7 / 8))) & (1 << ((7 * ((7 / 8) + 1))-(7 % 8)))), allocator);
+    return json;
 }
 
-void from_json_LaneAttributes_Vehicle(const json& j, LaneAttributes_Vehicle_t& p) {
+void from_json_LaneAttributes_Vehicle(const Value& j, LaneAttributes_Vehicle_t& p) {
     LaneAttributes_Vehicle_t* p_tmp = vanetza::asn1::allocate<LaneAttributes_Vehicle_t>();
     bool isVehicleRevocableLane;
     bool isVehicleFlyOverLane;
@@ -2367,14 +2757,14 @@ void from_json_LaneAttributes_Vehicle(const json& j, LaneAttributes_Vehicle_t& p
     bool restrictedFromPublicUse;
     bool hasIRbeaconCoverage;
     bool permissionOnRequest;
-    if (j.contains("isVehicleRevocableLane")) j.at("isVehicleRevocableLane").get_to((isVehicleRevocableLane));
-    if (j.contains("isVehicleFlyOverLane")) j.at("isVehicleFlyOverLane").get_to((isVehicleFlyOverLane));
-    if (j.contains("hovLaneUseOnly")) j.at("hovLaneUseOnly").get_to((hovLaneUseOnly));
-    if (j.contains("restrictedToBusUse")) j.at("restrictedToBusUse").get_to((restrictedToBusUse));
-    if (j.contains("restrictedToTaxiUse")) j.at("restrictedToTaxiUse").get_to((restrictedToTaxiUse));
-    if (j.contains("restrictedFromPublicUse")) j.at("restrictedFromPublicUse").get_to((restrictedFromPublicUse));
-    if (j.contains("hasIRbeaconCoverage")) j.at("hasIRbeaconCoverage").get_to((hasIRbeaconCoverage));
-    if (j.contains("permissionOnRequest")) j.at("permissionOnRequest").get_to((permissionOnRequest));
+    if (j.HasMember("isVehicleRevocableLane")) from_json(j["isVehicleRevocableLane"], (isVehicleRevocableLane));
+    if (j.HasMember("isVehicleFlyOverLane")) from_json(j["isVehicleFlyOverLane"], (isVehicleFlyOverLane));
+    if (j.HasMember("hovLaneUseOnly")) from_json(j["hovLaneUseOnly"], (hovLaneUseOnly));
+    if (j.HasMember("restrictedToBusUse")) from_json(j["restrictedToBusUse"], (restrictedToBusUse));
+    if (j.HasMember("restrictedToTaxiUse")) from_json(j["restrictedToTaxiUse"], (restrictedToTaxiUse));
+    if (j.HasMember("restrictedFromPublicUse")) from_json(j["restrictedFromPublicUse"], (restrictedFromPublicUse));
+    if (j.HasMember("hasIRbeaconCoverage")) from_json(j["hasIRbeaconCoverage"], (hasIRbeaconCoverage));
+    if (j.HasMember("permissionOnRequest")) from_json(j["permissionOnRequest"], (permissionOnRequest));
     p_tmp->size = (8 / 8) + 1;
     p_tmp->bits_unused = (8 % 8) != 0 ? 8 - (8 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -2397,16 +2787,19 @@ void from_json_LaneAttributes_Vehicle(const json& j, LaneAttributes_Vehicle_t& p
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_LaneDirection(const LaneDirection_t p) {
-    return json{{"ingressPath", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"egressPath", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}};
+Value to_json_LaneDirection(const LaneDirection_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("ingressPath", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("egressPath", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    return json;
 }
 
-void from_json_LaneDirection(const json& j, LaneDirection_t& p) {
+void from_json_LaneDirection(const Value& j, LaneDirection_t& p) {
     LaneDirection_t* p_tmp = vanetza::asn1::allocate<LaneDirection_t>();
     bool ingressPath;
     bool egressPath;
-    if (j.contains("ingressPath")) j.at("ingressPath").get_to((ingressPath));
-    if (j.contains("egressPath")) j.at("egressPath").get_to((egressPath));
+    if (j.HasMember("ingressPath")) from_json(j["ingressPath"], (ingressPath));
+    if (j.HasMember("egressPath")) from_json(j["egressPath"], (egressPath));
     p_tmp->size = (2 / 8) + 1;
     p_tmp->bits_unused = (2 % 8) != 0 ? 8 - (2 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -2422,11 +2815,18 @@ void from_json_LaneDirection(const json& j, LaneDirection_t& p) {
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_TransitVehicleStatus(const TransitVehicleStatus_t p) {
-    return json{{"loading", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8))))}, {"anADAuse", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8))))}, {"aBikeLoad", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8))))}, {"doorOpen", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8))))}, {"charging", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8))))}, {"atStopLine", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8))))}};
+Value to_json_TransitVehicleStatus(const TransitVehicleStatus_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("loading", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("anADAuse", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("aBikeLoad", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("doorOpen", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("charging", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("atStopLine", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    return json;
 }
 
-void from_json_TransitVehicleStatus(const json& j, TransitVehicleStatus_t& p) {
+void from_json_TransitVehicleStatus(const Value& j, TransitVehicleStatus_t& p) {
     TransitVehicleStatus_t* p_tmp = vanetza::asn1::allocate<TransitVehicleStatus_t>();
     bool loading;
     bool anADAuse;
@@ -2434,12 +2834,12 @@ void from_json_TransitVehicleStatus(const json& j, TransitVehicleStatus_t& p) {
     bool doorOpen;
     bool charging;
     bool atStopLine;
-    if (j.contains("loading")) j.at("loading").get_to((loading));
-    if (j.contains("anADAuse")) j.at("anADAuse").get_to((anADAuse));
-    if (j.contains("aBikeLoad")) j.at("aBikeLoad").get_to((aBikeLoad));
-    if (j.contains("doorOpen")) j.at("doorOpen").get_to((doorOpen));
-    if (j.contains("charging")) j.at("charging").get_to((charging));
-    if (j.contains("atStopLine")) j.at("atStopLine").get_to((atStopLine));
+    if (j.HasMember("loading")) from_json(j["loading"], (loading));
+    if (j.HasMember("anADAuse")) from_json(j["anADAuse"], (anADAuse));
+    if (j.HasMember("aBikeLoad")) from_json(j["aBikeLoad"], (aBikeLoad));
+    if (j.HasMember("doorOpen")) from_json(j["doorOpen"], (doorOpen));
+    if (j.HasMember("charging")) from_json(j["charging"], (charging));
+    if (j.HasMember("atStopLine")) from_json(j["atStopLine"], (atStopLine));
     p_tmp->size = (6 / 8) + 1;
     p_tmp->bits_unused = (6 % 8) != 0 ? 8 - (6 % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -2459,129 +2859,149 @@ void from_json_TransitVehicleStatus(const json& j, TransitVehicleStatus_t& p) {
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const Node_XY_20b& p) {
-    j = json{{"x", (p.x)}, {"y", (p.y)}};
+Value to_json(const Node_XY_20b& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("x", to_json((p.x), allocator), allocator);
+    json.AddMember("y", to_json((p.y), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, Node_XY_20b& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("x").get_to((p.x));
-    j.at("y").get_to((p.y));
-    
-    
+void from_json(const Value& j, Node_XY_20b& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["x"], (p.x));
+    from_json(j["y"], (p.y));
 }
+
+
 
 /*
 *   Node-XY-22b - Type SEQUENCE
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const Node_XY_22b& p) {
-    j = json{{"x", (p.x)}, {"y", (p.y)}};
+Value to_json(const Node_XY_22b& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("x", to_json((p.x), allocator), allocator);
+    json.AddMember("y", to_json((p.y), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, Node_XY_22b& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("x").get_to((p.x));
-    j.at("y").get_to((p.y));
-    
-    
+void from_json(const Value& j, Node_XY_22b& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["x"], (p.x));
+    from_json(j["y"], (p.y));
 }
+
+
 
 /*
 *   Node-XY-24b - Type SEQUENCE
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const Node_XY_24b& p) {
-    j = json{{"x", (p.x)}, {"y", (p.y)}};
+Value to_json(const Node_XY_24b& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("x", to_json((p.x), allocator), allocator);
+    json.AddMember("y", to_json((p.y), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, Node_XY_24b& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("x").get_to((p.x));
-    j.at("y").get_to((p.y));
-    
-    
+void from_json(const Value& j, Node_XY_24b& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["x"], (p.x));
+    from_json(j["y"], (p.y));
 }
+
+
 
 /*
 *   Node-XY-26b - Type SEQUENCE
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const Node_XY_26b& p) {
-    j = json{{"x", (p.x)}, {"y", (p.y)}};
+Value to_json(const Node_XY_26b& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("x", to_json((p.x), allocator), allocator);
+    json.AddMember("y", to_json((p.y), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, Node_XY_26b& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("x").get_to((p.x));
-    j.at("y").get_to((p.y));
-    
-    
+void from_json(const Value& j, Node_XY_26b& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["x"], (p.x));
+    from_json(j["y"], (p.y));
 }
+
+
 
 /*
 *   Node-XY-28b - Type SEQUENCE
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const Node_XY_28b& p) {
-    j = json{{"x", (p.x)}, {"y", (p.y)}};
+Value to_json(const Node_XY_28b& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("x", to_json((p.x), allocator), allocator);
+    json.AddMember("y", to_json((p.y), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, Node_XY_28b& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("x").get_to((p.x));
-    j.at("y").get_to((p.y));
-    
-    
+void from_json(const Value& j, Node_XY_28b& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["x"], (p.x));
+    from_json(j["y"], (p.y));
 }
+
+
 
 /*
 *   Node-XY-32b - Type SEQUENCE
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const Node_XY_32b& p) {
-    j = json{{"x", (p.x)}, {"y", (p.y)}};
+Value to_json(const Node_XY_32b& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("x", to_json((p.x), allocator), allocator);
+    json.AddMember("y", to_json((p.y), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, Node_XY_32b& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("x").get_to((p.x));
-    j.at("y").get_to((p.y));
-    
-    
+void from_json(const Value& j, Node_XY_32b& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["x"], (p.x));
+    from_json(j["y"], (p.y));
 }
+
+
 
 /*
 *   NodeAttributeXYList - Type SEQUENCE OF
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const NodeAttributeXYList& p) {
+Value to_json(const NodeAttributeXYList& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const NodeAttributeXY_t po = *(p.list.array[i]);
-        // to_json(obj, po);
-        j.push_back(po);
+        // Value obj = to_json(po, allocator);
+        json.PushBack(po, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, NodeAttributeXYList& p) {
+void from_json(const Value& j, NodeAttributeXYList& p) {
     NodeAttributeXYList* p_tmp = vanetza::asn1::allocate<NodeAttributeXYList>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         NodeAttributeXY_t *element = vanetza::asn1::allocate<NodeAttributeXY_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -2593,39 +3013,44 @@ void from_json(const json& j, NodeAttributeXYList& p) {
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const RegulatorySpeedLimit& p) {
-    j = json{{"type", (p.type)}, {"speed", (p.speed)}};
+Value to_json(const RegulatorySpeedLimit& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("type", to_json((p.type), allocator), allocator);
+    json.AddMember("speed", to_json((p.speed), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, RegulatorySpeedLimit& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("type").get_to((p.type));
-    j.at("speed").get_to((p.speed));
-    
-    
+void from_json(const Value& j, RegulatorySpeedLimit& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["type"], (p.type));
+    from_json(j["speed"], (p.speed));
 }
+
+
 
 /*
 *   SegmentAttributeXYList - Type SEQUENCE OF
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const SegmentAttributeXYList& p) {
+Value to_json(const SegmentAttributeXYList& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const SegmentAttributeXY_t po = *(p.list.array[i]);
-        // to_json(obj, po);
-        j.push_back(po);
+        // Value obj = to_json(po, allocator);
+        json.PushBack(po, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, SegmentAttributeXYList& p) {
+void from_json(const Value& j, SegmentAttributeXYList& p) {
     SegmentAttributeXYList* p_tmp = vanetza::asn1::allocate<SegmentAttributeXYList>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         SegmentAttributeXY_t *element = vanetza::asn1::allocate<SegmentAttributeXY_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -2637,21 +3062,23 @@ void from_json(const json& j, SegmentAttributeXYList& p) {
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const SpeedLimitList& p) {
+Value to_json(const SpeedLimitList& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const RegulatorySpeedLimit_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, SpeedLimitList& p) {
+void from_json(const Value& j, SpeedLimitList& p) {
     SpeedLimitList* p_tmp = vanetza::asn1::allocate<SpeedLimitList>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         RegulatorySpeedLimit_t *element = vanetza::asn1::allocate<RegulatorySpeedLimit_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -2663,22 +3090,23 @@ void from_json(const json& j, SpeedLimitList& p) {
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const OriginatingRSUContainer& p) {
-    j = json{};
+Value to_json(const OriginatingRSUContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == OriginatingRSUContainer_PR_intersectionReferenceId) {
-        j["intersectionReferenceId"] = p.choice.intersectionReferenceId;
+        json.AddMember("intersectionReferenceId", to_json(p.choice.intersectionReferenceId, allocator), allocator);
     } else if (p.present == OriginatingRSUContainer_PR_roadSegmentReferenceId) {
-        j["roadSegmentReferenceId"] = p.choice.roadSegmentReferenceId;
+        json.AddMember("roadSegmentReferenceId", to_json(p.choice.roadSegmentReferenceId, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, OriginatingRSUContainer& p) {
-    if (j.contains("intersectionReferenceId")) {
+void from_json(const Value& j, OriginatingRSUContainer& p) {
+    if (j.HasMember("intersectionReferenceId")) {
         p.present = OriginatingRSUContainer_PR_intersectionReferenceId;
-        j.at("intersectionReferenceId").get_to(p.choice.intersectionReferenceId);
-    } else if (j.contains("roadSegmentReferenceId")) {
+        from_json(j["intersectionReferenceId"], p.choice.intersectionReferenceId);
+    } else if (j.HasMember("roadSegmentReferenceId")) {
         p.present = OriginatingRSUContainer_PR_roadSegmentReferenceId;
-        j.at("roadSegmentReferenceId").get_to(p.choice.roadSegmentReferenceId);
+        from_json(j["roadSegmentReferenceId"], p.choice.roadSegmentReferenceId);
     } else {
         p.present = OriginatingRSUContainer_PR_NOTHING;
     }
@@ -2689,135 +3117,156 @@ void from_json(const json& j, OriginatingRSUContainer& p) {
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const VehicleSensorProperties& p) {
-    j = json{{"range", (p.range)}, {"horizontalOpeningAngleStart", ((p.horizontalOpeningAngleStart) == 3601) ? (p.horizontalOpeningAngleStart) : (double)(p.horizontalOpeningAngleStart) / 10.0}, {"horizontalOpeningAngleEnd", ((p.horizontalOpeningAngleEnd) == 3601) ? (p.horizontalOpeningAngleEnd) : (double)(p.horizontalOpeningAngleEnd) / 10.0}};
-    if (p.verticalOpeningAngleStart != 0) j["verticalOpeningAngleStart"] = (*(p.verticalOpeningAngleStart) != 3601) ? *(p.verticalOpeningAngleStart) : (double) *(p.verticalOpeningAngleStart) / 10.0;
-    if (p.verticalOpeningAngleEnd != 0) j["verticalOpeningAngleEnd"] = (*(p.verticalOpeningAngleEnd) != 3601) ? *(p.verticalOpeningAngleEnd) : (double) *(p.verticalOpeningAngleEnd) / 10.0;
+Value to_json(const VehicleSensorProperties& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("range", to_json((p.range), allocator), allocator);
+    json.AddMember("horizontalOpeningAngleStart", to_json(((p.horizontalOpeningAngleStart) == 3601) ? (p.horizontalOpeningAngleStart) : (double)(p.horizontalOpeningAngleStart) / 10.0, allocator), allocator);
+    json.AddMember("horizontalOpeningAngleEnd", to_json(((p.horizontalOpeningAngleEnd) == 3601) ? (p.horizontalOpeningAngleEnd) : (double)(p.horizontalOpeningAngleEnd) / 10.0, allocator), allocator);
+    if (p.verticalOpeningAngleStart != 0) json.AddMember("verticalOpeningAngleStart", to_json((*(p.verticalOpeningAngleStart) != 3601) ? (double) *(p.verticalOpeningAngleStart) / 10.0 : *(p.verticalOpeningAngleStart), allocator), allocator);
+    if (p.verticalOpeningAngleEnd != 0) json.AddMember("verticalOpeningAngleEnd", to_json((*(p.verticalOpeningAngleEnd) != 3601) ? (double) *(p.verticalOpeningAngleEnd) / 10.0 : *(p.verticalOpeningAngleEnd), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, VehicleSensorProperties& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("range").get_to((p.range));
-    double horizontalOpeningAngleStart; j.at("horizontalOpeningAngleStart").get_to((horizontalOpeningAngleStart)); (p.horizontalOpeningAngleStart) = ((horizontalOpeningAngleStart) != 3601) ? horizontalOpeningAngleStart * 10 : horizontalOpeningAngleStart;
-    double horizontalOpeningAngleEnd; j.at("horizontalOpeningAngleEnd").get_to((horizontalOpeningAngleEnd)); (p.horizontalOpeningAngleEnd) = ((horizontalOpeningAngleEnd) != 3601) ? horizontalOpeningAngleEnd * 10 : horizontalOpeningAngleEnd;
-    double verticalOpeningAngleStart; if (j.contains("verticalOpeningAngleStart")) { p.verticalOpeningAngleStart = vanetza::asn1::allocate<CartesianAngleValue_t>(); j.at("verticalOpeningAngleStart").get_to((verticalOpeningAngleStart)); *(p.verticalOpeningAngleStart) = ((verticalOpeningAngleStart) != 3601) ? verticalOpeningAngleStart * 10 : verticalOpeningAngleStart; } 
+void from_json(const Value& j, VehicleSensorProperties& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["range"], (p.range));
+    double horizontalOpeningAngleStart; from_json(j["horizontalOpeningAngleStart"], (horizontalOpeningAngleStart)); (p.horizontalOpeningAngleStart) = ((horizontalOpeningAngleStart) != 3601) ? horizontalOpeningAngleStart * 10 : horizontalOpeningAngleStart;
+    double horizontalOpeningAngleEnd; from_json(j["horizontalOpeningAngleEnd"], (horizontalOpeningAngleEnd)); (p.horizontalOpeningAngleEnd) = ((horizontalOpeningAngleEnd) != 3601) ? horizontalOpeningAngleEnd * 10 : horizontalOpeningAngleEnd;
+    double verticalOpeningAngleStart; if (j.HasMember("verticalOpeningAngleStart")) { p.verticalOpeningAngleStart = vanetza::asn1::allocate<CartesianAngleValue_t>(); from_json(j["verticalOpeningAngleStart"], (verticalOpeningAngleStart)); *(p.verticalOpeningAngleStart) = ((verticalOpeningAngleStart) != 3601) ? verticalOpeningAngleStart * 10 : verticalOpeningAngleStart; }
     else { p.verticalOpeningAngleStart=nullptr; }
-    double verticalOpeningAngleEnd; if (j.contains("verticalOpeningAngleEnd")) { p.verticalOpeningAngleEnd = vanetza::asn1::allocate<CartesianAngleValue_t>(); j.at("verticalOpeningAngleEnd").get_to((verticalOpeningAngleEnd)); *(p.verticalOpeningAngleEnd) = ((verticalOpeningAngleEnd) != 3601) ? verticalOpeningAngleEnd * 10 : verticalOpeningAngleEnd; } 
+    double verticalOpeningAngleEnd; if (j.HasMember("verticalOpeningAngleEnd")) { p.verticalOpeningAngleEnd = vanetza::asn1::allocate<CartesianAngleValue_t>(); from_json(j["verticalOpeningAngleEnd"], (verticalOpeningAngleEnd)); *(p.verticalOpeningAngleEnd) = ((verticalOpeningAngleEnd) != 3601) ? verticalOpeningAngleEnd * 10 : verticalOpeningAngleEnd; }
     else { p.verticalOpeningAngleEnd=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   ObjectDistanceWithConfidence - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const ObjectDistanceWithConfidence& p) {
-    j = json{{"value", (double)(p.value) / 100.0}, {"confidence", ((p.confidence) == 101 || (p.confidence) == 102) ? (p.confidence) : (double)(p.confidence) / 100.0}};
+Value to_json(const ObjectDistanceWithConfidence& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("value", to_json((double)(p.value) / 100.0, allocator), allocator);
+    json.AddMember("confidence", to_json(((p.confidence) == 101 || (p.confidence) == 102) ? (p.confidence) : (double)(p.confidence) / 100.0, allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, ObjectDistanceWithConfidence& p) {
-    p._asn_ctx.ptr= nullptr;
-    double value; j.at("value").get_to((value)); (p.value) = value * 100;
-    double confidence; j.at("confidence").get_to((confidence)); (p.confidence) = ((confidence) != 101 && (confidence) != 102) ? confidence * 100 : confidence;
-    
-    
+void from_json(const Value& j, ObjectDistanceWithConfidence& p) {
+    p._asn_ctx.ptr = nullptr;
+    double value; from_json(j["value"], (value)); (p.value) =value * 100;
+    double confidence; from_json(j["confidence"], (confidence)); (p.confidence) = ((confidence) != 101 && (confidence) != 102) ? confidence * 100 : confidence;
 }
+
+
 
 /*
 *   ObjectDimension - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const ObjectDimension& p) {
-    j = json{{"value", (double)(p.value) / 10.0}, {"confidence", (p.confidence)}};
+Value to_json(const ObjectDimension& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("value", to_json((double)(p.value) / 10.0, allocator), allocator);
+    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, ObjectDimension& p) {
-    p._asn_ctx.ptr= nullptr;
-    double value; j.at("value").get_to((value)); (p.value) = value * 10;
-    j.at("confidence").get_to((p.confidence));
-    
-    
+void from_json(const Value& j, ObjectDimension& p) {
+    p._asn_ctx.ptr = nullptr;
+    double value; from_json(j["value"], (value)); (p.value) =value * 10;
+    from_json(j["confidence"], (p.confidence));
 }
+
+
 
 /*
 *   CartesianAngle - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const CartesianAngle& p) {
-    j = json{{"value", ((p.value) == 3601) ? (p.value) : (double)(p.value) / 10.0}, {"confidence", (p.confidence)}};
+Value to_json(const CartesianAngle& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("value", to_json(((p.value) == 3601) ? (p.value) : (double)(p.value) / 10.0, allocator), allocator);
+    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, CartesianAngle& p) {
-    p._asn_ctx.ptr= nullptr;
-    double value; j.at("value").get_to((value)); (p.value) = ((value) != 3601) ? value * 10 : value;
-    j.at("confidence").get_to((p.confidence));
-    
-    
+void from_json(const Value& j, CartesianAngle& p) {
+    p._asn_ctx.ptr = nullptr;
+    double value; from_json(j["value"], (value)); (p.value) = ((value) != 3601) ? value * 10 : value;
+    from_json(j["confidence"], (p.confidence));
 }
+
+
 
 /*
 *   WGS84Angle - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const WGS84Angle& p) {
-    j = json{{"value", ((p.value) == 3601) ? (p.value) : (double)(p.value) / 10.0}, {"confidence", (p.confidence)}};
+Value to_json(const WGS84Angle& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("value", to_json(((p.value) == 3601) ? (p.value) : (double)(p.value) / 10.0, allocator), allocator);
+    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, WGS84Angle& p) {
-    p._asn_ctx.ptr= nullptr;
-    double value; j.at("value").get_to((value)); (p.value) = ((value) != 3601) ? value * 10 : value;
-    j.at("confidence").get_to((p.confidence));
-    
-    
+void from_json(const Value& j, WGS84Angle& p) {
+    p._asn_ctx.ptr = nullptr;
+    double value; from_json(j["value"], (value)); (p.value) = ((value) != 3601) ? value * 10 : value;
+    from_json(j["confidence"], (p.confidence));
 }
+
+
 
 /*
 *   SpeedExtended - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const SpeedExtended& p) {
-    j = json{{"value", ((p.value) == 16383) ? (p.value) : (double)(p.value) / 100.0}, {"confidence", ((p.confidence) == 126 || (p.confidence) == 127) ? (p.confidence) : (double)(p.confidence) / 100.0}};
+Value to_json(const SpeedExtended& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("value", to_json(((p.value) == 16383) ? (p.value) : (double)(p.value) / 100.0, allocator), allocator);
+    json.AddMember("confidence", to_json(((p.confidence) == 126 || (p.confidence) == 127) ? (p.confidence) : (double)(p.confidence) / 100.0, allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, SpeedExtended& p) {
-    p._asn_ctx.ptr= nullptr;
-    double value; j.at("value").get_to((value)); (p.value) = ((value) != 16383) ? value * 100 : value;
-    double confidence; j.at("confidence").get_to((confidence)); (p.confidence) = ((confidence) != 126 && (confidence) != 127) ? confidence * 100 : confidence;
-    
-    
+void from_json(const Value& j, SpeedExtended& p) {
+    p._asn_ctx.ptr = nullptr;
+    double value; from_json(j["value"], (value)); (p.value) = ((value) != 16383) ? value * 100 : value;
+    double confidence; from_json(j["confidence"], (confidence)); (p.confidence) = ((confidence) != 126 && (confidence) != 127) ? confidence * 100 : confidence;
 }
+
+
 
 /*
 *   SensorIdList - Type SEQUENCE OF
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const SensorIdList& p) {
+Value to_json(const SensorIdList& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const Identifier_t po = *(p.list.array[i]);
-        // to_json(obj, po);
-        j.push_back(po);
+        // Value obj = to_json(po, allocator);
+        json.PushBack(po, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, SensorIdList& p) {
+void from_json(const Value& j, SensorIdList& p) {
     SensorIdList* p_tmp = vanetza::asn1::allocate<SensorIdList>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         Identifier_t *element = vanetza::asn1::allocate<Identifier_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -2829,196 +3278,222 @@ void from_json(const json& j, SensorIdList& p) {
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const TrailerData& p) {
-    j = json{{"refPointId", (p.refPointId)}, {"hitchPointOffset", (p.hitchPointOffset)}, {"frontOverhang", (p.frontOverhang)}, {"rearOverhang", (p.rearOverhang)}};
-    if (p.trailerWidth != 0) j["trailerWidth"] = (*(p.trailerWidth) != 61 && *(p.trailerWidth) != 62) ? *(p.trailerWidth) : (double) *(p.trailerWidth) / 10.0;
-    if (p.hitchAngle != 0) j["hitchAngle"] = *(p.hitchAngle);
+Value to_json(const TrailerData& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("refPointId", to_json((p.refPointId), allocator), allocator);
+    json.AddMember("hitchPointOffset", to_json((p.hitchPointOffset), allocator), allocator);
+    json.AddMember("frontOverhang", to_json((p.frontOverhang), allocator), allocator);
+    json.AddMember("rearOverhang", to_json((p.rearOverhang), allocator), allocator);
+    if (p.trailerWidth != 0) json.AddMember("trailerWidth", to_json((*(p.trailerWidth) != 61 && *(p.trailerWidth) != 62) ? (double) *(p.trailerWidth) / 10.0 : *(p.trailerWidth), allocator), allocator);
+    if (p.hitchAngle != 0) json.AddMember("hitchAngle", to_json(*(p.hitchAngle), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, TrailerData& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("refPointId").get_to((p.refPointId));
-    j.at("hitchPointOffset").get_to((p.hitchPointOffset));
-    j.at("frontOverhang").get_to((p.frontOverhang));
-    j.at("rearOverhang").get_to((p.rearOverhang));
-    double trailerWidth; if (j.contains("trailerWidth")) { p.trailerWidth = vanetza::asn1::allocate<VehicleWidth_t>(); j.at("trailerWidth").get_to((trailerWidth)); *(p.trailerWidth) = ((trailerWidth) != 61 && (trailerWidth) != 62) ? trailerWidth * 10 : trailerWidth; } 
+void from_json(const Value& j, TrailerData& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["refPointId"], (p.refPointId));
+    from_json(j["hitchPointOffset"], (p.hitchPointOffset));
+    from_json(j["frontOverhang"], (p.frontOverhang));
+    from_json(j["rearOverhang"], (p.rearOverhang));
+    double trailerWidth; if (j.HasMember("trailerWidth")) { p.trailerWidth = vanetza::asn1::allocate<VehicleWidth_t>(); from_json(j["trailerWidth"], (trailerWidth)); *(p.trailerWidth) = ((trailerWidth) != 61 && (trailerWidth) != 62) ? trailerWidth * 10 : trailerWidth; }
     else { p.trailerWidth=nullptr; }
-    if (j.contains("hitchAngle")) { p.hitchAngle = vanetza::asn1::allocate<CartesianAngle_t>(); j.at("hitchAngle").get_to(*(p.hitchAngle)); } 
+    if (j.HasMember("hitchAngle")) { p.hitchAngle = vanetza::asn1::allocate<CartesianAngle_t>(); from_json(j["hitchAngle"], *(p.hitchAngle)); }
     else { p.hitchAngle=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   LongitudinalLanePosition - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const LongitudinalLanePosition& p) {
-    j = json{{"longitudinalLanePositionValue", (p.longitudinalLanePositionValue)}, {"longitudinalLanePositionConfidence", (p.longitudinalLanePositionConfidence)}};
+Value to_json(const LongitudinalLanePosition& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("longitudinalLanePositionValue", to_json((p.longitudinalLanePositionValue), allocator), allocator);
+    json.AddMember("longitudinalLanePositionConfidence", to_json((p.longitudinalLanePositionConfidence), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, LongitudinalLanePosition& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("longitudinalLanePositionValue").get_to((p.longitudinalLanePositionValue));
-    j.at("longitudinalLanePositionConfidence").get_to((p.longitudinalLanePositionConfidence));
-    
-    
+void from_json(const Value& j, LongitudinalLanePosition& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["longitudinalLanePositionValue"], (p.longitudinalLanePositionValue));
+    from_json(j["longitudinalLanePositionConfidence"], (p.longitudinalLanePositionConfidence));
 }
+
+
 
 /*
 *   MatchedPosition - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const MatchedPosition& p) {
-    j = json{};
-    if (p.laneID != 0) j["laneID"] = *(p.laneID);
-    if (p.longitudinalLanePosition != 0) j["longitudinalLanePosition"] = *(p.longitudinalLanePosition);
+Value to_json(const MatchedPosition& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    if (p.laneID != 0) json.AddMember("laneID", to_json(*(p.laneID), allocator), allocator);
+    if (p.longitudinalLanePosition != 0) json.AddMember("longitudinalLanePosition", to_json(*(p.longitudinalLanePosition), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, MatchedPosition& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("laneID")) { p.laneID = vanetza::asn1::allocate<LaneID_t>(); j.at("laneID").get_to(*(p.laneID)); } 
+void from_json(const Value& j, MatchedPosition& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("laneID")) { p.laneID = vanetza::asn1::allocate<LaneID_t>(); from_json(j["laneID"], *(p.laneID)); }
     else { p.laneID=nullptr; }
-    if (j.contains("longitudinalLanePosition")) { p.longitudinalLanePosition = vanetza::asn1::allocate<LongitudinalLanePosition_t>(); j.at("longitudinalLanePosition").get_to(*(p.longitudinalLanePosition)); } 
+    if (j.HasMember("longitudinalLanePosition")) { p.longitudinalLanePosition = vanetza::asn1::allocate<LongitudinalLanePosition_t>(); from_json(j["longitudinalLanePosition"], *(p.longitudinalLanePosition)); }
     else { p.longitudinalLanePosition=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   PerceivedObjectContainerSegmentInfo - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const PerceivedObjectContainerSegmentInfo& p) {
-    j = json{{"totalMsgSegments", (p.totalMsgSegments)}, {"thisSegmentNum", (p.thisSegmentNum)}};
+Value to_json(const PerceivedObjectContainerSegmentInfo& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("totalMsgSegments", to_json((p.totalMsgSegments), allocator), allocator);
+    json.AddMember("thisSegmentNum", to_json((p.thisSegmentNum), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, PerceivedObjectContainerSegmentInfo& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("totalMsgSegments").get_to((p.totalMsgSegments));
-    j.at("thisSegmentNum").get_to((p.thisSegmentNum));
-    
-    
+void from_json(const Value& j, PerceivedObjectContainerSegmentInfo& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["totalMsgSegments"], (p.totalMsgSegments));
+    from_json(j["thisSegmentNum"], (p.thisSegmentNum));
 }
+
+
 
 /*
 *   VehicleSubclass - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const VehicleSubclass& p) {
-    j = json{{"type", (p.type)}, {"confidence", (p.confidence)}};
+Value to_json(const VehicleSubclass& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("type", to_json((p.type), allocator), allocator);
+    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, VehicleSubclass& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("type").get_to((p.type));
-    j.at("confidence").get_to((p.confidence));
-    
-    
+void from_json(const Value& j, VehicleSubclass& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["type"], (p.type));
+    from_json(j["confidence"], (p.confidence));
 }
+
+
 
 /*
 *   PersonSubclass - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const PersonSubclass& p) {
-    j = json{{"type", (p.type)}, {"confidence", (p.confidence)}};
+Value to_json(const PersonSubclass& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("type", to_json((p.type), allocator), allocator);
+    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, PersonSubclass& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("type").get_to((p.type));
-    j.at("confidence").get_to((p.confidence));
-    
-    
+void from_json(const Value& j, PersonSubclass& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["type"], (p.type));
+    from_json(j["confidence"], (p.confidence));
 }
+
+
 
 /*
 *   AnimalSubclass - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const AnimalSubclass& p) {
-    j = json{{"type", (p.type)}, {"confidence", (p.confidence)}};
+Value to_json(const AnimalSubclass& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("type", to_json((p.type), allocator), allocator);
+    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, AnimalSubclass& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("type").get_to((p.type));
-    j.at("confidence").get_to((p.confidence));
-    
-    
+void from_json(const Value& j, AnimalSubclass& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["type"], (p.type));
+    from_json(j["confidence"], (p.confidence));
 }
+
+
 
 /*
 *   OtherSubclass - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const OtherSubclass& p) {
-    j = json{{"type", (p.type)}, {"confidence", (p.confidence)}};
+Value to_json(const OtherSubclass& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("type", to_json((p.type), allocator), allocator);
+    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, OtherSubclass& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("type").get_to((p.type));
-    j.at("confidence").get_to((p.confidence));
-    
-    
+void from_json(const Value& j, OtherSubclass& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["type"], (p.type));
+    from_json(j["confidence"], (p.confidence));
 }
+
+
 
 /*
 *   NodeOffsetPointZ - Type CHOICE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const NodeOffsetPointZ& p) {
-    j = json{};
+Value to_json(const NodeOffsetPointZ& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == NodeOffsetPointZ_PR_node_Z1) {
-        j["node-Z1"] = p.choice.node_Z1;
+        json.AddMember("node-Z1", to_json(p.choice.node_Z1, allocator), allocator);
     } else if (p.present == NodeOffsetPointZ_PR_node_Z2) {
-        j["node-Z2"] = p.choice.node_Z2;
+        json.AddMember("node-Z2", to_json(p.choice.node_Z2, allocator), allocator);
     } else if (p.present == NodeOffsetPointZ_PR_node_Z3) {
-        j["node-Z3"] = p.choice.node_Z3;
+        json.AddMember("node-Z3", to_json(p.choice.node_Z3, allocator), allocator);
     } else if (p.present == NodeOffsetPointZ_PR_node_Z4) {
-        j["node-Z4"] = p.choice.node_Z4;
+        json.AddMember("node-Z4", to_json(p.choice.node_Z4, allocator), allocator);
     } else if (p.present == NodeOffsetPointZ_PR_node_Z5) {
-        j["node-Z5"] = p.choice.node_Z5;
+        json.AddMember("node-Z5", to_json(p.choice.node_Z5, allocator), allocator);
     } else if (p.present == NodeOffsetPointZ_PR_node_Z6) {
-        j["node-Z6"] = p.choice.node_Z6;
+        json.AddMember("node-Z6", to_json(p.choice.node_Z6, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, NodeOffsetPointZ& p) {
-    if (j.contains("node-Z1")) {
+void from_json(const Value& j, NodeOffsetPointZ& p) {
+    if (j.HasMember("node-Z1")) {
         p.present = NodeOffsetPointZ_PR_node_Z1;
-        j.at("node-Z1").get_to(p.choice.node_Z1);
-    } else if (j.contains("node-Z2")) {
+        from_json(j["node-Z1"], p.choice.node_Z1);
+    } else if (j.HasMember("node-Z2")) {
         p.present = NodeOffsetPointZ_PR_node_Z2;
-        j.at("node-Z2").get_to(p.choice.node_Z2);
-    } else if (j.contains("node-Z3")) {
+        from_json(j["node-Z2"], p.choice.node_Z2);
+    } else if (j.HasMember("node-Z3")) {
         p.present = NodeOffsetPointZ_PR_node_Z3;
-        j.at("node-Z3").get_to(p.choice.node_Z3);
-    } else if (j.contains("node-Z4")) {
+        from_json(j["node-Z3"], p.choice.node_Z3);
+    } else if (j.HasMember("node-Z4")) {
         p.present = NodeOffsetPointZ_PR_node_Z4;
-        j.at("node-Z4").get_to(p.choice.node_Z4);
-    } else if (j.contains("node-Z5")) {
+        from_json(j["node-Z4"], p.choice.node_Z4);
+    } else if (j.HasMember("node-Z5")) {
         p.present = NodeOffsetPointZ_PR_node_Z5;
-        j.at("node-Z5").get_to(p.choice.node_Z5);
-    } else if (j.contains("node-Z6")) {
+        from_json(j["node-Z5"], p.choice.node_Z5);
+    } else if (j.HasMember("node-Z6")) {
         p.present = NodeOffsetPointZ_PR_node_Z6;
-        j.at("node-Z6").get_to(p.choice.node_Z6);
+        from_json(j["node-Z6"], p.choice.node_Z6);
     } else {
         p.present = NodeOffsetPointZ_PR_NOTHING;
     }
@@ -3029,82 +3504,95 @@ void from_json(const json& j, NodeOffsetPointZ& p) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const ReferencePosition& p) {
-    j = json{{"latitude", ((p.latitude) == 900000001) ? (p.latitude) : (double)(p.latitude) / 10000000.0}, {"longitude", ((p.longitude) == 1800000001) ? (p.longitude) : (double)(p.longitude) / 10000000.0}, {"positionConfidenceEllipse", (p.positionConfidenceEllipse)}, {"altitude", (p.altitude)}};
+Value to_json(const ReferencePosition& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("latitude", to_json(((p.latitude) == 900000001) ? (p.latitude) : (double)(p.latitude) / 10000000.0, allocator), allocator);
+    json.AddMember("longitude", to_json(((p.longitude) == 1800000001) ? (p.longitude) : (double)(p.longitude) / 10000000.0, allocator), allocator);
+    json.AddMember("positionConfidenceEllipse", to_json((p.positionConfidenceEllipse), allocator), allocator);
+    json.AddMember("altitude", to_json((p.altitude), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, ReferencePosition& p) {
-    p._asn_ctx.ptr= nullptr;
-    double latitude; j.at("latitude").get_to((latitude)); (p.latitude) = ((latitude) != 900000001) ? latitude * 10000000 : latitude;
-    double longitude; j.at("longitude").get_to((longitude)); (p.longitude) = ((longitude) != 1800000001) ? longitude * 10000000 : longitude;
-    j.at("positionConfidenceEllipse").get_to((p.positionConfidenceEllipse));
-    j.at("altitude").get_to((p.altitude));
-    
-    
+void from_json(const Value& j, ReferencePosition& p) {
+    p._asn_ctx.ptr = nullptr;
+    double latitude; from_json(j["latitude"], (latitude)); (p.latitude) = ((latitude) != 900000001) ? latitude * 10000000 : latitude;
+    double longitude; from_json(j["longitude"], (longitude)); (p.longitude) = ((longitude) != 1800000001) ? longitude * 10000000 : longitude;
+    from_json(j["positionConfidenceEllipse"], (p.positionConfidenceEllipse));
+    from_json(j["altitude"], (p.altitude));
 }
+
+
 
 /*
 *   PtActivation - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const PtActivation& p) {
-    j = json{{"ptActivationType", (p.ptActivationType)}, {"ptActivationData", (p.ptActivationData)}};
+Value to_json(const PtActivation& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("ptActivationType", to_json((p.ptActivationType), allocator), allocator);
+    json.AddMember("ptActivationData", to_json((p.ptActivationData), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, PtActivation& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("ptActivationType").get_to((p.ptActivationType));
-    j.at("ptActivationData").get_to((p.ptActivationData));
-    
-    
+void from_json(const Value& j, PtActivation& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["ptActivationType"], (p.ptActivationType));
+    from_json(j["ptActivationData"], (p.ptActivationData));
 }
+
+
 
 /*
 *   ClosedLanes - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const ClosedLanes& p) {
-    j = json{};
-    if (p.innerhardShoulderStatus != 0) j["innerhardShoulderStatus"] = *(p.innerhardShoulderStatus);
-    if (p.outerhardShoulderStatus != 0) j["outerhardShoulderStatus"] = *(p.outerhardShoulderStatus);
-    if (p.drivingLaneStatus != 0) j["drivingLaneStatus"] = to_json_DrivingLaneStatus(*(p.drivingLaneStatus));
+Value to_json(const ClosedLanes& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    if (p.innerhardShoulderStatus != 0) json.AddMember("innerhardShoulderStatus", to_json(*(p.innerhardShoulderStatus), allocator), allocator);
+    if (p.outerhardShoulderStatus != 0) json.AddMember("outerhardShoulderStatus", to_json(*(p.outerhardShoulderStatus), allocator), allocator);
+    if (p.drivingLaneStatus != 0) json.AddMember("drivingLaneStatus", to_json_DrivingLaneStatus(*(p.drivingLaneStatus), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, ClosedLanes& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("innerhardShoulderStatus")) { p.innerhardShoulderStatus = vanetza::asn1::allocate<HardShoulderStatus_t>(); j.at("innerhardShoulderStatus").get_to(*(p.innerhardShoulderStatus)); } 
+void from_json(const Value& j, ClosedLanes& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("innerhardShoulderStatus")) { p.innerhardShoulderStatus = vanetza::asn1::allocate<HardShoulderStatus_t>(); from_json(j["innerhardShoulderStatus"], *(p.innerhardShoulderStatus)); }
     else { p.innerhardShoulderStatus=nullptr; }
-    if (j.contains("outerhardShoulderStatus")) { p.outerhardShoulderStatus = vanetza::asn1::allocate<HardShoulderStatus_t>(); j.at("outerhardShoulderStatus").get_to(*(p.outerhardShoulderStatus)); } 
+    if (j.HasMember("outerhardShoulderStatus")) { p.outerhardShoulderStatus = vanetza::asn1::allocate<HardShoulderStatus_t>(); from_json(j["outerhardShoulderStatus"], *(p.outerhardShoulderStatus)); }
     else { p.outerhardShoulderStatus=nullptr; }
-    if (j.contains("drivingLaneStatus")) { p.drivingLaneStatus = vanetza::asn1::allocate<DrivingLaneStatus_t>(); from_json_DrivingLaneStatus(j["drivingLaneStatus"],*(p.drivingLaneStatus)); } 
+    if (j.HasMember("drivingLaneStatus")) { p.drivingLaneStatus = vanetza::asn1::allocate<DrivingLaneStatus_t>(); from_json_DrivingLaneStatus(j["drivingLaneStatus"],*(p.drivingLaneStatus)); }
     else { p.drivingLaneStatus=nullptr; }
-    
 }
+
+
 
 /*
 *   ItineraryPath - Type SEQUENCE OF
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const ItineraryPath& p) {
+Value to_json(const ItineraryPath& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const ReferencePosition_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, ItineraryPath& p) {
+void from_json(const Value& j, ItineraryPath& p) {
     ItineraryPath* p_tmp = vanetza::asn1::allocate<ItineraryPath>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         ReferencePosition_t *element = vanetza::asn1::allocate<ReferencePosition_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -3116,21 +3604,23 @@ void from_json(const json& j, ItineraryPath& p) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const EventHistory& p) {
+Value to_json(const EventHistory& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const EventPoint_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, EventHistory& p) {
+void from_json(const Value& j, EventHistory& p) {
     EventHistory* p_tmp = vanetza::asn1::allocate<EventHistory>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         EventPoint_t *element = vanetza::asn1::allocate<EventPoint_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -3142,21 +3632,23 @@ void from_json(const json& j, EventHistory& p) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const DigitalMap_t& p) {
+Value to_json(const DigitalMap_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const ReferencePosition_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, DigitalMap_t& p) {
+void from_json(const Value& j, DigitalMap_t& p) {
     DigitalMap_t* p_tmp = vanetza::asn1::allocate<DigitalMap_t>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         ReferencePosition_t *element = vanetza::asn1::allocate<ReferencePosition_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -3168,22 +3660,23 @@ void from_json(const json& j, DigitalMap_t& p) {
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const HighFrequencyContainer& p) {
-    j = json{};
+Value to_json(const HighFrequencyContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == HighFrequencyContainer_PR_basicVehicleContainerHighFrequency) {
-        j["basicVehicleContainerHighFrequency"] = p.choice.basicVehicleContainerHighFrequency;
+        json.AddMember("basicVehicleContainerHighFrequency", to_json(p.choice.basicVehicleContainerHighFrequency, allocator), allocator);
     } else if (p.present == HighFrequencyContainer_PR_rsuContainerHighFrequency) {
-        j["rsuContainerHighFrequency"] = p.choice.rsuContainerHighFrequency;
+        json.AddMember("rsuContainerHighFrequency", to_json(p.choice.rsuContainerHighFrequency, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, HighFrequencyContainer& p) {
-    if (j.contains("basicVehicleContainerHighFrequency")) {
+void from_json(const Value& j, HighFrequencyContainer& p) {
+    if (j.HasMember("basicVehicleContainerHighFrequency")) {
         p.present = HighFrequencyContainer_PR_basicVehicleContainerHighFrequency;
-        j.at("basicVehicleContainerHighFrequency").get_to(p.choice.basicVehicleContainerHighFrequency);
-    } else if (j.contains("rsuContainerHighFrequency")) {
+        from_json(j["basicVehicleContainerHighFrequency"], p.choice.basicVehicleContainerHighFrequency);
+    } else if (j.HasMember("rsuContainerHighFrequency")) {
         p.present = HighFrequencyContainer_PR_rsuContainerHighFrequency;
-        j.at("rsuContainerHighFrequency").get_to(p.choice.rsuContainerHighFrequency);
+        from_json(j["rsuContainerHighFrequency"], p.choice.rsuContainerHighFrequency);
     } else {
         p.present = HighFrequencyContainer_PR_NOTHING;
     }
@@ -3194,17 +3687,18 @@ void from_json(const json& j, HighFrequencyContainer& p) {
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const LowFrequencyContainer& p) {
-    j = json{};
+Value to_json(const LowFrequencyContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == LowFrequencyContainer_PR_basicVehicleContainerLowFrequency) {
-        j["basicVehicleContainerLowFrequency"] = p.choice.basicVehicleContainerLowFrequency;
+        json.AddMember("basicVehicleContainerLowFrequency", to_json(p.choice.basicVehicleContainerLowFrequency, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, LowFrequencyContainer& p) {
-    if (j.contains("basicVehicleContainerLowFrequency")) {
+void from_json(const Value& j, LowFrequencyContainer& p) {
+    if (j.HasMember("basicVehicleContainerLowFrequency")) {
         p.present = LowFrequencyContainer_PR_basicVehicleContainerLowFrequency;
-        j.at("basicVehicleContainerLowFrequency").get_to(p.choice.basicVehicleContainerLowFrequency);
+        from_json(j["basicVehicleContainerLowFrequency"], p.choice.basicVehicleContainerLowFrequency);
     } else {
         p.present = LowFrequencyContainer_PR_NOTHING;
     }
@@ -3215,293 +3709,327 @@ void from_json(const json& j, LowFrequencyContainer& p) {
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const BasicContainer& p) {
-    j = json{{"stationType", (p.stationType)}, {"referencePosition", (p.referencePosition)}};
+Value to_json(const BasicContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("stationType", to_json((p.stationType), allocator), allocator);
+    json.AddMember("referencePosition", to_json((p.referencePosition), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, BasicContainer& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("stationType").get_to((p.stationType));
-    j.at("referencePosition").get_to((p.referencePosition));
-    
-    
+void from_json(const Value& j, BasicContainer& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["stationType"], (p.stationType));
+    from_json(j["referencePosition"], (p.referencePosition));
 }
+
+
 
 /*
 *   PublicTransportContainer - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const PublicTransportContainer& p) {
-    j = json{{"embarkationStatus", (p.embarkationStatus)}};
-    if (p.ptActivation != 0) j["ptActivation"] = *(p.ptActivation);
+Value to_json(const PublicTransportContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("embarkationStatus", to_json((p.embarkationStatus), allocator), allocator);
+    if (p.ptActivation != 0) json.AddMember("ptActivation", to_json(*(p.ptActivation), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, PublicTransportContainer& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("embarkationStatus").get_to((p.embarkationStatus));
-    if (j.contains("ptActivation")) { p.ptActivation = vanetza::asn1::allocate<PtActivation_t>(); j.at("ptActivation").get_to(*(p.ptActivation)); } 
+void from_json(const Value& j, PublicTransportContainer& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["embarkationStatus"], (p.embarkationStatus));
+    if (j.HasMember("ptActivation")) { p.ptActivation = vanetza::asn1::allocate<PtActivation_t>(); from_json(j["ptActivation"], *(p.ptActivation)); }
     else { p.ptActivation=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   RoadWorksContainerBasic - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const RoadWorksContainerBasic& p) {
-    j = json{{"lightBarSirenInUse", to_json_LightBarSirenInUse((p.lightBarSirenInUse))}};
-    if (p.roadworksSubCauseCode != 0) j["roadworksSubCauseCode"] = *(p.roadworksSubCauseCode);
-    if (p.closedLanes != 0) j["closedLanes"] = *(p.closedLanes);
+Value to_json(const RoadWorksContainerBasic& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("lightBarSirenInUse", to_json_LightBarSirenInUse((p.lightBarSirenInUse), allocator), allocator);
+    if (p.roadworksSubCauseCode != 0) json.AddMember("roadworksSubCauseCode", to_json(*(p.roadworksSubCauseCode), allocator), allocator);
+    if (p.closedLanes != 0) json.AddMember("closedLanes", to_json(*(p.closedLanes), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, RoadWorksContainerBasic& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("roadworksSubCauseCode")) { p.roadworksSubCauseCode = vanetza::asn1::allocate<RoadworksSubCauseCode_t>(); j.at("roadworksSubCauseCode").get_to(*(p.roadworksSubCauseCode)); } 
+void from_json(const Value& j, RoadWorksContainerBasic& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("roadworksSubCauseCode")) { p.roadworksSubCauseCode = vanetza::asn1::allocate<RoadworksSubCauseCode_t>(); from_json(j["roadworksSubCauseCode"], *(p.roadworksSubCauseCode)); }
     else { p.roadworksSubCauseCode=nullptr; }
-    if (j.contains("closedLanes")) { p.closedLanes = vanetza::asn1::allocate<ClosedLanes_t>(); j.at("closedLanes").get_to(*(p.closedLanes)); } 
-    else { p.closedLanes=nullptr; }
     from_json_LightBarSirenInUse(j["lightBarSirenInUse"],(p.lightBarSirenInUse));
-    
+    if (j.HasMember("closedLanes")) { p.closedLanes = vanetza::asn1::allocate<ClosedLanes_t>(); from_json(j["closedLanes"], *(p.closedLanes)); }
+    else { p.closedLanes=nullptr; }
 }
+
+
 
 /*
 *   ManagementContainer - Type SEQUENCE
 *   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
 */
 
-void to_json(json& j, const ManagementContainer& p) {
-    j = json{{"actionID", (p.actionID)}, {"detectionTime", (p.detectionTime)}, {"referenceTime", (p.referenceTime)}, {"eventPosition", (p.eventPosition)}, {"stationType", (p.stationType)}};
-    if (p.termination != 0) j["termination"] = *(p.termination);
-    if (p.relevanceDistance != 0) j["relevanceDistance"] = *(p.relevanceDistance);
-    if (p.relevanceTrafficDirection != 0) j["relevanceTrafficDirection"] = *(p.relevanceTrafficDirection);
-    if (p.validityDuration != 0) j["validityDuration"] = *(p.validityDuration);
-    if (p.transmissionInterval != 0) j["transmissionInterval"] = *(p.transmissionInterval);
+Value to_json(const ManagementContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("actionID", to_json((p.actionID), allocator), allocator);
+    json.AddMember("detectionTime", to_json((p.detectionTime), allocator), allocator);
+    json.AddMember("referenceTime", to_json((p.referenceTime), allocator), allocator);
+    json.AddMember("eventPosition", to_json((p.eventPosition), allocator), allocator);
+    json.AddMember("stationType", to_json((p.stationType), allocator), allocator);
+    if (p.termination != 0) json.AddMember("termination", to_json(*(p.termination), allocator), allocator);
+    if (p.relevanceDistance != 0) json.AddMember("relevanceDistance", to_json(*(p.relevanceDistance), allocator), allocator);
+    if (p.relevanceTrafficDirection != 0) json.AddMember("relevanceTrafficDirection", to_json(*(p.relevanceTrafficDirection), allocator), allocator);
+    if (p.validityDuration != 0) json.AddMember("validityDuration", to_json(*(p.validityDuration), allocator), allocator);
+    if (p.transmissionInterval != 0) json.AddMember("transmissionInterval", to_json(*(p.transmissionInterval), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, ManagementContainer& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("actionID").get_to((p.actionID));
-    j.at("detectionTime").get_to((p.detectionTime));
-    j.at("referenceTime").get_to((p.referenceTime));
-    if (j.contains("termination")) { p.termination = vanetza::asn1::allocate<Termination_t>(); j.at("termination").get_to(*(p.termination)); } 
+void from_json(const Value& j, ManagementContainer& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["actionID"], (p.actionID));
+    from_json(j["detectionTime"], (p.detectionTime));
+    from_json(j["referenceTime"], (p.referenceTime));
+    if (j.HasMember("termination")) { p.termination = vanetza::asn1::allocate<Termination_t>(); from_json(j["termination"], *(p.termination)); }
     else { p.termination=nullptr; }
-    j.at("eventPosition").get_to((p.eventPosition));
-    if (j.contains("relevanceDistance")) { p.relevanceDistance = vanetza::asn1::allocate<RelevanceDistance_t>(); j.at("relevanceDistance").get_to(*(p.relevanceDistance)); } 
+    from_json(j["eventPosition"], (p.eventPosition));
+    if (j.HasMember("relevanceDistance")) { p.relevanceDistance = vanetza::asn1::allocate<RelevanceDistance_t>(); from_json(j["relevanceDistance"], *(p.relevanceDistance)); }
     else { p.relevanceDistance=nullptr; }
-    if (j.contains("relevanceTrafficDirection")) { p.relevanceTrafficDirection = vanetza::asn1::allocate<RelevanceTrafficDirection_t>(); j.at("relevanceTrafficDirection").get_to(*(p.relevanceTrafficDirection)); } 
+    if (j.HasMember("relevanceTrafficDirection")) { p.relevanceTrafficDirection = vanetza::asn1::allocate<RelevanceTrafficDirection_t>(); from_json(j["relevanceTrafficDirection"], *(p.relevanceTrafficDirection)); }
     else { p.relevanceTrafficDirection=nullptr; }
-    if (j.contains("validityDuration")) { p.validityDuration = vanetza::asn1::allocate<ValidityDuration_t>(); j.at("validityDuration").get_to(*(p.validityDuration)); } 
+    if (j.HasMember("validityDuration")) { p.validityDuration = vanetza::asn1::allocate<ValidityDuration_t>(); from_json(j["validityDuration"], *(p.validityDuration)); }
     else { p.validityDuration=nullptr; }
-    if (j.contains("transmissionInterval")) { p.transmissionInterval = vanetza::asn1::allocate<TransmissionInterval_t>(); j.at("transmissionInterval").get_to(*(p.transmissionInterval)); } 
+    if (j.HasMember("transmissionInterval")) { p.transmissionInterval = vanetza::asn1::allocate<TransmissionInterval_t>(); from_json(j["transmissionInterval"], *(p.transmissionInterval)); }
     else { p.transmissionInterval=nullptr; }
-    j.at("stationType").get_to((p.stationType));
-    
-    
+    from_json(j["stationType"], (p.stationType));
 }
+
+
 
 /*
 *   SituationContainer - Type SEQUENCE
 *   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
 */
 
-void to_json(json& j, const SituationContainer& p) {
-    j = json{{"informationQuality", (p.informationQuality)}, {"eventType", (p.eventType)}};
-    if (p.linkedCause != 0) j["linkedCause"] = *(p.linkedCause);
-    if (p.eventHistory != 0) j["eventHistory"] = *(p.eventHistory);
+Value to_json(const SituationContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("informationQuality", to_json((p.informationQuality), allocator), allocator);
+    json.AddMember("eventType", to_json((p.eventType), allocator), allocator);
+    if (p.linkedCause != 0) json.AddMember("linkedCause", to_json(*(p.linkedCause), allocator), allocator);
+    if (p.eventHistory != 0) json.AddMember("eventHistory", to_json(*(p.eventHistory), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, SituationContainer& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("informationQuality").get_to((p.informationQuality));
-    j.at("eventType").get_to((p.eventType));
-    if (j.contains("linkedCause")) { p.linkedCause = vanetza::asn1::allocate<CauseCode_t>(); j.at("linkedCause").get_to(*(p.linkedCause)); } 
+void from_json(const Value& j, SituationContainer& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["informationQuality"], (p.informationQuality));
+    from_json(j["eventType"], (p.eventType));
+    if (j.HasMember("linkedCause")) { p.linkedCause = vanetza::asn1::allocate<CauseCode_t>(); from_json(j["linkedCause"], *(p.linkedCause)); }
     else { p.linkedCause=nullptr; }
-    if (j.contains("eventHistory")) { p.eventHistory = vanetza::asn1::allocate<EventHistory_t>(); j.at("eventHistory").get_to(*(p.eventHistory)); } 
+    if (j.HasMember("eventHistory")) { p.eventHistory = vanetza::asn1::allocate<EventHistory_t>(); from_json(j["eventHistory"], *(p.eventHistory)); }
     else { p.eventHistory=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   RoadWorksContainerExtended - Type SEQUENCE
 *   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
 */
 
-void to_json(json& j, const RoadWorksContainerExtended& p) {
-    j = json{};
-    if (p.lightBarSirenInUse != 0) j["lightBarSirenInUse"] = to_json_LightBarSirenInUse(*(p.lightBarSirenInUse));
-    if (p.closedLanes != 0) j["closedLanes"] = *(p.closedLanes);
-    if (p.restriction != 0) j["restriction"] = *(p.restriction);
-    if (p.speedLimit != 0) j["speedLimit"] = *(p.speedLimit);
-    if (p.incidentIndication != 0) j["incidentIndication"] = *(p.incidentIndication);
-    if (p.recommendedPath != 0) j["recommendedPath"] = *(p.recommendedPath);
-    if (p.startingPointSpeedLimit != 0) j["startingPointSpeedLimit"] = *(p.startingPointSpeedLimit);
-    if (p.trafficFlowRule != 0) j["trafficFlowRule"] = *(p.trafficFlowRule);
-    if (p.referenceDenms != 0) j["referenceDenms"] = *(p.referenceDenms);
+Value to_json(const RoadWorksContainerExtended& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    if (p.lightBarSirenInUse != 0) json.AddMember("lightBarSirenInUse", to_json_LightBarSirenInUse(*(p.lightBarSirenInUse), allocator), allocator);
+    if (p.closedLanes != 0) json.AddMember("closedLanes", to_json(*(p.closedLanes), allocator), allocator);
+    if (p.restriction != 0) json.AddMember("restriction", to_json(*(p.restriction), allocator), allocator);
+    if (p.speedLimit != 0) json.AddMember("speedLimit", to_json(*(p.speedLimit), allocator), allocator);
+    if (p.incidentIndication != 0) json.AddMember("incidentIndication", to_json(*(p.incidentIndication), allocator), allocator);
+    if (p.recommendedPath != 0) json.AddMember("recommendedPath", to_json(*(p.recommendedPath), allocator), allocator);
+    if (p.startingPointSpeedLimit != 0) json.AddMember("startingPointSpeedLimit", to_json(*(p.startingPointSpeedLimit), allocator), allocator);
+    if (p.trafficFlowRule != 0) json.AddMember("trafficFlowRule", to_json(*(p.trafficFlowRule), allocator), allocator);
+    if (p.referenceDenms != 0) json.AddMember("referenceDenms", to_json(*(p.referenceDenms), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, RoadWorksContainerExtended& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("closedLanes")) { p.closedLanes = vanetza::asn1::allocate<ClosedLanes_t>(); j.at("closedLanes").get_to(*(p.closedLanes)); } 
-    else { p.closedLanes=nullptr; }
-    if (j.contains("restriction")) { p.restriction = vanetza::asn1::allocate<RestrictedTypes_t>(); j.at("restriction").get_to(*(p.restriction)); } 
-    else { p.restriction=nullptr; }
-    if (j.contains("speedLimit")) { p.speedLimit = vanetza::asn1::allocate<SpeedLimit_t>(); j.at("speedLimit").get_to(*(p.speedLimit)); } 
-    else { p.speedLimit=nullptr; }
-    if (j.contains("incidentIndication")) { p.incidentIndication = vanetza::asn1::allocate<CauseCode_t>(); j.at("incidentIndication").get_to(*(p.incidentIndication)); } 
-    else { p.incidentIndication=nullptr; }
-    if (j.contains("recommendedPath")) { p.recommendedPath = vanetza::asn1::allocate<ItineraryPath_t>(); j.at("recommendedPath").get_to(*(p.recommendedPath)); } 
-    else { p.recommendedPath=nullptr; }
-    if (j.contains("startingPointSpeedLimit")) { p.startingPointSpeedLimit = vanetza::asn1::allocate<DeltaReferencePosition_t>(); j.at("startingPointSpeedLimit").get_to(*(p.startingPointSpeedLimit)); } 
-    else { p.startingPointSpeedLimit=nullptr; }
-    if (j.contains("trafficFlowRule")) { p.trafficFlowRule = vanetza::asn1::allocate<TrafficRule_t>(); j.at("trafficFlowRule").get_to(*(p.trafficFlowRule)); } 
-    else { p.trafficFlowRule=nullptr; }
-    if (j.contains("referenceDenms")) { p.referenceDenms = vanetza::asn1::allocate<ReferenceDenms_t>(); j.at("referenceDenms").get_to(*(p.referenceDenms)); } 
-    else { p.referenceDenms=nullptr; }
-    if (j.contains("lightBarSirenInUse")) { p.lightBarSirenInUse = vanetza::asn1::allocate<LightBarSirenInUse_t>(); from_json_LightBarSirenInUse(j["lightBarSirenInUse"],*(p.lightBarSirenInUse)); } 
+void from_json(const Value& j, RoadWorksContainerExtended& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("lightBarSirenInUse")) { p.lightBarSirenInUse = vanetza::asn1::allocate<LightBarSirenInUse_t>(); from_json_LightBarSirenInUse(j["lightBarSirenInUse"],*(p.lightBarSirenInUse)); }
     else { p.lightBarSirenInUse=nullptr; }
-    
+    if (j.HasMember("closedLanes")) { p.closedLanes = vanetza::asn1::allocate<ClosedLanes_t>(); from_json(j["closedLanes"], *(p.closedLanes)); }
+    else { p.closedLanes=nullptr; }
+    if (j.HasMember("restriction")) { p.restriction = vanetza::asn1::allocate<RestrictedTypes_t>(); from_json(j["restriction"], *(p.restriction)); }
+    else { p.restriction=nullptr; }
+    if (j.HasMember("speedLimit")) { p.speedLimit = vanetza::asn1::allocate<SpeedLimit_t>(); from_json(j["speedLimit"], *(p.speedLimit)); }
+    else { p.speedLimit=nullptr; }
+    if (j.HasMember("incidentIndication")) { p.incidentIndication = vanetza::asn1::allocate<CauseCode_t>(); from_json(j["incidentIndication"], *(p.incidentIndication)); }
+    else { p.incidentIndication=nullptr; }
+    if (j.HasMember("recommendedPath")) { p.recommendedPath = vanetza::asn1::allocate<ItineraryPath_t>(); from_json(j["recommendedPath"], *(p.recommendedPath)); }
+    else { p.recommendedPath=nullptr; }
+    if (j.HasMember("startingPointSpeedLimit")) { p.startingPointSpeedLimit = vanetza::asn1::allocate<DeltaReferencePosition_t>(); from_json(j["startingPointSpeedLimit"], *(p.startingPointSpeedLimit)); }
+    else { p.startingPointSpeedLimit=nullptr; }
+    if (j.HasMember("trafficFlowRule")) { p.trafficFlowRule = vanetza::asn1::allocate<TrafficRule_t>(); from_json(j["trafficFlowRule"], *(p.trafficFlowRule)); }
+    else { p.trafficFlowRule=nullptr; }
+    if (j.HasMember("referenceDenms")) { p.referenceDenms = vanetza::asn1::allocate<ReferenceDenms_t>(); from_json(j["referenceDenms"], *(p.referenceDenms)); }
+    else { p.referenceDenms=nullptr; }
 }
+
+
 
 /*
 *   AlacarteContainer - Type SEQUENCE
 *   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
 */
 
-void to_json(json& j, const AlacarteContainer& p) {
-    j = json{};
-    if (p.lanePosition != 0) j["lanePosition"] = *(p.lanePosition);
-    if (p.impactReduction != 0) j["impactReduction"] = *(p.impactReduction);
-    if (p.externalTemperature != 0) j["externalTemperature"] = *(p.externalTemperature);
-    if (p.roadWorks != 0) j["roadWorks"] = *(p.roadWorks);
-    if (p.positioningSolution != 0) j["positioningSolution"] = *(p.positioningSolution);
-    if (p.stationaryVehicle != 0) j["stationaryVehicle"] = *(p.stationaryVehicle);
+Value to_json(const AlacarteContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    if (p.lanePosition != 0) json.AddMember("lanePosition", to_json(*(p.lanePosition), allocator), allocator);
+    if (p.impactReduction != 0) json.AddMember("impactReduction", to_json(*(p.impactReduction), allocator), allocator);
+    if (p.externalTemperature != 0) json.AddMember("externalTemperature", to_json(*(p.externalTemperature), allocator), allocator);
+    if (p.roadWorks != 0) json.AddMember("roadWorks", to_json(*(p.roadWorks), allocator), allocator);
+    if (p.positioningSolution != 0) json.AddMember("positioningSolution", to_json(*(p.positioningSolution), allocator), allocator);
+    if (p.stationaryVehicle != 0) json.AddMember("stationaryVehicle", to_json(*(p.stationaryVehicle), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, AlacarteContainer& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("lanePosition")) { p.lanePosition = vanetza::asn1::allocate<LanePosition_t>(); j.at("lanePosition").get_to(*(p.lanePosition)); } 
+void from_json(const Value& j, AlacarteContainer& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("lanePosition")) { p.lanePosition = vanetza::asn1::allocate<LanePosition_t>(); from_json(j["lanePosition"], *(p.lanePosition)); }
     else { p.lanePosition=nullptr; }
-    if (j.contains("impactReduction")) { p.impactReduction = vanetza::asn1::allocate<ImpactReductionContainer_t>(); j.at("impactReduction").get_to(*(p.impactReduction)); } 
+    if (j.HasMember("impactReduction")) { p.impactReduction = vanetza::asn1::allocate<ImpactReductionContainer_t>(); from_json(j["impactReduction"], *(p.impactReduction)); }
     else { p.impactReduction=nullptr; }
-    if (j.contains("externalTemperature")) { p.externalTemperature = vanetza::asn1::allocate<Temperature_t>(); j.at("externalTemperature").get_to(*(p.externalTemperature)); } 
+    if (j.HasMember("externalTemperature")) { p.externalTemperature = vanetza::asn1::allocate<Temperature_t>(); from_json(j["externalTemperature"], *(p.externalTemperature)); }
     else { p.externalTemperature=nullptr; }
-    if (j.contains("roadWorks")) { p.roadWorks = vanetza::asn1::allocate<RoadWorksContainerExtended_t>(); j.at("roadWorks").get_to(*(p.roadWorks)); } 
+    if (j.HasMember("roadWorks")) { p.roadWorks = vanetza::asn1::allocate<RoadWorksContainerExtended_t>(); from_json(j["roadWorks"], *(p.roadWorks)); }
     else { p.roadWorks=nullptr; }
-    if (j.contains("positioningSolution")) { p.positioningSolution = vanetza::asn1::allocate<PositioningSolutionType_t>(); j.at("positioningSolution").get_to(*(p.positioningSolution)); } 
+    if (j.HasMember("positioningSolution")) { p.positioningSolution = vanetza::asn1::allocate<PositioningSolutionType_t>(); from_json(j["positioningSolution"], *(p.positioningSolution)); }
     else { p.positioningSolution=nullptr; }
-    if (j.contains("stationaryVehicle")) { p.stationaryVehicle = vanetza::asn1::allocate<StationaryVehicleContainer_t>(); j.at("stationaryVehicle").get_to(*(p.stationaryVehicle)); } 
+    if (j.HasMember("stationaryVehicle")) { p.stationaryVehicle = vanetza::asn1::allocate<StationaryVehicleContainer_t>(); from_json(j["stationaryVehicle"], *(p.stationaryVehicle)); }
     else { p.stationaryVehicle=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   MapPosition - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const MapPosition& p) {
-    j = json{{"intersectionId", (p.intersectionId)}, {"lane", (p.lane)}};
+Value to_json(const MapPosition& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("intersectionId", to_json((p.intersectionId), allocator), allocator);
+    json.AddMember("lane", to_json((p.lane), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, MapPosition& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("intersectionId").get_to((p.intersectionId));
-    j.at("lane").get_to((p.lane));
-    
-    
+void from_json(const Value& j, MapPosition& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["intersectionId"], (p.intersectionId));
+    from_json(j["lane"], (p.lane));
 }
+
+
 
 /*
 *   VruExteriorLights - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruExteriorLights& p) {
-    j = json{{"vruSpecific", to_json_VruSpecificExteriorLights((p.vruSpecific))}, {"vehicular", to_json_ExteriorLights((p.vehicular))}};
+Value to_json(const VruExteriorLights& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("vruSpecific", to_json_VruSpecificExteriorLights((p.vruSpecific), allocator), allocator);
+    json.AddMember("vehicular", to_json_ExteriorLights((p.vehicular), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, VruExteriorLights& p) {
-    p._asn_ctx.ptr= nullptr;
-    
+void from_json(const Value& j, VruExteriorLights& p) {
+    p._asn_ctx.ptr = nullptr;
     from_json_VruSpecificExteriorLights(j["vruSpecific"],(p.vruSpecific));
     from_json_ExteriorLights(j["vehicular"],(p.vehicular));
-    
 }
+
+
 
 /*
 *   VruClusterOperationContainer - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruClusterOperationContainer& p) {
-    j = json{};
-    if (p.clusterJoinInfo != 0) j["clusterJoinInfo"] = *(p.clusterJoinInfo);
-    if (p.clusterLeaveInfo != 0) j["clusterLeaveInfo"] = *(p.clusterLeaveInfo);
-    if (p.clusterBreakupInfo != 0) j["clusterBreakupInfo"] = *(p.clusterBreakupInfo);
-    if (p.clusterIdChangeTimeInfo != 0) j["clusterIdChangeTimeInfo"] = *(p.clusterIdChangeTimeInfo);
+Value to_json(const VruClusterOperationContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    if (p.clusterJoinInfo != 0) json.AddMember("clusterJoinInfo", to_json(*(p.clusterJoinInfo), allocator), allocator);
+    if (p.clusterLeaveInfo != 0) json.AddMember("clusterLeaveInfo", to_json(*(p.clusterLeaveInfo), allocator), allocator);
+    if (p.clusterBreakupInfo != 0) json.AddMember("clusterBreakupInfo", to_json(*(p.clusterBreakupInfo), allocator), allocator);
+    if (p.clusterIdChangeTimeInfo != 0) json.AddMember("clusterIdChangeTimeInfo", to_json(*(p.clusterIdChangeTimeInfo), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, VruClusterOperationContainer& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("clusterJoinInfo")) { p.clusterJoinInfo = vanetza::asn1::allocate<ClusterJoinInfo_t>(); j.at("clusterJoinInfo").get_to(*(p.clusterJoinInfo)); } 
+void from_json(const Value& j, VruClusterOperationContainer& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("clusterJoinInfo")) { p.clusterJoinInfo = vanetza::asn1::allocate<ClusterJoinInfo_t>(); from_json(j["clusterJoinInfo"], *(p.clusterJoinInfo)); }
     else { p.clusterJoinInfo=nullptr; }
-    if (j.contains("clusterLeaveInfo")) { p.clusterLeaveInfo = vanetza::asn1::allocate<ClusterLeaveInfo_t>(); j.at("clusterLeaveInfo").get_to(*(p.clusterLeaveInfo)); } 
+    if (j.HasMember("clusterLeaveInfo")) { p.clusterLeaveInfo = vanetza::asn1::allocate<ClusterLeaveInfo_t>(); from_json(j["clusterLeaveInfo"], *(p.clusterLeaveInfo)); }
     else { p.clusterLeaveInfo=nullptr; }
-    if (j.contains("clusterBreakupInfo")) { p.clusterBreakupInfo = vanetza::asn1::allocate<ClusterBreakupInfo_t>(); j.at("clusterBreakupInfo").get_to(*(p.clusterBreakupInfo)); } 
+    if (j.HasMember("clusterBreakupInfo")) { p.clusterBreakupInfo = vanetza::asn1::allocate<ClusterBreakupInfo_t>(); from_json(j["clusterBreakupInfo"], *(p.clusterBreakupInfo)); }
     else { p.clusterBreakupInfo=nullptr; }
-    if (j.contains("clusterIdChangeTimeInfo")) { p.clusterIdChangeTimeInfo = vanetza::asn1::allocate<VruClusterOpTimestamp_t>(); j.at("clusterIdChangeTimeInfo").get_to(*(p.clusterIdChangeTimeInfo)); } 
+    if (j.HasMember("clusterIdChangeTimeInfo")) { p.clusterIdChangeTimeInfo = vanetza::asn1::allocate<VruClusterOpTimestamp_t>(); from_json(j["clusterIdChangeTimeInfo"], *(p.clusterIdChangeTimeInfo)); }
     else { p.clusterIdChangeTimeInfo=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   VruPathPoint - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruPathPoint& p) {
-    j = json{{"pathPosition", (p.pathPosition)}};
-    if (p.pathDeltaTime != 0) j["pathDeltaTime"] = *(p.pathDeltaTime);
+Value to_json(const VruPathPoint& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("pathPosition", to_json((p.pathPosition), allocator), allocator);
+    if (p.pathDeltaTime != 0) json.AddMember("pathDeltaTime", to_json(*(p.pathDeltaTime), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, VruPathPoint& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("pathPosition").get_to((p.pathPosition));
-    if (j.contains("pathDeltaTime")) { p.pathDeltaTime = vanetza::asn1::allocate<PathDeltaTime_t>(); j.at("pathDeltaTime").get_to(*(p.pathDeltaTime)); } 
+void from_json(const Value& j, VruPathPoint& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["pathPosition"], (p.pathPosition));
+    if (j.HasMember("pathDeltaTime")) { p.pathDeltaTime = vanetza::asn1::allocate<PathDeltaTime_t>(); from_json(j["pathDeltaTime"], *(p.pathDeltaTime)); }
     else { p.pathDeltaTime=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   SequenceOfVruSafeDistanceIndication - Type SEQUENCE OF
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const SequenceOfVruSafeDistanceIndication& p) {
+Value to_json(const SequenceOfVruSafeDistanceIndication& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const VruSafeDistanceIndication_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, SequenceOfVruSafeDistanceIndication& p) {
+void from_json(const Value& j, SequenceOfVruSafeDistanceIndication& p) {
     SequenceOfVruSafeDistanceIndication* p_tmp = vanetza::asn1::allocate<SequenceOfVruSafeDistanceIndication>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         VruSafeDistanceIndication_t *element = vanetza::asn1::allocate<VruSafeDistanceIndication_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -3513,21 +4041,23 @@ void from_json(const json& j, SequenceOfVruSafeDistanceIndication& p) {
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const SequenceOfTrajectoryInterceptionIndication& p) {
+Value to_json(const SequenceOfTrajectoryInterceptionIndication& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const TrajectoryInterceptionIndication_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, SequenceOfTrajectoryInterceptionIndication& p) {
+void from_json(const Value& j, SequenceOfTrajectoryInterceptionIndication& p) {
     SequenceOfTrajectoryInterceptionIndication* p_tmp = vanetza::asn1::allocate<SequenceOfTrajectoryInterceptionIndication>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         TrajectoryInterceptionIndication_t *element = vanetza::asn1::allocate<TrajectoryInterceptionIndication_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -3539,96 +4069,102 @@ void from_json(const json& j, SequenceOfTrajectoryInterceptionIndication& p) {
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const ConnectingLane& p) {
-    j = json{{"lane", (p.lane)}};
-    if (p.maneuver != 0) j["maneuver"] = to_json_AllowedManeuvers(*(p.maneuver));
+Value to_json(const ConnectingLane& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("lane", to_json((p.lane), allocator), allocator);
+    if (p.maneuver != 0) json.AddMember("maneuver", to_json_AllowedManeuvers(*(p.maneuver), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, ConnectingLane& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("lane").get_to((p.lane));
-    if (j.contains("maneuver")) { p.maneuver = vanetza::asn1::allocate<AllowedManeuvers_t>(); from_json_AllowedManeuvers(j["maneuver"],*(p.maneuver)); } 
+void from_json(const Value& j, ConnectingLane& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["lane"], (p.lane));
+    if (j.HasMember("maneuver")) { p.maneuver = vanetza::asn1::allocate<AllowedManeuvers_t>(); from_json_AllowedManeuvers(j["maneuver"],*(p.maneuver)); }
     else { p.maneuver=nullptr; }
-    
 }
+
+
 
 /*
 *   Connection - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const Connection& p) {
-    j = json{{"connectingLane", (p.connectingLane)}};
-    if (p.remoteIntersection != 0) j["remoteIntersection"] = *(p.remoteIntersection);
-    if (p.signalGroup != 0) j["signalGroup"] = *(p.signalGroup);
-    if (p.userClass != 0) j["userClass"] = *(p.userClass);
-    if (p.connectionID != 0) j["connectionID"] = *(p.connectionID);
+Value to_json(const Connection& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("connectingLane", to_json((p.connectingLane), allocator), allocator);
+    if (p.remoteIntersection != 0) json.AddMember("remoteIntersection", to_json(*(p.remoteIntersection), allocator), allocator);
+    if (p.signalGroup != 0) json.AddMember("signalGroup", to_json(*(p.signalGroup), allocator), allocator);
+    if (p.userClass != 0) json.AddMember("userClass", to_json(*(p.userClass), allocator), allocator);
+    if (p.connectionID != 0) json.AddMember("connectionID", to_json(*(p.connectionID), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, Connection& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("connectingLane").get_to((p.connectingLane));
-    if (j.contains("remoteIntersection")) { p.remoteIntersection = vanetza::asn1::allocate<IntersectionReferenceID_t>(); j.at("remoteIntersection").get_to(*(p.remoteIntersection)); } 
+void from_json(const Value& j, Connection& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["connectingLane"], (p.connectingLane));
+    if (j.HasMember("remoteIntersection")) { p.remoteIntersection = vanetza::asn1::allocate<IntersectionReferenceID_t>(); from_json(j["remoteIntersection"], *(p.remoteIntersection)); }
     else { p.remoteIntersection=nullptr; }
-    if (j.contains("signalGroup")) { p.signalGroup = vanetza::asn1::allocate<SignalGroupID_t>(); j.at("signalGroup").get_to(*(p.signalGroup)); } 
+    if (j.HasMember("signalGroup")) { p.signalGroup = vanetza::asn1::allocate<SignalGroupID_t>(); from_json(j["signalGroup"], *(p.signalGroup)); }
     else { p.signalGroup=nullptr; }
-    if (j.contains("userClass")) { p.userClass = vanetza::asn1::allocate<RestrictionClassID_t>(); j.at("userClass").get_to(*(p.userClass)); } 
+    if (j.HasMember("userClass")) { p.userClass = vanetza::asn1::allocate<RestrictionClassID_t>(); from_json(j["userClass"], *(p.userClass)); }
     else { p.userClass=nullptr; }
-    if (j.contains("connectionID")) { p.connectionID = vanetza::asn1::allocate<LaneConnectionID_t>(); j.at("connectionID").get_to(*(p.connectionID)); } 
+    if (j.HasMember("connectionID")) { p.connectionID = vanetza::asn1::allocate<LaneConnectionID_t>(); from_json(j["connectionID"], *(p.connectionID)); }
     else { p.connectionID=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   LaneTypeAttributes - Type CHOICE
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const LaneTypeAttributes& p) {
-    j = json{};
+Value to_json(const LaneTypeAttributes& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == LaneTypeAttributes_PR_vehicle) {
-        j["vehicle"] = to_json_LaneAttributes_Vehicle(p.choice.vehicle);
+        json.AddMember("vehicle", to_json_LaneAttributes_Vehicle(p.choice.vehicle, allocator), allocator);
     } else if (p.present == LaneTypeAttributes_PR_crosswalk) {
-        j["crosswalk"] = to_json_LaneAttributes_Crosswalk(p.choice.crosswalk);
+        json.AddMember("crosswalk", to_json_LaneAttributes_Crosswalk(p.choice.crosswalk, allocator), allocator);
     } else if (p.present == LaneTypeAttributes_PR_bikeLane) {
-        j["bikeLane"] = to_json_LaneAttributes_Bike(p.choice.bikeLane);
+        json.AddMember("bikeLane", to_json_LaneAttributes_Bike(p.choice.bikeLane, allocator), allocator);
     } else if (p.present == LaneTypeAttributes_PR_sidewalk) {
-        j["sidewalk"] = to_json_LaneAttributes_Sidewalk(p.choice.sidewalk);
+        json.AddMember("sidewalk", to_json_LaneAttributes_Sidewalk(p.choice.sidewalk, allocator), allocator);
     } else if (p.present == LaneTypeAttributes_PR_median) {
-        j["median"] = to_json_LaneAttributes_Barrier(p.choice.median);
+        json.AddMember("median", to_json_LaneAttributes_Barrier(p.choice.median, allocator), allocator);
     } else if (p.present == LaneTypeAttributes_PR_striping) {
-        j["striping"] = to_json_LaneAttributes_Striping(p.choice.striping);
+        json.AddMember("striping", to_json_LaneAttributes_Striping(p.choice.striping, allocator), allocator);
     } else if (p.present == LaneTypeAttributes_PR_trackedVehicle) {
-        j["trackedVehicle"] = to_json_LaneAttributes_TrackedVehicle(p.choice.trackedVehicle);
+        json.AddMember("trackedVehicle", to_json_LaneAttributes_TrackedVehicle(p.choice.trackedVehicle, allocator), allocator);
     } else if (p.present == LaneTypeAttributes_PR_parking) {
-        j["parking"] = to_json_LaneAttributes_Parking(p.choice.parking);
+        json.AddMember("parking", to_json_LaneAttributes_Parking(p.choice.parking, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, LaneTypeAttributes& p) {
-    if (j.contains("vehicle")) {
+void from_json(const Value& j, LaneTypeAttributes& p) {
+    if (j.HasMember("vehicle")) {
         p.present = LaneTypeAttributes_PR_vehicle;
         from_json_LaneAttributes_Vehicle(j["vehicle"], p.choice.vehicle);
-    } else if (j.contains("crosswalk")) {
+    } else if (j.HasMember("crosswalk")) {
         p.present = LaneTypeAttributes_PR_crosswalk;
         from_json_LaneAttributes_Crosswalk(j["crosswalk"], p.choice.crosswalk);
-    } else if (j.contains("bikeLane")) {
+    } else if (j.HasMember("bikeLane")) {
         p.present = LaneTypeAttributes_PR_bikeLane;
         from_json_LaneAttributes_Bike(j["bikeLane"], p.choice.bikeLane);
-    } else if (j.contains("sidewalk")) {
+    } else if (j.HasMember("sidewalk")) {
         p.present = LaneTypeAttributes_PR_sidewalk;
         from_json_LaneAttributes_Sidewalk(j["sidewalk"], p.choice.sidewalk);
-    } else if (j.contains("median")) {
+    } else if (j.HasMember("median")) {
         p.present = LaneTypeAttributes_PR_median;
         from_json_LaneAttributes_Barrier(j["median"], p.choice.median);
-    } else if (j.contains("striping")) {
+    } else if (j.HasMember("striping")) {
         p.present = LaneTypeAttributes_PR_striping;
         from_json_LaneAttributes_Striping(j["striping"], p.choice.striping);
-    } else if (j.contains("trackedVehicle")) {
+    } else if (j.HasMember("trackedVehicle")) {
         p.present = LaneTypeAttributes_PR_trackedVehicle;
         from_json_LaneAttributes_TrackedVehicle(j["trackedVehicle"], p.choice.trackedVehicle);
-    } else if (j.contains("parking")) {
+    } else if (j.HasMember("parking")) {
         p.present = LaneTypeAttributes_PR_parking;
         from_json_LaneAttributes_Parking(j["parking"], p.choice.parking);
     } else {
@@ -3641,43 +4177,48 @@ void from_json(const json& j, LaneTypeAttributes& p) {
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const MovementEvent& p) {
-    j = json{{"eventState", (p.eventState)}};
-    if (p.timing != 0) j["timing"] = *(p.timing);
-    if (p.speeds != 0) j["speeds"] = *(p.speeds);
+Value to_json(const MovementEvent& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("eventState", to_json((p.eventState), allocator), allocator);
+    if (p.timing != 0) json.AddMember("timing", to_json(*(p.timing), allocator), allocator);
+    if (p.speeds != 0) json.AddMember("speeds", to_json(*(p.speeds), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, MovementEvent& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("eventState").get_to((p.eventState));
-    if (j.contains("timing")) { p.timing = vanetza::asn1::allocate<TimeChangeDetails_t>(); j.at("timing").get_to(*(p.timing)); } 
+void from_json(const Value& j, MovementEvent& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["eventState"], (p.eventState));
+    if (j.HasMember("timing")) { p.timing = vanetza::asn1::allocate<TimeChangeDetails_t>(); from_json(j["timing"], *(p.timing)); }
     else { p.timing=nullptr; }
-    if (j.contains("speeds")) { p.speeds = vanetza::asn1::allocate<AdvisorySpeedList_t>(); j.at("speeds").get_to(*(p.speeds)); } 
+    if (j.HasMember("speeds")) { p.speeds = vanetza::asn1::allocate<AdvisorySpeedList_t>(); from_json(j["speeds"], *(p.speeds)); }
     else { p.speeds=nullptr; }
-    
     p.regional=nullptr;
 }
+
+
 
 /*
 *   RestrictionUserTypeList - Type SEQUENCE OF
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const RestrictionUserTypeList& p) {
+Value to_json(const RestrictionUserTypeList& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const RestrictionUserType_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, RestrictionUserTypeList& p) {
+void from_json(const Value& j, RestrictionUserTypeList& p) {
     RestrictionUserTypeList* p_tmp = vanetza::asn1::allocate<RestrictionUserTypeList>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         RestrictionUserType_t *element = vanetza::asn1::allocate<RestrictionUserType_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -3689,42 +4230,43 @@ void from_json(const json& j, RestrictionUserTypeList& p) {
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const LaneDataAttribute& p) {
-    j = json{};
+Value to_json(const LaneDataAttribute& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == LaneDataAttribute_PR_pathEndPointAngle) {
-        j["pathEndPointAngle"] = p.choice.pathEndPointAngle;
+        json.AddMember("pathEndPointAngle", to_json(p.choice.pathEndPointAngle, allocator), allocator);
     } else if (p.present == LaneDataAttribute_PR_laneCrownPointCenter) {
-        j["laneCrownPointCenter"] = p.choice.laneCrownPointCenter;
+        json.AddMember("laneCrownPointCenter", to_json(p.choice.laneCrownPointCenter, allocator), allocator);
     } else if (p.present == LaneDataAttribute_PR_laneCrownPointLeft) {
-        j["laneCrownPointLeft"] = p.choice.laneCrownPointLeft;
+        json.AddMember("laneCrownPointLeft", to_json(p.choice.laneCrownPointLeft, allocator), allocator);
     } else if (p.present == LaneDataAttribute_PR_laneCrownPointRight) {
-        j["laneCrownPointRight"] = p.choice.laneCrownPointRight;
+        json.AddMember("laneCrownPointRight", to_json(p.choice.laneCrownPointRight, allocator), allocator);
     } else if (p.present == LaneDataAttribute_PR_laneAngle) {
-        j["laneAngle"] = p.choice.laneAngle;
+        json.AddMember("laneAngle", to_json(p.choice.laneAngle, allocator), allocator);
     } else if (p.present == LaneDataAttribute_PR_speedLimits) {
-        j["speedLimits"] = p.choice.speedLimits;
+        json.AddMember("speedLimits", to_json(p.choice.speedLimits, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, LaneDataAttribute& p) {
-    if (j.contains("pathEndPointAngle")) {
+void from_json(const Value& j, LaneDataAttribute& p) {
+    if (j.HasMember("pathEndPointAngle")) {
         p.present = LaneDataAttribute_PR_pathEndPointAngle;
-        j.at("pathEndPointAngle").get_to(p.choice.pathEndPointAngle);
-    } else if (j.contains("laneCrownPointCenter")) {
+        from_json(j["pathEndPointAngle"], p.choice.pathEndPointAngle);
+    } else if (j.HasMember("laneCrownPointCenter")) {
         p.present = LaneDataAttribute_PR_laneCrownPointCenter;
-        j.at("laneCrownPointCenter").get_to(p.choice.laneCrownPointCenter);
-    } else if (j.contains("laneCrownPointLeft")) {
+        from_json(j["laneCrownPointCenter"], p.choice.laneCrownPointCenter);
+    } else if (j.HasMember("laneCrownPointLeft")) {
         p.present = LaneDataAttribute_PR_laneCrownPointLeft;
-        j.at("laneCrownPointLeft").get_to(p.choice.laneCrownPointLeft);
-    } else if (j.contains("laneCrownPointRight")) {
+        from_json(j["laneCrownPointLeft"], p.choice.laneCrownPointLeft);
+    } else if (j.HasMember("laneCrownPointRight")) {
         p.present = LaneDataAttribute_PR_laneCrownPointRight;
-        j.at("laneCrownPointRight").get_to(p.choice.laneCrownPointRight);
-    } else if (j.contains("laneAngle")) {
+        from_json(j["laneCrownPointRight"], p.choice.laneCrownPointRight);
+    } else if (j.HasMember("laneAngle")) {
         p.present = LaneDataAttribute_PR_laneAngle;
-        j.at("laneAngle").get_to(p.choice.laneAngle);
-    } else if (j.contains("speedLimits")) {
+        from_json(j["laneAngle"], p.choice.laneAngle);
+    } else if (j.HasMember("speedLimits")) {
         p.present = LaneDataAttribute_PR_speedLimits;
-        j.at("speedLimits").get_to(p.choice.speedLimits);
+        from_json(j["speedLimits"], p.choice.speedLimits);
     } else {
         p.present = LaneDataAttribute_PR_NOTHING;
     }
@@ -3735,21 +4277,23 @@ void from_json(const json& j, LaneDataAttribute& p) {
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const LaneDataAttributeList& p) {
+Value to_json(const LaneDataAttributeList& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const LaneDataAttribute_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, LaneDataAttributeList& p) {
+void from_json(const Value& j, LaneDataAttributeList& p) {
     LaneDataAttributeList* p_tmp = vanetza::asn1::allocate<LaneDataAttributeList>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         LaneDataAttribute_t *element = vanetza::asn1::allocate<LaneDataAttribute_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -3761,47 +4305,48 @@ void from_json(const json& j, LaneDataAttributeList& p) {
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const NodeOffsetPointXY& p) {
-    j = json{};
+Value to_json(const NodeOffsetPointXY& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == NodeOffsetPointXY_PR_node_XY1) {
-        j["node-XY1"] = p.choice.node_XY1;
+        json.AddMember("node-XY1", to_json(p.choice.node_XY1, allocator), allocator);
     } else if (p.present == NodeOffsetPointXY_PR_node_XY2) {
-        j["node-XY2"] = p.choice.node_XY2;
+        json.AddMember("node-XY2", to_json(p.choice.node_XY2, allocator), allocator);
     } else if (p.present == NodeOffsetPointXY_PR_node_XY3) {
-        j["node-XY3"] = p.choice.node_XY3;
+        json.AddMember("node-XY3", to_json(p.choice.node_XY3, allocator), allocator);
     } else if (p.present == NodeOffsetPointXY_PR_node_XY4) {
-        j["node-XY4"] = p.choice.node_XY4;
+        json.AddMember("node-XY4", to_json(p.choice.node_XY4, allocator), allocator);
     } else if (p.present == NodeOffsetPointXY_PR_node_XY5) {
-        j["node-XY5"] = p.choice.node_XY5;
+        json.AddMember("node-XY5", to_json(p.choice.node_XY5, allocator), allocator);
     } else if (p.present == NodeOffsetPointXY_PR_node_XY6) {
-        j["node-XY6"] = p.choice.node_XY6;
+        json.AddMember("node-XY6", to_json(p.choice.node_XY6, allocator), allocator);
     } else if (p.present == NodeOffsetPointXY_PR_node_LatLon) {
-        j["node-LatLon"] = p.choice.node_LatLon;
+        json.AddMember("node-LatLon", to_json(p.choice.node_LatLon, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, NodeOffsetPointXY& p) {
-    if (j.contains("node-XY1")) {
+void from_json(const Value& j, NodeOffsetPointXY& p) {
+    if (j.HasMember("node-XY1")) {
         p.present = NodeOffsetPointXY_PR_node_XY1;
-        j.at("node-XY1").get_to(p.choice.node_XY1);
-    } else if (j.contains("node-XY2")) {
+        from_json(j["node-XY1"], p.choice.node_XY1);
+    } else if (j.HasMember("node-XY2")) {
         p.present = NodeOffsetPointXY_PR_node_XY2;
-        j.at("node-XY2").get_to(p.choice.node_XY2);
-    } else if (j.contains("node-XY3")) {
+        from_json(j["node-XY2"], p.choice.node_XY2);
+    } else if (j.HasMember("node-XY3")) {
         p.present = NodeOffsetPointXY_PR_node_XY3;
-        j.at("node-XY3").get_to(p.choice.node_XY3);
-    } else if (j.contains("node-XY4")) {
+        from_json(j["node-XY3"], p.choice.node_XY3);
+    } else if (j.HasMember("node-XY4")) {
         p.present = NodeOffsetPointXY_PR_node_XY4;
-        j.at("node-XY4").get_to(p.choice.node_XY4);
-    } else if (j.contains("node-XY5")) {
+        from_json(j["node-XY4"], p.choice.node_XY4);
+    } else if (j.HasMember("node-XY5")) {
         p.present = NodeOffsetPointXY_PR_node_XY5;
-        j.at("node-XY5").get_to(p.choice.node_XY5);
-    } else if (j.contains("node-XY6")) {
+        from_json(j["node-XY5"], p.choice.node_XY5);
+    } else if (j.HasMember("node-XY6")) {
         p.present = NodeOffsetPointXY_PR_node_XY6;
-        j.at("node-XY6").get_to(p.choice.node_XY6);
-    } else if (j.contains("node-LatLon")) {
+        from_json(j["node-XY6"], p.choice.node_XY6);
+    } else if (j.HasMember("node-LatLon")) {
         p.present = NodeOffsetPointXY_PR_node_LatLon;
-        j.at("node-LatLon").get_to(p.choice.node_LatLon);
+        from_json(j["node-LatLon"], p.choice.node_LatLon);
     } else {
         p.present = NodeOffsetPointXY_PR_NOTHING;
     }
@@ -3812,74 +4357,82 @@ void from_json(const json& j, NodeOffsetPointXY& p) {
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const NodeAttributeSetXY_t& p) {
-    j = json{};
-    if (p.localNode != 0) j["localNode"] = *(p.localNode);
-    if (p.disabled != 0) j["disabled"] = *(p.disabled);
-    if (p.enabled != 0) j["enabled"] = *(p.enabled);
-    if (p.data != 0) j["data"] = *(p.data);
-    if (p.dWidth != 0) j["dWidth"] = *(p.dWidth);
-    if (p.dElevation != 0) j["dElevation"] = *(p.dElevation);
+Value to_json(const NodeAttributeSetXY_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    if (p.localNode != 0) json.AddMember("localNode", to_json(*(p.localNode), allocator), allocator);
+    if (p.disabled != 0) json.AddMember("disabled", to_json(*(p.disabled), allocator), allocator);
+    if (p.enabled != 0) json.AddMember("enabled", to_json(*(p.enabled), allocator), allocator);
+    if (p.data != 0) json.AddMember("data", to_json(*(p.data), allocator), allocator);
+    if (p.dWidth != 0) json.AddMember("dWidth", to_json(*(p.dWidth), allocator), allocator);
+    if (p.dElevation != 0) json.AddMember("dElevation", to_json(*(p.dElevation), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, NodeAttributeSetXY_t& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("localNode")) { p.localNode = vanetza::asn1::allocate<NodeAttributeXYList_t>(); j.at("localNode").get_to(*(p.localNode)); } 
+void from_json(const Value& j, NodeAttributeSetXY_t& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("localNode")) { p.localNode = vanetza::asn1::allocate<NodeAttributeXYList_t>(); from_json(j["localNode"], *(p.localNode)); }
     else { p.localNode=nullptr; }
-    if (j.contains("disabled")) { p.disabled = vanetza::asn1::allocate<SegmentAttributeXYList_t>(); j.at("disabled").get_to(*(p.disabled)); } 
+    if (j.HasMember("disabled")) { p.disabled = vanetza::asn1::allocate<SegmentAttributeXYList_t>(); from_json(j["disabled"], *(p.disabled)); }
     else { p.disabled=nullptr; }
-    if (j.contains("enabled")) { p.enabled = vanetza::asn1::allocate<SegmentAttributeXYList_t>(); j.at("enabled").get_to(*(p.enabled)); } 
+    if (j.HasMember("enabled")) { p.enabled = vanetza::asn1::allocate<SegmentAttributeXYList_t>(); from_json(j["enabled"], *(p.enabled)); }
     else { p.enabled=nullptr; }
-    if (j.contains("data")) { p.data = vanetza::asn1::allocate<LaneDataAttributeList_t>(); j.at("data").get_to(*(p.data)); } 
+    if (j.HasMember("data")) { p.data = vanetza::asn1::allocate<LaneDataAttributeList_t>(); from_json(j["data"], *(p.data)); }
     else { p.data=nullptr; }
-    if (j.contains("dWidth")) { p.dWidth = vanetza::asn1::allocate<Offset_B10_t>(); j.at("dWidth").get_to(*(p.dWidth)); } 
+    if (j.HasMember("dWidth")) { p.dWidth = vanetza::asn1::allocate<Offset_B10_t>(); from_json(j["dWidth"], *(p.dWidth)); }
     else { p.dWidth=nullptr; }
-    if (j.contains("dElevation")) { p.dElevation = vanetza::asn1::allocate<Offset_B10_t>(); j.at("dElevation").get_to(*(p.dElevation)); } 
+    if (j.HasMember("dElevation")) { p.dElevation = vanetza::asn1::allocate<Offset_B10_t>(); from_json(j["dElevation"], *(p.dElevation)); }
     else { p.dElevation=nullptr; }
-    
     p.regional=nullptr;
 }
+
+
 
 /*
 *   CpmManagementContainer - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const CpmManagementContainer& p) {
-    j = json{{"stationType", (p.stationType)}, {"referencePosition", (p.referencePosition)}};
-    if (p.perceivedObjectContainerSegmentInfo != 0) j["perceivedObjectContainerSegmentInfo"] = *(p.perceivedObjectContainerSegmentInfo);
+Value to_json(const CpmManagementContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("stationType", to_json((p.stationType), allocator), allocator);
+    json.AddMember("referencePosition", to_json((p.referencePosition), allocator), allocator);
+    if (p.perceivedObjectContainerSegmentInfo != 0) json.AddMember("perceivedObjectContainerSegmentInfo", to_json(*(p.perceivedObjectContainerSegmentInfo), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, CpmManagementContainer& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("stationType").get_to((p.stationType));
-    if (j.contains("perceivedObjectContainerSegmentInfo")) { p.perceivedObjectContainerSegmentInfo = vanetza::asn1::allocate<PerceivedObjectContainerSegmentInfo_t>(); j.at("perceivedObjectContainerSegmentInfo").get_to(*(p.perceivedObjectContainerSegmentInfo)); } 
+void from_json(const Value& j, CpmManagementContainer& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["stationType"], (p.stationType));
+    if (j.HasMember("perceivedObjectContainerSegmentInfo")) { p.perceivedObjectContainerSegmentInfo = vanetza::asn1::allocate<PerceivedObjectContainerSegmentInfo_t>(); from_json(j["perceivedObjectContainerSegmentInfo"], *(p.perceivedObjectContainerSegmentInfo)); }
     else { p.perceivedObjectContainerSegmentInfo=nullptr; }
-    j.at("referencePosition").get_to((p.referencePosition));
-    
-    
+    from_json(j["referencePosition"], (p.referencePosition));
 }
+
+
 
 /*
 *   VehicleSensorPropertyList - Type SEQUENCE OF
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const VehicleSensorPropertyList& p) {
+Value to_json(const VehicleSensorPropertyList& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const VehicleSensorProperties_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, VehicleSensorPropertyList& p) {
+void from_json(const Value& j, VehicleSensorPropertyList& p) {
     VehicleSensorPropertyList* p_tmp = vanetza::asn1::allocate<VehicleSensorPropertyList>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         VehicleSensorProperties_t *element = vanetza::asn1::allocate<VehicleSensorProperties_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -3891,21 +4444,23 @@ void from_json(const json& j, VehicleSensorPropertyList& p) {
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const TrailerDataContainer& p) {
+Value to_json(const TrailerDataContainer& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const TrailerData_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, TrailerDataContainer& p) {
+void from_json(const Value& j, TrailerDataContainer& p) {
     TrailerDataContainer* p_tmp = vanetza::asn1::allocate<TrailerDataContainer>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         TrailerData_t *element = vanetza::asn1::allocate<TrailerData_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -3917,32 +4472,33 @@ void from_json(const json& j, TrailerDataContainer& p) {
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const ObjectClass::ObjectClass__class& p) {
-    j = json{};
+Value to_json(const ObjectClass::ObjectClass__class& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == ObjectClass__class_PR_vehicle) {
-        j["vehicle"] = p.choice.vehicle;
+        json.AddMember("vehicle", to_json(p.choice.vehicle, allocator), allocator);
     } else if (p.present == ObjectClass__class_PR_person) {
-        j["person"] = p.choice.person;
+        json.AddMember("person", to_json(p.choice.person, allocator), allocator);
     } else if (p.present == ObjectClass__class_PR_animal) {
-        j["animal"] = p.choice.animal;
+        json.AddMember("animal", to_json(p.choice.animal, allocator), allocator);
     } else if (p.present == ObjectClass__class_PR_other) {
-        j["other"] = p.choice.other;
+        json.AddMember("other", to_json(p.choice.other, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, ObjectClass::ObjectClass__class& p) {
-    if (j.contains("vehicle")) {
+void from_json(const Value& j, ObjectClass::ObjectClass__class& p) {
+    if (j.HasMember("vehicle")) {
         p.present = ObjectClass__class_PR_vehicle;
-        j.at("vehicle").get_to(p.choice.vehicle);
-    } else if (j.contains("person")) {
+        from_json(j["vehicle"], p.choice.vehicle);
+    } else if (j.HasMember("person")) {
         p.present = ObjectClass__class_PR_person;
-        j.at("person").get_to(p.choice.person);
-    } else if (j.contains("animal")) {
+        from_json(j["person"], p.choice.person);
+    } else if (j.HasMember("animal")) {
         p.present = ObjectClass__class_PR_animal;
-        j.at("animal").get_to(p.choice.animal);
-    } else if (j.contains("other")) {
+        from_json(j["animal"], p.choice.animal);
+    } else if (j.HasMember("other")) {
         p.present = ObjectClass__class_PR_other;
-        j.at("other").get_to(p.choice.other);
+        from_json(j["other"], p.choice.other);
     } else {
         p.present = ObjectClass__class_PR_NOTHING;
     }
@@ -3953,84 +4509,90 @@ void from_json(const json& j, ObjectClass::ObjectClass__class& p) {
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const ObjectClass_t& p) {
-    j = json{{"confidence", (p.confidence)}, {"class", (p.Class)}};
+Value to_json(const ObjectClass_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
+    json.AddMember("class", to_json((p.Class), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, ObjectClass_t& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("confidence").get_to((p.confidence));
-    j.at("class").get_to((p.Class));
-    
-    
+void from_json(const Value& j, ObjectClass_t& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["confidence"], (p.confidence));
+    from_json(j["class"], (p.Class));
 }
+
+
 
 /*
 *   OffsetPoint - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const OffsetPoint& p) {
-    j = json{{"nodeOffsetPointxy", (p.nodeOffsetPointxy)}};
-    if (p.nodeOffsetPointZ != 0) j["nodeOffsetPointZ"] = *(p.nodeOffsetPointZ);
+Value to_json(const OffsetPoint& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("nodeOffsetPointxy", to_json((p.nodeOffsetPointxy), allocator), allocator);
+    if (p.nodeOffsetPointZ != 0) json.AddMember("nodeOffsetPointZ", to_json(*(p.nodeOffsetPointZ), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, OffsetPoint& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("nodeOffsetPointxy").get_to((p.nodeOffsetPointxy));
-    if (j.contains("nodeOffsetPointZ")) { p.nodeOffsetPointZ = vanetza::asn1::allocate<NodeOffsetPointZ_t>(); j.at("nodeOffsetPointZ").get_to(*(p.nodeOffsetPointZ)); } 
+void from_json(const Value& j, OffsetPoint& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["nodeOffsetPointxy"], (p.nodeOffsetPointxy));
+    if (j.HasMember("nodeOffsetPointZ")) { p.nodeOffsetPointZ = vanetza::asn1::allocate<NodeOffsetPointZ_t>(); from_json(j["nodeOffsetPointZ"], *(p.nodeOffsetPointZ)); }
     else { p.nodeOffsetPointZ=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   SpecialVehicleContainer - Type CHOICE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const SpecialVehicleContainer& p) {
-    j = json{};
+Value to_json(const SpecialVehicleContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == SpecialVehicleContainer_PR_publicTransportContainer) {
-        j["publicTransportContainer"] = p.choice.publicTransportContainer;
+        json.AddMember("publicTransportContainer", to_json(p.choice.publicTransportContainer, allocator), allocator);
     } else if (p.present == SpecialVehicleContainer_PR_specialTransportContainer) {
-        j["specialTransportContainer"] = p.choice.specialTransportContainer;
+        json.AddMember("specialTransportContainer", to_json(p.choice.specialTransportContainer, allocator), allocator);
     } else if (p.present == SpecialVehicleContainer_PR_dangerousGoodsContainer) {
-        j["dangerousGoodsContainer"] = p.choice.dangerousGoodsContainer;
+        json.AddMember("dangerousGoodsContainer", to_json(p.choice.dangerousGoodsContainer, allocator), allocator);
     } else if (p.present == SpecialVehicleContainer_PR_roadWorksContainerBasic) {
-        j["roadWorksContainerBasic"] = p.choice.roadWorksContainerBasic;
+        json.AddMember("roadWorksContainerBasic", to_json(p.choice.roadWorksContainerBasic, allocator), allocator);
     } else if (p.present == SpecialVehicleContainer_PR_rescueContainer) {
-        j["rescueContainer"] = p.choice.rescueContainer;
+        json.AddMember("rescueContainer", to_json(p.choice.rescueContainer, allocator), allocator);
     } else if (p.present == SpecialVehicleContainer_PR_emergencyContainer) {
-        j["emergencyContainer"] = p.choice.emergencyContainer;
+        json.AddMember("emergencyContainer", to_json(p.choice.emergencyContainer, allocator), allocator);
     } else if (p.present == SpecialVehicleContainer_PR_safetyCarContainer) {
-        j["safetyCarContainer"] = p.choice.safetyCarContainer;
+        json.AddMember("safetyCarContainer", to_json(p.choice.safetyCarContainer, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, SpecialVehicleContainer& p) {
-    if (j.contains("publicTransportContainer")) {
+void from_json(const Value& j, SpecialVehicleContainer& p) {
+    if (j.HasMember("publicTransportContainer")) {
         p.present = SpecialVehicleContainer_PR_publicTransportContainer;
-        j.at("publicTransportContainer").get_to(p.choice.publicTransportContainer);
-    } else if (j.contains("specialTransportContainer")) {
+        from_json(j["publicTransportContainer"], p.choice.publicTransportContainer);
+    } else if (j.HasMember("specialTransportContainer")) {
         p.present = SpecialVehicleContainer_PR_specialTransportContainer;
-        j.at("specialTransportContainer").get_to(p.choice.specialTransportContainer);
-    } else if (j.contains("dangerousGoodsContainer")) {
+        from_json(j["specialTransportContainer"], p.choice.specialTransportContainer);
+    } else if (j.HasMember("dangerousGoodsContainer")) {
         p.present = SpecialVehicleContainer_PR_dangerousGoodsContainer;
-        j.at("dangerousGoodsContainer").get_to(p.choice.dangerousGoodsContainer);
-    } else if (j.contains("roadWorksContainerBasic")) {
+        from_json(j["dangerousGoodsContainer"], p.choice.dangerousGoodsContainer);
+    } else if (j.HasMember("roadWorksContainerBasic")) {
         p.present = SpecialVehicleContainer_PR_roadWorksContainerBasic;
-        j.at("roadWorksContainerBasic").get_to(p.choice.roadWorksContainerBasic);
-    } else if (j.contains("rescueContainer")) {
+        from_json(j["roadWorksContainerBasic"], p.choice.roadWorksContainerBasic);
+    } else if (j.HasMember("rescueContainer")) {
         p.present = SpecialVehicleContainer_PR_rescueContainer;
-        j.at("rescueContainer").get_to(p.choice.rescueContainer);
-    } else if (j.contains("emergencyContainer")) {
+        from_json(j["rescueContainer"], p.choice.rescueContainer);
+    } else if (j.HasMember("emergencyContainer")) {
         p.present = SpecialVehicleContainer_PR_emergencyContainer;
-        j.at("emergencyContainer").get_to(p.choice.emergencyContainer);
-    } else if (j.contains("safetyCarContainer")) {
+        from_json(j["emergencyContainer"], p.choice.emergencyContainer);
+    } else if (j.HasMember("safetyCarContainer")) {
         p.present = SpecialVehicleContainer_PR_safetyCarContainer;
-        j.at("safetyCarContainer").get_to(p.choice.safetyCarContainer);
+        from_json(j["safetyCarContainer"], p.choice.safetyCarContainer);
     } else {
         p.present = SpecialVehicleContainer_PR_NOTHING;
     }
@@ -4041,52 +4603,55 @@ void from_json(const json& j, SpecialVehicleContainer& p) {
 *   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
 */
 
-void to_json(json& j, const DecentralizedEnvironmentalNotificationMessage& p) {
-    j = json{{"management", (p.management)}};
-    if (p.situation != 0) j["situation"] = *(p.situation);
-    if (p.location != 0) j["location"] = *(p.location);
-    if (p.alacarte != 0) j["alacarte"] = *(p.alacarte);
+Value to_json(const DecentralizedEnvironmentalNotificationMessage& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("management", to_json((p.management), allocator), allocator);
+    if (p.situation != 0) json.AddMember("situation", to_json(*(p.situation), allocator), allocator);
+    if (p.location != 0) json.AddMember("location", to_json(*(p.location), allocator), allocator);
+    if (p.alacarte != 0) json.AddMember("alacarte", to_json(*(p.alacarte), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, DecentralizedEnvironmentalNotificationMessage& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("management").get_to((p.management));
-    if (j.contains("situation")) { p.situation = vanetza::asn1::allocate<SituationContainer_t>(); j.at("situation").get_to(*(p.situation)); } 
+void from_json(const Value& j, DecentralizedEnvironmentalNotificationMessage& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["management"], (p.management));
+    if (j.HasMember("situation")) { p.situation = vanetza::asn1::allocate<SituationContainer_t>(); from_json(j["situation"], *(p.situation)); }
     else { p.situation=nullptr; }
-    if (j.contains("location")) { p.location = vanetza::asn1::allocate<LocationContainer_t>(); j.at("location").get_to(*(p.location)); } 
+    if (j.HasMember("location")) { p.location = vanetza::asn1::allocate<LocationContainer_t>(); from_json(j["location"], *(p.location)); }
     else { p.location=nullptr; }
-    if (j.contains("alacarte")) { p.alacarte = vanetza::asn1::allocate<AlacarteContainer_t>(); j.at("alacarte").get_to(*(p.alacarte)); } 
+    if (j.HasMember("alacarte")) { p.alacarte = vanetza::asn1::allocate<AlacarteContainer_t>(); from_json(j["alacarte"], *(p.alacarte)); }
     else { p.alacarte=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   NonIslandLanePosition - Type CHOICE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const NonIslandLanePosition& p) {
-    j = json{};
+Value to_json(const NonIslandLanePosition& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == NonIslandLanePosition_PR_offRoadLanePosition) {
-        j["offRoadLanePosition"] = p.choice.offRoadLanePosition;
+        json.AddMember("offRoadLanePosition", to_json(p.choice.offRoadLanePosition, allocator), allocator);
     } else if (p.present == NonIslandLanePosition_PR_vehicularLanePosition) {
-        j["vehicularLanePosition"] = p.choice.vehicularLanePosition;
+        json.AddMember("vehicularLanePosition", to_json(p.choice.vehicularLanePosition, allocator), allocator);
     } else if (p.present == NonIslandLanePosition_PR_mapPosition) {
-        j["mapPosition"] = p.choice.mapPosition;
+        json.AddMember("mapPosition", to_json(p.choice.mapPosition, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, NonIslandLanePosition& p) {
-    if (j.contains("offRoadLanePosition")) {
+void from_json(const Value& j, NonIslandLanePosition& p) {
+    if (j.HasMember("offRoadLanePosition")) {
         p.present = NonIslandLanePosition_PR_offRoadLanePosition;
-        j.at("offRoadLanePosition").get_to(p.choice.offRoadLanePosition);
-    } else if (j.contains("vehicularLanePosition")) {
+        from_json(j["offRoadLanePosition"], p.choice.offRoadLanePosition);
+    } else if (j.HasMember("vehicularLanePosition")) {
         p.present = NonIslandLanePosition_PR_vehicularLanePosition;
-        j.at("vehicularLanePosition").get_to(p.choice.vehicularLanePosition);
-    } else if (j.contains("mapPosition")) {
+        from_json(j["vehicularLanePosition"], p.choice.vehicularLanePosition);
+    } else if (j.HasMember("mapPosition")) {
         p.present = NonIslandLanePosition_PR_mapPosition;
-        j.at("mapPosition").get_to(p.choice.mapPosition);
+        from_json(j["mapPosition"], p.choice.mapPosition);
     } else {
         p.present = NonIslandLanePosition_PR_NOTHING;
     }
@@ -4097,45 +4662,49 @@ void from_json(const json& j, NonIslandLanePosition& p) {
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruLowFrequencyContainer& p) {
-    j = json{};
-    if (p.profileAndSubprofile != 0) j["profileAndSubprofile"] = *(p.profileAndSubprofile);
-    if (p.exteriorLights != 0) j["exteriorLights"] = *(p.exteriorLights);
-    if (p.sizeClass != 0) j["sizeClass"] = *(p.sizeClass);
+Value to_json(const VruLowFrequencyContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    if (p.profileAndSubprofile != 0) json.AddMember("profileAndSubprofile", to_json(*(p.profileAndSubprofile), allocator), allocator);
+    if (p.exteriorLights != 0) json.AddMember("exteriorLights", to_json(*(p.exteriorLights), allocator), allocator);
+    if (p.sizeClass != 0) json.AddMember("sizeClass", to_json(*(p.sizeClass), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, VruLowFrequencyContainer& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("profileAndSubprofile")) { p.profileAndSubprofile = vanetza::asn1::allocate<VruProfileAndSubprofile_t>(); j.at("profileAndSubprofile").get_to(*(p.profileAndSubprofile)); } 
+void from_json(const Value& j, VruLowFrequencyContainer& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("profileAndSubprofile")) { p.profileAndSubprofile = vanetza::asn1::allocate<VruProfileAndSubprofile_t>(); from_json(j["profileAndSubprofile"], *(p.profileAndSubprofile)); }
     else { p.profileAndSubprofile=nullptr; }
-    if (j.contains("exteriorLights")) { p.exteriorLights = vanetza::asn1::allocate<VruExteriorLights_t>(); j.at("exteriorLights").get_to(*(p.exteriorLights)); } 
+    if (j.HasMember("exteriorLights")) { p.exteriorLights = vanetza::asn1::allocate<VruExteriorLights_t>(); from_json(j["exteriorLights"], *(p.exteriorLights)); }
     else { p.exteriorLights=nullptr; }
-    if (j.contains("sizeClass")) { p.sizeClass = vanetza::asn1::allocate<VruSizeClass_t>(); j.at("sizeClass").get_to(*(p.sizeClass)); } 
+    if (j.HasMember("sizeClass")) { p.sizeClass = vanetza::asn1::allocate<VruSizeClass_t>(); from_json(j["sizeClass"], *(p.sizeClass)); }
     else { p.sizeClass=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   SequenceOfVruPathPoint - Type SEQUENCE OF
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const SequenceOfVruPathPoint& p) {
+Value to_json(const SequenceOfVruPathPoint& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const VruPathPoint_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, SequenceOfVruPathPoint& p) {
+void from_json(const Value& j, SequenceOfVruPathPoint& p) {
     SequenceOfVruPathPoint* p_tmp = vanetza::asn1::allocate<SequenceOfVruPathPoint>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         VruPathPoint_t *element = vanetza::asn1::allocate<VruPathPoint_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -4147,21 +4716,23 @@ void from_json(const json& j, SequenceOfVruPathPoint& p) {
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const ConnectsToList& p) {
+Value to_json(const ConnectsToList& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const Connection_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, ConnectsToList& p) {
+void from_json(const Value& j, ConnectsToList& p) {
     ConnectsToList* p_tmp = vanetza::asn1::allocate<ConnectsToList>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         Connection_t *element = vanetza::asn1::allocate<Connection_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -4173,39 +4744,47 @@ void from_json(const json& j, ConnectsToList& p) {
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const LaneAttributes& p) {
-    j = json{{"directionalUse", to_json_LaneDirection((p.directionalUse))}, {"sharedWith", to_json_LaneSharing((p.sharedWith))}, {"laneType", (p.laneType)}};
+Value to_json(const LaneAttributes& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("directionalUse", to_json_LaneDirection((p.directionalUse), allocator), allocator);
+    json.AddMember("sharedWith", to_json_LaneSharing((p.sharedWith), allocator), allocator);
+    json.AddMember("laneType", to_json((p.laneType), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, LaneAttributes& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("laneType").get_to((p.laneType));
+void from_json(const Value& j, LaneAttributes& p) {
+    p._asn_ctx.ptr = nullptr;
     from_json_LaneDirection(j["directionalUse"],(p.directionalUse));
     from_json_LaneSharing(j["sharedWith"],(p.sharedWith));
+    from_json(j["laneType"], (p.laneType));
     p.regional=nullptr;
 }
+
+
 
 /*
 *   MovementEventList - Type SEQUENCE OF
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const MovementEventList& p) {
+Value to_json(const MovementEventList& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const MovementEvent_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, MovementEventList& p) {
+void from_json(const Value& j, MovementEventList& p) {
     MovementEventList* p_tmp = vanetza::asn1::allocate<MovementEventList>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         MovementEvent_t *element = vanetza::asn1::allocate<MovementEvent_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -4217,60 +4796,69 @@ void from_json(const json& j, MovementEventList& p) {
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const MovementState& p) {
-    j = json{{"signalGroup", (p.signalGroup)}, {"state-time-speed", (p.state_time_speed)}};
-    if (p.maneuverAssistList != 0) j["maneuverAssistList"] = *(p.maneuverAssistList);
+Value to_json(const MovementState& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("signalGroup", to_json((p.signalGroup), allocator), allocator);
+    json.AddMember("state-time-speed", to_json((p.state_time_speed), allocator), allocator);
+    if (p.maneuverAssistList != 0) json.AddMember("maneuverAssistList", to_json(*(p.maneuverAssistList), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, MovementState& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("signalGroup").get_to((p.signalGroup));
-    j.at("state-time-speed").get_to((p.state_time_speed));
-    if (j.contains("maneuverAssistList")) { p.maneuverAssistList = vanetza::asn1::allocate<ManeuverAssistList_t>(); j.at("maneuverAssistList").get_to(*(p.maneuverAssistList)); } 
+void from_json(const Value& j, MovementState& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["signalGroup"], (p.signalGroup));
+    from_json(j["state-time-speed"], (p.state_time_speed));
+    if (j.HasMember("maneuverAssistList")) { p.maneuverAssistList = vanetza::asn1::allocate<ManeuverAssistList_t>(); from_json(j["maneuverAssistList"], *(p.maneuverAssistList)); }
     else { p.maneuverAssistList=nullptr; }
-    
     p.movementName=nullptr;
     p.regional=nullptr;
 }
+
+
 
 /*
 *   RestrictionClassAssignment - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const RestrictionClassAssignment& p) {
-    j = json{{"id", (p.id)}, {"users", (p.users)}};
+Value to_json(const RestrictionClassAssignment& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("id", to_json((p.id), allocator), allocator);
+    json.AddMember("users", to_json((p.users), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, RestrictionClassAssignment& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("id").get_to((p.id));
-    j.at("users").get_to((p.users));
-    
-    
+void from_json(const Value& j, RestrictionClassAssignment& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["id"], (p.id));
+    from_json(j["users"], (p.users));
 }
+
+
 
 /*
 *   RestrictionClassList - Type SEQUENCE OF
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const RestrictionClassList& p) {
+Value to_json(const RestrictionClassList& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const RestrictionClassAssignment_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, RestrictionClassList& p) {
+void from_json(const Value& j, RestrictionClassList& p) {
     RestrictionClassList* p_tmp = vanetza::asn1::allocate<RestrictionClassList>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         RestrictionClassAssignment_t *element = vanetza::asn1::allocate<RestrictionClassAssignment_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -4282,180 +4870,203 @@ void from_json(const json& j, RestrictionClassList& p) {
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const NodeXY_t& p) {
-    j = json{{"delta", (p.delta)}};
-    if (p.attributes != 0) j["attributes"] = *(p.attributes);
+Value to_json(const NodeXY_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("delta", to_json((p.delta), allocator), allocator);
+    if (p.attributes != 0) json.AddMember("attributes", to_json(*(p.attributes), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, NodeXY_t& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("delta").get_to((p.delta));
-    if (j.contains("attributes")) { p.attributes = vanetza::asn1::allocate<NodeAttributeSetXY_t>(); j.at("attributes").get_to(*(p.attributes)); } 
+void from_json(const Value& j, NodeXY_t& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["delta"], (p.delta));
+    if (j.HasMember("attributes")) { p.attributes = vanetza::asn1::allocate<NodeAttributeSetXY_t>(); from_json(j["attributes"], *(p.attributes)); }
     else { p.attributes=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   OriginatingVehicleContainer - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const OriginatingVehicleContainer& p) {
-    j = json{{"heading", (p.heading)}, {"speed", (p.speed)}, {"driveDirection", (p.driveDirection)}};
-    if (p.vehicleOrientationAngle != 0) j["vehicleOrientationAngle"] = *(p.vehicleOrientationAngle);
-    if (p.longitudinalAcceleration != 0) j["longitudinalAcceleration"] = *(p.longitudinalAcceleration);
-    if (p.lateralAcceleration != 0) j["lateralAcceleration"] = *(p.lateralAcceleration);
-    if (p.verticalAcceleration != 0) j["verticalAcceleration"] = *(p.verticalAcceleration);
-    if (p.yawRate != 0) j["yawRate"] = *(p.yawRate);
-    if (p.pitchAngle != 0) j["pitchAngle"] = *(p.pitchAngle);
-    if (p.rollAngle != 0) j["rollAngle"] = *(p.rollAngle);
-    if (p.vehicleLength != 0) j["vehicleLength"] = *(p.vehicleLength);
-    if (p.vehicleWidth != 0) j["vehicleWidth"] = (*(p.vehicleWidth) != 61 && *(p.vehicleWidth) != 62) ? *(p.vehicleWidth) : (double) *(p.vehicleWidth) / 10.0;
-    if (p.vehicleHeight != 0) j["vehicleHeight"] = *(p.vehicleHeight);
-    if (p.trailerDataContainer != 0) j["trailerDataContainer"] = *(p.trailerDataContainer);
+Value to_json(const OriginatingVehicleContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("heading", to_json((p.heading), allocator), allocator);
+    json.AddMember("speed", to_json((p.speed), allocator), allocator);
+    json.AddMember("driveDirection", to_json((p.driveDirection), allocator), allocator);
+    if (p.vehicleOrientationAngle != 0) json.AddMember("vehicleOrientationAngle", to_json(*(p.vehicleOrientationAngle), allocator), allocator);
+    if (p.longitudinalAcceleration != 0) json.AddMember("longitudinalAcceleration", to_json(*(p.longitudinalAcceleration), allocator), allocator);
+    if (p.lateralAcceleration != 0) json.AddMember("lateralAcceleration", to_json(*(p.lateralAcceleration), allocator), allocator);
+    if (p.verticalAcceleration != 0) json.AddMember("verticalAcceleration", to_json(*(p.verticalAcceleration), allocator), allocator);
+    if (p.yawRate != 0) json.AddMember("yawRate", to_json(*(p.yawRate), allocator), allocator);
+    if (p.pitchAngle != 0) json.AddMember("pitchAngle", to_json(*(p.pitchAngle), allocator), allocator);
+    if (p.rollAngle != 0) json.AddMember("rollAngle", to_json(*(p.rollAngle), allocator), allocator);
+    if (p.vehicleLength != 0) json.AddMember("vehicleLength", to_json(*(p.vehicleLength), allocator), allocator);
+    if (p.vehicleWidth != 0) json.AddMember("vehicleWidth", to_json((*(p.vehicleWidth) != 61 && *(p.vehicleWidth) != 62) ? (double) *(p.vehicleWidth) / 10.0 : *(p.vehicleWidth), allocator), allocator);
+    if (p.vehicleHeight != 0) json.AddMember("vehicleHeight", to_json(*(p.vehicleHeight), allocator), allocator);
+    if (p.trailerDataContainer != 0) json.AddMember("trailerDataContainer", to_json(*(p.trailerDataContainer), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, OriginatingVehicleContainer& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("heading").get_to((p.heading));
-    j.at("speed").get_to((p.speed));
-    if (j.contains("vehicleOrientationAngle")) { p.vehicleOrientationAngle = vanetza::asn1::allocate<WGS84Angle_t>(); j.at("vehicleOrientationAngle").get_to(*(p.vehicleOrientationAngle)); } 
+void from_json(const Value& j, OriginatingVehicleContainer& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["heading"], (p.heading));
+    from_json(j["speed"], (p.speed));
+    if (j.HasMember("vehicleOrientationAngle")) { p.vehicleOrientationAngle = vanetza::asn1::allocate<WGS84Angle_t>(); from_json(j["vehicleOrientationAngle"], *(p.vehicleOrientationAngle)); }
     else { p.vehicleOrientationAngle=nullptr; }
-    j.at("driveDirection").get_to((p.driveDirection));
-    if (j.contains("longitudinalAcceleration")) { p.longitudinalAcceleration = vanetza::asn1::allocate<LongitudinalAcceleration_t>(); j.at("longitudinalAcceleration").get_to(*(p.longitudinalAcceleration)); } 
+    from_json(j["driveDirection"], (p.driveDirection));
+    if (j.HasMember("longitudinalAcceleration")) { p.longitudinalAcceleration = vanetza::asn1::allocate<LongitudinalAcceleration_t>(); from_json(j["longitudinalAcceleration"], *(p.longitudinalAcceleration)); }
     else { p.longitudinalAcceleration=nullptr; }
-    if (j.contains("lateralAcceleration")) { p.lateralAcceleration = vanetza::asn1::allocate<LateralAcceleration_t>(); j.at("lateralAcceleration").get_to(*(p.lateralAcceleration)); } 
+    if (j.HasMember("lateralAcceleration")) { p.lateralAcceleration = vanetza::asn1::allocate<LateralAcceleration_t>(); from_json(j["lateralAcceleration"], *(p.lateralAcceleration)); }
     else { p.lateralAcceleration=nullptr; }
-    if (j.contains("verticalAcceleration")) { p.verticalAcceleration = vanetza::asn1::allocate<VerticalAcceleration_t>(); j.at("verticalAcceleration").get_to(*(p.verticalAcceleration)); } 
+    if (j.HasMember("verticalAcceleration")) { p.verticalAcceleration = vanetza::asn1::allocate<VerticalAcceleration_t>(); from_json(j["verticalAcceleration"], *(p.verticalAcceleration)); }
     else { p.verticalAcceleration=nullptr; }
-    if (j.contains("yawRate")) { p.yawRate = vanetza::asn1::allocate<YawRate_t>(); j.at("yawRate").get_to(*(p.yawRate)); } 
+    if (j.HasMember("yawRate")) { p.yawRate = vanetza::asn1::allocate<YawRate_t>(); from_json(j["yawRate"], *(p.yawRate)); }
     else { p.yawRate=nullptr; }
-    if (j.contains("pitchAngle")) { p.pitchAngle = vanetza::asn1::allocate<CartesianAngle_t>(); j.at("pitchAngle").get_to(*(p.pitchAngle)); } 
+    if (j.HasMember("pitchAngle")) { p.pitchAngle = vanetza::asn1::allocate<CartesianAngle_t>(); from_json(j["pitchAngle"], *(p.pitchAngle)); }
     else { p.pitchAngle=nullptr; }
-    if (j.contains("rollAngle")) { p.rollAngle = vanetza::asn1::allocate<CartesianAngle_t>(); j.at("rollAngle").get_to(*(p.rollAngle)); } 
+    if (j.HasMember("rollAngle")) { p.rollAngle = vanetza::asn1::allocate<CartesianAngle_t>(); from_json(j["rollAngle"], *(p.rollAngle)); }
     else { p.rollAngle=nullptr; }
-    if (j.contains("vehicleLength")) { p.vehicleLength = vanetza::asn1::allocate<VehicleLength_t>(); j.at("vehicleLength").get_to(*(p.vehicleLength)); } 
+    if (j.HasMember("vehicleLength")) { p.vehicleLength = vanetza::asn1::allocate<VehicleLength_t>(); from_json(j["vehicleLength"], *(p.vehicleLength)); }
     else { p.vehicleLength=nullptr; }
-    double vehicleWidth; if (j.contains("vehicleWidth")) { p.vehicleWidth = vanetza::asn1::allocate<VehicleWidth_t>(); j.at("vehicleWidth").get_to((vehicleWidth)); *(p.vehicleWidth) = ((vehicleWidth) != 61 && (vehicleWidth) != 62) ? vehicleWidth * 10 : vehicleWidth; } 
+    double vehicleWidth; if (j.HasMember("vehicleWidth")) { p.vehicleWidth = vanetza::asn1::allocate<VehicleWidth_t>(); from_json(j["vehicleWidth"], (vehicleWidth)); *(p.vehicleWidth) = ((vehicleWidth) != 61 && (vehicleWidth) != 62) ? vehicleWidth * 10 : vehicleWidth; }
     else { p.vehicleWidth=nullptr; }
-    if (j.contains("vehicleHeight")) { p.vehicleHeight = vanetza::asn1::allocate<VehicleHeight_t>(); j.at("vehicleHeight").get_to(*(p.vehicleHeight)); } 
+    if (j.HasMember("vehicleHeight")) { p.vehicleHeight = vanetza::asn1::allocate<VehicleHeight_t>(); from_json(j["vehicleHeight"], *(p.vehicleHeight)); }
     else { p.vehicleHeight=nullptr; }
-    if (j.contains("trailerDataContainer")) { p.trailerDataContainer = vanetza::asn1::allocate<TrailerDataContainer_t>(); j.at("trailerDataContainer").get_to(*(p.trailerDataContainer)); } 
+    if (j.HasMember("trailerDataContainer")) { p.trailerDataContainer = vanetza::asn1::allocate<TrailerDataContainer_t>(); from_json(j["trailerDataContainer"], *(p.trailerDataContainer)); }
     else { p.trailerDataContainer=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   VehicleSensor - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const VehicleSensor& p) {
-    j = json{{"refPointId", (p.refPointId)}, {"xSensorOffset", (p.xSensorOffset)}, {"ySensorOffset", (p.ySensorOffset)}, {"vehicleSensorPropertyList", (p.vehicleSensorPropertyList)}};
-    if (p.zSensorOffset != 0) j["zSensorOffset"] = *(p.zSensorOffset);
+Value to_json(const VehicleSensor& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("refPointId", to_json((p.refPointId), allocator), allocator);
+    json.AddMember("xSensorOffset", to_json((p.xSensorOffset), allocator), allocator);
+    json.AddMember("ySensorOffset", to_json((p.ySensorOffset), allocator), allocator);
+    json.AddMember("vehicleSensorPropertyList", to_json((p.vehicleSensorPropertyList), allocator), allocator);
+    if (p.zSensorOffset != 0) json.AddMember("zSensorOffset", to_json(*(p.zSensorOffset), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, VehicleSensor& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("refPointId").get_to((p.refPointId));
-    j.at("xSensorOffset").get_to((p.xSensorOffset));
-    j.at("ySensorOffset").get_to((p.ySensorOffset));
-    if (j.contains("zSensorOffset")) { p.zSensorOffset = vanetza::asn1::allocate<ZSensorOffset_t>(); j.at("zSensorOffset").get_to(*(p.zSensorOffset)); } 
+void from_json(const Value& j, VehicleSensor& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["refPointId"], (p.refPointId));
+    from_json(j["xSensorOffset"], (p.xSensorOffset));
+    from_json(j["ySensorOffset"], (p.ySensorOffset));
+    if (j.HasMember("zSensorOffset")) { p.zSensorOffset = vanetza::asn1::allocate<ZSensorOffset_t>(); from_json(j["zSensorOffset"], *(p.zSensorOffset)); }
     else { p.zSensorOffset=nullptr; }
-    j.at("vehicleSensorPropertyList").get_to((p.vehicleSensorPropertyList));
-    
-    
+    from_json(j["vehicleSensorPropertyList"], (p.vehicleSensorPropertyList));
 }
+
+
 
 /*
 *   AreaCircular - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const AreaCircular& p) {
-    j = json{{"radius", (double)(p.radius) / 10.0}};
-    if (p.nodeCenterPoint != 0) j["nodeCenterPoint"] = *(p.nodeCenterPoint);
+Value to_json(const AreaCircular& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("radius", to_json((double)(p.radius) / 10.0, allocator), allocator);
+    if (p.nodeCenterPoint != 0) json.AddMember("nodeCenterPoint", to_json(*(p.nodeCenterPoint), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, AreaCircular& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("nodeCenterPoint")) { p.nodeCenterPoint = vanetza::asn1::allocate<OffsetPoint_t>(); j.at("nodeCenterPoint").get_to(*(p.nodeCenterPoint)); } 
+void from_json(const Value& j, AreaCircular& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("nodeCenterPoint")) { p.nodeCenterPoint = vanetza::asn1::allocate<OffsetPoint_t>(); from_json(j["nodeCenterPoint"], *(p.nodeCenterPoint)); }
     else { p.nodeCenterPoint=nullptr; }
-    double radius; j.at("radius").get_to((radius)); (p.radius) = radius * 10;
-    
-    
+    double radius; from_json(j["radius"], (radius)); (p.radius) =radius * 10;
 }
+
+
 
 /*
 *   AreaEllipse - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const AreaEllipse& p) {
-    j = json{{"semiMinorRangeLength", (double)(p.semiMinorRangeLength) / 10.0}, {"semiMajorRangeLength", (double)(p.semiMajorRangeLength) / 10.0}, {"semiMajorRangeOrientation", ((p.semiMajorRangeOrientation) == 3601) ? (p.semiMajorRangeOrientation) : (double)(p.semiMajorRangeOrientation) / 10.0}};
-    if (p.nodeCenterPoint != 0) j["nodeCenterPoint"] = *(p.nodeCenterPoint);
-    if (p.semiHeight != 0) j["semiHeight"] = (double) *(p.semiHeight) / 10.0;
+Value to_json(const AreaEllipse& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("semiMinorRangeLength", to_json((double)(p.semiMinorRangeLength) / 10.0, allocator), allocator);
+    json.AddMember("semiMajorRangeLength", to_json((double)(p.semiMajorRangeLength) / 10.0, allocator), allocator);
+    json.AddMember("semiMajorRangeOrientation", to_json(((p.semiMajorRangeOrientation) == 3601) ? (p.semiMajorRangeOrientation) : (double)(p.semiMajorRangeOrientation) / 10.0, allocator), allocator);
+    if (p.nodeCenterPoint != 0) json.AddMember("nodeCenterPoint", to_json(*(p.nodeCenterPoint), allocator), allocator);
+    if (p.semiHeight != 0) json.AddMember("semiHeight", to_json((double) *(p.semiHeight) / 10.0, allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, AreaEllipse& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("nodeCenterPoint")) { p.nodeCenterPoint = vanetza::asn1::allocate<OffsetPoint_t>(); j.at("nodeCenterPoint").get_to(*(p.nodeCenterPoint)); } 
+void from_json(const Value& j, AreaEllipse& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("nodeCenterPoint")) { p.nodeCenterPoint = vanetza::asn1::allocate<OffsetPoint_t>(); from_json(j["nodeCenterPoint"], *(p.nodeCenterPoint)); }
     else { p.nodeCenterPoint=nullptr; }
-    double semiMinorRangeLength; j.at("semiMinorRangeLength").get_to((semiMinorRangeLength)); (p.semiMinorRangeLength) = semiMinorRangeLength * 10;
-    double semiMajorRangeLength; j.at("semiMajorRangeLength").get_to((semiMajorRangeLength)); (p.semiMajorRangeLength) = semiMajorRangeLength * 10;
-    double semiMajorRangeOrientation; j.at("semiMajorRangeOrientation").get_to((semiMajorRangeOrientation)); (p.semiMajorRangeOrientation) = ((semiMajorRangeOrientation) != 3601) ? semiMajorRangeOrientation * 10 : semiMajorRangeOrientation;
-    double semiHeight; if (j.contains("semiHeight")) { p.semiHeight = vanetza::asn1::allocate<SemiRangeLength_t>(); j.at("semiHeight").get_to((semiHeight)); *(p.semiHeight) = semiHeight * 10; } 
+    double semiMinorRangeLength; from_json(j["semiMinorRangeLength"], (semiMinorRangeLength)); (p.semiMinorRangeLength) =semiMinorRangeLength * 10;
+    double semiMajorRangeLength; from_json(j["semiMajorRangeLength"], (semiMajorRangeLength)); (p.semiMajorRangeLength) =semiMajorRangeLength * 10;
+    double semiMajorRangeOrientation; from_json(j["semiMajorRangeOrientation"], (semiMajorRangeOrientation)); (p.semiMajorRangeOrientation) = ((semiMajorRangeOrientation) != 3601) ? semiMajorRangeOrientation * 10 : semiMajorRangeOrientation;
+    double semiHeight; if (j.HasMember("semiHeight")) { p.semiHeight = vanetza::asn1::allocate<SemiRangeLength_t>(); from_json(j["semiHeight"], (semiHeight)); *(p.semiHeight) =semiHeight * 10; }
     else { p.semiHeight=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   AreaRectangle - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const AreaRectangle& p) {
-    j = json{{"semiMajorRangeLength", (double)(p.semiMajorRangeLength) / 10.0}, {"semiMinorRangeLength", (double)(p.semiMinorRangeLength) / 10.0}, {"semiMajorRangeOrientation", ((p.semiMajorRangeOrientation) == 3601) ? (p.semiMajorRangeOrientation) : (double)(p.semiMajorRangeOrientation) / 10.0}};
-    if (p.nodeCenterPoint != 0) j["nodeCenterPoint"] = *(p.nodeCenterPoint);
-    if (p.semiHeight != 0) j["semiHeight"] = (double) *(p.semiHeight) / 10.0;
+Value to_json(const AreaRectangle& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("semiMajorRangeLength", to_json((double)(p.semiMajorRangeLength) / 10.0, allocator), allocator);
+    json.AddMember("semiMinorRangeLength", to_json((double)(p.semiMinorRangeLength) / 10.0, allocator), allocator);
+    json.AddMember("semiMajorRangeOrientation", to_json(((p.semiMajorRangeOrientation) == 3601) ? (p.semiMajorRangeOrientation) : (double)(p.semiMajorRangeOrientation) / 10.0, allocator), allocator);
+    if (p.nodeCenterPoint != 0) json.AddMember("nodeCenterPoint", to_json(*(p.nodeCenterPoint), allocator), allocator);
+    if (p.semiHeight != 0) json.AddMember("semiHeight", to_json((double) *(p.semiHeight) / 10.0, allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, AreaRectangle& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("nodeCenterPoint")) { p.nodeCenterPoint = vanetza::asn1::allocate<OffsetPoint_t>(); j.at("nodeCenterPoint").get_to(*(p.nodeCenterPoint)); } 
+void from_json(const Value& j, AreaRectangle& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("nodeCenterPoint")) { p.nodeCenterPoint = vanetza::asn1::allocate<OffsetPoint_t>(); from_json(j["nodeCenterPoint"], *(p.nodeCenterPoint)); }
     else { p.nodeCenterPoint=nullptr; }
-    double semiMajorRangeLength; j.at("semiMajorRangeLength").get_to((semiMajorRangeLength)); (p.semiMajorRangeLength) = semiMajorRangeLength * 10;
-    double semiMinorRangeLength; j.at("semiMinorRangeLength").get_to((semiMinorRangeLength)); (p.semiMinorRangeLength) = semiMinorRangeLength * 10;
-    double semiMajorRangeOrientation; j.at("semiMajorRangeOrientation").get_to((semiMajorRangeOrientation)); (p.semiMajorRangeOrientation) = ((semiMajorRangeOrientation) != 3601) ? semiMajorRangeOrientation * 10 : semiMajorRangeOrientation;
-    double semiHeight; if (j.contains("semiHeight")) { p.semiHeight = vanetza::asn1::allocate<SemiRangeLength_t>(); j.at("semiHeight").get_to((semiHeight)); *(p.semiHeight) = semiHeight * 10; } 
+    double semiMajorRangeLength; from_json(j["semiMajorRangeLength"], (semiMajorRangeLength)); (p.semiMajorRangeLength) =semiMajorRangeLength * 10;
+    double semiMinorRangeLength; from_json(j["semiMinorRangeLength"], (semiMinorRangeLength)); (p.semiMinorRangeLength) =semiMinorRangeLength * 10;
+    double semiMajorRangeOrientation; from_json(j["semiMajorRangeOrientation"], (semiMajorRangeOrientation)); (p.semiMajorRangeOrientation) = ((semiMajorRangeOrientation) != 3601) ? semiMajorRangeOrientation * 10 : semiMajorRangeOrientation;
+    double semiHeight; if (j.HasMember("semiHeight")) { p.semiHeight = vanetza::asn1::allocate<SemiRangeLength_t>(); from_json(j["semiHeight"], (semiHeight)); *(p.semiHeight) =semiHeight * 10; }
     else { p.semiHeight=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   PolyPointList - Type SEQUENCE OF
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const PolyPointList& p) {
+Value to_json(const PolyPointList& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const OffsetPoint_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, PolyPointList& p) {
+void from_json(const Value& j, PolyPointList& p) {
     PolyPointList* p_tmp = vanetza::asn1::allocate<PolyPointList>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         OffsetPoint_t *element = vanetza::asn1::allocate<OffsetPoint_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -4467,51 +5078,57 @@ void from_json(const json& j, PolyPointList& p) {
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const AreaRadial& p) {
-    j = json{{"range", (p.range)}, {"stationaryHorizontalOpeningAngleStart", ((p.stationaryHorizontalOpeningAngleStart) == 3601) ? (p.stationaryHorizontalOpeningAngleStart) : (double)(p.stationaryHorizontalOpeningAngleStart) / 10.0}, {"stationaryHorizontalOpeningAngleEnd", ((p.stationaryHorizontalOpeningAngleEnd) == 3601) ? (p.stationaryHorizontalOpeningAngleEnd) : (double)(p.stationaryHorizontalOpeningAngleEnd) / 10.0}};
-    if (p.verticalOpeningAngleStart != 0) j["verticalOpeningAngleStart"] = (*(p.verticalOpeningAngleStart) != 3601) ? *(p.verticalOpeningAngleStart) : (double) *(p.verticalOpeningAngleStart) / 10.0;
-    if (p.verticalOpeningAngleEnd != 0) j["verticalOpeningAngleEnd"] = (*(p.verticalOpeningAngleEnd) != 3601) ? *(p.verticalOpeningAngleEnd) : (double) *(p.verticalOpeningAngleEnd) / 10.0;
-    if (p.sensorPositionOffset != 0) j["sensorPositionOffset"] = *(p.sensorPositionOffset);
-    if (p.sensorHeight != 0) j["sensorHeight"] = (double) *(p.sensorHeight) / 100.0;
+Value to_json(const AreaRadial& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("range", to_json((p.range), allocator), allocator);
+    json.AddMember("stationaryHorizontalOpeningAngleStart", to_json(((p.stationaryHorizontalOpeningAngleStart) == 3601) ? (p.stationaryHorizontalOpeningAngleStart) : (double)(p.stationaryHorizontalOpeningAngleStart) / 10.0, allocator), allocator);
+    json.AddMember("stationaryHorizontalOpeningAngleEnd", to_json(((p.stationaryHorizontalOpeningAngleEnd) == 3601) ? (p.stationaryHorizontalOpeningAngleEnd) : (double)(p.stationaryHorizontalOpeningAngleEnd) / 10.0, allocator), allocator);
+    if (p.verticalOpeningAngleStart != 0) json.AddMember("verticalOpeningAngleStart", to_json((*(p.verticalOpeningAngleStart) != 3601) ? (double) *(p.verticalOpeningAngleStart) / 10.0 : *(p.verticalOpeningAngleStart), allocator), allocator);
+    if (p.verticalOpeningAngleEnd != 0) json.AddMember("verticalOpeningAngleEnd", to_json((*(p.verticalOpeningAngleEnd) != 3601) ? (double) *(p.verticalOpeningAngleEnd) / 10.0 : *(p.verticalOpeningAngleEnd), allocator), allocator);
+    if (p.sensorPositionOffset != 0) json.AddMember("sensorPositionOffset", to_json(*(p.sensorPositionOffset), allocator), allocator);
+    if (p.sensorHeight != 0) json.AddMember("sensorHeight", to_json((double) *(p.sensorHeight) / 100.0, allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, AreaRadial& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("range").get_to((p.range));
-    double stationaryHorizontalOpeningAngleStart; j.at("stationaryHorizontalOpeningAngleStart").get_to((stationaryHorizontalOpeningAngleStart)); (p.stationaryHorizontalOpeningAngleStart) = ((stationaryHorizontalOpeningAngleStart) != 3601) ? stationaryHorizontalOpeningAngleStart * 10 : stationaryHorizontalOpeningAngleStart;
-    double stationaryHorizontalOpeningAngleEnd; j.at("stationaryHorizontalOpeningAngleEnd").get_to((stationaryHorizontalOpeningAngleEnd)); (p.stationaryHorizontalOpeningAngleEnd) = ((stationaryHorizontalOpeningAngleEnd) != 3601) ? stationaryHorizontalOpeningAngleEnd * 10 : stationaryHorizontalOpeningAngleEnd;
-    double verticalOpeningAngleStart; if (j.contains("verticalOpeningAngleStart")) { p.verticalOpeningAngleStart = vanetza::asn1::allocate<CartesianAngleValue_t>(); j.at("verticalOpeningAngleStart").get_to((verticalOpeningAngleStart)); *(p.verticalOpeningAngleStart) = ((verticalOpeningAngleStart) != 3601) ? verticalOpeningAngleStart * 10 : verticalOpeningAngleStart; } 
+void from_json(const Value& j, AreaRadial& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["range"], (p.range));
+    double stationaryHorizontalOpeningAngleStart; from_json(j["stationaryHorizontalOpeningAngleStart"], (stationaryHorizontalOpeningAngleStart)); (p.stationaryHorizontalOpeningAngleStart) = ((stationaryHorizontalOpeningAngleStart) != 3601) ? stationaryHorizontalOpeningAngleStart * 10 : stationaryHorizontalOpeningAngleStart;
+    double stationaryHorizontalOpeningAngleEnd; from_json(j["stationaryHorizontalOpeningAngleEnd"], (stationaryHorizontalOpeningAngleEnd)); (p.stationaryHorizontalOpeningAngleEnd) = ((stationaryHorizontalOpeningAngleEnd) != 3601) ? stationaryHorizontalOpeningAngleEnd * 10 : stationaryHorizontalOpeningAngleEnd;
+    double verticalOpeningAngleStart; if (j.HasMember("verticalOpeningAngleStart")) { p.verticalOpeningAngleStart = vanetza::asn1::allocate<CartesianAngleValue_t>(); from_json(j["verticalOpeningAngleStart"], (verticalOpeningAngleStart)); *(p.verticalOpeningAngleStart) = ((verticalOpeningAngleStart) != 3601) ? verticalOpeningAngleStart * 10 : verticalOpeningAngleStart; }
     else { p.verticalOpeningAngleStart=nullptr; }
-    double verticalOpeningAngleEnd; if (j.contains("verticalOpeningAngleEnd")) { p.verticalOpeningAngleEnd = vanetza::asn1::allocate<CartesianAngleValue_t>(); j.at("verticalOpeningAngleEnd").get_to((verticalOpeningAngleEnd)); *(p.verticalOpeningAngleEnd) = ((verticalOpeningAngleEnd) != 3601) ? verticalOpeningAngleEnd * 10 : verticalOpeningAngleEnd; } 
+    double verticalOpeningAngleEnd; if (j.HasMember("verticalOpeningAngleEnd")) { p.verticalOpeningAngleEnd = vanetza::asn1::allocate<CartesianAngleValue_t>(); from_json(j["verticalOpeningAngleEnd"], (verticalOpeningAngleEnd)); *(p.verticalOpeningAngleEnd) = ((verticalOpeningAngleEnd) != 3601) ? verticalOpeningAngleEnd * 10 : verticalOpeningAngleEnd; }
     else { p.verticalOpeningAngleEnd=nullptr; }
-    if (j.contains("sensorPositionOffset")) { p.sensorPositionOffset = vanetza::asn1::allocate<OffsetPoint_t>(); j.at("sensorPositionOffset").get_to(*(p.sensorPositionOffset)); } 
+    if (j.HasMember("sensorPositionOffset")) { p.sensorPositionOffset = vanetza::asn1::allocate<OffsetPoint_t>(); from_json(j["sensorPositionOffset"], *(p.sensorPositionOffset)); }
     else { p.sensorPositionOffset=nullptr; }
-    double sensorHeight; if (j.contains("sensorHeight")) { p.sensorHeight = vanetza::asn1::allocate<SensorHeight_t>(); j.at("sensorHeight").get_to((sensorHeight)); *(p.sensorHeight) = sensorHeight * 100; } 
+    double sensorHeight; if (j.HasMember("sensorHeight")) { p.sensorHeight = vanetza::asn1::allocate<SensorHeight_t>(); from_json(j["sensorHeight"], (sensorHeight)); *(p.sensorHeight) =sensorHeight * 100; }
     else { p.sensorHeight=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   ObjectClassDescription - Type SEQUENCE OF
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const ObjectClassDescription& p) {
+Value to_json(const ObjectClassDescription& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const ObjectClass_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, ObjectClassDescription& p) {
+void from_json(const Value& j, ObjectClassDescription& p) {
     ObjectClassDescription* p_tmp = vanetza::asn1::allocate<ObjectClassDescription>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         ObjectClass_t *element = vanetza::asn1::allocate<ObjectClass_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -4523,116 +5140,129 @@ void from_json(const json& j, ObjectClassDescription& p) {
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const CamParameters& p) {
-    j = json{{"basicContainer", (p.basicContainer)}, {"highFrequencyContainer", (p.highFrequencyContainer)}};
-    if (p.lowFrequencyContainer != 0) j["lowFrequencyContainer"] = *(p.lowFrequencyContainer);
-    if (p.specialVehicleContainer != 0) j["specialVehicleContainer"] = *(p.specialVehicleContainer);
+Value to_json(const CamParameters& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("basicContainer", to_json((p.basicContainer), allocator), allocator);
+    json.AddMember("highFrequencyContainer", to_json((p.highFrequencyContainer), allocator), allocator);
+    if (p.lowFrequencyContainer != 0) json.AddMember("lowFrequencyContainer", to_json(*(p.lowFrequencyContainer), allocator), allocator);
+    if (p.specialVehicleContainer != 0) json.AddMember("specialVehicleContainer", to_json(*(p.specialVehicleContainer), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, CamParameters& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("basicContainer").get_to((p.basicContainer));
-    j.at("highFrequencyContainer").get_to((p.highFrequencyContainer));
-    if (j.contains("lowFrequencyContainer")) { p.lowFrequencyContainer = vanetza::asn1::allocate<LowFrequencyContainer_t>(); j.at("lowFrequencyContainer").get_to(*(p.lowFrequencyContainer)); } 
+void from_json(const Value& j, CamParameters& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["basicContainer"], (p.basicContainer));
+    from_json(j["highFrequencyContainer"], (p.highFrequencyContainer));
+    if (j.HasMember("lowFrequencyContainer")) { p.lowFrequencyContainer = vanetza::asn1::allocate<LowFrequencyContainer_t>(); from_json(j["lowFrequencyContainer"], *(p.lowFrequencyContainer)); }
     else { p.lowFrequencyContainer=nullptr; }
-    if (j.contains("specialVehicleContainer")) { p.specialVehicleContainer = vanetza::asn1::allocate<SpecialVehicleContainer_t>(); j.at("specialVehicleContainer").get_to(*(p.specialVehicleContainer)); } 
+    if (j.HasMember("specialVehicleContainer")) { p.specialVehicleContainer = vanetza::asn1::allocate<SpecialVehicleContainer_t>(); from_json(j["specialVehicleContainer"], *(p.specialVehicleContainer)); }
     else { p.specialVehicleContainer=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   DENM - Type SEQUENCE
 *   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
 */
 
-void to_json(json& j, const DENM& p) {
-    j = json{{"header", (p.header)}, {"denm", (p.denm)}};
+Value to_json(const DENM& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("header", to_json((p.header), allocator), allocator);
+    json.AddMember("denm", to_json((p.denm), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, DENM& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("header").get_to((p.header));
-    j.at("denm").get_to((p.denm));
-    
-    
+void from_json(const Value& j, DENM& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["header"], (p.header));
+    from_json(j["denm"], (p.denm));
 }
+
+
 
 /*
 *   TrafficIslandPosition - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const TrafficIslandPosition& p) {
-    j = json{{"oneSide", (p.oneSide)}, {"otherSide", (p.otherSide)}};
+Value to_json(const TrafficIslandPosition& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("oneSide", to_json((p.oneSide), allocator), allocator);
+    json.AddMember("otherSide", to_json((p.otherSide), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, TrafficIslandPosition& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("oneSide").get_to((p.oneSide));
-    j.at("otherSide").get_to((p.otherSide));
-    
-    
+void from_json(const Value& j, TrafficIslandPosition& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["oneSide"], (p.oneSide));
+    from_json(j["otherSide"], (p.otherSide));
 }
+
+
 
 /*
 *   VruMotionPredictionContainer - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruMotionPredictionContainer& p) {
-    j = json{};
-    if (p.pathHistory != 0) j["pathHistory"] = *(p.pathHistory);
-    if (p.pathPrediction != 0) j["pathPrediction"] = *(p.pathPrediction);
-    if (p.safeDistance != 0) j["safeDistance"] = *(p.safeDistance);
-    if (p.trajectoryInterceptionIndication != 0) j["trajectoryInterceptionIndication"] = *(p.trajectoryInterceptionIndication);
-    if (p.accelerationChangeIndication != 0) j["accelerationChangeIndication"] = *(p.accelerationChangeIndication);
-    if (p.headingChangeIndication != 0) j["headingChangeIndication"] = *(p.headingChangeIndication);
-    if (p.stabilityChangeIndication != 0) j["stabilityChangeIndication"] = *(p.stabilityChangeIndication);
+Value to_json(const VruMotionPredictionContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    if (p.pathHistory != 0) json.AddMember("pathHistory", to_json(*(p.pathHistory), allocator), allocator);
+    if (p.pathPrediction != 0) json.AddMember("pathPrediction", to_json(*(p.pathPrediction), allocator), allocator);
+    if (p.safeDistance != 0) json.AddMember("safeDistance", to_json(*(p.safeDistance), allocator), allocator);
+    if (p.trajectoryInterceptionIndication != 0) json.AddMember("trajectoryInterceptionIndication", to_json(*(p.trajectoryInterceptionIndication), allocator), allocator);
+    if (p.accelerationChangeIndication != 0) json.AddMember("accelerationChangeIndication", to_json(*(p.accelerationChangeIndication), allocator), allocator);
+    if (p.headingChangeIndication != 0) json.AddMember("headingChangeIndication", to_json(*(p.headingChangeIndication), allocator), allocator);
+    if (p.stabilityChangeIndication != 0) json.AddMember("stabilityChangeIndication", to_json(*(p.stabilityChangeIndication), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, VruMotionPredictionContainer& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("pathHistory")) { p.pathHistory = vanetza::asn1::allocate<PathHistory_t>(); j.at("pathHistory").get_to(*(p.pathHistory)); } 
+void from_json(const Value& j, VruMotionPredictionContainer& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("pathHistory")) { p.pathHistory = vanetza::asn1::allocate<PathHistory_t>(); from_json(j["pathHistory"], *(p.pathHistory)); }
     else { p.pathHistory=nullptr; }
-    if (j.contains("pathPrediction")) { p.pathPrediction = vanetza::asn1::allocate<SequenceOfVruPathPoint_t>(); j.at("pathPrediction").get_to(*(p.pathPrediction)); } 
+    if (j.HasMember("pathPrediction")) { p.pathPrediction = vanetza::asn1::allocate<SequenceOfVruPathPoint_t>(); from_json(j["pathPrediction"], *(p.pathPrediction)); }
     else { p.pathPrediction=nullptr; }
-    if (j.contains("safeDistance")) { p.safeDistance = vanetza::asn1::allocate<SequenceOfVruSafeDistanceIndication_t>(); j.at("safeDistance").get_to(*(p.safeDistance)); } 
+    if (j.HasMember("safeDistance")) { p.safeDistance = vanetza::asn1::allocate<SequenceOfVruSafeDistanceIndication_t>(); from_json(j["safeDistance"], *(p.safeDistance)); }
     else { p.safeDistance=nullptr; }
-    if (j.contains("trajectoryInterceptionIndication")) { p.trajectoryInterceptionIndication = vanetza::asn1::allocate<SequenceOfTrajectoryInterceptionIndication_t>(); j.at("trajectoryInterceptionIndication").get_to(*(p.trajectoryInterceptionIndication)); } 
+    if (j.HasMember("trajectoryInterceptionIndication")) { p.trajectoryInterceptionIndication = vanetza::asn1::allocate<SequenceOfTrajectoryInterceptionIndication_t>(); from_json(j["trajectoryInterceptionIndication"], *(p.trajectoryInterceptionIndication)); }
     else { p.trajectoryInterceptionIndication=nullptr; }
-    if (j.contains("accelerationChangeIndication")) { p.accelerationChangeIndication = vanetza::asn1::allocate<AccelerationChangeIndication_t>(); j.at("accelerationChangeIndication").get_to(*(p.accelerationChangeIndication)); } 
+    if (j.HasMember("accelerationChangeIndication")) { p.accelerationChangeIndication = vanetza::asn1::allocate<AccelerationChangeIndication_t>(); from_json(j["accelerationChangeIndication"], *(p.accelerationChangeIndication)); }
     else { p.accelerationChangeIndication=nullptr; }
-    if (j.contains("headingChangeIndication")) { p.headingChangeIndication = vanetza::asn1::allocate<HeadingChangeIndication_t>(); j.at("headingChangeIndication").get_to(*(p.headingChangeIndication)); } 
+    if (j.HasMember("headingChangeIndication")) { p.headingChangeIndication = vanetza::asn1::allocate<HeadingChangeIndication_t>(); from_json(j["headingChangeIndication"], *(p.headingChangeIndication)); }
     else { p.headingChangeIndication=nullptr; }
-    if (j.contains("stabilityChangeIndication")) { p.stabilityChangeIndication = vanetza::asn1::allocate<StabilityChangeIndication_t>(); j.at("stabilityChangeIndication").get_to(*(p.stabilityChangeIndication)); } 
+    if (j.HasMember("stabilityChangeIndication")) { p.stabilityChangeIndication = vanetza::asn1::allocate<StabilityChangeIndication_t>(); from_json(j["stabilityChangeIndication"], *(p.stabilityChangeIndication)); }
     else { p.stabilityChangeIndication=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   MovementList - Type SEQUENCE OF
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const MovementList& p) {
+Value to_json(const MovementList& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const MovementState_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, MovementList& p) {
+void from_json(const Value& j, MovementList& p) {
     MovementList* p_tmp = vanetza::asn1::allocate<MovementList>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         MovementState_t *element = vanetza::asn1::allocate<MovementState_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -4644,21 +5274,23 @@ void from_json(const json& j, MovementList& p) {
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const NodeSetXY& p) {
+Value to_json(const NodeSetXY& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const NodeXY_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, NodeSetXY& p) {
+void from_json(const Value& j, NodeSetXY& p) {
     NodeSetXY* p_tmp = vanetza::asn1::allocate<NodeSetXY>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         NodeXY_t *element = vanetza::asn1::allocate<NodeXY_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -4670,22 +5302,23 @@ void from_json(const json& j, NodeSetXY& p) {
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const StationDataContainer& p) {
-    j = json{};
+Value to_json(const StationDataContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == StationDataContainer_PR_originatingVehicleContainer) {
-        j["originatingVehicleContainer"] = p.choice.originatingVehicleContainer;
+        json.AddMember("originatingVehicleContainer", to_json(p.choice.originatingVehicleContainer, allocator), allocator);
     } else if (p.present == StationDataContainer_PR_originatingRSUContainer) {
-        j["originatingRSUContainer"] = p.choice.originatingRSUContainer;
+        json.AddMember("originatingRSUContainer", to_json(p.choice.originatingRSUContainer, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, StationDataContainer& p) {
-    if (j.contains("originatingVehicleContainer")) {
+void from_json(const Value& j, StationDataContainer& p) {
+    if (j.HasMember("originatingVehicleContainer")) {
         p.present = StationDataContainer_PR_originatingVehicleContainer;
-        j.at("originatingVehicleContainer").get_to(p.choice.originatingVehicleContainer);
-    } else if (j.contains("originatingRSUContainer")) {
+        from_json(j["originatingVehicleContainer"], p.choice.originatingVehicleContainer);
+    } else if (j.HasMember("originatingRSUContainer")) {
         p.present = StationDataContainer_PR_originatingRSUContainer;
-        j.at("originatingRSUContainer").get_to(p.choice.originatingRSUContainer);
+        from_json(j["originatingRSUContainer"], p.choice.originatingRSUContainer);
     } else {
         p.present = StationDataContainer_PR_NOTHING;
     }
@@ -4696,114 +5329,126 @@ void from_json(const json& j, StationDataContainer& p) {
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const PerceivedObject& p) {
-    j = json{{"objectID", (p.objectID)}, {"timeOfMeasurement", (p.timeOfMeasurement)}, {"objectConfidence", (p.objectConfidence)}, {"xDistance", (p.xDistance)}, {"yDistance", (p.yDistance)}, {"xSpeed", (p.xSpeed)}, {"ySpeed", (p.ySpeed)}, {"objectRefPoint", (p.objectRefPoint)}};
-    if (p.sensorIDList != 0) j["sensorIDList"] = *(p.sensorIDList);
-    if (p.objectAge != 0) j["objectAge"] = *(p.objectAge);
-    if (p.zDistance != 0) j["zDistance"] = *(p.zDistance);
-    if (p.zSpeed != 0) j["zSpeed"] = *(p.zSpeed);
-    if (p.xAcceleration != 0) j["xAcceleration"] = *(p.xAcceleration);
-    if (p.yAcceleration != 0) j["yAcceleration"] = *(p.yAcceleration);
-    if (p.zAcceleration != 0) j["zAcceleration"] = *(p.zAcceleration);
-    if (p.yawAngle != 0) j["yawAngle"] = *(p.yawAngle);
-    if (p.planarObjectDimension1 != 0) j["planarObjectDimension1"] = *(p.planarObjectDimension1);
-    if (p.planarObjectDimension2 != 0) j["planarObjectDimension2"] = *(p.planarObjectDimension2);
-    if (p.verticalObjectDimension != 0) j["verticalObjectDimension"] = *(p.verticalObjectDimension);
-    if (p.dynamicStatus != 0) j["dynamicStatus"] = *(p.dynamicStatus);
-    if (p.classification != 0) j["classification"] = *(p.classification);
-    if (p.matchedPosition != 0) j["matchedPosition"] = *(p.matchedPosition);
+Value to_json(const PerceivedObject& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("objectID", to_json((p.objectID), allocator), allocator);
+    json.AddMember("timeOfMeasurement", to_json((p.timeOfMeasurement), allocator), allocator);
+    json.AddMember("objectConfidence", to_json((p.objectConfidence), allocator), allocator);
+    json.AddMember("xDistance", to_json((p.xDistance), allocator), allocator);
+    json.AddMember("yDistance", to_json((p.yDistance), allocator), allocator);
+    json.AddMember("xSpeed", to_json((p.xSpeed), allocator), allocator);
+    json.AddMember("ySpeed", to_json((p.ySpeed), allocator), allocator);
+    json.AddMember("objectRefPoint", to_json((p.objectRefPoint), allocator), allocator);
+    if (p.sensorIDList != 0) json.AddMember("sensorIDList", to_json(*(p.sensorIDList), allocator), allocator);
+    if (p.objectAge != 0) json.AddMember("objectAge", to_json(*(p.objectAge), allocator), allocator);
+    if (p.zDistance != 0) json.AddMember("zDistance", to_json(*(p.zDistance), allocator), allocator);
+    if (p.zSpeed != 0) json.AddMember("zSpeed", to_json(*(p.zSpeed), allocator), allocator);
+    if (p.xAcceleration != 0) json.AddMember("xAcceleration", to_json(*(p.xAcceleration), allocator), allocator);
+    if (p.yAcceleration != 0) json.AddMember("yAcceleration", to_json(*(p.yAcceleration), allocator), allocator);
+    if (p.zAcceleration != 0) json.AddMember("zAcceleration", to_json(*(p.zAcceleration), allocator), allocator);
+    if (p.yawAngle != 0) json.AddMember("yawAngle", to_json(*(p.yawAngle), allocator), allocator);
+    if (p.planarObjectDimension1 != 0) json.AddMember("planarObjectDimension1", to_json(*(p.planarObjectDimension1), allocator), allocator);
+    if (p.planarObjectDimension2 != 0) json.AddMember("planarObjectDimension2", to_json(*(p.planarObjectDimension2), allocator), allocator);
+    if (p.verticalObjectDimension != 0) json.AddMember("verticalObjectDimension", to_json(*(p.verticalObjectDimension), allocator), allocator);
+    if (p.dynamicStatus != 0) json.AddMember("dynamicStatus", to_json(*(p.dynamicStatus), allocator), allocator);
+    if (p.classification != 0) json.AddMember("classification", to_json(*(p.classification), allocator), allocator);
+    if (p.matchedPosition != 0) json.AddMember("matchedPosition", to_json(*(p.matchedPosition), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, PerceivedObject& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("objectID").get_to((p.objectID));
-    if (j.contains("sensorIDList")) { p.sensorIDList = vanetza::asn1::allocate<SensorIdList_t>(); j.at("sensorIDList").get_to(*(p.sensorIDList)); } 
+void from_json(const Value& j, PerceivedObject& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["objectID"], (p.objectID));
+    if (j.HasMember("sensorIDList")) { p.sensorIDList = vanetza::asn1::allocate<SensorIdList_t>(); from_json(j["sensorIDList"], *(p.sensorIDList)); }
     else { p.sensorIDList=nullptr; }
-    j.at("timeOfMeasurement").get_to((p.timeOfMeasurement));
-    if (j.contains("objectAge")) { p.objectAge = vanetza::asn1::allocate<ObjectAge_t>(); j.at("objectAge").get_to(*(p.objectAge)); } 
+    from_json(j["timeOfMeasurement"], (p.timeOfMeasurement));
+    if (j.HasMember("objectAge")) { p.objectAge = vanetza::asn1::allocate<ObjectAge_t>(); from_json(j["objectAge"], *(p.objectAge)); }
     else { p.objectAge=nullptr; }
-    j.at("objectConfidence").get_to((p.objectConfidence));
-    j.at("xDistance").get_to((p.xDistance));
-    j.at("yDistance").get_to((p.yDistance));
-    if (j.contains("zDistance")) { p.zDistance = vanetza::asn1::allocate<ObjectDistanceWithConfidence_t>(); j.at("zDistance").get_to(*(p.zDistance)); } 
+    from_json(j["objectConfidence"], (p.objectConfidence));
+    from_json(j["xDistance"], (p.xDistance));
+    from_json(j["yDistance"], (p.yDistance));
+    if (j.HasMember("zDistance")) { p.zDistance = vanetza::asn1::allocate<ObjectDistanceWithConfidence_t>(); from_json(j["zDistance"], *(p.zDistance)); }
     else { p.zDistance=nullptr; }
-    j.at("xSpeed").get_to((p.xSpeed));
-    j.at("ySpeed").get_to((p.ySpeed));
-    if (j.contains("zSpeed")) { p.zSpeed = vanetza::asn1::allocate<SpeedExtended_t>(); j.at("zSpeed").get_to(*(p.zSpeed)); } 
+    from_json(j["xSpeed"], (p.xSpeed));
+    from_json(j["ySpeed"], (p.ySpeed));
+    if (j.HasMember("zSpeed")) { p.zSpeed = vanetza::asn1::allocate<SpeedExtended_t>(); from_json(j["zSpeed"], *(p.zSpeed)); }
     else { p.zSpeed=nullptr; }
-    if (j.contains("xAcceleration")) { p.xAcceleration = vanetza::asn1::allocate<LongitudinalAcceleration_t>(); j.at("xAcceleration").get_to(*(p.xAcceleration)); } 
+    if (j.HasMember("xAcceleration")) { p.xAcceleration = vanetza::asn1::allocate<LongitudinalAcceleration_t>(); from_json(j["xAcceleration"], *(p.xAcceleration)); }
     else { p.xAcceleration=nullptr; }
-    if (j.contains("yAcceleration")) { p.yAcceleration = vanetza::asn1::allocate<LateralAcceleration_t>(); j.at("yAcceleration").get_to(*(p.yAcceleration)); } 
+    if (j.HasMember("yAcceleration")) { p.yAcceleration = vanetza::asn1::allocate<LateralAcceleration_t>(); from_json(j["yAcceleration"], *(p.yAcceleration)); }
     else { p.yAcceleration=nullptr; }
-    if (j.contains("zAcceleration")) { p.zAcceleration = vanetza::asn1::allocate<VerticalAcceleration_t>(); j.at("zAcceleration").get_to(*(p.zAcceleration)); } 
+    if (j.HasMember("zAcceleration")) { p.zAcceleration = vanetza::asn1::allocate<VerticalAcceleration_t>(); from_json(j["zAcceleration"], *(p.zAcceleration)); }
     else { p.zAcceleration=nullptr; }
-    if (j.contains("yawAngle")) { p.yawAngle = vanetza::asn1::allocate<CartesianAngle_t>(); j.at("yawAngle").get_to(*(p.yawAngle)); } 
+    if (j.HasMember("yawAngle")) { p.yawAngle = vanetza::asn1::allocate<CartesianAngle_t>(); from_json(j["yawAngle"], *(p.yawAngle)); }
     else { p.yawAngle=nullptr; }
-    if (j.contains("planarObjectDimension1")) { p.planarObjectDimension1 = vanetza::asn1::allocate<ObjectDimension_t>(); j.at("planarObjectDimension1").get_to(*(p.planarObjectDimension1)); } 
+    if (j.HasMember("planarObjectDimension1")) { p.planarObjectDimension1 = vanetza::asn1::allocate<ObjectDimension_t>(); from_json(j["planarObjectDimension1"], *(p.planarObjectDimension1)); }
     else { p.planarObjectDimension1=nullptr; }
-    if (j.contains("planarObjectDimension2")) { p.planarObjectDimension2 = vanetza::asn1::allocate<ObjectDimension_t>(); j.at("planarObjectDimension2").get_to(*(p.planarObjectDimension2)); } 
+    if (j.HasMember("planarObjectDimension2")) { p.planarObjectDimension2 = vanetza::asn1::allocate<ObjectDimension_t>(); from_json(j["planarObjectDimension2"], *(p.planarObjectDimension2)); }
     else { p.planarObjectDimension2=nullptr; }
-    if (j.contains("verticalObjectDimension")) { p.verticalObjectDimension = vanetza::asn1::allocate<ObjectDimension_t>(); j.at("verticalObjectDimension").get_to(*(p.verticalObjectDimension)); } 
+    if (j.HasMember("verticalObjectDimension")) { p.verticalObjectDimension = vanetza::asn1::allocate<ObjectDimension_t>(); from_json(j["verticalObjectDimension"], *(p.verticalObjectDimension)); }
     else { p.verticalObjectDimension=nullptr; }
-    j.at("objectRefPoint").get_to((p.objectRefPoint));
-    if (j.contains("dynamicStatus")) { p.dynamicStatus = vanetza::asn1::allocate<DynamicStatus_t>(); j.at("dynamicStatus").get_to(*(p.dynamicStatus)); } 
+    from_json(j["objectRefPoint"], (p.objectRefPoint));
+    if (j.HasMember("dynamicStatus")) { p.dynamicStatus = vanetza::asn1::allocate<DynamicStatus_t>(); from_json(j["dynamicStatus"], *(p.dynamicStatus)); }
     else { p.dynamicStatus=nullptr; }
-    if (j.contains("classification")) { p.classification = vanetza::asn1::allocate<ObjectClassDescription_t>(); j.at("classification").get_to(*(p.classification)); } 
+    if (j.HasMember("classification")) { p.classification = vanetza::asn1::allocate<ObjectClassDescription_t>(); from_json(j["classification"], *(p.classification)); }
     else { p.classification=nullptr; }
-    if (j.contains("matchedPosition")) { p.matchedPosition = vanetza::asn1::allocate<MatchedPosition_t>(); j.at("matchedPosition").get_to(*(p.matchedPosition)); } 
+    if (j.HasMember("matchedPosition")) { p.matchedPosition = vanetza::asn1::allocate<MatchedPosition_t>(); from_json(j["matchedPosition"], *(p.matchedPosition)); }
     else { p.matchedPosition=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   AreaPolygon - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const AreaPolygon& p) {
-    j = json{{"polyPointList", (p.polyPointList)}};
+Value to_json(const AreaPolygon& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("polyPointList", to_json((p.polyPointList), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, AreaPolygon& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("polyPointList").get_to((p.polyPointList));
-    
-    
+void from_json(const Value& j, AreaPolygon& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["polyPointList"], (p.polyPointList));
 }
+
+
 
 /*
 *   FreeSpaceArea - Type CHOICE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const FreeSpaceArea& p) {
-    j = json{};
+Value to_json(const FreeSpaceArea& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == FreeSpaceArea_PR_freeSpacePolygon) {
-        j["freeSpacePolygon"] = p.choice.freeSpacePolygon;
+        json.AddMember("freeSpacePolygon", to_json(p.choice.freeSpacePolygon, allocator), allocator);
     } else if (p.present == FreeSpaceArea_PR_freeSpaceCircular) {
-        j["freeSpaceCircular"] = p.choice.freeSpaceCircular;
+        json.AddMember("freeSpaceCircular", to_json(p.choice.freeSpaceCircular, allocator), allocator);
     } else if (p.present == FreeSpaceArea_PR_freeSpaceEllipse) {
-        j["freeSpaceEllipse"] = p.choice.freeSpaceEllipse;
+        json.AddMember("freeSpaceEllipse", to_json(p.choice.freeSpaceEllipse, allocator), allocator);
     } else if (p.present == FreeSpaceArea_PR_freeSpaceRectangle) {
-        j["freeSpaceRectangle"] = p.choice.freeSpaceRectangle;
+        json.AddMember("freeSpaceRectangle", to_json(p.choice.freeSpaceRectangle, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, FreeSpaceArea& p) {
-    if (j.contains("freeSpacePolygon")) {
+void from_json(const Value& j, FreeSpaceArea& p) {
+    if (j.HasMember("freeSpacePolygon")) {
         p.present = FreeSpaceArea_PR_freeSpacePolygon;
-        j.at("freeSpacePolygon").get_to(p.choice.freeSpacePolygon);
-    } else if (j.contains("freeSpaceCircular")) {
+        from_json(j["freeSpacePolygon"], p.choice.freeSpacePolygon);
+    } else if (j.HasMember("freeSpaceCircular")) {
         p.present = FreeSpaceArea_PR_freeSpaceCircular;
-        j.at("freeSpaceCircular").get_to(p.choice.freeSpaceCircular);
-    } else if (j.contains("freeSpaceEllipse")) {
+        from_json(j["freeSpaceCircular"], p.choice.freeSpaceCircular);
+    } else if (j.HasMember("freeSpaceEllipse")) {
         p.present = FreeSpaceArea_PR_freeSpaceEllipse;
-        j.at("freeSpaceEllipse").get_to(p.choice.freeSpaceEllipse);
-    } else if (j.contains("freeSpaceRectangle")) {
+        from_json(j["freeSpaceEllipse"], p.choice.freeSpaceEllipse);
+    } else if (j.HasMember("freeSpaceRectangle")) {
         p.present = FreeSpaceArea_PR_freeSpaceRectangle;
-        j.at("freeSpaceRectangle").get_to(p.choice.freeSpaceRectangle);
+        from_json(j["freeSpaceRectangle"], p.choice.freeSpaceRectangle);
     } else {
         p.present = FreeSpaceArea_PR_NOTHING;
     }
@@ -4814,50 +5459,54 @@ void from_json(const json& j, FreeSpaceArea& p) {
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const CoopAwareness& p) {
-    j = json{{"generationDeltaTime", (p.generationDeltaTime)}, {"camParameters", (p.camParameters)}};
+Value to_json(const CoopAwareness& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("generationDeltaTime", to_json((p.generationDeltaTime), allocator), allocator);
+    json.AddMember("camParameters", to_json((p.camParameters), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, CoopAwareness& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("generationDeltaTime").get_to((p.generationDeltaTime));
-    j.at("camParameters").get_to((p.camParameters));
-    
-    
+void from_json(const Value& j, CoopAwareness& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["generationDeltaTime"], (p.generationDeltaTime));
+    from_json(j["camParameters"], (p.camParameters));
 }
+
+
 
 /*
 *   VruLanePosition - Type CHOICE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruLanePosition& p) {
-    j = json{};
+Value to_json(const VruLanePosition& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == VruLanePosition_PR_offRoadLanePosition) {
-        j["offRoadLanePosition"] = p.choice.offRoadLanePosition;
+        json.AddMember("offRoadLanePosition", to_json(p.choice.offRoadLanePosition, allocator), allocator);
     } else if (p.present == VruLanePosition_PR_vehicularLanePosition) {
-        j["vehicularLanePosition"] = p.choice.vehicularLanePosition;
+        json.AddMember("vehicularLanePosition", to_json(p.choice.vehicularLanePosition, allocator), allocator);
     } else if (p.present == VruLanePosition_PR_trafficIslandPosition) {
-        j["trafficIslandPosition"] = p.choice.trafficIslandPosition;
+        json.AddMember("trafficIslandPosition", to_json(p.choice.trafficIslandPosition, allocator), allocator);
     } else if (p.present == VruLanePosition_PR_mapPosition) {
-        j["mapPosition"] = p.choice.mapPosition;
+        json.AddMember("mapPosition", to_json(p.choice.mapPosition, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, VruLanePosition& p) {
-    if (j.contains("offRoadLanePosition")) {
+void from_json(const Value& j, VruLanePosition& p) {
+    if (j.HasMember("offRoadLanePosition")) {
         p.present = VruLanePosition_PR_offRoadLanePosition;
-        j.at("offRoadLanePosition").get_to(p.choice.offRoadLanePosition);
-    } else if (j.contains("vehicularLanePosition")) {
+        from_json(j["offRoadLanePosition"], p.choice.offRoadLanePosition);
+    } else if (j.HasMember("vehicularLanePosition")) {
         p.present = VruLanePosition_PR_vehicularLanePosition;
-        j.at("vehicularLanePosition").get_to(p.choice.vehicularLanePosition);
-    } else if (j.contains("trafficIslandPosition")) {
+        from_json(j["vehicularLanePosition"], p.choice.vehicularLanePosition);
+    } else if (j.HasMember("trafficIslandPosition")) {
         p.present = VruLanePosition_PR_trafficIslandPosition;
-        j.at("trafficIslandPosition").get_to(p.choice.trafficIslandPosition);
-    } else if (j.contains("mapPosition")) {
+        from_json(j["trafficIslandPosition"], p.choice.trafficIslandPosition);
+    } else if (j.HasMember("mapPosition")) {
         p.present = VruLanePosition_PR_mapPosition;
-        j.at("mapPosition").get_to(p.choice.mapPosition);
+        from_json(j["mapPosition"], p.choice.mapPosition);
     } else {
         p.present = VruLanePosition_PR_NOTHING;
     }
@@ -4868,27 +5517,28 @@ void from_json(const json& j, VruLanePosition& p) {
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const ClusterBoundingBoxShape& p) {
-    j = json{};
+Value to_json(const ClusterBoundingBoxShape& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == ClusterBoundingBoxShape_PR_clusterRectangle) {
-        j["clusterRectangle"] = p.choice.clusterRectangle;
+        json.AddMember("clusterRectangle", to_json(p.choice.clusterRectangle, allocator), allocator);
     } else if (p.present == ClusterBoundingBoxShape_PR_clusterCircle) {
-        j["clusterCircle"] = p.choice.clusterCircle;
+        json.AddMember("clusterCircle", to_json(p.choice.clusterCircle, allocator), allocator);
     } else if (p.present == ClusterBoundingBoxShape_PR_clusterPolygon) {
-        j["clusterPolygon"] = p.choice.clusterPolygon;
+        json.AddMember("clusterPolygon", to_json(p.choice.clusterPolygon, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, ClusterBoundingBoxShape& p) {
-    if (j.contains("clusterRectangle")) {
+void from_json(const Value& j, ClusterBoundingBoxShape& p) {
+    if (j.HasMember("clusterRectangle")) {
         p.present = ClusterBoundingBoxShape_PR_clusterRectangle;
-        j.at("clusterRectangle").get_to(p.choice.clusterRectangle);
-    } else if (j.contains("clusterCircle")) {
+        from_json(j["clusterRectangle"], p.choice.clusterRectangle);
+    } else if (j.HasMember("clusterCircle")) {
         p.present = ClusterBoundingBoxShape_PR_clusterCircle;
-        j.at("clusterCircle").get_to(p.choice.clusterCircle);
-    } else if (j.contains("clusterPolygon")) {
+        from_json(j["clusterCircle"], p.choice.clusterCircle);
+    } else if (j.HasMember("clusterPolygon")) {
         p.present = ClusterBoundingBoxShape_PR_clusterPolygon;
-        j.at("clusterPolygon").get_to(p.choice.clusterPolygon);
+        from_json(j["clusterPolygon"], p.choice.clusterPolygon);
     } else {
         p.present = ClusterBoundingBoxShape_PR_NOTHING;
     }
@@ -4899,52 +5549,61 @@ void from_json(const json& j, ClusterBoundingBoxShape& p) {
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const IntersectionState& p) {
-    j = json{{"id", (p.id)}, {"revision", (p.revision)}, {"status", to_json_IntersectionStatusObject((p.status))}, {"states", (p.states)}};
-    if (p.moy != 0) j["moy"] = *(p.moy);
-    if (p.timeStamp != 0) j["timeStamp"] = *(p.timeStamp);
-    if (p.enabledLanes != 0) j["enabledLanes"] = *(p.enabledLanes);
-    if (p.maneuverAssistList != 0) j["maneuverAssistList"] = *(p.maneuverAssistList);
+Value to_json(const IntersectionState& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("id", to_json((p.id), allocator), allocator);
+    json.AddMember("revision", to_json((p.revision), allocator), allocator);
+    json.AddMember("status", to_json_IntersectionStatusObject((p.status), allocator), allocator);
+    json.AddMember("states", to_json((p.states), allocator), allocator);
+    if (p.moy != 0) json.AddMember("moy", to_json(*(p.moy), allocator), allocator);
+    if (p.timeStamp != 0) json.AddMember("timeStamp", to_json(*(p.timeStamp), allocator), allocator);
+    if (p.enabledLanes != 0) json.AddMember("enabledLanes", to_json(*(p.enabledLanes), allocator), allocator);
+    if (p.maneuverAssistList != 0) json.AddMember("maneuverAssistList", to_json(*(p.maneuverAssistList), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, IntersectionState& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("id").get_to((p.id));
-    j.at("revision").get_to((p.revision));
-    if (j.contains("moy")) { p.moy = vanetza::asn1::allocate<MinuteOfTheYear_t>(); j.at("moy").get_to(*(p.moy)); } 
-    else { p.moy=nullptr; }
-    if (j.contains("timeStamp")) { p.timeStamp = vanetza::asn1::allocate<DSecond_t>(); j.at("timeStamp").get_to(*(p.timeStamp)); } 
-    else { p.timeStamp=nullptr; }
-    if (j.contains("enabledLanes")) { p.enabledLanes = vanetza::asn1::allocate<EnabledLaneList_t>(); j.at("enabledLanes").get_to(*(p.enabledLanes)); } 
-    else { p.enabledLanes=nullptr; }
-    j.at("states").get_to((p.states));
-    if (j.contains("maneuverAssistList")) { p.maneuverAssistList = vanetza::asn1::allocate<ManeuverAssistList_t>(); j.at("maneuverAssistList").get_to(*(p.maneuverAssistList)); } 
-    else { p.maneuverAssistList=nullptr; }
+void from_json(const Value& j, IntersectionState& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["id"], (p.id));
+    from_json(j["revision"], (p.revision));
     from_json_IntersectionStatusObject(j["status"],(p.status));
+    if (j.HasMember("moy")) { p.moy = vanetza::asn1::allocate<MinuteOfTheYear_t>(); from_json(j["moy"], *(p.moy)); }
+    else { p.moy=nullptr; }
+    if (j.HasMember("timeStamp")) { p.timeStamp = vanetza::asn1::allocate<DSecond_t>(); from_json(j["timeStamp"], *(p.timeStamp)); }
+    else { p.timeStamp=nullptr; }
+    if (j.HasMember("enabledLanes")) { p.enabledLanes = vanetza::asn1::allocate<EnabledLaneList_t>(); from_json(j["enabledLanes"], *(p.enabledLanes)); }
+    else { p.enabledLanes=nullptr; }
+    from_json(j["states"], (p.states));
+    if (j.HasMember("maneuverAssistList")) { p.maneuverAssistList = vanetza::asn1::allocate<ManeuverAssistList_t>(); from_json(j["maneuverAssistList"], *(p.maneuverAssistList)); }
+    else { p.maneuverAssistList=nullptr; }
     p.name=nullptr;
     p.regional=nullptr;
 }
+
+
 
 /*
 *   IntersectionStateList - Type SEQUENCE OF
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const IntersectionStateList& p) {
+Value to_json(const IntersectionStateList& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const IntersectionState_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, IntersectionStateList& p) {
+void from_json(const Value& j, IntersectionStateList& p) {
     IntersectionStateList* p_tmp = vanetza::asn1::allocate<IntersectionStateList>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         IntersectionState_t *element = vanetza::asn1::allocate<IntersectionState_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -4956,22 +5615,23 @@ void from_json(const json& j, IntersectionStateList& p) {
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const NodeListXY& p) {
-    j = json{};
+Value to_json(const NodeListXY& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == NodeListXY_PR_nodes) {
-        j["nodes"] = p.choice.nodes;
+        json.AddMember("nodes", to_json(p.choice.nodes, allocator), allocator);
     } else if (p.present == NodeListXY_PR_computed) {
-        j["computed"] = p.choice.computed;
+        json.AddMember("computed", to_json(p.choice.computed, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, NodeListXY& p) {
-    if (j.contains("nodes")) {
+void from_json(const Value& j, NodeListXY& p) {
+    if (j.HasMember("nodes")) {
         p.present = NodeListXY_PR_nodes;
-        j.at("nodes").get_to(p.choice.nodes);
-    } else if (j.contains("computed")) {
+        from_json(j["nodes"], p.choice.nodes);
+    } else if (j.HasMember("computed")) {
         p.present = NodeListXY_PR_computed;
-        j.at("computed").get_to(p.choice.computed);
+        from_json(j["computed"], p.choice.computed);
     } else {
         p.present = NodeListXY_PR_NOTHING;
     }
@@ -4982,21 +5642,23 @@ void from_json(const json& j, NodeListXY& p) {
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const PerceivedObjectContainer_t& p) {
+Value to_json(const PerceivedObjectContainer_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const PerceivedObject_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, PerceivedObjectContainer_t& p) {
+void from_json(const Value& j, PerceivedObjectContainer_t& p) {
     PerceivedObjectContainer_t* p_tmp = vanetza::asn1::allocate<PerceivedObjectContainer_t>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         PerceivedObject_t *element = vanetza::asn1::allocate<PerceivedObject_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -5008,42 +5670,43 @@ void from_json(const json& j, PerceivedObjectContainer_t& p) {
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const DetectionArea& p) {
-    j = json{};
+Value to_json(const DetectionArea& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if (p.present == DetectionArea_PR_vehicleSensor) {
-        j["vehicleSensor"] = p.choice.vehicleSensor;
+        json.AddMember("vehicleSensor", to_json(p.choice.vehicleSensor, allocator), allocator);
     } else if (p.present == DetectionArea_PR_stationarySensorRadial) {
-        j["stationarySensorRadial"] = p.choice.stationarySensorRadial;
+        json.AddMember("stationarySensorRadial", to_json(p.choice.stationarySensorRadial, allocator), allocator);
     } else if (p.present == DetectionArea_PR_stationarySensorPolygon) {
-        j["stationarySensorPolygon"] = p.choice.stationarySensorPolygon;
+        json.AddMember("stationarySensorPolygon", to_json(p.choice.stationarySensorPolygon, allocator), allocator);
     } else if (p.present == DetectionArea_PR_stationarySensorCircular) {
-        j["stationarySensorCircular"] = p.choice.stationarySensorCircular;
+        json.AddMember("stationarySensorCircular", to_json(p.choice.stationarySensorCircular, allocator), allocator);
     } else if (p.present == DetectionArea_PR_stationarySensorEllipse) {
-        j["stationarySensorEllipse"] = p.choice.stationarySensorEllipse;
+        json.AddMember("stationarySensorEllipse", to_json(p.choice.stationarySensorEllipse, allocator), allocator);
     } else if (p.present == DetectionArea_PR_stationarySensorRectangle) {
-        j["stationarySensorRectangle"] = p.choice.stationarySensorRectangle;
+        json.AddMember("stationarySensorRectangle", to_json(p.choice.stationarySensorRectangle, allocator), allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, DetectionArea& p) {
-    if (j.contains("vehicleSensor")) {
+void from_json(const Value& j, DetectionArea& p) {
+    if (j.HasMember("vehicleSensor")) {
         p.present = DetectionArea_PR_vehicleSensor;
-        j.at("vehicleSensor").get_to(p.choice.vehicleSensor);
-    } else if (j.contains("stationarySensorRadial")) {
+        from_json(j["vehicleSensor"], p.choice.vehicleSensor);
+    } else if (j.HasMember("stationarySensorRadial")) {
         p.present = DetectionArea_PR_stationarySensorRadial;
-        j.at("stationarySensorRadial").get_to(p.choice.stationarySensorRadial);
-    } else if (j.contains("stationarySensorPolygon")) {
+        from_json(j["stationarySensorRadial"], p.choice.stationarySensorRadial);
+    } else if (j.HasMember("stationarySensorPolygon")) {
         p.present = DetectionArea_PR_stationarySensorPolygon;
-        j.at("stationarySensorPolygon").get_to(p.choice.stationarySensorPolygon);
-    } else if (j.contains("stationarySensorCircular")) {
+        from_json(j["stationarySensorPolygon"], p.choice.stationarySensorPolygon);
+    } else if (j.HasMember("stationarySensorCircular")) {
         p.present = DetectionArea_PR_stationarySensorCircular;
-        j.at("stationarySensorCircular").get_to(p.choice.stationarySensorCircular);
-    } else if (j.contains("stationarySensorEllipse")) {
+        from_json(j["stationarySensorCircular"], p.choice.stationarySensorCircular);
+    } else if (j.HasMember("stationarySensorEllipse")) {
         p.present = DetectionArea_PR_stationarySensorEllipse;
-        j.at("stationarySensorEllipse").get_to(p.choice.stationarySensorEllipse);
-    } else if (j.contains("stationarySensorRectangle")) {
+        from_json(j["stationarySensorEllipse"], p.choice.stationarySensorEllipse);
+    } else if (j.HasMember("stationarySensorRectangle")) {
         p.present = DetectionArea_PR_stationarySensorRectangle;
-        j.at("stationarySensorRectangle").get_to(p.choice.stationarySensorRectangle);
+        from_json(j["stationarySensorRectangle"], p.choice.stationarySensorRectangle);
     } else {
         p.present = DetectionArea_PR_NOTHING;
     }
@@ -5054,182 +5717,210 @@ void from_json(const json& j, DetectionArea& p) {
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const FreeSpaceAddendum& p) {
-    j = json{{"freeSpaceConfidence", (p.freeSpaceConfidence)}, {"freeSpaceArea", (p.freeSpaceArea)}};
-    if (p.sensorIDList != 0) j["sensorIDList"] = *(p.sensorIDList);
+Value to_json(const FreeSpaceAddendum& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("freeSpaceConfidence", to_json((p.freeSpaceConfidence), allocator), allocator);
+    json.AddMember("freeSpaceArea", to_json((p.freeSpaceArea), allocator), allocator);
+    if (p.sensorIDList != 0) json.AddMember("sensorIDList", to_json(*(p.sensorIDList), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, FreeSpaceAddendum& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("freeSpaceConfidence").get_to((p.freeSpaceConfidence));
-    j.at("freeSpaceArea").get_to((p.freeSpaceArea));
-    if (j.contains("sensorIDList")) { p.sensorIDList = vanetza::asn1::allocate<SensorIdList_t>(); j.at("sensorIDList").get_to(*(p.sensorIDList)); } 
+void from_json(const Value& j, FreeSpaceAddendum& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["freeSpaceConfidence"], (p.freeSpaceConfidence));
+    from_json(j["freeSpaceArea"], (p.freeSpaceArea));
+    if (j.HasMember("sensorIDList")) { p.sensorIDList = vanetza::asn1::allocate<SensorIdList_t>(); from_json(j["sensorIDList"], *(p.sensorIDList)); }
     else { p.sensorIDList=nullptr; }
     
-    
 }
+
+
 
 /*
 *   CAM - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const CAM& p) {
-    j = json{{"header", (p.header)}, {"cam", (p.cam)}};
+Value to_json(const CAM& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("header", to_json((p.header), allocator), allocator);
+    json.AddMember("cam", to_json((p.cam), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, CAM& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("header").get_to((p.header));
-    j.at("cam").get_to((p.cam));
-    
-    
+void from_json(const Value& j, CAM& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["header"], (p.header));
+    from_json(j["cam"], (p.cam));
 }
+
+
 
 /*
 *   VruHighFrequencyContainer - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruHighFrequencyContainer& p) {
-    j = json{{"heading", (p.heading)}, {"speed", (p.speed)}, {"longitudinalAcceleration", (p.longitudinalAcceleration)}};
-    if (p.curvature != 0) j["curvature"] = *(p.curvature);
-    if (p.curvatureCalculationMode != 0) j["curvatureCalculationMode"] = *(p.curvatureCalculationMode);
-    if (p.yawRate != 0) j["yawRate"] = *(p.yawRate);
-    if (p.lateralAcceleration != 0) j["lateralAcceleration"] = *(p.lateralAcceleration);
-    if (p.verticalAcceleration != 0) j["verticalAcceleration"] = *(p.verticalAcceleration);
-    if (p.vruLanePosition != 0) j["vruLanePosition"] = *(p.vruLanePosition);
-    if (p.environment != 0) j["environment"] = *(p.environment);
-    if (p.movementControl != 0) j["movementControl"] = *(p.movementControl);
-    if (p.orientation != 0) j["orientation"] = *(p.orientation);
-    if (p.rollAngle != 0) j["rollAngle"] = *(p.rollAngle);
-    if (p.deviceUsage != 0) j["deviceUsage"] = *(p.deviceUsage);
+Value to_json(const VruHighFrequencyContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("heading", to_json((p.heading), allocator), allocator);
+    json.AddMember("speed", to_json((p.speed), allocator), allocator);
+    json.AddMember("longitudinalAcceleration", to_json((p.longitudinalAcceleration), allocator), allocator);
+    if (p.curvature != 0) json.AddMember("curvature", to_json(*(p.curvature), allocator), allocator);
+    if (p.curvatureCalculationMode != 0) json.AddMember("curvatureCalculationMode", to_json(*(p.curvatureCalculationMode), allocator), allocator);
+    if (p.yawRate != 0) json.AddMember("yawRate", to_json(*(p.yawRate), allocator), allocator);
+    if (p.lateralAcceleration != 0) json.AddMember("lateralAcceleration", to_json(*(p.lateralAcceleration), allocator), allocator);
+    if (p.verticalAcceleration != 0) json.AddMember("verticalAcceleration", to_json(*(p.verticalAcceleration), allocator), allocator);
+    if (p.vruLanePosition != 0) json.AddMember("vruLanePosition", to_json(*(p.vruLanePosition), allocator), allocator);
+    if (p.environment != 0) json.AddMember("environment", to_json(*(p.environment), allocator), allocator);
+    if (p.movementControl != 0) json.AddMember("movementControl", to_json(*(p.movementControl), allocator), allocator);
+    if (p.orientation != 0) json.AddMember("orientation", to_json(*(p.orientation), allocator), allocator);
+    if (p.rollAngle != 0) json.AddMember("rollAngle", to_json(*(p.rollAngle), allocator), allocator);
+    if (p.deviceUsage != 0) json.AddMember("deviceUsage", to_json(*(p.deviceUsage), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, VruHighFrequencyContainer& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("heading").get_to((p.heading));
-    j.at("speed").get_to((p.speed));
-    j.at("longitudinalAcceleration").get_to((p.longitudinalAcceleration));
-    if (j.contains("curvature")) { p.curvature = vanetza::asn1::allocate<Curvature_t>(); j.at("curvature").get_to(*(p.curvature)); } 
+void from_json(const Value& j, VruHighFrequencyContainer& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["heading"], (p.heading));
+    from_json(j["speed"], (p.speed));
+    from_json(j["longitudinalAcceleration"], (p.longitudinalAcceleration));
+    if (j.HasMember("curvature")) { p.curvature = vanetza::asn1::allocate<Curvature_t>(); from_json(j["curvature"], *(p.curvature)); }
     else { p.curvature=nullptr; }
-    if (j.contains("curvatureCalculationMode")) { p.curvatureCalculationMode = vanetza::asn1::allocate<CurvatureCalculationMode_t>(); j.at("curvatureCalculationMode").get_to(*(p.curvatureCalculationMode)); } 
+    if (j.HasMember("curvatureCalculationMode")) { p.curvatureCalculationMode = vanetza::asn1::allocate<CurvatureCalculationMode_t>(); from_json(j["curvatureCalculationMode"], *(p.curvatureCalculationMode)); }
     else { p.curvatureCalculationMode=nullptr; }
-    if (j.contains("yawRate")) { p.yawRate = vanetza::asn1::allocate<YawRate_t>(); j.at("yawRate").get_to(*(p.yawRate)); } 
+    if (j.HasMember("yawRate")) { p.yawRate = vanetza::asn1::allocate<YawRate_t>(); from_json(j["yawRate"], *(p.yawRate)); }
     else { p.yawRate=nullptr; }
-    if (j.contains("lateralAcceleration")) { p.lateralAcceleration = vanetza::asn1::allocate<LateralAcceleration_t>(); j.at("lateralAcceleration").get_to(*(p.lateralAcceleration)); } 
+    if (j.HasMember("lateralAcceleration")) { p.lateralAcceleration = vanetza::asn1::allocate<LateralAcceleration_t>(); from_json(j["lateralAcceleration"], *(p.lateralAcceleration)); }
     else { p.lateralAcceleration=nullptr; }
-    if (j.contains("verticalAcceleration")) { p.verticalAcceleration = vanetza::asn1::allocate<VerticalAcceleration_t>(); j.at("verticalAcceleration").get_to(*(p.verticalAcceleration)); } 
+    if (j.HasMember("verticalAcceleration")) { p.verticalAcceleration = vanetza::asn1::allocate<VerticalAcceleration_t>(); from_json(j["verticalAcceleration"], *(p.verticalAcceleration)); }
     else { p.verticalAcceleration=nullptr; }
-    if (j.contains("vruLanePosition")) { p.vruLanePosition = vanetza::asn1::allocate<VruLanePosition_t>(); j.at("vruLanePosition").get_to(*(p.vruLanePosition)); } 
+    if (j.HasMember("vruLanePosition")) { p.vruLanePosition = vanetza::asn1::allocate<VruLanePosition_t>(); from_json(j["vruLanePosition"], *(p.vruLanePosition)); }
     else { p.vruLanePosition=nullptr; }
-    if (j.contains("environment")) { p.environment = vanetza::asn1::allocate<VruEnvironment_t>(); j.at("environment").get_to(*(p.environment)); } 
+    if (j.HasMember("environment")) { p.environment = vanetza::asn1::allocate<VruEnvironment_t>(); from_json(j["environment"], *(p.environment)); }
     else { p.environment=nullptr; }
-    if (j.contains("movementControl")) { p.movementControl = vanetza::asn1::allocate<VruMovementControl_t>(); j.at("movementControl").get_to(*(p.movementControl)); } 
+    if (j.HasMember("movementControl")) { p.movementControl = vanetza::asn1::allocate<VruMovementControl_t>(); from_json(j["movementControl"], *(p.movementControl)); }
     else { p.movementControl=nullptr; }
-    if (j.contains("orientation")) { p.orientation = vanetza::asn1::allocate<VruOrientation_t>(); j.at("orientation").get_to(*(p.orientation)); } 
+    if (j.HasMember("orientation")) { p.orientation = vanetza::asn1::allocate<VruOrientation_t>(); from_json(j["orientation"], *(p.orientation)); }
     else { p.orientation=nullptr; }
-    if (j.contains("rollAngle")) { p.rollAngle = vanetza::asn1::allocate<VruRollAngle_t>(); j.at("rollAngle").get_to(*(p.rollAngle)); } 
+    if (j.HasMember("rollAngle")) { p.rollAngle = vanetza::asn1::allocate<VruRollAngle_t>(); from_json(j["rollAngle"], *(p.rollAngle)); }
     else { p.rollAngle=nullptr; }
-    if (j.contains("deviceUsage")) { p.deviceUsage = vanetza::asn1::allocate<VruDeviceUsage_t>(); j.at("deviceUsage").get_to(*(p.deviceUsage)); } 
+    if (j.HasMember("deviceUsage")) { p.deviceUsage = vanetza::asn1::allocate<VruDeviceUsage_t>(); from_json(j["deviceUsage"], *(p.deviceUsage)); }
     else { p.deviceUsage=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   VruClusterInformationContainer - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruClusterInformationContainer& p) {
-    j = json{{"clusterId", (p.clusterId)}, {"clusterBoundingBoxShape", (p.clusterBoundingBoxShape)}, {"clusterCardinalitySize", (p.clusterCardinalitySize)}, {"clusterProfiles", to_json_ClusterProfiles((p.clusterProfiles))}};
+Value to_json(const VruClusterInformationContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("clusterId", to_json((p.clusterId), allocator), allocator);
+    json.AddMember("clusterBoundingBoxShape", to_json((p.clusterBoundingBoxShape), allocator), allocator);
+    json.AddMember("clusterCardinalitySize", to_json((p.clusterCardinalitySize), allocator), allocator);
+    json.AddMember("clusterProfiles", to_json_ClusterProfiles((p.clusterProfiles), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, VruClusterInformationContainer& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("clusterId").get_to((p.clusterId));
-    j.at("clusterBoundingBoxShape").get_to((p.clusterBoundingBoxShape));
-    j.at("clusterCardinalitySize").get_to((p.clusterCardinalitySize));
+void from_json(const Value& j, VruClusterInformationContainer& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["clusterId"], (p.clusterId));
+    from_json(j["clusterBoundingBoxShape"], (p.clusterBoundingBoxShape));
+    from_json(j["clusterCardinalitySize"], (p.clusterCardinalitySize));
     from_json_ClusterProfiles(j["clusterProfiles"],(p.clusterProfiles));
-    
 }
+
+
 
 /*
 *   SPAT - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const SPAT& p) {
-    j = json{{"intersections", (p.intersections)}};
-    if (p.timeStamp != 0) j["timeStamp"] = *(p.timeStamp);
+Value to_json(const SPAT& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("intersections", to_json((p.intersections), allocator), allocator);
+    if (p.timeStamp != 0) json.AddMember("timeStamp", to_json(*(p.timeStamp), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, SPAT& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("timeStamp")) { p.timeStamp = vanetza::asn1::allocate<MinuteOfTheYear_t>(); j.at("timeStamp").get_to(*(p.timeStamp)); } 
+void from_json(const Value& j, SPAT& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("timeStamp")) { p.timeStamp = vanetza::asn1::allocate<MinuteOfTheYear_t>(); from_json(j["timeStamp"], *(p.timeStamp)); }
     else { p.timeStamp=nullptr; }
-    j.at("intersections").get_to((p.intersections));
-    
+    from_json(j["intersections"], (p.intersections));
     p.name=nullptr;
     p.regional=nullptr;
 }
+
+
 
 /*
 *   GenericLane - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const GenericLane& p) {
-    j = json{{"laneID", (p.laneID)}, {"laneAttributes", (p.laneAttributes)}, {"nodeList", (p.nodeList)}};
-    if (p.ingressApproach != 0) j["ingressApproach"] = *(p.ingressApproach);
-    if (p.egressApproach != 0) j["egressApproach"] = *(p.egressApproach);
-    if (p.maneuvers != 0) j["maneuvers"] = to_json_AllowedManeuvers(*(p.maneuvers));
-    if (p.connectsTo != 0) j["connectsTo"] = *(p.connectsTo);
-    if (p.overlays != 0) j["overlays"] = *(p.overlays);
+Value to_json(const GenericLane& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("laneID", to_json((p.laneID), allocator), allocator);
+    json.AddMember("laneAttributes", to_json((p.laneAttributes), allocator), allocator);
+    json.AddMember("nodeList", to_json((p.nodeList), allocator), allocator);
+    if (p.ingressApproach != 0) json.AddMember("ingressApproach", to_json(*(p.ingressApproach), allocator), allocator);
+    if (p.egressApproach != 0) json.AddMember("egressApproach", to_json(*(p.egressApproach), allocator), allocator);
+    if (p.maneuvers != 0) json.AddMember("maneuvers", to_json_AllowedManeuvers(*(p.maneuvers), allocator), allocator);
+    if (p.connectsTo != 0) json.AddMember("connectsTo", to_json(*(p.connectsTo), allocator), allocator);
+    if (p.overlays != 0) json.AddMember("overlays", to_json(*(p.overlays), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, GenericLane& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("laneID").get_to((p.laneID));
-    if (j.contains("ingressApproach")) { p.ingressApproach = vanetza::asn1::allocate<ApproachID_t>(); j.at("ingressApproach").get_to(*(p.ingressApproach)); } 
+void from_json(const Value& j, GenericLane& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["laneID"], (p.laneID));
+    if (j.HasMember("ingressApproach")) { p.ingressApproach = vanetza::asn1::allocate<ApproachID_t>(); from_json(j["ingressApproach"], *(p.ingressApproach)); }
     else { p.ingressApproach=nullptr; }
-    if (j.contains("egressApproach")) { p.egressApproach = vanetza::asn1::allocate<ApproachID_t>(); j.at("egressApproach").get_to(*(p.egressApproach)); } 
+    if (j.HasMember("egressApproach")) { p.egressApproach = vanetza::asn1::allocate<ApproachID_t>(); from_json(j["egressApproach"], *(p.egressApproach)); }
     else { p.egressApproach=nullptr; }
-    j.at("laneAttributes").get_to((p.laneAttributes));
-    j.at("nodeList").get_to((p.nodeList));
-    if (j.contains("connectsTo")) { p.connectsTo = vanetza::asn1::allocate<ConnectsToList_t>(); j.at("connectsTo").get_to(*(p.connectsTo)); } 
-    else { p.connectsTo=nullptr; }
-    if (j.contains("overlays")) { p.overlays = vanetza::asn1::allocate<OverlayLaneList_t>(); j.at("overlays").get_to(*(p.overlays)); } 
-    else { p.overlays=nullptr; }
-    if (j.contains("maneuvers")) { p.maneuvers = vanetza::asn1::allocate<AllowedManeuvers_t>(); from_json_AllowedManeuvers(j["maneuvers"],*(p.maneuvers)); } 
+    from_json(j["laneAttributes"], (p.laneAttributes));
+    if (j.HasMember("maneuvers")) { p.maneuvers = vanetza::asn1::allocate<AllowedManeuvers_t>(); from_json_AllowedManeuvers(j["maneuvers"],*(p.maneuvers)); }
     else { p.maneuvers=nullptr; }
+    from_json(j["nodeList"], (p.nodeList));
+    if (j.HasMember("connectsTo")) { p.connectsTo = vanetza::asn1::allocate<ConnectsToList_t>(); from_json(j["connectsTo"], *(p.connectsTo)); }
+    else { p.connectsTo=nullptr; }
+    if (j.HasMember("overlays")) { p.overlays = vanetza::asn1::allocate<OverlayLaneList_t>(); from_json(j["overlays"], *(p.overlays)); }
+    else { p.overlays=nullptr; }
     p.name=nullptr;
     p.regional=nullptr;
 }
+
+
 
 /*
 *   LaneList - Type SEQUENCE OF
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const LaneList& p) {
+Value to_json(const LaneList& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const GenericLane_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, LaneList& p) {
+void from_json(const Value& j, LaneList& p) {
     LaneList* p_tmp = vanetza::asn1::allocate<LaneList>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         GenericLane_t *element = vanetza::asn1::allocate<GenericLane_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -5241,21 +5932,23 @@ void from_json(const json& j, LaneList& p) {
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const RoadLaneSetList& p) {
+Value to_json(const RoadLaneSetList& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const GenericLane_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, RoadLaneSetList& p) {
+void from_json(const Value& j, RoadLaneSetList& p) {
     RoadLaneSetList* p_tmp = vanetza::asn1::allocate<RoadLaneSetList>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         GenericLane_t *element = vanetza::asn1::allocate<GenericLane_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -5267,47 +5960,55 @@ void from_json(const json& j, RoadLaneSetList& p) {
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const RoadSegment& p) {
-    j = json{{"id", (p.id)}, {"revision", (p.revision)}, {"refPoint", (p.refPoint)}, {"roadLaneSet", (p.roadLaneSet)}};
-    if (p.laneWidth != 0) j["laneWidth"] = *(p.laneWidth);
-    if (p.speedLimits != 0) j["speedLimits"] = *(p.speedLimits);
+Value to_json(const RoadSegment& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("id", to_json((p.id), allocator), allocator);
+    json.AddMember("revision", to_json((p.revision), allocator), allocator);
+    json.AddMember("refPoint", to_json((p.refPoint), allocator), allocator);
+    json.AddMember("roadLaneSet", to_json((p.roadLaneSet), allocator), allocator);
+    if (p.laneWidth != 0) json.AddMember("laneWidth", to_json(*(p.laneWidth), allocator), allocator);
+    if (p.speedLimits != 0) json.AddMember("speedLimits", to_json(*(p.speedLimits), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, RoadSegment& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("id").get_to((p.id));
-    j.at("revision").get_to((p.revision));
-    j.at("refPoint").get_to((p.refPoint));
-    if (j.contains("laneWidth")) { p.laneWidth = vanetza::asn1::allocate<LaneWidth_t>(); j.at("laneWidth").get_to(*(p.laneWidth)); } 
+void from_json(const Value& j, RoadSegment& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["id"], (p.id));
+    from_json(j["revision"], (p.revision));
+    from_json(j["refPoint"], (p.refPoint));
+    if (j.HasMember("laneWidth")) { p.laneWidth = vanetza::asn1::allocate<LaneWidth_t>(); from_json(j["laneWidth"], *(p.laneWidth)); }
     else { p.laneWidth=nullptr; }
-    if (j.contains("speedLimits")) { p.speedLimits = vanetza::asn1::allocate<SpeedLimitList_t>(); j.at("speedLimits").get_to(*(p.speedLimits)); } 
+    if (j.HasMember("speedLimits")) { p.speedLimits = vanetza::asn1::allocate<SpeedLimitList_t>(); from_json(j["speedLimits"], *(p.speedLimits)); }
     else { p.speedLimits=nullptr; }
-    j.at("roadLaneSet").get_to((p.roadLaneSet));
-    
+    from_json(j["roadLaneSet"], (p.roadLaneSet));
     p.name=nullptr;
     p.regional=nullptr;
 }
+
+
 
 /*
 *   RoadSegmentList - Type SEQUENCE OF
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const RoadSegmentList& p) {
+Value to_json(const RoadSegmentList& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const RoadSegment_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, RoadSegmentList& p) {
+void from_json(const Value& j, RoadSegmentList& p) {
     RoadSegmentList* p_tmp = vanetza::asn1::allocate<RoadSegmentList>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         RoadSegment_t *element = vanetza::asn1::allocate<RoadSegment_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -5319,42 +6020,48 @@ void from_json(const json& j, RoadSegmentList& p) {
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const SensorInformation& p) {
-    j = json{{"sensorID", (p.sensorID)}, {"type", (p.type)}, {"detectionArea", (p.detectionArea)}};
-    if (p.freeSpaceConfidence != 0) j["freeSpaceConfidence"] = *(p.freeSpaceConfidence);
+Value to_json(const SensorInformation& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("sensorID", to_json((p.sensorID), allocator), allocator);
+    json.AddMember("type", to_json((p.type), allocator), allocator);
+    json.AddMember("detectionArea", to_json((p.detectionArea), allocator), allocator);
+    if (p.freeSpaceConfidence != 0) json.AddMember("freeSpaceConfidence", to_json(*(p.freeSpaceConfidence), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, SensorInformation& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("sensorID").get_to((p.sensorID));
-    j.at("type").get_to((p.type));
-    j.at("detectionArea").get_to((p.detectionArea));
-    if (j.contains("freeSpaceConfidence")) { p.freeSpaceConfidence = vanetza::asn1::allocate<FreeSpaceConfidence_t>(); j.at("freeSpaceConfidence").get_to(*(p.freeSpaceConfidence)); } 
+void from_json(const Value& j, SensorInformation& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["sensorID"], (p.sensorID));
+    from_json(j["type"], (p.type));
+    from_json(j["detectionArea"], (p.detectionArea));
+    if (j.HasMember("freeSpaceConfidence")) { p.freeSpaceConfidence = vanetza::asn1::allocate<FreeSpaceConfidence_t>(); from_json(j["freeSpaceConfidence"], *(p.freeSpaceConfidence)); }
     else { p.freeSpaceConfidence=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   FreeSpaceAddendumContainer - Type SEQUENCE OF
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const FreeSpaceAddendumContainer& p) {
+Value to_json(const FreeSpaceAddendumContainer& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const FreeSpaceAddendum_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, FreeSpaceAddendumContainer& p) {
+void from_json(const Value& j, FreeSpaceAddendumContainer& p) {
     FreeSpaceAddendumContainer* p_tmp = vanetza::asn1::allocate<FreeSpaceAddendumContainer>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         FreeSpaceAddendum_t *element = vanetza::asn1::allocate<FreeSpaceAddendum_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -5366,97 +6073,110 @@ void from_json(const json& j, FreeSpaceAddendumContainer& p) {
 *   From SPATEM-PDU-Descriptions - File TS103301v211-SPATEM.asn
 */
 
-void to_json(json& j, const SPATEM& p) {
-    j = json{{"header", (p.header)}, {"spat", (p.spat)}};
+Value to_json(const SPATEM& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("header", to_json((p.header), allocator), allocator);
+    json.AddMember("spat", to_json((p.spat), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, SPATEM& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("header").get_to((p.header));
-    j.at("spat").get_to((p.spat));
-    
-    
+void from_json(const Value& j, SPATEM& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["header"], (p.header));
+    from_json(j["spat"], (p.spat));
 }
+
+
 
 /*
 *   VamParameters - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VamParameters& p) {
-    j = json{{"basicContainer", (p.basicContainer)}};
-    if (p.vruHighFrequencyContainer != 0) j["vruHighFrequencyContainer"] = *(p.vruHighFrequencyContainer);
-    if (p.vruLowFrequencyContainer != 0) j["vruLowFrequencyContainer"] = *(p.vruLowFrequencyContainer);
-    if (p.vruClusterInformationContainer != 0) j["vruClusterInformationContainer"] = *(p.vruClusterInformationContainer);
-    if (p.vruClusterOperationContainer != 0) j["vruClusterOperationContainer"] = *(p.vruClusterOperationContainer);
-    if (p.vruMotionPredictionContainer != 0) j["vruMotionPredictionContainer"] = *(p.vruMotionPredictionContainer);
+Value to_json(const VamParameters& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("basicContainer", to_json((p.basicContainer), allocator), allocator);
+    if (p.vruHighFrequencyContainer != 0) json.AddMember("vruHighFrequencyContainer", to_json(*(p.vruHighFrequencyContainer), allocator), allocator);
+    if (p.vruLowFrequencyContainer != 0) json.AddMember("vruLowFrequencyContainer", to_json(*(p.vruLowFrequencyContainer), allocator), allocator);
+    if (p.vruClusterInformationContainer != 0) json.AddMember("vruClusterInformationContainer", to_json(*(p.vruClusterInformationContainer), allocator), allocator);
+    if (p.vruClusterOperationContainer != 0) json.AddMember("vruClusterOperationContainer", to_json(*(p.vruClusterOperationContainer), allocator), allocator);
+    if (p.vruMotionPredictionContainer != 0) json.AddMember("vruMotionPredictionContainer", to_json(*(p.vruMotionPredictionContainer), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, VamParameters& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("basicContainer").get_to((p.basicContainer));
-    if (j.contains("vruHighFrequencyContainer")) { p.vruHighFrequencyContainer = vanetza::asn1::allocate<VruHighFrequencyContainer_t>(); j.at("vruHighFrequencyContainer").get_to(*(p.vruHighFrequencyContainer)); } 
+void from_json(const Value& j, VamParameters& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["basicContainer"], (p.basicContainer));
+    if (j.HasMember("vruHighFrequencyContainer")) { p.vruHighFrequencyContainer = vanetza::asn1::allocate<VruHighFrequencyContainer_t>(); from_json(j["vruHighFrequencyContainer"], *(p.vruHighFrequencyContainer)); }
     else { p.vruHighFrequencyContainer=nullptr; }
-    if (j.contains("vruLowFrequencyContainer")) { p.vruLowFrequencyContainer = vanetza::asn1::allocate<VruLowFrequencyContainer_t>(); j.at("vruLowFrequencyContainer").get_to(*(p.vruLowFrequencyContainer)); } 
+    if (j.HasMember("vruLowFrequencyContainer")) { p.vruLowFrequencyContainer = vanetza::asn1::allocate<VruLowFrequencyContainer_t>(); from_json(j["vruLowFrequencyContainer"], *(p.vruLowFrequencyContainer)); }
     else { p.vruLowFrequencyContainer=nullptr; }
-    if (j.contains("vruClusterInformationContainer")) { p.vruClusterInformationContainer = vanetza::asn1::allocate<VruClusterInformationContainer_t>(); j.at("vruClusterInformationContainer").get_to(*(p.vruClusterInformationContainer)); } 
+    if (j.HasMember("vruClusterInformationContainer")) { p.vruClusterInformationContainer = vanetza::asn1::allocate<VruClusterInformationContainer_t>(); from_json(j["vruClusterInformationContainer"], *(p.vruClusterInformationContainer)); }
     else { p.vruClusterInformationContainer=nullptr; }
-    if (j.contains("vruClusterOperationContainer")) { p.vruClusterOperationContainer = vanetza::asn1::allocate<VruClusterOperationContainer_t>(); j.at("vruClusterOperationContainer").get_to(*(p.vruClusterOperationContainer)); } 
+    if (j.HasMember("vruClusterOperationContainer")) { p.vruClusterOperationContainer = vanetza::asn1::allocate<VruClusterOperationContainer_t>(); from_json(j["vruClusterOperationContainer"], *(p.vruClusterOperationContainer)); }
     else { p.vruClusterOperationContainer=nullptr; }
-    if (j.contains("vruMotionPredictionContainer")) { p.vruMotionPredictionContainer = vanetza::asn1::allocate<VruMotionPredictionContainer_t>(); j.at("vruMotionPredictionContainer").get_to(*(p.vruMotionPredictionContainer)); } 
+    if (j.HasMember("vruMotionPredictionContainer")) { p.vruMotionPredictionContainer = vanetza::asn1::allocate<VruMotionPredictionContainer_t>(); from_json(j["vruMotionPredictionContainer"], *(p.vruMotionPredictionContainer)); }
     else { p.vruMotionPredictionContainer=nullptr; }
-    
-    
 }
+
+
 
 /*
 *   IntersectionGeometry - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const IntersectionGeometry& p) {
-    j = json{{"id", (p.id)}, {"revision", (p.revision)}, {"refPoint", (p.refPoint)}, {"laneSet", (p.laneSet)}};
-    if (p.laneWidth != 0) j["laneWidth"] = *(p.laneWidth);
-    if (p.speedLimits != 0) j["speedLimits"] = *(p.speedLimits);
+Value to_json(const IntersectionGeometry& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("id", to_json((p.id), allocator), allocator);
+    json.AddMember("revision", to_json((p.revision), allocator), allocator);
+    json.AddMember("refPoint", to_json((p.refPoint), allocator), allocator);
+    json.AddMember("laneSet", to_json((p.laneSet), allocator), allocator);
+    if (p.laneWidth != 0) json.AddMember("laneWidth", to_json(*(p.laneWidth), allocator), allocator);
+    if (p.speedLimits != 0) json.AddMember("speedLimits", to_json(*(p.speedLimits), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, IntersectionGeometry& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("id").get_to((p.id));
-    j.at("revision").get_to((p.revision));
-    j.at("refPoint").get_to((p.refPoint));
-    if (j.contains("laneWidth")) { p.laneWidth = vanetza::asn1::allocate<LaneWidth_t>(); j.at("laneWidth").get_to(*(p.laneWidth)); } 
+void from_json(const Value& j, IntersectionGeometry& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["id"], (p.id));
+    from_json(j["revision"], (p.revision));
+    from_json(j["refPoint"], (p.refPoint));
+    if (j.HasMember("laneWidth")) { p.laneWidth = vanetza::asn1::allocate<LaneWidth_t>(); from_json(j["laneWidth"], *(p.laneWidth)); }
     else { p.laneWidth=nullptr; }
-    if (j.contains("speedLimits")) { p.speedLimits = vanetza::asn1::allocate<SpeedLimitList_t>(); j.at("speedLimits").get_to(*(p.speedLimits)); } 
+    if (j.HasMember("speedLimits")) { p.speedLimits = vanetza::asn1::allocate<SpeedLimitList_t>(); from_json(j["speedLimits"], *(p.speedLimits)); }
     else { p.speedLimits=nullptr; }
-    j.at("laneSet").get_to((p.laneSet));
-    
+    from_json(j["laneSet"], (p.laneSet));
     p.name=nullptr;
     p.preemptPriorityData=nullptr;
     p.regional=nullptr;
 }
+
+
 
 /*
 *   IntersectionGeometryList - Type SEQUENCE OF
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const IntersectionGeometryList& p) {
+Value to_json(const IntersectionGeometryList& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const IntersectionGeometry_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, IntersectionGeometryList& p) {
+void from_json(const Value& j, IntersectionGeometryList& p) {
     IntersectionGeometryList* p_tmp = vanetza::asn1::allocate<IntersectionGeometryList>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         IntersectionGeometry_t *element = vanetza::asn1::allocate<IntersectionGeometry_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -5468,21 +6188,23 @@ void from_json(const json& j, IntersectionGeometryList& p) {
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const SensorInformationContainer& p) {
+Value to_json(const SensorInformationContainer& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const SensorInformation_t po = *(p.list.array[i]);
-        to_json(obj, po);
-        j.push_back(obj);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, SensorInformationContainer& p) {
+void from_json(const Value& j, SensorInformationContainer& p) {
     SensorInformationContainer* p_tmp = vanetza::asn1::allocate<SensorInformationContainer>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         SensorInformation_t *element = vanetza::asn1::allocate<SensorInformation_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -5494,153 +6216,174 @@ void from_json(const json& j, SensorInformationContainer& p) {
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruAwareness& p) {
-    j = json{{"generationDeltaTime", (p.generationDeltaTime)}, {"vamParameters", (p.vamParameters)}};
+Value to_json(const VruAwareness& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("generationDeltaTime", to_json((p.generationDeltaTime), allocator), allocator);
+    json.AddMember("vamParameters", to_json((p.vamParameters), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, VruAwareness& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("generationDeltaTime").get_to((p.generationDeltaTime));
-    j.at("vamParameters").get_to((p.vamParameters));
-    
-    
+void from_json(const Value& j, VruAwareness& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["generationDeltaTime"], (p.generationDeltaTime));
+    from_json(j["vamParameters"], (p.vamParameters));
 }
+
+
 
 /*
 *   MapData - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const MapData_t& p) {
-    j = json{{"msgIssueRevision", (p.msgIssueRevision)}};
-    if (p.timeStamp != 0) j["timeStamp"] = *(p.timeStamp);
-    if (p.layerType != 0) j["layerType"] = *(p.layerType);
-    if (p.layerID != 0) j["layerID"] = *(p.layerID);
-    if (p.intersections != 0) j["intersections"] = *(p.intersections);
-    if (p.roadSegments != 0) j["roadSegments"] = *(p.roadSegments);
-    if (p.dataParameters != 0) j["dataParameters"] = *(p.dataParameters);
-    if (p.restrictionList != 0) j["restrictionList"] = *(p.restrictionList);
+Value to_json(const MapData_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("msgIssueRevision", to_json((p.msgIssueRevision), allocator), allocator);
+    if (p.timeStamp != 0) json.AddMember("timeStamp", to_json(*(p.timeStamp), allocator), allocator);
+    if (p.layerType != 0) json.AddMember("layerType", to_json(*(p.layerType), allocator), allocator);
+    if (p.layerID != 0) json.AddMember("layerID", to_json(*(p.layerID), allocator), allocator);
+    if (p.intersections != 0) json.AddMember("intersections", to_json(*(p.intersections), allocator), allocator);
+    if (p.roadSegments != 0) json.AddMember("roadSegments", to_json(*(p.roadSegments), allocator), allocator);
+    if (p.dataParameters != 0) json.AddMember("dataParameters", to_json(*(p.dataParameters), allocator), allocator);
+    if (p.restrictionList != 0) json.AddMember("restrictionList", to_json(*(p.restrictionList), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, MapData_t& p) {
-    p._asn_ctx.ptr= nullptr;
-    if (j.contains("timeStamp")) { p.timeStamp = vanetza::asn1::allocate<MinuteOfTheYear_t>(); j.at("timeStamp").get_to(*(p.timeStamp)); } 
+void from_json(const Value& j, MapData_t& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("timeStamp")) { p.timeStamp = vanetza::asn1::allocate<MinuteOfTheYear_t>(); from_json(j["timeStamp"], *(p.timeStamp)); }
     else { p.timeStamp=nullptr; }
-    j.at("msgIssueRevision").get_to((p.msgIssueRevision));
-    if (j.contains("layerType")) { p.layerType = vanetza::asn1::allocate<LayerType_t>(); j.at("layerType").get_to(*(p.layerType)); } 
+    from_json(j["msgIssueRevision"], (p.msgIssueRevision));
+    if (j.HasMember("layerType")) { p.layerType = vanetza::asn1::allocate<LayerType_t>(); from_json(j["layerType"], *(p.layerType)); }
     else { p.layerType=nullptr; }
-    if (j.contains("layerID")) { p.layerID = vanetza::asn1::allocate<LayerID_t>(); j.at("layerID").get_to(*(p.layerID)); } 
+    if (j.HasMember("layerID")) { p.layerID = vanetza::asn1::allocate<LayerID_t>(); from_json(j["layerID"], *(p.layerID)); }
     else { p.layerID=nullptr; }
-    if (j.contains("intersections")) { p.intersections = vanetza::asn1::allocate<IntersectionGeometryList_t>(); j.at("intersections").get_to(*(p.intersections)); } 
+    if (j.HasMember("intersections")) { p.intersections = vanetza::asn1::allocate<IntersectionGeometryList_t>(); from_json(j["intersections"], *(p.intersections)); }
     else { p.intersections=nullptr; }
-    if (j.contains("roadSegments")) { p.roadSegments = vanetza::asn1::allocate<RoadSegmentList_t>(); j.at("roadSegments").get_to(*(p.roadSegments)); } 
+    if (j.HasMember("roadSegments")) { p.roadSegments = vanetza::asn1::allocate<RoadSegmentList_t>(); from_json(j["roadSegments"], *(p.roadSegments)); }
     else { p.roadSegments=nullptr; }
-    if (j.contains("dataParameters")) { p.dataParameters = vanetza::asn1::allocate<DataParameters_t>(); j.at("dataParameters").get_to(*(p.dataParameters)); } 
+    if (j.HasMember("dataParameters")) { p.dataParameters = vanetza::asn1::allocate<DataParameters_t>(); from_json(j["dataParameters"], *(p.dataParameters)); }
     else { p.dataParameters=nullptr; }
-    if (j.contains("restrictionList")) { p.restrictionList = vanetza::asn1::allocate<RestrictionClassList_t>(); j.at("restrictionList").get_to(*(p.restrictionList)); } 
+    if (j.HasMember("restrictionList")) { p.restrictionList = vanetza::asn1::allocate<RestrictionClassList_t>(); from_json(j["restrictionList"], *(p.restrictionList)); }
     else { p.restrictionList=nullptr; }
-    
     p.regional=nullptr;
 }
+
+
 
 /*
 *   CpmParameters - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const CpmParameters& p) {
-    j = json{{"managementContainer", (p.managementContainer)}, {"numberOfPerceivedObjects", (p.numberOfPerceivedObjects)}};
-    if (p.stationDataContainer != 0) j["stationDataContainer"] = *(p.stationDataContainer);
-    if (p.sensorInformationContainer != 0) j["sensorInformationContainer"] = *(p.sensorInformationContainer);
-    if (p.perceivedObjectContainer != 0) j["perceivedObjectContainer"] = *(p.perceivedObjectContainer);
-    if (p.freeSpaceAddendumContainer != 0) j["freeSpaceAddendumContainer"] = *(p.freeSpaceAddendumContainer);
+Value to_json(const CpmParameters& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("managementContainer", to_json((p.managementContainer), allocator), allocator);
+    json.AddMember("numberOfPerceivedObjects", to_json((p.numberOfPerceivedObjects), allocator), allocator);
+    if (p.stationDataContainer != 0) json.AddMember("stationDataContainer", to_json(*(p.stationDataContainer), allocator), allocator);
+    if (p.sensorInformationContainer != 0) json.AddMember("sensorInformationContainer", to_json(*(p.sensorInformationContainer), allocator), allocator);
+    if (p.perceivedObjectContainer != 0) json.AddMember("perceivedObjectContainer", to_json(*(p.perceivedObjectContainer), allocator), allocator);
+    if (p.freeSpaceAddendumContainer != 0) json.AddMember("freeSpaceAddendumContainer", to_json(*(p.freeSpaceAddendumContainer), allocator), allocator);
+    return json;
 }
 
-void from_json(const json& j, CpmParameters& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("managementContainer").get_to((p.managementContainer));
-    if (j.contains("stationDataContainer")) { p.stationDataContainer = vanetza::asn1::allocate<StationDataContainer_t>(); j.at("stationDataContainer").get_to(*(p.stationDataContainer)); } 
+void from_json(const Value& j, CpmParameters& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["managementContainer"], (p.managementContainer));
+    if (j.HasMember("stationDataContainer")) { p.stationDataContainer = vanetza::asn1::allocate<StationDataContainer_t>(); from_json(j["stationDataContainer"], *(p.stationDataContainer)); }
     else { p.stationDataContainer=nullptr; }
-    if (j.contains("sensorInformationContainer")) { p.sensorInformationContainer = vanetza::asn1::allocate<SensorInformationContainer_t>(); j.at("sensorInformationContainer").get_to(*(p.sensorInformationContainer)); } 
+    if (j.HasMember("sensorInformationContainer")) { p.sensorInformationContainer = vanetza::asn1::allocate<SensorInformationContainer_t>(); from_json(j["sensorInformationContainer"], *(p.sensorInformationContainer)); }
     else { p.sensorInformationContainer=nullptr; }
-    if (j.contains("perceivedObjectContainer")) { p.perceivedObjectContainer = vanetza::asn1::allocate<PerceivedObjectContainer_t>(); j.at("perceivedObjectContainer").get_to(*(p.perceivedObjectContainer)); } 
+    if (j.HasMember("perceivedObjectContainer")) { p.perceivedObjectContainer = vanetza::asn1::allocate<PerceivedObjectContainer_t>(); from_json(j["perceivedObjectContainer"], *(p.perceivedObjectContainer)); }
     else { p.perceivedObjectContainer=nullptr; }
-    if (j.contains("freeSpaceAddendumContainer")) { p.freeSpaceAddendumContainer = vanetza::asn1::allocate<FreeSpaceAddendumContainer_t>(); j.at("freeSpaceAddendumContainer").get_to(*(p.freeSpaceAddendumContainer)); } 
+    if (j.HasMember("freeSpaceAddendumContainer")) { p.freeSpaceAddendumContainer = vanetza::asn1::allocate<FreeSpaceAddendumContainer_t>(); from_json(j["freeSpaceAddendumContainer"], *(p.freeSpaceAddendumContainer)); }
     else { p.freeSpaceAddendumContainer=nullptr; }
-    j.at("numberOfPerceivedObjects").get_to((p.numberOfPerceivedObjects));
-    
-    
+    from_json(j["numberOfPerceivedObjects"], (p.numberOfPerceivedObjects));
 }
+
+
 
 /*
 *   MAPEM - Type SEQUENCE
 *   From MAPEM-PDU-Descriptions - File TS103301v211-MAPEM.asn
 */
 
-void to_json(json& j, const MAPEM& p) {
-    j = json{{"header", (p.header)}, {"map", (p.map)}};
+Value to_json(const MAPEM& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("header", to_json((p.header), allocator), allocator);
+    json.AddMember("map", to_json((p.map), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, MAPEM& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("header").get_to((p.header));
-    j.at("map").get_to((p.map));
-    
-    
+void from_json(const Value& j, MAPEM& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["header"], (p.header));
+    from_json(j["map"], (p.map));
 }
+
+
 
 /*
 *   VAM - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VAM& p) {
-    j = json{{"header", (p.header)}, {"vam", (p.vam)}};
+Value to_json(const VAM& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("header", to_json((p.header), allocator), allocator);
+    json.AddMember("vam", to_json((p.vam), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, VAM& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("header").get_to((p.header));
-    j.at("vam").get_to((p.vam));
-    
-    
+void from_json(const Value& j, VAM& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["header"], (p.header));
+    from_json(j["vam"], (p.vam));
 }
+
+
 
 /*
 *   CollectivePerceptionMessage - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const CollectivePerceptionMessage& p) {
-    j = json{{"generationDeltaTime", (p.generationDeltaTime)}, {"cpmParameters", (p.cpmParameters)}};
+Value to_json(const CollectivePerceptionMessage& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("generationDeltaTime", to_json((p.generationDeltaTime), allocator), allocator);
+    json.AddMember("cpmParameters", to_json((p.cpmParameters), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, CollectivePerceptionMessage& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("generationDeltaTime").get_to((p.generationDeltaTime));
-    j.at("cpmParameters").get_to((p.cpmParameters));
-    
-    
+void from_json(const Value& j, CollectivePerceptionMessage& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["generationDeltaTime"], (p.generationDeltaTime));
+    from_json(j["cpmParameters"], (p.cpmParameters));
 }
+
+
 
 /*
 *   CPM - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const CPM& p) {
-    j = json{{"header", (p.header)}, {"cpm", (p.cpm)}};
+Value to_json(const CPM& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("header", to_json((p.header), allocator), allocator);
+    json.AddMember("cpm", to_json((p.cpm), allocator), allocator);
     
+    return json;
 }
 
-void from_json(const json& j, CPM& p) {
-    p._asn_ctx.ptr= nullptr;
-    j.at("header").get_to((p.header));
-    j.at("cpm").get_to((p.cpm));
-    
-    
+void from_json(const Value& j, CPM& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["header"], (p.header));
+    from_json(j["cpm"], (p.cpm));
 }
+
+

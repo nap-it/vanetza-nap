@@ -1,5 +1,4 @@
 #include "spatem_application.hpp"
-//#include "asn1json.hpp"
 #include <vanetza/btp/ports.hpp>
 #include <vanetza/asn1/spatem.hpp>
 #include <vanetza/asn1/packet_visitor.hpp>
@@ -15,7 +14,6 @@
 using namespace vanetza;
 using namespace vanetza::facilities;
 using namespace std::chrono;
-using json = nlohmann::json;
 using namespace boost::asio;
 
 prometheus::Counter *spatem_rx_counter;
@@ -31,7 +29,6 @@ boost::system::error_code spatem_err;
 SpatemApplication::SpatemApplication(PositionProvider& positioning, Runtime& rt, Mqtt *local_mqtt_, Mqtt *remote_mqtt_, Dds* dds_, config_t config_s_, metrics_t metrics_s_) :
     positioning_(positioning), runtime_(rt), spatem_interval_(seconds(1)), local_mqtt(local_mqtt_), remote_mqtt(remote_mqtt_), dds(dds_), config_s(config_s_), metrics_s(metrics_s_)
 {
-    //persistence = {};
     if(config_s.spatem.mqtt_enabled) local_mqtt->subscribe(config_s.spatem.topic_in, this);
     if(config_s.spatem.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.spatem.topic_in, this);
     if(config_s.spatem.dds_enabled) dds->subscribe(config_s.spatem.topic_in, this);
@@ -73,20 +70,44 @@ void SpatemApplication::indicate(const DataIndication& indication, UpPacketPtr p
     asn1::PacketVisitor<asn1::Spatem> visitor;
     std::shared_ptr<const asn1::Spatem> spatem = boost::apply_visitor(visitor, *packet);
 
-    //std::cout << "SPATEM application received a packet with " << (spatem ? "decodable" : "broken") << " content" << std::endl;
-
     SPATEM_t spatem_t = {(*spatem)->header, (*spatem)->spat};
-    string spatem_json = buildJSON(spatem_t, cp.time_received, cp.rssi, cp.size());
+    Document spatem_json = buildJSON(spatem_t, cp.time_received, cp.rssi, cp.size());
 
-    if(config_s.spatem.mqtt_enabled) local_mqtt->publish(config_s.spatem.topic_out, spatem_json);
-    if(config_s.spatem.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.spatem.topic_out, spatem_json);
-    if(config_s.spatem.dds_enabled) dds->publish(config_s.spatem.topic_out, spatem_json);
-    if(config_s.enable_json_prints) std::cout << "SPATEM JSON: " << spatem_json << std::endl;
-    spatem_rx_counter->Increment();
+    StringBuffer fullBuffer;
+    Writer<StringBuffer> writer(fullBuffer);
+    spatem_json.Accept(writer);
+    const char* spatemJSON = fullBuffer.GetString();
 
     if(config_s.spatem.udp_out_port != 0) {
-        spatem_udp_socket.send_to(buffer(spatem_json, spatem_json.length()), spatem_remote_endpoint, 0, spatem_err);
+        spatem_udp_socket.send_to(buffer(spatemJSON, strlen(spatemJSON)), spatem_remote_endpoint, 0, spatem_err);
     }
+    const double time_full_udp = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    if(config_s.spatem.dds_enabled) dds->publish(config_s.spatem.topic_out, spatemJSON);
+    const double time_full_dds = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    if(config_s.spatem.mqtt_enabled) local_mqtt->publish(config_s.spatem.topic_out, spatemJSON);
+    const double time_full_local = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    if(config_s.spatem.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.spatem.topic_out, spatemJSON);
+    const double time_full_remote = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    
+    spatem_rx_counter->Increment();
+    spatem_rx_latency->Increment(time_full_remote - cp.time_received);
+
+    if(config_s.spatem.mqtt_test_enabled) {
+        Document::AllocatorType& allocator = spatem_json.GetAllocator();
+        if (config_s.spatem.udp_out_port != 0) spatem_json["test"].AddMember("full_udp_timestamp", time_full_udp, allocator);
+        if (config_s.spatem.dds_enabled != 0) spatem_json["test"].AddMember("full_dds_timestamp", time_full_dds, allocator);
+        if (config_s.spatem.mqtt_enabled != 0) spatem_json["test"].AddMember("full_local_timestamp", time_full_local, allocator);
+        if (config_s.spatem.mqtt_enabled && remote_mqtt != NULL) spatem_json["test"].AddMember("full_remote_timestamp", time_full_remote, allocator);
+
+        StringBuffer testBuffer;
+        Writer<StringBuffer> testWriter(testBuffer);
+        spatem_json.Accept(testWriter);
+        const char* testJSON = testBuffer.GetString();
+        local_mqtt->publish(config_s.spatem.topic_test, testJSON);
+        if(remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.spatem.topic_test, testJSON);
+    }
+
+    if(config_s.enable_json_prints) std::cout << "SPATEM JSON: " << spatemJSON << std::endl;    
 }
 
 void SpatemApplication::schedule_timer()
@@ -94,28 +115,22 @@ void SpatemApplication::schedule_timer()
     runtime_.schedule(spatem_interval_, std::bind(&SpatemApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-std::string SpatemApplication::buildJSON(SPATEM_t message, double time_reception, int rssi, int packet_size) {
+Document SpatemApplication::buildJSON(SPATEM_t message, double time_reception, int rssi, int packet_size) {
     ItsPduHeader_t& header = message.header;
-    nlohmann::json j = message;
+    Document document(kObjectType);
+    Document::AllocatorType& allocator = document.GetAllocator();
+
+    document.AddMember("timestamp", time_reception, allocator)
+        .AddMember("rssi", rssi, allocator)
+        .AddMember("stationID", Value(static_cast<int64_t>(header.stationID)), allocator)
+        .AddMember("receiverID", config_s.station_id, allocator)
+        .AddMember("receiverType", config_s.station_type, allocator)
+        .AddMember("packet_size", packet_size, allocator)
+        .AddMember("fields", to_json(message, allocator), allocator);
 
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-
-    nlohmann::json json_payload = {
-            {"timestamp", time_reception},
-            {"rssi", rssi},
-            {"test", {
-                    {"json_timestamp", time_now}
-                },
-            },
-            {"fields", j},
-            {"stationID", (long) header.stationID},
-            {"receiverID", config_s.station_id},
-            {"receiverType", config_s.station_type},
-            {"packet_size", packet_size}
-    };
-
-    spatem_rx_latency->Increment(time_now - time_reception);
-    return json_payload.dump();
+    document.AddMember("test", Value(kObjectType).AddMember("json_timestamp", time_now, allocator), allocator);
+    return document;
 }
 
 void SpatemApplication::on_message(string topic, string mqtt_message) {
@@ -124,32 +139,29 @@ void SpatemApplication::on_message(string topic, string mqtt_message) {
 
     SPAT_t spatem;
 
-    json payload;
-
+    Document document;
+    
     try {
-        payload = json::parse(mqtt_message);
-    } catch(nlohmann::detail::type_error& e) {
-        std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows JSON spec\n" << e.what() << std::endl;
-        std::cout << "Invalid payload: " << mqtt_message << std::endl;
-        return;
+        document.Parse(mqtt_message.c_str());
+        if(document.HasParseError() || !document.IsObject()) {
+            std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows JSON spec\n" << std::endl;
+            std::cout << "Invalid payload: " << mqtt_message << std::endl;
+            return;
+        }
     } catch(...) {
         std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
         std::cout << "Invalid payload: " << mqtt_message << std::endl;
         return;
     }
 
+    Value& payload = document.GetObject();
     try {
-        spatem = payload.get<SPAT_t>();
-    } catch(nlohmann::detail::type_error& e) {
-        std::cout << "-- Vanetza ETSI Decoding Error --\nCheck that the message format follows ETSI spec\n" << e.what() << std::endl;
-        std::cout << "Invalid payload: " << mqtt_message << std::endl;
-        return;
+        from_json(payload, spatem);
     } catch(...) {
-        std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
+        std::cout << "-- Vanetza ETSI Decoding Error --\nCheck that the message format follows ETSI spec\n" << std::endl;
         std::cout << "Invalid payload: " << mqtt_message << std::endl;
         return;
     }
-
     vanetza::asn1::Spatem message;
 
     ItsPduHeader_t& header = message->header;
@@ -181,28 +193,32 @@ void SpatemApplication::on_message(string topic, string mqtt_message) {
         return;
     }
 
-    const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-
     if(config_s.spatem.mqtt_time_enabled) {
-        nlohmann::json json_payload = {
-            {"timestamp", time_reception},
-            {"test", {
-                    {"wave_timestamp", time_now}
-                },
-            },
-            {"stationID", config_s.station_id},
-            {"receiverID", config_s.station_id},
-            {"receiverType", config_s.station_type},
-            {"fields", {
-                    {"spatem", payload}
-                },
-            },
-        };
-        local_mqtt->publish(config_s.spatem.topic_time, json_payload.dump());
-        if(remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.spatem.topic_time, json_payload.dump());
+        Document document;
+        Document::AllocatorType& allocator = document.GetAllocator();
+        Value timePayload(kObjectType);
+
+        timePayload.AddMember("timestamp", time_reception, allocator)
+            .AddMember("stationID", config_s.station_id, allocator)
+            .AddMember("receiverID", config_s.station_id, allocator)
+            .AddMember("receiverType", config_s.station_type, allocator)
+            .AddMember("fields", Value(kObjectType).AddMember("spatem", payload, allocator), allocator);
+
+        const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+        timePayload.AddMember("test", Value(kObjectType).AddMember("wave_timestamp", time_now, allocator), allocator);
+
+        StringBuffer fullBuffer;
+        Writer<StringBuffer> writer(fullBuffer);
+        timePayload.Accept(writer);
+        const char* timeJSON = fullBuffer.GetString();
+
+        local_mqtt->publish(config_s.spatem.topic_time, timeJSON);
+        if (remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.spatem.topic_time, timeJSON);
+    
     }
 
     spatem_tx_counter->Increment();
+    const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     spatem_tx_latency->Increment(time_now - time_reception);
 }
 

@@ -111,15 +111,16 @@ void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-void to_json(json& j, const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p) {
-    j = json{"""
+Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    """
         
         member_strs = []
         for m in self.members:
             if "optional" in m and m["optional"]:
                 continue
             
-            member_str = ('{"' + m["name"] + '", ' + ('to_json_' + m["type"].replace("-", "_") + '(' if m["type"] in bitstrings else ''))
+            member_str = ('json.AddMember("' + m["name"] + '", ' + ('to_json_' + m["type"].replace("-", "_") + '(' if m["type"] in bitstrings else 'to_json('))
             
             if m["type"] in transformation:
                 condition_str = " || ".join([(get_element_name(m, self, True) + \
@@ -134,20 +135,17 @@ void to_json(json& j, const """ + (self.name.replace("-", "_") + "_t" if self.na
             else:
                 member_str += get_element_name(m, self, False) + ')'
             
-            if m["type"] in bitstrings:
-                member_str += ')'
-            
-            member_str += '}'
+            member_str += ', allocator), allocator);'
             member_strs.append(member_str)
         
-        result += ', '.join(member_strs) + """};
+        result += '\n    '.join(member_strs) + """
 """
         
         member_strs = []
         for m in self.members:
             if "optional" in m and m["optional"]:
                 member_str = ('if ' + get_element_name(m, self, False) + ' != 0) ' + \
-                                'j["' + m["name"] + '"] = ' + ('to_json_' + m["type"] + '(' if m["type"] in bitstrings else ''))
+                                'json.AddMember("' + m["name"] + '", ' + ('to_json_' + m["type"] + '(' if m["type"] in bitstrings else 'to_json('))
                                 
                 if m["type"] in transformation:
                     condition_str = " && ".join([(get_element_name(m, self, True) + \
@@ -165,18 +163,16 @@ void to_json(json& j, const """ + (self.name.replace("-", "_") + "_t" if self.na
                 else:
                     member_str += get_element_name(m, self, True) + ')'
             
-                if m["type"] in bitstrings:
-                    member_str += ')'
-            
-                member_str += ';'
+                member_str += ', allocator), allocator);'
                 member_strs.append(member_str)
         
         result += '    ' + '\n    '.join(member_strs)
         
         result += """
+    return json;
 }
 
-void from_json(const json& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p) {
+void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p) {
     p._asn_ctx.ptr = nullptr;
     """
         
@@ -190,12 +186,12 @@ void from_json(const json& j, """ + (self.name.replace("-", "_") + "_t" if self.
             
             if "optional" in m and m["optional"]:
                 needs_closing = True
-                member_str += 'if (j.contains("' + m["name"] + '")) { ' + \
+                member_str += 'if (j.HasMember("' + m["name"] + '")) { ' + \
                                 get_element_name(m, self, False)[1:] + \
                                 ' = vanetza::asn1::allocate<' + m["type"].replace("-", "_") + '_t>(); '
             
             if m["type"] not in bitstrings:
-                member_str += 'j.at("' + m["name"] + '").get_to('
+                member_str += 'from_json(j["' + m["name"] + '"], '
             else:
                 member_str += 'from_json_' + m["type"].replace("-", "_") + '(j["' + m["name"] + '"],'
             
@@ -260,9 +256,9 @@ class ASN1Choice:
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-void to_json(json& j, const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p);
+Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p);
+void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p);
 """
 
     def __str__(self):
@@ -272,38 +268,39 @@ void from_json(const json& j, """ + (self.name.replace("-", "_") + "_t" if self.
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-void to_json(json& j, const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p) {
-    j = json{};
+Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
     if """
 
         member_strs = []
         for m in self.members:
             member_str = '(p.present == ' + (self.actual_type.replace("-", "_") if self.actual_type is not None else self.name.replace("-", "_")) + \
-                        '_PR_' + m["name"].replace("-", "_") + ') {\n        j[\"' + m["name"] + '\"] = '
+                        '_PR_' + m["name"].replace("-", "_") + ') {\n        json.AddMember("' + m["name"] + '", '
             
             if m["type"] not in bitstrings:
-                member_str += 'p.choice.' + m["name"].replace("-", "_") + ';'
+                member_str += 'to_json(p.choice.' + m["name"].replace("-", "_") + ', allocator), allocator);'
             else:
-                member_str += 'to_json_' + m["type"].replace("-", "_") + '(p.choice.' + m["name"].replace("-", "_") + ');'
+                member_str += 'to_json_' + m["type"].replace("-", "_") + '(p.choice.' + m["name"].replace("-", "_") + ', allocator), allocator);'
             
             member_strs.append(member_str)
 
         result += '\n    } else if '.join(member_strs)
         result += """
     }
+    return json;
 }
 
-void from_json(const json& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p) {
+void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p) {
     if """ 
 
         member_strs = []
         for m in self.members:
-            member_str = '(j.contains("' + m["name"] + '")) {\n        p.present = ' + \
+            member_str = '(j.HasMember("' + m["name"] + '")) {\n        p.present = ' + \
                         (self.actual_type.replace("-", "_") if self.actual_type is not None else self.name.replace("-", "_")) + \
                         '_PR_' + m["name"].replace("-", "_") + ';\n        '
             
             if m["type"] not in bitstrings:
-                member_str += 'j.at("' + m["name"].replace("-", "_") + '").get_to('
+                member_str += 'from_json(j["' + m["name"] + '"], '
             else:
                 member_str += 'from_json_' + m["type"].replace("-", "_") + '(j["' + m["name"] + '"], '
 
@@ -312,7 +309,7 @@ void from_json(const json& j, """ + (self.name.replace("-", "_") + "_t" if self.
             member_strs.append(member_str)
 
         result += '\n    } else if '.join(member_strs)
-        result += """} else {
+        result += """\n    } else {
         p.present = """ + (self.actual_type.replace("-", "_") if self.actual_type is not None else self.name.replace("-", "_")) + """_PR_NOTHING;
     }
 }"""
@@ -337,9 +334,9 @@ class ASN1SequenceOf:
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-void to_json(json& j, const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p);
+Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p);
+void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p);
 """
 
     def __str__(self):
@@ -349,22 +346,24 @@ void from_json(const json& j, """ + (self.name.replace("-", "_") + "_t" if self.
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-void to_json(json& j, const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p) {
+Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        json obj;
         const """ + self.element.replace("-", "_") + """_t po = *(p.list.array[i]);
-        """ + ('// ' if self.element in basic else '') + """to_json(obj, po);
-        j.push_back(""" + ('po' if self.element in basic else 'obj') + """);
+        """ + ('// ' if self.element in basic else '') + """Value obj = to_json(po, allocator);
+        json.PushBack(""" + ('po' if self.element in basic else 'obj') + """, allocator);
     }
+    return json;
 }
 
-void from_json(const json& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p) {
+void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p) {
     """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """* p_tmp = vanetza::asn1::allocate<""" + \
           (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """>();
-    for (const auto& item : j.items())
+    for (SizeType i = 0; i < j.Size(); i++)
     {
+        const Value& item = j[i];
         """ + self.element.replace("-", "_") + """_t *element = vanetza::asn1::allocate<""" + self.element.replace("-", "_") + """_t>();
-        item.value().get_to(*element);
+        from_json(item, *element);
         asn_set_add(&(p_tmp->list), element);
     }
     p = *p_tmp;
@@ -388,9 +387,9 @@ class ASN1BitString:
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-json to_json_""" + self.name.replace("-", "_") + """(const """ + self.name.replace("-", "_") + """_t p);
+Value to_json_""" + self.name.replace("-", "_") + """(const """ + self.name.replace("-", "_") + """_t p, Document::AllocatorType& allocator);
 
-void from_json_""" + self.name.replace("-", "_") + """(const json& j, """ + self.name.replace("-", "_") + """_t& p);
+void from_json_""" + self.name.replace("-", "_") + """(const Value& j, """ + self.name.replace("-", "_") + """_t& p);
 """
 
     def __str__(self):
@@ -400,14 +399,17 @@ void from_json_""" + self.name.replace("-", "_") + """(const json& j, """ + self
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-json to_json_""" + self.name.replace("-", "_") + """(const """ + self.name.replace("-", "_") + """_t p) {
-    return json{""" + ', '.join(['{"' + m[0] + '", ' + '(bool) (*(p.buf + (sizeof(uint8_t) * (' + str(m[1]) + ' / 8))) & (1 << ((7 * ((' + str(int(m[1])) + ' / 8) + 1))-(' + str(m[1]) + ' % 8))))}' for m in self.members]) + """};
+Value to_json_""" + self.name.replace("-", "_") + """(const """ + self.name.replace("-", "_") + """_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    """ + '\n    '.join(['json.AddMember("' + m[0] + '", ' + '(bool) (*(p.buf + (sizeof(uint8_t) * (' + str(m[1]) + ' / 8))) & (1 << ((7 * ((' + str(int(m[1])) + ' / 8) + 1))-(' + \
+                         str(m[1]) + ' % 8)))), allocator);' for m in self.members]) + """
+    return json;
 }
 
-void from_json_""" + self.name.replace("-", "_") + """(const json& j, """ + self.name.replace("-", "_") + """_t& p) {
+void from_json_""" + self.name.replace("-", "_") + """(const Value& j, """ + self.name.replace("-", "_") + """_t& p) {
     """ + self.name.replace("-", "_") + """_t* p_tmp = vanetza::asn1::allocate<""" + self.name.replace("-", "_") + """_t>();
     """ + '\n    '.join(["bool " + m[0].replace("-", "_") + ";" for m in self.members]) + """
-    """ + '\n    '.join(['if (j.contains("' + m[0] + '")) j.at("' + m[0] + '").get_to(' + '(' + m[0].replace("-", "_") + '));' for m in self.members]) + """
+    """ + '\n    '.join(['if (j.HasMember("' + m[0] + '")) from_json(j["' + m[0] + '"], ' + '(' + m[0].replace("-", "_") + '));' for m in self.members]) + """
     p_tmp->size = (""" + str(len(self.members)) + """ / 8) + 1;
     p_tmp->bits_unused = (""" + str(len(self.members)) + """ % 8) != 0 ? 8 - (""" + str(len(self.members)) + """ % 8) : 0;
     p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
@@ -432,9 +434,9 @@ class ASN1TODO:
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-void to_json(json& j, const """ + (self.name + "_t" if self.name in add_t else self.name) + """& p);
+Value to_json(const """ + (self.name + "_t" if self.name in add_t else self.name) + """& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, """ + (self.name + "_t" if self.name in add_t else self.name) + """& p);
+void from_json(const Value& j, """ + (self.name + "_t" if self.name in add_t else self.name) + """& p);
 """
 
     def __str__(self):
@@ -444,11 +446,13 @@ void from_json(const json& j, """ + (self.name + "_t" if self.name in add_t else
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-void to_json(json& j, const """ + (self.name + "_t" if self.name in add_t else self.name) + """& p) {
-    j = json{}; // TODO
+Value to_json(const """ + (self.name + "_t" if self.name in add_t else self.name) + """& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType); 
+    return json;
+    // TODO
 }
 
-void from_json(const json& j, """ + (self.name + "_t" if self.name in add_t else self.name) + """& p) {
+void from_json(const Value& j, """ + (self.name + "_t" if self.name in add_t else self.name) + """& p) {
     // TODO
 }"""
 
@@ -497,41 +501,58 @@ intro = """/*
 #include "asn1json.hpp"
 #include <boost/optional.hpp>
 
-using json = nlohmann::json;
-
-namespace nlohmann {
-    template <typename T>
-    struct adl_serializer<boost::optional<T>> {
-        static void to_json(json& j, const boost::optional<T>& opt) {
-            if (opt == boost::none) {
-                j = nullptr;
-            } else {
-              j = *opt; // this will call adl_serializer<T>::to_json which will
-                        // find the free function to_json in T's namespace!
-            }
-        }
-
-        static void from_json(const json& j, boost::optional<T>& opt) {
-            if (j.is_null()) {
-                opt = boost::none;
-            } else {
-                opt = j.get<T>(); // same as above, but with
-                                  // adl_serializer<T>::from_json
-            }
-        }
-    };
-}
-
-void to_json(json& j, const TimestampIts_t& p) {
+Value to_json(const TimestampIts_t& p, Document::AllocatorType& allocator) {
     long tmp;
     asn_INTEGER2long(&p, &tmp);
-    j = tmp;
+    return Value(tmp);
 }
 
-void from_json(const json& j, TimestampIts_t& p) {
+void from_json(const Value& j, TimestampIts_t& p) {
     p.buf = nullptr;
-    asn_long2INTEGER(&p, stol(j.dump()));
+    asn_long2INTEGER(&p, j.IsDouble() ? static_cast<long>(j.GetDouble()) : j.GetInt64());
 }
+
+Value to_json(const long& p, Document::AllocatorType& allocator) {
+    return Value(p);
+}
+
+void from_json(const Value& j, long& p) {
+    p = j.IsDouble() ? static_cast<long>(j.GetDouble()) : j.GetInt64();
+}
+
+Value to_json(const unsigned long& p, Document::AllocatorType& allocator) {
+    return Value(p);
+}
+
+void from_json(const Value& j, unsigned long& p) {
+    p = j.GetUint64();
+}
+
+Value to_json(const unsigned& p, Document::AllocatorType& allocator) {
+    return Value(p);
+}
+
+void from_json(const Value& j, unsigned& p) {
+    if (j.IsBool()) p = j.GetBool();
+    else p = j.GetUint();
+}
+
+Value to_json(const double& p, Document::AllocatorType& allocator) {
+    return Value(p);
+}
+
+void from_json(const Value& j, double& p) {
+    p = j.GetDouble();
+}
+
+Value to_json(const bool& p, Document::AllocatorType& allocator) {
+    return Value(p);
+}
+
+void from_json(const Value& j, bool& p) {
+    p = j.GetBool();
+}
+
 """
 
 header_intro = """/*
@@ -542,7 +563,10 @@ header_intro = """/*
 #ifndef ASN1_JSON_HPP
 #define ASN1_JSON_HPP
 
-#include <nlohmann/json.hpp>
+#include <rapidjson/document.h>
+#include <rapidjson/writer.h>
+#include <rapidjson/stringbuffer.h>
+
 #include <iostream>
 #include <vanetza/asn1/cam.hpp>
 #include <vanetza/asn1/denm.hpp>
@@ -553,16 +577,20 @@ header_intro = """/*
 
 """ + '\n'.join(['#include <vanetza/asn1/its/' + inc.replace("-", "_") + '.h>' for inc in include]) + """
 
-using json = nlohmann::json;
-
-#include <rapidjson/document.h>
-#include <rapidjson/writer.h>
-#include <rapidjson/stringbuffer.h>
-
 using namespace rapidjson;
 
-void to_json(json& j, const TimestampIts_t& p);
-void from_json(const json& j, TimestampIts_t& p);
+Value to_json(const TimestampIts_t& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, TimestampIts_t& p);
+Value to_json(const long& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, long& p);
+Value to_json(const unsigned long& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, unsigned long& p);
+Value to_json(const unsigned& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, unsigned& p);
+Value to_json(const double& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, double& p);
+Value to_json(const bool& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, bool& p);
 """
 
 if sys.argv[1] == "hpp":

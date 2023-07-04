@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 #set(CMAKE_BUILD_TYPE Debug)
-set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wno-narrowing -I/usr/include/libnl3 -lnl-genl-3 -lnl-3 -ldl")
+set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wno-narrowing -I/usr/include/libnl3 -lnl-genl-3 -lnl-3 -ldl -O2")
 
 if(NOT TARGET Boost::system)
     message(STATUS "Skip build of socktap because of missing Boost::system dependency")
@@ -14,6 +14,7 @@ if(NOT TARGET Boost::program_options)
 endif()
 
 find_package(Threads REQUIRED)
+find_package(RapidJSON)
 
 add_executable(socktap
     asn1json.cpp
@@ -40,8 +41,9 @@ add_executable(socktap
     time_trigger.cpp)
 
 target_link_libraries(socktap PUBLIC mosquittopp)
-
+target_link_libraries(socktap PUBLIC nl-genl-3 nl-3 dl)
 target_link_libraries(socktap PUBLIC Boost::system Boost::program_options Threads::Threads vanetza)
+
 install(TARGETS socktap EXPORT ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 option(SOCKTAP_WITH_COHDA_LLC "Use Cohda LLC API for socktap" ${COHDA_FOUND})
@@ -60,8 +62,6 @@ if(SOCKTAP_WITH_GPSD)
     target_link_libraries(socktap PUBLIC GPS::GPS)
     target_sources(socktap PRIVATE gps_position_provider.cpp)
 endif()
-
-set(JSON_ImplicitConversions ON)
 
 find_package(prometheus-cpp CONFIG REQUIRED)
 

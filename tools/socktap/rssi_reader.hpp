@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <signal.h>
-#include <string.h>
+#include <string>
 #include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>

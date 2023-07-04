@@ -14,10 +14,12 @@ typedef struct message_config {
     string topic_in;
     string topic_out;
     string topic_time;
+    string topic_test;
     string udp_out_addr;
     int udp_out_port;
     bool mqtt_enabled;
     bool mqtt_time_enabled;
+    bool mqtt_test_enabled;
     bool dds_enabled;
 } message_config_t;
 
@@ -56,8 +58,12 @@ typedef struct config {
     message_config_t mapem;
     string full_cam_topic_in;
     string full_cam_topic_out;
+    string full_cam_topic_time;
+    string full_cam_topic_test;
     string full_vam_topic_in;
     string full_vam_topic_out;
+    string full_vam_topic_time;
+    string full_vam_topic_test;
     string own_cam_topic_out;
     string own_full_cam_topic_out;
 } config_t;

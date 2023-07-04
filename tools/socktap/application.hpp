@@ -9,7 +9,10 @@
 #include <vanetza/geonet/router.hpp>
 #include "asn1json.hpp"
 
-#include <nlohmann/json.hpp>
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+
 #include "dds.h"
 #include "router_context.hpp"
 #include "config.hpp"

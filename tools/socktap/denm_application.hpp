@@ -29,7 +29,7 @@ private:
     config_t config_s;
     metrics_t metrics_s;
 
-    std::string buildJSON(DENM_t denm, double time_reception, int rssi, int packet_size);
+    Document buildJSON(DENM_t denm, double time_reception, int rssi, int packet_size);
 };
 
 #endif /* DENM_APPLICATION_HPP_EUIC2VFR */

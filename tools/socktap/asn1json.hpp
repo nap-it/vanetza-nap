@@ -1,12 +1,15 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
-*   Auto-generated from the asn1 directory by asn1json.py on 2022-04-16 00:51:04.352719
+*   Auto-generated from the asn1 directory by asn1json.py on 2023-07-03 23:29:50.795055
 */
 
 #ifndef ASN1_JSON_HPP
 #define ASN1_JSON_HPP
 
-#include <nlohmann/json.hpp>
+#include <rapidjson/document.h>
+#include <rapidjson/writer.h>
+#include <rapidjson/stringbuffer.h>
+
 #include <iostream>
 #include <vanetza/asn1/cam.hpp>
 #include <vanetza/asn1/denm.hpp>
@@ -28,10 +31,20 @@
 #include <vanetza/asn1/its/DataParameters.h>
 #include <vanetza/asn1/its/EnabledLaneList.h>
 
-using json = nlohmann::json;
+using namespace rapidjson;
 
-void to_json(json& j, const TimestampIts_t& p);
-void from_json(const json& j, TimestampIts_t& p);
+Value to_json(const TimestampIts_t& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, TimestampIts_t& p);
+Value to_json(const long& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, long& p);
+Value to_json(const unsigned long& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, unsigned long& p);
+Value to_json(const unsigned& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, unsigned& p);
+Value to_json(const double& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, double& p);
+Value to_json(const bool& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, bool& p);
 
 
 /*
@@ -39,9 +52,9 @@ void from_json(const json& j, TimestampIts_t& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const ItsPduHeader_t& p);
+Value to_json(const ItsPduHeader_t& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ItsPduHeader_t& p);
+void from_json(const Value& j, ItsPduHeader_t& p);
 
 
 /*
@@ -49,9 +62,9 @@ void from_json(const json& j, ItsPduHeader_t& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const DeltaReferencePosition_t& p);
+Value to_json(const DeltaReferencePosition_t& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, DeltaReferencePosition_t& p);
+void from_json(const Value& j, DeltaReferencePosition_t& p);
 
 
 /*
@@ -59,9 +72,9 @@ void from_json(const json& j, DeltaReferencePosition_t& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const Altitude& p);
+Value to_json(const Altitude& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, Altitude& p);
+void from_json(const Value& j, Altitude& p);
 
 
 /*
@@ -69,9 +82,9 @@ void from_json(const json& j, Altitude& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const PosConfidenceEllipse& p);
+Value to_json(const PosConfidenceEllipse& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, PosConfidenceEllipse& p);
+void from_json(const Value& j, PosConfidenceEllipse& p);
 
 
 /*
@@ -79,9 +92,9 @@ void from_json(const json& j, PosConfidenceEllipse& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const PathPoint& p);
+Value to_json(const PathPoint& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, PathPoint& p);
+void from_json(const Value& j, PathPoint& p);
 
 
 /*
@@ -89,9 +102,9 @@ void from_json(const json& j, PathPoint& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const PtActivationData_t& p);
+Value to_json(const PtActivationData_t& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, PtActivationData_t& p);
+void from_json(const Value& j, PtActivationData_t& p);
 
 
 /*
@@ -99,9 +112,9 @@ void from_json(const json& j, PtActivationData_t& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-json to_json_AccelerationControl(const AccelerationControl_t p);
+Value to_json_AccelerationControl(const AccelerationControl_t p, Document::AllocatorType& allocator);
 
-void from_json_AccelerationControl(const json& j, AccelerationControl_t& p);
+void from_json_AccelerationControl(const Value& j, AccelerationControl_t& p);
 
 
 /*
@@ -109,9 +122,9 @@ void from_json_AccelerationControl(const json& j, AccelerationControl_t& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const CauseCode& p);
+Value to_json(const CauseCode& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, CauseCode& p);
+void from_json(const Value& j, CauseCode& p);
 
 
 /*
@@ -119,9 +132,9 @@ void from_json(const json& j, CauseCode& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const Curvature& p);
+Value to_json(const Curvature& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, Curvature& p);
+void from_json(const Value& j, Curvature& p);
 
 
 /*
@@ -129,9 +142,9 @@ void from_json(const json& j, Curvature& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const Heading& p);
+Value to_json(const Heading& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, Heading& p);
+void from_json(const Value& j, Heading& p);
 
 
 /*
@@ -139,9 +152,9 @@ void from_json(const json& j, Heading& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-json to_json_DrivingLaneStatus(const DrivingLaneStatus_t p);
+Value to_json_DrivingLaneStatus(const DrivingLaneStatus_t p, Document::AllocatorType& allocator);
 
-void from_json_DrivingLaneStatus(const json& j, DrivingLaneStatus_t& p);
+void from_json_DrivingLaneStatus(const Value& j, DrivingLaneStatus_t& p);
 
 
 /*
@@ -149,9 +162,9 @@ void from_json_DrivingLaneStatus(const json& j, DrivingLaneStatus_t& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const Speed& p);
+Value to_json(const Speed& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, Speed& p);
+void from_json(const Value& j, Speed& p);
 
 
 /*
@@ -159,9 +172,9 @@ void from_json(const json& j, Speed& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const LongitudinalAcceleration& p);
+Value to_json(const LongitudinalAcceleration& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, LongitudinalAcceleration& p);
+void from_json(const Value& j, LongitudinalAcceleration& p);
 
 
 /*
@@ -169,9 +182,9 @@ void from_json(const json& j, LongitudinalAcceleration& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const LateralAcceleration& p);
+Value to_json(const LateralAcceleration& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, LateralAcceleration& p);
+void from_json(const Value& j, LateralAcceleration& p);
 
 
 /*
@@ -179,9 +192,9 @@ void from_json(const json& j, LateralAcceleration& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const VerticalAcceleration_t& p);
+Value to_json(const VerticalAcceleration_t& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, VerticalAcceleration_t& p);
+void from_json(const Value& j, VerticalAcceleration_t& p);
 
 
 /*
@@ -189,9 +202,9 @@ void from_json(const json& j, VerticalAcceleration_t& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-json to_json_ExteriorLights(const ExteriorLights_t p);
+Value to_json_ExteriorLights(const ExteriorLights_t p, Document::AllocatorType& allocator);
 
-void from_json_ExteriorLights(const json& j, ExteriorLights_t& p);
+void from_json_ExteriorLights(const Value& j, ExteriorLights_t& p);
 
 
 /*
@@ -199,9 +212,9 @@ void from_json_ExteriorLights(const json& j, ExteriorLights_t& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const DangerousGoodsExtended& p);
+Value to_json(const DangerousGoodsExtended& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, DangerousGoodsExtended& p);
+void from_json(const Value& j, DangerousGoodsExtended& p);
 
 
 /*
@@ -209,9 +222,9 @@ void from_json(const json& j, DangerousGoodsExtended& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-json to_json_SpecialTransportType(const SpecialTransportType_t p);
+Value to_json_SpecialTransportType(const SpecialTransportType_t p, Document::AllocatorType& allocator);
 
-void from_json_SpecialTransportType(const json& j, SpecialTransportType_t& p);
+void from_json_SpecialTransportType(const Value& j, SpecialTransportType_t& p);
 
 
 /*
@@ -219,9 +232,9 @@ void from_json_SpecialTransportType(const json& j, SpecialTransportType_t& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-json to_json_LightBarSirenInUse(const LightBarSirenInUse_t p);
+Value to_json_LightBarSirenInUse(const LightBarSirenInUse_t p, Document::AllocatorType& allocator);
 
-void from_json_LightBarSirenInUse(const json& j, LightBarSirenInUse_t& p);
+void from_json_LightBarSirenInUse(const Value& j, LightBarSirenInUse_t& p);
 
 
 /*
@@ -229,9 +242,9 @@ void from_json_LightBarSirenInUse(const json& j, LightBarSirenInUse_t& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-json to_json_PositionOfOccupants(const PositionOfOccupants_t p);
+Value to_json_PositionOfOccupants(const PositionOfOccupants_t p, Document::AllocatorType& allocator);
 
-void from_json_PositionOfOccupants(const json& j, PositionOfOccupants_t& p);
+void from_json_PositionOfOccupants(const Value& j, PositionOfOccupants_t& p);
 
 
 /*
@@ -239,9 +252,9 @@ void from_json_PositionOfOccupants(const json& j, PositionOfOccupants_t& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const VehicleIdentification& p);
+Value to_json(const VehicleIdentification& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, VehicleIdentification& p);
+void from_json(const Value& j, VehicleIdentification& p);
 
 
 /*
@@ -249,9 +262,9 @@ void from_json(const json& j, VehicleIdentification& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-json to_json_EnergyStorageType(const EnergyStorageType_t p);
+Value to_json_EnergyStorageType(const EnergyStorageType_t p, Document::AllocatorType& allocator);
 
-void from_json_EnergyStorageType(const json& j, EnergyStorageType_t& p);
+void from_json_EnergyStorageType(const Value& j, EnergyStorageType_t& p);
 
 
 /*
@@ -259,9 +272,9 @@ void from_json_EnergyStorageType(const json& j, EnergyStorageType_t& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const VehicleLength_t& p);
+Value to_json(const VehicleLength_t& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, VehicleLength_t& p);
+void from_json(const Value& j, VehicleLength_t& p);
 
 
 /*
@@ -269,9 +282,9 @@ void from_json(const json& j, VehicleLength_t& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const PathHistory& p);
+Value to_json(const PathHistory& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, PathHistory& p);
+void from_json(const Value& j, PathHistory& p);
 
 
 /*
@@ -279,9 +292,9 @@ void from_json(const json& j, PathHistory& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-json to_json_EmergencyPriority(const EmergencyPriority_t p);
+Value to_json_EmergencyPriority(const EmergencyPriority_t p, Document::AllocatorType& allocator);
 
-void from_json_EmergencyPriority(const json& j, EmergencyPriority_t& p);
+void from_json_EmergencyPriority(const Value& j, EmergencyPriority_t& p);
 
 
 /*
@@ -289,9 +302,9 @@ void from_json_EmergencyPriority(const json& j, EmergencyPriority_t& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const SteeringWheelAngle& p);
+Value to_json(const SteeringWheelAngle& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, SteeringWheelAngle& p);
+void from_json(const Value& j, SteeringWheelAngle& p);
 
 
 /*
@@ -299,9 +312,9 @@ void from_json(const json& j, SteeringWheelAngle& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const YawRate& p);
+Value to_json(const YawRate& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, YawRate& p);
+void from_json(const Value& j, YawRate& p);
 
 
 /*
@@ -309,9 +322,9 @@ void from_json(const json& j, YawRate& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const ActionID& p);
+Value to_json(const ActionID& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ActionID& p);
+void from_json(const Value& j, ActionID& p);
 
 
 /*
@@ -319,9 +332,9 @@ void from_json(const json& j, ActionID& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const ProtectedCommunicationZone& p);
+Value to_json(const ProtectedCommunicationZone& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ProtectedCommunicationZone& p);
+void from_json(const Value& j, ProtectedCommunicationZone& p);
 
 
 /*
@@ -329,9 +342,9 @@ void from_json(const json& j, ProtectedCommunicationZone& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const Traces& p);
+Value to_json(const Traces& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, Traces& p);
+void from_json(const Value& j, Traces& p);
 
 
 /*
@@ -339,9 +352,9 @@ void from_json(const json& j, Traces& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const PositionOfPillars& p);
+Value to_json(const PositionOfPillars& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, PositionOfPillars& p);
+void from_json(const Value& j, PositionOfPillars& p);
 
 
 /*
@@ -349,9 +362,9 @@ void from_json(const json& j, PositionOfPillars& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const RestrictedTypes& p);
+Value to_json(const RestrictedTypes& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, RestrictedTypes& p);
+void from_json(const Value& j, RestrictedTypes& p);
 
 
 /*
@@ -359,9 +372,9 @@ void from_json(const json& j, RestrictedTypes& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const EventPoint& p);
+Value to_json(const EventPoint& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, EventPoint& p);
+void from_json(const Value& j, EventPoint& p);
 
 
 /*
@@ -369,9 +382,9 @@ void from_json(const json& j, EventPoint& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const ProtectedCommunicationZonesRSU& p);
+Value to_json(const ProtectedCommunicationZonesRSU& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ProtectedCommunicationZonesRSU& p);
+void from_json(const Value& j, ProtectedCommunicationZonesRSU& p);
 
 
 /*
@@ -379,9 +392,9 @@ void from_json(const json& j, ProtectedCommunicationZonesRSU& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const CenDsrcTollingZone& p);
+Value to_json(const CenDsrcTollingZone& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, CenDsrcTollingZone& p);
+void from_json(const Value& j, CenDsrcTollingZone& p);
 
 
 /*
@@ -389,9 +402,9 @@ void from_json(const json& j, CenDsrcTollingZone& p);
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const BasicVehicleContainerHighFrequency& p);
+Value to_json(const BasicVehicleContainerHighFrequency& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, BasicVehicleContainerHighFrequency& p);
+void from_json(const Value& j, BasicVehicleContainerHighFrequency& p);
 
 
 /*
@@ -399,9 +412,9 @@ void from_json(const json& j, BasicVehicleContainerHighFrequency& p);
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const BasicVehicleContainerLowFrequency& p);
+Value to_json(const BasicVehicleContainerLowFrequency& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, BasicVehicleContainerLowFrequency& p);
+void from_json(const Value& j, BasicVehicleContainerLowFrequency& p);
 
 
 /*
@@ -409,9 +422,9 @@ void from_json(const json& j, BasicVehicleContainerLowFrequency& p);
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const SpecialTransportContainer& p);
+Value to_json(const SpecialTransportContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, SpecialTransportContainer& p);
+void from_json(const Value& j, SpecialTransportContainer& p);
 
 
 /*
@@ -419,9 +432,9 @@ void from_json(const json& j, SpecialTransportContainer& p);
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const DangerousGoodsContainer& p);
+Value to_json(const DangerousGoodsContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, DangerousGoodsContainer& p);
+void from_json(const Value& j, DangerousGoodsContainer& p);
 
 
 /*
@@ -429,9 +442,9 @@ void from_json(const json& j, DangerousGoodsContainer& p);
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const RescueContainer& p);
+Value to_json(const RescueContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, RescueContainer& p);
+void from_json(const Value& j, RescueContainer& p);
 
 
 /*
@@ -439,9 +452,9 @@ void from_json(const json& j, RescueContainer& p);
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const EmergencyContainer& p);
+Value to_json(const EmergencyContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, EmergencyContainer& p);
+void from_json(const Value& j, EmergencyContainer& p);
 
 
 /*
@@ -449,9 +462,9 @@ void from_json(const json& j, EmergencyContainer& p);
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const SafetyCarContainer& p);
+Value to_json(const SafetyCarContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, SafetyCarContainer& p);
+void from_json(const Value& j, SafetyCarContainer& p);
 
 
 /*
@@ -459,9 +472,9 @@ void from_json(const json& j, SafetyCarContainer& p);
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const RSUContainerHighFrequency& p);
+Value to_json(const RSUContainerHighFrequency& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, RSUContainerHighFrequency& p);
+void from_json(const Value& j, RSUContainerHighFrequency& p);
 
 
 /*
@@ -469,9 +482,9 @@ void from_json(const json& j, RSUContainerHighFrequency& p);
 *   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
 */
 
-void to_json(json& j, const LocationContainer& p);
+Value to_json(const LocationContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, LocationContainer& p);
+void from_json(const Value& j, LocationContainer& p);
 
 
 /*
@@ -479,9 +492,9 @@ void from_json(const json& j, LocationContainer& p);
 *   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
 */
 
-void to_json(json& j, const ImpactReductionContainer& p);
+Value to_json(const ImpactReductionContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ImpactReductionContainer& p);
+void from_json(const Value& j, ImpactReductionContainer& p);
 
 
 /*
@@ -489,9 +502,9 @@ void from_json(const json& j, ImpactReductionContainer& p);
 *   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
 */
 
-void to_json(json& j, const StationaryVehicleContainer& p);
+Value to_json(const StationaryVehicleContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, StationaryVehicleContainer& p);
+void from_json(const Value& j, StationaryVehicleContainer& p);
 
 
 /*
@@ -499,9 +512,9 @@ void from_json(const json& j, StationaryVehicleContainer& p);
 *   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
 */
 
-void to_json(json& j, const ReferenceDenms& p);
+Value to_json(const ReferenceDenms& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ReferenceDenms& p);
+void from_json(const Value& j, ReferenceDenms& p);
 
 
 /*
@@ -509,9 +522,9 @@ void from_json(const json& j, ReferenceDenms& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruProfileAndSubprofile& p);
+Value to_json(const VruProfileAndSubprofile& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, VruProfileAndSubprofile& p);
+void from_json(const Value& j, VruProfileAndSubprofile& p);
 
 
 /*
@@ -519,9 +532,9 @@ void from_json(const json& j, VruProfileAndSubprofile& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-json to_json_VruSpecificExteriorLights(const VruSpecificExteriorLights_t p);
+Value to_json_VruSpecificExteriorLights(const VruSpecificExteriorLights_t p, Document::AllocatorType& allocator);
 
-void from_json_VruSpecificExteriorLights(const json& j, VruSpecificExteriorLights_t& p);
+void from_json_VruSpecificExteriorLights(const Value& j, VruSpecificExteriorLights_t& p);
 
 
 /*
@@ -529,9 +542,9 @@ void from_json_VruSpecificExteriorLights(const json& j, VruSpecificExteriorLight
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-json to_json_ClusterProfiles(const ClusterProfiles_t p);
+Value to_json_ClusterProfiles(const ClusterProfiles_t p, Document::AllocatorType& allocator);
 
-void from_json_ClusterProfiles(const json& j, ClusterProfiles_t& p);
+void from_json_ClusterProfiles(const Value& j, ClusterProfiles_t& p);
 
 
 /*
@@ -539,9 +552,9 @@ void from_json_ClusterProfiles(const json& j, ClusterProfiles_t& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const ClusterJoinInfo& p);
+Value to_json(const ClusterJoinInfo& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ClusterJoinInfo& p);
+void from_json(const Value& j, ClusterJoinInfo& p);
 
 
 /*
@@ -549,9 +562,9 @@ void from_json(const json& j, ClusterJoinInfo& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const ClusterLeaveInfo& p);
+Value to_json(const ClusterLeaveInfo& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ClusterLeaveInfo& p);
+void from_json(const Value& j, ClusterLeaveInfo& p);
 
 
 /*
@@ -559,9 +572,9 @@ void from_json(const json& j, ClusterLeaveInfo& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const ClusterBreakupInfo& p);
+Value to_json(const ClusterBreakupInfo& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ClusterBreakupInfo& p);
+void from_json(const Value& j, ClusterBreakupInfo& p);
 
 
 /*
@@ -569,9 +582,9 @@ void from_json(const json& j, ClusterBreakupInfo& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruSafeDistanceIndication& p);
+Value to_json(const VruSafeDistanceIndication& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, VruSafeDistanceIndication& p);
+void from_json(const Value& j, VruSafeDistanceIndication& p);
 
 
 /*
@@ -579,9 +592,9 @@ void from_json(const json& j, VruSafeDistanceIndication& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const TrajectoryInterceptionIndication& p);
+Value to_json(const TrajectoryInterceptionIndication& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, TrajectoryInterceptionIndication& p);
+void from_json(const Value& j, TrajectoryInterceptionIndication& p);
 
 
 /*
@@ -589,9 +602,9 @@ void from_json(const json& j, TrajectoryInterceptionIndication& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const HeadingChangeIndication& p);
+Value to_json(const HeadingChangeIndication& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, HeadingChangeIndication& p);
+void from_json(const Value& j, HeadingChangeIndication& p);
 
 
 /*
@@ -599,9 +612,9 @@ void from_json(const json& j, HeadingChangeIndication& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const AccelerationChangeIndication& p);
+Value to_json(const AccelerationChangeIndication& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, AccelerationChangeIndication& p);
+void from_json(const Value& j, AccelerationChangeIndication& p);
 
 
 /*
@@ -609,9 +622,9 @@ void from_json(const json& j, AccelerationChangeIndication& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const StabilityChangeIndication& p);
+Value to_json(const StabilityChangeIndication& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, StabilityChangeIndication& p);
+void from_json(const Value& j, StabilityChangeIndication& p);
 
 
 /*
@@ -619,9 +632,9 @@ void from_json(const json& j, StabilityChangeIndication& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const AdvisorySpeed& p);
+Value to_json(const AdvisorySpeed& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, AdvisorySpeed& p);
+void from_json(const Value& j, AdvisorySpeed& p);
 
 
 /*
@@ -629,9 +642,9 @@ void from_json(const json& j, AdvisorySpeed& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const AdvisorySpeedList_t& p);
+Value to_json(const AdvisorySpeedList_t& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, AdvisorySpeedList_t& p);
+void from_json(const Value& j, AdvisorySpeedList_t& p);
 
 
 /*
@@ -639,9 +652,9 @@ void from_json(const json& j, AdvisorySpeedList_t& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const ComputedLane::ComputedLane__offsetXaxis& p);
+Value to_json(const ComputedLane::ComputedLane__offsetXaxis& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ComputedLane::ComputedLane__offsetXaxis& p);
+void from_json(const Value& j, ComputedLane::ComputedLane__offsetXaxis& p);
 
 
 /*
@@ -649,9 +662,9 @@ void from_json(const json& j, ComputedLane::ComputedLane__offsetXaxis& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const ComputedLane::ComputedLane__offsetYaxis& p);
+Value to_json(const ComputedLane::ComputedLane__offsetYaxis& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ComputedLane::ComputedLane__offsetYaxis& p);
+void from_json(const Value& j, ComputedLane::ComputedLane__offsetYaxis& p);
 
 
 /*
@@ -659,9 +672,9 @@ void from_json(const json& j, ComputedLane::ComputedLane__offsetYaxis& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const ComputedLane_t& p);
+Value to_json(const ComputedLane_t& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ComputedLane_t& p);
+void from_json(const Value& j, ComputedLane_t& p);
 
 
 /*
@@ -669,9 +682,9 @@ void from_json(const json& j, ComputedLane_t& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const ConnectionManeuverAssist_t& p);
+Value to_json(const ConnectionManeuverAssist_t& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ConnectionManeuverAssist_t& p);
+void from_json(const Value& j, ConnectionManeuverAssist_t& p);
 
 
 /*
@@ -679,9 +692,9 @@ void from_json(const json& j, ConnectionManeuverAssist_t& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const DataParameters_t& p);
+Value to_json(const DataParameters_t& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, DataParameters_t& p);
+void from_json(const Value& j, DataParameters_t& p);
 
 
 /*
@@ -689,9 +702,9 @@ void from_json(const json& j, DataParameters_t& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const EnabledLaneList_t& p);
+Value to_json(const EnabledLaneList_t& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, EnabledLaneList_t& p);
+void from_json(const Value& j, EnabledLaneList_t& p);
 
 
 /*
@@ -699,9 +712,9 @@ void from_json(const json& j, EnabledLaneList_t& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const IntersectionAccessPoint_t& p);
+Value to_json(const IntersectionAccessPoint_t& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, IntersectionAccessPoint_t& p);
+void from_json(const Value& j, IntersectionAccessPoint_t& p);
 
 
 /*
@@ -709,9 +722,9 @@ void from_json(const json& j, IntersectionAccessPoint_t& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const IntersectionReferenceID& p);
+Value to_json(const IntersectionReferenceID& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, IntersectionReferenceID& p);
+void from_json(const Value& j, IntersectionReferenceID& p);
 
 
 /*
@@ -719,9 +732,9 @@ void from_json(const json& j, IntersectionReferenceID& p);
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_LaneSharing(const LaneSharing_t p);
+Value to_json_LaneSharing(const LaneSharing_t p, Document::AllocatorType& allocator);
 
-void from_json_LaneSharing(const json& j, LaneSharing_t& p);
+void from_json_LaneSharing(const Value& j, LaneSharing_t& p);
 
 
 /*
@@ -729,9 +742,9 @@ void from_json_LaneSharing(const json& j, LaneSharing_t& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const ManeuverAssistList& p);
+Value to_json(const ManeuverAssistList& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ManeuverAssistList& p);
+void from_json(const Value& j, ManeuverAssistList& p);
 
 
 /*
@@ -739,9 +752,9 @@ void from_json(const json& j, ManeuverAssistList& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const Node_LLmD_64b& p);
+Value to_json(const Node_LLmD_64b& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, Node_LLmD_64b& p);
+void from_json(const Value& j, Node_LLmD_64b& p);
 
 
 /*
@@ -749,9 +762,9 @@ void from_json(const json& j, Node_LLmD_64b& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const OverlayLaneList& p);
+Value to_json(const OverlayLaneList& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, OverlayLaneList& p);
+void from_json(const Value& j, OverlayLaneList& p);
 
 
 /*
@@ -759,9 +772,9 @@ void from_json(const json& j, OverlayLaneList& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const Position3D_t& p);
+Value to_json(const Position3D_t& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, Position3D_t& p);
+void from_json(const Value& j, Position3D_t& p);
 
 
 /*
@@ -769,9 +782,9 @@ void from_json(const json& j, Position3D_t& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const RestrictionUserType& p);
+Value to_json(const RestrictionUserType& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, RestrictionUserType& p);
+void from_json(const Value& j, RestrictionUserType& p);
 
 
 /*
@@ -779,9 +792,9 @@ void from_json(const json& j, RestrictionUserType& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const RoadSegmentReferenceID& p);
+Value to_json(const RoadSegmentReferenceID& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, RoadSegmentReferenceID& p);
+void from_json(const Value& j, RoadSegmentReferenceID& p);
 
 
 /*
@@ -789,9 +802,9 @@ void from_json(const json& j, RoadSegmentReferenceID& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const TimeChangeDetails& p);
+Value to_json(const TimeChangeDetails& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, TimeChangeDetails& p);
+void from_json(const Value& j, TimeChangeDetails& p);
 
 
 /*
@@ -799,9 +812,9 @@ void from_json(const json& j, TimeChangeDetails& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const TransmissionAndSpeed_t& p);
+Value to_json(const TransmissionAndSpeed_t& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, TransmissionAndSpeed_t& p);
+void from_json(const Value& j, TransmissionAndSpeed_t& p);
 
 
 /*
@@ -809,9 +822,9 @@ void from_json(const json& j, TransmissionAndSpeed_t& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const VehicleID_t& p);
+Value to_json(const VehicleID_t& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, VehicleID_t& p);
+void from_json(const Value& j, VehicleID_t& p);
 
 
 /*
@@ -819,9 +832,9 @@ void from_json(const json& j, VehicleID_t& p);
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_AllowedManeuvers(const AllowedManeuvers_t p);
+Value to_json_AllowedManeuvers(const AllowedManeuvers_t p, Document::AllocatorType& allocator);
 
-void from_json_AllowedManeuvers(const json& j, AllowedManeuvers_t& p);
+void from_json_AllowedManeuvers(const Value& j, AllowedManeuvers_t& p);
 
 
 /*
@@ -829,9 +842,9 @@ void from_json_AllowedManeuvers(const json& j, AllowedManeuvers_t& p);
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_IntersectionStatusObject(const IntersectionStatusObject_t p);
+Value to_json_IntersectionStatusObject(const IntersectionStatusObject_t p, Document::AllocatorType& allocator);
 
-void from_json_IntersectionStatusObject(const json& j, IntersectionStatusObject_t& p);
+void from_json_IntersectionStatusObject(const Value& j, IntersectionStatusObject_t& p);
 
 
 /*
@@ -839,9 +852,9 @@ void from_json_IntersectionStatusObject(const json& j, IntersectionStatusObject_
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_LaneAttributes_Barrier(const LaneAttributes_Barrier_t p);
+Value to_json_LaneAttributes_Barrier(const LaneAttributes_Barrier_t p, Document::AllocatorType& allocator);
 
-void from_json_LaneAttributes_Barrier(const json& j, LaneAttributes_Barrier_t& p);
+void from_json_LaneAttributes_Barrier(const Value& j, LaneAttributes_Barrier_t& p);
 
 
 /*
@@ -849,9 +862,9 @@ void from_json_LaneAttributes_Barrier(const json& j, LaneAttributes_Barrier_t& p
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_LaneAttributes_Bike(const LaneAttributes_Bike_t p);
+Value to_json_LaneAttributes_Bike(const LaneAttributes_Bike_t p, Document::AllocatorType& allocator);
 
-void from_json_LaneAttributes_Bike(const json& j, LaneAttributes_Bike_t& p);
+void from_json_LaneAttributes_Bike(const Value& j, LaneAttributes_Bike_t& p);
 
 
 /*
@@ -859,9 +872,9 @@ void from_json_LaneAttributes_Bike(const json& j, LaneAttributes_Bike_t& p);
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_LaneAttributes_Crosswalk(const LaneAttributes_Crosswalk_t p);
+Value to_json_LaneAttributes_Crosswalk(const LaneAttributes_Crosswalk_t p, Document::AllocatorType& allocator);
 
-void from_json_LaneAttributes_Crosswalk(const json& j, LaneAttributes_Crosswalk_t& p);
+void from_json_LaneAttributes_Crosswalk(const Value& j, LaneAttributes_Crosswalk_t& p);
 
 
 /*
@@ -869,9 +882,9 @@ void from_json_LaneAttributes_Crosswalk(const json& j, LaneAttributes_Crosswalk_
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_LaneAttributes_Parking(const LaneAttributes_Parking_t p);
+Value to_json_LaneAttributes_Parking(const LaneAttributes_Parking_t p, Document::AllocatorType& allocator);
 
-void from_json_LaneAttributes_Parking(const json& j, LaneAttributes_Parking_t& p);
+void from_json_LaneAttributes_Parking(const Value& j, LaneAttributes_Parking_t& p);
 
 
 /*
@@ -879,9 +892,9 @@ void from_json_LaneAttributes_Parking(const json& j, LaneAttributes_Parking_t& p
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_LaneAttributes_Sidewalk(const LaneAttributes_Sidewalk_t p);
+Value to_json_LaneAttributes_Sidewalk(const LaneAttributes_Sidewalk_t p, Document::AllocatorType& allocator);
 
-void from_json_LaneAttributes_Sidewalk(const json& j, LaneAttributes_Sidewalk_t& p);
+void from_json_LaneAttributes_Sidewalk(const Value& j, LaneAttributes_Sidewalk_t& p);
 
 
 /*
@@ -889,9 +902,9 @@ void from_json_LaneAttributes_Sidewalk(const json& j, LaneAttributes_Sidewalk_t&
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_LaneAttributes_Striping(const LaneAttributes_Striping_t p);
+Value to_json_LaneAttributes_Striping(const LaneAttributes_Striping_t p, Document::AllocatorType& allocator);
 
-void from_json_LaneAttributes_Striping(const json& j, LaneAttributes_Striping_t& p);
+void from_json_LaneAttributes_Striping(const Value& j, LaneAttributes_Striping_t& p);
 
 
 /*
@@ -899,9 +912,9 @@ void from_json_LaneAttributes_Striping(const json& j, LaneAttributes_Striping_t&
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_LaneAttributes_TrackedVehicle(const LaneAttributes_TrackedVehicle_t p);
+Value to_json_LaneAttributes_TrackedVehicle(const LaneAttributes_TrackedVehicle_t p, Document::AllocatorType& allocator);
 
-void from_json_LaneAttributes_TrackedVehicle(const json& j, LaneAttributes_TrackedVehicle_t& p);
+void from_json_LaneAttributes_TrackedVehicle(const Value& j, LaneAttributes_TrackedVehicle_t& p);
 
 
 /*
@@ -909,9 +922,9 @@ void from_json_LaneAttributes_TrackedVehicle(const json& j, LaneAttributes_Track
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_LaneAttributes_Vehicle(const LaneAttributes_Vehicle_t p);
+Value to_json_LaneAttributes_Vehicle(const LaneAttributes_Vehicle_t p, Document::AllocatorType& allocator);
 
-void from_json_LaneAttributes_Vehicle(const json& j, LaneAttributes_Vehicle_t& p);
+void from_json_LaneAttributes_Vehicle(const Value& j, LaneAttributes_Vehicle_t& p);
 
 
 /*
@@ -919,9 +932,9 @@ void from_json_LaneAttributes_Vehicle(const json& j, LaneAttributes_Vehicle_t& p
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_LaneDirection(const LaneDirection_t p);
+Value to_json_LaneDirection(const LaneDirection_t p, Document::AllocatorType& allocator);
 
-void from_json_LaneDirection(const json& j, LaneDirection_t& p);
+void from_json_LaneDirection(const Value& j, LaneDirection_t& p);
 
 
 /*
@@ -929,9 +942,9 @@ void from_json_LaneDirection(const json& j, LaneDirection_t& p);
 *   From DSRC - File DSRC.asn
 */
 
-json to_json_TransitVehicleStatus(const TransitVehicleStatus_t p);
+Value to_json_TransitVehicleStatus(const TransitVehicleStatus_t p, Document::AllocatorType& allocator);
 
-void from_json_TransitVehicleStatus(const json& j, TransitVehicleStatus_t& p);
+void from_json_TransitVehicleStatus(const Value& j, TransitVehicleStatus_t& p);
 
 
 /*
@@ -939,9 +952,9 @@ void from_json_TransitVehicleStatus(const json& j, TransitVehicleStatus_t& p);
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const Node_XY_20b& p);
+Value to_json(const Node_XY_20b& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, Node_XY_20b& p);
+void from_json(const Value& j, Node_XY_20b& p);
 
 
 /*
@@ -949,9 +962,9 @@ void from_json(const json& j, Node_XY_20b& p);
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const Node_XY_22b& p);
+Value to_json(const Node_XY_22b& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, Node_XY_22b& p);
+void from_json(const Value& j, Node_XY_22b& p);
 
 
 /*
@@ -959,9 +972,9 @@ void from_json(const json& j, Node_XY_22b& p);
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const Node_XY_24b& p);
+Value to_json(const Node_XY_24b& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, Node_XY_24b& p);
+void from_json(const Value& j, Node_XY_24b& p);
 
 
 /*
@@ -969,9 +982,9 @@ void from_json(const json& j, Node_XY_24b& p);
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const Node_XY_26b& p);
+Value to_json(const Node_XY_26b& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, Node_XY_26b& p);
+void from_json(const Value& j, Node_XY_26b& p);
 
 
 /*
@@ -979,9 +992,9 @@ void from_json(const json& j, Node_XY_26b& p);
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const Node_XY_28b& p);
+Value to_json(const Node_XY_28b& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, Node_XY_28b& p);
+void from_json(const Value& j, Node_XY_28b& p);
 
 
 /*
@@ -989,9 +1002,9 @@ void from_json(const json& j, Node_XY_28b& p);
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const Node_XY_32b& p);
+Value to_json(const Node_XY_32b& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, Node_XY_32b& p);
+void from_json(const Value& j, Node_XY_32b& p);
 
 
 /*
@@ -999,9 +1012,9 @@ void from_json(const json& j, Node_XY_32b& p);
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const NodeAttributeXYList& p);
+Value to_json(const NodeAttributeXYList& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, NodeAttributeXYList& p);
+void from_json(const Value& j, NodeAttributeXYList& p);
 
 
 /*
@@ -1009,9 +1022,9 @@ void from_json(const json& j, NodeAttributeXYList& p);
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const RegulatorySpeedLimit& p);
+Value to_json(const RegulatorySpeedLimit& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, RegulatorySpeedLimit& p);
+void from_json(const Value& j, RegulatorySpeedLimit& p);
 
 
 /*
@@ -1019,9 +1032,9 @@ void from_json(const json& j, RegulatorySpeedLimit& p);
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const SegmentAttributeXYList& p);
+Value to_json(const SegmentAttributeXYList& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, SegmentAttributeXYList& p);
+void from_json(const Value& j, SegmentAttributeXYList& p);
 
 
 /*
@@ -1029,9 +1042,9 @@ void from_json(const json& j, SegmentAttributeXYList& p);
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const SpeedLimitList& p);
+Value to_json(const SpeedLimitList& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, SpeedLimitList& p);
+void from_json(const Value& j, SpeedLimitList& p);
 
 
 /*
@@ -1039,9 +1052,9 @@ void from_json(const json& j, SpeedLimitList& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const OriginatingRSUContainer& p);
+Value to_json(const OriginatingRSUContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, OriginatingRSUContainer& p);
+void from_json(const Value& j, OriginatingRSUContainer& p);
 
 
 /*
@@ -1049,9 +1062,9 @@ void from_json(const json& j, OriginatingRSUContainer& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const VehicleSensorProperties& p);
+Value to_json(const VehicleSensorProperties& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, VehicleSensorProperties& p);
+void from_json(const Value& j, VehicleSensorProperties& p);
 
 
 /*
@@ -1059,9 +1072,9 @@ void from_json(const json& j, VehicleSensorProperties& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const ObjectDistanceWithConfidence& p);
+Value to_json(const ObjectDistanceWithConfidence& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ObjectDistanceWithConfidence& p);
+void from_json(const Value& j, ObjectDistanceWithConfidence& p);
 
 
 /*
@@ -1069,9 +1082,9 @@ void from_json(const json& j, ObjectDistanceWithConfidence& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const ObjectDimension& p);
+Value to_json(const ObjectDimension& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ObjectDimension& p);
+void from_json(const Value& j, ObjectDimension& p);
 
 
 /*
@@ -1079,9 +1092,9 @@ void from_json(const json& j, ObjectDimension& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const CartesianAngle& p);
+Value to_json(const CartesianAngle& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, CartesianAngle& p);
+void from_json(const Value& j, CartesianAngle& p);
 
 
 /*
@@ -1089,9 +1102,9 @@ void from_json(const json& j, CartesianAngle& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const WGS84Angle& p);
+Value to_json(const WGS84Angle& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, WGS84Angle& p);
+void from_json(const Value& j, WGS84Angle& p);
 
 
 /*
@@ -1099,9 +1112,9 @@ void from_json(const json& j, WGS84Angle& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const SpeedExtended& p);
+Value to_json(const SpeedExtended& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, SpeedExtended& p);
+void from_json(const Value& j, SpeedExtended& p);
 
 
 /*
@@ -1109,9 +1122,9 @@ void from_json(const json& j, SpeedExtended& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const SensorIdList& p);
+Value to_json(const SensorIdList& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, SensorIdList& p);
+void from_json(const Value& j, SensorIdList& p);
 
 
 /*
@@ -1119,9 +1132,9 @@ void from_json(const json& j, SensorIdList& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const TrailerData& p);
+Value to_json(const TrailerData& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, TrailerData& p);
+void from_json(const Value& j, TrailerData& p);
 
 
 /*
@@ -1129,9 +1142,9 @@ void from_json(const json& j, TrailerData& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const LongitudinalLanePosition& p);
+Value to_json(const LongitudinalLanePosition& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, LongitudinalLanePosition& p);
+void from_json(const Value& j, LongitudinalLanePosition& p);
 
 
 /*
@@ -1139,9 +1152,9 @@ void from_json(const json& j, LongitudinalLanePosition& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const MatchedPosition& p);
+Value to_json(const MatchedPosition& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, MatchedPosition& p);
+void from_json(const Value& j, MatchedPosition& p);
 
 
 /*
@@ -1149,9 +1162,9 @@ void from_json(const json& j, MatchedPosition& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const PerceivedObjectContainerSegmentInfo& p);
+Value to_json(const PerceivedObjectContainerSegmentInfo& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, PerceivedObjectContainerSegmentInfo& p);
+void from_json(const Value& j, PerceivedObjectContainerSegmentInfo& p);
 
 
 /*
@@ -1159,9 +1172,9 @@ void from_json(const json& j, PerceivedObjectContainerSegmentInfo& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const VehicleSubclass& p);
+Value to_json(const VehicleSubclass& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, VehicleSubclass& p);
+void from_json(const Value& j, VehicleSubclass& p);
 
 
 /*
@@ -1169,9 +1182,9 @@ void from_json(const json& j, VehicleSubclass& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const PersonSubclass& p);
+Value to_json(const PersonSubclass& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, PersonSubclass& p);
+void from_json(const Value& j, PersonSubclass& p);
 
 
 /*
@@ -1179,9 +1192,9 @@ void from_json(const json& j, PersonSubclass& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const AnimalSubclass& p);
+Value to_json(const AnimalSubclass& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, AnimalSubclass& p);
+void from_json(const Value& j, AnimalSubclass& p);
 
 
 /*
@@ -1189,9 +1202,9 @@ void from_json(const json& j, AnimalSubclass& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const OtherSubclass& p);
+Value to_json(const OtherSubclass& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, OtherSubclass& p);
+void from_json(const Value& j, OtherSubclass& p);
 
 
 /*
@@ -1199,9 +1212,9 @@ void from_json(const json& j, OtherSubclass& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const NodeOffsetPointZ& p);
+Value to_json(const NodeOffsetPointZ& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, NodeOffsetPointZ& p);
+void from_json(const Value& j, NodeOffsetPointZ& p);
 
 
 /*
@@ -1209,9 +1222,9 @@ void from_json(const json& j, NodeOffsetPointZ& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const ReferencePosition& p);
+Value to_json(const ReferencePosition& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ReferencePosition& p);
+void from_json(const Value& j, ReferencePosition& p);
 
 
 /*
@@ -1219,9 +1232,9 @@ void from_json(const json& j, ReferencePosition& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const PtActivation& p);
+Value to_json(const PtActivation& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, PtActivation& p);
+void from_json(const Value& j, PtActivation& p);
 
 
 /*
@@ -1229,9 +1242,9 @@ void from_json(const json& j, PtActivation& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const ClosedLanes& p);
+Value to_json(const ClosedLanes& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ClosedLanes& p);
+void from_json(const Value& j, ClosedLanes& p);
 
 
 /*
@@ -1239,9 +1252,9 @@ void from_json(const json& j, ClosedLanes& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const ItineraryPath& p);
+Value to_json(const ItineraryPath& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ItineraryPath& p);
+void from_json(const Value& j, ItineraryPath& p);
 
 
 /*
@@ -1249,9 +1262,9 @@ void from_json(const json& j, ItineraryPath& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const EventHistory& p);
+Value to_json(const EventHistory& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, EventHistory& p);
+void from_json(const Value& j, EventHistory& p);
 
 
 /*
@@ -1259,9 +1272,9 @@ void from_json(const json& j, EventHistory& p);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-void to_json(json& j, const DigitalMap_t& p);
+Value to_json(const DigitalMap_t& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, DigitalMap_t& p);
+void from_json(const Value& j, DigitalMap_t& p);
 
 
 /*
@@ -1269,9 +1282,9 @@ void from_json(const json& j, DigitalMap_t& p);
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const HighFrequencyContainer& p);
+Value to_json(const HighFrequencyContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, HighFrequencyContainer& p);
+void from_json(const Value& j, HighFrequencyContainer& p);
 
 
 /*
@@ -1279,9 +1292,9 @@ void from_json(const json& j, HighFrequencyContainer& p);
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const LowFrequencyContainer& p);
+Value to_json(const LowFrequencyContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, LowFrequencyContainer& p);
+void from_json(const Value& j, LowFrequencyContainer& p);
 
 
 /*
@@ -1289,9 +1302,9 @@ void from_json(const json& j, LowFrequencyContainer& p);
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const BasicContainer& p);
+Value to_json(const BasicContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, BasicContainer& p);
+void from_json(const Value& j, BasicContainer& p);
 
 
 /*
@@ -1299,9 +1312,9 @@ void from_json(const json& j, BasicContainer& p);
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const PublicTransportContainer& p);
+Value to_json(const PublicTransportContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, PublicTransportContainer& p);
+void from_json(const Value& j, PublicTransportContainer& p);
 
 
 /*
@@ -1309,9 +1322,9 @@ void from_json(const json& j, PublicTransportContainer& p);
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const RoadWorksContainerBasic& p);
+Value to_json(const RoadWorksContainerBasic& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, RoadWorksContainerBasic& p);
+void from_json(const Value& j, RoadWorksContainerBasic& p);
 
 
 /*
@@ -1319,9 +1332,9 @@ void from_json(const json& j, RoadWorksContainerBasic& p);
 *   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
 */
 
-void to_json(json& j, const ManagementContainer& p);
+Value to_json(const ManagementContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ManagementContainer& p);
+void from_json(const Value& j, ManagementContainer& p);
 
 
 /*
@@ -1329,9 +1342,9 @@ void from_json(const json& j, ManagementContainer& p);
 *   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
 */
 
-void to_json(json& j, const SituationContainer& p);
+Value to_json(const SituationContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, SituationContainer& p);
+void from_json(const Value& j, SituationContainer& p);
 
 
 /*
@@ -1339,9 +1352,9 @@ void from_json(const json& j, SituationContainer& p);
 *   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
 */
 
-void to_json(json& j, const RoadWorksContainerExtended& p);
+Value to_json(const RoadWorksContainerExtended& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, RoadWorksContainerExtended& p);
+void from_json(const Value& j, RoadWorksContainerExtended& p);
 
 
 /*
@@ -1349,9 +1362,9 @@ void from_json(const json& j, RoadWorksContainerExtended& p);
 *   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
 */
 
-void to_json(json& j, const AlacarteContainer& p);
+Value to_json(const AlacarteContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, AlacarteContainer& p);
+void from_json(const Value& j, AlacarteContainer& p);
 
 
 /*
@@ -1359,9 +1372,9 @@ void from_json(const json& j, AlacarteContainer& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const MapPosition& p);
+Value to_json(const MapPosition& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, MapPosition& p);
+void from_json(const Value& j, MapPosition& p);
 
 
 /*
@@ -1369,9 +1382,9 @@ void from_json(const json& j, MapPosition& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruExteriorLights& p);
+Value to_json(const VruExteriorLights& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, VruExteriorLights& p);
+void from_json(const Value& j, VruExteriorLights& p);
 
 
 /*
@@ -1379,9 +1392,9 @@ void from_json(const json& j, VruExteriorLights& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruClusterOperationContainer& p);
+Value to_json(const VruClusterOperationContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, VruClusterOperationContainer& p);
+void from_json(const Value& j, VruClusterOperationContainer& p);
 
 
 /*
@@ -1389,9 +1402,9 @@ void from_json(const json& j, VruClusterOperationContainer& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruPathPoint& p);
+Value to_json(const VruPathPoint& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, VruPathPoint& p);
+void from_json(const Value& j, VruPathPoint& p);
 
 
 /*
@@ -1399,9 +1412,9 @@ void from_json(const json& j, VruPathPoint& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const SequenceOfVruSafeDistanceIndication& p);
+Value to_json(const SequenceOfVruSafeDistanceIndication& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, SequenceOfVruSafeDistanceIndication& p);
+void from_json(const Value& j, SequenceOfVruSafeDistanceIndication& p);
 
 
 /*
@@ -1409,9 +1422,9 @@ void from_json(const json& j, SequenceOfVruSafeDistanceIndication& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const SequenceOfTrajectoryInterceptionIndication& p);
+Value to_json(const SequenceOfTrajectoryInterceptionIndication& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, SequenceOfTrajectoryInterceptionIndication& p);
+void from_json(const Value& j, SequenceOfTrajectoryInterceptionIndication& p);
 
 
 /*
@@ -1419,9 +1432,9 @@ void from_json(const json& j, SequenceOfTrajectoryInterceptionIndication& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const ConnectingLane& p);
+Value to_json(const ConnectingLane& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ConnectingLane& p);
+void from_json(const Value& j, ConnectingLane& p);
 
 
 /*
@@ -1429,9 +1442,9 @@ void from_json(const json& j, ConnectingLane& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const Connection& p);
+Value to_json(const Connection& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, Connection& p);
+void from_json(const Value& j, Connection& p);
 
 
 /*
@@ -1439,9 +1452,9 @@ void from_json(const json& j, Connection& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const LaneTypeAttributes& p);
+Value to_json(const LaneTypeAttributes& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, LaneTypeAttributes& p);
+void from_json(const Value& j, LaneTypeAttributes& p);
 
 
 /*
@@ -1449,9 +1462,9 @@ void from_json(const json& j, LaneTypeAttributes& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const MovementEvent& p);
+Value to_json(const MovementEvent& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, MovementEvent& p);
+void from_json(const Value& j, MovementEvent& p);
 
 
 /*
@@ -1459,9 +1472,9 @@ void from_json(const json& j, MovementEvent& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const RestrictionUserTypeList& p);
+Value to_json(const RestrictionUserTypeList& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, RestrictionUserTypeList& p);
+void from_json(const Value& j, RestrictionUserTypeList& p);
 
 
 /*
@@ -1469,9 +1482,9 @@ void from_json(const json& j, RestrictionUserTypeList& p);
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const LaneDataAttribute& p);
+Value to_json(const LaneDataAttribute& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, LaneDataAttribute& p);
+void from_json(const Value& j, LaneDataAttribute& p);
 
 
 /*
@@ -1479,9 +1492,9 @@ void from_json(const json& j, LaneDataAttribute& p);
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const LaneDataAttributeList& p);
+Value to_json(const LaneDataAttributeList& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, LaneDataAttributeList& p);
+void from_json(const Value& j, LaneDataAttributeList& p);
 
 
 /*
@@ -1489,9 +1502,9 @@ void from_json(const json& j, LaneDataAttributeList& p);
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const NodeOffsetPointXY& p);
+Value to_json(const NodeOffsetPointXY& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, NodeOffsetPointXY& p);
+void from_json(const Value& j, NodeOffsetPointXY& p);
 
 
 /*
@@ -1499,9 +1512,9 @@ void from_json(const json& j, NodeOffsetPointXY& p);
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const NodeAttributeSetXY_t& p);
+Value to_json(const NodeAttributeSetXY_t& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, NodeAttributeSetXY_t& p);
+void from_json(const Value& j, NodeAttributeSetXY_t& p);
 
 
 /*
@@ -1509,9 +1522,9 @@ void from_json(const json& j, NodeAttributeSetXY_t& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const CpmManagementContainer& p);
+Value to_json(const CpmManagementContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, CpmManagementContainer& p);
+void from_json(const Value& j, CpmManagementContainer& p);
 
 
 /*
@@ -1519,9 +1532,9 @@ void from_json(const json& j, CpmManagementContainer& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const VehicleSensorPropertyList& p);
+Value to_json(const VehicleSensorPropertyList& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, VehicleSensorPropertyList& p);
+void from_json(const Value& j, VehicleSensorPropertyList& p);
 
 
 /*
@@ -1529,9 +1542,9 @@ void from_json(const json& j, VehicleSensorPropertyList& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const TrailerDataContainer& p);
+Value to_json(const TrailerDataContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, TrailerDataContainer& p);
+void from_json(const Value& j, TrailerDataContainer& p);
 
 
 /*
@@ -1539,9 +1552,9 @@ void from_json(const json& j, TrailerDataContainer& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const ObjectClass::ObjectClass__class& p);
+Value to_json(const ObjectClass::ObjectClass__class& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ObjectClass::ObjectClass__class& p);
+void from_json(const Value& j, ObjectClass::ObjectClass__class& p);
 
 
 /*
@@ -1549,9 +1562,9 @@ void from_json(const json& j, ObjectClass::ObjectClass__class& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const ObjectClass_t& p);
+Value to_json(const ObjectClass_t& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ObjectClass_t& p);
+void from_json(const Value& j, ObjectClass_t& p);
 
 
 /*
@@ -1559,9 +1572,9 @@ void from_json(const json& j, ObjectClass_t& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const OffsetPoint& p);
+Value to_json(const OffsetPoint& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, OffsetPoint& p);
+void from_json(const Value& j, OffsetPoint& p);
 
 
 /*
@@ -1569,9 +1582,9 @@ void from_json(const json& j, OffsetPoint& p);
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const SpecialVehicleContainer& p);
+Value to_json(const SpecialVehicleContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, SpecialVehicleContainer& p);
+void from_json(const Value& j, SpecialVehicleContainer& p);
 
 
 /*
@@ -1579,9 +1592,9 @@ void from_json(const json& j, SpecialVehicleContainer& p);
 *   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
 */
 
-void to_json(json& j, const DecentralizedEnvironmentalNotificationMessage& p);
+Value to_json(const DecentralizedEnvironmentalNotificationMessage& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, DecentralizedEnvironmentalNotificationMessage& p);
+void from_json(const Value& j, DecentralizedEnvironmentalNotificationMessage& p);
 
 
 /*
@@ -1589,9 +1602,9 @@ void from_json(const json& j, DecentralizedEnvironmentalNotificationMessage& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const NonIslandLanePosition& p);
+Value to_json(const NonIslandLanePosition& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, NonIslandLanePosition& p);
+void from_json(const Value& j, NonIslandLanePosition& p);
 
 
 /*
@@ -1599,9 +1612,9 @@ void from_json(const json& j, NonIslandLanePosition& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruLowFrequencyContainer& p);
+Value to_json(const VruLowFrequencyContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, VruLowFrequencyContainer& p);
+void from_json(const Value& j, VruLowFrequencyContainer& p);
 
 
 /*
@@ -1609,9 +1622,9 @@ void from_json(const json& j, VruLowFrequencyContainer& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const SequenceOfVruPathPoint& p);
+Value to_json(const SequenceOfVruPathPoint& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, SequenceOfVruPathPoint& p);
+void from_json(const Value& j, SequenceOfVruPathPoint& p);
 
 
 /*
@@ -1619,9 +1632,9 @@ void from_json(const json& j, SequenceOfVruPathPoint& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const ConnectsToList& p);
+Value to_json(const ConnectsToList& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ConnectsToList& p);
+void from_json(const Value& j, ConnectsToList& p);
 
 
 /*
@@ -1629,9 +1642,9 @@ void from_json(const json& j, ConnectsToList& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const LaneAttributes& p);
+Value to_json(const LaneAttributes& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, LaneAttributes& p);
+void from_json(const Value& j, LaneAttributes& p);
 
 
 /*
@@ -1639,9 +1652,9 @@ void from_json(const json& j, LaneAttributes& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const MovementEventList& p);
+Value to_json(const MovementEventList& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, MovementEventList& p);
+void from_json(const Value& j, MovementEventList& p);
 
 
 /*
@@ -1649,9 +1662,9 @@ void from_json(const json& j, MovementEventList& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const MovementState& p);
+Value to_json(const MovementState& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, MovementState& p);
+void from_json(const Value& j, MovementState& p);
 
 
 /*
@@ -1659,9 +1672,9 @@ void from_json(const json& j, MovementState& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const RestrictionClassAssignment& p);
+Value to_json(const RestrictionClassAssignment& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, RestrictionClassAssignment& p);
+void from_json(const Value& j, RestrictionClassAssignment& p);
 
 
 /*
@@ -1669,9 +1682,9 @@ void from_json(const json& j, RestrictionClassAssignment& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const RestrictionClassList& p);
+Value to_json(const RestrictionClassList& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, RestrictionClassList& p);
+void from_json(const Value& j, RestrictionClassList& p);
 
 
 /*
@@ -1679,9 +1692,9 @@ void from_json(const json& j, RestrictionClassList& p);
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const NodeXY_t& p);
+Value to_json(const NodeXY_t& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, NodeXY_t& p);
+void from_json(const Value& j, NodeXY_t& p);
 
 
 /*
@@ -1689,9 +1702,9 @@ void from_json(const json& j, NodeXY_t& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const OriginatingVehicleContainer& p);
+Value to_json(const OriginatingVehicleContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, OriginatingVehicleContainer& p);
+void from_json(const Value& j, OriginatingVehicleContainer& p);
 
 
 /*
@@ -1699,9 +1712,9 @@ void from_json(const json& j, OriginatingVehicleContainer& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const VehicleSensor& p);
+Value to_json(const VehicleSensor& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, VehicleSensor& p);
+void from_json(const Value& j, VehicleSensor& p);
 
 
 /*
@@ -1709,9 +1722,9 @@ void from_json(const json& j, VehicleSensor& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const AreaCircular& p);
+Value to_json(const AreaCircular& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, AreaCircular& p);
+void from_json(const Value& j, AreaCircular& p);
 
 
 /*
@@ -1719,9 +1732,9 @@ void from_json(const json& j, AreaCircular& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const AreaEllipse& p);
+Value to_json(const AreaEllipse& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, AreaEllipse& p);
+void from_json(const Value& j, AreaEllipse& p);
 
 
 /*
@@ -1729,9 +1742,9 @@ void from_json(const json& j, AreaEllipse& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const AreaRectangle& p);
+Value to_json(const AreaRectangle& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, AreaRectangle& p);
+void from_json(const Value& j, AreaRectangle& p);
 
 
 /*
@@ -1739,9 +1752,9 @@ void from_json(const json& j, AreaRectangle& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const PolyPointList& p);
+Value to_json(const PolyPointList& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, PolyPointList& p);
+void from_json(const Value& j, PolyPointList& p);
 
 
 /*
@@ -1749,9 +1762,9 @@ void from_json(const json& j, PolyPointList& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const AreaRadial& p);
+Value to_json(const AreaRadial& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, AreaRadial& p);
+void from_json(const Value& j, AreaRadial& p);
 
 
 /*
@@ -1759,9 +1772,9 @@ void from_json(const json& j, AreaRadial& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const ObjectClassDescription& p);
+Value to_json(const ObjectClassDescription& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ObjectClassDescription& p);
+void from_json(const Value& j, ObjectClassDescription& p);
 
 
 /*
@@ -1769,9 +1782,9 @@ void from_json(const json& j, ObjectClassDescription& p);
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const CamParameters& p);
+Value to_json(const CamParameters& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, CamParameters& p);
+void from_json(const Value& j, CamParameters& p);
 
 
 /*
@@ -1779,9 +1792,9 @@ void from_json(const json& j, CamParameters& p);
 *   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
 */
 
-void to_json(json& j, const DENM& p);
+Value to_json(const DENM& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, DENM& p);
+void from_json(const Value& j, DENM& p);
 
 
 /*
@@ -1789,9 +1802,9 @@ void from_json(const json& j, DENM& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const TrafficIslandPosition& p);
+Value to_json(const TrafficIslandPosition& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, TrafficIslandPosition& p);
+void from_json(const Value& j, TrafficIslandPosition& p);
 
 
 /*
@@ -1799,9 +1812,9 @@ void from_json(const json& j, TrafficIslandPosition& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruMotionPredictionContainer& p);
+Value to_json(const VruMotionPredictionContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, VruMotionPredictionContainer& p);
+void from_json(const Value& j, VruMotionPredictionContainer& p);
 
 
 /*
@@ -1809,9 +1822,9 @@ void from_json(const json& j, VruMotionPredictionContainer& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const MovementList& p);
+Value to_json(const MovementList& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, MovementList& p);
+void from_json(const Value& j, MovementList& p);
 
 
 /*
@@ -1819,9 +1832,9 @@ void from_json(const json& j, MovementList& p);
 *   From DSRC-REGION-noCircular - File DSRC_REGION_noCircular.asn
 */
 
-void to_json(json& j, const NodeSetXY& p);
+Value to_json(const NodeSetXY& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, NodeSetXY& p);
+void from_json(const Value& j, NodeSetXY& p);
 
 
 /*
@@ -1829,9 +1842,9 @@ void from_json(const json& j, NodeSetXY& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const StationDataContainer& p);
+Value to_json(const StationDataContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, StationDataContainer& p);
+void from_json(const Value& j, StationDataContainer& p);
 
 
 /*
@@ -1839,9 +1852,9 @@ void from_json(const json& j, StationDataContainer& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const PerceivedObject& p);
+Value to_json(const PerceivedObject& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, PerceivedObject& p);
+void from_json(const Value& j, PerceivedObject& p);
 
 
 /*
@@ -1849,9 +1862,9 @@ void from_json(const json& j, PerceivedObject& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const AreaPolygon& p);
+Value to_json(const AreaPolygon& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, AreaPolygon& p);
+void from_json(const Value& j, AreaPolygon& p);
 
 
 /*
@@ -1859,9 +1872,9 @@ void from_json(const json& j, AreaPolygon& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const FreeSpaceArea& p);
+Value to_json(const FreeSpaceArea& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, FreeSpaceArea& p);
+void from_json(const Value& j, FreeSpaceArea& p);
 
 
 /*
@@ -1869,9 +1882,9 @@ void from_json(const json& j, FreeSpaceArea& p);
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const CoopAwareness& p);
+Value to_json(const CoopAwareness& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, CoopAwareness& p);
+void from_json(const Value& j, CoopAwareness& p);
 
 
 /*
@@ -1879,9 +1892,9 @@ void from_json(const json& j, CoopAwareness& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruLanePosition& p);
+Value to_json(const VruLanePosition& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, VruLanePosition& p);
+void from_json(const Value& j, VruLanePosition& p);
 
 
 /*
@@ -1889,9 +1902,9 @@ void from_json(const json& j, VruLanePosition& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const ClusterBoundingBoxShape& p);
+Value to_json(const ClusterBoundingBoxShape& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, ClusterBoundingBoxShape& p);
+void from_json(const Value& j, ClusterBoundingBoxShape& p);
 
 
 /*
@@ -1899,9 +1912,9 @@ void from_json(const json& j, ClusterBoundingBoxShape& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const IntersectionState& p);
+Value to_json(const IntersectionState& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, IntersectionState& p);
+void from_json(const Value& j, IntersectionState& p);
 
 
 /*
@@ -1909,9 +1922,9 @@ void from_json(const json& j, IntersectionState& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const IntersectionStateList& p);
+Value to_json(const IntersectionStateList& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, IntersectionStateList& p);
+void from_json(const Value& j, IntersectionStateList& p);
 
 
 /*
@@ -1919,9 +1932,9 @@ void from_json(const json& j, IntersectionStateList& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const NodeListXY& p);
+Value to_json(const NodeListXY& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, NodeListXY& p);
+void from_json(const Value& j, NodeListXY& p);
 
 
 /*
@@ -1929,9 +1942,9 @@ void from_json(const json& j, NodeListXY& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const PerceivedObjectContainer_t& p);
+Value to_json(const PerceivedObjectContainer_t& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, PerceivedObjectContainer_t& p);
+void from_json(const Value& j, PerceivedObjectContainer_t& p);
 
 
 /*
@@ -1939,9 +1952,9 @@ void from_json(const json& j, PerceivedObjectContainer_t& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const DetectionArea& p);
+Value to_json(const DetectionArea& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, DetectionArea& p);
+void from_json(const Value& j, DetectionArea& p);
 
 
 /*
@@ -1949,9 +1962,9 @@ void from_json(const json& j, DetectionArea& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const FreeSpaceAddendum& p);
+Value to_json(const FreeSpaceAddendum& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, FreeSpaceAddendum& p);
+void from_json(const Value& j, FreeSpaceAddendum& p);
 
 
 /*
@@ -1959,9 +1972,9 @@ void from_json(const json& j, FreeSpaceAddendum& p);
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-void to_json(json& j, const CAM& p);
+Value to_json(const CAM& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, CAM& p);
+void from_json(const Value& j, CAM& p);
 
 
 /*
@@ -1969,9 +1982,9 @@ void from_json(const json& j, CAM& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruHighFrequencyContainer& p);
+Value to_json(const VruHighFrequencyContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, VruHighFrequencyContainer& p);
+void from_json(const Value& j, VruHighFrequencyContainer& p);
 
 
 /*
@@ -1979,9 +1992,9 @@ void from_json(const json& j, VruHighFrequencyContainer& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruClusterInformationContainer& p);
+Value to_json(const VruClusterInformationContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, VruClusterInformationContainer& p);
+void from_json(const Value& j, VruClusterInformationContainer& p);
 
 
 /*
@@ -1989,9 +2002,9 @@ void from_json(const json& j, VruClusterInformationContainer& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const SPAT& p);
+Value to_json(const SPAT& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, SPAT& p);
+void from_json(const Value& j, SPAT& p);
 
 
 /*
@@ -1999,9 +2012,9 @@ void from_json(const json& j, SPAT& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const GenericLane& p);
+Value to_json(const GenericLane& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, GenericLane& p);
+void from_json(const Value& j, GenericLane& p);
 
 
 /*
@@ -2009,9 +2022,9 @@ void from_json(const json& j, GenericLane& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const LaneList& p);
+Value to_json(const LaneList& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, LaneList& p);
+void from_json(const Value& j, LaneList& p);
 
 
 /*
@@ -2019,9 +2032,9 @@ void from_json(const json& j, LaneList& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const RoadLaneSetList& p);
+Value to_json(const RoadLaneSetList& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, RoadLaneSetList& p);
+void from_json(const Value& j, RoadLaneSetList& p);
 
 
 /*
@@ -2029,9 +2042,9 @@ void from_json(const json& j, RoadLaneSetList& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const RoadSegment& p);
+Value to_json(const RoadSegment& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, RoadSegment& p);
+void from_json(const Value& j, RoadSegment& p);
 
 
 /*
@@ -2039,9 +2052,9 @@ void from_json(const json& j, RoadSegment& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const RoadSegmentList& p);
+Value to_json(const RoadSegmentList& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, RoadSegmentList& p);
+void from_json(const Value& j, RoadSegmentList& p);
 
 
 /*
@@ -2049,9 +2062,9 @@ void from_json(const json& j, RoadSegmentList& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const SensorInformation& p);
+Value to_json(const SensorInformation& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, SensorInformation& p);
+void from_json(const Value& j, SensorInformation& p);
 
 
 /*
@@ -2059,9 +2072,9 @@ void from_json(const json& j, SensorInformation& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const FreeSpaceAddendumContainer& p);
+Value to_json(const FreeSpaceAddendumContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, FreeSpaceAddendumContainer& p);
+void from_json(const Value& j, FreeSpaceAddendumContainer& p);
 
 
 /*
@@ -2069,9 +2082,9 @@ void from_json(const json& j, FreeSpaceAddendumContainer& p);
 *   From SPATEM-PDU-Descriptions - File TS103301v211-SPATEM.asn
 */
 
-void to_json(json& j, const SPATEM& p);
+Value to_json(const SPATEM& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, SPATEM& p);
+void from_json(const Value& j, SPATEM& p);
 
 
 /*
@@ -2079,9 +2092,9 @@ void from_json(const json& j, SPATEM& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VamParameters& p);
+Value to_json(const VamParameters& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, VamParameters& p);
+void from_json(const Value& j, VamParameters& p);
 
 
 /*
@@ -2089,9 +2102,9 @@ void from_json(const json& j, VamParameters& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const IntersectionGeometry& p);
+Value to_json(const IntersectionGeometry& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, IntersectionGeometry& p);
+void from_json(const Value& j, IntersectionGeometry& p);
 
 
 /*
@@ -2099,9 +2112,9 @@ void from_json(const json& j, IntersectionGeometry& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const IntersectionGeometryList& p);
+Value to_json(const IntersectionGeometryList& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, IntersectionGeometryList& p);
+void from_json(const Value& j, IntersectionGeometryList& p);
 
 
 /*
@@ -2109,9 +2122,9 @@ void from_json(const json& j, IntersectionGeometryList& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const SensorInformationContainer& p);
+Value to_json(const SensorInformationContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, SensorInformationContainer& p);
+void from_json(const Value& j, SensorInformationContainer& p);
 
 
 /*
@@ -2119,9 +2132,9 @@ void from_json(const json& j, SensorInformationContainer& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VruAwareness& p);
+Value to_json(const VruAwareness& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, VruAwareness& p);
+void from_json(const Value& j, VruAwareness& p);
 
 
 /*
@@ -2129,9 +2142,9 @@ void from_json(const json& j, VruAwareness& p);
 *   From DSRC - File DSRC.asn
 */
 
-void to_json(json& j, const MapData_t& p);
+Value to_json(const MapData_t& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, MapData_t& p);
+void from_json(const Value& j, MapData_t& p);
 
 
 /*
@@ -2139,9 +2152,9 @@ void from_json(const json& j, MapData_t& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const CpmParameters& p);
+Value to_json(const CpmParameters& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, CpmParameters& p);
+void from_json(const Value& j, CpmParameters& p);
 
 
 /*
@@ -2149,9 +2162,9 @@ void from_json(const json& j, CpmParameters& p);
 *   From MAPEM-PDU-Descriptions - File TS103301v211-MAPEM.asn
 */
 
-void to_json(json& j, const MAPEM& p);
+Value to_json(const MAPEM& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, MAPEM& p);
+void from_json(const Value& j, MAPEM& p);
 
 
 /*
@@ -2159,9 +2172,9 @@ void from_json(const json& j, MAPEM& p);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-void to_json(json& j, const VAM& p);
+Value to_json(const VAM& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, VAM& p);
+void from_json(const Value& j, VAM& p);
 
 
 /*
@@ -2169,9 +2182,9 @@ void from_json(const json& j, VAM& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const CollectivePerceptionMessage& p);
+Value to_json(const CollectivePerceptionMessage& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, CollectivePerceptionMessage& p);
+void from_json(const Value& j, CollectivePerceptionMessage& p);
 
 
 /*
@@ -2179,9 +2192,9 @@ void from_json(const json& j, CollectivePerceptionMessage& p);
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-void to_json(json& j, const CPM& p);
+Value to_json(const CPM& p, Document::AllocatorType& allocator);
 
-void from_json(const json& j, CPM& p);
+void from_json(const Value& j, CPM& p);
 
 
 #endif

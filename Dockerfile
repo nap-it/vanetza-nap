@@ -10,7 +10,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libboost-date-time-dev \
     libmosquittopp-dev \
     libboost-program-options-dev \
-    nlohmann-json3-dev/buster-backports \
     libboost-system-dev \
     libcrypto++-dev \
     libgeographic-dev \
@@ -34,6 +33,15 @@ RUN git submodule update --init
 RUN cmake -B_build -DCPACK_GENERATOR=DEB -DBUILD_SHARED_LIBS=ON
 RUN cmake --build _build --target package --parallel $(nproc)
 RUN dpkg -i _build/*.deb
+WORKDIR /tmp
+RUN git clone https://github.com/Tencent/rapidjson.git
+WORKDIR /tmp/rapidjson
+RUN git submodule update --init
+RUN mkdir -p build
+WORKDIR /tmp/rapidjson/build
+RUN cmake ..
+RUN make -j $(nproc)
+RUN make install
 WORKDIR /vanetza
 RUN rm -f CMakeCache.txt
 RUN cmake .
@@ -52,11 +60,12 @@ ENV TZ=Europe/Lisbon
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN printf "deb http://httpredir.debian.org/debian buster-backports main non-free\ndeb-src http://httpredir.debian.org/debian buster-backports main non-free" > /etc/apt/sources.list.d/backports.list
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    cmake/buster-backports \
     mosquitto \
     libboost-date-time1.67.0 \
     libmosquittopp1 \
     libboost-program-options1.67.0 \
-    nlohmann-json3-dev \
     libboost-system1.67.0 \
     libcrypto++ \
     libgeographic17 \
@@ -83,6 +92,10 @@ COPY --from=0 /root/go/src/dds-vanetza-service/main /root/go/src/dds-vanetza-ser
 COPY --from=0 /root/go/src/dds-vanetza-service/main /root/go/src/dds-vanetza-service/main
 COPY --from=0 /root/go/pkg/mod/github.com/rticommunity/ /root/go/pkg/mod/github.com/rticommunity/
 COPY --from=0 /tmp/prometheus-cpp/_build/*.deb /deps/
+COPY --from=0 /tmp/rapidjson/ /tmp/rapidjson/
+WORKDIR /tmp/rapidjson/build
+RUN make install
+WORKDIR /
 RUN dpkg -i /deps/*.deb
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
