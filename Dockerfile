@@ -34,14 +34,7 @@ RUN cmake -B_build -DCPACK_GENERATOR=DEB -DBUILD_SHARED_LIBS=ON
 RUN cmake --build _build --target package --parallel $(nproc)
 RUN dpkg -i _build/*.deb
 WORKDIR /tmp
-RUN git clone https://github.com/Tencent/rapidjson.git
-WORKDIR /tmp/rapidjson
-RUN git submodule update --init
-RUN mkdir -p build
-WORKDIR /tmp/rapidjson/build
-RUN cmake -DRAPIDJSON_BUILD_DOC=OFF -DRAPIDJSON_BUILD_EXAMPLES=OFF -DRAPIDJSON_BUILD_TESTS=OFF -DRAPIDJSON_BUILD_THIRDPARTY_GTEST=OFF  ..
-RUN make -j $(nproc)
-RUN make install
+RUN dpkg -i /vanetza/deps/*.deb
 WORKDIR /vanetza
 RUN rm -f CMakeCache.txt
 RUN cmake .
@@ -50,7 +43,10 @@ RUN cp /vanetza/bin/socktap /usr/local/bin/socktap
 RUN mkdir -p /root/go/src/dds-vanetza-service
 RUN cp -r /vanetza/tools/dds_service/* /root/go/src/dds-vanetza-service
 WORKDIR /root/go/src/dds-vanetza-service
-RUN GOMAXPROCS=1 GO111MODULE="on" go mod tidy
+RUN GOMAXPROCS=1 GO111MODULE="on" go mod tidy \
+    && rm -rf /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/osx-x64 \
+    && rm -rf /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/win-x64 \
+    && arch=$(uname -m); [ "$arch" != "arm" ] && rm -rf /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/linux-arm; [ "$arch" != "aarch64" ] && rm -rf /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/linux-arm64; [ "$arch" != "x86_64" ] && rm -rf /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/linux-x64
 RUN chmod +x build.sh
 RUN ./build.sh
 WORKDIR /vanetza
@@ -60,8 +56,6 @@ ENV TZ=Europe/Lisbon
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN printf "deb http://httpredir.debian.org/debian buster-backports main non-free\ndeb-src http://httpredir.debian.org/debian buster-backports main non-free" > /etc/apt/sources.list.d/backports.list
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    cmake/buster-backports \
     mosquitto \
     libboost-date-time1.67.0 \
     libmosquittopp1 \
@@ -81,7 +75,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     tcpdump \
     libcurl4-openssl-dev \
     ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /usr/lib/ocaml \
+    && rm -rf /usr/bin/ocam* \
+    && rm -rf /usr/lib/$(uname -m)-linux-gnu/perl \
+    && rm -rf /usr/lib/$(uname -m)-linux-gnu/perl-base \
+    && rm -rf /usr/lib/$(uname -m)-linux-gnu/libperl*\
+    && rm -rf /usr/share/perl \
+    && rm -rf /usr/bin/perl \
+    && rm -rf /usr/share/doc/*  
 WORKDIR /
 ENV EMBEDDED_MOSQUITTO_PORT=1883
 COPY --from=0 /vanetza/bin/socktap /usr/local/bin/socktap
@@ -92,10 +94,7 @@ COPY --from=0 /root/go/src/dds-vanetza-service/main /root/go/src/dds-vanetza-ser
 COPY --from=0 /root/go/src/dds-vanetza-service/main /root/go/src/dds-vanetza-service/main
 COPY --from=0 /root/go/pkg/mod/github.com/rticommunity/ /root/go/pkg/mod/github.com/rticommunity/
 COPY --from=0 /tmp/prometheus-cpp/_build/*.deb /deps/
-COPY --from=0 /tmp/rapidjson/ /tmp/rapidjson/
-WORKDIR /tmp/rapidjson/build
-RUN make install
-WORKDIR /
+COPY deps/rapidjson-dev_1.1.0-deb2-1_all.deb /deps/
 RUN dpkg -i /deps/*.deb
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]

@@ -4,7 +4,7 @@ IP_ADDR=$(ip -f inet addr show eth0 | awk '/inet / {print $2}')
 GW_ADDR=$(ip r | awk '/default / {print $3}')
 BR_ID=br0
 
-if [ $SUPPORT_MAC_BLOCKING = true ] ; then
+if [ -n "$SUPPORT_MAC_BLOCKING" ] && [ $SUPPORT_MAC_BLOCKING = true ] ; then
     brctl addbr $BR_ID
     ip a a $IP_ADDR dev $BR_ID
     ip a d  $IP_ADDR dev eth0
@@ -18,7 +18,7 @@ printf '#!/bin/sh\nebtables -D INPUT -s $1 -j DROP;' > /bin/unblock
 chmod +x /bin/block
 chmod +x /bin/unblock
 
-if [ $START_EMBEDDED_MOSQUITTO = true ] ; then
+if [ -n "$START_EMBEDDED_MOSQUITTO" ] && [ $START_EMBEDDED_MOSQUITTO = true ] ; then
     printf "\nlistener ${EMBEDDED_MOSQUITTO_PORT} 0.0.0.0\nallow_anonymous true\n\n" > mosquitto.conf
     /usr/sbin/mosquitto -c mosquitto.conf &>/dev/null &
     sleep 2
