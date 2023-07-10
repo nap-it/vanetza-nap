@@ -1,0 +1,19 @@
+name: unit tests
+on: [push, pull_request]
+jobs:
+  docker-unit-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ubuntu-version: [bionic, focal, jammy]
+    steps:
+      - uses: actions/checkout@v3
+      - run: >
+          docker build
+          --build-arg UBUNTU_VERSION=${{matrix.ubuntu-version}}
+          --tag vanetza/docker-ci:${{matrix.ubuntu-version}}
+          ${{github.workspace}}/tools/docker
+      - run: >
+          docker run --rm
+          -v${{github.workspace}}:/home/build-user/workspace:ro
+          vanetza/docker-ci:${{matrix.ubuntu-version}}

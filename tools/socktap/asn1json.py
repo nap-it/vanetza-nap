@@ -56,6 +56,10 @@ include = ["NodeXY", "VehicleID", "TransitVehicleStatus", "TransmissionAndSpeed"
 add_t = ["ObjectClass", "VehicleID", "VehicleLength", "VerticalAcceleration", "DeltaReferencePosition", "ItsPduHeader", "PtActivationData", "MapData",
          "NodeAttributeSetXY", "NodeXY", "DigitalMap", "TransmissionAndSpeed", "Position3D", "IntersectionAccessPoint", "ComputedLane", "AdvisorySpeedList", "ConnectionManeuverAssist", "DataParameters", "EnabledLaneList", "PerceivedObjectContainer"]
 
+replace_types = {
+    "Temperature": "ITS_Container_Temperature"
+}
+
 ignore_member_names = ['regional', 'shadowingApplies', 'expiryTime']
 ignore_member_types = ["PhoneNumber", "OpeningDaysHours", "MessageFrame", "DescriptiveName", "RegionalExtension", "Iso3833VehicleType",
                                                                                                 "REG-EXT-ID-AND-TYPE.&id", "REG-EXT-ID-AND-TYPE.&Type", 'MESSAGE-ID-AND-TYPE.&id', 'MESSAGE-ID-AND-TYPE.&Type', 'PreemptPriorityList', "WMInumber", "VDS", "TemporaryID"]
@@ -186,9 +190,10 @@ void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self
             
             if "optional" in m and m["optional"]:
                 needs_closing = True
+                type_name = m["type"] if m["type"] not in replace_types else replace_types[m["type"]]
                 member_str += 'if (j.HasMember("' + m["name"] + '")) { ' + \
                                 get_element_name(m, self, False)[1:] + \
-                                ' = vanetza::asn1::allocate<' + m["type"].replace("-", "_") + '_t>(); '
+                                ' = vanetza::asn1::allocate<' + type_name.replace("-", "_") + '_t>(); '
             
             if m["type"] not in bitstrings:
                 member_str += 'from_json(j["' + m["name"] + '"], '

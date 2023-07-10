@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
-*   Auto-generated from the asn1 directory by asn1json.py on 2023-07-04 08:47:31.103648
+*   Auto-generated from the asn1 directory by asn1json.py on 2023-07-10 10:11:09.799125
 */
 
 #include "asn1json.hpp"
@@ -3904,7 +3904,7 @@ void from_json(const Value& j, AlacarteContainer& p) {
     else { p.lanePosition=nullptr; }
     if (j.HasMember("impactReduction")) { p.impactReduction = vanetza::asn1::allocate<ImpactReductionContainer_t>(); from_json(j["impactReduction"], *(p.impactReduction)); }
     else { p.impactReduction=nullptr; }
-    if (j.HasMember("externalTemperature")) { p.externalTemperature = vanetza::asn1::allocate<Temperature_t>(); from_json(j["externalTemperature"], *(p.externalTemperature)); }
+    if (j.HasMember("externalTemperature")) { p.externalTemperature = vanetza::asn1::allocate<ITS_Container_Temperature_t>(); from_json(j["externalTemperature"], *(p.externalTemperature)); }
     else { p.externalTemperature=nullptr; }
     if (j.HasMember("roadWorks")) { p.roadWorks = vanetza::asn1::allocate<RoadWorksContainerExtended_t>(); from_json(j["roadWorks"], *(p.roadWorks)); }
     else { p.roadWorks=nullptr; }

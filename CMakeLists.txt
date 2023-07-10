@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.12)
 project(Vanetza VERSION 0.8)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
@@ -17,14 +17,15 @@ if(POLICY CMP0077)
 endif()
 
 # Vanetza makes extensive use of C++11
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED OFF)
 
 # Load conan configuration if available
 if(EXISTS ${PROJECT_BINARY_DIR}/conanbuildinfo.cmake)
     include(${PROJECT_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup(TARGETS)
     set(Boost_NO_SYSTEM_PATHS ON)
+    set(GeographicLib_PREFER_PACKAGE_CONFIG OFF)
 endif()
 
 # Look up threading library (usually pthread)
@@ -65,7 +66,6 @@ endforeach()
 include(CompatBoostTargets)
 find_package(CryptoPP 5.6.1 REQUIRED)
 find_package(GeographicLib 1.37 REQUIRED)
-find_package(Cohda MODULE QUIET)
 
 option(VANETZA_WITH_OPENSSL "Enable OpenSSL extensions" OFF)
 if (VANETZA_WITH_OPENSSL)
@@ -84,7 +84,6 @@ add_subdirectory(vanetza/gnss)
 add_subdirectory(vanetza/net)
 add_subdirectory(vanetza/security)
 add_subdirectory(vanetza/units)
-add_subdirectory(tools/proxy_fake_feed)
 add_subdirectory(tools/socktap)
 
 if(TARGET Cohda::headers)

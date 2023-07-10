@@ -39,7 +39,7 @@ WORKDIR /tmp/rapidjson
 RUN git submodule update --init
 RUN mkdir -p build
 WORKDIR /tmp/rapidjson/build
-RUN cmake ..
+RUN cmake -DRAPIDJSON_BUILD_DOC=OFF -DRAPIDJSON_BUILD_EXAMPLES=OFF -DRAPIDJSON_BUILD_TESTS=OFF -DRAPIDJSON_BUILD_THIRDPARTY_GTEST=OFF  ..
 RUN make -j $(nproc)
 RUN make install
 WORKDIR /vanetza
