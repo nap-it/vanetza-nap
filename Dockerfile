@@ -46,7 +46,7 @@ WORKDIR /root/go/src/dds-vanetza-service
 RUN GOMAXPROCS=1 GO111MODULE="on" go mod tidy \
     && rm -rf /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/osx-x64 \
     && rm -rf /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/win-x64 \
-    && arch=$(uname -m); [ "$arch" != "arm" ] && rm -rf /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/linux-arm; [ "$arch" != "aarch64" ] && rm -rf /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/linux-arm64; [ "$arch" != "x86_64" ] && rm -rf /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/linux-x64
+    && arch=$(uname -m); [ "$arch" != "arm" ] && rm -rf /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/linux-arm; [ "$arch" != "aarch64" ] && rm -rf /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/linux-arm64; [ "$arch" != "x86_64" ] && rm -rf /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/linux-x64; echo done
 RUN chmod +x build.sh
 RUN ./build.sh
 WORKDIR /vanetza
