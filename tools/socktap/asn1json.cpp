@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
-*   Auto-generated from the asn1 directory by asn1json.py on 2023-07-17 20:40:53.604128
+*   Auto-generated from the asn1 directory by asn1json.py on 2023-07-17 23:13:48.748452
 */
 
 #include "asn1json.hpp"
@@ -6345,6 +6345,198 @@ void from_json(const Value& j, NodeOffsetPointZ& p) {
 }
 
 /*
+*   ItsPOIHeader - Type SEQUENCE
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json(const ItsPOIHeader& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("poiType", to_json((p.poiType), allocator), allocator);
+    json.AddMember("timeStamp", to_json((p.timeStamp), allocator), allocator);
+    json.AddMember("relayCapable", to_json((p.relayCapable), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ItsPOIHeader& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["poiType"], (p.poiType));
+    from_json(j["timeStamp"], (p.timeStamp));
+    from_json(j["relayCapable"], (p.relayCapable));
+}
+
+
+
+/*
+*   ChargingSpotType - Type BIT STRING
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json_ChargingSpotType(const ChargingSpotType_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("standardChargeMode1", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("standardChargeMode2", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("standardOrFastChargeMode3", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("fastChargeWithExternalCharger", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("quickDrop", (bool) (*(p.buf + (sizeof(uint8_t) * (8 / 8))) & (1 << ((7 * ((8 / 8) + 1))-(8 % 8)))), allocator);
+    json.AddMember("inductiveChargeWhileStationary", (bool) (*(p.buf + (sizeof(uint8_t) * (12 / 8))) & (1 << ((7 * ((12 / 8) + 1))-(12 % 8)))), allocator);
+    json.AddMember("inductiveChargeWhileDriving", (bool) (*(p.buf + (sizeof(uint8_t) * (14 / 8))) & (1 << ((7 * ((14 / 8) + 1))-(14 % 8)))), allocator);
+    return json;
+}
+
+void from_json_ChargingSpotType(const Value& j, ChargingSpotType_t& p) {
+    ChargingSpotType_t* p_tmp = vanetza::asn1::allocate<ChargingSpotType_t>();
+    bool standardChargeMode1;
+    bool standardChargeMode2;
+    bool standardOrFastChargeMode3;
+    bool fastChargeWithExternalCharger;
+    bool quickDrop;
+    bool inductiveChargeWhileStationary;
+    bool inductiveChargeWhileDriving;
+    if (j.HasMember("standardChargeMode1")) from_json(j["standardChargeMode1"], (standardChargeMode1));
+    if (j.HasMember("standardChargeMode2")) from_json(j["standardChargeMode2"], (standardChargeMode2));
+    if (j.HasMember("standardOrFastChargeMode3")) from_json(j["standardOrFastChargeMode3"], (standardOrFastChargeMode3));
+    if (j.HasMember("fastChargeWithExternalCharger")) from_json(j["fastChargeWithExternalCharger"], (fastChargeWithExternalCharger));
+    if (j.HasMember("quickDrop")) from_json(j["quickDrop"], (quickDrop));
+    if (j.HasMember("inductiveChargeWhileStationary")) from_json(j["inductiveChargeWhileStationary"], (inductiveChargeWhileStationary));
+    if (j.HasMember("inductiveChargeWhileDriving")) from_json(j["inductiveChargeWhileDriving"], (inductiveChargeWhileDriving));
+    p_tmp->size = (7 / 8) + 1;
+    p_tmp->bits_unused = (7 % 8) != 0 ? 8 - (7 % 8) : 0;
+    p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+    *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+    if (standardChargeMode1) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
+    if (standardChargeMode2) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
+    if (standardOrFastChargeMode3) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 5);
+    if (fastChargeWithExternalCharger) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 4);
+    if (quickDrop) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 7);
+    if (inductiveChargeWhileStationary) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 3);
+    if (inductiveChargeWhileDriving) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 1);
+    p = *p_tmp;
+    delete p_tmp;
+}
+
+/*
+*   TypeOfReceptacle - Type BIT STRING
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json_TypeOfReceptacle(const TypeOfReceptacle_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    return json;
+}
+
+void from_json_TypeOfReceptacle(const Value& j, TypeOfReceptacle_t& p) {
+    TypeOfReceptacle_t* p_tmp = vanetza::asn1::allocate<TypeOfReceptacle_t>();
+    
+    
+    p_tmp->size = (0 / 8) + 1;
+    p_tmp->bits_unused = (0 % 8) != 0 ? 8 - (0 % 8) : 0;
+    p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+    *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+    
+    p = *p_tmp;
+    delete p_tmp;
+}
+
+/*
+*   SpotAvailability - Type SEQUENCE
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json(const SpotAvailability& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("maxWaitingTimeMinutes", to_json((p.maxWaitingTimeMinutes), allocator), allocator);
+    json.AddMember("blocking", to_json((p.blocking), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, SpotAvailability& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["maxWaitingTimeMinutes"], (p.maxWaitingTimeMinutes));
+    from_json(j["blocking"], (p.blocking));
+}
+
+
+
+/*
+*   Payment-ID - Type CHOICE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const Payment_ID& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == Payment_ID_PR_contractID) {
+        json.AddMember("contractID", to_json(p.choice.contractID, allocator), allocator);
+    } else if (p.present == Payment_ID_PR_externalIdentificationMeans) {
+        json.AddMember("externalIdentificationMeans", to_json(p.choice.externalIdentificationMeans, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, Payment_ID& p) {
+    if (j.HasMember("contractID")) {
+        p.present = Payment_ID_PR_contractID;
+        from_json(j["contractID"], p.choice.contractID);
+    } else if (j.HasMember("externalIdentificationMeans")) {
+        p.present = Payment_ID_PR_externalIdentificationMeans;
+        from_json(j["externalIdentificationMeans"], p.choice.externalIdentificationMeans);
+    } else {
+        p.present = Payment_ID_PR_NOTHING;
+    }
+}
+
+/*
+*   RechargingType - Type SEQUENCE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const RechargingType& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("rechargingMode", to_json((p.rechargingMode), allocator), allocator);
+    json.AddMember("powerSource", to_json((p.powerSource), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, RechargingType& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["rechargingMode"], (p.rechargingMode));
+    from_json(j["powerSource"], (p.powerSource));
+}
+
+
+
+/*
+*   SupportedPaymentTypes - Type BIT STRING
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json_SupportedPaymentTypes(const SupportedPaymentTypes_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("contract", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("externalIdentification", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    return json;
+}
+
+void from_json_SupportedPaymentTypes(const Value& j, SupportedPaymentTypes_t& p) {
+    SupportedPaymentTypes_t* p_tmp = vanetza::asn1::allocate<SupportedPaymentTypes_t>();
+    bool contract;
+    bool externalIdentification;
+    if (j.HasMember("contract")) from_json(j["contract"], (contract));
+    if (j.HasMember("externalIdentification")) from_json(j["externalIdentification"], (externalIdentification));
+    p_tmp->size = (2 / 8) + 1;
+    p_tmp->bits_unused = (2 % 8) != 0 ? 8 - (2 % 8) : 0;
+    p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+    *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+    if (contract) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
+    if (externalIdentification) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
+    p = *p_tmp;
+    delete p_tmp;
+}
+
+/*
 *   ReferencePosition - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
@@ -8880,6 +9072,253 @@ void from_json(const Value& j, OffsetPoint& p) {
 
 
 /*
+*   ParkingPlacesData - Type SEQUENCE OF
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json(const ParkingPlacesData& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const SpotAvailability_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ParkingPlacesData& p) {
+    ParkingPlacesData* p_tmp = vanetza::asn1::allocate<ParkingPlacesData>();
+    for (SizeType i = 0; i < j.Size(); i++)
+    {
+        const Value& item = j[i];
+        SpotAvailability_t *element = vanetza::asn1::allocate<SpotAvailability_t>();
+        from_json(item, *element);
+        asn_set_add(&(p_tmp->list), element);
+    }
+    p = *p_tmp;
+    delete p_tmp;
+}
+
+/*
+*   PreReservationRequestMessage - Type SEQUENCE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const PreReservationRequestMessage& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("evse-ID", to_json((p.evse_ID), allocator), allocator);
+    json.AddMember("arrivalTime", to_json((p.arrivalTime), allocator), allocator);
+    json.AddMember("rechargingType", to_json((p.rechargingType), allocator), allocator);
+    if (p.departureTime != 0) json.AddMember("departureTime", to_json(*(p.departureTime), allocator), allocator);
+    if (p.batteryType != 0) json.AddMember("batteryType", to_json(*(p.batteryType), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, PreReservationRequestMessage& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["evse-ID"], (p.evse_ID));
+    from_json(j["arrivalTime"], (p.arrivalTime));
+    if (j.HasMember("departureTime")) { p.departureTime = vanetza::asn1::allocate<TimestampUTC_t>(); from_json(j["departureTime"], *(p.departureTime)); }
+    else { p.departureTime=nullptr; }
+    from_json(j["rechargingType"], (p.rechargingType));
+    if (j.HasMember("batteryType")) { p.batteryType = vanetza::asn1::allocate<BatteryType_t>(); from_json(j["batteryType"], *(p.batteryType)); }
+    else { p.batteryType=nullptr; }
+}
+
+
+
+/*
+*   PreReservationResponseMessage - Type SEQUENCE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const PreReservationResponseMessage& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("preReservation-ID", to_json((p.preReservation_ID), allocator), allocator);
+    json.AddMember("availabilityStatus", to_json((p.availabilityStatus), allocator), allocator);
+    json.AddMember("preReservationExpirationTime", to_json((p.preReservationExpirationTime), allocator), allocator);
+    json.AddMember("supportedPaymentTypes", to_json_SupportedPaymentTypes((p.supportedPaymentTypes), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, PreReservationResponseMessage& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["preReservation-ID"], (p.preReservation_ID));
+    from_json(j["availabilityStatus"], (p.availabilityStatus));
+    from_json(j["preReservationExpirationTime"], (p.preReservationExpirationTime));
+    from_json_SupportedPaymentTypes(j["supportedPaymentTypes"],(p.supportedPaymentTypes));
+}
+
+
+
+/*
+*   ReservationRequestMessage - Type SEQUENCE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const ReservationRequestMessage& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("currentTime", to_json((p.currentTime), allocator), allocator);
+    json.AddMember("preReservation-ID", to_json((p.preReservation_ID), allocator), allocator);
+    json.AddMember("arrivalTime", to_json((p.arrivalTime), allocator), allocator);
+    json.AddMember("eAmount", to_json((p.eAmount), allocator), allocator);
+    json.AddMember("eAmountMin", to_json((p.eAmountMin), allocator), allocator);
+    json.AddMember("paymentType", to_json((p.paymentType), allocator), allocator);
+    json.AddMember("payment-ID", to_json((p.payment_ID), allocator), allocator);
+    if (p.departureTime != 0) json.AddMember("departureTime", to_json(*(p.departureTime), allocator), allocator);
+    if (p.secondPayment_ID != 0) json.AddMember("secondPayment-ID", to_json(*(p.secondPayment_ID), allocator), allocator);
+    if (p.pairing_ID != 0) json.AddMember("pairing-ID", to_json(*(p.pairing_ID), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, ReservationRequestMessage& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["currentTime"], (p.currentTime));
+    from_json(j["preReservation-ID"], (p.preReservation_ID));
+    from_json(j["arrivalTime"], (p.arrivalTime));
+    if (j.HasMember("departureTime")) { p.departureTime = vanetza::asn1::allocate<TimestampUTC_t>(); from_json(j["departureTime"], *(p.departureTime)); }
+    else { p.departureTime=nullptr; }
+    from_json(j["eAmount"], (p.eAmount));
+    from_json(j["eAmountMin"], (p.eAmountMin));
+    from_json(j["paymentType"], (p.paymentType));
+    from_json(j["payment-ID"], (p.payment_ID));
+    if (j.HasMember("secondPayment-ID")) { p.secondPayment_ID = vanetza::asn1::allocate<Payment_ID_t>(); from_json(j["secondPayment-ID"], *(p.secondPayment_ID)); }
+    else { p.secondPayment_ID=nullptr; }
+    if (j.HasMember("pairing-ID")) { p.pairing_ID = vanetza::asn1::allocate<Pairing_ID_t>(); from_json(j["pairing-ID"], *(p.pairing_ID)); }
+    else { p.pairing_ID=nullptr; }
+}
+
+
+
+/*
+*   ReservationResponseMessage - Type SEQUENCE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const ReservationResponseMessage& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("reservationResponseCode", to_json((p.reservationResponseCode), allocator), allocator);
+    json.AddMember("expirationTime", to_json((p.expirationTime), allocator), allocator);
+    if (p.reservation_ID != 0) json.AddMember("reservation-ID", to_json(*(p.reservation_ID), allocator), allocator);
+    if (p.reservation_Password != 0) json.AddMember("reservation-Password", to_json(*(p.reservation_Password), allocator), allocator);
+    if (p.stationDetails != 0) json.AddMember("stationDetails", to_json(*(p.stationDetails), allocator), allocator);
+    if (p.chargingSpotLabel != 0) json.AddMember("chargingSpotLabel", to_json(*(p.chargingSpotLabel), allocator), allocator);
+    if (p.freeCancelTimeLimit != 0) json.AddMember("freeCancelTimeLimit", to_json(*(p.freeCancelTimeLimit), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, ReservationResponseMessage& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["reservationResponseCode"], (p.reservationResponseCode));
+    if (j.HasMember("reservation-ID")) { p.reservation_ID = vanetza::asn1::allocate<Reservation_ID_t>(); from_json(j["reservation-ID"], *(p.reservation_ID)); }
+    else { p.reservation_ID=nullptr; }
+    if (j.HasMember("reservation-Password")) { p.reservation_Password = vanetza::asn1::allocate<Reservation_Password_t>(); from_json(j["reservation-Password"], *(p.reservation_Password)); }
+    else { p.reservation_Password=nullptr; }
+    if (j.HasMember("stationDetails")) { p.stationDetails = vanetza::asn1::allocate<StationDetails_t>(); from_json(j["stationDetails"], *(p.stationDetails)); }
+    else { p.stationDetails=nullptr; }
+    if (j.HasMember("chargingSpotLabel")) { p.chargingSpotLabel = vanetza::asn1::allocate<ChargingSpotLabel_t>(); from_json(j["chargingSpotLabel"], *(p.chargingSpotLabel)); }
+    else { p.chargingSpotLabel=nullptr; }
+    from_json(j["expirationTime"], (p.expirationTime));
+    if (j.HasMember("freeCancelTimeLimit")) { p.freeCancelTimeLimit = vanetza::asn1::allocate<TimestampUTC_t>(); from_json(j["freeCancelTimeLimit"], *(p.freeCancelTimeLimit)); }
+    else { p.freeCancelTimeLimit=nullptr; }
+}
+
+
+
+/*
+*   CancellationRequestMessage - Type SEQUENCE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const CancellationRequestMessage& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("reservation-ID", to_json((p.reservation_ID), allocator), allocator);
+    json.AddMember("reservation-Password", to_json((p.reservation_Password), allocator), allocator);
+    json.AddMember("currentTime", to_json((p.currentTime), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, CancellationRequestMessage& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["reservation-ID"], (p.reservation_ID));
+    from_json(j["reservation-Password"], (p.reservation_Password));
+    from_json(j["currentTime"], (p.currentTime));
+}
+
+
+
+/*
+*   CancellationResponseMessage - Type SEQUENCE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const CancellationResponseMessage& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("reservation-ID", to_json((p.reservation_ID), allocator), allocator);
+    json.AddMember("cancellationResponseCode", to_json((p.cancellationResponseCode), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, CancellationResponseMessage& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["reservation-ID"], (p.reservation_ID));
+    from_json(j["cancellationResponseCode"], (p.cancellationResponseCode));
+}
+
+
+
+/*
+*   UpdateRequestMessage - Type SEQUENCE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const UpdateRequestMessage& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("reservation-ID", to_json((p.reservation_ID), allocator), allocator);
+    json.AddMember("reservation-Password", to_json((p.reservation_Password), allocator), allocator);
+    json.AddMember("updatedArrivalTime", to_json((p.updatedArrivalTime), allocator), allocator);
+    json.AddMember("updatedDepartureTime", to_json((p.updatedDepartureTime), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, UpdateRequestMessage& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["reservation-ID"], (p.reservation_ID));
+    from_json(j["reservation-Password"], (p.reservation_Password));
+    from_json(j["updatedArrivalTime"], (p.updatedArrivalTime));
+    from_json(j["updatedDepartureTime"], (p.updatedDepartureTime));
+}
+
+
+
+/*
+*   UpdateResponseMessage - Type SEQUENCE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const UpdateResponseMessage& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("reservation-ID", to_json((p.reservation_ID), allocator), allocator);
+    json.AddMember("updateResponseCode", to_json((p.updateResponseCode), allocator), allocator);
+    if (p.chargingSpotLabel != 0) json.AddMember("chargingSpotLabel", to_json(*(p.chargingSpotLabel), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, UpdateResponseMessage& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["reservation-ID"], (p.reservation_ID));
+    from_json(j["updateResponseCode"], (p.updateResponseCode));
+    if (j.HasMember("chargingSpotLabel")) { p.chargingSpotLabel = vanetza::asn1::allocate<ChargingSpotLabel_t>(); from_json(j["chargingSpotLabel"], *(p.chargingSpotLabel)); }
+    else { p.chargingSpotLabel=nullptr; }
+}
+
+
+
+/*
 *   ConnectionManeuverAssist-addGrpC - Type SEQUENCE
 *   From AddGrpC - File DSRC.asn
 */
@@ -9862,6 +10301,91 @@ void from_json(const Value& j, ObjectClassDescription& p) {
 }
 
 /*
+*   ItsChargingSpotDataElements - Type SEQUENCE
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json(const ItsChargingSpotDataElements& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("type", to_json_ChargingSpotType((p.type), allocator), allocator);
+    json.AddMember("typeOfReceptacle", to_json_TypeOfReceptacle((p.typeOfReceptacle), allocator), allocator);
+    json.AddMember("energyAvailability", to_json((p.energyAvailability), allocator), allocator);
+    if (p.evEquipmentID != 0) json.AddMember("evEquipmentID", to_json(*(p.evEquipmentID), allocator), allocator);
+    if (p.parkingPlacesData != 0) json.AddMember("parkingPlacesData", to_json(*(p.parkingPlacesData), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, ItsChargingSpotDataElements& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json_ChargingSpotType(j["type"],(p.type));
+    if (j.HasMember("evEquipmentID")) { p.evEquipmentID = vanetza::asn1::allocate<UTF8String_t>(); from_json(j["evEquipmentID"], *(p.evEquipmentID)); }
+    else { p.evEquipmentID=nullptr; }
+    from_json_TypeOfReceptacle(j["typeOfReceptacle"],(p.typeOfReceptacle));
+    from_json(j["energyAvailability"], (p.energyAvailability));
+    if (j.HasMember("parkingPlacesData")) { p.parkingPlacesData = vanetza::asn1::allocate<ParkingPlacesData_t>(); from_json(j["parkingPlacesData"], *(p.parkingPlacesData)); }
+    else { p.parkingPlacesData=nullptr; }
+}
+
+
+
+/*
+*   EV-RSR-MessageBody - Type CHOICE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const EV_RSR_MessageBody& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == EV_RSR_MessageBody_PR_preReservationRequestMessage) {
+        json.AddMember("preReservationRequestMessage", to_json(p.choice.preReservationRequestMessage, allocator), allocator);
+    } else if (p.present == EV_RSR_MessageBody_PR_preReservationResponseMessage) {
+        json.AddMember("preReservationResponseMessage", to_json(p.choice.preReservationResponseMessage, allocator), allocator);
+    } else if (p.present == EV_RSR_MessageBody_PR_reservationRequestMessage) {
+        json.AddMember("reservationRequestMessage", to_json(p.choice.reservationRequestMessage, allocator), allocator);
+    } else if (p.present == EV_RSR_MessageBody_PR_reservationResponseMessage) {
+        json.AddMember("reservationResponseMessage", to_json(p.choice.reservationResponseMessage, allocator), allocator);
+    } else if (p.present == EV_RSR_MessageBody_PR_cancellationRequestMessage) {
+        json.AddMember("cancellationRequestMessage", to_json(p.choice.cancellationRequestMessage, allocator), allocator);
+    } else if (p.present == EV_RSR_MessageBody_PR_cancellationResponseMessage) {
+        json.AddMember("cancellationResponseMessage", to_json(p.choice.cancellationResponseMessage, allocator), allocator);
+    } else if (p.present == EV_RSR_MessageBody_PR_updateRequestMessage) {
+        json.AddMember("updateRequestMessage", to_json(p.choice.updateRequestMessage, allocator), allocator);
+    } else if (p.present == EV_RSR_MessageBody_PR_updateResponseMessage) {
+        json.AddMember("updateResponseMessage", to_json(p.choice.updateResponseMessage, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, EV_RSR_MessageBody& p) {
+    if (j.HasMember("preReservationRequestMessage")) {
+        p.present = EV_RSR_MessageBody_PR_preReservationRequestMessage;
+        from_json(j["preReservationRequestMessage"], p.choice.preReservationRequestMessage);
+    } else if (j.HasMember("preReservationResponseMessage")) {
+        p.present = EV_RSR_MessageBody_PR_preReservationResponseMessage;
+        from_json(j["preReservationResponseMessage"], p.choice.preReservationResponseMessage);
+    } else if (j.HasMember("reservationRequestMessage")) {
+        p.present = EV_RSR_MessageBody_PR_reservationRequestMessage;
+        from_json(j["reservationRequestMessage"], p.choice.reservationRequestMessage);
+    } else if (j.HasMember("reservationResponseMessage")) {
+        p.present = EV_RSR_MessageBody_PR_reservationResponseMessage;
+        from_json(j["reservationResponseMessage"], p.choice.reservationResponseMessage);
+    } else if (j.HasMember("cancellationRequestMessage")) {
+        p.present = EV_RSR_MessageBody_PR_cancellationRequestMessage;
+        from_json(j["cancellationRequestMessage"], p.choice.cancellationRequestMessage);
+    } else if (j.HasMember("cancellationResponseMessage")) {
+        p.present = EV_RSR_MessageBody_PR_cancellationResponseMessage;
+        from_json(j["cancellationResponseMessage"], p.choice.cancellationResponseMessage);
+    } else if (j.HasMember("updateRequestMessage")) {
+        p.present = EV_RSR_MessageBody_PR_updateRequestMessage;
+        from_json(j["updateRequestMessage"], p.choice.updateRequestMessage);
+    } else if (j.HasMember("updateResponseMessage")) {
+        p.present = EV_RSR_MessageBody_PR_updateResponseMessage;
+        from_json(j["updateResponseMessage"], p.choice.updateResponseMessage);
+    } else {
+        p.present = EV_RSR_MessageBody_PR_NOTHING;
+    }
+}
+
+/*
 *   SignalRequestMessage - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -10656,6 +11180,55 @@ void from_json(const Value& j, SREM& p) {
 
 
 /*
+*   ItsChargingSpots - Type SEQUENCE OF
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json(const ItsChargingSpots& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const ItsChargingSpotDataElements_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ItsChargingSpots& p) {
+    ItsChargingSpots* p_tmp = vanetza::asn1::allocate<ItsChargingSpots>();
+    for (SizeType i = 0; i < j.Size(); i++)
+    {
+        const Value& item = j[i];
+        ItsChargingSpotDataElements_t *element = vanetza::asn1::allocate<ItsChargingSpotDataElements_t>();
+        from_json(item, *element);
+        asn_set_add(&(p_tmp->list), element);
+    }
+    p = *p_tmp;
+    delete p_tmp;
+}
+
+/*
+*   EV-RSR - Type SEQUENCE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const EV_RSR& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("header", to_json((p.header), allocator), allocator);
+    json.AddMember("messageBody", to_json((p.messageBody), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, EV_RSR& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["header"], (p.header));
+    from_json(j["messageBody"], (p.messageBody));
+}
+
+
+
+/*
 *   SPAT - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -11325,6 +11898,55 @@ void from_json(const Value& j, SSEM& p) {
 
 
 /*
+*   ItsChargingStationData - Type SEQUENCE
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json(const ItsChargingStationData& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("chargingStationID", to_json((p.chargingStationID), allocator), allocator);
+    json.AddMember("chargingStationLocation", to_json((p.chargingStationLocation), allocator), allocator);
+    json.AddMember("accessibility", to_json((p.accessibility), allocator), allocator);
+    json.AddMember("openingDaysHours", to_json((p.openingDaysHours), allocator), allocator);
+    json.AddMember("pricing", to_json((p.pricing), allocator), allocator);
+    json.AddMember("chargingSpotsAvailable", to_json((p.chargingSpotsAvailable), allocator), allocator);
+    if (p.utilityDistributorId != 0) json.AddMember("utilityDistributorId", to_json(*(p.utilityDistributorId), allocator), allocator);
+    if (p.providerID != 0) json.AddMember("providerID", to_json(*(p.providerID), allocator), allocator);
+    if (p.address != 0) json.AddMember("address", to_json(*(p.address), allocator), allocator);
+    if (p.phoneNumber != 0) json.AddMember("phoneNumber", to_json(*(p.phoneNumber), allocator), allocator);
+    if (p.digitalMap != 0) json.AddMember("digitalMap", to_json(*(p.digitalMap), allocator), allocator);
+    if (p.bookingContactInfo != 0) json.AddMember("bookingContactInfo", to_json(*(p.bookingContactInfo), allocator), allocator);
+    if (p.payment != 0) json.AddMember("payment", to_json(*(p.payment), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, ItsChargingStationData& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["chargingStationID"], (p.chargingStationID));
+    if (j.HasMember("utilityDistributorId")) { p.utilityDistributorId = vanetza::asn1::allocate<UTF8String_t>(); from_json(j["utilityDistributorId"], *(p.utilityDistributorId)); }
+    else { p.utilityDistributorId=nullptr; }
+    if (j.HasMember("providerID")) { p.providerID = vanetza::asn1::allocate<UTF8String_t>(); from_json(j["providerID"], *(p.providerID)); }
+    else { p.providerID=nullptr; }
+    from_json(j["chargingStationLocation"], (p.chargingStationLocation));
+    if (j.HasMember("address")) { p.address = vanetza::asn1::allocate<UTF8String_t>(); from_json(j["address"], *(p.address)); }
+    else { p.address=nullptr; }
+    if (j.HasMember("phoneNumber")) { p.phoneNumber = vanetza::asn1::allocate<NumericString_t>(); from_json(j["phoneNumber"], *(p.phoneNumber)); }
+    else { p.phoneNumber=nullptr; }
+    from_json(j["accessibility"], (p.accessibility));
+    if (j.HasMember("digitalMap")) { p.digitalMap = vanetza::asn1::allocate<DigitalMap_t>(); from_json(j["digitalMap"], *(p.digitalMap)); }
+    else { p.digitalMap=nullptr; }
+    from_json(j["openingDaysHours"], (p.openingDaysHours));
+    from_json(j["pricing"], (p.pricing));
+    if (j.HasMember("bookingContactInfo")) { p.bookingContactInfo = vanetza::asn1::allocate<UTF8String_t>(); from_json(j["bookingContactInfo"], *(p.bookingContactInfo)); }
+    else { p.bookingContactInfo=nullptr; }
+    if (j.HasMember("payment")) { p.payment = vanetza::asn1::allocate<UTF8String_t>(); from_json(j["payment"], *(p.payment)); }
+    else { p.payment=nullptr; }
+    from_json(j["chargingSpotsAvailable"], (p.chargingSpotsAvailable));
+}
+
+
+
+/*
 *   MapData - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -11682,6 +12304,55 @@ void from_json(const Value& j, MAPEM& p) {
 
 
 /*
+*   ItsEVCSNData::ItsEVCSNData__chargingStationsData - Type SEQUENCE OF
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json(const ItsEVCSNData::ItsEVCSNData__chargingStationsData& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const ItsChargingStationData_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ItsEVCSNData::ItsEVCSNData__chargingStationsData& p) {
+    ItsEVCSNData::ItsEVCSNData__chargingStationsData* p_tmp = vanetza::asn1::allocate<ItsEVCSNData::ItsEVCSNData__chargingStationsData>();
+    for (SizeType i = 0; i < j.Size(); i++)
+    {
+        const Value& item = j[i];
+        ItsChargingStationData_t *element = vanetza::asn1::allocate<ItsChargingStationData_t>();
+        from_json(item, *element);
+        asn_set_add(&(p_tmp->list), element);
+    }
+    p = *p_tmp;
+    delete p_tmp;
+}
+
+/*
+*   ItsEVCSNData - Type SEQUENCE
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json(const ItsEVCSNData& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("totalNumberOfStations", to_json((p.totalNumberOfStations), allocator), allocator);
+    json.AddMember("chargingStationsData", to_json((p.chargingStationsData), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ItsEVCSNData& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["totalNumberOfStations"], (p.totalNumberOfStations));
+    from_json(j["chargingStationsData"], (p.chargingStationsData));
+}
+
+
+
+/*
 *   GddStructure - Type SEQUENCE
 *   From GDD - File ISO14823.asn
 */
@@ -11882,6 +12553,27 @@ void from_json(const Value& j, SensorInformationContainer& p) {
 }
 
 /*
+*   EVChargingSpotNotificationPOIMessage - Type SEQUENCE
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json(const EVChargingSpotNotificationPOIMessage& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("poiHeader", to_json((p.poiHeader), allocator), allocator);
+    json.AddMember("evcsnData", to_json((p.evcsnData), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, EVChargingSpotNotificationPOIMessage& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["poiHeader"], (p.poiHeader));
+    from_json(j["evcsnData"], (p.evcsnData));
+}
+
+
+
+/*
 *   GeneralIviContainer - Type SEQUENCE OF
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -11994,6 +12686,27 @@ void from_json(const Value& j, CpmParameters& p) {
     if (j.HasMember("freeSpaceAddendumContainer")) { p.freeSpaceAddendumContainer = vanetza::asn1::allocate<FreeSpaceAddendumContainer_t>(); from_json(j["freeSpaceAddendumContainer"], *(p.freeSpaceAddendumContainer)); }
     else { p.freeSpaceAddendumContainer=nullptr; }
     from_json(j["numberOfPerceivedObjects"], (p.numberOfPerceivedObjects));
+}
+
+
+
+/*
+*   EvcsnPdu - Type SEQUENCE
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json(const EvcsnPdu& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("header", to_json((p.header), allocator), allocator);
+    json.AddMember("evcsn", to_json((p.evcsn), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, EvcsnPdu& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["header"], (p.header));
+    from_json(j["evcsn"], (p.evcsn));
 }
 
 

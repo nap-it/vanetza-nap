@@ -13,8 +13,9 @@ from math import pow
 base_dir = "../../asn1"
 asn1_files = ["TS102894-2v131-CDD.asn", "DSRC.asn", "ISO14816.asn", "ISO14823.asn", "ISO14906-0-6.asn", "ISO14906-1-7.asn", "ISO17419.asn", 
               "ISO24534-3.asn", "ISO19321IVIv2.asn", "EN302637-2v141-CAM.asn", "EN302637-3v131-DENM.asn", "TS103300-3v211-VAM.asn", 
-              "DSRC_REGION_noCircular.asn", "TR103562v211-CPM.asn", "TS103301v211-MAPEM.asn", 
-              "TS103301v211-SPATEM.asn", "TS103301v211-IVIM.asn", "TS103301v211-SREM.asn", "TS103301v211-SSEM.asn"]
+              "DSRC_REGION_noCircular.asn", "TR103562v211-CPM.asn", "TS103301v211-MAPEM.asn", "TS103301v211-SPATEM.asn", 
+              "TS103301v211-IVIM.asn", "TS103301v211-SREM.asn", "TS103301v211-SSEM.asn", "EVCSN-PDU-Descriptions.asn", 
+              "EV-RSR-PDU-Descriptions.asn"]
 
 default_types = ["INTEGER", "BOOLEAN", "ENUMERATED", "BIT STRING", "IA5String",
                  "SEQUENCE", "OCTET STRING", "SEQUENCE OF", "UTF8String", "NumericString", "CHOICE", "VisibleString"]
@@ -69,7 +70,9 @@ add_t = ["ObjectClass", "VehicleID", "VehicleLength", "VerticalAcceleration", "D
          "IntersectionAccessPoint", "ComputedLane", "AdvisorySpeedList", "ConnectionManeuverAssist", "DataParameters", 
          "EnabledLaneList", "PerceivedObjectContainer", "RTCMmessage", "FreightContainerData", "LPN", "SignedValue",
          "PurseBalance", "ReceiptContract", "SessionClass", "SessionLocation", "DateAndTime", "ItsStationPosition", 
-         "SignalHeadLocation", "ItsStationPositionList", "SignalHeadLocationList"]
+         "SignalHeadLocation", "ItsStationPositionList", "SignalHeadLocationList", "BatteryType", "ChargingSpotLabel",
+         "ContractID", "ExternalIdentificationMeans", "Pairing-ID", "Reservation-ID", "Reservation-Password", 
+         "StationDetails"]
 
 replace_types = {
     ("Temperature", "TS102894-2v131-CDD.asn"): "ITS_Container_Temperature",
@@ -480,9 +483,9 @@ class ASN1TODO:
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name) + """& p, Document::AllocatorType& allocator);
+Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name) + """& p);
+void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p);
 """
 
     def __str__(self):
@@ -492,13 +495,13 @@ void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name) + """& p, Document::AllocatorType& allocator) {
+Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, Document::AllocatorType& allocator) {
     Value json(kObjectType); 
     return json;
     // TODO
 }
 
-void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name) + """& p) {
+void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p) {
     // TODO
 }"""
 
@@ -519,12 +522,17 @@ def parse_type(type_name, top_level_key, asn1_file, asn1_type):
         add_t.append(type_name)
     if asn1_type["type"] in ["SEQUENCE"]:
         for m in asn1_type["members"]:
-            if m is not None and m['type'] in ["SEQUENCE", "CHOICE"]:
+            if m is not None and m['name'] not in ignore_member_names and m['type'] in ["SEQUENCE", "CHOICE", "SEQUENCE OF"]:
                 escaped_type_name = type_name
                 if "::" in type_name:
                     escaped_type_name = type_name.split("::")[-1]
                 m['actual_type'] = escaped_type_name + '__' + m['name'] + "_PR::" + escaped_type_name + '__' + m['name']
-                parse_type(type_name + "::" + escaped_type_name + '__' + m['name'], top_level_key, asn1_file, {'type': m['type'], 'members': m['members'], 'name': type_name + "::" + escaped_type_name + '__' + m['name'], 'actual_type': m['actual_type']})
+
+                if m['type'] in ["SEQUENCE", "CHOICE"]:
+                    parse_type(type_name + "::" + escaped_type_name + '__' + m['name'], top_level_key, asn1_file, {'type': m['type'], 'members': m['members'], 'name': type_name + "::" + escaped_type_name + '__' + m['name'], 'actual_type': m['actual_type']})
+                if m['type'] in ["SEQUENCE OF"]:
+                    parse_type(type_name + "::" + escaped_type_name + '__' + m['name'], top_level_key, asn1_file, {'type': m['type'], 'element': m['element'], 'name': type_name + "::" + escaped_type_name + '__' + m['name'], 'actual_type': m['actual_type']})
+
                 m['type'] = type_name + "::" + escaped_type_name + '__' + m['name']
         asn1_types.append(ASN1Sequence(
             type_name, asn1_type, top_level_key, asn1_file))
@@ -653,6 +661,8 @@ header_intro = """/*
 #include <vanetza/asn1/ssem.hpp>
 #include <vanetza/asn1/ivim.hpp>
 #include <vanetza/asn1/rtcmem.hpp>
+#include <vanetza/asn1/evcsnm.hpp>
+#include <vanetza/asn1/evrsrm.hpp>
 
 """ + '\n'.join(['#include <vanetza/asn1/its/' + inc + '.h>' for inc in include]) + """
 
@@ -688,7 +698,7 @@ while any([t.name not in printed for t in asn1_types]):
     for t in asn1_types:
         if t.name not in printed and (t.definition["type"] in ["BIT STRING", "OCTET STRING", "NumericString", "UTF8String", "IA5String", "CLASS", "VisibleString"] 
             or all([d["type"] in printed + default_types for d in t.members])):
-            if t.definition["type"] != "OCTET STRING":
+            if t.definition["type"] not in ["OCTET STRING", "UTF8String", "VisibleString"]:
                 #pass
                 print(t.header_str() if sys.argv[1] == "hpp" else t)
             printed.append(t.name)

@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
-*   Auto-generated from the asn1 directory by asn1json.py on 2023-07-17 20:40:50.374994
+*   Auto-generated from the asn1 directory by asn1json.py on 2023-07-17 23:13:52.927666
 */
 
 #ifndef ASN1_JSON_HPP
@@ -21,6 +21,8 @@
 #include <vanetza/asn1/ssem.hpp>
 #include <vanetza/asn1/ivim.hpp>
 #include <vanetza/asn1/rtcmem.hpp>
+#include <vanetza/asn1/evcsnm.hpp>
+#include <vanetza/asn1/evrsrm.hpp>
 
 #include <vanetza/asn1/its/NodeXY.h>
 #include <vanetza/asn1/its/VehicleID.h>
@@ -2430,6 +2432,76 @@ void from_json(const Value& j, NodeOffsetPointZ& p);
 
 
 /*
+*   ItsPOIHeader - Type SEQUENCE
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json(const ItsPOIHeader& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ItsPOIHeader& p);
+
+
+/*
+*   ChargingSpotType - Type BIT STRING
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json_ChargingSpotType(const ChargingSpotType_t p, Document::AllocatorType& allocator);
+
+void from_json_ChargingSpotType(const Value& j, ChargingSpotType_t& p);
+
+
+/*
+*   TypeOfReceptacle - Type BIT STRING
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json_TypeOfReceptacle(const TypeOfReceptacle_t p, Document::AllocatorType& allocator);
+
+void from_json_TypeOfReceptacle(const Value& j, TypeOfReceptacle_t& p);
+
+
+/*
+*   SpotAvailability - Type SEQUENCE
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json(const SpotAvailability& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, SpotAvailability& p);
+
+
+/*
+*   Payment-ID - Type CHOICE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const Payment_ID& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, Payment_ID& p);
+
+
+/*
+*   RechargingType - Type SEQUENCE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const RechargingType& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, RechargingType& p);
+
+
+/*
+*   SupportedPaymentTypes - Type BIT STRING
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json_SupportedPaymentTypes(const SupportedPaymentTypes_t p, Document::AllocatorType& allocator);
+
+void from_json_SupportedPaymentTypes(const Value& j, SupportedPaymentTypes_t& p);
+
+
+/*
 *   ReferencePosition - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
@@ -3360,6 +3432,96 @@ void from_json(const Value& j, OffsetPoint& p);
 
 
 /*
+*   ParkingPlacesData - Type SEQUENCE OF
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json(const ParkingPlacesData& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ParkingPlacesData& p);
+
+
+/*
+*   PreReservationRequestMessage - Type SEQUENCE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const PreReservationRequestMessage& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, PreReservationRequestMessage& p);
+
+
+/*
+*   PreReservationResponseMessage - Type SEQUENCE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const PreReservationResponseMessage& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, PreReservationResponseMessage& p);
+
+
+/*
+*   ReservationRequestMessage - Type SEQUENCE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const ReservationRequestMessage& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ReservationRequestMessage& p);
+
+
+/*
+*   ReservationResponseMessage - Type SEQUENCE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const ReservationResponseMessage& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ReservationResponseMessage& p);
+
+
+/*
+*   CancellationRequestMessage - Type SEQUENCE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const CancellationRequestMessage& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, CancellationRequestMessage& p);
+
+
+/*
+*   CancellationResponseMessage - Type SEQUENCE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const CancellationResponseMessage& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, CancellationResponseMessage& p);
+
+
+/*
+*   UpdateRequestMessage - Type SEQUENCE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const UpdateRequestMessage& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, UpdateRequestMessage& p);
+
+
+/*
+*   UpdateResponseMessage - Type SEQUENCE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const UpdateResponseMessage& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, UpdateResponseMessage& p);
+
+
+/*
 *   ConnectionManeuverAssist-addGrpC - Type SEQUENCE
 *   From AddGrpC - File DSRC.asn
 */
@@ -3700,6 +3862,26 @@ void from_json(const Value& j, ObjectClassDescription& p);
 
 
 /*
+*   ItsChargingSpotDataElements - Type SEQUENCE
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json(const ItsChargingSpotDataElements& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ItsChargingSpotDataElements& p);
+
+
+/*
+*   EV-RSR-MessageBody - Type CHOICE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const EV_RSR_MessageBody& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, EV_RSR_MessageBody& p);
+
+
+/*
 *   SignalRequestMessage - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -3950,6 +4132,26 @@ void from_json(const Value& j, SREM& p);
 
 
 /*
+*   ItsChargingSpots - Type SEQUENCE OF
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json(const ItsChargingSpots& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ItsChargingSpots& p);
+
+
+/*
+*   EV-RSR - Type SEQUENCE
+*   From EV-RechargingSpotReservation-PDU-Descriptions - File EV-RSR-PDU-Descriptions.asn
+*/
+
+Value to_json(const EV_RSR& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, EV_RSR& p);
+
+
+/*
 *   SPAT - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -4160,6 +4362,16 @@ void from_json(const Value& j, SSEM& p);
 
 
 /*
+*   ItsChargingStationData - Type SEQUENCE
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json(const ItsChargingStationData& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ItsChargingStationData& p);
+
+
+/*
 *   MapData - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -4280,6 +4492,26 @@ void from_json(const Value& j, MAPEM& p);
 
 
 /*
+*   ItsEVCSNData::ItsEVCSNData__chargingStationsData - Type SEQUENCE OF
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json(const ItsEVCSNData::ItsEVCSNData__chargingStationsData& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ItsEVCSNData::ItsEVCSNData__chargingStationsData& p);
+
+
+/*
+*   ItsEVCSNData - Type SEQUENCE
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json(const ItsEVCSNData& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ItsEVCSNData& p);
+
+
+/*
 *   GddStructure - Type SEQUENCE
 *   From GDD - File ISO14823.asn
 */
@@ -4340,6 +4572,16 @@ void from_json(const Value& j, SensorInformationContainer& p);
 
 
 /*
+*   EVChargingSpotNotificationPOIMessage - Type SEQUENCE
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json(const EVChargingSpotNotificationPOIMessage& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, EVChargingSpotNotificationPOIMessage& p);
+
+
+/*
 *   GeneralIviContainer - Type SEQUENCE OF
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -4377,6 +4619,16 @@ void from_json(const Value& j, VruAwareness& p);
 Value to_json(const CpmParameters& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, CpmParameters& p);
+
+
+/*
+*   EvcsnPdu - Type SEQUENCE
+*   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
+*/
+
+Value to_json(const EvcsnPdu& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, EvcsnPdu& p);
 
 
 /*
