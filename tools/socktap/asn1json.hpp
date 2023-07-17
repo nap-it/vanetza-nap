@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
-*   Auto-generated from the asn1 directory by asn1json.py on 2023-07-10 22:54:49.895345
+*   Auto-generated from the asn1 directory by asn1json.py on 2023-07-17 20:40:50.374994
 */
 
 #ifndef ASN1_JSON_HPP
@@ -72,6 +72,10 @@
 #include <vanetza/asn1/its/ReceiptContract.h>
 #include <vanetza/asn1/its/SessionLocation.h>
 #include <vanetza/asn1/its/DateAndTime.h>
+#include <vanetza/asn1/its/ItsStationPosition.h>
+#include <vanetza/asn1/its/SignalHeadLocation.h>
+#include <vanetza/asn1/its/ItsStationPositionList.h>
+#include <vanetza/asn1/its/SignalHeadLocationList.h>
 #include <vanetza/asn1/its/ActualNumberOfPassengers.h>
 #include <vanetza/asn1/its/AxleWeightLimits.h>
 #include <vanetza/asn1/its/AddRq.h>
@@ -98,6 +102,7 @@
 #include <vanetza/asn1/its/DateCompact.h>
 #include <vanetza/asn1/its/DescriptiveCharacteristics.h>
 #include <vanetza/asn1/its/DieselEmissionValues.h>
+#include <vanetza/asn1/its/EfcDsrcApplication_DriverCharacteristics.h>
 #include <vanetza/asn1/its/EFC-ContextMark.h>
 #include <vanetza/asn1/its/EnvironmentalCharacteristics.h>
 #include <vanetza/asn1/its/EuroValue.h>
@@ -144,6 +149,7 @@
 #include <vanetza/asn1/its/StationTypeIso.h>
 #include <vanetza/asn1/its/DateAndTime.h>
 #include <vanetza/asn1/its/SoundLevel.h>
+#include <vanetza/asn1/its/EfcDsrcApplication_TrailerCharacteristics.h>
 #include <vanetza/asn1/its/TrailerDetails.h>
 #include <vanetza/asn1/its/TrailerLicencePlateNumber.h>
 #include <vanetza/asn1/its/UnitType.h>
@@ -1424,6 +1430,26 @@ void from_json(const Value& j, ChannelRs_t& p);
 
 
 /*
+*   CopyRq - Type SEQUENCE
+*   From EfcDsrcApplication - File ISO14906-0-6.asn
+*/
+
+Value to_json(const CopyRq_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, CopyRq_t& p);
+
+
+/*
+*   GetInstanceRq - Type SEQUENCE
+*   From EfcDsrcApplication - File ISO14906-0-6.asn
+*/
+
+Value to_json(const GetInstanceRq_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, GetInstanceRq_t& p);
+
+
+/*
 *   SubRq - Type SEQUENCE
 *   From EfcDsrcApplication - File ISO14906-0-6.asn
 */
@@ -1461,6 +1487,16 @@ void from_json(const Value& j, DieselEmissionValues::DieselEmissionValues__parti
 Value to_json(const DieselEmissionValues_t& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, DieselEmissionValues_t& p);
+
+
+/*
+*   EfcDsrcApplication_DriverCharacteristics - Type SEQUENCE
+*   From EfcDsrcApplication - File ISO14906-0-6.asn
+*/
+
+Value to_json(const EfcDsrcApplication_DriverCharacteristics_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, EfcDsrcApplication_DriverCharacteristics_t& p);
 
 
 /*
@@ -1694,26 +1730,6 @@ void from_json(const Value& j, VehicleWeightLimits_t& p);
 
 
 /*
-*   AttributeIdList - Type SEQUENCE OF
-*   From EfcDsrcGeneric - File ISO14906-1-7.asn
-*/
-
-Value to_json(const AttributeIdList_t& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, AttributeIdList_t& p);
-
-
-/*
-*   Attributes - Type SEQUENCE
-*   From EfcDsrcGeneric - File ISO14906-1-7.asn
-*/
-
-Value to_json(const Attributes& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, Attributes_t& p);
-
-
-/*
 *   Ext2 - Type CHOICE
 *   From CITSapplMgmtIDs - File ISO17419.asn
 */
@@ -1931,16 +1947,6 @@ void from_json(const Value& j, RoadSurfaceDynamicCharacteristics& p);
 Value to_json(const RoadSurfaceStaticCharacteristics& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, RoadSurfaceStaticCharacteristics& p);
-
-
-/*
-*   RSCode - Type SEQUENCE
-*   From IVI - File ISO19321IVIv2.asn
-*/
-
-Value to_json(const RSCode& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, RSCode& p);
 
 
 /*
@@ -2374,16 +2380,6 @@ void from_json(const Value& j, PerceivedObjectContainerSegmentInfo& p);
 
 
 /*
-*   ObjectClass - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const ObjectClass_t& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, ObjectClass_t& p);
-
-
-/*
 *   VehicleSubclass - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
@@ -2518,9 +2514,9 @@ void from_json(const Value& j, NodeAttributeSet_addGrpC& p);
 *   From AddGrpC - File DSRC.asn
 */
 
-Value to_json(const ItsStationPosition& p, Document::AllocatorType& allocator);
+Value to_json(const ItsStationPosition_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, ItsStationPosition& p);
+void from_json(const Value& j, ItsStationPosition_t& p);
 
 
 /*
@@ -2528,9 +2524,9 @@ void from_json(const Value& j, ItsStationPosition& p);
 *   From AddGrpC - File DSRC.asn
 */
 
-Value to_json(const ItsStationPositionList& p, Document::AllocatorType& allocator);
+Value to_json(const ItsStationPositionList_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, ItsStationPositionList& p);
+void from_json(const Value& j, ItsStationPositionList_t& p);
 
 
 /*
@@ -2538,9 +2534,9 @@ void from_json(const Value& j, ItsStationPositionList& p);
 *   From AddGrpC - File DSRC.asn
 */
 
-Value to_json(const SignalHeadLocation& p, Document::AllocatorType& allocator);
+Value to_json(const SignalHeadLocation_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, SignalHeadLocation& p);
+void from_json(const Value& j, SignalHeadLocation_t& p);
 
 
 /*
@@ -2548,9 +2544,9 @@ void from_json(const Value& j, SignalHeadLocation& p);
 *   From AddGrpC - File DSRC.asn
 */
 
-Value to_json(const SignalHeadLocationList& p, Document::AllocatorType& allocator);
+Value to_json(const SignalHeadLocationList_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, SignalHeadLocationList& p);
+void from_json(const Value& j, SignalHeadLocationList_t& p);
 
 
 /*
@@ -2834,16 +2830,6 @@ void from_json(const Value& j, DDD_IO& p);
 
 
 /*
-*   CopyRq - Type SEQUENCE
-*   From EfcDsrcApplication - File ISO14906-0-6.asn
-*/
-
-Value to_json(const CopyRq_t& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, CopyRq_t& p);
-
-
-/*
 *   CreditRs - Type SEQUENCE
 *   From EfcDsrcApplication - File ISO14906-0-6.asn
 */
@@ -2861,36 +2847,6 @@ void from_json(const Value& j, CreditRs_t& p);
 Value to_json(const DebitRs_t& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, DebitRs_t& p);
-
-
-/*
-*   GetInstanceRq - Type SEQUENCE
-*   From EfcDsrcApplication - File ISO14906-0-6.asn
-*/
-
-Value to_json(const GetInstanceRq_t& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, GetInstanceRq_t& p);
-
-
-/*
-*   GetStampedRq - Type SEQUENCE
-*   From EfcDsrcApplication - File ISO14906-0-6.asn
-*/
-
-Value to_json(const GetStampedRq_t& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, GetStampedRq_t& p);
-
-
-/*
-*   SetInstanceRq - Type SEQUENCE
-*   From EfcDsrcApplication - File ISO14906-0-6.asn
-*/
-
-Value to_json(const SetInstanceRq_t& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, SetInstanceRq_t& p);
 
 
 /*
@@ -2964,23 +2920,13 @@ void from_json(const Value& j, ReceiptServicePart_t& p);
 
 
 /*
-*   TrailerCharacteristics - Type SEQUENCE
+*   EfcDsrcApplication_TrailerCharacteristics - Type SEQUENCE
 *   From EfcDsrcApplication - File ISO14906-0-6.asn
 */
 
-Value to_json(const TrailerCharacteristics& p, Document::AllocatorType& allocator);
+Value to_json(const EfcDsrcApplication_TrailerCharacteristics_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, TrailerCharacteristics& p);
-
-
-/*
-*   AttributeList - Type SEQUENCE OF
-*   From EfcDsrcGeneric - File ISO14906-1-7.asn
-*/
-
-Value to_json(const AttributeList_t& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, AttributeList_t& p);
+void from_json(const Value& j, EfcDsrcApplication_TrailerCharacteristics_t& p);
 
 
 /*
@@ -3084,16 +3030,6 @@ void from_json(const Value& j, LayoutComponents& p);
 
 
 /*
-*   RoadSignCodes - Type SEQUENCE OF
-*   From IVI - File ISO19321IVIv2.asn
-*/
-
-Value to_json(const RoadSignCodes& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, RoadSignCodes& p);
-
-
-/*
 *   TextLines - Type SEQUENCE OF
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -3101,16 +3037,6 @@ void from_json(const Value& j, RoadSignCodes& p);
 Value to_json(const TextLines& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, TextLines& p);
-
-
-/*
-*   TrailerCharacteristicsList - Type SEQUENCE OF
-*   From IVI - File ISO19321IVIv2.asn
-*/
-
-Value to_json(const TrailerCharacteristicsList& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, TrailerCharacteristicsList& p);
 
 
 /*
@@ -3164,26 +3090,6 @@ void from_json(const Value& j, ValidityPeriods& p);
 
 
 /*
-*   AutomatedVehicleRule - Type SEQUENCE
-*   From IVI - File ISO19321IVIv2.asn
-*/
-
-Value to_json(const AutomatedVehicleRule& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, AutomatedVehicleRule& p);
-
-
-/*
-*   PlatooningRule - Type SEQUENCE
-*   From IVI - File ISO19321IVIv2.asn
-*/
-
-Value to_json(const PlatooningRule& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, PlatooningRule& p);
-
-
-/*
 *   PolygonalLine - Type CHOICE
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -3211,6 +3117,16 @@ void from_json(const Value& j, Segment& p);
 Value to_json(const TractorCharacteristics& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, TractorCharacteristics& p);
+
+
+/*
+*   IVI_TrailerCharacteristics - Type SEQUENCE
+*   From IVI - File ISO19321IVIv2.asn
+*/
+
+Value to_json(const IVI_TrailerCharacteristics& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, IVI_TrailerCharacteristics& p);
 
 
 /*
@@ -3414,16 +3330,6 @@ void from_json(const Value& j, TrailerDataContainer& p);
 
 
 /*
-*   ObjectClassDescription - Type SEQUENCE OF
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const ObjectClassDescription& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, ObjectClassDescription& p);
-
-
-/*
 *   ObjectClass::ObjectClass__class - Type CHOICE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
@@ -3431,6 +3337,16 @@ void from_json(const Value& j, ObjectClassDescription& p);
 Value to_json(const ObjectClass::ObjectClass__class& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, ObjectClass::ObjectClass__class& p);
+
+
+/*
+*   ObjectClass - Type SEQUENCE
+*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*/
+
+Value to_json(const ObjectClass_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ObjectClass_t& p);
 
 
 /*
@@ -3574,26 +3490,6 @@ void from_json(const Value& j, DebitRq_t& p);
 
 
 /*
-*   GetStampedRs - Type SEQUENCE
-*   From EfcDsrcApplication - File ISO14906-0-6.asn
-*/
-
-Value to_json(const GetStampedRs_t& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, GetStampedRs_t& p);
-
-
-/*
-*   SetStampedRq - Type SEQUENCE
-*   From EfcDsrcApplication - File ISO14906-0-6.asn
-*/
-
-Value to_json(const SetStampedRq_t& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, SetStampedRq_t& p);
-
-
-/*
 *   VarLengthNumber - Type CHOICE
 *   From CITSapplMgmtIDs - File ISO17419.asn
 */
@@ -3644,23 +3540,13 @@ void from_json(const Value& j, MlcParts& p);
 
 
 /*
-*   AutomatedVehicleRules - Type SEQUENCE OF
+*   TrailerCharacteristicsList - Type SEQUENCE OF
 *   From IVI - File ISO19321IVIv2.asn
 */
 
-Value to_json(const AutomatedVehicleRules& p, Document::AllocatorType& allocator);
+Value to_json(const TrailerCharacteristicsList& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, AutomatedVehicleRules& p);
-
-
-/*
-*   PlatooningRules - Type SEQUENCE OF
-*   From IVI - File ISO19321IVIv2.asn
-*/
-
-Value to_json(const PlatooningRules& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, PlatooningRules& p);
+void from_json(const Value& j, TrailerCharacteristicsList& p);
 
 
 /*
@@ -3744,16 +3630,6 @@ void from_json(const Value& j, OriginatingVehicleContainer& p);
 
 
 /*
-*   PerceivedObject - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const PerceivedObject& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, PerceivedObject& p);
-
-
-/*
 *   VehicleSensor - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
@@ -3811,6 +3687,16 @@ void from_json(const Value& j, PolyPointList& p);
 Value to_json(const AreaRadial& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, AreaRadial& p);
+
+
+/*
+*   ObjectClassDescription - Type SEQUENCE OF
+*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*/
+
+Value to_json(const ObjectClassDescription& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ObjectClassDescription& p);
 
 
 /*
@@ -4024,13 +3910,13 @@ void from_json(const Value& j, StationDataContainer& p);
 
 
 /*
-*   PerceivedObjectContainer - Type SEQUENCE OF
+*   PerceivedObject - Type SEQUENCE
 *   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
 */
 
-Value to_json(const PerceivedObjectContainer_t& p, Document::AllocatorType& allocator);
+Value to_json(const PerceivedObject& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, PerceivedObjectContainer_t& p);
+void from_json(const Value& j, PerceivedObject& p);
 
 
 /*
@@ -4124,16 +4010,6 @@ void from_json(const Value& j, GeographicLocationContainer& p);
 
 
 /*
-*   GicPart - Type SEQUENCE
-*   From IVI - File ISO19321IVIv2.asn
-*/
-
-Value to_json(const GicPart& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, GicPart& p);
-
-
-/*
 *   RccPart - Type SEQUENCE
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -4151,16 +4027,6 @@ void from_json(const Value& j, RccPart& p);
 Value to_json(const TcPart& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, TcPart& p);
-
-
-/*
-*   AvcPart - Type SEQUENCE
-*   From IVI - File ISO19321IVIv2.asn
-*/
-
-Value to_json(const AvcPart& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, AvcPart& p);
 
 
 /*
@@ -4204,6 +4070,16 @@ void from_json(const Value& j, RSCode::RSCode__code& p);
 
 
 /*
+*   RSCode - Type SEQUENCE
+*   From IVI - File ISO19321IVIv2.asn
+*/
+
+Value to_json(const RSCode& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, RSCode& p);
+
+
+/*
 *   CoopAwareness - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
@@ -4231,6 +4107,16 @@ void from_json(const Value& j, VruHighFrequencyContainer& p);
 Value to_json(const ClusterBoundingBoxShape& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, ClusterBoundingBoxShape& p);
+
+
+/*
+*   PerceivedObjectContainer - Type SEQUENCE OF
+*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*/
+
+Value to_json(const PerceivedObjectContainer_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, PerceivedObjectContainer_t& p);
 
 
 /*
@@ -4294,16 +4180,6 @@ void from_json(const Value& j, GddAttributes& p);
 
 
 /*
-*   GeneralIviContainer - Type SEQUENCE OF
-*   From IVI - File ISO19321IVIv2.asn
-*/
-
-Value to_json(const GeneralIviContainer& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, GeneralIviContainer& p);
-
-
-/*
 *   RoadConfigurationContainer - Type SEQUENCE OF
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -4324,13 +4200,33 @@ void from_json(const Value& j, TextContainer& p);
 
 
 /*
-*   AutomatedVehicleContainer - Type SEQUENCE OF
+*   RoadSignCodes - Type SEQUENCE OF
 *   From IVI - File ISO19321IVIv2.asn
 */
 
-Value to_json(const AutomatedVehicleContainer& p, Document::AllocatorType& allocator);
+Value to_json(const RoadSignCodes& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, AutomatedVehicleContainer& p);
+void from_json(const Value& j, RoadSignCodes& p);
+
+
+/*
+*   AutomatedVehicleRule - Type SEQUENCE
+*   From IVI - File ISO19321IVIv2.asn
+*/
+
+Value to_json(const AutomatedVehicleRule& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, AutomatedVehicleRule& p);
+
+
+/*
+*   PlatooningRule - Type SEQUENCE
+*   From IVI - File ISO19321IVIv2.asn
+*/
+
+Value to_json(const PlatooningRule& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, PlatooningRule& p);
 
 
 /*
@@ -4394,13 +4290,33 @@ void from_json(const Value& j, GddStructure& p);
 
 
 /*
-*   IviContainer - Type CHOICE
+*   GicPart - Type SEQUENCE
 *   From IVI - File ISO19321IVIv2.asn
 */
 
-Value to_json(const IviContainer& p, Document::AllocatorType& allocator);
+Value to_json(const GicPart& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, IviContainer& p);
+void from_json(const Value& j, GicPart& p);
+
+
+/*
+*   AutomatedVehicleRules - Type SEQUENCE OF
+*   From IVI - File ISO19321IVIv2.asn
+*/
+
+Value to_json(const AutomatedVehicleRules& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, AutomatedVehicleRules& p);
+
+
+/*
+*   PlatooningRules - Type SEQUENCE OF
+*   From IVI - File ISO19321IVIv2.asn
+*/
+
+Value to_json(const PlatooningRules& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, PlatooningRules& p);
 
 
 /*
@@ -4424,13 +4340,23 @@ void from_json(const Value& j, SensorInformationContainer& p);
 
 
 /*
-*   IviContainers - Type SEQUENCE OF
+*   GeneralIviContainer - Type SEQUENCE OF
 *   From IVI - File ISO19321IVIv2.asn
 */
 
-Value to_json(const IviContainers& p, Document::AllocatorType& allocator);
+Value to_json(const GeneralIviContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, IviContainers& p);
+void from_json(const Value& j, GeneralIviContainer& p);
+
+
+/*
+*   AvcPart - Type SEQUENCE
+*   From IVI - File ISO19321IVIv2.asn
+*/
+
+Value to_json(const AvcPart& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, AvcPart& p);
 
 
 /*
@@ -4454,13 +4380,23 @@ void from_json(const Value& j, CpmParameters& p);
 
 
 /*
-*   IviStructure - Type SEQUENCE
+*   IviContainer - Type CHOICE
 *   From IVI - File ISO19321IVIv2.asn
 */
 
-Value to_json(const IviStructure& p, Document::AllocatorType& allocator);
+Value to_json(const IviContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, IviStructure& p);
+void from_json(const Value& j, IviContainer& p);
+
+
+/*
+*   AutomatedVehicleContainer - Type SEQUENCE OF
+*   From IVI - File ISO19321IVIv2.asn
+*/
+
+Value to_json(const AutomatedVehicleContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, AutomatedVehicleContainer& p);
 
 
 /*
@@ -4484,13 +4420,13 @@ void from_json(const Value& j, CollectivePerceptionMessage& p);
 
 
 /*
-*   IVIM - Type SEQUENCE
-*   From IVIM-PDU-Descriptions - File TS103301v211-IVIM.asn
+*   IviContainers - Type SEQUENCE OF
+*   From IVI - File ISO19321IVIv2.asn
 */
 
-Value to_json(const IVIM& p, Document::AllocatorType& allocator);
+Value to_json(const IviContainers& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, IVIM& p);
+void from_json(const Value& j, IviContainers& p);
 
 
 /*
@@ -4501,6 +4437,26 @@ void from_json(const Value& j, IVIM& p);
 Value to_json(const CPM& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, CPM& p);
+
+
+/*
+*   IviStructure - Type SEQUENCE
+*   From IVI - File ISO19321IVIv2.asn
+*/
+
+Value to_json(const IviStructure& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, IviStructure& p);
+
+
+/*
+*   IVIM - Type SEQUENCE
+*   From IVIM-PDU-Descriptions - File TS103301v211-IVIM.asn
+*/
+
+Value to_json(const IVIM& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, IVIM& p);
 
 
 #endif
