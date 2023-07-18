@@ -29,6 +29,14 @@ add_executable(socktap
     vam_application.cpp
     spatem_application.cpp
     mapem_application.cpp
+    ssem_application.cpp
+    srem_application.cpp
+    rtcmem_application.cpp
+    ivim_application.cpp
+    evcsnm_application.cpp
+    evrsrm_application.cpp
+    imzm_application.cpp
+    tistpgm_application.cpp
     dcc_passthrough.cpp
     ethernet_device.cpp
     link_layer.cpp

@@ -56,6 +56,14 @@ typedef struct config {
     message_config_t vam;
     message_config_t spatem;
     message_config_t mapem;
+    message_config_t ssem;
+    message_config_t srem;
+    message_config_t rtcmem;
+    message_config_t ivim;
+    message_config_t imzm;
+    message_config_t evcsnm;
+    message_config_t evrsrm;
+    message_config_t tistpgm;
     string full_cam_topic_in;
     string full_cam_topic_out;
     string full_cam_topic_time;

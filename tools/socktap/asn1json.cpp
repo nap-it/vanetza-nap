@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
-*   Auto-generated from the asn1 directory by asn1json.py on 2023-07-18 01:20:33.458975
+*   Auto-generated from the asn1 directory by asn1json.py on 2023-07-18 02:51:25.566599
 */
 
 #include "asn1json.hpp"
@@ -11589,6 +11589,27 @@ void from_json(const Value& j, PressureVariantsList& p) {
     p = *p_tmp;
     delete p_tmp;
 }
+
+/*
+*   RTCMEM - Type SEQUENCE
+*   From RTCMEM-PDU-Descriptions - File TS103301v211-RTCMEM.asn
+*/
+
+Value to_json(const RTCMEM& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("header", to_json((p.header), allocator), allocator);
+    json.AddMember("rtcmc", to_json((p.rtcmc), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, RTCMEM& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["header"], (p.header));
+    from_json(j["rtcmc"], (p.rtcmc));
+}
+
+
 
 /*
 *   SignalRequestMessage - Type SEQUENCE
