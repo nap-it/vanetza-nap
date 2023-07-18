@@ -10,6 +10,7 @@
 
 
 #include "asn_application.h"
+#include "IVI_TrailerCharacteristics.h"
 
 /* Including external dependencies */
 #include "asn_SEQUENCE_OF.h"
@@ -19,12 +20,10 @@
 extern "C" {
 #endif
 
-/* Forward declarations */
-struct TrailerCharacteristics;
 
 /* TrailerCharacteristicsList */
 typedef struct TrailerCharacteristicsList {
-	A_SEQUENCE_OF(struct TrailerCharacteristics) list;
+	A_SEQUENCE_OF(IVI_TrailerCharacteristics_t) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;

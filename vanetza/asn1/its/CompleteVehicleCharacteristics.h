@@ -27,7 +27,7 @@ struct TrainCharacteristics;
 typedef struct CompleteVehicleCharacteristics {
 	struct TractorCharacteristics	*tractor;	/* OPTIONAL */
 	struct TrailerCharacteristicsList	*trailer;	/* OPTIONAL */
-	struct TrainCharacteristics	*train;	/* OPTIONAL */
+	struct TractorCharacteristics	*train;	/* OPTIONAL */
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;

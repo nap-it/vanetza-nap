@@ -11,11 +11,15 @@ from math import pow
 ######
 
 base_dir = "../../asn1"
-asn1_files = ["TS102894-2v131-CDD.asn", "EN302637-2v141-CAM.asn", "EN302637-3v131-DENM.asn", "TS103300-3v211-VAM.asn",
-              "DSRC.asn", "DSRC_REGION_noCircular.asn", "TR103562v211-CPM.asn", "TS103301v211-MAPEM.asn", "TS103301v211-SPATEM.asn"]
+asn1_files = ["TS102894-2v131-CDD.asn", "DSRC.asn", "ISO14816.asn", "ISO14823.asn", "ISO14906-0-6.asn", "ISO14906-1-7.asn", "ISO17419.asn", 
+              "ISO24534-3.asn", "ISO19321IVIv2.asn", "EN302637-2v141-CAM.asn", "EN302637-3v131-DENM.asn", "TS103300-3v211-VAM.asn", 
+              "DSRC_REGION_noCircular.asn", "TR103562v211-CPM.asn", "TS103301v211-MAPEM.asn", "TS103301v211-SPATEM.asn", 
+              "TS103301v211-IVIM.asn", "TS103301v211-SREM.asn", "TS103301v211-SSEM.asn", "EVCSN-PDU-Descriptions.asn", 
+              "EV-RSR-PDU-Descriptions.asn", "IMZM-PDU-Descriptions.asn", "TIS-TPG-Transactions-Descriptions.asn",
+              "TS103301v211-RTCMEM.asn"]
 
 default_types = ["INTEGER", "BOOLEAN", "ENUMERATED", "BIT STRING", "IA5String",
-                 "SEQUENCE", "OCTET STRING", "SEQUENCE OF", "UTF8String", "NumericString", "CHOICE"]
+                 "SEQUENCE", "OCTET STRING", "SEQUENCE OF", "UTF8String", "NumericString", "CHOICE", "VisibleString"]
 
 ######
 
@@ -48,25 +52,52 @@ transformation = {
 }
 
 printed = ["PhoneNumber", "VehicleHeight", "PreemptPriorityList", "WMInumber", "VDS",
-           "RegionalExtension", "TemporaryID", "DescriptiveName", "MessageFrame", "OpeningDaysHours"]
+           "RegionalExtension", "TemporaryID", "DescriptiveName", "MessageFrame", "OpeningDaysHours",
+           "Attributes", "GetStampedRq", "GetStampedRs", "SetInstanceRq", "SetStampedRq", "AttributeList",
+           "AttributeIdList", "NULL", "CustomerContract"]
 
 include = ["NodeXY", "VehicleID", "TransitVehicleStatus", "TransmissionAndSpeed", "DigitalMap",
-           "Position3D", "IntersectionAccessPoint", "ComputedLane", "AdvisorySpeedList", "ConnectionManeuverAssist", "DataParameters", "EnabledLaneList"]
+           "Position3D", "IntersectionAccessPoint", "ComputedLane", "AdvisorySpeedList", "ConnectionManeuverAssist", 
+           "DataParameters", "EnabledLaneList", "CS1", "CS2", "CS3", "CS4", "CS5", "CS7", "CS8", "ServiceNumber", 
+           "GeoGraphicalLimit", "LicPlateNumber", "TaxCode", "AviEriDateTime", "ServiceApplicationLimit", 
+           "FreightContainerData", "AddRq", "ChannelRq", "ChannelRs", "SubRq", "ContractAuthenticator", "DateCompact", 
+           "Engine", "EquipmentOBUId", "EquipmentStatus", "ICC-Id", "LPN", "SignedValue", "PaymentSecurityData", 
+           "PayUnit", "PersonalAccountNumber", "PurseBalance", "ReceiptOBUId", "ReceiptAuthenticator", "ReceiptText",
+           "ResultFin", "SessionClass", "ReceiptContract", "SessionLocation", "DateAndTime", "ItsStationPosition", 
+           "SignalHeadLocation", "ItsStationPositionList", "SignalHeadLocationList", "CurrentVehicleConfiguration"]
 
-add_t = ["ObjectClass", "VehicleID", "VehicleLength", "VerticalAcceleration", "DeltaReferencePosition", "ItsPduHeader", "PtActivationData", "MapData",
-         "NodeAttributeSetXY", "NodeXY", "DigitalMap", "TransmissionAndSpeed", "Position3D", "IntersectionAccessPoint", "ComputedLane", "AdvisorySpeedList", "ConnectionManeuverAssist", "DataParameters", "EnabledLaneList", "PerceivedObjectContainer"]
+add_t = ["ObjectClass", "VehicleID", "VehicleLength", "VerticalAcceleration", "DeltaReferencePosition", "ItsPduHeader", 
+         "PtActivationData", "MapData","NodeAttributeSetXY", "NodeXY", "DigitalMap", "TransmissionAndSpeed", "Position3D",
+         "IntersectionAccessPoint", "ComputedLane", "AdvisorySpeedList", "ConnectionManeuverAssist", "DataParameters", 
+         "EnabledLaneList", "PerceivedObjectContainer", "RTCMmessage", "FreightContainerData", "LPN", "SignedValue",
+         "PurseBalance", "ReceiptContract", "SessionClass", "SessionLocation", "DateAndTime", "ItsStationPosition", 
+         "SignalHeadLocation", "ItsStationPositionList", "SignalHeadLocationList", "BatteryType", "ChargingSpotLabel",
+         "ContractID", "ExternalIdentificationMeans", "Pairing-ID", "Reservation-ID", "Reservation-Password", 
+         "StationDetails", "CustomerContract"]
 
 replace_types = {
-    "Temperature": "ITS_Container_Temperature"
+    ("Temperature", "TS102894-2v131-CDD.asn"): "ITS_Container_Temperature",
+    ("Temperature", "EN302637-3v131-DENM.asn"): "ITS_Container_Temperature",
+    ("TrailerCharacteristics", "ISO14906-0-6.asn"): "EfcDsrcApplication_TrailerCharacteristics",
+    ("DriverCharacteristics", "ISO14906-0-6.asn"): "EfcDsrcApplication_DriverCharacteristics",
+    ("TrailerCharacteristics", "ISO19321IVIv2.asn"): "IVI_TrailerCharacteristics",
+    ("DriverCharacteristics", "ISO19321IVIv2.asn"): "IVI_DriverCharacteristics"
 }
 
-ignore_member_names = ['regional', 'shadowingApplies', 'expiryTime']
+ignore_member_names = ['regional', 'shadowingApplies', 'expiryTime', 'fill', 'ownerCode', 'language', 'sessionLocation', 'avc', 'mlc', 'rsc']
 ignore_member_types = ["PhoneNumber", "OpeningDaysHours", "MessageFrame", "DescriptiveName", "RegionalExtension", "Iso3833VehicleType",
-                                                                                                "REG-EXT-ID-AND-TYPE.&id", "REG-EXT-ID-AND-TYPE.&Type", 'MESSAGE-ID-AND-TYPE.&id', 'MESSAGE-ID-AND-TYPE.&Type', 'PreemptPriorityList', "WMInumber", "VDS", "TemporaryID"]
+                       "REG-EXT-ID-AND-TYPE.&id", "REG-EXT-ID-AND-TYPE.&Type", 'MESSAGE-ID-AND-TYPE.&id', 'MESSAGE-ID-AND-TYPE.&Type', 
+                       'PreemptPriorityList', "WMInumber", "VDS", "TemporaryID", "Attributes", "GetStampedRq", "GetStampedRs", 
+                       "SetInstanceRq", "SetStampedRq", "AttributeList", "AttributeIdList"]
 
 treat_as_optional = ["validityDuration"]
 
 capitalize_first_letter = ["class", "long"]
+
+add_pointer = [
+    ("GddAttribute", "ddd"),
+    ("InternationalSign-destinationInformation", "ioList")
+]
 
 ######
 
@@ -79,14 +110,27 @@ initial_len = len(printed)
 def get_element_name(m, self, opt):
     return ('*' if "optional" in m and m["optional"] and opt else '') + \
             '(p.' + ('choice.' if self.definition["type"] == "CHOICE" else '') + \
+            ((m["ext"] + '->') if m["ext"] != None else '') + \
             (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_")
 
 class ASN1Sequence:
     def __init__(self, name, definition, parent_name, parent_file):
         self.name = name
         self.definition = definition
-        self.members = [m for m in definition["members"] if m is not None and m["type"] not in ignore_member_types and m['name'] not in ignore_member_names]
-        self.ignored_members = [m for m in definition["members"] if m is not None and (m["type"] in ignore_member_types or m['name'] in ignore_member_names)]
+        self.members = []
+        self.ignored_members = []
+        ext = 0
+        for i in range(len(definition["members"])):
+            m = definition["members"][i]
+            if m is None:
+                if i != len(definition["members"]) - 2:
+                    ext += 1
+            elif m["type"] not in ignore_member_types and m['name'] not in ignore_member_names:
+                m["ext"] = "ext" + str(ext) if ext > 0 else None
+                self.members.append(m)
+            else:
+                m["ext"] = "ext" + str(ext) if ext > 0 else None
+                self.ignored_members.append(m)
         self.dependencies = [
             m for m in self.members if m["type"] not in default_types]
         self.parent_name = parent_name
@@ -190,10 +234,11 @@ void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self
             
             if "optional" in m and m["optional"]:
                 needs_closing = True
-                type_name = m["type"] if m["type"] not in replace_types else replace_types[m["type"]]
+                #type_name = m["type"] if m["type"] not in replace_types else replace_types[m["type"]]
                 member_str += 'if (j.HasMember("' + m["name"] + '")) { ' + \
                                 get_element_name(m, self, False)[1:] + \
-                                ' = vanetza::asn1::allocate<' + type_name.replace("-", "_") + '_t>(); '
+                                ' = vanetza::asn1::allocate<' + m["type"].replace("-", "_").replace(" ", "_").replace("INTEGER", "long") +  \
+                                    ('_t' if m["type"] not in ["INTEGER"] and "actual_type" not in m else '') + '>(); '
             
             if m["type"] not in bitstrings:
                 member_str += 'from_json(j["' + m["name"] + '"], '
@@ -285,7 +330,7 @@ Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in ad
             if m["type"] not in bitstrings:
                 member_str += 'to_json(p.choice.' + m["name"].replace("-", "_") + ', allocator), allocator);'
             else:
-                member_str += 'to_json_' + m["type"].replace("-", "_") + '(p.choice.' + m["name"].replace("-", "_") + ', allocator), allocator);'
+                member_str += 'to_json_' + m["type"].replace("-", "_") + '(' + ('*' if "optional" in m and m["optional"] else '') + 'p.choice.' + m["name"].replace("-", "_") + ', allocator), allocator);'
             
             member_strs.append(member_str)
 
@@ -309,7 +354,7 @@ void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self
             else:
                 member_str += 'from_json_' + m["type"].replace("-", "_") + '(j["' + m["name"] + '"], '
 
-            member_str += 'p.choice.' + m["name"].replace("-", "_") + ');'
+            member_str += ('*' if "optional" in m and m["optional"] else '') + 'p.choice.' + m["name"].replace("-", "_") + ');'
 
             member_strs.append(member_str)
 
@@ -439,9 +484,9 @@ class ASN1TODO:
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-Value to_json(const """ + (self.name + "_t" if self.name in add_t else self.name) + """& p, Document::AllocatorType& allocator);
+Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, """ + (self.name + "_t" if self.name in add_t else self.name) + """& p);
+void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p);
 """
 
     def __str__(self):
@@ -451,25 +496,45 @@ void from_json(const Value& j, """ + (self.name + "_t" if self.name in add_t els
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-Value to_json(const """ + (self.name + "_t" if self.name in add_t else self.name) + """& p, Document::AllocatorType& allocator) {
+Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, Document::AllocatorType& allocator) {
     Value json(kObjectType); 
     return json;
     // TODO
 }
 
-void from_json(const Value& j, """ + (self.name + "_t" if self.name in add_t else self.name) + """& p) {
+void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p) {
     // TODO
 }"""
 
 
 def parse_type(type_name, top_level_key, asn1_file, asn1_type):
+    type_name = type_name if (type_name, asn1_file) not in replace_types else replace_types[(type_name, asn1_file)]
+    if "element" in asn1_type:
+        asn1_type["element"]["type"] = asn1_type["element"]["type"] if (asn1_type["element"]["type"], asn1_file) not in replace_types else replace_types[(asn1_type["element"]["type"], asn1_file)]
+    if "members" in asn1_type:
+        for m in asn1_type["members"]:
+            if m is not None:
+                m["type"] = m["type"] if (m["type"], asn1_file) not in replace_types else replace_types[(m["type"], asn1_file)]
+                if (type_name, m["name"]) in add_pointer:
+                    m["optional"] = True 
+
+    if "ISO14906" in asn1_file and "::" not in type_name:
+        include.append(type_name)
+        add_t.append(type_name)
     if asn1_type["type"] in ["SEQUENCE"]:
         for m in asn1_type["members"]:
-            if m is not None and m['type'] == "CHOICE":
-                #print(m)
-                m['actual_type'] = type_name + '__' + m['name']
-                m['type'] = type_name + "::" + m['actual_type']
-                parse_type(type_name + "::" + type_name + '__' + m['name'], top_level_key, asn1_file, {'type': 'CHOICE', 'members': m['members'], 'name': type_name + "::" + type_name + '__' + m['name'], 'actual_type': m['actual_type']})
+            if m is not None and m['name'] not in ignore_member_names and m['type'] in ["SEQUENCE", "CHOICE", "SEQUENCE OF"]:
+                escaped_type_name = type_name
+                if "::" in type_name:
+                    escaped_type_name = type_name.split("::")[-1]
+                m['actual_type'] = escaped_type_name + '__' + m['name'] + "_PR::" + escaped_type_name + '__' + m['name']
+
+                if m['type'] in ["SEQUENCE", "CHOICE"]:
+                    parse_type(type_name + "::" + escaped_type_name + '__' + m['name'], top_level_key, asn1_file, {'type': m['type'], 'members': m['members'], 'name': type_name + "::" + escaped_type_name + '__' + m['name'], 'actual_type': m['actual_type']})
+                if m['type'] in ["SEQUENCE OF"]:
+                    parse_type(type_name + "::" + escaped_type_name + '__' + m['name'], top_level_key, asn1_file, {'type': m['type'], 'element': m['element'], 'name': type_name + "::" + escaped_type_name + '__' + m['name'], 'actual_type': m['actual_type']})
+
+                m['type'] = type_name + "::" + escaped_type_name + '__' + m['name']
         asn1_types.append(ASN1Sequence(
             type_name, asn1_type, top_level_key, asn1_file))
     elif asn1_type["type"] in ["CHOICE"]:
@@ -483,20 +548,24 @@ def parse_type(type_name, top_level_key, asn1_file, asn1_type):
             type_name, asn1_type, top_level_key, asn1_file))
         bitstrings[type_name] = ASN1BitString(
             type_name, asn1_type, top_level_key, asn1_file)
-    elif asn1_type["type"] in ["OCTET STRING", "NumericString", "UTF8String", "IA5String", "NodeOffsetPointXY", "NodeOffsetPointZ"]:
+    elif asn1_type["type"] in ["OCTET STRING", "NumericString", "UTF8String", "IA5String", "NodeOffsetPointXY", "NodeOffsetPointZ", "VisibleString"]:
         asn1_types.append(
             ASN1TODO(type_name, asn1_type, top_level_key, asn1_file))
+        if asn1_type["type"] == "OCTET STRING":
+            add_t.append(type_name)
     else:
+        #print(type_name)
         basic.append(type_name)
         printed.append(type_name)
 
 
 for asn1_file in asn1_files:
+    #print(asn1_file)
     parsed_info = asn1tools.parse_files(base_dir + "/" + asn1_file)
-    top_level_key = list(parsed_info.keys())[0]
-    for type_name in parsed_info[top_level_key]["types"]:
-        asn1_type = parsed_info[top_level_key]["types"][type_name]
-        parse_type(type_name, top_level_key, asn1_file, asn1_type)
+    for top_level_key in list(parsed_info.keys()):
+        for type_name in parsed_info[top_level_key]["types"]:
+            asn1_type = parsed_info[top_level_key]["types"][type_name]
+            parse_type(type_name, top_level_key, asn1_file, asn1_type)
 
 intro = """/*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
@@ -558,6 +627,26 @@ void from_json(const Value& j, bool& p) {
     p = j.GetBool();
 }
 
+Value to_json(const OCTET_STRING_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType); 
+    return json;
+    // TODO
+}
+
+void from_json(const Value& j, OCTET_STRING_t& p) {
+    // TODO
+}
+
+Value to_json(const NULL_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType); 
+    return json;
+    // TODO
+}
+
+void from_json(const Value& j, NULL_t& p) {
+    // TODO
+}
+
 """
 
 header_intro = """/*
@@ -579,8 +668,16 @@ header_intro = """/*
 #include <vanetza/asn1/vam.hpp>
 #include <vanetza/asn1/spatem.hpp>
 #include <vanetza/asn1/mapem.hpp>
+#include <vanetza/asn1/srem.hpp>
+#include <vanetza/asn1/ssem.hpp>
+#include <vanetza/asn1/ivim.hpp>
+#include <vanetza/asn1/rtcmem.hpp>
+#include <vanetza/asn1/evcsnm.hpp>
+#include <vanetza/asn1/evrsrm.hpp>
+#include <vanetza/asn1/imzm.hpp>
+#include <vanetza/asn1/tistpgm.hpp>
 
-""" + '\n'.join(['#include <vanetza/asn1/its/' + inc.replace("-", "_") + '.h>' for inc in include]) + """
+""" + '\n'.join(['#include <vanetza/asn1/its/' + inc + '.h>' for inc in include]) + """
 
 using namespace rapidjson;
 
@@ -596,6 +693,10 @@ Value to_json(const double& p, Document::AllocatorType& allocator);
 void from_json(const Value& j, double& p);
 Value to_json(const bool& p, Document::AllocatorType& allocator);
 void from_json(const Value& j, bool& p);
+Value to_json(const OCTET_STRING_t& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, OCTET_STRING_t& p);
+Value to_json(const NULL_t& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, NULL_t& p);
 """
 
 if sys.argv[1] == "hpp":
@@ -607,17 +708,22 @@ b = len(printed)
 
 # TODO: Replace with better algorithm when there's time
 # for i in range(10):
-while len(printed) + initial_len != len(asn1_types) + b:
+#while len(printed) + initial_len != len(asn1_types) + b:
+while any([t.name not in printed for t in asn1_types]):
     for t in asn1_types:
-        if t.name not in printed and (t.definition["type"] in ["BIT STRING", "OCTET STRING", "NumericString", "UTF8String", "IA5String", "CLASS"] or all([d["type"] in printed + default_types for d in t.members])):
-            print(t.header_str() if sys.argv[1] == "hpp" else t)
+        if t.name not in printed and (t.definition["type"] in ["BIT STRING", "OCTET STRING", "NumericString", "UTF8String", "IA5String", 
+                                                                "CLASS", "VisibleString"] 
+            or all([d["type"] in printed + default_types for d in t.members])):
+            if t.definition["type"] not in ["OCTET STRING", "UTF8String", "VisibleString"]:
+                #pass
+                print(t.header_str() if sys.argv[1] == "hpp" else t)
             printed.append(t.name)
-        # elif t.name not in printed:
-        #    print(t.name + " " + t.definition["type"])
-        #    print(all([d["type"] in printed + default_types for d in t.members]))
-        #    print([d["type"] for d in t.members if d["type"] not in printed + default_types])
-    # print('\n\n\n\n')
-    # time.sleep(1)
+        #elif t.name not in printed:
+            #print(t.name + " " + t.definition["type"])
+            ##print(all([d["type"] in printed + default_types for d in t.members]))
+            #print([d["type"] for d in t.members if d["type"] not in printed + default_types])
+    #print('\n\n\n\n')
+    #time.sleep(1)
 
 if sys.argv[1] == "hpp":
     print("\n#endif")

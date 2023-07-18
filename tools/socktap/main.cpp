@@ -5,6 +5,14 @@
 #include "vam_application.hpp"
 #include "spatem_application.hpp"
 #include "mapem_application.hpp"
+#include "ssem_application.hpp"
+#include "srem_application.hpp"
+#include "rtcmem_application.hpp"
+#include "ivim_application.hpp"
+#include "evcsnm_application.hpp"
+#include "evrsrm_application.hpp"
+#include "imzm_application.hpp"
+#include "tistpgm_application.hpp"
 #include "link_layer.hpp"
 #include "positioning.hpp"
 #include "router_context.hpp"
@@ -209,6 +217,70 @@ int main(int argc, const char** argv)
             };
             mapem_app->set_interval(std::chrono::milliseconds(config_s.mapem.periodicity));
             apps.emplace("mapem", std::move(mapem_app));
+        }
+
+        if (config_s.ssem.enabled) {
+            std::unique_ptr<SsemApplication> ssem_app {
+                    new SsemApplication(*positioning, context.get_dccp().get_trigger().runtime(), local_mqtt, remote_mqtt, dds, config_s, metrics_s)
+            };
+            ssem_app->set_interval(std::chrono::milliseconds(config_s.ssem.periodicity));
+            apps.emplace("ssem", std::move(ssem_app));
+        }
+
+        if (config_s.srem.enabled) {
+            std::unique_ptr<SremApplication> srem_app {
+                    new SremApplication(*positioning, context.get_dccp().get_trigger().runtime(), local_mqtt, remote_mqtt, dds, config_s, metrics_s)
+            };
+            srem_app->set_interval(std::chrono::milliseconds(config_s.srem.periodicity));
+            apps.emplace("srem", std::move(srem_app));
+        }
+
+        if (config_s.rtcmem.enabled) {
+            std::unique_ptr<RtcmemApplication> rtcmem_app {
+                    new RtcmemApplication(*positioning, context.get_dccp().get_trigger().runtime(), local_mqtt, remote_mqtt, dds, config_s, metrics_s)
+            };
+            rtcmem_app->set_interval(std::chrono::milliseconds(config_s.rtcmem.periodicity));
+            apps.emplace("rtcmem", std::move(rtcmem_app));
+        }
+
+        if (config_s.ivim.enabled) {
+            std::unique_ptr<IvimApplication> ivim_app {
+                    new IvimApplication(*positioning, context.get_dccp().get_trigger().runtime(), local_mqtt, remote_mqtt, dds, config_s, metrics_s)
+            };
+            ivim_app->set_interval(std::chrono::milliseconds(config_s.ivim.periodicity));
+            apps.emplace("ivim", std::move(ivim_app));
+        }
+
+        if (config_s.evcsnm.enabled) {
+            std::unique_ptr<EvcsnmApplication> evcsnm_app {
+                    new EvcsnmApplication(*positioning, context.get_dccp().get_trigger().runtime(), local_mqtt, remote_mqtt, dds, config_s, metrics_s)
+            };
+            evcsnm_app->set_interval(std::chrono::milliseconds(config_s.evcsnm.periodicity));
+            apps.emplace("evcsnm", std::move(evcsnm_app));
+        }
+
+        if (config_s.evrsrm.enabled) {
+            std::unique_ptr<EvrsrmApplication> evrsrm_app {
+                    new EvrsrmApplication(*positioning, context.get_dccp().get_trigger().runtime(), local_mqtt, remote_mqtt, dds, config_s, metrics_s)
+            };
+            evrsrm_app->set_interval(std::chrono::milliseconds(config_s.evrsrm.periodicity));
+            apps.emplace("evrsrm", std::move(evrsrm_app));
+        }
+
+        if (config_s.imzm.enabled) {
+            std::unique_ptr<ImzmApplication> imzm_app {
+                    new ImzmApplication(*positioning, context.get_dccp().get_trigger().runtime(), local_mqtt, remote_mqtt, dds, config_s, metrics_s)
+            };
+            imzm_app->set_interval(std::chrono::milliseconds(config_s.imzm.periodicity));
+            apps.emplace("imzm", std::move(imzm_app));
+        }
+
+        if (config_s.tistpgm.enabled) {
+            std::unique_ptr<TistpgmApplication> tistpgm_app {
+                    new TistpgmApplication(*positioning, context.get_dccp().get_trigger().runtime(), local_mqtt, remote_mqtt, dds, config_s, metrics_s)
+            };
+            tistpgm_app->set_interval(std::chrono::milliseconds(config_s.tistpgm.periodicity));
+            apps.emplace("tistpgm", std::move(tistpgm_app));
         }
 
         if (apps.empty()) {
