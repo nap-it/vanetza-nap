@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
-*   Auto-generated from the asn1 directory by asn1json.py on 2023-07-17 23:13:48.748452
+*   Auto-generated from the asn1 directory by asn1json.py on 2023-07-18 01:20:33.458975
 */
 
 #include "asn1json.hpp"
@@ -65,6 +65,16 @@ Value to_json(const OCTET_STRING_t& p, Document::AllocatorType& allocator) {
 }
 
 void from_json(const Value& j, OCTET_STRING_t& p) {
+    // TODO
+}
+
+Value to_json(const NULL_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType); 
+    return json;
+    // TODO
+}
+
+void from_json(const Value& j, NULL_t& p) {
     // TODO
 }
 
@@ -6537,6 +6547,475 @@ void from_json_SupportedPaymentTypes(const Value& j, SupportedPaymentTypes_t& p)
 }
 
 /*
+*   InterferenceManagementChannel - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const InterferenceManagementChannel& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("centreFrequency", to_json((p.centreFrequency), allocator), allocator);
+    json.AddMember("channelWidth", to_json((p.channelWidth), allocator), allocator);
+    json.AddMember("exponent", to_json((p.exponent), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, InterferenceManagementChannel& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["centreFrequency"], (p.centreFrequency));
+    from_json(j["channelWidth"], (p.channelWidth));
+    from_json(j["exponent"], (p.exponent));
+}
+
+
+
+/*
+*   MitigationPerTechnologyClass - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const MitigationPerTechnologyClass& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("accessTechnologyClass", to_json((p.accessTechnologyClass), allocator), allocator);
+    if (p.lowDutyCycle != 0) json.AddMember("lowDutyCycle", to_json(*(p.lowDutyCycle), allocator), allocator);
+    if (p.powerReduction != 0) json.AddMember("powerReduction", to_json(*(p.powerReduction), allocator), allocator);
+    if (p.dmcToffLimit != 0) json.AddMember("dmcToffLimit", to_json(*(p.dmcToffLimit), allocator), allocator);
+    if (p.dmcTonLimit != 0) json.AddMember("dmcTonLimit", to_json(*(p.dmcTonLimit), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, MitigationPerTechnologyClass& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["accessTechnologyClass"], (p.accessTechnologyClass));
+    if (j.HasMember("lowDutyCycle")) { p.lowDutyCycle = vanetza::asn1::allocate<long>(); from_json(j["lowDutyCycle"], *(p.lowDutyCycle)); }
+    else { p.lowDutyCycle=nullptr; }
+    if (j.HasMember("powerReduction")) { p.powerReduction = vanetza::asn1::allocate<long>(); from_json(j["powerReduction"], *(p.powerReduction)); }
+    else { p.powerReduction=nullptr; }
+    if (j.HasMember("dmcToffLimit")) { p.dmcToffLimit = vanetza::asn1::allocate<long>(); from_json(j["dmcToffLimit"], *(p.dmcToffLimit)); }
+    else { p.dmcToffLimit=nullptr; }
+    if (j.HasMember("dmcTonLimit")) { p.dmcTonLimit = vanetza::asn1::allocate<long>(); from_json(j["dmcTonLimit"], *(p.dmcTonLimit)); }
+    else { p.dmcTonLimit=nullptr; }
+}
+
+
+
+/*
+*   TisTpgDRM-Situation - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgDRM_Situation& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("causeCode", to_json((p.causeCode), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, TisTpgDRM_Situation& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["causeCode"], (p.causeCode));
+}
+
+
+
+/*
+*   TisTpgSNM-Management - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgSNM_Management& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("generationTime", to_json((p.generationTime), allocator), allocator);
+    json.AddMember("totalTpgStations", to_json((p.totalTpgStations), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, TisTpgSNM_Management& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["generationTime"], (p.generationTime));
+    from_json(j["totalTpgStations"], (p.totalTpgStations));
+}
+
+
+
+/*
+*   TisTpgTRM-Situation - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTRM_Situation& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("estArrivalTime", to_json((p.estArrivalTime), allocator), allocator);
+    if (p.proposedPairingID != 0) json.AddMember("proposedPairingID", to_json(*(p.proposedPairingID), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, TisTpgTRM_Situation& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["estArrivalTime"], (p.estArrivalTime));
+    if (j.HasMember("proposedPairingID")) { p.proposedPairingID = vanetza::asn1::allocate<PairingID_t>(); from_json(j["proposedPairingID"], *(p.proposedPairingID)); }
+    else { p.proposedPairingID=nullptr; }
+}
+
+
+
+/*
+*   TyreData::TyreData__currentTyrePressure - Type CHOICE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TyreData::TyreData__currentTyrePressure& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == TyreData__currentTyrePressure_PR::TyreData__currentTyrePressure_PR_tyrePressureValue) {
+        json.AddMember("tyrePressureValue", to_json(p.choice.tyrePressureValue, allocator), allocator);
+    } else if (p.present == TyreData__currentTyrePressure_PR::TyreData__currentTyrePressure_PR_unavailable) {
+        json.AddMember("unavailable", to_json(p.choice.unavailable, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, TyreData::TyreData__currentTyrePressure& p) {
+    if (j.HasMember("tyrePressureValue")) {
+        p.present = TyreData__currentTyrePressure_PR::TyreData__currentTyrePressure_PR_tyrePressureValue;
+        from_json(j["tyrePressureValue"], p.choice.tyrePressureValue);
+    } else if (j.HasMember("unavailable")) {
+        p.present = TyreData__currentTyrePressure_PR::TyreData__currentTyrePressure_PR_unavailable;
+        from_json(j["unavailable"], p.choice.unavailable);
+    } else {
+        p.present = TyreData__currentTyrePressure_PR::TyreData__currentTyrePressure_PR_NOTHING;
+    }
+}
+
+/*
+*   TyreData::TyreData__currentInsideAirTemperature - Type CHOICE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TyreData::TyreData__currentInsideAirTemperature& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == TyreData__currentInsideAirTemperature_PR::TyreData__currentInsideAirTemperature_PR_tyreAirTemperatureValue) {
+        json.AddMember("tyreAirTemperatureValue", to_json(p.choice.tyreAirTemperatureValue, allocator), allocator);
+    } else if (p.present == TyreData__currentInsideAirTemperature_PR::TyreData__currentInsideAirTemperature_PR_unavailable) {
+        json.AddMember("unavailable", to_json(p.choice.unavailable, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, TyreData::TyreData__currentInsideAirTemperature& p) {
+    if (j.HasMember("tyreAirTemperatureValue")) {
+        p.present = TyreData__currentInsideAirTemperature_PR::TyreData__currentInsideAirTemperature_PR_tyreAirTemperatureValue;
+        from_json(j["tyreAirTemperatureValue"], p.choice.tyreAirTemperatureValue);
+    } else if (j.HasMember("unavailable")) {
+        p.present = TyreData__currentInsideAirTemperature_PR::TyreData__currentInsideAirTemperature_PR_unavailable;
+        from_json(j["unavailable"], p.choice.unavailable);
+    } else {
+        p.present = TyreData__currentInsideAirTemperature_PR::TyreData__currentInsideAirTemperature_PR_NOTHING;
+    }
+}
+
+/*
+*   TyreData::TyreData__recommendedTyrePressure - Type CHOICE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TyreData::TyreData__recommendedTyrePressure& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == TyreData__recommendedTyrePressure_PR::TyreData__recommendedTyrePressure_PR_axlePlacardPressureValue) {
+        json.AddMember("axlePlacardPressureValue", to_json(p.choice.axlePlacardPressureValue, allocator), allocator);
+    } else if (p.present == TyreData__recommendedTyrePressure_PR::TyreData__recommendedTyrePressure_PR_unavailable) {
+        json.AddMember("unavailable", to_json(p.choice.unavailable, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, TyreData::TyreData__recommendedTyrePressure& p) {
+    if (j.HasMember("axlePlacardPressureValue")) {
+        p.present = TyreData__recommendedTyrePressure_PR::TyreData__recommendedTyrePressure_PR_axlePlacardPressureValue;
+        from_json(j["axlePlacardPressureValue"], p.choice.axlePlacardPressureValue);
+    } else if (j.HasMember("unavailable")) {
+        p.present = TyreData__recommendedTyrePressure_PR::TyreData__recommendedTyrePressure_PR_unavailable;
+        from_json(j["unavailable"], p.choice.unavailable);
+    } else {
+        p.present = TyreData__recommendedTyrePressure_PR::TyreData__recommendedTyrePressure_PR_NOTHING;
+    }
+}
+
+/*
+*   TyreData::TyreData__sensorState - Type CHOICE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TyreData::TyreData__sensorState& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == TyreData__sensorState_PR::TyreData__sensorState_PR_sensorStateValue) {
+        json.AddMember("sensorStateValue", to_json(p.choice.sensorStateValue, allocator), allocator);
+    } else if (p.present == TyreData__sensorState_PR::TyreData__sensorState_PR_unavailable) {
+        json.AddMember("unavailable", to_json(p.choice.unavailable, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, TyreData::TyreData__sensorState& p) {
+    if (j.HasMember("sensorStateValue")) {
+        p.present = TyreData__sensorState_PR::TyreData__sensorState_PR_sensorStateValue;
+        from_json(j["sensorStateValue"], p.choice.sensorStateValue);
+    } else if (j.HasMember("unavailable")) {
+        p.present = TyreData__sensorState_PR::TyreData__sensorState_PR_unavailable;
+        from_json(j["unavailable"], p.choice.unavailable);
+    } else {
+        p.present = TyreData__sensorState_PR::TyreData__sensorState_PR_NOTHING;
+    }
+}
+
+/*
+*   AppliedTyrePressure - Type CHOICE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const AppliedTyrePressure& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == AppliedTyrePressure_PR_tyrePressureValue) {
+        json.AddMember("tyrePressureValue", to_json(p.choice.tyrePressureValue, allocator), allocator);
+    } else if (p.present == AppliedTyrePressure_PR_unavailable) {
+        json.AddMember("unavailable", to_json(p.choice.unavailable, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, AppliedTyrePressure& p) {
+    if (j.HasMember("tyrePressureValue")) {
+        p.present = AppliedTyrePressure_PR_tyrePressureValue;
+        from_json(j["tyrePressureValue"], p.choice.tyrePressureValue);
+    } else if (j.HasMember("unavailable")) {
+        p.present = AppliedTyrePressure_PR_unavailable;
+        from_json(j["unavailable"], p.choice.unavailable);
+    } else {
+        p.present = AppliedTyrePressure_PR_NOTHING;
+    }
+}
+
+/*
+*   TyreSidewallInformation - Type BIT STRING
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json_TyreSidewallInformation(const TyreSidewallInformation_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    return json;
+}
+
+void from_json_TyreSidewallInformation(const Value& j, TyreSidewallInformation_t& p) {
+    TyreSidewallInformation_t* p_tmp = vanetza::asn1::allocate<TyreSidewallInformation_t>();
+    
+    
+    p_tmp->size = (0 / 8) + 1;
+    p_tmp->bits_unused = (0 % 8) != 0 ? 8 - (0 % 8) : 0;
+    p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+    *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+    
+    p = *p_tmp;
+    delete p_tmp;
+}
+
+/*
+*   CurrentVehicleConfiguration - Type BIT STRING
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json_CurrentVehicleConfiguration(const CurrentVehicleConfiguration_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    return json;
+}
+
+void from_json_CurrentVehicleConfiguration(const Value& j, CurrentVehicleConfiguration_t& p) {
+    CurrentVehicleConfiguration_t* p_tmp = vanetza::asn1::allocate<CurrentVehicleConfiguration_t>();
+    
+    
+    p_tmp->size = (0 / 8) + 1;
+    p_tmp->bits_unused = (0 % 8) != 0 ? 8 - (0 % 8) : 0;
+    p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+    *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+    
+    p = *p_tmp;
+    delete p_tmp;
+}
+
+/*
+*   TIN - Type BIT STRING
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json_TIN(const TIN_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    return json;
+}
+
+void from_json_TIN(const Value& j, TIN_t& p) {
+    TIN_t* p_tmp = vanetza::asn1::allocate<TIN_t>();
+    
+    
+    p_tmp->size = (0 / 8) + 1;
+    p_tmp->bits_unused = (0 % 8) != 0 ? 8 - (0 % 8) : 0;
+    p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+    *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+    
+    p = *p_tmp;
+    delete p_tmp;
+}
+
+/*
+*   PressureConfiguration - Type BIT STRING
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json_PressureConfiguration(const PressureConfiguration_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    return json;
+}
+
+void from_json_PressureConfiguration(const Value& j, PressureConfiguration_t& p) {
+    PressureConfiguration_t* p_tmp = vanetza::asn1::allocate<PressureConfiguration_t>();
+    
+    
+    p_tmp->size = (0 / 8) + 1;
+    p_tmp->bits_unused = (0 % 8) != 0 ? 8 - (0 % 8) : 0;
+    p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+    *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+    
+    p = *p_tmp;
+    delete p_tmp;
+}
+
+/*
+*   AppliedTyrePressures - Type SEQUENCE OF
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const AppliedTyrePressures& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const AppliedTyrePressure_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, AppliedTyrePressures& p) {
+    AppliedTyrePressures* p_tmp = vanetza::asn1::allocate<AppliedTyrePressures>();
+    for (SizeType i = 0; i < j.Size(); i++)
+    {
+        const Value& item = j[i];
+        AppliedTyrePressure_t *element = vanetza::asn1::allocate<AppliedTyrePressure_t>();
+        from_json(item, *element);
+        asn_set_add(&(p_tmp->list), element);
+    }
+    p = *p_tmp;
+    delete p_tmp;
+}
+
+/*
+*   TpgAutomation - Type BIT STRING
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json_TpgAutomation(const TpgAutomation_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("fullAutomated", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("semiAutomated", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("manual", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("reserved", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    return json;
+}
+
+void from_json_TpgAutomation(const Value& j, TpgAutomation_t& p) {
+    TpgAutomation_t* p_tmp = vanetza::asn1::allocate<TpgAutomation_t>();
+    bool fullAutomated;
+    bool semiAutomated;
+    bool manual;
+    bool reserved;
+    if (j.HasMember("fullAutomated")) from_json(j["fullAutomated"], (fullAutomated));
+    if (j.HasMember("semiAutomated")) from_json(j["semiAutomated"], (semiAutomated));
+    if (j.HasMember("manual")) from_json(j["manual"], (manual));
+    if (j.HasMember("reserved")) from_json(j["reserved"], (reserved));
+    p_tmp->size = (4 / 8) + 1;
+    p_tmp->bits_unused = (4 % 8) != 0 ? 8 - (4 % 8) : 0;
+    p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+    *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+    if (fullAutomated) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
+    if (semiAutomated) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
+    if (manual) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 5);
+    if (reserved) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 4);
+    p = *p_tmp;
+    delete p_tmp;
+}
+
+/*
+*   TisProfile - Type BIT STRING
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json_TisProfile(const TisProfile_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("reserved", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("profileOne", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("profileTwo", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("profileThree", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    return json;
+}
+
+void from_json_TisProfile(const Value& j, TisProfile_t& p) {
+    TisProfile_t* p_tmp = vanetza::asn1::allocate<TisProfile_t>();
+    bool reserved;
+    bool profileOne;
+    bool profileTwo;
+    bool profileThree;
+    if (j.HasMember("reserved")) from_json(j["reserved"], (reserved));
+    if (j.HasMember("profileOne")) from_json(j["profileOne"], (profileOne));
+    if (j.HasMember("profileTwo")) from_json(j["profileTwo"], (profileTwo));
+    if (j.HasMember("profileThree")) from_json(j["profileThree"], (profileThree));
+    p_tmp->size = (4 / 8) + 1;
+    p_tmp->bits_unused = (4 % 8) != 0 ? 8 - (4 % 8) : 0;
+    p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+    *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+    if (reserved) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
+    if (profileOne) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
+    if (profileTwo) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 5);
+    if (profileThree) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 4);
+    p = *p_tmp;
+    delete p_tmp;
+}
+
+/*
+*   Language - Type BIT STRING
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json_Language(const Language_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    return json;
+}
+
+void from_json_Language(const Value& j, Language_t& p) {
+    Language_t* p_tmp = vanetza::asn1::allocate<Language_t>();
+    
+    
+    p_tmp->size = (0 / 8) + 1;
+    p_tmp->bits_unused = (0 % 8) != 0 ? 8 - (0 % 8) : 0;
+    p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+    *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+    
+    p = *p_tmp;
+    delete p_tmp;
+}
+
+/*
 *   ReferencePosition - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
@@ -9319,6 +9798,518 @@ void from_json(const Value& j, UpdateResponseMessage& p) {
 
 
 /*
+*   MitigationForTechnologies - Type SEQUENCE OF
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const MitigationForTechnologies& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const MitigationPerTechnologyClass_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, MitigationForTechnologies& p) {
+    MitigationForTechnologies* p_tmp = vanetza::asn1::allocate<MitigationForTechnologies>();
+    for (SizeType i = 0; i < j.Size(); i++)
+    {
+        const Value& item = j[i];
+        MitigationPerTechnologyClass_t *element = vanetza::asn1::allocate<MitigationPerTechnologyClass_t>();
+        from_json(item, *element);
+        asn_set_add(&(p_tmp->list), element);
+    }
+    p = *p_tmp;
+    delete p_tmp;
+}
+
+/*
+*   IMZMAreaEllipse - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const IMZMAreaEllipse& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("semiMajorRangeLength", to_json((double)(p.semiMajorRangeLength) / 10.0, allocator), allocator);
+    json.AddMember("semiMinorRangeLength", to_json((double)(p.semiMinorRangeLength) / 10.0, allocator), allocator);
+    json.AddMember("semiMajorRangeOrientation", to_json(((p.semiMajorRangeOrientation) == 3601) ? (p.semiMajorRangeOrientation) : (double)(p.semiMajorRangeOrientation) / 10.0, allocator), allocator);
+    if (p.nodeCenterPoint != 0) json.AddMember("nodeCenterPoint", to_json(*(p.nodeCenterPoint), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, IMZMAreaEllipse& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("nodeCenterPoint")) { p.nodeCenterPoint = vanetza::asn1::allocate<OffsetPoint_t>(); from_json(j["nodeCenterPoint"], *(p.nodeCenterPoint)); }
+    else { p.nodeCenterPoint=nullptr; }
+    double semiMajorRangeLength; from_json(j["semiMajorRangeLength"], (semiMajorRangeLength)); (p.semiMajorRangeLength) =semiMajorRangeLength * 10;
+    double semiMinorRangeLength; from_json(j["semiMinorRangeLength"], (semiMinorRangeLength)); (p.semiMinorRangeLength) =semiMinorRangeLength * 10;
+    double semiMajorRangeOrientation; from_json(j["semiMajorRangeOrientation"], (semiMajorRangeOrientation)); (p.semiMajorRangeOrientation) = ((semiMajorRangeOrientation) != 3601) ? semiMajorRangeOrientation * 10 : semiMajorRangeOrientation;
+}
+
+
+
+/*
+*   TisTpgDRM-Management - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgDRM_Management& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("generationTime", to_json((p.generationTime), allocator), allocator);
+    json.AddMember("vehicleType", to_json((p.vehicleType), allocator), allocator);
+    json.AddMember("tisProfile", to_json_TisProfile((p.tisProfile), allocator), allocator);
+    if (p.costumerContract != 0) json.AddMember("costumerContract", to_json(*(p.costumerContract), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, TisTpgDRM_Management& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["generationTime"], (p.generationTime));
+    from_json(j["vehicleType"], (p.vehicleType));
+    if (j.HasMember("costumerContract")) { p.costumerContract = vanetza::asn1::allocate<CustomerContract_t>(); from_json(j["costumerContract"], *(p.costumerContract)); }
+    else { p.costumerContract=nullptr; }
+    from_json_TisProfile(j["tisProfile"],(p.tisProfile));
+}
+
+
+
+/*
+*   TisTpgDRM-Location - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgDRM_Location& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("vehiclePosition", to_json((p.vehiclePosition), allocator), allocator);
+    json.AddMember("vehicleSpeed", to_json((p.vehicleSpeed), allocator), allocator);
+    json.AddMember("vehicleHeading", to_json((p.vehicleHeading), allocator), allocator);
+    if (p.requestedPosition != 0) json.AddMember("requestedPosition", to_json(*(p.requestedPosition), allocator), allocator);
+    if (p.searchRange != 0) json.AddMember("searchRange", to_json(*(p.searchRange), allocator), allocator);
+    if (p.searchCondition != 0) json.AddMember("searchCondition", to_json(*(p.searchCondition), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, TisTpgDRM_Location& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["vehiclePosition"], (p.vehiclePosition));
+    from_json(j["vehicleSpeed"], (p.vehicleSpeed));
+    from_json(j["vehicleHeading"], (p.vehicleHeading));
+    if (j.HasMember("requestedPosition")) { p.requestedPosition = vanetza::asn1::allocate<ReferencePosition_t>(); from_json(j["requestedPosition"], *(p.requestedPosition)); }
+    else { p.requestedPosition=nullptr; }
+    if (j.HasMember("searchRange")) { p.searchRange = vanetza::asn1::allocate<SearchRange_t>(); from_json(j["searchRange"], *(p.searchRange)); }
+    else { p.searchRange=nullptr; }
+    if (j.HasMember("searchCondition")) { p.searchCondition = vanetza::asn1::allocate<SearchCondition_t>(); from_json(j["searchCondition"], *(p.searchCondition)); }
+    else { p.searchCondition=nullptr; }
+}
+
+
+
+/*
+*   TisTpgTRM-Management - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTRM_Management& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("generationTime", to_json((p.generationTime), allocator), allocator);
+    json.AddMember("vehicleType", to_json((p.vehicleType), allocator), allocator);
+    json.AddMember("tpgStationID", to_json((p.tpgStationID), allocator), allocator);
+    json.AddMember("reservationStatus", to_json((p.reservationStatus), allocator), allocator);
+    if (p.costumercontract != 0) json.AddMember("costumercontract", to_json(*(p.costumercontract), allocator), allocator);
+    if (p.reservationID != 0) json.AddMember("reservationID", to_json(*(p.reservationID), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, TisTpgTRM_Management& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["generationTime"], (p.generationTime));
+    from_json(j["vehicleType"], (p.vehicleType));
+    from_json(j["tpgStationID"], (p.tpgStationID));
+    from_json(j["reservationStatus"], (p.reservationStatus));
+    if (j.HasMember("costumercontract")) { p.costumercontract = vanetza::asn1::allocate<CustomerContract_t>(); from_json(j["costumercontract"], *(p.costumercontract)); }
+    else { p.costumercontract=nullptr; }
+    if (j.HasMember("reservationID")) { p.reservationID = vanetza::asn1::allocate<ReservationID_t>(); from_json(j["reservationID"], *(p.reservationID)); }
+    else { p.reservationID=nullptr; }
+}
+
+
+
+/*
+*   TisTpgTRM-Location - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTRM_Location& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("vehiclePosition", to_json((p.vehiclePosition), allocator), allocator);
+    json.AddMember("vehicleSpeed", to_json((p.vehicleSpeed), allocator), allocator);
+    json.AddMember("vehicleHeading", to_json((p.vehicleHeading), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, TisTpgTRM_Location& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["vehiclePosition"], (p.vehiclePosition));
+    from_json(j["vehicleSpeed"], (p.vehicleSpeed));
+    from_json(j["vehicleHeading"], (p.vehicleHeading));
+}
+
+
+
+/*
+*   TisTpgTCM-Management - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTCM_Management& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("generationTime", to_json((p.generationTime), allocator), allocator);
+    json.AddMember("tpgStationID", to_json((p.tpgStationID), allocator), allocator);
+    json.AddMember("reservationStatus", to_json((p.reservationStatus), allocator), allocator);
+    if (p.reservedTpg != 0) json.AddMember("reservedTpg", to_json(*(p.reservedTpg), allocator), allocator);
+    if (p.costumercontract != 0) json.AddMember("costumercontract", to_json(*(p.costumercontract), allocator), allocator);
+    if (p.reservationID != 0) json.AddMember("reservationID", to_json(*(p.reservationID), allocator), allocator);
+    if (p.tpgAutomationLevel != 0) json.AddMember("tpgAutomationLevel", to_json_TpgAutomation(*(p.tpgAutomationLevel), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, TisTpgTCM_Management& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["generationTime"], (p.generationTime));
+    from_json(j["tpgStationID"], (p.tpgStationID));
+    from_json(j["reservationStatus"], (p.reservationStatus));
+    if (j.HasMember("reservedTpg")) { p.reservedTpg = vanetza::asn1::allocate<long>(); from_json(j["reservedTpg"], *(p.reservedTpg)); }
+    else { p.reservedTpg=nullptr; }
+    if (j.HasMember("costumercontract")) { p.costumercontract = vanetza::asn1::allocate<CustomerContract_t>(); from_json(j["costumercontract"], *(p.costumercontract)); }
+    else { p.costumercontract=nullptr; }
+    if (j.HasMember("reservationID")) { p.reservationID = vanetza::asn1::allocate<ReservationID_t>(); from_json(j["reservationID"], *(p.reservationID)); }
+    else { p.reservationID=nullptr; }
+    if (j.HasMember("tpgAutomationLevel")) { p.tpgAutomationLevel = vanetza::asn1::allocate<TpgAutomation_t>(); from_json_TpgAutomation(j["tpgAutomationLevel"],*(p.tpgAutomationLevel)); }
+    else { p.tpgAutomationLevel=nullptr; }
+}
+
+
+
+/*
+*   TisTpgTCM-Situation - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTCM_Situation& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("reservationTimeLimit", to_json((p.reservationTimeLimit), allocator), allocator);
+    if (p.pairingID != 0) json.AddMember("pairingID", to_json(*(p.pairingID), allocator), allocator);
+    if (p.cancellationCondition != 0) json.AddMember("cancellationCondition", to_json(*(p.cancellationCondition), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, TisTpgTCM_Situation& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("pairingID")) { p.pairingID = vanetza::asn1::allocate<PairingID_t>(); from_json(j["pairingID"], *(p.pairingID)); }
+    else { p.pairingID=nullptr; }
+    from_json(j["reservationTimeLimit"], (p.reservationTimeLimit));
+    if (j.HasMember("cancellationCondition")) { p.cancellationCondition = vanetza::asn1::allocate<CancellationCondition_t>(); from_json(j["cancellationCondition"], *(p.cancellationCondition)); }
+    else { p.cancellationCondition=nullptr; }
+}
+
+
+
+/*
+*   TisTpgTCM-Location - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTCM_Location& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    if (p.tpgLocation != 0) json.AddMember("tpgLocation", to_json(*(p.tpgLocation), allocator), allocator);
+    if (p.address != 0) json.AddMember("address", to_json(*(p.address), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, TisTpgTCM_Location& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("tpgLocation")) { p.tpgLocation = vanetza::asn1::allocate<ReferencePosition_t>(); from_json(j["tpgLocation"], *(p.tpgLocation)); }
+    else { p.tpgLocation=nullptr; }
+    if (j.HasMember("address")) { p.address = vanetza::asn1::allocate<UTF8String_t>(); from_json(j["address"], *(p.address)); }
+    else { p.address=nullptr; }
+}
+
+
+
+/*
+*   TisTpgVDRM-Management - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgVDRM_Management& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("generationTime", to_json((p.generationTime), allocator), allocator);
+    json.AddMember("fillingStatus", to_json((p.fillingStatus), allocator), allocator);
+    json.AddMember("automationLevel", to_json_TpgAutomation((p.automationLevel), allocator), allocator);
+    if (p.pairingID != 0) json.AddMember("pairingID", to_json(*(p.pairingID), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, TisTpgVDRM_Management& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["generationTime"], (p.generationTime));
+    from_json(j["fillingStatus"], (p.fillingStatus));
+    from_json_TpgAutomation(j["automationLevel"],(p.automationLevel));
+    if (j.HasMember("pairingID")) { p.pairingID = vanetza::asn1::allocate<PairingID_t>(); from_json(j["pairingID"], *(p.pairingID)); }
+    else { p.pairingID=nullptr; }
+}
+
+
+
+/*
+*   TisTpgVDPM-Management - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgVDPM_Management& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("generationTime", to_json((p.generationTime), allocator), allocator);
+    json.AddMember("vehicleType", to_json((p.vehicleType), allocator), allocator);
+    json.AddMember("tyreTempCondition", to_json((p.tyreTempCondition), allocator), allocator);
+    json.AddMember("fillingStatus", to_json((p.fillingStatus), allocator), allocator);
+    if (p.tisProfile != 0) json.AddMember("tisProfile", to_json_TisProfile(*(p.tisProfile), allocator), allocator);
+    if (p.pairingID != 0) json.AddMember("pairingID", to_json(*(p.pairingID), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, TisTpgVDPM_Management& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["generationTime"], (p.generationTime));
+    if (j.HasMember("tisProfile")) { p.tisProfile = vanetza::asn1::allocate<TisProfile_t>(); from_json_TisProfile(j["tisProfile"],*(p.tisProfile)); }
+    else { p.tisProfile=nullptr; }
+    from_json(j["vehicleType"], (p.vehicleType));
+    from_json(j["tyreTempCondition"], (p.tyreTempCondition));
+    from_json(j["fillingStatus"], (p.fillingStatus));
+    if (j.HasMember("pairingID")) { p.pairingID = vanetza::asn1::allocate<PairingID_t>(); from_json(j["pairingID"], *(p.pairingID)); }
+    else { p.pairingID=nullptr; }
+    
+}
+
+
+
+/*
+*   TisTpgEOFM-Management - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgEOFM_Management& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("generationTime", to_json((p.generationTime), allocator), allocator);
+    json.AddMember("fillingStatus", to_json((p.fillingStatus), allocator), allocator);
+    json.AddMember("numberOfAppliedPressure", to_json((p.numberOfAppliedPressure), allocator), allocator);
+    if (p.appliedTyrePressures != 0) json.AddMember("appliedTyrePressures", to_json(*(p.appliedTyrePressures), allocator), allocator);
+    if (p.pairingID != 0) json.AddMember("pairingID", to_json(*(p.pairingID), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, TisTpgEOFM_Management& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["generationTime"], (p.generationTime));
+    from_json(j["fillingStatus"], (p.fillingStatus));
+    from_json(j["numberOfAppliedPressure"], (p.numberOfAppliedPressure));
+    if (j.HasMember("appliedTyrePressures")) { p.appliedTyrePressures = vanetza::asn1::allocate<AppliedTyrePressures_t>(); from_json(j["appliedTyrePressures"], *(p.appliedTyrePressures)); }
+    else { p.appliedTyrePressures=nullptr; }
+    if (j.HasMember("pairingID")) { p.pairingID = vanetza::asn1::allocate<PairingID_t>(); from_json(j["pairingID"], *(p.pairingID)); }
+    else { p.pairingID=nullptr; }
+}
+
+
+
+/*
+*   PressureVariant - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const PressureVariant& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("pressureConfiguration", to_json_PressureConfiguration((p.pressureConfiguration), allocator), allocator);
+    json.AddMember("frontAxlePressure", to_json((p.frontAxlePressure), allocator), allocator);
+    json.AddMember("rearAxlePressure", to_json((p.rearAxlePressure), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, PressureVariant& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json_PressureConfiguration(j["pressureConfiguration"],(p.pressureConfiguration));
+    from_json(j["frontAxlePressure"], (p.frontAxlePressure));
+    from_json(j["rearAxlePressure"], (p.rearAxlePressure));
+}
+
+
+
+/*
+*   TyreData::TyreData__tyreSidewallInformation - Type CHOICE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TyreData::TyreData__tyreSidewallInformation& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == TyreData__tyreSidewallInformation_PR::TyreData__tyreSidewallInformation_PR_tyreSidewallInformationValue) {
+        json.AddMember("tyreSidewallInformationValue", to_json_TyreSidewallInformation(p.choice.tyreSidewallInformationValue, allocator), allocator);
+    } else if (p.present == TyreData__tyreSidewallInformation_PR::TyreData__tyreSidewallInformation_PR_unavailable) {
+        json.AddMember("unavailable", to_json(p.choice.unavailable, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, TyreData::TyreData__tyreSidewallInformation& p) {
+    if (j.HasMember("tyreSidewallInformationValue")) {
+        p.present = TyreData__tyreSidewallInformation_PR::TyreData__tyreSidewallInformation_PR_tyreSidewallInformationValue;
+        from_json_TyreSidewallInformation(j["tyreSidewallInformationValue"], p.choice.tyreSidewallInformationValue);
+    } else if (j.HasMember("unavailable")) {
+        p.present = TyreData__tyreSidewallInformation_PR::TyreData__tyreSidewallInformation_PR_unavailable;
+        from_json(j["unavailable"], p.choice.unavailable);
+    } else {
+        p.present = TyreData__tyreSidewallInformation_PR::TyreData__tyreSidewallInformation_PR_NOTHING;
+    }
+}
+
+/*
+*   TyreData::TyreData__tin - Type CHOICE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TyreData::TyreData__tin& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == TyreData__tin_PR::TyreData__tin_PR_tinValue) {
+        json.AddMember("tinValue", to_json_TIN(p.choice.tinValue, allocator), allocator);
+    } else if (p.present == TyreData__tin_PR::TyreData__tin_PR_unavailable) {
+        json.AddMember("unavailable", to_json(p.choice.unavailable, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, TyreData::TyreData__tin& p) {
+    if (j.HasMember("tinValue")) {
+        p.present = TyreData__tin_PR::TyreData__tin_PR_tinValue;
+        from_json_TIN(j["tinValue"], p.choice.tinValue);
+    } else if (j.HasMember("unavailable")) {
+        p.present = TyreData__tin_PR::TyreData__tin_PR_unavailable;
+        from_json(j["unavailable"], p.choice.unavailable);
+    } else {
+        p.present = TyreData__tin_PR::TyreData__tin_PR_NOTHING;
+    }
+}
+
+/*
+*   TyreData - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TyreData& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    if (p.currentTyrePressure != 0) json.AddMember("currentTyrePressure", to_json(*(p.currentTyrePressure), allocator), allocator);
+    if (p.tyreSidewallInformation != 0) json.AddMember("tyreSidewallInformation", to_json(*(p.tyreSidewallInformation), allocator), allocator);
+    if (p.currentInsideAirTemperature != 0) json.AddMember("currentInsideAirTemperature", to_json(*(p.currentInsideAirTemperature), allocator), allocator);
+    if (p.recommendedTyrePressure != 0) json.AddMember("recommendedTyrePressure", to_json(*(p.recommendedTyrePressure), allocator), allocator);
+    if (p.tin != 0) json.AddMember("tin", to_json(*(p.tin), allocator), allocator);
+    if (p.sensorState != 0) json.AddMember("sensorState", to_json(*(p.sensorState), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, TyreData& p) {
+    p._asn_ctx.ptr = nullptr;
+    if (j.HasMember("currentTyrePressure")) { p.currentTyrePressure = vanetza::asn1::allocate<TyreData::TyreData__currentTyrePressure>(); from_json(j["currentTyrePressure"], *(p.currentTyrePressure)); }
+    else { p.currentTyrePressure=nullptr; }
+    if (j.HasMember("tyreSidewallInformation")) { p.tyreSidewallInformation = vanetza::asn1::allocate<TyreData::TyreData__tyreSidewallInformation>(); from_json(j["tyreSidewallInformation"], *(p.tyreSidewallInformation)); }
+    else { p.tyreSidewallInformation=nullptr; }
+    if (j.HasMember("currentInsideAirTemperature")) { p.currentInsideAirTemperature = vanetza::asn1::allocate<TyreData::TyreData__currentInsideAirTemperature>(); from_json(j["currentInsideAirTemperature"], *(p.currentInsideAirTemperature)); }
+    else { p.currentInsideAirTemperature=nullptr; }
+    if (j.HasMember("recommendedTyrePressure")) { p.recommendedTyrePressure = vanetza::asn1::allocate<TyreData::TyreData__recommendedTyrePressure>(); from_json(j["recommendedTyrePressure"], *(p.recommendedTyrePressure)); }
+    else { p.recommendedTyrePressure=nullptr; }
+    if (j.HasMember("tin")) { p.tin = vanetza::asn1::allocate<TyreData::TyreData__tin>(); from_json(j["tin"], *(p.tin)); }
+    else { p.tin=nullptr; }
+    if (j.HasMember("sensorState")) { p.sensorState = vanetza::asn1::allocate<TyreData::TyreData__sensorState>(); from_json(j["sensorState"], *(p.sensorState)); }
+    else { p.sensorState=nullptr; }
+}
+
+
+
+/*
+*   TpgStationData - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TpgStationData& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("tpgStationID", to_json((p.tpgStationID), allocator), allocator);
+    json.AddMember("tpgAutomationLevel", to_json_TpgAutomation((p.tpgAutomationLevel), allocator), allocator);
+    json.AddMember("tpgNumber", to_json((p.tpgNumber), allocator), allocator);
+    json.AddMember("tpgProvider", to_json((p.tpgProvider), allocator), allocator);
+    json.AddMember("tpgLocation", to_json((p.tpgLocation), allocator), allocator);
+    json.AddMember("accessibility", to_json((p.accessibility), allocator), allocator);
+    if (p.address != 0) json.AddMember("address", to_json(*(p.address), allocator), allocator);
+    if (p.digitalMap != 0) json.AddMember("digitalMap", to_json(*(p.digitalMap), allocator), allocator);
+    if (p.bookingInfo != 0) json.AddMember("bookingInfo", to_json(*(p.bookingInfo), allocator), allocator);
+    if (p.availableTpgNumber != 0) json.AddMember("availableTpgNumber", to_json(*(p.availableTpgNumber), allocator), allocator);
+    if (p.cancellationCondition != 0) json.AddMember("cancellationCondition", to_json(*(p.cancellationCondition), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, TpgStationData& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["tpgStationID"], (p.tpgStationID));
+    from_json_TpgAutomation(j["tpgAutomationLevel"],(p.tpgAutomationLevel));
+    from_json(j["tpgNumber"], (p.tpgNumber));
+    from_json(j["tpgProvider"], (p.tpgProvider));
+    from_json(j["tpgLocation"], (p.tpgLocation));
+    from_json(j["accessibility"], (p.accessibility));
+    if (j.HasMember("address")) { p.address = vanetza::asn1::allocate<UTF8String_t>(); from_json(j["address"], *(p.address)); }
+    else { p.address=nullptr; }
+    if (j.HasMember("digitalMap")) { p.digitalMap = vanetza::asn1::allocate<DigitalMap_t>(); from_json(j["digitalMap"], *(p.digitalMap)); }
+    else { p.digitalMap=nullptr; }
+    if (j.HasMember("bookingInfo")) { p.bookingInfo = vanetza::asn1::allocate<BookingInfo_t>(); from_json(j["bookingInfo"], *(p.bookingInfo)); }
+    else { p.bookingInfo=nullptr; }
+    if (j.HasMember("availableTpgNumber")) { p.availableTpgNumber = vanetza::asn1::allocate<AvailableTpgNumber_t>(); from_json(j["availableTpgNumber"], *(p.availableTpgNumber)); }
+    else { p.availableTpgNumber=nullptr; }
+    if (j.HasMember("cancellationCondition")) { p.cancellationCondition = vanetza::asn1::allocate<CancellationCondition_t>(); from_json(j["cancellationCondition"], *(p.cancellationCondition)); }
+    else { p.cancellationCondition=nullptr; }
+    p.phoneNumber=nullptr;
+    p.openingDaysHours=nullptr;
+}
+
+
+
+/*
+*   TpgNotifContainer - Type SEQUENCE OF
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TpgNotifContainer& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const TpgStationData_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, TpgNotifContainer& p) {
+    TpgNotifContainer* p_tmp = vanetza::asn1::allocate<TpgNotifContainer>();
+    for (SizeType i = 0; i < j.Size(); i++)
+    {
+        const Value& item = j[i];
+        TpgStationData_t *element = vanetza::asn1::allocate<TpgStationData_t>();
+        from_json(item, *element);
+        asn_set_add(&(p_tmp->list), element);
+    }
+    p = *p_tmp;
+    delete p_tmp;
+}
+
+/*
 *   ConnectionManeuverAssist-addGrpC - Type SEQUENCE
 *   From AddGrpC - File DSRC.asn
 */
@@ -10386,6 +11377,220 @@ void from_json(const Value& j, EV_RSR_MessageBody& p) {
 }
 
 /*
+*   InterferenceManagementMitigationType - Type CHOICE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const InterferenceManagementMitigationType& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == InterferenceManagementMitigationType_PR_unavailable) {
+        json.AddMember("unavailable", to_json(p.choice.unavailable, allocator), allocator);
+    } else if (p.present == InterferenceManagementMitigationType_PR_mitigationForTechnologies) {
+        json.AddMember("mitigationForTechnologies", to_json(p.choice.mitigationForTechnologies, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, InterferenceManagementMitigationType& p) {
+    if (j.HasMember("unavailable")) {
+        p.present = InterferenceManagementMitigationType_PR_unavailable;
+        from_json(j["unavailable"], p.choice.unavailable);
+    } else if (j.HasMember("mitigationForTechnologies")) {
+        p.present = InterferenceManagementMitigationType_PR_mitigationForTechnologies;
+        from_json(j["mitigationForTechnologies"], p.choice.mitigationForTechnologies);
+    } else {
+        p.present = InterferenceManagementMitigationType_PR_NOTHING;
+    }
+}
+
+/*
+*   TisTpgDRM - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgDRM& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("management", to_json((p.management), allocator), allocator);
+    json.AddMember("situation", to_json((p.situation), allocator), allocator);
+    json.AddMember("location", to_json((p.location), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, TisTpgDRM& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["management"], (p.management));
+    from_json(j["situation"], (p.situation));
+    from_json(j["location"], (p.location));
+}
+
+
+
+/*
+*   TisTpgSNM - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgSNM& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("management", to_json((p.management), allocator), allocator);
+    json.AddMember("tpgContainer", to_json((p.tpgContainer), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, TisTpgSNM& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["management"], (p.management));
+    from_json(j["tpgContainer"], (p.tpgContainer));
+}
+
+
+
+/*
+*   TisTpgTRM - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTRM& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("management", to_json((p.management), allocator), allocator);
+    if (p.situation != 0) json.AddMember("situation", to_json(*(p.situation), allocator), allocator);
+    if (p.location != 0) json.AddMember("location", to_json(*(p.location), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, TisTpgTRM& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["management"], (p.management));
+    if (j.HasMember("situation")) { p.situation = vanetza::asn1::allocate<TisTpgTRM_Situation_t>(); from_json(j["situation"], *(p.situation)); }
+    else { p.situation=nullptr; }
+    if (j.HasMember("location")) { p.location = vanetza::asn1::allocate<TisTpgTRM_Location_t>(); from_json(j["location"], *(p.location)); }
+    else { p.location=nullptr; }
+}
+
+
+
+/*
+*   TisTpgTCM - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTCM& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("management", to_json((p.management), allocator), allocator);
+    if (p.situation != 0) json.AddMember("situation", to_json(*(p.situation), allocator), allocator);
+    if (p.location != 0) json.AddMember("location", to_json(*(p.location), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, TisTpgTCM& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["management"], (p.management));
+    if (j.HasMember("situation")) { p.situation = vanetza::asn1::allocate<TisTpgTCM_Situation_t>(); from_json(j["situation"], *(p.situation)); }
+    else { p.situation=nullptr; }
+    if (j.HasMember("location")) { p.location = vanetza::asn1::allocate<TisTpgTCM_Location_t>(); from_json(j["location"], *(p.location)); }
+    else { p.location=nullptr; }
+}
+
+
+
+/*
+*   TisTpgVDRM - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgVDRM& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("management", to_json((p.management), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, TisTpgVDRM& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["management"], (p.management));
+}
+
+
+
+/*
+*   VehicleSpecificData - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const VehicleSpecificData& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("currentVehicleConfiguration", to_json_PressureConfiguration((p.currentVehicleConfiguration), allocator), allocator);
+    json.AddMember("frontLeftTyreData", to_json((p.frontLeftTyreData), allocator), allocator);
+    json.AddMember("frontRightTyreData", to_json((p.frontRightTyreData), allocator), allocator);
+    json.AddMember("rearLeftTyreData", to_json((p.rearLeftTyreData), allocator), allocator);
+    json.AddMember("rearRightTyreData", to_json((p.rearRightTyreData), allocator), allocator);
+    json.AddMember("spareTyreData", to_json((p.spareTyreData), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, VehicleSpecificData& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json_PressureConfiguration(j["currentVehicleConfiguration"],(p.currentVehicleConfiguration));
+    from_json(j["frontLeftTyreData"], (p.frontLeftTyreData));
+    from_json(j["frontRightTyreData"], (p.frontRightTyreData));
+    from_json(j["rearLeftTyreData"], (p.rearLeftTyreData));
+    from_json(j["rearRightTyreData"], (p.rearRightTyreData));
+    from_json(j["spareTyreData"], (p.spareTyreData));
+}
+
+
+
+/*
+*   TisTpgEOFM - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgEOFM& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("management", to_json((p.management), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, TisTpgEOFM& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["management"], (p.management));
+}
+
+
+
+/*
+*   PressureVariantsList - Type SEQUENCE OF
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const PressureVariantsList& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const PressureVariant_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, PressureVariantsList& p) {
+    PressureVariantsList* p_tmp = vanetza::asn1::allocate<PressureVariantsList>();
+    for (SizeType i = 0; i < j.Size(); i++)
+    {
+        const Value& item = j[i];
+        PressureVariant_t *element = vanetza::asn1::allocate<PressureVariant_t>();
+        from_json(item, *element);
+        asn_set_add(&(p_tmp->list), element);
+    }
+    p = *p_tmp;
+    delete p_tmp;
+}
+
+/*
 *   SignalRequestMessage - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -11229,6 +12434,93 @@ void from_json(const Value& j, EV_RSR& p) {
 
 
 /*
+*   InterferenceManagementInfoPerChannel - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const InterferenceManagementInfoPerChannel& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("interferenceManagementChannel", to_json((p.interferenceManagementChannel), allocator), allocator);
+    json.AddMember("interferenceManagementZoneType", to_json((p.interferenceManagementZoneType), allocator), allocator);
+    if (p.interferenceManagementMitigationType != 0) json.AddMember("interferenceManagementMitigationType", to_json(*(p.interferenceManagementMitigationType), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, InterferenceManagementInfoPerChannel& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["interferenceManagementChannel"], (p.interferenceManagementChannel));
+    from_json(j["interferenceManagementZoneType"], (p.interferenceManagementZoneType));
+    if (j.HasMember("interferenceManagementMitigationType")) { p.interferenceManagementMitigationType = vanetza::asn1::allocate<InterferenceManagementMitigationType_t>(); from_json(j["interferenceManagementMitigationType"], *(p.interferenceManagementMitigationType)); }
+    else { p.interferenceManagementMitigationType=nullptr; }
+    p.expiryTime=nullptr;
+}
+
+
+
+/*
+*   InterferenceManagementZoneShape - Type CHOICE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const InterferenceManagementZoneShape& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == InterferenceManagementZoneShape_PR_rectangle) {
+        json.AddMember("rectangle", to_json(p.choice.rectangle, allocator), allocator);
+    } else if (p.present == InterferenceManagementZoneShape_PR_circle) {
+        json.AddMember("circle", to_json(p.choice.circle, allocator), allocator);
+    } else if (p.present == InterferenceManagementZoneShape_PR_polygon) {
+        json.AddMember("polygon", to_json(p.choice.polygon, allocator), allocator);
+    } else if (p.present == InterferenceManagementZoneShape_PR_ellipse) {
+        json.AddMember("ellipse", to_json(p.choice.ellipse, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, InterferenceManagementZoneShape& p) {
+    if (j.HasMember("rectangle")) {
+        p.present = InterferenceManagementZoneShape_PR_rectangle;
+        from_json(j["rectangle"], p.choice.rectangle);
+    } else if (j.HasMember("circle")) {
+        p.present = InterferenceManagementZoneShape_PR_circle;
+        from_json(j["circle"], p.choice.circle);
+    } else if (j.HasMember("polygon")) {
+        p.present = InterferenceManagementZoneShape_PR_polygon;
+        from_json(j["polygon"], p.choice.polygon);
+    } else if (j.HasMember("ellipse")) {
+        p.present = InterferenceManagementZoneShape_PR_ellipse;
+        from_json(j["ellipse"], p.choice.ellipse);
+    } else {
+        p.present = InterferenceManagementZoneShape_PR_NOTHING;
+    }
+}
+
+/*
+*   TyreSetVariant - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TyreSetVariant& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("variantID", to_json((p.variantID), allocator), allocator);
+    json.AddMember("pressureVariantsList", to_json((p.pressureVariantsList), allocator), allocator);
+    if (p.frontAxleDimension != 0) json.AddMember("frontAxleDimension", to_json_TyreSidewallInformation(*(p.frontAxleDimension), allocator), allocator);
+    if (p.rearAxleDimension != 0) json.AddMember("rearAxleDimension", to_json_TyreSidewallInformation(*(p.rearAxleDimension), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, TyreSetVariant& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["variantID"], (p.variantID));
+    if (j.HasMember("frontAxleDimension")) { p.frontAxleDimension = vanetza::asn1::allocate<TyreSidewallInformation_t>(); from_json_TyreSidewallInformation(j["frontAxleDimension"],*(p.frontAxleDimension)); }
+    else { p.frontAxleDimension=nullptr; }
+    if (j.HasMember("rearAxleDimension")) { p.rearAxleDimension = vanetza::asn1::allocate<TyreSidewallInformation_t>(); from_json_TyreSidewallInformation(j["rearAxleDimension"],*(p.rearAxleDimension)); }
+    else { p.rearAxleDimension=nullptr; }
+    from_json(j["pressureVariantsList"], (p.pressureVariantsList));
+}
+
+
+
+/*
 *   SPAT - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -11947,6 +13239,91 @@ void from_json(const Value& j, ItsChargingStationData& p) {
 
 
 /*
+*   ZoneDefinition - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const ZoneDefinition& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("interferenceManagementZoneLatitude", to_json(((p.interferenceManagementZoneLatitude) == 900000001) ? (p.interferenceManagementZoneLatitude) : (double)(p.interferenceManagementZoneLatitude) / 10000000.0, allocator), allocator);
+    json.AddMember("interferenceManagementZoneLongitude", to_json(((p.interferenceManagementZoneLongitude) == 1800000001) ? (p.interferenceManagementZoneLongitude) : (double)(p.interferenceManagementZoneLongitude) / 10000000.0, allocator), allocator);
+    if (p.interferenceManagementZoneRadius != 0) json.AddMember("interferenceManagementZoneRadius", to_json(*(p.interferenceManagementZoneRadius), allocator), allocator);
+    if (p.interferenceManagementZoneID != 0) json.AddMember("interferenceManagementZoneID", to_json(*(p.interferenceManagementZoneID), allocator), allocator);
+    if (p.interferenceManagementZoneShape != 0) json.AddMember("interferenceManagementZoneShape", to_json(*(p.interferenceManagementZoneShape), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, ZoneDefinition& p) {
+    p._asn_ctx.ptr = nullptr;
+    double interferenceManagementZoneLatitude; from_json(j["interferenceManagementZoneLatitude"], (interferenceManagementZoneLatitude)); (p.interferenceManagementZoneLatitude) = ((interferenceManagementZoneLatitude) != 900000001) ? interferenceManagementZoneLatitude * 10000000 : interferenceManagementZoneLatitude;
+    double interferenceManagementZoneLongitude; from_json(j["interferenceManagementZoneLongitude"], (interferenceManagementZoneLongitude)); (p.interferenceManagementZoneLongitude) = ((interferenceManagementZoneLongitude) != 1800000001) ? interferenceManagementZoneLongitude * 10000000 : interferenceManagementZoneLongitude;
+    if (j.HasMember("interferenceManagementZoneRadius")) { p.interferenceManagementZoneRadius = vanetza::asn1::allocate<ProtectedZoneRadius_t>(); from_json(j["interferenceManagementZoneRadius"], *(p.interferenceManagementZoneRadius)); }
+    else { p.interferenceManagementZoneRadius=nullptr; }
+    if (j.HasMember("interferenceManagementZoneID")) { p.interferenceManagementZoneID = vanetza::asn1::allocate<ProtectedZoneID_t>(); from_json(j["interferenceManagementZoneID"], *(p.interferenceManagementZoneID)); }
+    else { p.interferenceManagementZoneID=nullptr; }
+    if (j.HasMember("interferenceManagementZoneShape")) { p.interferenceManagementZoneShape = vanetza::asn1::allocate<InterferenceManagementZoneShape_t>(); from_json(j["interferenceManagementZoneShape"], *(p.interferenceManagementZoneShape)); }
+    else { p.interferenceManagementZoneShape=nullptr; }
+}
+
+
+
+/*
+*   InterferenceManagementInfo - Type SEQUENCE OF
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const InterferenceManagementInfo& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const InterferenceManagementInfoPerChannel_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, InterferenceManagementInfo& p) {
+    InterferenceManagementInfo* p_tmp = vanetza::asn1::allocate<InterferenceManagementInfo>();
+    for (SizeType i = 0; i < j.Size(); i++)
+    {
+        const Value& item = j[i];
+        InterferenceManagementInfoPerChannel_t *element = vanetza::asn1::allocate<InterferenceManagementInfoPerChannel_t>();
+        from_json(item, *element);
+        asn_set_add(&(p_tmp->list), element);
+    }
+    p = *p_tmp;
+    delete p_tmp;
+}
+
+/*
+*   PlacardTable - Type SEQUENCE OF
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const PlacardTable& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const TyreSetVariant_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, PlacardTable& p) {
+    PlacardTable* p_tmp = vanetza::asn1::allocate<PlacardTable>();
+    for (SizeType i = 0; i < j.Size(); i++)
+    {
+        const Value& item = j[i];
+        TyreSetVariant_t *element = vanetza::asn1::allocate<TyreSetVariant_t>();
+        from_json(item, *element);
+        asn_set_add(&(p_tmp->list), element);
+    }
+    p = *p_tmp;
+    delete p_tmp;
+}
+
+/*
 *   MapData - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -12353,6 +13730,50 @@ void from_json(const Value& j, ItsEVCSNData& p) {
 
 
 /*
+*   InterferenceManagementZone - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const InterferenceManagementZone& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("zoneDefinition", to_json((p.zoneDefinition), allocator), allocator);
+    json.AddMember("interferenceManagementInfo", to_json((p.interferenceManagementInfo), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, InterferenceManagementZone& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["zoneDefinition"], (p.zoneDefinition));
+    from_json(j["interferenceManagementInfo"], (p.interferenceManagementInfo));
+}
+
+
+
+/*
+*   TisTpgVDPM - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgVDPM& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("management", to_json((p.management), allocator), allocator);
+    json.AddMember("placardTable", to_json((p.placardTable), allocator), allocator);
+    if (p.vehicleSpecificData != 0) json.AddMember("vehicleSpecificData", to_json(*(p.vehicleSpecificData), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, TisTpgVDPM& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["management"], (p.management));
+    from_json(j["placardTable"], (p.placardTable));
+    if (j.HasMember("vehicleSpecificData")) { p.vehicleSpecificData = vanetza::asn1::allocate<VehicleSpecificData_t>(); from_json(j["vehicleSpecificData"], *(p.vehicleSpecificData)); }
+    else { p.vehicleSpecificData=nullptr; }
+}
+
+
+
+/*
 *   GddStructure - Type SEQUENCE
 *   From GDD - File ISO14823.asn
 */
@@ -12574,6 +13995,86 @@ void from_json(const Value& j, EVChargingSpotNotificationPOIMessage& p) {
 
 
 /*
+*   InterferenceManagementZones - Type SEQUENCE OF
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const InterferenceManagementZones& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const InterferenceManagementZone_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, InterferenceManagementZones& p) {
+    InterferenceManagementZones* p_tmp = vanetza::asn1::allocate<InterferenceManagementZones>();
+    for (SizeType i = 0; i < j.Size(); i++)
+    {
+        const Value& item = j[i];
+        InterferenceManagementZone_t *element = vanetza::asn1::allocate<InterferenceManagementZone_t>();
+        from_json(item, *element);
+        asn_set_add(&(p_tmp->list), element);
+    }
+    p = *p_tmp;
+    delete p_tmp;
+}
+
+/*
+*   TisTpgTransaction - Type CHOICE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTransaction& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == TisTpgTransaction_PR_drm) {
+        json.AddMember("drm", to_json(p.choice.drm, allocator), allocator);
+    } else if (p.present == TisTpgTransaction_PR_snm) {
+        json.AddMember("snm", to_json(p.choice.snm, allocator), allocator);
+    } else if (p.present == TisTpgTransaction_PR_trm) {
+        json.AddMember("trm", to_json(p.choice.trm, allocator), allocator);
+    } else if (p.present == TisTpgTransaction_PR_tcm) {
+        json.AddMember("tcm", to_json(p.choice.tcm, allocator), allocator);
+    } else if (p.present == TisTpgTransaction_PR_vdrm) {
+        json.AddMember("vdrm", to_json(p.choice.vdrm, allocator), allocator);
+    } else if (p.present == TisTpgTransaction_PR_vdpm) {
+        json.AddMember("vdpm", to_json(p.choice.vdpm, allocator), allocator);
+    } else if (p.present == TisTpgTransaction_PR_eofm) {
+        json.AddMember("eofm", to_json(p.choice.eofm, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, TisTpgTransaction& p) {
+    if (j.HasMember("drm")) {
+        p.present = TisTpgTransaction_PR_drm;
+        from_json(j["drm"], p.choice.drm);
+    } else if (j.HasMember("snm")) {
+        p.present = TisTpgTransaction_PR_snm;
+        from_json(j["snm"], p.choice.snm);
+    } else if (j.HasMember("trm")) {
+        p.present = TisTpgTransaction_PR_trm;
+        from_json(j["trm"], p.choice.trm);
+    } else if (j.HasMember("tcm")) {
+        p.present = TisTpgTransaction_PR_tcm;
+        from_json(j["tcm"], p.choice.tcm);
+    } else if (j.HasMember("vdrm")) {
+        p.present = TisTpgTransaction_PR_vdrm;
+        from_json(j["vdrm"], p.choice.vdrm);
+    } else if (j.HasMember("vdpm")) {
+        p.present = TisTpgTransaction_PR_vdpm;
+        from_json(j["vdpm"], p.choice.vdpm);
+    } else if (j.HasMember("eofm")) {
+        p.present = TisTpgTransaction_PR_eofm;
+        from_json(j["eofm"], p.choice.eofm);
+    } else {
+        p.present = TisTpgTransaction_PR_NOTHING;
+    }
+}
+
+/*
 *   GeneralIviContainer - Type SEQUENCE OF
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -12712,6 +14213,46 @@ void from_json(const Value& j, EvcsnPdu& p) {
 
 
 /*
+*   ImzmContainer - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const ImzmContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("interferenceManagementZones", to_json((p.interferenceManagementZones), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ImzmContainer& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["interferenceManagementZones"], (p.interferenceManagementZones));
+}
+
+
+
+/*
+*   TisTpgTransactionsPdu - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTransactionsPdu& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("header", to_json((p.header), allocator), allocator);
+    json.AddMember("tisTpgTransaction", to_json((p.tisTpgTransaction), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, TisTpgTransactionsPdu& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["header"], (p.header));
+    from_json(j["tisTpgTransaction"], (p.tisTpgTransaction));
+}
+
+
+
+/*
 *   IviContainer - Type CHOICE
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -12824,6 +14365,27 @@ void from_json(const Value& j, CollectivePerceptionMessage& p) {
 
 
 /*
+*   ImzmParameters - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const ImzmParameters& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("basicContainer", to_json((p.basicContainer), allocator), allocator);
+    json.AddMember("imzmContainer", to_json((p.imzmContainer), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ImzmParameters& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["basicContainer"], (p.basicContainer));
+    from_json(j["imzmContainer"], (p.imzmContainer));
+}
+
+
+
+/*
 *   IviContainers - Type SEQUENCE OF
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -12873,6 +14435,27 @@ void from_json(const Value& j, CPM& p) {
 
 
 /*
+*   InterferenceManagementZoneMessage - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const InterferenceManagementZoneMessage& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("generationDeltaTime", to_json((p.generationDeltaTime), allocator), allocator);
+    json.AddMember("imzmParameters", to_json((p.imzmParameters), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, InterferenceManagementZoneMessage& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["generationDeltaTime"], (p.generationDeltaTime));
+    from_json(j["imzmParameters"], (p.imzmParameters));
+}
+
+
+
+/*
 *   IviStructure - Type SEQUENCE
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -12910,6 +14493,27 @@ void from_json(const Value& j, IVIM& p) {
     p._asn_ctx.ptr = nullptr;
     from_json(j["header"], (p.header));
     from_json(j["ivi"], (p.ivi));
+}
+
+
+
+/*
+*   IMZM - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const IMZM& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("header", to_json((p.header), allocator), allocator);
+    json.AddMember("imzm", to_json((p.imzm), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, IMZM& p) {
+    p._asn_ctx.ptr = nullptr;
+    from_json(j["header"], (p.header));
+    from_json(j["imzm"], (p.imzm));
 }
 
 

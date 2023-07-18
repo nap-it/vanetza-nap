@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
-*   Auto-generated from the asn1 directory by asn1json.py on 2023-07-17 23:13:52.927666
+*   Auto-generated from the asn1 directory by asn1json.py on 2023-07-18 01:20:29.456570
 */
 
 #ifndef ASN1_JSON_HPP
@@ -23,6 +23,8 @@
 #include <vanetza/asn1/rtcmem.hpp>
 #include <vanetza/asn1/evcsnm.hpp>
 #include <vanetza/asn1/evrsrm.hpp>
+#include <vanetza/asn1/imzm.hpp>
+#include <vanetza/asn1/tistpgm.hpp>
 
 #include <vanetza/asn1/its/NodeXY.h>
 #include <vanetza/asn1/its/VehicleID.h>
@@ -78,6 +80,7 @@
 #include <vanetza/asn1/its/SignalHeadLocation.h>
 #include <vanetza/asn1/its/ItsStationPositionList.h>
 #include <vanetza/asn1/its/SignalHeadLocationList.h>
+#include <vanetza/asn1/its/CurrentVehicleConfiguration.h>
 #include <vanetza/asn1/its/ActualNumberOfPassengers.h>
 #include <vanetza/asn1/its/AxleWeightLimits.h>
 #include <vanetza/asn1/its/AddRq.h>
@@ -189,6 +192,8 @@ Value to_json(const bool& p, Document::AllocatorType& allocator);
 void from_json(const Value& j, bool& p);
 Value to_json(const OCTET_STRING_t& p, Document::AllocatorType& allocator);
 void from_json(const Value& j, OCTET_STRING_t& p);
+Value to_json(const NULL_t& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, NULL_t& p);
 
 
 /*
@@ -2502,6 +2507,186 @@ void from_json_SupportedPaymentTypes(const Value& j, SupportedPaymentTypes_t& p)
 
 
 /*
+*   InterferenceManagementChannel - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const InterferenceManagementChannel& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, InterferenceManagementChannel& p);
+
+
+/*
+*   MitigationPerTechnologyClass - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const MitigationPerTechnologyClass& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, MitigationPerTechnologyClass& p);
+
+
+/*
+*   TisTpgDRM-Situation - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgDRM_Situation& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgDRM_Situation& p);
+
+
+/*
+*   TisTpgSNM-Management - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgSNM_Management& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgSNM_Management& p);
+
+
+/*
+*   TisTpgTRM-Situation - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTRM_Situation& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgTRM_Situation& p);
+
+
+/*
+*   TyreData::TyreData__currentTyrePressure - Type CHOICE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TyreData::TyreData__currentTyrePressure& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TyreData::TyreData__currentTyrePressure& p);
+
+
+/*
+*   TyreData::TyreData__currentInsideAirTemperature - Type CHOICE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TyreData::TyreData__currentInsideAirTemperature& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TyreData::TyreData__currentInsideAirTemperature& p);
+
+
+/*
+*   TyreData::TyreData__recommendedTyrePressure - Type CHOICE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TyreData::TyreData__recommendedTyrePressure& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TyreData::TyreData__recommendedTyrePressure& p);
+
+
+/*
+*   TyreData::TyreData__sensorState - Type CHOICE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TyreData::TyreData__sensorState& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TyreData::TyreData__sensorState& p);
+
+
+/*
+*   AppliedTyrePressure - Type CHOICE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const AppliedTyrePressure& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, AppliedTyrePressure& p);
+
+
+/*
+*   TyreSidewallInformation - Type BIT STRING
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json_TyreSidewallInformation(const TyreSidewallInformation_t p, Document::AllocatorType& allocator);
+
+void from_json_TyreSidewallInformation(const Value& j, TyreSidewallInformation_t& p);
+
+
+/*
+*   CurrentVehicleConfiguration - Type BIT STRING
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json_CurrentVehicleConfiguration(const CurrentVehicleConfiguration_t p, Document::AllocatorType& allocator);
+
+void from_json_CurrentVehicleConfiguration(const Value& j, CurrentVehicleConfiguration_t& p);
+
+
+/*
+*   TIN - Type BIT STRING
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json_TIN(const TIN_t p, Document::AllocatorType& allocator);
+
+void from_json_TIN(const Value& j, TIN_t& p);
+
+
+/*
+*   PressureConfiguration - Type BIT STRING
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json_PressureConfiguration(const PressureConfiguration_t p, Document::AllocatorType& allocator);
+
+void from_json_PressureConfiguration(const Value& j, PressureConfiguration_t& p);
+
+
+/*
+*   AppliedTyrePressures - Type SEQUENCE OF
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const AppliedTyrePressures& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, AppliedTyrePressures& p);
+
+
+/*
+*   TpgAutomation - Type BIT STRING
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json_TpgAutomation(const TpgAutomation_t p, Document::AllocatorType& allocator);
+
+void from_json_TpgAutomation(const Value& j, TpgAutomation_t& p);
+
+
+/*
+*   TisProfile - Type BIT STRING
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json_TisProfile(const TisProfile_t p, Document::AllocatorType& allocator);
+
+void from_json_TisProfile(const Value& j, TisProfile_t& p);
+
+
+/*
+*   Language - Type BIT STRING
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json_Language(const Language_t p, Document::AllocatorType& allocator);
+
+void from_json_Language(const Value& j, Language_t& p);
+
+
+/*
 *   ReferencePosition - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
@@ -3522,6 +3707,186 @@ void from_json(const Value& j, UpdateResponseMessage& p);
 
 
 /*
+*   MitigationForTechnologies - Type SEQUENCE OF
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const MitigationForTechnologies& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, MitigationForTechnologies& p);
+
+
+/*
+*   IMZMAreaEllipse - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const IMZMAreaEllipse& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, IMZMAreaEllipse& p);
+
+
+/*
+*   TisTpgDRM-Management - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgDRM_Management& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgDRM_Management& p);
+
+
+/*
+*   TisTpgDRM-Location - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgDRM_Location& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgDRM_Location& p);
+
+
+/*
+*   TisTpgTRM-Management - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTRM_Management& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgTRM_Management& p);
+
+
+/*
+*   TisTpgTRM-Location - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTRM_Location& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgTRM_Location& p);
+
+
+/*
+*   TisTpgTCM-Management - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTCM_Management& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgTCM_Management& p);
+
+
+/*
+*   TisTpgTCM-Situation - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTCM_Situation& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgTCM_Situation& p);
+
+
+/*
+*   TisTpgTCM-Location - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTCM_Location& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgTCM_Location& p);
+
+
+/*
+*   TisTpgVDRM-Management - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgVDRM_Management& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgVDRM_Management& p);
+
+
+/*
+*   TisTpgVDPM-Management - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgVDPM_Management& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgVDPM_Management& p);
+
+
+/*
+*   TisTpgEOFM-Management - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgEOFM_Management& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgEOFM_Management& p);
+
+
+/*
+*   PressureVariant - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const PressureVariant& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, PressureVariant& p);
+
+
+/*
+*   TyreData::TyreData__tyreSidewallInformation - Type CHOICE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TyreData::TyreData__tyreSidewallInformation& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TyreData::TyreData__tyreSidewallInformation& p);
+
+
+/*
+*   TyreData::TyreData__tin - Type CHOICE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TyreData::TyreData__tin& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TyreData::TyreData__tin& p);
+
+
+/*
+*   TyreData - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TyreData& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TyreData& p);
+
+
+/*
+*   TpgStationData - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TpgStationData& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TpgStationData& p);
+
+
+/*
+*   TpgNotifContainer - Type SEQUENCE OF
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TpgNotifContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TpgNotifContainer& p);
+
+
+/*
 *   ConnectionManeuverAssist-addGrpC - Type SEQUENCE
 *   From AddGrpC - File DSRC.asn
 */
@@ -3882,6 +4247,96 @@ void from_json(const Value& j, EV_RSR_MessageBody& p);
 
 
 /*
+*   InterferenceManagementMitigationType - Type CHOICE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const InterferenceManagementMitigationType& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, InterferenceManagementMitigationType& p);
+
+
+/*
+*   TisTpgDRM - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgDRM& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgDRM& p);
+
+
+/*
+*   TisTpgSNM - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgSNM& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgSNM& p);
+
+
+/*
+*   TisTpgTRM - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTRM& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgTRM& p);
+
+
+/*
+*   TisTpgTCM - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTCM& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgTCM& p);
+
+
+/*
+*   TisTpgVDRM - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgVDRM& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgVDRM& p);
+
+
+/*
+*   VehicleSpecificData - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const VehicleSpecificData& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, VehicleSpecificData& p);
+
+
+/*
+*   TisTpgEOFM - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgEOFM& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgEOFM& p);
+
+
+/*
+*   PressureVariantsList - Type SEQUENCE OF
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const PressureVariantsList& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, PressureVariantsList& p);
+
+
+/*
 *   SignalRequestMessage - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -4152,6 +4607,36 @@ void from_json(const Value& j, EV_RSR& p);
 
 
 /*
+*   InterferenceManagementInfoPerChannel - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const InterferenceManagementInfoPerChannel& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, InterferenceManagementInfoPerChannel& p);
+
+
+/*
+*   InterferenceManagementZoneShape - Type CHOICE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const InterferenceManagementZoneShape& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, InterferenceManagementZoneShape& p);
+
+
+/*
+*   TyreSetVariant - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TyreSetVariant& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TyreSetVariant& p);
+
+
+/*
 *   SPAT - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -4372,6 +4857,36 @@ void from_json(const Value& j, ItsChargingStationData& p);
 
 
 /*
+*   ZoneDefinition - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const ZoneDefinition& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ZoneDefinition& p);
+
+
+/*
+*   InterferenceManagementInfo - Type SEQUENCE OF
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const InterferenceManagementInfo& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, InterferenceManagementInfo& p);
+
+
+/*
+*   PlacardTable - Type SEQUENCE OF
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const PlacardTable& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, PlacardTable& p);
+
+
+/*
 *   MapData - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -4512,6 +5027,26 @@ void from_json(const Value& j, ItsEVCSNData& p);
 
 
 /*
+*   InterferenceManagementZone - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const InterferenceManagementZone& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, InterferenceManagementZone& p);
+
+
+/*
+*   TisTpgVDPM - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgVDPM& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgVDPM& p);
+
+
+/*
 *   GddStructure - Type SEQUENCE
 *   From GDD - File ISO14823.asn
 */
@@ -4582,6 +5117,26 @@ void from_json(const Value& j, EVChargingSpotNotificationPOIMessage& p);
 
 
 /*
+*   InterferenceManagementZones - Type SEQUENCE OF
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const InterferenceManagementZones& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, InterferenceManagementZones& p);
+
+
+/*
+*   TisTpgTransaction - Type CHOICE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTransaction& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgTransaction& p);
+
+
+/*
 *   GeneralIviContainer - Type SEQUENCE OF
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -4632,6 +5187,26 @@ void from_json(const Value& j, EvcsnPdu& p);
 
 
 /*
+*   ImzmContainer - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const ImzmContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ImzmContainer& p);
+
+
+/*
+*   TisTpgTransactionsPdu - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTransactionsPdu& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgTransactionsPdu& p);
+
+
+/*
 *   IviContainer - Type CHOICE
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -4672,6 +5247,16 @@ void from_json(const Value& j, CollectivePerceptionMessage& p);
 
 
 /*
+*   ImzmParameters - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const ImzmParameters& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ImzmParameters& p);
+
+
+/*
 *   IviContainers - Type SEQUENCE OF
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -4692,6 +5277,16 @@ void from_json(const Value& j, CPM& p);
 
 
 /*
+*   InterferenceManagementZoneMessage - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const InterferenceManagementZoneMessage& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, InterferenceManagementZoneMessage& p);
+
+
+/*
 *   IviStructure - Type SEQUENCE
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -4709,6 +5304,16 @@ void from_json(const Value& j, IviStructure& p);
 Value to_json(const IVIM& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, IVIM& p);
+
+
+/*
+*   IMZM - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const IMZM& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, IMZM& p);
 
 
 #endif

@@ -15,7 +15,7 @@ asn1_files = ["TS102894-2v131-CDD.asn", "DSRC.asn", "ISO14816.asn", "ISO14823.as
               "ISO24534-3.asn", "ISO19321IVIv2.asn", "EN302637-2v141-CAM.asn", "EN302637-3v131-DENM.asn", "TS103300-3v211-VAM.asn", 
               "DSRC_REGION_noCircular.asn", "TR103562v211-CPM.asn", "TS103301v211-MAPEM.asn", "TS103301v211-SPATEM.asn", 
               "TS103301v211-IVIM.asn", "TS103301v211-SREM.asn", "TS103301v211-SSEM.asn", "EVCSN-PDU-Descriptions.asn", 
-              "EV-RSR-PDU-Descriptions.asn"]
+              "EV-RSR-PDU-Descriptions.asn", "IMZM-PDU-Descriptions.asn", "TIS-TPG-Transactions-Descriptions.asn"]
 
 default_types = ["INTEGER", "BOOLEAN", "ENUMERATED", "BIT STRING", "IA5String",
                  "SEQUENCE", "OCTET STRING", "SEQUENCE OF", "UTF8String", "NumericString", "CHOICE", "VisibleString"]
@@ -53,7 +53,7 @@ transformation = {
 printed = ["PhoneNumber", "VehicleHeight", "PreemptPriorityList", "WMInumber", "VDS",
            "RegionalExtension", "TemporaryID", "DescriptiveName", "MessageFrame", "OpeningDaysHours",
            "Attributes", "GetStampedRq", "GetStampedRs", "SetInstanceRq", "SetStampedRq", "AttributeList",
-           "AttributeIdList"]
+           "AttributeIdList", "NULL", "CustomerContract"]
 
 include = ["NodeXY", "VehicleID", "TransitVehicleStatus", "TransmissionAndSpeed", "DigitalMap",
            "Position3D", "IntersectionAccessPoint", "ComputedLane", "AdvisorySpeedList", "ConnectionManeuverAssist", 
@@ -63,7 +63,7 @@ include = ["NodeXY", "VehicleID", "TransitVehicleStatus", "TransmissionAndSpeed"
            "Engine", "EquipmentOBUId", "EquipmentStatus", "ICC-Id", "LPN", "SignedValue", "PaymentSecurityData", 
            "PayUnit", "PersonalAccountNumber", "PurseBalance", "ReceiptOBUId", "ReceiptAuthenticator", "ReceiptText",
            "ResultFin", "SessionClass", "ReceiptContract", "SessionLocation", "DateAndTime", "ItsStationPosition", 
-           "SignalHeadLocation", "ItsStationPositionList", "SignalHeadLocationList"]
+           "SignalHeadLocation", "ItsStationPositionList", "SignalHeadLocationList", "CurrentVehicleConfiguration"]
 
 add_t = ["ObjectClass", "VehicleID", "VehicleLength", "VerticalAcceleration", "DeltaReferencePosition", "ItsPduHeader", 
          "PtActivationData", "MapData","NodeAttributeSetXY", "NodeXY", "DigitalMap", "TransmissionAndSpeed", "Position3D",
@@ -72,7 +72,7 @@ add_t = ["ObjectClass", "VehicleID", "VehicleLength", "VerticalAcceleration", "D
          "PurseBalance", "ReceiptContract", "SessionClass", "SessionLocation", "DateAndTime", "ItsStationPosition", 
          "SignalHeadLocation", "ItsStationPositionList", "SignalHeadLocationList", "BatteryType", "ChargingSpotLabel",
          "ContractID", "ExternalIdentificationMeans", "Pairing-ID", "Reservation-ID", "Reservation-Password", 
-         "StationDetails"]
+         "StationDetails", "CustomerContract"]
 
 replace_types = {
     ("Temperature", "TS102894-2v131-CDD.asn"): "ITS_Container_Temperature",
@@ -636,6 +636,16 @@ void from_json(const Value& j, OCTET_STRING_t& p) {
     // TODO
 }
 
+Value to_json(const NULL_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType); 
+    return json;
+    // TODO
+}
+
+void from_json(const Value& j, NULL_t& p) {
+    // TODO
+}
+
 """
 
 header_intro = """/*
@@ -663,6 +673,8 @@ header_intro = """/*
 #include <vanetza/asn1/rtcmem.hpp>
 #include <vanetza/asn1/evcsnm.hpp>
 #include <vanetza/asn1/evrsrm.hpp>
+#include <vanetza/asn1/imzm.hpp>
+#include <vanetza/asn1/tistpgm.hpp>
 
 """ + '\n'.join(['#include <vanetza/asn1/its/' + inc + '.h>' for inc in include]) + """
 
@@ -682,6 +694,8 @@ Value to_json(const bool& p, Document::AllocatorType& allocator);
 void from_json(const Value& j, bool& p);
 Value to_json(const OCTET_STRING_t& p, Document::AllocatorType& allocator);
 void from_json(const Value& j, OCTET_STRING_t& p);
+Value to_json(const NULL_t& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, NULL_t& p);
 """
 
 if sys.argv[1] == "hpp":
@@ -696,7 +710,8 @@ b = len(printed)
 #while len(printed) + initial_len != len(asn1_types) + b:
 while any([t.name not in printed for t in asn1_types]):
     for t in asn1_types:
-        if t.name not in printed and (t.definition["type"] in ["BIT STRING", "OCTET STRING", "NumericString", "UTF8String", "IA5String", "CLASS", "VisibleString"] 
+        if t.name not in printed and (t.definition["type"] in ["BIT STRING", "OCTET STRING", "NumericString", "UTF8String", "IA5String", 
+                                                                "CLASS", "VisibleString"] 
             or all([d["type"] in printed + default_types for d in t.members])):
             if t.definition["type"] not in ["OCTET STRING", "UTF8String", "VisibleString"]:
                 #pass
