@@ -12,6 +12,7 @@
 #include <linux/nl80211.h>      //NL80211 definitions
 #include <thread>
 #include <map>
+#include <iostream>
 
 //
 #include <sys/socket.h>
@@ -45,3 +46,4 @@ static int send_message(Netlink* nl, Neighbour* w);
 int rssi_main();
 void start_rssi_reader();
 int get_rssi(std::string mac);
+std::map<std::string, int> get_mcs();

@@ -3,7 +3,8 @@
 #define _XOPEN_SOURCE 700
 #define ETH_ALEN 6
 
-std::map<std::string, int> last;
+std::map<std::string, int> rssi;
+std::map<std::string, int> mcs;
 
 Netlink nl;
 Neighbour w;
@@ -178,7 +179,18 @@ static int getNeighbourInfo_callback(struct nl_msg *msg, void *arg) {
   */
 
   std::string mac(((Neighbour*)arg)->mac_address);
-  last[mac] = ((Neighbour*)arg)->signal;
+  rssi[mac] = ((Neighbour*)arg)->signal;
+
+  int station_mcs = ((Neighbour*)arg)->txrate;
+  if (station_mcs <= 6) mcs[mac] = 1;
+  else if (station_mcs <= 9) mcs[mac] = 2;
+  else if (station_mcs <= 12) mcs[mac] = 3;
+  else if (station_mcs <= 18) mcs[mac] = 4;
+  else if (station_mcs <= 24) mcs[mac] = 5;
+  else if (station_mcs <= 36) mcs[mac] = 6;
+  else if (station_mcs <= 48) mcs[mac] = 7;
+  else if (station_mcs <= 54) mcs[mac] = 8;
+  else mcs[mac] = -1;
 
   return NL_SKIP;
 }
@@ -278,8 +290,12 @@ void start_rssi_reader()
 }
 
 int get_rssi(std::string mac) {
-  if(last.count(mac)) {
-      return last[mac];
+  if(rssi.count(mac)) {
+      return rssi[mac];
   }
   return 1;
+}
+
+std::map<std::string, int> get_mcs() {
+  return mcs;
 }

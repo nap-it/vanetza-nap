@@ -6,6 +6,7 @@
 #include <vanetza/net/ethernet_header.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <array>
+#include <map>
 
 namespace vanetza
 {
@@ -85,6 +86,7 @@ public:
     const ByteBuffer& buffer() const { return m_buffer; }
 
     int rssi;
+    std::map<std::string, int> mcs;
     double time_received;
 
 private:

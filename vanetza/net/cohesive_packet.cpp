@@ -28,6 +28,7 @@ CohesivePacket::CohesivePacket(ByteBuffer&& buffer, OsiLayer layer) :
 CohesivePacket::CohesivePacket(const CohesivePacket& other) :
     m_buffer(other.m_buffer), rssi(other.rssi), time_received(other.time_received)
 {
+    mcs = other.mcs;
     rebuild_iterators(other);
 }
 

@@ -105,7 +105,23 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     const char* fullJSON = fullBuffer.GetString();
 
     if(config_s.full_cam_topic_out != "" && config_s.cam.udp_out_port != 0) {
-        cam_udp_socket.send_to(buffer(fullJSON, strlen(fullJSON)), cam_remote_endpoint, 0, cam_err);
+        if(config_s.mcs_enabled) {
+            Value mapValue(rapidjson::kObjectType);
+            for (const auto& entry : cp.mcs) {
+                Value key(entry.first.c_str(), cam_json_full.GetAllocator());
+                Value value(entry.second);
+                mapValue.AddMember(key, value, cam_json_full.GetAllocator());
+            }
+            cam_json_full["test"].AddMember("mcs", mapValue, cam_json_full.GetAllocator());
+
+            StringBuffer fullBufferMCS;
+            Writer<StringBuffer> fullWriterMCS(fullBufferMCS);
+            cam_json_full.Accept(fullWriterMCS);
+            const char* fullJSON_MCS = fullBufferMCS.GetString();
+
+            cam_udp_socket.send_to(buffer(fullJSON_MCS, strlen(fullJSON_MCS)), cam_remote_endpoint, 0, cam_err);
+        }
+        else cam_udp_socket.send_to(buffer(fullJSON, strlen(fullJSON)), cam_remote_endpoint, 0, cam_err);
     }
     const double time_full_udp = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     if(config_s.full_cam_topic_out != "" && config_s.cam.dds_enabled) dds->publish(config_s.full_cam_topic_out, fullJSON);

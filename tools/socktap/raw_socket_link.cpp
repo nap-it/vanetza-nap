@@ -82,6 +82,7 @@ void RawSocketLink::on_read(const boost::system::error_code& ec, std::size_t rea
                 if (nrssi != 1) {
                     packet.rssi = nrssi;
                 }
+                packet.mcs = get_mcs();
             }
             packet.time_received = time_reception;
             if (callback_ && eth) {

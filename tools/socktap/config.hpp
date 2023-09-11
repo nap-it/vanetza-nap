@@ -44,7 +44,8 @@ typedef struct config {
     string gpsd_host;
     string gpsd_port;
     int prometheus_port;
-    int rssi_enabled;
+    bool rssi_enabled;
+    bool mcs_enabled;
     bool ignore_own_messages;
     bool ignore_rsu_messages;
     int to_dds_key;

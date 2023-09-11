@@ -42,6 +42,7 @@ void read_config(config_t* config_s, string path) {
     config_s->gpsd_port = getenv("VANETZA_GPSD_PORT") == NULL ? reader.Get("general", "gpsd_port", "2947") : getenv("VANETZA_GPSD_PORT");
     config_s->prometheus_port = getenv("VANETZA_PROMETHEUS_PORT") == NULL ? reader.GetInteger("general", "prometheus_port", 9100) : stoi(getenv("VANETZA_PROMETHEUS_PORT"));
     config_s->rssi_enabled = getenv("VANETZA_RSSI_ENABLED") == NULL ? reader.GetBoolean("general", "rssi_enabled", true) : (strcmp((getenv("VANETZA_RSSI_ENABLED")), "true") == 0);
+    config_s->mcs_enabled = getenv("VANETZA_MCS_ENABLED") == NULL ? reader.GetBoolean("general", "mcs_enabled", false) : (strcmp((getenv("VANETZA_MCS_ENABLED")), "true") == 0);
     config_s->ignore_own_messages = getenv("VANETZA_IGNORE_OWN_MESSAGES") == NULL ? reader.GetBoolean("general", "ignore_own_messages", true) : (strcmp((getenv("VANETZA_IGNORE_OWN_MESSAGES")), "true") == 0);
     config_s->ignore_rsu_messages = getenv("VANETZA_IGNORE_RSU_MESSAGES") == NULL ? reader.GetBoolean("general", "ignore_rsu_messages", false) : (strcmp((getenv("VANETZA_IGNORE_RSU_MESSAGES")), "true") == 0);
     config_s->to_dds_key = getenv("VANETZA_TO_DDS_KEY") == NULL ? reader.GetInteger("general", "to_dds_key", 6060) : stoi(getenv("VANETZA_TO_DDS_KEY"));

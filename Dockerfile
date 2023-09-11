@@ -24,8 +24,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     file \
     && rm -rf /var/lib/apt/lists/*
-RUN mkdir /vanetza
-COPY . /vanetza
 WORKDIR /tmp
 RUN git clone https://github.com/jupp0r/prometheus-cpp.git
 WORKDIR /tmp/prometheus-cpp
@@ -33,7 +31,8 @@ RUN git submodule update --init
 RUN cmake -B_build -DCPACK_GENERATOR=DEB -DBUILD_SHARED_LIBS=ON
 RUN cmake --build _build --target package --parallel $(nproc)
 RUN dpkg -i _build/*.deb
-WORKDIR /tmp
+RUN mkdir /vanetza
+COPY . /vanetza
 RUN dpkg -i /vanetza/deps/*.deb
 WORKDIR /vanetza
 RUN rm -f CMakeCache.txt
