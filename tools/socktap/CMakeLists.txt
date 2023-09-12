@@ -37,6 +37,7 @@ add_executable(socktap
     evrsrm_application.cpp
     imzm_application.cpp
     tistpgm_application.cpp
+    mcm_application.cpp
     dcc_passthrough.cpp
     ethernet_device.cpp
     link_layer.cpp

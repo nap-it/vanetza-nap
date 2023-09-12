@@ -54,6 +54,15 @@ void read_config(config_t* config_s, string path) {
     config_s->vam = read_message_config(reader, "VANETZA_VAM", "vam");
     config_s->spatem = read_message_config(reader, "VANETZA_SPATEM", "spatem");
     config_s->mapem = read_message_config(reader, "VANETZA_MAPEM", "mapem");
+    config_s->ssem = read_message_config(reader, "VANETZA_SSEM", "ssem");
+    config_s->srem = read_message_config(reader, "VANETZA_SREM", "srem");
+    config_s->rtcmem = read_message_config(reader, "VANETZA_RTCMEM", "rtcmem");
+    config_s->ivim = read_message_config(reader, "VANETZA_IVIM", "ivim");
+    config_s->imzm = read_message_config(reader, "VANETZA_IMZM", "imzm");
+    config_s->evcsnm = read_message_config(reader, "VANETZA_EVCSNM", "evcsnm");
+    config_s->evrsrm = read_message_config(reader, "VANETZA_EVRCSM", "evrsrm");
+    config_s->tistpgm = read_message_config(reader, "VANETZA_TISTPGM", "tistpgm");
+    config_s->mcm = read_message_config(reader, "VANETZA_MCM", "mcm");
     config_s->full_cam_topic_in = getenv("VANETZA_CAM_FULL_TOPIC_IN") == NULL ? reader.Get("cam", "full_topic_in", "") : getenv("VANETZA_CAM_FULL_TOPIC_IN");
     config_s->full_cam_topic_out = getenv("VANETZA_CAM_FULL_TOPIC_OUT") == NULL ? reader.Get("cam", "full_topic_out", "") : getenv("VANETZA_CAM_FULL_TOPIC_OUT");
     config_s->full_cam_topic_time = getenv("VANETZA_CAM_FULL_TOPIC_TIME") == NULL ? reader.Get("cam", "full_topic_time", "") : getenv("VANETZA_CAM_FULL_TOPIC_TIME");

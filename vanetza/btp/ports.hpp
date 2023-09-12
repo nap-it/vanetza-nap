@@ -37,6 +37,7 @@ static const port_type EC_AT_REQUEST = host_cast<uint16_t>(2016);
 static const port_type MCDM = host_cast<uint16_t>(2017);
 static const port_type VAM = host_cast<uint16_t>(2018);
 static const port_type IMZM = host_cast<uint16_t>(2019);
+static const port_type MCM = host_cast<uint16_t>(2030); //Temporary
 
 } // namespace ports
 

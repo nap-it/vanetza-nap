@@ -16,7 +16,7 @@ asn1_files = ["TS102894-2v131-CDD.asn", "DSRC.asn", "ISO14816.asn", "ISO14823.as
               "DSRC_REGION_noCircular.asn", "TR103562v211-CPM.asn", "TS103301v211-MAPEM.asn", "TS103301v211-SPATEM.asn", 
               "TS103301v211-IVIM.asn", "TS103301v211-SREM.asn", "TS103301v211-SSEM.asn", "EVCSN-PDU-Descriptions.asn", 
               "EV-RSR-PDU-Descriptions.asn", "IMZM-PDU-Descriptions.asn", "TIS-TPG-Transactions-Descriptions.asn",
-              "TS103301v211-RTCMEM.asn"]
+              "TS103301v211-RTCMEM.asn", "MCM-PDU-Descriptions.asn"]
 
 default_types = ["INTEGER", "BOOLEAN", "ENUMERATED", "BIT STRING", "IA5String",
                  "SEQUENCE", "OCTET STRING", "SEQUENCE OF", "UTF8String", "NumericString", "CHOICE", "VisibleString"]
@@ -64,7 +64,8 @@ include = ["NodeXY", "VehicleID", "TransitVehicleStatus", "TransmissionAndSpeed"
            "Engine", "EquipmentOBUId", "EquipmentStatus", "ICC-Id", "LPN", "SignedValue", "PaymentSecurityData", 
            "PayUnit", "PersonalAccountNumber", "PurseBalance", "ReceiptOBUId", "ReceiptAuthenticator", "ReceiptText",
            "ResultFin", "SessionClass", "ReceiptContract", "SessionLocation", "DateAndTime", "ItsStationPosition", 
-           "SignalHeadLocation", "ItsStationPositionList", "SignalHeadLocationList", "CurrentVehicleConfiguration"]
+           "SignalHeadLocation", "ItsStationPositionList", "SignalHeadLocationList", "CurrentVehicleConfiguration",
+           "TargetedVehicleManoeuvresCoordination", "TargetedVehicleAlternativeTrajectory"]
 
 add_t = ["ObjectClass", "VehicleID", "VehicleLength", "VerticalAcceleration", "DeltaReferencePosition", "ItsPduHeader", 
          "PtActivationData", "MapData","NodeAttributeSetXY", "NodeXY", "DigitalMap", "TransmissionAndSpeed", "Position3D",
@@ -73,7 +74,7 @@ add_t = ["ObjectClass", "VehicleID", "VehicleLength", "VerticalAcceleration", "D
          "PurseBalance", "ReceiptContract", "SessionClass", "SessionLocation", "DateAndTime", "ItsStationPosition", 
          "SignalHeadLocation", "ItsStationPositionList", "SignalHeadLocationList", "BatteryType", "ChargingSpotLabel",
          "ContractID", "ExternalIdentificationMeans", "Pairing-ID", "Reservation-ID", "Reservation-Password", 
-         "StationDetails", "CustomerContract"]
+         "StationDetails", "CustomerContract", "TargetedVehicleAlternativeTrajectory", "TargetedVehicleManoeuvresCoordination"]
 
 replace_types = {
     ("Temperature", "TS102894-2v131-CDD.asn"): "ITS_Container_Temperature",
@@ -81,7 +82,8 @@ replace_types = {
     ("TrailerCharacteristics", "ISO14906-0-6.asn"): "EfcDsrcApplication_TrailerCharacteristics",
     ("DriverCharacteristics", "ISO14906-0-6.asn"): "EfcDsrcApplication_DriverCharacteristics",
     ("TrailerCharacteristics", "ISO19321IVIv2.asn"): "IVI_TrailerCharacteristics",
-    ("DriverCharacteristics", "ISO19321IVIv2.asn"): "IVI_DriverCharacteristics"
+    ("DriverCharacteristics", "ISO19321IVIv2.asn"): "IVI_DriverCharacteristics",
+    ("BasicContainer", "MCM-PDU-Descriptions.asn"): "BasicContainerMCM"
 }
 
 ignore_member_names = ['regional', 'shadowingApplies', 'expiryTime', 'fill', 'ownerCode', 'language', 'sessionLocation', 'avc', 'mlc', 'rsc']
@@ -676,6 +678,7 @@ header_intro = """/*
 #include <vanetza/asn1/evrsrm.hpp>
 #include <vanetza/asn1/imzm.hpp>
 #include <vanetza/asn1/tistpgm.hpp>
+#include <vanetza/asn1/mcm.hpp>
 
 """ + '\n'.join(['#include <vanetza/asn1/its/' + inc + '.h>' for inc in include]) + """
 

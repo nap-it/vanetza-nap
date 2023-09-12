@@ -13,6 +13,7 @@
 #include "evrsrm_application.hpp"
 #include "imzm_application.hpp"
 #include "tistpgm_application.hpp"
+#include "mcm_application.hpp"
 #include "link_layer.hpp"
 #include "positioning.hpp"
 #include "router_context.hpp"
@@ -281,6 +282,14 @@ int main(int argc, const char** argv)
             };
             tistpgm_app->set_interval(std::chrono::milliseconds(config_s.tistpgm.periodicity));
             apps.emplace("tistpgm", std::move(tistpgm_app));
+        }
+
+        if (config_s.mcm.enabled) {
+            std::unique_ptr<McmApplication> mcm_app {
+                    new McmApplication(*positioning, context.get_dccp().get_trigger().runtime(), local_mqtt, remote_mqtt, dds, config_s, metrics_s)
+            };
+            mcm_app->set_interval(std::chrono::milliseconds(config_s.mcm.periodicity));
+            apps.emplace("mcm", std::move(mcm_app));
         }
 
         if (apps.empty()) {

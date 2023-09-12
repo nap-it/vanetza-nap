@@ -65,6 +65,7 @@ typedef struct config {
     message_config_t evcsnm;
     message_config_t evrsrm;
     message_config_t tistpgm;
+    message_config_t mcm;
     string full_cam_topic_in;
     string full_cam_topic_out;
     string full_cam_topic_time;

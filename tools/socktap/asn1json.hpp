@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
-*   Auto-generated from the asn1 directory by asn1json.py on 2023-07-18 02:51:32.036286
+*   Auto-generated from the asn1 directory by asn1json.py on 2023-09-12 08:43:30.050491
 */
 
 #ifndef ASN1_JSON_HPP
@@ -25,6 +25,7 @@
 #include <vanetza/asn1/evrsrm.hpp>
 #include <vanetza/asn1/imzm.hpp>
 #include <vanetza/asn1/tistpgm.hpp>
+#include <vanetza/asn1/mcm.hpp>
 
 #include <vanetza/asn1/its/NodeXY.h>
 #include <vanetza/asn1/its/VehicleID.h>
@@ -81,6 +82,8 @@
 #include <vanetza/asn1/its/ItsStationPositionList.h>
 #include <vanetza/asn1/its/SignalHeadLocationList.h>
 #include <vanetza/asn1/its/CurrentVehicleConfiguration.h>
+#include <vanetza/asn1/its/TargetedVehicleManoeuvresCoordination.h>
+#include <vanetza/asn1/its/TargetedVehicleAlternativeTrajectory.h>
 #include <vanetza/asn1/its/ActualNumberOfPassengers.h>
 #include <vanetza/asn1/its/AxleWeightLimits.h>
 #include <vanetza/asn1/its/AddRq.h>
@@ -2687,6 +2690,76 @@ void from_json_Language(const Value& j, Language_t& p);
 
 
 /*
+*   LatestGeographicPosition - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const LatestGeographicPosition& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, LatestGeographicPosition& p);
+
+
+/*
+*   ManoeuvresCoordinationContainer - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const ManoeuvresCoordinationContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ManoeuvresCoordinationContainer& p);
+
+
+/*
+*   Polynom::Polynom__coefficients - Type SEQUENCE OF
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const Polynom::Polynom__coefficients& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, Polynom::Polynom__coefficients& p);
+
+
+/*
+*   Polynom - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const Polynom& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, Polynom& p);
+
+
+/*
+*   IntermediatePointIntersection::IntermediatePointIntersection__exitLane - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const IntermediatePointIntersection::IntermediatePointIntersection__exitLane& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, IntermediatePointIntersection::IntermediatePointIntersection__exitLane& p);
+
+
+/*
+*   IntermediatePointIntersection - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const IntermediatePointIntersection& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, IntermediatePointIntersection& p);
+
+
+/*
+*   Lane - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const Lane& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, Lane& p);
+
+
+/*
 *   ReferencePosition - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
@@ -3887,6 +3960,76 @@ void from_json(const Value& j, TpgNotifContainer& p);
 
 
 /*
+*   BasicContainerMCM - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const BasicContainerMCM& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, BasicContainerMCM& p);
+
+
+/*
+*   Trajectory::Trajectory__longitudinalPosition - Type SEQUENCE OF
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const Trajectory::Trajectory__longitudinalPosition& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, Trajectory::Trajectory__longitudinalPosition& p);
+
+
+/*
+*   Trajectory::Trajectory__lateralPosition - Type SEQUENCE OF
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const Trajectory::Trajectory__lateralPosition& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, Trajectory::Trajectory__lateralPosition& p);
+
+
+/*
+*   Trajectory::Trajectory__headings - Type SEQUENCE OF
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const Trajectory::Trajectory__headings& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, Trajectory::Trajectory__headings& p);
+
+
+/*
+*   IntermediatePointReference - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const IntermediatePointReference& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, IntermediatePointReference& p);
+
+
+/*
+*   IntermediatePointLane - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const IntermediatePointLane& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, IntermediatePointLane& p);
+
+
+/*
+*   IntermediatePointOffroad - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const IntermediatePointOffroad& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, IntermediatePointOffroad& p);
+
+
+/*
 *   ConnectionManeuverAssist-addGrpC - Type SEQUENCE
 *   From AddGrpC - File DSRC.asn
 */
@@ -4347,6 +4490,16 @@ void from_json(const Value& j, RTCMEM& p);
 
 
 /*
+*   IntermediatePoint - Type CHOICE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const IntermediatePoint& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, IntermediatePoint& p);
+
+
+/*
 *   SignalRequestMessage - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -4647,6 +4800,56 @@ void from_json(const Value& j, TyreSetVariant& p);
 
 
 /*
+*   Trajectory::Trajectory__intermediatePoints - Type SEQUENCE OF
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const Trajectory::Trajectory__intermediatePoints& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, Trajectory::Trajectory__intermediatePoints& p);
+
+
+/*
+*   Trajectory - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const Trajectory& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, Trajectory& p);
+
+
+/*
+*   TargetedVehicleAlternativeTrajectory - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const TargetedVehicleAlternativeTrajectory_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TargetedVehicleAlternativeTrajectory_t& p);
+
+
+/*
+*   PrescriptiveContainer - Type CHOICE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const PrescriptiveContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, PrescriptiveContainer& p);
+
+
+/*
+*   ResponseContainer - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const ResponseContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ResponseContainer& p);
+
+
+/*
 *   SPAT - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -4897,6 +5100,26 @@ void from_json(const Value& j, PlacardTable& p);
 
 
 /*
+*   AgreementSeekingContainer - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const AgreementSeekingContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, AgreementSeekingContainer& p);
+
+
+/*
+*   TargetedVehicleManoeuvresCoordination - Type CHOICE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const TargetedVehicleManoeuvresCoordination_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TargetedVehicleManoeuvresCoordination_t& p);
+
+
+/*
 *   MapData - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -5057,6 +5280,16 @@ void from_json(const Value& j, TisTpgVDPM& p);
 
 
 /*
+*   MCMParameter - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const MCMParameter& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, MCMParameter& p);
+
+
+/*
 *   GddStructure - Type SEQUENCE
 *   From GDD - File ISO14823.asn
 */
@@ -5144,6 +5377,16 @@ void from_json(const Value& j, InterferenceManagementZones& p);
 Value to_json(const TisTpgTransaction& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, TisTpgTransaction& p);
+
+
+/*
+*   MCM - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const MCM& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, MCM& p);
 
 
 /*
