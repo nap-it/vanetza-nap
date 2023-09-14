@@ -181,15 +181,15 @@ static int getNeighbourInfo_callback(struct nl_msg *msg, void *arg) {
   std::string mac(((Neighbour*)arg)->mac_address);
   rssi[mac] = ((Neighbour*)arg)->signal;
 
-  int station_mcs = ((Neighbour*)arg)->txrate;
-  if (station_mcs <= 6) mcs[mac] = 1;
-  else if (station_mcs <= 9) mcs[mac] = 2;
-  else if (station_mcs <= 12) mcs[mac] = 3;
-  else if (station_mcs <= 18) mcs[mac] = 4;
-  else if (station_mcs <= 24) mcs[mac] = 5;
-  else if (station_mcs <= 36) mcs[mac] = 6;
-  else if (station_mcs <= 48) mcs[mac] = 7;
-  else if (station_mcs <= 54) mcs[mac] = 8;
+  double station_mcs = ((Neighbour*)arg)->txrate;
+  if (station_mcs <= 3.0) mcs[mac] = 1;
+  else if (station_mcs <= 4.5) mcs[mac] = 2;
+  else if (station_mcs <= 6.0) mcs[mac] = 3;
+  else if (station_mcs <= 9.0) mcs[mac] = 4;
+  else if (station_mcs <= 12.0) mcs[mac] = 5;
+  else if (station_mcs <= 18.0) mcs[mac] = 6;
+  else if (station_mcs <= 24.0) mcs[mac] = 7;
+  else if (station_mcs <= 27.0) mcs[mac] = 8;
   else mcs[mac] = -1;
 
   return NL_SKIP;
