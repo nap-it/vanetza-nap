@@ -602,9 +602,39 @@ void CamApplication::on_timer(Clock::time_point)
     bvc.accelerationControl->bits_unused = 1;
     *(bvc.accelerationControl->buf) = (uint8_t) 0b10111110;
 
+    std::string error;
+    if (!message.validate(error)) {
+        throw std::runtime_error("Invalid high frequency CAM: %s" + error);
+    }
+
     CAM_t cam_t = {message->header, message->cam};
     Document cam_json_full(kObjectType);
+    Document::AllocatorType& fullAllocator = cam_json_full.GetAllocator();
     Document cam_json = buildJSON(cam_t, cam_json_full, time_now_mqtt, -255, 0, true, false, true);
+    Document::AllocatorType& simpleAllocator = cam_json.GetAllocator();
+
+    DownPacketPtr packet { new DownPacket() };
+    packet->layer(OsiLayer::Application) = std::move(message);
+
+    DataRequest request;
+    request.its_aid = aid::CA;
+    request.transport_type = geonet::TransportType::SHB;
+    request.communication_profile = geonet::CommunicationProfile::ITS_G5;
+
+    try {
+        if (!Application::request(request, std::move(packet), nullptr)) {
+            return;
+        }
+    } catch(std::runtime_error& e) {
+        std::cout << "-- Vanetza UPER Encoding Error --\nCheck that the message format follows ETSI spec\n" << e.what() << std::endl;
+    } catch(...) {
+        std::cout << "-- Unexpected Error --\nVanetza couldn't send the requested message but did not throw a runtime error on UPER encode.\nNo other info available\n" << std::endl;
+    }
+
+    const double time_wave = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+
+    cam_json_full["test"].AddMember("wave_timestamp", time_wave, fullAllocator);
+    cam_json["test"].AddMember("wave_timestamp", time_wave, simpleAllocator);
 
     StringBuffer simpleBuffer;
     Writer<StringBuffer> simpleWriter(simpleBuffer);
@@ -624,29 +654,6 @@ void CamApplication::on_timer(Clock::time_point)
         if(config_s.cam.dds_enabled && config_s.own_full_cam_topic_out != "") dds->publish(config_s.own_full_cam_topic_out, fullJSON);
         if(config_s.cam.mqtt_enabled && config_s.own_full_cam_topic_out != "") local_mqtt->publish(config_s.own_full_cam_topic_out, fullJSON);
         if(config_s.cam.mqtt_enabled && config_s.own_full_cam_topic_out != "" && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.own_full_cam_topic_out, fullJSON);
-    }
-
-    std::string error;
-    if (!message.validate(error)) {
-        throw std::runtime_error("Invalid high frequency CAM: %s" + error);
-    }
-
-    DownPacketPtr packet { new DownPacket() };
-    packet->layer(OsiLayer::Application) = std::move(message);
-
-    DataRequest request;
-    request.its_aid = aid::CA;
-    request.transport_type = geonet::TransportType::SHB;
-    request.communication_profile = geonet::CommunicationProfile::ITS_G5;
-
-    try {
-        if (!Application::request(request, std::move(packet), nullptr)) {
-            return;
-        }
-    } catch(std::runtime_error& e) {
-        std::cout << "-- Vanetza UPER Encoding Error --\nCheck that the message format follows ETSI spec\n" << e.what() << std::endl;
-    } catch(...) {
-        std::cout << "-- Unexpected Error --\nVanetza couldn't send the requested message but did not throw a runtime error on UPER encode.\nNo other info available\n" << std::endl;
     }
 
     const double time_now_latency = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
