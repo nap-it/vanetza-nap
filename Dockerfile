@@ -33,7 +33,6 @@ RUN cmake --build _build --target package --parallel $(nproc)
 RUN dpkg -i _build/*.deb
 RUN mkdir /vanetza
 COPY . /vanetza
-RUN dpkg -i /vanetza/deps/*.deb
 WORKDIR /vanetza
 RUN rm -f CMakeCache.txt
 RUN cmake .
@@ -93,7 +92,6 @@ COPY --from=0 /root/go/src/dds-vanetza-service/main /root/go/src/dds-vanetza-ser
 COPY --from=0 /root/go/src/dds-vanetza-service/main /root/go/src/dds-vanetza-service/main
 COPY --from=0 /root/go/pkg/mod/github.com/rticommunity/ /root/go/pkg/mod/github.com/rticommunity/
 COPY --from=0 /tmp/prometheus-cpp/_build/*.deb /deps/
-COPY deps/rapidjson-dev_1.1.0-deb2-1_all.deb /deps/
 RUN dpkg -i /deps/*.deb
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]

@@ -156,10 +156,15 @@ void SremApplication::on_message(string topic, string mqtt_message) {
 
     Value& payload = document.GetObject();
     try {
-        from_json(payload, srem);
+        from_json(payload, srem, "SREM");
+    } catch (VanetzaJSONException& e) {
+        std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+        std::cout << e.what() << std::endl;
+        std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
+        return;
     } catch(...) {
-        std::cout << "-- Vanetza ETSI Decoding Error --\nCheck that the message format follows ETSI spec\n" << std::endl;
-        std::cout << "Invalid payload: " << mqtt_message << std::endl;
+        std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+        std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
         return;
     }
     vanetza::asn1::Srem message;

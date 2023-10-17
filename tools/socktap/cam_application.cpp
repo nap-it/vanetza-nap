@@ -372,10 +372,14 @@ void CamApplication::on_message(string topic, string mqtt_message) {
     if(topic == config_s.full_cam_topic_in) {
         CoopAwareness_t cam;
         try {
-            from_json(payload, cam);
+            from_json(payload, cam, "CAM");
+        } catch (VanetzaJSONException& e) {
+            std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+            std::cout << e.what() << std::endl;
+            std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
         } catch(...) {
-            std::cout << "-- Vanetza ETSI Decoding Error --\nCheck that the message format follows ETSI spec\n" << std::endl;
-            std::cout << "Invalid payload: " << mqtt_message << std::endl;
+            std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+            std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
             return;
         }
         header.stationID = config_s.station_id;
@@ -440,7 +444,17 @@ void CamApplication::on_message(string topic, string mqtt_message) {
             cam->camParameters.specialVehicleContainer = nullptr;
             if (payload.HasMember("specialVehicle")) {
                 cam->camParameters.specialVehicleContainer = vanetza::asn1::allocate<SpecialVehicleContainer_t>();
-                from_json(payload["specialVehicle"], *(cam->camParameters.specialVehicleContainer));
+                try {
+                    from_json(payload["specialVehicle"], *(cam->camParameters.specialVehicleContainer), "specialVehicle");
+                } catch (VanetzaJSONException& e) {
+                    std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+                    std::cout << e.what() << std::endl;
+                    std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
+                } catch(...) {
+                    std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+                    std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
+                    return;
+                }
             } else {
                 cam->camParameters.specialVehicleContainer = nullptr;
             }
