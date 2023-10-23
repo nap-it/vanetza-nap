@@ -70,7 +70,7 @@ void McmApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     asn1::PacketVisitor<asn1::Mcm> visitor;
     std::shared_ptr<const asn1::Mcm> mcm = boost::apply_visitor(visitor, *packet);
 
-    MCM_t mcm_t = {(*mcm)->header, (*mcm)->mcmParameter};
+    MCM_t mcm_t = {(*mcm)->header, (*mcm)->payload};
     Document mcm_json = buildJSON(mcm_t, cp.time_received, cp.rssi, cp.size());
 
     StringBuffer fullBuffer;
@@ -137,7 +137,7 @@ void McmApplication::on_message(string topic, string mqtt_message) {
 
     const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
-    MCMParameter_t mcm;
+    WrappedMcmInformationBlocks_t mcm;
 
     Document document;
     
@@ -174,7 +174,7 @@ void McmApplication::on_message(string topic, string mqtt_message) {
     header.messageID = ItsPduHeader__messageID_mcm;
     header.stationID = config_s.station_id;
 
-    message->mcmParameter = mcm;
+    message->payload = mcm;
 
     DownPacketPtr packet { new DownPacket() };
     packet->layer(OsiLayer::Application) = std::move(message);

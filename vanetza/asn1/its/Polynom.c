@@ -165,7 +165,7 @@ asn_TYPE_member_t asn_MBR_Polynom_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct Polynom, xOffset),
 		(ASN_TAG_CLASS_CONTEXT | (3 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_PolynomXOffset,
+		&asn_DEF_PolynomXOffst,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

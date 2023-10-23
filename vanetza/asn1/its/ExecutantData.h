@@ -5,36 +5,40 @@
  * 	`asn1c -fcompound-names -fincludes-quoted -no-gen-example -R`
  */
 
-#ifndef	_MCM_H_
-#define	_MCM_H_
+#ifndef	_ExecutantData_H_
+#define	_ExecutantData_H_
 
 
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "ItsPduHeader.h"
-#include "WrappedMcmInformationBlocks.h"
+#include "NativeInteger.h"
+#include "AdvisoryChangeExecutantState.h"
+#include "ManoeuvreAdvice.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/* MCM */
-typedef struct MCM {
-	ItsPduHeader_t	 header;
-	WrappedMcmInformationBlocks_t	 payload;
+/* ExecutantData */
+typedef struct ExecutantData {
+	long	 id;
+	AdvisoryChangeExecutantState_t	 state;
+	ManoeuvreAdvice_t	 advice;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} MCM_t;
+} ExecutantData_t;
 
 /* Implementation */
-extern asn_TYPE_descriptor_t asn_DEF_MCM;
+extern asn_TYPE_descriptor_t asn_DEF_ExecutantData;
+extern asn_SEQUENCE_specifics_t asn_SPC_ExecutantData_specs_1;
+extern asn_TYPE_member_t asn_MBR_ExecutantData_1[3];
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif	/* _MCM_H_ */
+#endif	/* _ExecutantData_H_ */
 #include "asn_internal.h"

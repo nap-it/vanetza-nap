@@ -14,7 +14,7 @@
 /* Including external dependencies */
 #include "PolynomStartX.h"
 #include "PolynomEndX.h"
-#include "PolynomXOffset.h"
+#include "PolynomXOffst.h"
 #include "PolynomCoefficient.h"
 #include "asn_SEQUENCE_OF.h"
 #include "constr_SEQUENCE_OF.h"
@@ -34,7 +34,7 @@ typedef struct Polynom {
 	} coefficients;
 	PolynomStartX_t	 start;
 	PolynomEndX_t	 end;
-	PolynomXOffset_t	 xOffset;
+	PolynomXOffst_t	 xOffset;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;

@@ -64,8 +64,7 @@ include = ["NodeXY", "VehicleID", "TransitVehicleStatus", "TransmissionAndSpeed"
            "Engine", "EquipmentOBUId", "EquipmentStatus", "ICC-Id", "LPN", "SignedValue", "PaymentSecurityData", 
            "PayUnit", "PersonalAccountNumber", "PurseBalance", "ReceiptOBUId", "ReceiptAuthenticator", "ReceiptText",
            "ResultFin", "SessionClass", "ReceiptContract", "SessionLocation", "DateAndTime", "ItsStationPosition", 
-           "SignalHeadLocation", "ItsStationPositionList", "SignalHeadLocationList", "CurrentVehicleConfiguration",
-           "TargetedVehicleManoeuvresCoordination", "TargetedVehicleAlternativeTrajectory"]
+           "SignalHeadLocation", "ItsStationPositionList", "SignalHeadLocationList", "CurrentVehicleConfiguration", "ManouevreResponse"]
 
 add_t = ["ObjectClass", "VehicleID", "VehicleLength", "VerticalAcceleration", "DeltaReferencePosition", "ItsPduHeader", 
          "PtActivationData", "MapData","NodeAttributeSetXY", "NodeXY", "DigitalMap", "TransmissionAndSpeed", "Position3D",
@@ -74,7 +73,7 @@ add_t = ["ObjectClass", "VehicleID", "VehicleLength", "VerticalAcceleration", "D
          "PurseBalance", "ReceiptContract", "SessionClass", "SessionLocation", "DateAndTime", "ItsStationPosition", 
          "SignalHeadLocation", "ItsStationPositionList", "SignalHeadLocationList", "BatteryType", "ChargingSpotLabel",
          "ContractID", "ExternalIdentificationMeans", "Pairing-ID", "Reservation-ID", "Reservation-Password", 
-         "StationDetails", "CustomerContract", "TargetedVehicleAlternativeTrajectory", "TargetedVehicleManoeuvresCoordination"]
+         "StationDetails", "CustomerContract", "ManouevreResponse"]
 
 replace_types = {
     ("Temperature", "TS102894-2v131-CDD.asn"): "ITS_Container_Temperature",
