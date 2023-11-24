@@ -14,10 +14,15 @@
 class Application;
 class TimeTrigger;
 
+std::vector<std::unique_ptr<vanetza::geonet::Router>> routers;
+
+void packet_reception_thread(int i);
+void packet_processing_thread();
+
 class RouterContext
 {
 public:
-    RouterContext(const vanetza::geonet::MIB&, TimeTrigger&, vanetza::PositionProvider&, vanetza::security::SecurityEntity*, bool ignore_own_messages_, bool ignore_rsu_messages_, boost::asio::io_service&);
+    RouterContext(const vanetza::geonet::MIB&, TimeTrigger&, vanetza::PositionProvider&, vanetza::security::SecurityEntity*, bool ignore_own_messages_, bool ignore_rsu_messages_, int num_threads_, boost::asio::io_service&);
     ~RouterContext();
     void enable(Application*);
     void disable(Application*);
@@ -40,7 +45,6 @@ private:
     void update_packet_flow(const vanetza::geonet::LongPositionVector&);
 
     vanetza::geonet::MIB mib_;
-    vanetza::geonet::Router router_;
     boost::asio::io_service& io_context_;
     vanetza::PositionProvider& positioning_;
     vanetza::btp::PortDispatcher dispatcher_;
@@ -49,6 +53,7 @@ private:
     bool require_position_fix_ = false;
     bool ignore_own_messages = true;
     bool ignore_rsu_messages = false;
+    int num_threads = 1;
 };
 
 #endif /* ROUTER_CONTEXT_HPP_KIPUYBY2 */

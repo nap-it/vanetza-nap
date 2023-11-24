@@ -55,14 +55,14 @@ typedef struct queued_request {
     bool successful;
 } queued_request;
 
-class thread_queue
+class transmission_thread_queue
 {
 private:
     std::mutex                  d_mutex;
     std::condition_variable     d_condition;
     std::deque<queued_request*>  d_queue;
 public:
-    thread_queue() {
+    transmission_thread_queue() {
 
     }
     bool push(queued_request* value) {
@@ -84,7 +84,7 @@ public:
     }
 };
 
-thread_queue* q;
+transmission_thread_queue transmission_tq;
 
 bool Application::request(const DataRequest& request, DownPacketPtr packet, std::string* mqtt_message)
 {
@@ -95,13 +95,12 @@ bool Application::request(const DataRequest& request, DownPacketPtr packet, std:
     btp_header.destination_port_info = host_cast<uint16_t>(0);
     packet->layer(OsiLayer::Transport) = btp_header;
     queued_request qr{request, &packet, &condition, nullptr, router_, &mutex, mqtt_message, false, false};
-    return q->push(&qr);
+    return transmission_tq.push(&qr);
 }
 
-void application_thread() {
-    q = new thread_queue();
+void transmission_thread() {
     while (true) {
-        queued_request* qr = q->pop();
+        queued_request* qr = transmission_tq.pop();
         vanetza::geonet::DataConfirm confirm(vanetza::geonet::DataConfirm::ResultCode::Rejected_Unspecified);
         try {
             if (qr->router && qr->packet) {
@@ -142,6 +141,6 @@ void application_thread() {
 
 void start_application_thread()
 {
-  std::thread t1(application_thread);
-  t1.detach();
+  std::thread transmission_t(transmission_thread);
+  transmission_t.detach();
 }

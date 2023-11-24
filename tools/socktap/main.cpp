@@ -164,7 +164,15 @@ int main(int argc, const char** argv)
             exposer->RegisterCollectable(metrics_s.registry);
         }
 
-        RouterContext context(mib, trigger, *positioning, security.get(), config_s.ignore_own_messages, config_s.ignore_rsu_messages, io_service);
+        unsigned int num_threads = std::thread::hardware_concurrency();
+        if (num_threads == 0) {
+            num_threads = 1;
+        }
+        if (config_s.num_threads > 0) {
+            num_threads = config_s.num_threads;
+        }
+
+        RouterContext context(mib, trigger, *positioning, security.get(), config_s.ignore_own_messages, config_s.ignore_rsu_messages, num_threads, io_service);
         context.require_position_fix(vm.count("require-gnss-fix") > 0);
         context.set_link_layer(link_layer.get());
 

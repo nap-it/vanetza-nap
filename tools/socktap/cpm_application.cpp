@@ -72,42 +72,6 @@ void CpmApplication::indicate(const DataIndication& indication, UpPacketPtr pack
 
     CPM_t cpm_t = {(*cpm)->header, (*cpm)->cpm};
     Document cpm_json = buildJSON(cpm_t, cp.time_received, cp.rssi, cp.size());
-
-    StringBuffer fullBuffer;
-    Writer<StringBuffer> writer(fullBuffer);
-    cpm_json.Accept(writer);
-    const char* cpmJSON = fullBuffer.GetString();
-
-    if(config_s.cpm.udp_out_port != 0) {
-        cpm_udp_socket.send_to(buffer(cpmJSON, strlen(cpmJSON)), cpm_remote_endpoint, 0, cpm_err);
-    }
-    const double time_full_udp = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.cpm.dds_enabled) dds->publish(config_s.cpm.topic_out, cpmJSON);
-    const double time_full_dds = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.cpm.mqtt_enabled) local_mqtt->publish(config_s.cpm.topic_out, cpmJSON);
-    const double time_full_local = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.cpm.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cpm.topic_out, cpmJSON);
-    const double time_full_remote = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    
-    cpm_rx_counter->Increment();
-    cpm_rx_latency->Increment(time_full_remote - cp.time_received);
-
-    if(config_s.cpm.mqtt_test_enabled) {
-        Document::AllocatorType& allocator = cpm_json.GetAllocator();
-        if (config_s.cpm.udp_out_port != 0) cpm_json["test"].AddMember("full_udp_timestamp", time_full_udp, allocator);
-        if (config_s.cpm.dds_enabled != 0) cpm_json["test"].AddMember("full_dds_timestamp", time_full_dds, allocator);
-        if (config_s.cpm.mqtt_enabled != 0) cpm_json["test"].AddMember("full_local_timestamp", time_full_local, allocator);
-        if (config_s.cpm.mqtt_enabled && remote_mqtt != NULL) cpm_json["test"].AddMember("full_remote_timestamp", time_full_remote, allocator);
-
-        StringBuffer testBuffer;
-        Writer<StringBuffer> testWriter(testBuffer);
-        cpm_json.Accept(testWriter);
-        const char* testJSON = testBuffer.GetString();
-        local_mqtt->publish(config_s.cpm.topic_test, testJSON);
-        if(remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cpm.topic_test, testJSON);
-    }
-
-    if(config_s.enable_json_prints) std::cout << "CPM JSON: " << cpmJSON << std::endl;
 }
 
 void CpmApplication::schedule_timer()

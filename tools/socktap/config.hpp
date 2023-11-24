@@ -51,6 +51,7 @@ typedef struct config {
     int to_dds_key;
     int from_dds_key;
     bool enable_json_prints;
+    int num_threads;
     message_config_t cam;
     message_config_t denm;
     message_config_t cpm;

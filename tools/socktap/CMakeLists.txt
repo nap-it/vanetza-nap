@@ -22,6 +22,7 @@ add_executable(socktap
     asn1json.cpp
     config_reader.hpp
     config.hpp config.cpp
+    pubsub.hpp pubsub.cpp
     mqtt.h mqtt.cpp
     dds.h dds.cpp
     application.cpp

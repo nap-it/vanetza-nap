@@ -48,6 +48,7 @@ void read_config(config_t* config_s, string path) {
     config_s->to_dds_key = getenv("VANETZA_TO_DDS_KEY") == NULL ? reader.GetInteger("general", "to_dds_key", 6060) : stoi(getenv("VANETZA_TO_DDS_KEY"));
     config_s->from_dds_key = getenv("VANETZA_FROM_DDS_KEY") == NULL ? reader.GetInteger("general", "from_dds_key", 6061) : stoi(getenv("VANETZA_FROM_DDS_KEY"));
     config_s->enable_json_prints = getenv("VANETZA_ENABLE_JSON_PRINTS") == NULL ? reader.GetBoolean("general", "enable_json_prints", true) : (strcmp((getenv("VANETZA_ENABLE_JSON_PRINTS")), "true") == 0);
+    config_s->num_threads = getenv("VANETZA_NUM_THREADS") == NULL ? reader.GetInteger("general", "num_threads", -1) : stoi(getenv("VANETZA_NUM_THREADS"));
     config_s->cam = read_message_config(reader, "VANETZA_CAM", "cam");
     config_s->denm = read_message_config(reader, "VANETZA_DENM", "denm");
     config_s->cpm = read_message_config(reader, "VANETZA_CPM", "cpm");

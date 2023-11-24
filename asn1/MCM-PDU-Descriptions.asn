@@ -1,6 +1,6 @@
 MCM-PDU-Descriptions {
-itu-t (0) identified-organization (4) etsi (0) itsDomain (5) wg1 (1) en (300000) mcm (2) version (1) 
-}
+itu-t (0) identified-organization (4) etsi (0) itsDomain (5) wg1 (1) ts(103561) mcm (1) major-version-1 (1) minor-version-1 (1)
+} 
 
 DEFINITIONS AUTOMATIC TAGS ::=
 
@@ -15,208 +15,263 @@ IMPORTS
         itu-t (0) identified-organization (4) etsi (0) itsDomain (5) wg1 (1) en (302637) cam (2) version (2)
     };
 
--- The root data frame for Maneuver Coordination Messages
+
+
+-- Manoeuvre Coordination Block:
+
+/**
+ * This type represents the Manoeuvre Coordination Block at a given facility.  
+ *
+ * It shall include the following components: 
+ *
+ * @field header: the header of the MCM PDU,
+ * 
+ * @field mcm: the payload of the MCM PDU,
+*/
 
 MCM ::= SEQUENCE {
-    header ItsPduHeader,
-    mcmParameter MCMParameter
+  header  ItsPduHeader (WITH COMPONENTS { ..., protocolVersion (1), messageId (mcm) }),
+  payload WrappedMcmInformationBlocks
 }
 
-MCMParameter ::= SEQUENCE { -- made by me not in the standard
-    basicContainer BasicContainer,
-    manoeuvresCoordinationContainer ManoeuvresCoordinationContainer,
-    agreementSeekingContainer AgreementSeekingContainer OPTIONAL,
-    prescriptiveContainer PrescriptiveContainer OPTIONAL,
-    responseContainer ResponseContainer OPTIONAL
+WrappedMcmInformationBlocks ::= SEQUENCE {
+    basicContainer McmBasicContainer,
+    mcmContainer McmContainer
 }
 
+/*
+MCM-CONTAINER-ID-AND-TYPE ::= CLASS {
+  &id McmContainerid UNIQUE,
+  &Type
+} WITH SYNTAX {&Type IDENTIFIED BY &id}
+*/
 
-BasicContainer ::= SEQUENCE {             --  The basic container contains the DF and DEs which are identified here below.
-    generationDeltaTime GenerationDeltaTime, -- Time corresponding to the time of the reference position considered as the time of generation
-    typeOriginatingIT-S StationType,    -- Type of originating IT-S which is dessiminating the message
-    latestGeographicPosition LatestGeographicPosition -- spatial coordinates of the ITS-S position at the time of MCM dissemination
+/*McmBasicContainer {MCM-CONTAINER-ID-AND-TYPE:Set}::= SEQUENCE {*/
+McmBasicContainer ::= SEQUENCE {
+	generationDeltaTime TimestampIts, -- Generation TimestampIts represent an integer value in milliseconds since 2004-01-01T00-00-00-00Z as defined in ETSI TS 102 894-2
+	stationType StationType,    -- Type of originating IT-S which is dessiminating the message
+	referencePositionWithConfidence ReferencePositionWithConfidence -- spatial coordinates of the ITS-S position at the time of MCM dissemination
 }
 
-LatestGeographicPosition ::= SEQUENCE { --This DF contains the spatial coordinates of the ITS-S position at the time of the MCM  dissemination.
-    latitudeValue Latitude, -- This DE represents the absolute geographical latitude value of the originating ITS-S in  a WGS84 coordinate system
-    longitudeValue Longitude, -- This DE represents the absolute geographical longitude value of the originating ITS-S in  a WGS84 coordinate system
-    altitudeValue Altitude OPTIONAL -- This DE represents the absolute geographical altitude value of the originating ITS-S in  a WGS84 coordinate system
-    }
-
-ManoeuvresCoordinationContainer ::= SEQUENCE { --This container comprises information which are necessary for the management of the manoeuvres' coordination from their initiation until their end
-    manoeuvresID ManoeuvresID, -- Unique identifier provided by the manoeuvres' coordination initiator
-    manoeuvresCoordinationConcept ManoeuvresCoordinationConcept, -- Identification of the manoeuvres'coordination concept which is used by the originating ITS-S
-    manoeuvresCoordinationStep ManoeuvresCoordinationStep -- Identification of the current step in a manoeuvres Coordination procress under evolution
+ReferencePositionWithConfidence ::= SEQUENCE {
+    latitude                     Latitude,
+    longitude                    Longitude,
+    positionConfidenceEllipse    PositionConfidenceEllipse,
+    altitude                     Altitude
 }
 
-ManoeuvresID ::= INTEGER (0..255) -- 1 millisecond unit
-
-ManoeuvresCoordinationConcept ::= ENUMERATED { --This is the identification of the manoeuvres'coordination concept which is used by the originating ITS-S.  
-    agreementSeekingRequest (0),
-    agreementSeekingOffer (1), 
-    prescriptiveInterception (2), 
-    prescriptiveRoadSafety (3), 
-    prescriptiveGlobalTrafficManagement (4), 
-    prescriptiveLocalTrafficManagement (5) 
+PositionConfidenceEllipse ::= SEQUENCE {
+    semiMajorAxisLength         SemiAxisLength,
+    semiMinorAxisLength         SemiAxisLength,
+    semiMajorAxisOrientation    Wgs84AngleValue
 }
 
-ManoeuvresCoordinationStep ::= ENUMERATED { --This is the identification of the current step in a manoeuvres Coordination procress under evolution
-    startProcess(0),
-    progressProcessAcceptance(1),
-    cancelProcessDecline(2),
-    cancelProcessNotUnderstood(3),
-    cancelProcessErrorneousBehaviour(4),
-    cancelProcessMisbehaviourDetected(5),
-    processTermination(6)
+Altitude ::= SEQUENCE {
+    altitudeValue         AltitudeValue,
+    altitudeConfidence    AltitudeConfidence
 }
 
-AgreementSeekingContainer ::= SEQUENCE { --Data elements in this container are used to coordinate mobile objects manoeuvres following the agreement of the main relevant mobile objects
-    mcmCategory MCMCategory, -- Category of the MCM message
-    vehicleAutomationLevel VehicleAutomationLevel, -- Automation level of the vehicle
-    vehicleReferenceTrajectory Trajectory, -- Reference trajectory of the vehicle
-    vehiclerRequestedTrajectory Trajectory, -- Requested trajectory of the vehicle
-    numberofTargetedVehicleManoeuvresCoordination NumberOfTargetedVehicleManoeuvresCoordination OPTIONAL, -- Number of targeted vehicle manoeuvres
-    targetVehicleITS-SID StationID, -- Target vehicle ITS-S identifier
-    targetVehicleAlternativeTrajectory Trajectory, -- Alternative trajectory of the target vehicle
-    estimatedCostOriginating CooperationCost -- Estimated cost of the originating vehicle
+AltitudeConfidence ::= ENUMERATED {
+    alt-000-01  (0),
+    alt-000-02  (1),
+    alt-000-05  (2),
+    alt-000-10  (3),
+    alt-000-20  (4),
+    alt-000-50  (5),
+    alt-001-00  (6),
+    alt-002-00  (7),
+    alt-005-00  (8),
+    alt-010-00  (9),
+    alt-020-00  (10),
+    alt-050-00  (11),
+    alt-100-00  (12),
+    alt-200-00  (13),
+    outOfRange  (14),
+    unavailable (15)
+}
+    
+McmContainer::= CHOICE {
+	vehicleManoeuvreContainer VehicleManoeuvreContainer,
+	manoeuvreAdviceContainer ManoeuvreAdviceContainer
 }
 
-MCMCategory ::= ENUMERATED { --Indicates the category of the Manoeuvres'  Coordination Message according to the manoeuvres' coordination process progression. 
-    request (0),
-    offer (1),
-    response (2),
-    progress (3),
-    cancelation (4),
-    termination (5)
+VehicleManoeuvreContainer::= SEQUENCE {
+	manoeuvreId INTEGER (0..65535),
+	manoeuvreCoordinationConcept ManoeuvreCoordinationConcept,
+	manoeuvreCoordinationRational ManoeuvreCoordinationRational,
+	manoeuvreExecutionCoordinationStep ManoeuvreExecutionCoordinationStep,
+	vehicleAutomationState VehicleAutomationState OPTIONAL,
+	vehicleReferenceTrajectory Trajectory, --planned to be driven by the originating vehicle 
+	manoeuvreAdviceContainer ManoeuvreAdviceContainer OPTIONAL --sending advice to target vehicles
 }
 
-VehicleAutomationLevel ::= ENUMERATED { --Indicates the current vehicle automation level.
-    unavailable (0),
-    saeLevel1 (1),
-    saeLevel2 (2),
-    saeLevel3 (3),
-    saeLevel4 (4),
-    saeLevel5 (5)
+TrajectoryId::= INTEGER (0..65535)
+
+ManoeuvreCoordinationConcept::=ENUMERATED {
+	agreementSeekingOffer (1),
+	agreementSeekingRequest (2),
+	agreementSeekingAdvice (3),
+	prescription (4)
 }
 
-Trajectory ::= SEQUENCE { --Provides the predicted path of the vehicle trajectory (succession of intermediate points with their time of position)
-    intermediatePoints SEQUENCE SIZE (1..10) OF IntermediatePoint, 
-    longitudinalPosition SEQUENCE SIZE (1..11) OF Polynom, 
-    lateralPosition SEQUENCE SIZE (1..11) OF Polynom, 
-    headings SEQUENCE SIZE (1..11) OF Polynom
+ManoeuvreCoordinationRational::= CHOICE {
+	manoeuvreGoal ManoeuvreGoal,
+	manoeuvreCooperationCost ManoeuvreCooperationCost
 }
 
-IntermediatePoint ::= CHOICE { --Several types of intermediate points are available with the choice left to originating ITS-S according to the local situation needing manoeuvres' coordination.  
-    reference IntermediatePointReference, 
-    lane IntermediatePointLane, 
-    intersection IntermediatePointIntersection, 
-    offroad IntermediatePointOffroad
+ManoeuvreGoal ::= ENUMERATED {
+	vehicleInterception (0),
+	roadSafety (1),
+	humanHelth (2),
+	emergencyIntervention (3),
+	roadOperatorIntervention (4),
+	localTrafficManagement (5),
+	globalTrafficManagement (6)
 }
 
-Polynom ::= SEQUENCE{ --The X= S/T polynom enables the processing of the mobile object speed and then speed variation as well as the travelled distance during the delta time T
-    coefficients SEQUENCE SIZE (1..6) OF PolynomCoefficient, 
-    start PolynomStartX, 
-    end PolynomEndX, 
-    xOffset PolynomXOffset  
+ManoeuvreCooperationCost ::= SEQUENCE {
+	vehicleAutomationLevel INTEGER (0..7),
+	vehiclePerceptionCapabilities INTEGER (0..7),
+	vehiclePropulsionCapabilities INTEGER (0..7),
+	vehicleOccupantNumber INTEGER (0..64),
+	vehicleTransportedGoodsRequirements INTEGER (0..7)
 }
 
-PolynomCoefficient ::= REAL --This is the coefficient of the polynom under consideration. 
-    PolynomStartX ::= INTEGER (0..2097151) -- It is the spatial or time distance of the start intermediate point position for the considered polynom computation
-    PolynomEndX ::= INTEGER (0..2097151) -- It is the spatial or time distance of the end intermediate point position for the considered polynom computation.
-    PolynomXOffset ::= INTEGER (-8000000..8000000) -- It is the spatial or time distance travelled in reference to the previous intermediate point position 
-    -- Basic types 
-    LaneCount ::= INTEGER (1..16) -- Number of Lanes, 
-    TimeOfPos ::= INTEGER (0..65535) -- Unit: 0.01 seconds, 
-    Reason ::= ENUMERATED { 
-    none (0), 
-    laneOpening (1), 
-    laneClosing (2), 
-    laneChange (3)
-    } 
-
-
-
-IntermediatePointReference ::= SEQUENCE { --Provides the coordinates' position and velocity of the vehicle at the level of the considered intermediate point of reference. 
-    referencePosition ReferencePosition,
-    referenceHeading Heading,
-    lane Lane,
-    timeOfPos TimeOfPos
+ManoeuvreExecutionCoordinationStep ::= ENUMERATED {
+	initiationphase (0),
+	cooperationDeclineResponsePhase (1),
+	cooperationAcceptanceResponsePhase (2),
+	executionPhase (3), 
+	terminationPhase (4),
+	cancellationPhase (5),
+	chainingPhase (6)
 }
 
-IntermediatePointLane ::= SEQUENCE {    --Provides the position of the vehicle in a lane and other data elements which may require a lane change. 
-    lane Lane,
-    reason Reason,
-    timeOfPos TimeOfPos
+VehicleAutomationState::= SEQUENCE {
+	humanDrivingLongitudinalAutomated BOOLEAN,
+	humanDrivenLateralAutomated BOOLEAN,
+	automatedDriving BOOLEAN -- true if the vehicle is in automated driving mode
 }
 
-IntermediatePointIntersection ::= SEQUENCE { --Provides the trajectory evolution of the vehicle at an intersection level. 
-    exitLane SEQUENCE { 
-    lanePosition LanePosition, 
-    laneCount LaneCount 
-}, 
-    exitHeading Heading, 
-    timeOfPosEntry TimeOfPos, -- time on the trajectory when the intersection will be entered, 
-    timeOfPosExit TimeOfPos -- time on the trajectory when the intersection will be leaved, 
-} 
-
-IntermediatePointOffroad ::= SEQUENCE { --Provides the trajectory evolution of the vehicle when moving off road. 
-    referencePosition ReferencePosition, 
-    referenceHeading Heading, 
-    timeOfPos TimeOfPos 
-} 
- 
-Lane::= SEQUENCE {  --Provides data elements related to the road topography when the number of available lanes is changing
-    lanePosition LanePosition, 
-    laneCount LaneCount
-} 
-
-NumberOfTargetedVehicleManoeuvresCoordination ::= INTEGER (1..16)    --Provides the number of targeted vehicles which are simultaneously addressed to achive a manoeuvres' coordination.
-
-TargetedVehicleManoeuvresCoordination::=CHOICE { --Provides information to target vehicles which are cooperating with a subject ITS-S to achieve the manoeuvres'coordination
-    targetedVehicleITS-SID StationID,
-    targetedVehicleAlternativeTrajectory TargetedVehicleAlternativeTrajectory,
-    estimatedCostOriginatingITS-S CooperationCost
+ManoeuvreAdviceContainer ::= SEQUENCE {
+  numberOfExecutant INTEGER (1..16),
+  executantData SEQUENCE (SIZE (1..16)) OF ExecutantData
 }
 
-TargetedVehicleAlternativeTrajectory ::= SEQUENCE { -- The targeted vehicle proposed alternative trajectory for the support of the considered subject vehicle during the manoeuvres' coordination cooperation. 
-    alternativeTrajectory Trajectory,
-    lane Lane
+ExecutantData ::= SEQUENCE {
+  id INTEGER (0..65535),
+  state AdvisoryChangeExecutantState,
+  advice ManoeuvreAdvice
 }
 
-CooperationCost ::= INTEGER {zero(0), oneThousandth(1) } (-1000..1000) --This is the estimated cooperation cost of the planned manoeuvres from the point of view of the MMC originating ITS-S  
-
-PrescriptiveContainer ::= CHOICE { -- Data elements in this container are used to coordinate mobile objects manoeuvres from the ITS-S which obtained the prescriptive MC service special permission. 
-    mcmCategory MCMCategory, -- Category of the MCM message
-    prescriptionType PrescriptiveType, -- Type of prescription
-    vehicleAutomationLevel VehicleAutomationLevel, -- Automation level of the vehicle
-    vehicleReferenceTrajectory Trajectory, -- Reference trajectory of the vehicle
-    numberOfTargetedVehicleManoeuvresCoordination NumberOfTargetedVehicleManoeuvresCoordination, -- Number of targeted vehicle manoeuvres
-    targetVehicleITS-SID StationID, -- Target vehicle ITS-S identifier
-    targetVehicleAlternativeTrajectory Trajectory -- Alternative trajectory of the target vehicle
+AdvisoryChangeExecutantState ::= ENUMERATED {
+  transitToHumanDrivingMode (1),
+  transitToAutomatedDrivingMode (2),
+  followMe (3),
+  joinGroup (4),
+  leaveGroup (5)
 }
 
-PrescriptiveType ::= ENUMERATED { --Provides the type of prescription which is disseminated to relevant ITS-Ss in prescriptive MC.
-    roadSafetyObjective (1), 
-    vehicleInterceptionObjective (2), 
-    globalTrafficManagementObjective (3), 
-    localTrafficManagementObjective (4)
+ManoeuvreAdvice ::= SEQUENCE {
+  manoeuvreID INTEGER (0..65535),
+  executantID INTEGER (0..65535),
+  executantPosition ReferencePositionWithConfidence,
+  executantHeading Heading,
+  trajectoryType TrajectoryType,
+  trajectory Trajectory
 }
 
-ResponseContainer ::= SEQUENCE { --Response of the targeted ITS-S to a cooperative manoeuvres' coordination received from an ITS-S which is supervising the manoeuvres' coordination cooperation process.
-    mcmCategory MCMCategory, -- Category of the MCM message
-    acceptabilityStatus AcceptabilityStatus, -- Acceptability status of the message
-    vehicleReferenceTrajectory Trajectory, -- Reference trajectory of the vehicle
-    vehicleAutomationLevel VehicleAutomationLevel, -- Automation level of the vehicle
-    estimatedCooperationCost CooperationCost -- Estimated cooperation cost
+TrajectoryType ::= ENUMERATED {
+  referenceFollowMe (0),
+  referenceGroup (1),
+  advised (2),
+  requested (3)
 }
 
-AcceptabilityStatus ::= ENUMERATED { --Provides the acceptability status of the responding ITS-S relatively to the last received MCM.
-    acceptation (1), 
-    refuseRoadSafetyRisk (2), 
-    refuseCooperationCostTooHight (3), 
-    refuseMissbehaviourDetected (4), 
-    refuseTrafficRulesNotRespected (5), 
-    offeredRefused (6)
-} 
+ManouevreResponse::= CHOICE {
+	offerAcceptation BOOLEAN,
+	offerDecline BOOLEAN,
+	requestAcceptation BOOLEAN,
+	requestDecline ENUMERATED {
+    	agreementSeekingUnknown (0),
+    	agreementSeekingUnwanted (2),
+    	allUnableToConform (1),
+    	allUnableToUnderstand (3),
+    	allErroneousBehaviourDetected (4),
+    	allMissbehaviourDetected (5)
+  	}
+}
+
+Trajectory::= SEQUENCE {
+	intermediatePoints SEQUENCE SIZE (1..10) OF IntermediatePoint,
+	longitudinalPositions SEQUENCE SIZE (1..11) OF Polynom,
+	lateralPositions SEQUENCE SIZE (1..11) OF Polynom,
+	elevationPositions SEQUENCE SIZE (1..11) OF Polynom OPTIONAL,
+	headings SEQUENCE SIZE (1..11) OF Polynom OPTIONAL,
+	spead INTEGER (0..511) -- in meters per second
+}
+
+IntermediatePoint::= CHOICE {
+	reference IntermediatePointReference,
+	lane IntermediatePointLane,
+	intersection IntermediatePointIntersection,
+	offroad	IntermediatePointOffroad
+}
+
+Polynom ::= SEQUENCE {
+	coefficients SEQUENCE SIZE (1..6) OF PolynomCoefficient,
+	start PolynomStartX,
+	end PolynomEndX,
+	xOffset PolynomXOffst
+}
+
+IntermediatePointReference::= SEQUENCE {
+	referenceStartingPosition ReferencePositionWithConfidence,
+	referenceHeading Heading,
+	lane Lane,
+	timeOfPos TimeOfPos
+}
+
+IntermediatePointLane::= SEQUENCE {
+	lane Lane,
+	reason Reason,
+	timeOfPos TimeOfPos
+}
+
+IntermediatePointIntersection::= SEQUENCE {
+	exitLane SEQUENCE {
+		lanePosition LanePosition,
+		laneCount LaneCount
+},
+	exitHeading Heading,
+	timeOfPosEntry TimeOfPos, -- time on the trajectory when the intersection will be entered
+	timeOfPosExit TimeOfPos -- time on the trajectory when the intersection will be leaved
+}
+
+IntermediatePointOffroad::= SEQUENCE {
+	referencePosition ReferencePositionWithConfidence,
+	referenceHeading Heading,
+	timeOfPos TimeOfPos
+}
+
+Lane::= SEQUENCE {
+	lanePosition LanePosition,
+	laneCount LaneCount --total number of lanes at the position
+}
+
+PolynomCoefficient ::= REAL
+PolynomStartX ::= INTEGER (0..2097151) -- Unit: 0.001 meter or seconds
+PolynomEndX::= INTEGER (0..2097151) -- Unit: 0.001 meter or seconds
+PolynomXOffst::= INTEGER (-8000000..8000000) -- Unit: 0.001 meter or seconds
+
+-- Basic types
+TimeOfPos::= INTEGER (0..65535) -- Unit: 0.01 seconds
+
+Reason::= ENUMERATED {
+	none (0),
+	laneOpening (1),
+	laneClosing (2),
+	laneChange (3)
+}
 
 END
