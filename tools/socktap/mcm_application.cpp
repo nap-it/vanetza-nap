@@ -26,12 +26,10 @@ ip::udp::socket mcm_udp_socket(mcm_io_service_);
 ip::udp::endpoint mcm_remote_endpoint;
 boost::system::error_code mcm_err;
 
-McmApplication::McmApplication(PositionProvider& positioning, Runtime& rt, Mqtt *local_mqtt_, Mqtt *remote_mqtt_, Dds* dds_, config_t config_s_, metrics_t metrics_s_) :
-    positioning_(positioning), runtime_(rt), mcm_interval_(seconds(1)), local_mqtt(local_mqtt_), remote_mqtt(remote_mqtt_), dds(dds_), config_s(config_s_), metrics_s(metrics_s_)
+McmApplication::McmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority) :
+    positioning_(positioning), runtime_(rt), mcm_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
 {
-    if(config_s.mcm.mqtt_enabled) local_mqtt->subscribe(config_s.mcm.topic_in, this);
-    if(config_s.mcm.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.mcm.topic_in, this);
-    if(config_s.mcm.dds_enabled) dds->subscribe(config_s.mcm.topic_in, this);
+    this->pubsub.subscribe(config_s.mcm, this);
     
     mcm_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "mcm"}, {"direction", "rx"}}));
     mcm_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "mcm"}, {"direction", "tx"}}));
@@ -73,41 +71,7 @@ void McmApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     MCM_t mcm_t = {(*mcm)->header, (*mcm)->payload};
     Document mcm_json = buildJSON(mcm_t, cp.time_received, cp.rssi, cp.size());
 
-    StringBuffer fullBuffer;
-    Writer<StringBuffer> writer(fullBuffer);
-    mcm_json.Accept(writer);
-    const char* mcmJSON = fullBuffer.GetString();
-
-    if(config_s.mcm.udp_out_port != 0) {
-        mcm_udp_socket.send_to(buffer(mcmJSON, strlen(mcmJSON)), mcm_remote_endpoint, 0, mcm_err);
-    }
-    const double time_full_udp = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.mcm.dds_enabled) dds->publish(config_s.mcm.topic_out, mcmJSON);
-    const double time_full_dds = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.mcm.mqtt_enabled) local_mqtt->publish(config_s.mcm.topic_out, mcmJSON);
-    const double time_full_local = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.mcm.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.mcm.topic_out, mcmJSON);
-    const double time_full_remote = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    
-    mcm_rx_counter->Increment();
-    mcm_rx_latency->Increment(time_full_remote - cp.time_received);
-
-    if(config_s.mcm.mqtt_test_enabled) {
-        Document::AllocatorType& allocator = mcm_json.GetAllocator();
-        if (config_s.mcm.udp_out_port != 0) mcm_json["test"].AddMember("full_udp_timestamp", time_full_udp, allocator);
-        if (config_s.mcm.dds_enabled != 0) mcm_json["test"].AddMember("full_dds_timestamp", time_full_dds, allocator);
-        if (config_s.mcm.mqtt_enabled != 0) mcm_json["test"].AddMember("full_local_timestamp", time_full_local, allocator);
-        if (config_s.mcm.mqtt_enabled && remote_mqtt != NULL) mcm_json["test"].AddMember("full_remote_timestamp", time_full_remote, allocator);
-
-        StringBuffer testBuffer;
-        Writer<StringBuffer> testWriter(testBuffer);
-        mcm_json.Accept(testWriter);
-        const char* testJSON = testBuffer.GetString();
-        local_mqtt->publish(config_s.mcm.topic_test, testJSON);
-        if(remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.mcm.topic_test, testJSON);
-    }
-
-    if(config_s.enable_json_prints) std::cout << "mcm JSON: " << mcmJSON << std::endl;    
+    pubsub->publish(config_s.mcm, mcm_json, mcm_udp_socket, mcm_remote_endpoint, mcm_err, mcm_rx_counter, mcm_rx_latency, cp.time_received, "MCM"); 
 }
 
 void McmApplication::schedule_timer()
@@ -133,7 +97,7 @@ Document McmApplication::buildJSON(MCM_t message, double time_reception, int rss
     return document;
 }
 
-void McmApplication::on_message(string topic, string mqtt_message) {
+void McmApplication::on_message(string topic, string mqtt_message, std::unique_ptr<vanetza::geonet::Router> router) {
 
     const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
@@ -185,7 +149,7 @@ void McmApplication::on_message(string topic, string mqtt_message) {
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr)) {
+        if (!Application::request(request, std::move(packet), nullptr, std::move(router))) {
             return;
         }
     } catch(std::runtime_error& e) {
@@ -212,13 +176,7 @@ void McmApplication::on_message(string topic, string mqtt_message) {
         const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
         timePayload.AddMember("test", Value(kObjectType).AddMember("wave_timestamp", time_now, allocator), allocator);
 
-        StringBuffer fullBuffer;
-        Writer<StringBuffer> writer(fullBuffer);
-        timePayload.Accept(writer);
-        const char* timeJSON = fullBuffer.GetString();
-
-        local_mqtt->publish(config_s.mcm.topic_time, timeJSON);
-        if (remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.mcm.topic_time, timeJSON);
+        pubsub->publish_time(config_s.mcm, timePayload);
     
     }
 

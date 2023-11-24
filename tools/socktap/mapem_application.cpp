@@ -26,12 +26,10 @@ ip::udp::socket mapem_udp_socket(mapem_io_service_);
 ip::udp::endpoint mapem_remote_endpoint;
 boost::system::error_code mapem_err;
 
-MapemApplication::MapemApplication(PositionProvider& positioning, Runtime& rt, Mqtt *local_mqtt_, Mqtt *remote_mqtt_, Dds* dds_, config_t config_s_, metrics_t metrics_s_) :
-    positioning_(positioning), runtime_(rt), mapem_interval_(seconds(1)), local_mqtt(local_mqtt_), remote_mqtt(remote_mqtt_), dds(dds_), config_s(config_s_), metrics_s(metrics_s_)
+MapemApplication::MapemApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority) :
+    positioning_(positioning), runtime_(rt), mapem_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
 {
-    if(config_s.mapem.mqtt_enabled) local_mqtt->subscribe(config_s.mapem.topic_in, this);
-    if(config_s.mapem.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.mapem.topic_in, this);
-    if(config_s.mapem.dds_enabled) dds->subscribe(config_s.mapem.topic_in, this);
+    this->pubsub.subscribe(config_s.mapem, this);
     
     mapem_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "mapem"}, {"direction", "rx"}}));
     mapem_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "mapem"}, {"direction", "tx"}}));
@@ -73,41 +71,7 @@ void MapemApplication::indicate(const DataIndication& indication, UpPacketPtr pa
     MAPEM_t mapem_t = {(*mapem)->header, (*mapem)->map};
     Document mapem_json = buildJSON(mapem_t, cp.time_received, cp.rssi, cp.size());
 
-    StringBuffer fullBuffer;
-    Writer<StringBuffer> writer(fullBuffer);
-    mapem_json.Accept(writer);
-    const char* mapemJSON = fullBuffer.GetString();
-
-    if(config_s.mapem.udp_out_port != 0) {
-        mapem_udp_socket.send_to(buffer(mapemJSON, strlen(mapemJSON)), mapem_remote_endpoint, 0, mapem_err);
-    }
-    const double time_full_udp = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.mapem.dds_enabled) dds->publish(config_s.mapem.topic_out, mapemJSON);
-    const double time_full_dds = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.mapem.mqtt_enabled) local_mqtt->publish(config_s.mapem.topic_out, mapemJSON);
-    const double time_full_local = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.mapem.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.mapem.topic_out, mapemJSON);
-    const double time_full_remote = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    
-    mapem_rx_counter->Increment();
-    mapem_rx_latency->Increment(time_full_remote - cp.time_received);
-
-    if(config_s.mapem.mqtt_test_enabled) {
-        Document::AllocatorType& allocator = mapem_json.GetAllocator();
-        if (config_s.mapem.udp_out_port != 0) mapem_json["test"].AddMember("full_udp_timestamp", time_full_udp, allocator);
-        if (config_s.mapem.dds_enabled != 0) mapem_json["test"].AddMember("full_dds_timestamp", time_full_dds, allocator);
-        if (config_s.mapem.mqtt_enabled != 0) mapem_json["test"].AddMember("full_local_timestamp", time_full_local, allocator);
-        if (config_s.mapem.mqtt_enabled && remote_mqtt != NULL) mapem_json["test"].AddMember("full_remote_timestamp", time_full_remote, allocator);
-
-        StringBuffer testBuffer;
-        Writer<StringBuffer> testWriter(testBuffer);
-        mapem_json.Accept(testWriter);
-        const char* testJSON = testBuffer.GetString();
-        local_mqtt->publish(config_s.mapem.topic_test, testJSON);
-        if(remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.mapem.topic_test, testJSON);
-    }
-
-    if(config_s.enable_json_prints) std::cout << "MAPEM JSON: " << mapemJSON << std::endl;
+    pubsub->publish(config_s.mapem, mapem_json, mapem_udp_socket, mapem_remote_endpoint, mapem_err, mapem_rx_counter, mapem_rx_latency, cp.time_received, "MAPEM");
 }
 
 void MapemApplication::schedule_timer()
@@ -133,7 +97,7 @@ Document MapemApplication::buildJSON(MAPEM_t message, double time_reception, int
     return document;
 }
 
-void MapemApplication::on_message(string topic, string mqtt_message) {
+void MapemApplication::on_message(string topic, string mqtt_message, std::unique_ptr<vanetza::geonet::Router> router) {
 
     const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
@@ -186,7 +150,7 @@ void MapemApplication::on_message(string topic, string mqtt_message) {
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr)) {
+        if (!Application::request(request, std::move(packet), nullptr, std::move(router))) {
             return;
         }
     } catch(std::runtime_error& e) {
@@ -213,13 +177,7 @@ void MapemApplication::on_message(string topic, string mqtt_message) {
         const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
         timePayload.AddMember("test", Value(kObjectType).AddMember("wave_timestamp", time_now, allocator), allocator);
 
-        StringBuffer fullBuffer;
-        Writer<StringBuffer> writer(fullBuffer);
-        timePayload.Accept(writer);
-        const char* timeJSON = fullBuffer.GetString();
-
-        local_mqtt->publish(config_s.mapem.topic_time, timeJSON);
-        if (remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.mapem.topic_time, timeJSON);
+        pubsub->publish_time(config_s.mapem, timePayload);
     
     }
 

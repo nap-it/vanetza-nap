@@ -1,9 +1,9 @@
 #include "dds.h"
+#include "pubsub.hpp"
 #include <map>
 
 using namespace boost::asio;
 
-map<string, Mqtt_client*> dds_subscribers;
 int to_dds_mq;
 int from_dds_mq;
 
@@ -12,7 +12,9 @@ typedef struct {
 	char mesg_text[15000];
 } message_t;
 
-Dds::Dds(int to_dds_key, int from_dds_key) {
+Dds::Dds(int to_dds_key, int from_dds_key, PubSub* pubsub_) {
+    this->pubsub = pubsub_;
+
     to_dds_mq = msgget(to_dds_key, 0666 | IPC_CREAT);
     from_dds_mq = msgget(from_dds_key, 0666 | IPC_CREAT);
     std::thread dds_th(&Dds::from_dds_thread, this);
@@ -32,8 +34,7 @@ bool Dds::publish(string topic, string message) {
     return true;
 }
 
-bool Dds::subscribe(string topic, Mqtt_client* object) {
-    dds_subscribers[topic] = object;
+bool Dds::subscribe(string topic) {
     return true;
 }
 
@@ -53,7 +54,5 @@ void Dds::from_dds_thread() {
 
 
 void Dds::on_message(string topic, string message) {
-    if(dds_subscribers[topic] != nullptr) {
-        dds_subscribers[topic]->on_message(topic, message);
-    }
+    this->pubsub->on_message(topic, message, 0);
 }

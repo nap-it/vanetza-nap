@@ -35,16 +35,14 @@ double time_speed = 0;
 HeadingValue_t last_heading = LLONG_MIN;
 double time_heading = 0;
 
-CamApplication::CamApplication(PositionProvider& positioning, Runtime& rt, Mqtt *local_mqtt_, Mqtt *remote_mqtt_, Dds* dds_, config_t config_s_, metrics_t metrics_s_) :
-    positioning_(positioning), runtime_(rt), cam_interval_(seconds(1)), local_mqtt(local_mqtt_), remote_mqtt(remote_mqtt_), dds(dds_), config_s(config_s_), metrics_s(metrics_s_)
+CamApplication::CamApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, std::unique_ptr<vanetza::geonet::Router> timer_router_, int priority_) :
+    positioning_(positioning), runtime_(rt), cam_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), timer_router(timer_router_), priority(priority_)
 {
     persistence = {};
-    if(config_s.cam.mqtt_enabled) local_mqtt->subscribe(config_s.cam.topic_in, this);
-    if(config_s.cam.mqtt_enabled) local_mqtt->subscribe(config_s.full_cam_topic_in, this);
-    if(config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_in, this);
-    if(config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_cam_topic_in, this);
-    if(config_s.cam.dds_enabled) dds->subscribe(config_s.cam.topic_in, this);
-    if(config_s.cam.dds_enabled) dds->subscribe(config_s.full_cam_topic_in, this);
+    if(config_s.cam.mqtt_enabled) pubsub->manual_subscribe(config_s.cam, config_s.cam.topic_in, this);
+    if(config_s.cam.mqtt_enabled) pubsub->manual_subscribe(config_s.cam, config_s.full_cam_topic_in, this);
+    if(config_s.cam.mqtt_enabled && pubsub->remote_mqtt != NULL) pubsub->manual_subscribe(config_s.cam, config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_in, this);
+    if(config_s.cam.mqtt_enabled && pubsub->remote_mqtt != NULL) pubsub->manual_subscribe(config_s.cam, config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_cam_topic_in, this);
     
     cam_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "cam"}, {"direction", "rx"}}));
     cam_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "cam"}, {"direction", "tx"}}));
@@ -92,11 +90,11 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     cam_json.Accept(simpleWriter);
     const char* simpleJSON = simpleBuffer.GetString();
 
-    if(config_s.cam.dds_enabled) dds->publish(config_s.cam.topic_out, simpleJSON);
+    if(config_s.cam.dds_enabled) pubsub->dds->publish(config_s.cam.topic_out, simpleJSON);
     const double time_simple_dds = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.cam.mqtt_enabled) local_mqtt->publish(config_s.cam.topic_out, simpleJSON);
+    if(config_s.cam.mqtt_enabled) pubsub->local_mqtt->publish(config_s.cam.topic_out, simpleJSON);
     const double time_simple_local = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_out, simpleJSON);
+    if(config_s.cam.mqtt_enabled && pubsub->remote_mqtt != NULL) pubsub->remote_mqttpublish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_out, simpleJSON);
     const double time_simple_remote = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
     StringBuffer fullBuffer;
@@ -124,11 +122,11 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
         else cam_udp_socket.send_to(buffer(fullJSON, strlen(fullJSON)), cam_remote_endpoint, 0, cam_err);
     }
     const double time_full_udp = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.full_cam_topic_out != "" && config_s.cam.dds_enabled) dds->publish(config_s.full_cam_topic_out, fullJSON);
+    if(config_s.full_cam_topic_out != "" && config_s.cam.dds_enabled) pubsub->dds->publish(config_s.full_cam_topic_out, fullJSON);
     const double time_full_dds = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     if(config_s.full_cam_topic_out != "" && config_s.cam.mqtt_enabled) local_mqtt->publish(config_s.full_cam_topic_out, fullJSON);
     const double time_full_local = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.full_cam_topic_out != "" && config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_cam_topic_out, fullJSON);
+    if(config_s.full_cam_topic_out != "" && config_s.cam.mqtt_enabled && pubsub->remote_mqtt != NULL) pubsub->remote_mqttpublish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_cam_topic_out, fullJSON);
     const double time_full_remote = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
     cam_rx_counter->Increment();
@@ -139,36 +137,36 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
         Document::AllocatorType& allocator = document.GetAllocator();
         if (config_s.cam.dds_enabled != 0) cam_json["test"].AddMember("simple_dds_timestamp", time_simple_dds, allocator);
         if (config_s.cam.mqtt_enabled != 0) cam_json["test"].AddMember("simple_local_timestamp", time_simple_local, allocator);
-        if (config_s.cam.mqtt_enabled && remote_mqtt != NULL) cam_json["test"].AddMember("simple_remote_timestamp", time_simple_remote, allocator);
+        if (config_s.cam.mqtt_enabled && pubsub->remote_mqtt != NULL) cam_json["test"].AddMember("simple_remote_timestamp", time_simple_remote, allocator);
         if (config_s.full_cam_topic_out != "") {
             if (config_s.cam.udp_out_port != 0) cam_json["test"].AddMember("full_udp_timestamp", time_full_udp, allocator);
             if (config_s.cam.dds_enabled) cam_json["test"].AddMember("full_dds_timestamp", time_full_dds, allocator);
             if (config_s.cam.mqtt_enabled) cam_json["test"].AddMember("full_local_timestamp", time_full_local, allocator);
-            if (config_s.cam.mqtt_enabled && remote_mqtt != NULL) cam_json["test"].AddMember("full_remote_timestamp", time_full_remote, allocator);
+            if (config_s.cam.mqtt_enabled && pubsub->remote_mqtt != NULL) cam_json["test"].AddMember("full_remote_timestamp", time_full_remote, allocator);
         }
         StringBuffer testBuffer;
         Writer<StringBuffer> testWriter(testBuffer);
         cam_json.Accept(testWriter);
         const char* testJSON = testBuffer.GetString();
-        local_mqtt->publish(config_s.cam.topic_test, testJSON);
-        if(remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_test, testJSON);
+        pubsub->local_mqtt->publish(config_s.cam.topic_test, testJSON);
+        if(pubsub->remote_mqtt != NULL) pubsub->remote_mqttpublish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_test, testJSON);
 
         if(config_s.full_cam_topic_test != "") {
             if (config_s.cam.dds_enabled != 0) cam_json_full["test"].AddMember("simple_dds_timestamp", time_simple_dds, allocator);
             if (config_s.cam.mqtt_enabled != 0) cam_json_full["test"].AddMember("simple_local_timestamp", time_simple_local, allocator);
-            if (config_s.cam.mqtt_enabled && remote_mqtt != NULL) cam_json_full["test"].AddMember("simple_remote_timestamp", time_simple_remote, allocator);
+            if (config_s.cam.mqtt_enabled && pubsub->remote_mqtt != NULL) cam_json_full["test"].AddMember("simple_remote_timestamp", time_simple_remote, allocator);
             if (config_s.full_cam_topic_out != "") {
                 if (config_s.cam.udp_out_port != 0) cam_json_full["test"].AddMember("full_udp_timestamp", time_full_udp, allocator);
                 if (config_s.cam.dds_enabled) cam_json_full["test"].AddMember("full_dds_timestamp", time_full_dds, allocator);
                 if (config_s.cam.mqtt_enabled) cam_json_full["test"].AddMember("full_local_timestamp", time_full_local, allocator);
-                if (config_s.cam.mqtt_enabled && remote_mqtt != NULL) cam_json_full["test"].AddMember("full_remote_timestamp", time_full_remote, allocator);
+                if (config_s.cam.mqtt_enabled && pubsub->remote_mqtt != NULL) cam_json_full["test"].AddMember("full_remote_timestamp", time_full_remote, allocator);
             }
             StringBuffer fullTestBuffer;
             Writer<StringBuffer> fullTestWriter(fullTestBuffer);
             cam_json_full.Accept(fullTestWriter);
             const char* testJSON = fullTestBuffer.GetString();
-            local_mqtt->publish(config_s.full_cam_topic_test, testJSON);
-            if(remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_cam_topic_test, testJSON);
+            pubsub->local_mqtt->publish(config_s.full_cam_topic_test, testJSON);
+            if(pubsub->remote_mqtt != NULL) pubsub->remote_mqttpublish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_cam_topic_test, testJSON);
         }
     }
 
@@ -344,7 +342,7 @@ Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, doubl
     return simpleDocument;
 }
 
-void CamApplication::on_message(string topic, string mqtt_message) {
+void CamApplication::on_message(string topic, string mqtt_message, std::unique_ptr<vanetza::geonet::Router> router) {
 
     const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
@@ -483,7 +481,7 @@ void CamApplication::on_message(string topic, string mqtt_message) {
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr)) {
+        if (!Application::request(request, std::move(packet), nullptr, std::move(router))) {
             return;
         }
     } catch(std::runtime_error& e) {
@@ -516,12 +514,12 @@ void CamApplication::on_message(string topic, string mqtt_message) {
         const char* simpleJSON = simpleBuffer.GetString();
 
         if(topic == config_s.full_cam_topic_in) {
-            local_mqtt->publish(config_s.full_cam_topic_time, simpleJSON);
-            if (remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_cam_topic_time, simpleJSON);
+            pubsub->local_mqtt->publish(config_s.full_cam_topic_time, simpleJSON);
+            if (pubsub->remote_mqtt != NULL) pubsub->remote_mqttpublish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_cam_topic_time, simpleJSON);
         }
         else {
-            local_mqtt->publish(config_s.cam.topic_time, simpleJSON);
-            if (remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_time, simpleJSON);
+            pubsub->local_mqtt->publish(config_s.cam.topic_time, simpleJSON);
+            if (pubsub->remote_mqtt != NULL) pubsub->remote_mqttpublish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_time, simpleJSON);
         }
     }
 
@@ -636,7 +634,7 @@ void CamApplication::on_timer(Clock::time_point)
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr)) {
+        if (!Application::request(request, std::move(packet), nullptr, std::move(this->timer_router))) {
             return;
         }
     } catch(std::runtime_error& e) {
@@ -655,9 +653,9 @@ void CamApplication::on_timer(Clock::time_point)
     cam_json.Accept(simpleWriter);
     const char* simpleJSON = simpleBuffer.GetString();
 
-    if(config_s.cam.dds_enabled) dds->publish(config_s.own_cam_topic_out, simpleJSON);
-    if(config_s.cam.mqtt_enabled) local_mqtt->publish(config_s.own_cam_topic_out, simpleJSON);
-    if(config_s.cam.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.own_cam_topic_out, simpleJSON);
+    if(config_s.cam.dds_enabled) pubsub->dds->publish(config_s.own_cam_topic_out, simpleJSON);
+    if(config_s.cam.mqtt_enabled) pubsub->local_mqtt->publish(config_s.own_cam_topic_out, simpleJSON);
+    if(config_s.cam.mqtt_enabled && pubsub->remote_mqtt != NULL) pubsub->remote_mqttpublish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.own_cam_topic_out, simpleJSON);
 
     StringBuffer fullBuffer;
     Writer<StringBuffer> fullWriter(fullBuffer);
@@ -665,9 +663,9 @@ void CamApplication::on_timer(Clock::time_point)
     const char* fullJSON = fullBuffer.GetString();
 
     if(config_s.full_cam_topic_out != "") {
-        if(config_s.cam.dds_enabled && config_s.own_full_cam_topic_out != "") dds->publish(config_s.own_full_cam_topic_out, fullJSON);
-        if(config_s.cam.mqtt_enabled && config_s.own_full_cam_topic_out != "") local_mqtt->publish(config_s.own_full_cam_topic_out, fullJSON);
-        if(config_s.cam.mqtt_enabled && config_s.own_full_cam_topic_out != "" && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.own_full_cam_topic_out, fullJSON);
+        if(config_s.cam.dds_enabled && config_s.own_full_cam_topic_out != "") pubsub->dds->publish(config_s.own_full_cam_topic_out, fullJSON);
+        if(config_s.cam.mqtt_enabled && config_s.own_full_cam_topic_out != "") pubsub->local_mqtt->publish(config_s.own_full_cam_topic_out, fullJSON);
+        if(config_s.cam.mqtt_enabled && config_s.own_full_cam_topic_out != "" && pubsub->remote_mqtt != NULL) pubsub->remote_mqttpublish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.own_full_cam_topic_out, fullJSON);
     }
 
     const double time_now_latency = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;

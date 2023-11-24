@@ -52,17 +52,13 @@ public:
                 return rc;
             }
         }
+        return nullptr;
     }
 };
 
 processing_thread_queue* processing_tq;
 
-std::unordered_map<int, int> lookupTable = {
-        {5, 1}, // CAM
-        {8, 0}, // DENM
-        {3, 0}, // CPM
-        {4, 1}, // 
-};
+std::unordered_map<int, int> lookupTable;
 
 typedef struct queued_reception {
     CohesivePacket&& packet;
@@ -186,12 +182,11 @@ void packet_reception_thread(int i) {
 
 void RouterContext::enable(Application* app)
 {
-    app->router_ = nullptr;
-
     dispatcher_.add_promiscuous_hook(app->promiscuous_hook());
     if (app->port() != btp::port_type(0)) {
         dispatcher_.set_non_interactive_handler(app->port(), &indicationQueue);
         applications[app->port().get()] = app;
+        lookupTable[app->port().get()] = app->priority;
     }
 }
 
@@ -201,8 +196,6 @@ void RouterContext::disable(Application* app)
         dispatcher_.set_non_interactive_handler(app->port(), nullptr);
     }
     dispatcher_.remove_promiscuous_hook(app->promiscuous_hook());
-
-    app->router_ = nullptr;
 }
 
 void RouterContext::require_position_fix(bool flag)

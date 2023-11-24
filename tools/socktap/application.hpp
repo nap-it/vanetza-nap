@@ -13,7 +13,7 @@
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 
-#include "dds.h"
+#include "pubsub.hpp"
 #include "router_context.hpp"
 #include "config.hpp"
 
@@ -45,11 +45,7 @@ public:
     void on_message(string);
 
 protected:
-    bool request(const DataRequest&, DownPacketPtr, std::string* mqtt_message);
-
-private:
-    friend class RouterContext;
-    vanetza::geonet::Router* router_;
+    bool request(const DataRequest& request, DownPacketPtr packet, std::string* mqtt_message, vanetza::geonet::Router* router);
 };
 
 #endif /* APPLICATION_HPP_PSIGPUTG */

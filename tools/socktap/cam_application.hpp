@@ -8,14 +8,15 @@
 #include <vanetza/asn1/cam.hpp>
 #include <math.h> 
 
-class CamApplication : public Application, public Mqtt_client
+class CamApplication : public Application, public PubSub_application
 {
 public:
-    CamApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, Mqtt *local_mqtt_, Mqtt *remote_mqtt_, Dds* dds_, config_t config_s_, metrics_t metrics_s_);
+    CamApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, std::unique_ptr<vanetza::geonet::Router> timer_router_, int priority_);
     PortType port() override;
     void indicate(const DataIndication&, UpPacketPtr) override;
     void set_interval(vanetza::Clock::duration);
-    void on_message(string, string);
+    void on_message(string, string, std::unique_ptr<vanetza::geonet::Router> router);
+    int priority;
 
 private:
     void schedule_timer();
@@ -24,11 +25,10 @@ private:
     vanetza::PositionProvider& positioning_;
     vanetza::Runtime& runtime_;
     vanetza::Clock::duration cam_interval_;
-    Mqtt *local_mqtt;
-    Mqtt *remote_mqtt;
-    Dds *dds;
+    PubSub* pubsub;
     config_t config_s;
     metrics_t metrics_s;
+    vanetza::geonet::Router* timer_router;
 
     Document buildJSON(CAM_t cam, Document& cam_json_full, double time_reception, int rssi, int packet_size, bool include_fields, bool rx, bool full);
 

@@ -38,6 +38,8 @@ public:
 
     DccPassthrough& get_dccp();
 
+    vanetza::btp::PortDispatcher dispatcher_;
+
 private:
     void indicate(vanetza::CohesivePacket&& packet, const vanetza::EthernetHeader& hdr);
     void log_packet_drop(vanetza::geonet::Router::PacketDropReason);
@@ -47,7 +49,6 @@ private:
     vanetza::geonet::MIB mib_;
     boost::asio::io_service& io_context_;
     vanetza::PositionProvider& positioning_;
-    vanetza::btp::PortDispatcher dispatcher_;
     std::unique_ptr<DccPassthrough> request_interface_;
     std::list<Application*> applications_;
     bool require_position_fix_ = false;

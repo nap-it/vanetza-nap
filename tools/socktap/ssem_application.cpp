@@ -26,12 +26,10 @@ ip::udp::socket ssem_udp_socket(ssem_io_service_);
 ip::udp::endpoint ssem_remote_endpoint;
 boost::system::error_code ssem_err;
 
-SsemApplication::SsemApplication(PositionProvider& positioning, Runtime& rt, Mqtt *local_mqtt_, Mqtt *remote_mqtt_, Dds* dds_, config_t config_s_, metrics_t metrics_s_) :
-    positioning_(positioning), runtime_(rt), ssem_interval_(seconds(1)), local_mqtt(local_mqtt_), remote_mqtt(remote_mqtt_), dds(dds_), config_s(config_s_), metrics_s(metrics_s_)
+SsemApplication::SsemApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority) :
+    positioning_(positioning), runtime_(rt), ssem_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
 {
-    if(config_s.ssem.mqtt_enabled) local_mqtt->subscribe(config_s.ssem.topic_in, this);
-    if(config_s.ssem.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.ssem.topic_in, this);
-    if(config_s.ssem.dds_enabled) dds->subscribe(config_s.ssem.topic_in, this);
+    this->pubsub.subscribe(config_s.ssem, this);
     
     ssem_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "ssem"}, {"direction", "rx"}}));
     ssem_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "ssem"}, {"direction", "tx"}}));
@@ -73,41 +71,7 @@ void SsemApplication::indicate(const DataIndication& indication, UpPacketPtr pac
     SSEM_t ssem_t = {(*ssem)->header, (*ssem)->ssm};
     Document ssem_json = buildJSON(ssem_t, cp.time_received, cp.rssi, cp.size());
 
-    StringBuffer fullBuffer;
-    Writer<StringBuffer> writer(fullBuffer);
-    ssem_json.Accept(writer);
-    const char* ssemJSON = fullBuffer.GetString();
-
-    if(config_s.ssem.udp_out_port != 0) {
-        ssem_udp_socket.send_to(buffer(ssemJSON, strlen(ssemJSON)), ssem_remote_endpoint, 0, ssem_err);
-    }
-    const double time_full_udp = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.ssem.dds_enabled) dds->publish(config_s.ssem.topic_out, ssemJSON);
-    const double time_full_dds = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.ssem.mqtt_enabled) local_mqtt->publish(config_s.ssem.topic_out, ssemJSON);
-    const double time_full_local = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.ssem.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.ssem.topic_out, ssemJSON);
-    const double time_full_remote = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    
-    ssem_rx_counter->Increment();
-    ssem_rx_latency->Increment(time_full_remote - cp.time_received);
-
-    if(config_s.ssem.mqtt_test_enabled) {
-        Document::AllocatorType& allocator = ssem_json.GetAllocator();
-        if (config_s.ssem.udp_out_port != 0) ssem_json["test"].AddMember("full_udp_timestamp", time_full_udp, allocator);
-        if (config_s.ssem.dds_enabled != 0) ssem_json["test"].AddMember("full_dds_timestamp", time_full_dds, allocator);
-        if (config_s.ssem.mqtt_enabled != 0) ssem_json["test"].AddMember("full_local_timestamp", time_full_local, allocator);
-        if (config_s.ssem.mqtt_enabled && remote_mqtt != NULL) ssem_json["test"].AddMember("full_remote_timestamp", time_full_remote, allocator);
-
-        StringBuffer testBuffer;
-        Writer<StringBuffer> testWriter(testBuffer);
-        ssem_json.Accept(testWriter);
-        const char* testJSON = testBuffer.GetString();
-        local_mqtt->publish(config_s.ssem.topic_test, testJSON);
-        if(remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.ssem.topic_test, testJSON);
-    }
-
-    if(config_s.enable_json_prints) std::cout << "ssem JSON: " << ssemJSON << std::endl;    
+    pubsub->publish(config_s.ssem, ssem_json, ssem_udp_socket, ssem_remote_endpoint, ssem_err, ssem_rx_counter, ssem_rx_latency, cp.time_received, "SSEM");   
 }
 
 void SsemApplication::schedule_timer()
@@ -133,7 +97,7 @@ Document SsemApplication::buildJSON(SSEM_t message, double time_reception, int r
     return document;
 }
 
-void SsemApplication::on_message(string topic, string mqtt_message) {
+void SsemApplication::on_message(string topic, string mqtt_message, std::unique_ptr<vanetza::geonet::Router> router) {
 
     const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
@@ -185,7 +149,7 @@ void SsemApplication::on_message(string topic, string mqtt_message) {
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr)) {
+        if (!Application::request(request, std::move(packet), nullptr, std::move(router))) {
             return;
         }
     } catch(std::runtime_error& e) {
@@ -212,13 +176,7 @@ void SsemApplication::on_message(string topic, string mqtt_message) {
         const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
         timePayload.AddMember("test", Value(kObjectType).AddMember("wave_timestamp", time_now, allocator), allocator);
 
-        StringBuffer fullBuffer;
-        Writer<StringBuffer> writer(fullBuffer);
-        timePayload.Accept(writer);
-        const char* timeJSON = fullBuffer.GetString();
-
-        local_mqtt->publish(config_s.ssem.topic_time, timeJSON);
-        if (remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.ssem.topic_time, timeJSON);
+        pubsub->publish_time(config_s.ssem, timePayload);
     
     }
 

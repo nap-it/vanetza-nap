@@ -24,12 +24,10 @@ ip::udp::socket denm_udp_socket(denm_io_service_);
 ip::udp::endpoint denm_remote_endpoint;
 boost::system::error_code denm_err;
 
-DenmApplication::DenmApplication(PositionProvider& positioning, Runtime& rt, Mqtt *local_mqtt_, Mqtt *remote_mqtt_, Dds* dds_, config_t config_s_, metrics_t metrics_s_) :
-    positioning_(positioning), runtime_(rt), denm_interval_(seconds(1)), local_mqtt(local_mqtt_),remote_mqtt(remote_mqtt_), dds(dds_), config_s(config_s_), metrics_s(metrics_s_)
+DenmApplication::DenmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
+    positioning_(positioning), runtime_(rt), denm_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
 {
-    if(config_s.denm.mqtt_enabled) local_mqtt->subscribe(config_s.denm.topic_in, this);
-    if(config_s.denm.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->subscribe(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.denm.topic_in, this);
-    if(config_s.denm.dds_enabled)  dds->subscribe(config_s.denm.topic_in, this);
+    this->pubsub.subscribe(config_s.denm, this);
 
     denm_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "denm"}, {"direction", "rx"}}));
     denm_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "denm"}, {"direction", "tx"}}));
@@ -71,41 +69,7 @@ void DenmApplication::indicate(const DataIndication& indication, UpPacketPtr pac
     DENM_t denm_t = {(*denm)->header, (*denm)->denm};
     Document denm_json = buildJSON(denm_t, cp.time_received, cp.rssi, cp.size());
 
-    StringBuffer fullBuffer;
-    Writer<StringBuffer> writer(fullBuffer);
-    denm_json.Accept(writer);
-    const char* denmJSON = fullBuffer.GetString();
-
-    if(config_s.denm.udp_out_port != 0) {
-        denm_udp_socket.send_to(buffer(denmJSON, strlen(denmJSON)), denm_remote_endpoint, 0, denm_err);
-    }
-    const double time_full_udp = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.denm.dds_enabled) dds->publish(config_s.denm.topic_out, denmJSON);
-    const double time_full_dds = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.denm.mqtt_enabled) local_mqtt->publish(config_s.denm.topic_out, denmJSON);
-    const double time_full_local = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.denm.mqtt_enabled && remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.denm.topic_out, denmJSON);
-    const double time_full_remote = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-
-    denm_rx_counter->Increment();
-    denm_rx_latency->Increment(time_full_remote - cp.time_received);
-
-    if(config_s.denm.mqtt_test_enabled) {
-        Document::AllocatorType& allocator = denm_json.GetAllocator();
-        if (config_s.denm.udp_out_port != 0) denm_json["test"].AddMember("full_udp_timestamp", time_full_udp, allocator);
-        if (config_s.denm.dds_enabled != 0) denm_json["test"].AddMember("full_dds_timestamp", time_full_dds, allocator);
-        if (config_s.denm.mqtt_enabled != 0) denm_json["test"].AddMember("full_local_timestamp", time_full_local, allocator);
-        if (config_s.denm.mqtt_enabled && remote_mqtt != NULL) denm_json["test"].AddMember("full_remote_timestamp", time_full_remote, allocator);
-
-        StringBuffer testBuffer;
-        Writer<StringBuffer> testWriter(testBuffer);
-        denm_json.Accept(testWriter);
-        const char* testJSON = testBuffer.GetString();
-        local_mqtt->publish(config_s.denm.topic_test, testJSON);
-        if(remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.denm.topic_test, testJSON);
-    }
-
-    if(config_s.enable_json_prints) std::cout << "DENM JSON: " << denmJSON << std::endl;
+    pubsub->publish(config_s.denm, denm_json, denm_udp_socket, denm_remote_endpoint, denm_err, denm_rx_counter, denm_rx_latency, cp.time_received, "DENM");
 }
 
 void DenmApplication::schedule_timer()
@@ -131,7 +95,7 @@ Document DenmApplication::buildJSON(DENM_t message, double time_reception, int r
     return document;
 }
 
-void DenmApplication::on_message(string topic, string mqtt_message) {
+void DenmApplication::on_message(string topic, string mqtt_message, std::unique_ptr<vanetza::geonet::Router> router) {
 
     const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
@@ -184,7 +148,7 @@ void DenmApplication::on_message(string topic, string mqtt_message) {
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr)) {
+        if (!Application::request(request, std::move(packet), nullptr, std::move(router))) {
             return;
         }
     } catch(std::runtime_error& e) {
@@ -211,13 +175,7 @@ void DenmApplication::on_message(string topic, string mqtt_message) {
         const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
         timePayload.AddMember("test", Value(kObjectType).AddMember("wave_timestamp", time_now, allocator), allocator);
 
-        StringBuffer fullBuffer;
-        Writer<StringBuffer> writer(fullBuffer);
-        timePayload.Accept(writer);
-        const char* timeJSON = fullBuffer.GetString();
-
-        local_mqtt->publish(config_s.denm.topic_time, timeJSON);
-        if (remote_mqtt != NULL) remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.denm.topic_time, timeJSON);
+        pubsub->publish_time(config_s.denm, timePayload);
     
     }
 

@@ -1,3 +1,6 @@
+#ifndef MQTT_HPP_PSIGPUTG
+#define MQTT_HPP_PSIGPUTG
+
 #include <mosquittopp.h>
 #include <iostream>
 #include <cstring>
@@ -7,14 +10,9 @@
 
 #define TAG "mqtt.cpp: "
 
+class PubSub;  // Forward declaration
+
 using namespace std;
-
-class Mqtt_client
-{
-public:
-    virtual void on_message(string, string){};
-};
-
 
 /**
  * @class Mqtt
@@ -25,8 +23,8 @@ private:
     string id;
     string host;
     int port;
-    map<string, Mqtt_client*> subscribers;
-
+    map<string, int> subscribers;
+    PubSub* pubsub;
 
     /**
      * the number of seconds after which the broker should send a PING message to the client if no other messages have
@@ -63,7 +61,7 @@ public:
      * @param username username, if expected by the server
      * @param password password, if expected by the server
      */
-    Mqtt(string id, string host, int port, string username, string password);
+    Mqtt(string id, string host, int port, string username, string password, PubSub* pubsub_);
 
     /**
      * @brief Mqtt constructor
@@ -74,7 +72,7 @@ public:
      * @param host the hostname or ip address of the broker to connect to
      * @param port the network port to connect to (usually 1883)
      */
-    Mqtt(string id, string host, int port);
+    Mqtt(string id, string host, int port, PubSub* pubsub_);
 
     ~Mqtt();
 
@@ -89,7 +87,7 @@ public:
      * @brief subscribe to a topic
      * @return True, if subscription was successfully
      */
-    bool subscribe(string topic, Mqtt_client* object);
+    bool subscribe(string topic);
 };
 
-
+#endif /* MQTT_HPP_PSIGPUTG */

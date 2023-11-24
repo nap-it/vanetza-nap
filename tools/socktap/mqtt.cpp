@@ -1,19 +1,16 @@
 #include "mqtt.h"
+#include "pubsub.hpp"
 #include <map>  
 
-
-
-Mqtt::Mqtt(string id, string host, int port, string username, string password){
-
+Mqtt::Mqtt(string id, string host, int port, string username, string password, PubSub* pubsub_) {
     mosqpp::lib_init();
     this->id = id;
     this->keepalive = 60;
     this->port = port;
     this->host = host;
+    this->pubsub = pubsub_;
 
     mosquittopp::username_pw_set(username.c_str(), password.c_str());
-
-
     /*
      * Connect to an MQTT broker. This is a non-blocking call. If you use mosquitto_connect_async your client must use
      * the threaded interface mosquitto_loop_start.
@@ -25,14 +22,13 @@ Mqtt::Mqtt(string id, string host, int port, string username, string password){
 
 
 
-Mqtt::Mqtt(string id, string host, int port) : mosquittopp(id.c_str())
-{
+Mqtt::Mqtt(string id, string host, int port, PubSub* pubsub_) : mosquittopp(id.c_str()) {
     mosqpp::lib_init();
     this->id = id;
     this->keepalive = 60;
     this->port = port;
     this->host = host;
-
+    this->pubsub = pubsub_;
 
     /*
      * Connect to an MQTT broker. This is a non-blocking call. If you use mosquitto_connect_async your client must use
@@ -48,8 +44,7 @@ Mqtt::~Mqtt() {
     mosqpp::lib_cleanup();
 }
 
-bool Mqtt::publish(string topic, string message)
-{
+bool Mqtt::publish(string topic, string message) {
     /*
      * NULL: pointer to an int.  If not NULL, the function will set this to the message id of this particular message.
      * This can be then used with the publish callback to determine when the message has been sent.
@@ -71,8 +66,8 @@ bool Mqtt::publish(string topic, string message)
     return (answer == MOSQ_ERR_SUCCESS);
 }
 
-bool Mqtt::subscribe(string topic, Mqtt_client* object) {
-    this->subscribers[topic] = object;
+bool Mqtt::subscribe(string topic) {
+    this->subscribers[topic] = 1;
     int answer = mosquittopp::subscribe(nullptr, topic.c_str());
     return answer == MOSQ_ERR_SUCCESS;
 }
@@ -82,27 +77,22 @@ void Mqtt::on_subscribe(int, int, const int *) {
 }
 
 void Mqtt::on_message(const struct mosquitto_message *message) {
-
     string payload = string(static_cast<char *>(message->payload));
     string topic = string(message->topic);
 
-    this->subscribers[topic]->on_message(topic, payload);
-
-    //cout<< TAG << "payload: " << payload << endl;
-    //cout<< TAG << "topic: " << topic << endl;
+    this->pubsub->on_message(topic, payload, 1);
 }
 
 void Mqtt::on_disconnect(int rc) {
     cout << TAG << "disconnection(" << rc << ")" << endl;
 }
 
-void Mqtt::on_connect(int rc)
-{
+void Mqtt::on_connect(int rc) {
     if ( rc == 0 ) {
         cout << TAG << "connected with server" << endl;
         if (this->subscribers.size() > 0) {
             for ( const auto &sub : this->subscribers ) {
-                this->subscribe(sub.first, this->subscribers[sub.first]);
+                this->subscribe(sub.first);
             }
         }
     } else {
@@ -110,7 +100,6 @@ void Mqtt::on_connect(int rc)
     }
 }
 
-void Mqtt::on_publish(int mid)
-{
+void Mqtt::on_publish(int mid) {
     //cout << TAG << "Message (" << mid << ") succeed to be published " << endl;
 }
