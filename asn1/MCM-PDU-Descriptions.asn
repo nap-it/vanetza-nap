@@ -8,8 +8,11 @@ BEGIN
 
 IMPORTS
     ItsPduHeader, Position, Speed, Heading, Acceleration, VehicleRole, VehicleLength, VehicleWidth, ManeuverType, ManeuverStatus, TrafficRule, TimeOfOccurrence, EventPriority, Latitude, Longitude,
-    EmergencyStatus FROM ITS-Container {
+    EmergencyStatus, AltitudeConfidence, Altitude, LaneCount FROM ITS-Container {
         itu-t (0) identified-organization (4) etsi (0) itsDomain (5) wg1 (1) ts (102894) cdd (2) version (2) 
+    }
+    WGS84AngleValue FROM CPM-PDU-Descriptions {
+        itu-t (0) identified-organization (4) etsi (0) itsDomain (5) wg1 (1) tr (103562) cpm (1) version (1)
     }
     GenerationDeltaTime FROM CAM-PDU-Descriptions {
         itu-t (0) identified-organization (4) etsi (0) itsDomain (5) wg1 (1) en (302637) cam (2) version (2)
@@ -63,31 +66,7 @@ ReferencePositionWithConfidence ::= SEQUENCE {
 PositionConfidenceEllipse ::= SEQUENCE {
     semiMajorAxisLength         SemiAxisLength,
     semiMinorAxisLength         SemiAxisLength,
-    semiMajorAxisOrientation    Wgs84AngleValue
-}
-
-Altitude ::= SEQUENCE {
-    altitudeValue         AltitudeValue,
-    altitudeConfidence    AltitudeConfidence
-}
-
-AltitudeConfidence ::= ENUMERATED {
-    alt-000-01  (0),
-    alt-000-02  (1),
-    alt-000-05  (2),
-    alt-000-10  (3),
-    alt-000-20  (4),
-    alt-000-50  (5),
-    alt-001-00  (6),
-    alt-002-00  (7),
-    alt-005-00  (8),
-    alt-010-00  (9),
-    alt-020-00  (10),
-    alt-050-00  (11),
-    alt-100-00  (12),
-    alt-200-00  (13),
-    outOfRange  (14),
-    unavailable (15)
+    semiMajorAxisOrientation    WGS84AngleValue
 }
     
 McmContainer::= CHOICE {
@@ -265,6 +244,7 @@ PolynomEndX::= INTEGER (0..2097151) -- Unit: 0.001 meter or seconds
 PolynomXOffst::= INTEGER (-8000000..8000000) -- Unit: 0.001 meter or seconds
 
 -- Basic types
+LaneCount::= INTEGER (1..16) -- Number of Lanes
 TimeOfPos::= INTEGER (0..65535) -- Unit: 0.01 seconds
 
 Reason::= ENUMERATED {

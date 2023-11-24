@@ -321,13 +321,13 @@ Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, doubl
                 .AddMember("acceleration", (bvc.longitudinalAcceleration.longitudinalAccelerationValue == 161) ? bvc.longitudinalAcceleration.longitudinalAccelerationValue : static_cast<double>(bvc.longitudinalAcceleration.longitudinalAccelerationValue) / pow(10, 1), simpleAllocator)
                 .AddMember("curvature", static_cast<int64_t>(bvc.curvature.curvatureValue), simpleAllocator)
                 .AddMember("yawRate", (bvc.yawRate.yawRateValue == 32767) ? bvc.yawRate.yawRateValue : static_cast<double>(bvc.yawRate.yawRateValue) / pow(10, 2), simpleAllocator)
-                .AddMember("brakePedal", static_cast<bool>(*(bvc.accelerationControl->buf) & (1 << (7 - 0))), simpleAllocator)
-                .AddMember("gasPedal", static_cast<bool>(*(bvc.accelerationControl->buf) & (1 << (7 - 1))), simpleAllocator)
-                .AddMember("emergencyBrake", static_cast<bool>(*(bvc.accelerationControl->buf) & (1 << (7 - 2))), simpleAllocator)
-                .AddMember("collisionWarning", static_cast<bool>(*(bvc.accelerationControl->buf) & (1 << (7 - 3))), simpleAllocator)
-                .AddMember("accEngaged", static_cast<bool>(*(bvc.accelerationControl->buf) & (1 << (7 - 4))), simpleAllocator)
-                .AddMember("cruiseControl", static_cast<bool>(*(bvc.accelerationControl->buf) & (1 << (7 - 5))), simpleAllocator)
-                .AddMember("speedLimiter", static_cast<bool>(*(bvc.accelerationControl->buf) & (1 << (7 - 6))), simpleAllocator)
+                .AddMember("brakePedal", static_cast<bool>(bvc.accelerationControl != nullptr ? (*(bvc.accelerationControl->buf) & (1 << (7 - 0))) : false), simpleAllocator)
+                .AddMember("gasPedal", static_cast<bool>(bvc.accelerationControl != nullptr ? (*(bvc.accelerationControl->buf) & (1 << (7 - 1))) : false), simpleAllocator)
+                .AddMember("emergencyBrake", static_cast<bool>(bvc.accelerationControl != nullptr ? (*(bvc.accelerationControl->buf) & (1 << (7 - 2))) : false), simpleAllocator)
+                .AddMember("collisionWarning", static_cast<bool>(bvc.accelerationControl != nullptr ? (*(bvc.accelerationControl->buf) & (1 << (7 - 3))) : false), simpleAllocator)
+                .AddMember("accEngaged", static_cast<bool>(bvc.accelerationControl != nullptr ? (*(bvc.accelerationControl->buf) & (1 << (7 - 4))) : false), simpleAllocator)
+                .AddMember("cruiseControl", static_cast<bool>(bvc.accelerationControl != nullptr ? (*(bvc.accelerationControl->buf) & (1 << (7 - 5))) : false), simpleAllocator)
+                .AddMember("speedLimiter", static_cast<bool>(bvc.accelerationControl != nullptr ? (*(bvc.accelerationControl->buf) & (1 << (7 - 6))) : false), simpleAllocator)
                 .AddMember("specialVehicle", Value(Type::kNullType), simpleAllocator);
 
     if (cam.camParameters.specialVehicleContainer != 0) {

@@ -7,6 +7,37 @@
 
 #include "MCM.h"
 
+static int
+memb_header_constraint_1(const asn_TYPE_descriptor_t *td, const void *sptr,
+			asn_app_constraint_failed_f *ctfailcb, void *app_key) {
+	
+	if(!sptr) {
+		ASN__CTFAIL(app_key, td, sptr,
+			"%s: value not given (%s:%d)",
+			td->name, __FILE__, __LINE__);
+		return -1;
+	}
+	
+	
+	if(1 /* No applicable constraints whatsoever */) {
+		/* Nothing is here. See below */
+	}
+	
+	return td->encoding_constraints.general_constraints(td, sptr, ctfailcb, app_key);
+}
+
+#if !defined(ASN_DISABLE_OER_SUPPORT)
+static asn_oer_constraints_t asn_OER_memb_header_constr_2 CC_NOTUSED = {
+	{ 0, 0 },
+	-1};
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+static asn_per_constraints_t asn_PER_memb_header_constr_2 CC_NOTUSED = {
+	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
+	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
+	0, 0	/* No PER value map */
+};
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
 static asn_TYPE_member_t asn_MBR_MCM_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct MCM, header),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
@@ -15,20 +46,20 @@ static asn_TYPE_member_t asn_MBR_MCM_1[] = {
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
-			0,
+			&asn_OER_memb_header_constr_2,
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-			0,
+			&asn_PER_memb_header_constr_2,
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
-			0
+			memb_header_constraint_1
 		},
 		0, 0, /* No default value */
 		"header"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct MCM, mcmParameter),
+	{ ATF_NOFLAGS, 0, offsetof(struct MCM, payload),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_MCMParameter,
+		&asn_DEF_WrappedMcmInformationBlocks,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -40,7 +71,7 @@ static asn_TYPE_member_t asn_MBR_MCM_1[] = {
 			0
 		},
 		0, 0, /* No default value */
-		"mcmParameter"
+		"payload"
 		},
 };
 static const ber_tlv_tag_t asn_DEF_MCM_tags_1[] = {
@@ -48,7 +79,7 @@ static const ber_tlv_tag_t asn_DEF_MCM_tags_1[] = {
 };
 static const asn_TYPE_tag2member_t asn_MAP_MCM_tag2el_1[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* header */
-    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 } /* mcmParameter */
+    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 } /* payload */
 };
 static asn_SEQUENCE_specifics_t asn_SPC_MCM_specs_1 = {
 	sizeof(struct MCM),

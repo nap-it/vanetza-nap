@@ -5,13 +5,13 @@
  * 	`asn1c -fcompound-names -fincludes-quoted -no-gen-example -R`
  */
 
-#include "IntermediatePointReference.h"
+#include "ReferencePositionWithConfidence.h"
 
-asn_TYPE_member_t asn_MBR_IntermediatePointReference_1[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct IntermediatePointReference, referenceStartingPosition),
+asn_TYPE_member_t asn_MBR_ReferencePositionWithConfidence_1[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct ReferencePositionWithConfidence, latitude),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ReferencePositionWithConfidence,
+		&asn_DEF_Latitude,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -23,12 +23,12 @@ asn_TYPE_member_t asn_MBR_IntermediatePointReference_1[] = {
 			0
 		},
 		0, 0, /* No default value */
-		"referenceStartingPosition"
+		"latitude"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct IntermediatePointReference, referenceHeading),
+	{ ATF_NOFLAGS, 0, offsetof(struct ReferencePositionWithConfidence, longitude),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Heading,
+		&asn_DEF_Longitude,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -40,12 +40,12 @@ asn_TYPE_member_t asn_MBR_IntermediatePointReference_1[] = {
 			0
 		},
 		0, 0, /* No default value */
-		"referenceHeading"
+		"longitude"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct IntermediatePointReference, lane),
+	{ ATF_NOFLAGS, 0, offsetof(struct ReferencePositionWithConfidence, positionConfidenceEllipse),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Lane,
+		&asn_DEF_PositionConfidenceEllipse,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -57,12 +57,12 @@ asn_TYPE_member_t asn_MBR_IntermediatePointReference_1[] = {
 			0
 		},
 		0, 0, /* No default value */
-		"lane"
+		"positionConfidenceEllipse"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct IntermediatePointReference, timeOfPos),
+	{ ATF_NOFLAGS, 0, offsetof(struct ReferencePositionWithConfidence, altitude),
 		(ASN_TAG_CLASS_CONTEXT | (3 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_TimeOfPos,
+		&asn_DEF_Altitude,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -74,36 +74,36 @@ asn_TYPE_member_t asn_MBR_IntermediatePointReference_1[] = {
 			0
 		},
 		0, 0, /* No default value */
-		"timeOfPos"
+		"altitude"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_IntermediatePointReference_tags_1[] = {
+static const ber_tlv_tag_t asn_DEF_ReferencePositionWithConfidence_tags_1[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_IntermediatePointReference_tag2el_1[] = {
-    { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* referenceStartingPosition */
-    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* referenceHeading */
-    { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 }, /* lane */
-    { (ASN_TAG_CLASS_CONTEXT | (3 << 2)), 3, 0, 0 } /* timeOfPos */
+static const asn_TYPE_tag2member_t asn_MAP_ReferencePositionWithConfidence_tag2el_1[] = {
+    { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* latitude */
+    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* longitude */
+    { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 }, /* positionConfidenceEllipse */
+    { (ASN_TAG_CLASS_CONTEXT | (3 << 2)), 3, 0, 0 } /* altitude */
 };
-asn_SEQUENCE_specifics_t asn_SPC_IntermediatePointReference_specs_1 = {
-	sizeof(struct IntermediatePointReference),
-	offsetof(struct IntermediatePointReference, _asn_ctx),
-	asn_MAP_IntermediatePointReference_tag2el_1,
+asn_SEQUENCE_specifics_t asn_SPC_ReferencePositionWithConfidence_specs_1 = {
+	sizeof(struct ReferencePositionWithConfidence),
+	offsetof(struct ReferencePositionWithConfidence, _asn_ctx),
+	asn_MAP_ReferencePositionWithConfidence_tag2el_1,
 	4,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_IntermediatePointReference = {
-	"IntermediatePointReference",
-	"IntermediatePointReference",
+asn_TYPE_descriptor_t asn_DEF_ReferencePositionWithConfidence = {
+	"ReferencePositionWithConfidence",
+	"ReferencePositionWithConfidence",
 	&asn_OP_SEQUENCE,
-	asn_DEF_IntermediatePointReference_tags_1,
-	sizeof(asn_DEF_IntermediatePointReference_tags_1)
-		/sizeof(asn_DEF_IntermediatePointReference_tags_1[0]), /* 1 */
-	asn_DEF_IntermediatePointReference_tags_1,	/* Same as above */
-	sizeof(asn_DEF_IntermediatePointReference_tags_1)
-		/sizeof(asn_DEF_IntermediatePointReference_tags_1[0]), /* 1 */
+	asn_DEF_ReferencePositionWithConfidence_tags_1,
+	sizeof(asn_DEF_ReferencePositionWithConfidence_tags_1)
+		/sizeof(asn_DEF_ReferencePositionWithConfidence_tags_1[0]), /* 1 */
+	asn_DEF_ReferencePositionWithConfidence_tags_1,	/* Same as above */
+	sizeof(asn_DEF_ReferencePositionWithConfidence_tags_1)
+		/sizeof(asn_DEF_ReferencePositionWithConfidence_tags_1[0]), /* 1 */
 	{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
 		0,
@@ -113,8 +113,8 @@ asn_TYPE_descriptor_t asn_DEF_IntermediatePointReference = {
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
 		SEQUENCE_constraint
 	},
-	asn_MBR_IntermediatePointReference_1,
+	asn_MBR_ReferencePositionWithConfidence_1,
 	4,	/* Elements count */
-	&asn_SPC_IntermediatePointReference_specs_1	/* Additional specs */
+	&asn_SPC_ReferencePositionWithConfidence_specs_1	/* Additional specs */
 };
 

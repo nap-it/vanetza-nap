@@ -5,13 +5,13 @@
  * 	`asn1c -fcompound-names -fincludes-quoted -no-gen-example -R`
  */
 
-#include "IntermediatePointOffroad.h"
+#include "VehicleAutomationState.h"
 
-asn_TYPE_member_t asn_MBR_IntermediatePointOffroad_1[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct IntermediatePointOffroad, referencePosition),
+asn_TYPE_member_t asn_MBR_VehicleAutomationState_1[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct VehicleAutomationState, humanDrivingLongitudinalAutomated),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ReferencePositionWithConfidence,
+		&asn_DEF_BOOLEAN,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -23,12 +23,12 @@ asn_TYPE_member_t asn_MBR_IntermediatePointOffroad_1[] = {
 			0
 		},
 		0, 0, /* No default value */
-		"referencePosition"
+		"humanDrivingLongitudinalAutomated"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct IntermediatePointOffroad, referenceHeading),
+	{ ATF_NOFLAGS, 0, offsetof(struct VehicleAutomationState, humanDrivenLateralAutomated),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Heading,
+		&asn_DEF_BOOLEAN,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -40,12 +40,12 @@ asn_TYPE_member_t asn_MBR_IntermediatePointOffroad_1[] = {
 			0
 		},
 		0, 0, /* No default value */
-		"referenceHeading"
+		"humanDrivenLateralAutomated"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct IntermediatePointOffroad, timeOfPos),
+	{ ATF_NOFLAGS, 0, offsetof(struct VehicleAutomationState, automatedDriving),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_TimeOfPos,
+		&asn_DEF_BOOLEAN,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -57,35 +57,35 @@ asn_TYPE_member_t asn_MBR_IntermediatePointOffroad_1[] = {
 			0
 		},
 		0, 0, /* No default value */
-		"timeOfPos"
+		"automatedDriving"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_IntermediatePointOffroad_tags_1[] = {
+static const ber_tlv_tag_t asn_DEF_VehicleAutomationState_tags_1[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_IntermediatePointOffroad_tag2el_1[] = {
-    { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* referencePosition */
-    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* referenceHeading */
-    { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* timeOfPos */
+static const asn_TYPE_tag2member_t asn_MAP_VehicleAutomationState_tag2el_1[] = {
+    { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* humanDrivingLongitudinalAutomated */
+    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* humanDrivenLateralAutomated */
+    { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* automatedDriving */
 };
-asn_SEQUENCE_specifics_t asn_SPC_IntermediatePointOffroad_specs_1 = {
-	sizeof(struct IntermediatePointOffroad),
-	offsetof(struct IntermediatePointOffroad, _asn_ctx),
-	asn_MAP_IntermediatePointOffroad_tag2el_1,
+asn_SEQUENCE_specifics_t asn_SPC_VehicleAutomationState_specs_1 = {
+	sizeof(struct VehicleAutomationState),
+	offsetof(struct VehicleAutomationState, _asn_ctx),
+	asn_MAP_VehicleAutomationState_tag2el_1,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_IntermediatePointOffroad = {
-	"IntermediatePointOffroad",
-	"IntermediatePointOffroad",
+asn_TYPE_descriptor_t asn_DEF_VehicleAutomationState = {
+	"VehicleAutomationState",
+	"VehicleAutomationState",
 	&asn_OP_SEQUENCE,
-	asn_DEF_IntermediatePointOffroad_tags_1,
-	sizeof(asn_DEF_IntermediatePointOffroad_tags_1)
-		/sizeof(asn_DEF_IntermediatePointOffroad_tags_1[0]), /* 1 */
-	asn_DEF_IntermediatePointOffroad_tags_1,	/* Same as above */
-	sizeof(asn_DEF_IntermediatePointOffroad_tags_1)
-		/sizeof(asn_DEF_IntermediatePointOffroad_tags_1[0]), /* 1 */
+	asn_DEF_VehicleAutomationState_tags_1,
+	sizeof(asn_DEF_VehicleAutomationState_tags_1)
+		/sizeof(asn_DEF_VehicleAutomationState_tags_1[0]), /* 1 */
+	asn_DEF_VehicleAutomationState_tags_1,	/* Same as above */
+	sizeof(asn_DEF_VehicleAutomationState_tags_1)
+		/sizeof(asn_DEF_VehicleAutomationState_tags_1[0]), /* 1 */
 	{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
 		0,
@@ -95,8 +95,8 @@ asn_TYPE_descriptor_t asn_DEF_IntermediatePointOffroad = {
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
 		SEQUENCE_constraint
 	},
-	asn_MBR_IntermediatePointOffroad_1,
+	asn_MBR_VehicleAutomationState_1,
 	3,	/* Elements count */
-	&asn_SPC_IntermediatePointOffroad_specs_1	/* Additional specs */
+	&asn_SPC_VehicleAutomationState_specs_1	/* Additional specs */
 };
 

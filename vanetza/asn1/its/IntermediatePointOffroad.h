@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "ReferencePosition.h"
+#include "ReferencePositionWithConfidence.h"
 #include "Heading.h"
 #include "TimeOfPos.h"
 #include "constr_SEQUENCE.h"
@@ -23,7 +23,7 @@ extern "C" {
 
 /* IntermediatePointOffroad */
 typedef struct IntermediatePointOffroad {
-	ReferencePosition_t	 referencePosition;
+	ReferencePositionWithConfidence_t	 referencePosition;
 	Heading_t	 referenceHeading;
 	TimeOfPos_t	 timeOfPos;
 	

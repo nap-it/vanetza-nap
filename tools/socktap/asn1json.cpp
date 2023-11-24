@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
-*   Auto-generated from the asn1 directory by asn1json.py on 2023-10-17 19:15:44.028454
+*   Auto-generated from the asn1 directory by asn1json.py on 2023-10-23 20:23:04.595839
 */
 
 #include "asn1json.hpp"
@@ -8263,25 +8263,25 @@ void from_json_Language(const Value& j, Language_t& p, std::string field) {
 }
 
 /*
-*   LatestGeographicPosition - Type SEQUENCE
+*   PositionConfidenceEllipse - Type SEQUENCE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
 
-Value to_json(const LatestGeographicPosition& p, Document::AllocatorType& allocator) {
+Value to_json(const PositionConfidenceEllipse& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("latitudeValue", to_json(((p.latitudeValue) == 900000001) ? (p.latitudeValue) : (double)(p.latitudeValue) / 10000000.0, allocator), allocator);
-    json.AddMember("longitudeValue", to_json(((p.longitudeValue) == 1800000001) ? (p.longitudeValue) : (double)(p.longitudeValue) / 10000000.0, allocator), allocator);
-    if (p.altitudeValue != 0) json.AddMember("altitudeValue", to_json(*(p.altitudeValue), allocator), allocator);
+    json.AddMember("semiMajorAxisLength", to_json((p.semiMajorAxisLength), allocator), allocator);
+    json.AddMember("semiMinorAxisLength", to_json((p.semiMinorAxisLength), allocator), allocator);
+    json.AddMember("semiMajorAxisOrientation", to_json(((p.semiMajorAxisOrientation) == 3601) ? (p.semiMajorAxisOrientation) : (double)(p.semiMajorAxisOrientation) / 10.0, allocator), allocator);
+    
     return json;
 }
 
-void from_json(const Value& j, LatestGeographicPosition& p, std::string field) {
+void from_json(const Value& j, PositionConfidenceEllipse& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        double latitudeValue; from_json(j["latitudeValue"], (latitudeValue), "latitudeValue"); (p.latitudeValue) = ((latitudeValue) != 900000001) ? latitudeValue * 10000000 : latitudeValue;
-        double longitudeValue; from_json(j["longitudeValue"], (longitudeValue), "longitudeValue"); (p.longitudeValue) = ((longitudeValue) != 1800000001) ? longitudeValue * 10000000 : longitudeValue;
-        if (j.HasMember("altitudeValue")) { p.altitudeValue = vanetza::asn1::allocate<Altitude_t>(); from_json(j["altitudeValue"], *(p.altitudeValue), "altitudeValue"); }
-        else { p.altitudeValue=nullptr; }
+        from_json(j["semiMajorAxisLength"], (p.semiMajorAxisLength), "semiMajorAxisLength");
+        from_json(j["semiMinorAxisLength"], (p.semiMinorAxisLength), "semiMinorAxisLength");
+        double semiMajorAxisOrientation; from_json(j["semiMajorAxisOrientation"], (semiMajorAxisOrientation), "semiMajorAxisOrientation"); (p.semiMajorAxisOrientation) = ((semiMajorAxisOrientation) != 3601) ? semiMajorAxisOrientation * 10 : semiMajorAxisOrientation;
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -8291,25 +8291,29 @@ void from_json(const Value& j, LatestGeographicPosition& p, std::string field) {
 
 
 /*
-*   ManoeuvresCoordinationContainer - Type SEQUENCE
+*   ManoeuvreCooperationCost - Type SEQUENCE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
 
-Value to_json(const ManoeuvresCoordinationContainer& p, Document::AllocatorType& allocator) {
+Value to_json(const ManoeuvreCooperationCost& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("manoeuvresID", to_json((p.manoeuvresID), allocator), allocator);
-    json.AddMember("manoeuvresCoordinationConcept", to_json((p.manoeuvresCoordinationConcept), allocator), allocator);
-    json.AddMember("manoeuvresCoordinationStep", to_json((p.manoeuvresCoordinationStep), allocator), allocator);
+    json.AddMember("vehicleAutomationLevel", to_json((p.vehicleAutomationLevel), allocator), allocator);
+    json.AddMember("vehiclePerceptionCapabilities", to_json((p.vehiclePerceptionCapabilities), allocator), allocator);
+    json.AddMember("vehiclePropulsionCapabilities", to_json((p.vehiclePropulsionCapabilities), allocator), allocator);
+    json.AddMember("vehicleOccupantNumber", to_json((p.vehicleOccupantNumber), allocator), allocator);
+    json.AddMember("vehicleTransportedGoodsRequirements", to_json((p.vehicleTransportedGoodsRequirements), allocator), allocator);
     
     return json;
 }
 
-void from_json(const Value& j, ManoeuvresCoordinationContainer& p, std::string field) {
+void from_json(const Value& j, ManoeuvreCooperationCost& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["manoeuvresID"], (p.manoeuvresID), "manoeuvresID");
-        from_json(j["manoeuvresCoordinationConcept"], (p.manoeuvresCoordinationConcept), "manoeuvresCoordinationConcept");
-        from_json(j["manoeuvresCoordinationStep"], (p.manoeuvresCoordinationStep), "manoeuvresCoordinationStep");
+        from_json(j["vehicleAutomationLevel"], (p.vehicleAutomationLevel), "vehicleAutomationLevel");
+        from_json(j["vehiclePerceptionCapabilities"], (p.vehiclePerceptionCapabilities), "vehiclePerceptionCapabilities");
+        from_json(j["vehiclePropulsionCapabilities"], (p.vehiclePropulsionCapabilities), "vehiclePropulsionCapabilities");
+        from_json(j["vehicleOccupantNumber"], (p.vehicleOccupantNumber), "vehicleOccupantNumber");
+        from_json(j["vehicleTransportedGoodsRequirements"], (p.vehicleTransportedGoodsRequirements), "vehicleTransportedGoodsRequirements");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -8317,6 +8321,76 @@ void from_json(const Value& j, ManoeuvresCoordinationContainer& p, std::string f
 }
 
 
+
+/*
+*   VehicleAutomationState - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const VehicleAutomationState& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("humanDrivingLongitudinalAutomated", to_json((p.humanDrivingLongitudinalAutomated), allocator), allocator);
+    json.AddMember("humanDrivenLateralAutomated", to_json((p.humanDrivenLateralAutomated), allocator), allocator);
+    json.AddMember("automatedDriving", to_json((p.automatedDriving), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, VehicleAutomationState& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["humanDrivingLongitudinalAutomated"], (p.humanDrivingLongitudinalAutomated), "humanDrivingLongitudinalAutomated");
+        from_json(j["humanDrivenLateralAutomated"], (p.humanDrivenLateralAutomated), "humanDrivenLateralAutomated");
+        from_json(j["automatedDriving"], (p.automatedDriving), "automatedDriving");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   ManouevreResponse - Type CHOICE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const ManouevreResponse_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == ManouevreResponse_PR_offerAcceptation) {
+        json.AddMember("offerAcceptation", to_json(p.choice.offerAcceptation, allocator), allocator);
+    } else if (p.present == ManouevreResponse_PR_offerDecline) {
+        json.AddMember("offerDecline", to_json(p.choice.offerDecline, allocator), allocator);
+    } else if (p.present == ManouevreResponse_PR_requestAcceptation) {
+        json.AddMember("requestAcceptation", to_json(p.choice.requestAcceptation, allocator), allocator);
+    } else if (p.present == ManouevreResponse_PR_requestDecline) {
+        json.AddMember("requestDecline", to_json(p.choice.requestDecline, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ManouevreResponse_t& p, std::string field) {
+    try {
+        if (j.HasMember("offerAcceptation")) {
+        p.present = ManouevreResponse_PR_offerAcceptation;
+        from_json(j["offerAcceptation"], p.choice.offerAcceptation, "offerAcceptation");
+    } else if (j.HasMember("offerDecline")) {
+        p.present = ManouevreResponse_PR_offerDecline;
+        from_json(j["offerDecline"], p.choice.offerDecline, "offerDecline");
+    } else if (j.HasMember("requestAcceptation")) {
+        p.present = ManouevreResponse_PR_requestAcceptation;
+        from_json(j["requestAcceptation"], p.choice.requestAcceptation, "requestAcceptation");
+    } else if (j.HasMember("requestDecline")) {
+        p.present = ManouevreResponse_PR_requestDecline;
+        from_json(j["requestDecline"], p.choice.requestDecline, "requestDecline");
+    } else {
+        p.present = ManouevreResponse_PR_NOTHING;
+        }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
 
 /*
 *   Polynom::Polynom__coefficients - Type SEQUENCE OF
@@ -12328,25 +12402,27 @@ void from_json(const Value& j, TpgNotifContainer& p, std::string field) {
 }
 
 /*
-*   BasicContainerMCM - Type SEQUENCE
+*   ReferencePositionWithConfidence - Type SEQUENCE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
 
-Value to_json(const BasicContainerMCM& p, Document::AllocatorType& allocator) {
+Value to_json(const ReferencePositionWithConfidence& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("generationDeltaTime", to_json((p.generationDeltaTime), allocator), allocator);
-    json.AddMember("typeOriginatingIT-S", to_json((p.typeOriginatingIT_S), allocator), allocator);
-    json.AddMember("latestGeographicPosition", to_json((p.latestGeographicPosition), allocator), allocator);
+    json.AddMember("latitude", to_json(((p.latitude) == 900000001) ? (p.latitude) : (double)(p.latitude) / 10000000.0, allocator), allocator);
+    json.AddMember("longitude", to_json(((p.longitude) == 1800000001) ? (p.longitude) : (double)(p.longitude) / 10000000.0, allocator), allocator);
+    json.AddMember("positionConfidenceEllipse", to_json((p.positionConfidenceEllipse), allocator), allocator);
+    json.AddMember("altitude", to_json((p.altitude), allocator), allocator);
     
     return json;
 }
 
-void from_json(const Value& j, BasicContainerMCM& p, std::string field) {
+void from_json(const Value& j, ReferencePositionWithConfidence& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["generationDeltaTime"], (p.generationDeltaTime), "generationDeltaTime");
-        from_json(j["typeOriginatingIT-S"], (p.typeOriginatingIT_S), "typeOriginatingIT-S");
-        from_json(j["latestGeographicPosition"], (p.latestGeographicPosition), "latestGeographicPosition");
+        double latitude; from_json(j["latitude"], (latitude), "latitude"); (p.latitude) = ((latitude) != 900000001) ? latitude * 10000000 : latitude;
+        double longitude; from_json(j["longitude"], (longitude), "longitude"); (p.longitude) = ((longitude) != 1800000001) ? longitude * 10000000 : longitude;
+        from_json(j["positionConfidenceEllipse"], (p.positionConfidenceEllipse), "positionConfidenceEllipse");
+        from_json(j["altitude"], (p.altitude), "altitude");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -12356,11 +12432,43 @@ void from_json(const Value& j, BasicContainerMCM& p, std::string field) {
 
 
 /*
-*   Trajectory::Trajectory__longitudinalPosition - Type SEQUENCE OF
+*   ManoeuvreCoordinationRational - Type CHOICE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
 
-Value to_json(const Trajectory::Trajectory__longitudinalPosition& p, Document::AllocatorType& allocator) {
+Value to_json(const ManoeuvreCoordinationRational& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == ManoeuvreCoordinationRational_PR_manoeuvreGoal) {
+        json.AddMember("manoeuvreGoal", to_json(p.choice.manoeuvreGoal, allocator), allocator);
+    } else if (p.present == ManoeuvreCoordinationRational_PR_manoeuvreCooperationCost) {
+        json.AddMember("manoeuvreCooperationCost", to_json(p.choice.manoeuvreCooperationCost, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ManoeuvreCoordinationRational& p, std::string field) {
+    try {
+        if (j.HasMember("manoeuvreGoal")) {
+        p.present = ManoeuvreCoordinationRational_PR_manoeuvreGoal;
+        from_json(j["manoeuvreGoal"], p.choice.manoeuvreGoal, "manoeuvreGoal");
+    } else if (j.HasMember("manoeuvreCooperationCost")) {
+        p.present = ManoeuvreCoordinationRational_PR_manoeuvreCooperationCost;
+        from_json(j["manoeuvreCooperationCost"], p.choice.manoeuvreCooperationCost, "manoeuvreCooperationCost");
+    } else {
+        p.present = ManoeuvreCoordinationRational_PR_NOTHING;
+        }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   Trajectory::Trajectory__longitudinalPositions - Type SEQUENCE OF
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const Trajectory::Trajectory__longitudinalPositions& p, Document::AllocatorType& allocator) {
     Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
         const Polynom_t po = *(p.list.array[i]);
@@ -12370,9 +12478,9 @@ Value to_json(const Trajectory::Trajectory__longitudinalPosition& p, Document::A
     return json;
 }
 
-void from_json(const Value& j, Trajectory::Trajectory__longitudinalPosition& p, std::string field) {
+void from_json(const Value& j, Trajectory::Trajectory__longitudinalPositions& p, std::string field) {
     try {
-        Trajectory::Trajectory__longitudinalPosition* p_tmp = vanetza::asn1::allocate<Trajectory::Trajectory__longitudinalPosition>();
+        Trajectory::Trajectory__longitudinalPositions* p_tmp = vanetza::asn1::allocate<Trajectory::Trajectory__longitudinalPositions>();
         for (SizeType i = 0; i < j.Size(); i++) {
             const Value& item = j[i];
             Polynom_t *element = vanetza::asn1::allocate<Polynom_t>();
@@ -12388,11 +12496,11 @@ void from_json(const Value& j, Trajectory::Trajectory__longitudinalPosition& p, 
 }
 
 /*
-*   Trajectory::Trajectory__lateralPosition - Type SEQUENCE OF
+*   Trajectory::Trajectory__lateralPositions - Type SEQUENCE OF
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
 
-Value to_json(const Trajectory::Trajectory__lateralPosition& p, Document::AllocatorType& allocator) {
+Value to_json(const Trajectory::Trajectory__lateralPositions& p, Document::AllocatorType& allocator) {
     Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
         const Polynom_t po = *(p.list.array[i]);
@@ -12402,9 +12510,41 @@ Value to_json(const Trajectory::Trajectory__lateralPosition& p, Document::Alloca
     return json;
 }
 
-void from_json(const Value& j, Trajectory::Trajectory__lateralPosition& p, std::string field) {
+void from_json(const Value& j, Trajectory::Trajectory__lateralPositions& p, std::string field) {
     try {
-        Trajectory::Trajectory__lateralPosition* p_tmp = vanetza::asn1::allocate<Trajectory::Trajectory__lateralPosition>();
+        Trajectory::Trajectory__lateralPositions* p_tmp = vanetza::asn1::allocate<Trajectory::Trajectory__lateralPositions>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            Polynom_t *element = vanetza::asn1::allocate<Polynom_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   Trajectory::Trajectory__elevationPositions - Type SEQUENCE OF
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const Trajectory::Trajectory__elevationPositions& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const Polynom_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, Trajectory::Trajectory__elevationPositions& p, std::string field) {
+    try {
+        Trajectory::Trajectory__elevationPositions* p_tmp = vanetza::asn1::allocate<Trajectory::Trajectory__elevationPositions>();
         for (SizeType i = 0; i < j.Size(); i++) {
             const Value& item = j[i];
             Polynom_t *element = vanetza::asn1::allocate<Polynom_t>();
@@ -12458,7 +12598,7 @@ void from_json(const Value& j, Trajectory::Trajectory__headings& p, std::string 
 
 Value to_json(const IntermediatePointReference& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("referencePosition", to_json((p.referencePosition), allocator), allocator);
+    json.AddMember("referenceStartingPosition", to_json((p.referenceStartingPosition), allocator), allocator);
     json.AddMember("referenceHeading", to_json((p.referenceHeading), allocator), allocator);
     json.AddMember("lane", to_json((p.lane), allocator), allocator);
     json.AddMember("timeOfPos", to_json((p.timeOfPos), allocator), allocator);
@@ -12469,7 +12609,7 @@ Value to_json(const IntermediatePointReference& p, Document::AllocatorType& allo
 void from_json(const Value& j, IntermediatePointReference& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["referencePosition"], (p.referencePosition), "referencePosition");
+        from_json(j["referenceStartingPosition"], (p.referenceStartingPosition), "referenceStartingPosition");
         from_json(j["referenceHeading"], (p.referenceHeading), "referenceHeading");
         from_json(j["lane"], (p.lane), "lane");
         from_json(j["timeOfPos"], (p.timeOfPos), "timeOfPos");
@@ -14059,6 +14199,34 @@ void from_json(const Value& j, RTCMEM& p, std::string field) {
 
 
 /*
+*   McmBasicContainer - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const McmBasicContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("generationDeltaTime", to_json((p.generationDeltaTime), allocator), allocator);
+    json.AddMember("stationType", to_json((p.stationType), allocator), allocator);
+    json.AddMember("referencePositionWithConfidence", to_json((p.referencePositionWithConfidence), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, McmBasicContainer& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["generationDeltaTime"], (p.generationDeltaTime), "generationDeltaTime");
+        from_json(j["stationType"], (p.stationType), "stationType");
+        from_json(j["referencePositionWithConfidence"], (p.referencePositionWithConfidence), "referencePositionWithConfidence");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
 *   IntermediatePoint - Type CHOICE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
@@ -15211,10 +15379,11 @@ void from_json(const Value& j, Trajectory::Trajectory__intermediatePoints& p, st
 Value to_json(const Trajectory& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("intermediatePoints", to_json((p.intermediatePoints), allocator), allocator);
-    json.AddMember("longitudinalPosition", to_json((p.longitudinalPosition), allocator), allocator);
-    json.AddMember("lateralPosition", to_json((p.lateralPosition), allocator), allocator);
-    json.AddMember("headings", to_json((p.headings), allocator), allocator);
-    
+    json.AddMember("longitudinalPositions", to_json((p.longitudinalPositions), allocator), allocator);
+    json.AddMember("lateralPositions", to_json((p.lateralPositions), allocator), allocator);
+    json.AddMember("spead", to_json((p.spead), allocator), allocator);
+    if (p.elevationPositions != 0) json.AddMember("elevationPositions", to_json(*(p.elevationPositions), allocator), allocator);
+    if (p.headings != 0) json.AddMember("headings", to_json(*(p.headings), allocator), allocator);
     return json;
 }
 
@@ -15222,124 +15391,13 @@ void from_json(const Value& j, Trajectory& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["intermediatePoints"], (p.intermediatePoints), "intermediatePoints");
-        from_json(j["longitudinalPosition"], (p.longitudinalPosition), "longitudinalPosition");
-        from_json(j["lateralPosition"], (p.lateralPosition), "lateralPosition");
-        from_json(j["headings"], (p.headings), "headings");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   TargetedVehicleAlternativeTrajectory - Type SEQUENCE
-*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
-*/
-
-Value to_json(const TargetedVehicleAlternativeTrajectory_t& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("alternativeTrajectory", to_json((p.alternativeTrajectory), allocator), allocator);
-    json.AddMember("lane", to_json((p.lane), allocator), allocator);
-    
-    return json;
-}
-
-void from_json(const Value& j, TargetedVehicleAlternativeTrajectory_t& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["alternativeTrajectory"], (p.alternativeTrajectory), "alternativeTrajectory");
-        from_json(j["lane"], (p.lane), "lane");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   PrescriptiveContainer - Type CHOICE
-*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
-*/
-
-Value to_json(const PrescriptiveContainer& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    if (p.present == PrescriptiveContainer_PR_mcmCategory) {
-        json.AddMember("mcmCategory", to_json(p.choice.mcmCategory, allocator), allocator);
-    } else if (p.present == PrescriptiveContainer_PR_prescriptionType) {
-        json.AddMember("prescriptionType", to_json(p.choice.prescriptionType, allocator), allocator);
-    } else if (p.present == PrescriptiveContainer_PR_vehicleAutomationLevel) {
-        json.AddMember("vehicleAutomationLevel", to_json(p.choice.vehicleAutomationLevel, allocator), allocator);
-    } else if (p.present == PrescriptiveContainer_PR_vehicleReferenceTrajectory) {
-        json.AddMember("vehicleReferenceTrajectory", to_json(p.choice.vehicleReferenceTrajectory, allocator), allocator);
-    } else if (p.present == PrescriptiveContainer_PR_numberOfTargetedVehicleManoeuvresCoordination) {
-        json.AddMember("numberOfTargetedVehicleManoeuvresCoordination", to_json(p.choice.numberOfTargetedVehicleManoeuvresCoordination, allocator), allocator);
-    } else if (p.present == PrescriptiveContainer_PR_targetVehicleITS_SID) {
-        json.AddMember("targetVehicleITS-SID", to_json(p.choice.targetVehicleITS_SID, allocator), allocator);
-    } else if (p.present == PrescriptiveContainer_PR_targetVehicleAlternativeTrajectory) {
-        json.AddMember("targetVehicleAlternativeTrajectory", to_json(p.choice.targetVehicleAlternativeTrajectory, allocator), allocator);
-    }
-    return json;
-}
-
-void from_json(const Value& j, PrescriptiveContainer& p, std::string field) {
-    try {
-        if (j.HasMember("mcmCategory")) {
-        p.present = PrescriptiveContainer_PR_mcmCategory;
-        from_json(j["mcmCategory"], p.choice.mcmCategory, "mcmCategory");
-    } else if (j.HasMember("prescriptionType")) {
-        p.present = PrescriptiveContainer_PR_prescriptionType;
-        from_json(j["prescriptionType"], p.choice.prescriptionType, "prescriptionType");
-    } else if (j.HasMember("vehicleAutomationLevel")) {
-        p.present = PrescriptiveContainer_PR_vehicleAutomationLevel;
-        from_json(j["vehicleAutomationLevel"], p.choice.vehicleAutomationLevel, "vehicleAutomationLevel");
-    } else if (j.HasMember("vehicleReferenceTrajectory")) {
-        p.present = PrescriptiveContainer_PR_vehicleReferenceTrajectory;
-        from_json(j["vehicleReferenceTrajectory"], p.choice.vehicleReferenceTrajectory, "vehicleReferenceTrajectory");
-    } else if (j.HasMember("numberOfTargetedVehicleManoeuvresCoordination")) {
-        p.present = PrescriptiveContainer_PR_numberOfTargetedVehicleManoeuvresCoordination;
-        from_json(j["numberOfTargetedVehicleManoeuvresCoordination"], p.choice.numberOfTargetedVehicleManoeuvresCoordination, "numberOfTargetedVehicleManoeuvresCoordination");
-    } else if (j.HasMember("targetVehicleITS-SID")) {
-        p.present = PrescriptiveContainer_PR_targetVehicleITS_SID;
-        from_json(j["targetVehicleITS-SID"], p.choice.targetVehicleITS_SID, "targetVehicleITS-SID");
-    } else if (j.HasMember("targetVehicleAlternativeTrajectory")) {
-        p.present = PrescriptiveContainer_PR_targetVehicleAlternativeTrajectory;
-        from_json(j["targetVehicleAlternativeTrajectory"], p.choice.targetVehicleAlternativeTrajectory, "targetVehicleAlternativeTrajectory");
-    } else {
-        p.present = PrescriptiveContainer_PR_NOTHING;
-        }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-/*
-*   ResponseContainer - Type SEQUENCE
-*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
-*/
-
-Value to_json(const ResponseContainer& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("mcmCategory", to_json((p.mcmCategory), allocator), allocator);
-    json.AddMember("acceptabilityStatus", to_json((p.acceptabilityStatus), allocator), allocator);
-    json.AddMember("vehicleReferenceTrajectory", to_json((p.vehicleReferenceTrajectory), allocator), allocator);
-    json.AddMember("vehicleAutomationLevel", to_json((p.vehicleAutomationLevel), allocator), allocator);
-    json.AddMember("estimatedCooperationCost", to_json((p.estimatedCooperationCost), allocator), allocator);
-    
-    return json;
-}
-
-void from_json(const Value& j, ResponseContainer& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["mcmCategory"], (p.mcmCategory), "mcmCategory");
-        from_json(j["acceptabilityStatus"], (p.acceptabilityStatus), "acceptabilityStatus");
-        from_json(j["vehicleReferenceTrajectory"], (p.vehicleReferenceTrajectory), "vehicleReferenceTrajectory");
-        from_json(j["vehicleAutomationLevel"], (p.vehicleAutomationLevel), "vehicleAutomationLevel");
-        from_json(j["estimatedCooperationCost"], (p.estimatedCooperationCost), "estimatedCooperationCost");
+        from_json(j["longitudinalPositions"], (p.longitudinalPositions), "longitudinalPositions");
+        from_json(j["lateralPositions"], (p.lateralPositions), "lateralPositions");
+        if (j.HasMember("elevationPositions")) { p.elevationPositions = vanetza::asn1::allocate<Trajectory::Trajectory__elevationPositions>(); from_json(j["elevationPositions"], *(p.elevationPositions), "elevationPositions"); }
+        else { p.elevationPositions=nullptr; }
+        if (j.HasMember("headings")) { p.headings = vanetza::asn1::allocate<Trajectory::Trajectory__headings>(); from_json(j["headings"], *(p.headings), "headings"); }
+        else { p.headings=nullptr; }
+        from_json(j["spead"], (p.spead), "spead");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -16272,35 +16330,31 @@ void from_json(const Value& j, PlacardTable& p, std::string field) {
 }
 
 /*
-*   AgreementSeekingContainer - Type SEQUENCE
+*   ManoeuvreAdvice - Type SEQUENCE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
 
-Value to_json(const AgreementSeekingContainer& p, Document::AllocatorType& allocator) {
+Value to_json(const ManoeuvreAdvice& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("mcmCategory", to_json((p.mcmCategory), allocator), allocator);
-    json.AddMember("vehicleAutomationLevel", to_json((p.vehicleAutomationLevel), allocator), allocator);
-    json.AddMember("vehicleReferenceTrajectory", to_json((p.vehicleReferenceTrajectory), allocator), allocator);
-    json.AddMember("vehiclerRequestedTrajectory", to_json((p.vehiclerRequestedTrajectory), allocator), allocator);
-    json.AddMember("targetVehicleITS-SID", to_json((p.targetVehicleITS_SID), allocator), allocator);
-    json.AddMember("targetVehicleAlternativeTrajectory", to_json((p.targetVehicleAlternativeTrajectory), allocator), allocator);
-    json.AddMember("estimatedCostOriginating", to_json((p.estimatedCostOriginating), allocator), allocator);
-    if (p.numberofTargetedVehicleManoeuvresCoordination != 0) json.AddMember("numberofTargetedVehicleManoeuvresCoordination", to_json(*(p.numberofTargetedVehicleManoeuvresCoordination), allocator), allocator);
+    json.AddMember("manoeuvreID", to_json((p.manoeuvreID), allocator), allocator);
+    json.AddMember("executantID", to_json((p.executantID), allocator), allocator);
+    json.AddMember("executantPosition", to_json((p.executantPosition), allocator), allocator);
+    json.AddMember("executantHeading", to_json((p.executantHeading), allocator), allocator);
+    json.AddMember("trajectoryType", to_json((p.trajectoryType), allocator), allocator);
+    json.AddMember("trajectory", to_json((p.trajectory), allocator), allocator);
+    
     return json;
 }
 
-void from_json(const Value& j, AgreementSeekingContainer& p, std::string field) {
+void from_json(const Value& j, ManoeuvreAdvice& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["mcmCategory"], (p.mcmCategory), "mcmCategory");
-        from_json(j["vehicleAutomationLevel"], (p.vehicleAutomationLevel), "vehicleAutomationLevel");
-        from_json(j["vehicleReferenceTrajectory"], (p.vehicleReferenceTrajectory), "vehicleReferenceTrajectory");
-        from_json(j["vehiclerRequestedTrajectory"], (p.vehiclerRequestedTrajectory), "vehiclerRequestedTrajectory");
-        if (j.HasMember("numberofTargetedVehicleManoeuvresCoordination")) { p.numberofTargetedVehicleManoeuvresCoordination = vanetza::asn1::allocate<NumberOfTargetedVehicleManoeuvresCoordination_t>(); from_json(j["numberofTargetedVehicleManoeuvresCoordination"], *(p.numberofTargetedVehicleManoeuvresCoordination), "numberofTargetedVehicleManoeuvresCoordination"); }
-        else { p.numberofTargetedVehicleManoeuvresCoordination=nullptr; }
-        from_json(j["targetVehicleITS-SID"], (p.targetVehicleITS_SID), "targetVehicleITS-SID");
-        from_json(j["targetVehicleAlternativeTrajectory"], (p.targetVehicleAlternativeTrajectory), "targetVehicleAlternativeTrajectory");
-        from_json(j["estimatedCostOriginating"], (p.estimatedCostOriginating), "estimatedCostOriginating");
+        from_json(j["manoeuvreID"], (p.manoeuvreID), "manoeuvreID");
+        from_json(j["executantID"], (p.executantID), "executantID");
+        from_json(j["executantPosition"], (p.executantPosition), "executantPosition");
+        from_json(j["executantHeading"], (p.executantHeading), "executantHeading");
+        from_json(j["trajectoryType"], (p.trajectoryType), "trajectoryType");
+        from_json(j["trajectory"], (p.trajectory), "trajectory");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -16308,43 +16362,6 @@ void from_json(const Value& j, AgreementSeekingContainer& p, std::string field) 
 }
 
 
-
-/*
-*   TargetedVehicleManoeuvresCoordination - Type CHOICE
-*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
-*/
-
-Value to_json(const TargetedVehicleManoeuvresCoordination_t& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    if (p.present == TargetedVehicleManoeuvresCoordination_PR_targetedVehicleITS_SID) {
-        json.AddMember("targetedVehicleITS-SID", to_json(p.choice.targetedVehicleITS_SID, allocator), allocator);
-    } else if (p.present == TargetedVehicleManoeuvresCoordination_PR_targetedVehicleAlternativeTrajectory) {
-        json.AddMember("targetedVehicleAlternativeTrajectory", to_json(p.choice.targetedVehicleAlternativeTrajectory, allocator), allocator);
-    } else if (p.present == TargetedVehicleManoeuvresCoordination_PR_estimatedCostOriginatingITS_S) {
-        json.AddMember("estimatedCostOriginatingITS-S", to_json(p.choice.estimatedCostOriginatingITS_S, allocator), allocator);
-    }
-    return json;
-}
-
-void from_json(const Value& j, TargetedVehicleManoeuvresCoordination_t& p, std::string field) {
-    try {
-        if (j.HasMember("targetedVehicleITS-SID")) {
-        p.present = TargetedVehicleManoeuvresCoordination_PR_targetedVehicleITS_SID;
-        from_json(j["targetedVehicleITS-SID"], p.choice.targetedVehicleITS_SID, "targetedVehicleITS-SID");
-    } else if (j.HasMember("targetedVehicleAlternativeTrajectory")) {
-        p.present = TargetedVehicleManoeuvresCoordination_PR_targetedVehicleAlternativeTrajectory;
-        from_json(j["targetedVehicleAlternativeTrajectory"], p.choice.targetedVehicleAlternativeTrajectory, "targetedVehicleAlternativeTrajectory");
-    } else if (j.HasMember("estimatedCostOriginatingITS-S")) {
-        p.present = TargetedVehicleManoeuvresCoordination_PR_estimatedCostOriginatingITS_S;
-        from_json(j["estimatedCostOriginatingITS-S"], p.choice.estimatedCostOriginatingITS_S, "estimatedCostOriginatingITS-S");
-    } else {
-        p.present = TargetedVehicleManoeuvresCoordination_PR_NOTHING;
-        }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
 
 /*
 *   MapData - Type SEQUENCE
@@ -16871,31 +16888,25 @@ void from_json(const Value& j, TisTpgVDPM& p, std::string field) {
 
 
 /*
-*   MCMParameter - Type SEQUENCE
+*   ExecutantData - Type SEQUENCE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
 
-Value to_json(const MCMParameter& p, Document::AllocatorType& allocator) {
+Value to_json(const ExecutantData& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("basicContainer", to_json((p.basicContainer), allocator), allocator);
-    json.AddMember("manoeuvresCoordinationContainer", to_json((p.manoeuvresCoordinationContainer), allocator), allocator);
-    if (p.agreementSeekingContainer != 0) json.AddMember("agreementSeekingContainer", to_json(*(p.agreementSeekingContainer), allocator), allocator);
-    if (p.prescriptiveContainer != 0) json.AddMember("prescriptiveContainer", to_json(*(p.prescriptiveContainer), allocator), allocator);
-    if (p.responseContainer != 0) json.AddMember("responseContainer", to_json(*(p.responseContainer), allocator), allocator);
+    json.AddMember("id", to_json((p.id), allocator), allocator);
+    json.AddMember("state", to_json((p.state), allocator), allocator);
+    json.AddMember("advice", to_json((p.advice), allocator), allocator);
+    
     return json;
 }
 
-void from_json(const Value& j, MCMParameter& p, std::string field) {
+void from_json(const Value& j, ExecutantData& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["basicContainer"], (p.basicContainer), "basicContainer");
-        from_json(j["manoeuvresCoordinationContainer"], (p.manoeuvresCoordinationContainer), "manoeuvresCoordinationContainer");
-        if (j.HasMember("agreementSeekingContainer")) { p.agreementSeekingContainer = vanetza::asn1::allocate<AgreementSeekingContainer_t>(); from_json(j["agreementSeekingContainer"], *(p.agreementSeekingContainer), "agreementSeekingContainer"); }
-        else { p.agreementSeekingContainer=nullptr; }
-        if (j.HasMember("prescriptiveContainer")) { p.prescriptiveContainer = vanetza::asn1::allocate<PrescriptiveContainer_t>(); from_json(j["prescriptiveContainer"], *(p.prescriptiveContainer), "prescriptiveContainer"); }
-        else { p.prescriptiveContainer=nullptr; }
-        if (j.HasMember("responseContainer")) { p.responseContainer = vanetza::asn1::allocate<ResponseContainer_t>(); from_json(j["responseContainer"], *(p.responseContainer), "responseContainer"); }
-        else { p.responseContainer=nullptr; }
+        from_json(j["id"], (p.id), "id");
+        from_json(j["state"], (p.state), "state");
+        from_json(j["advice"], (p.advice), "advice");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -17247,23 +17258,55 @@ void from_json(const Value& j, TisTpgTransaction& p, std::string field) {
 }
 
 /*
-*   MCM - Type SEQUENCE
+*   ManoeuvreAdviceContainer::ManoeuvreAdviceContainer__executantData - Type SEQUENCE OF
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
 
-Value to_json(const MCM& p, Document::AllocatorType& allocator) {
+Value to_json(const ManoeuvreAdviceContainer::ManoeuvreAdviceContainer__executantData& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const ExecutantData_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ManoeuvreAdviceContainer::ManoeuvreAdviceContainer__executantData& p, std::string field) {
+    try {
+        ManoeuvreAdviceContainer::ManoeuvreAdviceContainer__executantData* p_tmp = vanetza::asn1::allocate<ManoeuvreAdviceContainer::ManoeuvreAdviceContainer__executantData>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            ExecutantData_t *element = vanetza::asn1::allocate<ExecutantData_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   ManoeuvreAdviceContainer - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const ManoeuvreAdviceContainer& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("header", to_json((p.header), allocator), allocator);
-    json.AddMember("mcmParameter", to_json((p.mcmParameter), allocator), allocator);
+    json.AddMember("numberOfExecutant", to_json((p.numberOfExecutant), allocator), allocator);
+    json.AddMember("executantData", to_json((p.executantData), allocator), allocator);
     
     return json;
 }
 
-void from_json(const Value& j, MCM& p, std::string field) {
+void from_json(const Value& j, ManoeuvreAdviceContainer& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["header"], (p.header), "header");
-        from_json(j["mcmParameter"], (p.mcmParameter), "mcmParameter");
+        from_json(j["numberOfExecutant"], (p.numberOfExecutant), "numberOfExecutant");
+        from_json(j["executantData"], (p.executantData), "executantData");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -17485,6 +17528,43 @@ void from_json(const Value& j, TisTpgTransactionsPdu& p, std::string field) {
 
 
 /*
+*   VehicleManoeuvreContainer - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const VehicleManoeuvreContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("manoeuvreId", to_json((p.manoeuvreId), allocator), allocator);
+    json.AddMember("manoeuvreCoordinationConcept", to_json((p.manoeuvreCoordinationConcept), allocator), allocator);
+    json.AddMember("manoeuvreCoordinationRational", to_json((p.manoeuvreCoordinationRational), allocator), allocator);
+    json.AddMember("manoeuvreExecutionCoordinationStep", to_json((p.manoeuvreExecutionCoordinationStep), allocator), allocator);
+    json.AddMember("vehicleReferenceTrajectory", to_json((p.vehicleReferenceTrajectory), allocator), allocator);
+    if (p.vehicleAutomationState != 0) json.AddMember("vehicleAutomationState", to_json(*(p.vehicleAutomationState), allocator), allocator);
+    if (p.manoeuvreAdviceContainer != 0) json.AddMember("manoeuvreAdviceContainer", to_json(*(p.manoeuvreAdviceContainer), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, VehicleManoeuvreContainer& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["manoeuvreId"], (p.manoeuvreId), "manoeuvreId");
+        from_json(j["manoeuvreCoordinationConcept"], (p.manoeuvreCoordinationConcept), "manoeuvreCoordinationConcept");
+        from_json(j["manoeuvreCoordinationRational"], (p.manoeuvreCoordinationRational), "manoeuvreCoordinationRational");
+        from_json(j["manoeuvreExecutionCoordinationStep"], (p.manoeuvreExecutionCoordinationStep), "manoeuvreExecutionCoordinationStep");
+        if (j.HasMember("vehicleAutomationState")) { p.vehicleAutomationState = vanetza::asn1::allocate<VehicleAutomationState_t>(); from_json(j["vehicleAutomationState"], *(p.vehicleAutomationState), "vehicleAutomationState"); }
+        else { p.vehicleAutomationState=nullptr; }
+        from_json(j["vehicleReferenceTrajectory"], (p.vehicleReferenceTrajectory), "vehicleReferenceTrajectory");
+        if (j.HasMember("manoeuvreAdviceContainer")) { p.manoeuvreAdviceContainer = vanetza::asn1::allocate<ManoeuvreAdviceContainer_t>(); from_json(j["manoeuvreAdviceContainer"], *(p.manoeuvreAdviceContainer), "manoeuvreAdviceContainer"); }
+        else { p.manoeuvreAdviceContainer=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
 *   IviContainer - Type CHOICE
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -17642,6 +17722,38 @@ void from_json(const Value& j, ImzmParameters& p, std::string field) {
 
 
 /*
+*   McmContainer - Type CHOICE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const McmContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == McmContainer_PR_vehicleManoeuvreContainer) {
+        json.AddMember("vehicleManoeuvreContainer", to_json(p.choice.vehicleManoeuvreContainer, allocator), allocator);
+    } else if (p.present == McmContainer_PR_manoeuvreAdviceContainer) {
+        json.AddMember("manoeuvreAdviceContainer", to_json(p.choice.manoeuvreAdviceContainer, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, McmContainer& p, std::string field) {
+    try {
+        if (j.HasMember("vehicleManoeuvreContainer")) {
+        p.present = McmContainer_PR_vehicleManoeuvreContainer;
+        from_json(j["vehicleManoeuvreContainer"], p.choice.vehicleManoeuvreContainer, "vehicleManoeuvreContainer");
+    } else if (j.HasMember("manoeuvreAdviceContainer")) {
+        p.present = McmContainer_PR_manoeuvreAdviceContainer;
+        from_json(j["manoeuvreAdviceContainer"], p.choice.manoeuvreAdviceContainer, "manoeuvreAdviceContainer");
+    } else {
+        p.present = McmContainer_PR_NOTHING;
+        }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
 *   IviContainers - Type SEQUENCE OF
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -17726,6 +17838,32 @@ void from_json(const Value& j, InterferenceManagementZoneMessage& p, std::string
 
 
 /*
+*   WrappedMcmInformationBlocks - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const WrappedMcmInformationBlocks& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("basicContainer", to_json((p.basicContainer), allocator), allocator);
+    json.AddMember("mcmContainer", to_json((p.mcmContainer), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, WrappedMcmInformationBlocks& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["basicContainer"], (p.basicContainer), "basicContainer");
+        from_json(j["mcmContainer"], (p.mcmContainer), "mcmContainer");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
 *   IviStructure - Type SEQUENCE
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -17795,6 +17933,32 @@ void from_json(const Value& j, IMZM& p, std::string field) {
         p._asn_ctx.ptr = nullptr;
         from_json(j["header"], (p.header), "header");
         from_json(j["imzm"], (p.imzm), "imzm");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   MCM - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const MCM& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("header", to_json((p.header), allocator), allocator);
+    json.AddMember("payload", to_json((p.payload), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, MCM& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["header"], (p.header), "header");
+        from_json(j["payload"], (p.payload), "payload");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();

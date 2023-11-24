@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by nlohmann::json
-*   Auto-generated from the asn1 directory by asn1json.py on 2023-10-17 19:11:25.400024
+*   Auto-generated from the asn1 directory by asn1json.py on 2023-10-23 20:23:06.017822
 */
 
 #ifndef ASN1_JSON_HPP
@@ -82,8 +82,7 @@
 #include <vanetza/asn1/its/ItsStationPositionList.h>
 #include <vanetza/asn1/its/SignalHeadLocationList.h>
 #include <vanetza/asn1/its/CurrentVehicleConfiguration.h>
-#include <vanetza/asn1/its/TargetedVehicleManoeuvresCoordination.h>
-#include <vanetza/asn1/its/TargetedVehicleAlternativeTrajectory.h>
+#include <vanetza/asn1/its/ManouevreResponse.h>
 #include <vanetza/asn1/its/ActualNumberOfPassengers.h>
 #include <vanetza/asn1/its/AxleWeightLimits.h>
 #include <vanetza/asn1/its/AddRq.h>
@@ -2690,23 +2689,43 @@ void from_json_Language(const Value& j, Language_t& p, std::string field);
 
 
 /*
-*   LatestGeographicPosition - Type SEQUENCE
+*   PositionConfidenceEllipse - Type SEQUENCE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
 
-Value to_json(const LatestGeographicPosition& p, Document::AllocatorType& allocator);
+Value to_json(const PositionConfidenceEllipse& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, LatestGeographicPosition& p, std::string field);
+void from_json(const Value& j, PositionConfidenceEllipse& p, std::string field);
 
 
 /*
-*   ManoeuvresCoordinationContainer - Type SEQUENCE
+*   ManoeuvreCooperationCost - Type SEQUENCE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
 
-Value to_json(const ManoeuvresCoordinationContainer& p, Document::AllocatorType& allocator);
+Value to_json(const ManoeuvreCooperationCost& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, ManoeuvresCoordinationContainer& p, std::string field);
+void from_json(const Value& j, ManoeuvreCooperationCost& p, std::string field);
+
+
+/*
+*   VehicleAutomationState - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const VehicleAutomationState& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, VehicleAutomationState& p, std::string field);
+
+
+/*
+*   ManouevreResponse - Type CHOICE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const ManouevreResponse_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ManouevreResponse_t& p, std::string field);
 
 
 /*
@@ -3960,33 +3979,53 @@ void from_json(const Value& j, TpgNotifContainer& p, std::string field);
 
 
 /*
-*   BasicContainerMCM - Type SEQUENCE
+*   ReferencePositionWithConfidence - Type SEQUENCE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
 
-Value to_json(const BasicContainerMCM& p, Document::AllocatorType& allocator);
+Value to_json(const ReferencePositionWithConfidence& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, BasicContainerMCM& p, std::string field);
+void from_json(const Value& j, ReferencePositionWithConfidence& p, std::string field);
 
 
 /*
-*   Trajectory::Trajectory__longitudinalPosition - Type SEQUENCE OF
+*   ManoeuvreCoordinationRational - Type CHOICE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
 
-Value to_json(const Trajectory::Trajectory__longitudinalPosition& p, Document::AllocatorType& allocator);
+Value to_json(const ManoeuvreCoordinationRational& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, Trajectory::Trajectory__longitudinalPosition& p, std::string field);
+void from_json(const Value& j, ManoeuvreCoordinationRational& p, std::string field);
 
 
 /*
-*   Trajectory::Trajectory__lateralPosition - Type SEQUENCE OF
+*   Trajectory::Trajectory__longitudinalPositions - Type SEQUENCE OF
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
 
-Value to_json(const Trajectory::Trajectory__lateralPosition& p, Document::AllocatorType& allocator);
+Value to_json(const Trajectory::Trajectory__longitudinalPositions& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, Trajectory::Trajectory__lateralPosition& p, std::string field);
+void from_json(const Value& j, Trajectory::Trajectory__longitudinalPositions& p, std::string field);
+
+
+/*
+*   Trajectory::Trajectory__lateralPositions - Type SEQUENCE OF
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const Trajectory::Trajectory__lateralPositions& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, Trajectory::Trajectory__lateralPositions& p, std::string field);
+
+
+/*
+*   Trajectory::Trajectory__elevationPositions - Type SEQUENCE OF
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const Trajectory::Trajectory__elevationPositions& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, Trajectory::Trajectory__elevationPositions& p, std::string field);
 
 
 /*
@@ -4490,6 +4529,16 @@ void from_json(const Value& j, RTCMEM& p, std::string field);
 
 
 /*
+*   McmBasicContainer - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const McmBasicContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, McmBasicContainer& p, std::string field);
+
+
+/*
 *   IntermediatePoint - Type CHOICE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
@@ -4820,36 +4869,6 @@ void from_json(const Value& j, Trajectory& p, std::string field);
 
 
 /*
-*   TargetedVehicleAlternativeTrajectory - Type SEQUENCE
-*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
-*/
-
-Value to_json(const TargetedVehicleAlternativeTrajectory_t& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, TargetedVehicleAlternativeTrajectory_t& p, std::string field);
-
-
-/*
-*   PrescriptiveContainer - Type CHOICE
-*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
-*/
-
-Value to_json(const PrescriptiveContainer& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, PrescriptiveContainer& p, std::string field);
-
-
-/*
-*   ResponseContainer - Type SEQUENCE
-*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
-*/
-
-Value to_json(const ResponseContainer& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, ResponseContainer& p, std::string field);
-
-
-/*
 *   SPAT - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -5100,23 +5119,13 @@ void from_json(const Value& j, PlacardTable& p, std::string field);
 
 
 /*
-*   AgreementSeekingContainer - Type SEQUENCE
+*   ManoeuvreAdvice - Type SEQUENCE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
 
-Value to_json(const AgreementSeekingContainer& p, Document::AllocatorType& allocator);
+Value to_json(const ManoeuvreAdvice& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, AgreementSeekingContainer& p, std::string field);
-
-
-/*
-*   TargetedVehicleManoeuvresCoordination - Type CHOICE
-*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
-*/
-
-Value to_json(const TargetedVehicleManoeuvresCoordination_t& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, TargetedVehicleManoeuvresCoordination_t& p, std::string field);
+void from_json(const Value& j, ManoeuvreAdvice& p, std::string field);
 
 
 /*
@@ -5280,13 +5289,13 @@ void from_json(const Value& j, TisTpgVDPM& p, std::string field);
 
 
 /*
-*   MCMParameter - Type SEQUENCE
+*   ExecutantData - Type SEQUENCE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
 
-Value to_json(const MCMParameter& p, Document::AllocatorType& allocator);
+Value to_json(const ExecutantData& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, MCMParameter& p, std::string field);
+void from_json(const Value& j, ExecutantData& p, std::string field);
 
 
 /*
@@ -5380,13 +5389,23 @@ void from_json(const Value& j, TisTpgTransaction& p, std::string field);
 
 
 /*
-*   MCM - Type SEQUENCE
+*   ManoeuvreAdviceContainer::ManoeuvreAdviceContainer__executantData - Type SEQUENCE OF
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
 
-Value to_json(const MCM& p, Document::AllocatorType& allocator);
+Value to_json(const ManoeuvreAdviceContainer::ManoeuvreAdviceContainer__executantData& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, MCM& p, std::string field);
+void from_json(const Value& j, ManoeuvreAdviceContainer::ManoeuvreAdviceContainer__executantData& p, std::string field);
+
+
+/*
+*   ManoeuvreAdviceContainer - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const ManoeuvreAdviceContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ManoeuvreAdviceContainer& p, std::string field);
 
 
 /*
@@ -5460,6 +5479,16 @@ void from_json(const Value& j, TisTpgTransactionsPdu& p, std::string field);
 
 
 /*
+*   VehicleManoeuvreContainer - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const VehicleManoeuvreContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, VehicleManoeuvreContainer& p, std::string field);
+
+
+/*
 *   IviContainer - Type CHOICE
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -5510,6 +5539,16 @@ void from_json(const Value& j, ImzmParameters& p, std::string field);
 
 
 /*
+*   McmContainer - Type CHOICE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const McmContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, McmContainer& p, std::string field);
+
+
+/*
 *   IviContainers - Type SEQUENCE OF
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -5540,6 +5579,16 @@ void from_json(const Value& j, InterferenceManagementZoneMessage& p, std::string
 
 
 /*
+*   WrappedMcmInformationBlocks - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const WrappedMcmInformationBlocks& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, WrappedMcmInformationBlocks& p, std::string field);
+
+
+/*
 *   IviStructure - Type SEQUENCE
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -5567,6 +5616,16 @@ void from_json(const Value& j, IVIM& p, std::string field);
 Value to_json(const IMZM& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, IMZM& p, std::string field);
+
+
+/*
+*   MCM - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const MCM& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, MCM& p, std::string field);
 
 
 #endif

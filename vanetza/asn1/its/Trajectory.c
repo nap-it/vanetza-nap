@@ -34,7 +34,7 @@ memb_intermediatePoints_constraint_1(const asn_TYPE_descriptor_t *td, const void
 }
 
 static int
-memb_longitudinalPosition_constraint_1(const asn_TYPE_descriptor_t *td, const void *sptr,
+memb_longitudinalPositions_constraint_1(const asn_TYPE_descriptor_t *td, const void *sptr,
 			asn_app_constraint_failed_f *ctfailcb, void *app_key) {
 	size_t size;
 	
@@ -60,7 +60,33 @@ memb_longitudinalPosition_constraint_1(const asn_TYPE_descriptor_t *td, const vo
 }
 
 static int
-memb_lateralPosition_constraint_1(const asn_TYPE_descriptor_t *td, const void *sptr,
+memb_lateralPositions_constraint_1(const asn_TYPE_descriptor_t *td, const void *sptr,
+			asn_app_constraint_failed_f *ctfailcb, void *app_key) {
+	size_t size;
+	
+	if(!sptr) {
+		ASN__CTFAIL(app_key, td, sptr,
+			"%s: value not given (%s:%d)",
+			td->name, __FILE__, __LINE__);
+		return -1;
+	}
+	
+	/* Determine the number of elements */
+	size = _A_CSEQUENCE_FROM_VOID(sptr)->count;
+	
+	if((size >= 1UL && size <= 11UL)) {
+		/* Perform validation of the inner elements */
+		return SEQUENCE_OF_constraint(td, sptr, ctfailcb, app_key);
+	} else {
+		ASN__CTFAIL(app_key, td, sptr,
+			"%s: constraint failed (%s:%d)",
+			td->name, __FILE__, __LINE__);
+		return -1;
+	}
+}
+
+static int
+memb_elevationPositions_constraint_1(const asn_TYPE_descriptor_t *td, const void *sptr,
 			asn_app_constraint_failed_f *ctfailcb, void *app_key) {
 	size_t size;
 	
@@ -111,6 +137,31 @@ memb_headings_constraint_1(const asn_TYPE_descriptor_t *td, const void *sptr,
 	}
 }
 
+static int
+memb_spead_constraint_1(const asn_TYPE_descriptor_t *td, const void *sptr,
+			asn_app_constraint_failed_f *ctfailcb, void *app_key) {
+	long value;
+	
+	if(!sptr) {
+		ASN__CTFAIL(app_key, td, sptr,
+			"%s: value not given (%s:%d)",
+			td->name, __FILE__, __LINE__);
+		return -1;
+	}
+	
+	value = *(const long *)sptr;
+	
+	if((value >= 0L && value <= 511L)) {
+		/* Constraint check succeeded */
+		return 0;
+	} else {
+		ASN__CTFAIL(app_key, td, sptr,
+			"%s: constraint failed (%s:%d)",
+			td->name, __FILE__, __LINE__);
+		return -1;
+	}
+}
+
 #if !defined(ASN_DISABLE_OER_SUPPORT)
 static asn_oer_constraints_t asn_OER_type_intermediatePoints_constr_2 CC_NOTUSED = {
 	{ 0, 0 },
@@ -124,36 +175,48 @@ static asn_per_constraints_t asn_PER_type_intermediatePoints_constr_2 CC_NOTUSED
 };
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
 #if !defined(ASN_DISABLE_OER_SUPPORT)
-static asn_oer_constraints_t asn_OER_type_longitudinalPosition_constr_4 CC_NOTUSED = {
+static asn_oer_constraints_t asn_OER_type_longitudinalPositions_constr_4 CC_NOTUSED = {
 	{ 0, 0 },
 	-1	/* (SIZE(1..11)) */};
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-static asn_per_constraints_t asn_PER_type_longitudinalPosition_constr_4 CC_NOTUSED = {
+static asn_per_constraints_t asn_PER_type_longitudinalPositions_constr_4 CC_NOTUSED = {
 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
 	{ APC_CONSTRAINED,	 4,  4,  1,  11 }	/* (SIZE(1..11)) */,
 	0, 0	/* No PER value map */
 };
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
 #if !defined(ASN_DISABLE_OER_SUPPORT)
-static asn_oer_constraints_t asn_OER_type_lateralPosition_constr_6 CC_NOTUSED = {
+static asn_oer_constraints_t asn_OER_type_lateralPositions_constr_6 CC_NOTUSED = {
 	{ 0, 0 },
 	-1	/* (SIZE(1..11)) */};
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-static asn_per_constraints_t asn_PER_type_lateralPosition_constr_6 CC_NOTUSED = {
+static asn_per_constraints_t asn_PER_type_lateralPositions_constr_6 CC_NOTUSED = {
 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
 	{ APC_CONSTRAINED,	 4,  4,  1,  11 }	/* (SIZE(1..11)) */,
 	0, 0	/* No PER value map */
 };
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
 #if !defined(ASN_DISABLE_OER_SUPPORT)
-static asn_oer_constraints_t asn_OER_type_headings_constr_8 CC_NOTUSED = {
+static asn_oer_constraints_t asn_OER_type_elevationPositions_constr_8 CC_NOTUSED = {
 	{ 0, 0 },
 	-1	/* (SIZE(1..11)) */};
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-static asn_per_constraints_t asn_PER_type_headings_constr_8 CC_NOTUSED = {
+static asn_per_constraints_t asn_PER_type_elevationPositions_constr_8 CC_NOTUSED = {
+	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
+	{ APC_CONSTRAINED,	 4,  4,  1,  11 }	/* (SIZE(1..11)) */,
+	0, 0	/* No PER value map */
+};
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+#if !defined(ASN_DISABLE_OER_SUPPORT)
+static asn_oer_constraints_t asn_OER_type_headings_constr_10 CC_NOTUSED = {
+	{ 0, 0 },
+	-1	/* (SIZE(1..11)) */};
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+static asn_per_constraints_t asn_PER_type_headings_constr_10 CC_NOTUSED = {
 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
 	{ APC_CONSTRAINED,	 4,  4,  1,  11 }	/* (SIZE(1..11)) */,
 	0, 0	/* No PER value map */
@@ -172,38 +235,62 @@ static asn_per_constraints_t asn_PER_memb_intermediatePoints_constr_2 CC_NOTUSED
 };
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
 #if !defined(ASN_DISABLE_OER_SUPPORT)
-static asn_oer_constraints_t asn_OER_memb_longitudinalPosition_constr_4 CC_NOTUSED = {
+static asn_oer_constraints_t asn_OER_memb_longitudinalPositions_constr_4 CC_NOTUSED = {
 	{ 0, 0 },
 	-1	/* (SIZE(1..11)) */};
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-static asn_per_constraints_t asn_PER_memb_longitudinalPosition_constr_4 CC_NOTUSED = {
+static asn_per_constraints_t asn_PER_memb_longitudinalPositions_constr_4 CC_NOTUSED = {
 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
 	{ APC_CONSTRAINED,	 4,  4,  1,  11 }	/* (SIZE(1..11)) */,
 	0, 0	/* No PER value map */
 };
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
 #if !defined(ASN_DISABLE_OER_SUPPORT)
-static asn_oer_constraints_t asn_OER_memb_lateralPosition_constr_6 CC_NOTUSED = {
+static asn_oer_constraints_t asn_OER_memb_lateralPositions_constr_6 CC_NOTUSED = {
 	{ 0, 0 },
 	-1	/* (SIZE(1..11)) */};
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-static asn_per_constraints_t asn_PER_memb_lateralPosition_constr_6 CC_NOTUSED = {
+static asn_per_constraints_t asn_PER_memb_lateralPositions_constr_6 CC_NOTUSED = {
 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
 	{ APC_CONSTRAINED,	 4,  4,  1,  11 }	/* (SIZE(1..11)) */,
 	0, 0	/* No PER value map */
 };
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
 #if !defined(ASN_DISABLE_OER_SUPPORT)
-static asn_oer_constraints_t asn_OER_memb_headings_constr_8 CC_NOTUSED = {
+static asn_oer_constraints_t asn_OER_memb_elevationPositions_constr_8 CC_NOTUSED = {
 	{ 0, 0 },
 	-1	/* (SIZE(1..11)) */};
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-static asn_per_constraints_t asn_PER_memb_headings_constr_8 CC_NOTUSED = {
+static asn_per_constraints_t asn_PER_memb_elevationPositions_constr_8 CC_NOTUSED = {
 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
 	{ APC_CONSTRAINED,	 4,  4,  1,  11 }	/* (SIZE(1..11)) */,
+	0, 0	/* No PER value map */
+};
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+#if !defined(ASN_DISABLE_OER_SUPPORT)
+static asn_oer_constraints_t asn_OER_memb_headings_constr_10 CC_NOTUSED = {
+	{ 0, 0 },
+	-1	/* (SIZE(1..11)) */};
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+static asn_per_constraints_t asn_PER_memb_headings_constr_10 CC_NOTUSED = {
+	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
+	{ APC_CONSTRAINED,	 4,  4,  1,  11 }	/* (SIZE(1..11)) */,
+	0, 0	/* No PER value map */
+};
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+#if !defined(ASN_DISABLE_OER_SUPPORT)
+static asn_oer_constraints_t asn_OER_memb_spead_constr_12 CC_NOTUSED = {
+	{ 2, 1 }	/* (0..511) */,
+	-1};
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+static asn_per_constraints_t asn_PER_memb_spead_constr_12 CC_NOTUSED = {
+	{ APC_CONSTRAINED,	 9,  9,  0,  511 }	/* (0..511) */,
+	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
 	0, 0	/* No PER value map */
 };
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
@@ -260,7 +347,7 @@ asn_TYPE_descriptor_t asn_DEF_intermediatePoints_2 = {
 	&asn_SPC_intermediatePoints_specs_2	/* Additional specs */
 };
 
-static asn_TYPE_member_t asn_MBR_longitudinalPosition_4[] = {
+static asn_TYPE_member_t asn_MBR_longitudinalPositions_4[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
@@ -279,41 +366,41 @@ static asn_TYPE_member_t asn_MBR_longitudinalPosition_4[] = {
 		""
 		},
 };
-static const ber_tlv_tag_t asn_DEF_longitudinalPosition_tags_4[] = {
+static const ber_tlv_tag_t asn_DEF_longitudinalPositions_tags_4[] = {
 	(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static asn_SET_OF_specifics_t asn_SPC_longitudinalPosition_specs_4 = {
-	sizeof(struct Trajectory__longitudinalPosition),
-	offsetof(struct Trajectory__longitudinalPosition, _asn_ctx),
+static asn_SET_OF_specifics_t asn_SPC_longitudinalPositions_specs_4 = {
+	sizeof(struct Trajectory__longitudinalPositions),
+	offsetof(struct Trajectory__longitudinalPositions, _asn_ctx),
 	0,	/* XER encoding is XMLDelimitedItemList */
 };
 static /* Use -fall-defs-global to expose */
-asn_TYPE_descriptor_t asn_DEF_longitudinalPosition_4 = {
-	"longitudinalPosition",
-	"longitudinalPosition",
+asn_TYPE_descriptor_t asn_DEF_longitudinalPositions_4 = {
+	"longitudinalPositions",
+	"longitudinalPositions",
 	&asn_OP_SEQUENCE_OF,
-	asn_DEF_longitudinalPosition_tags_4,
-	sizeof(asn_DEF_longitudinalPosition_tags_4)
-		/sizeof(asn_DEF_longitudinalPosition_tags_4[0]) - 1, /* 1 */
-	asn_DEF_longitudinalPosition_tags_4,	/* Same as above */
-	sizeof(asn_DEF_longitudinalPosition_tags_4)
-		/sizeof(asn_DEF_longitudinalPosition_tags_4[0]), /* 2 */
+	asn_DEF_longitudinalPositions_tags_4,
+	sizeof(asn_DEF_longitudinalPositions_tags_4)
+		/sizeof(asn_DEF_longitudinalPositions_tags_4[0]) - 1, /* 1 */
+	asn_DEF_longitudinalPositions_tags_4,	/* Same as above */
+	sizeof(asn_DEF_longitudinalPositions_tags_4)
+		/sizeof(asn_DEF_longitudinalPositions_tags_4[0]), /* 2 */
 	{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
-		&asn_OER_type_longitudinalPosition_constr_4,
+		&asn_OER_type_longitudinalPositions_constr_4,
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-		&asn_PER_type_longitudinalPosition_constr_4,
+		&asn_PER_type_longitudinalPositions_constr_4,
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
 		SEQUENCE_OF_constraint
 	},
-	asn_MBR_longitudinalPosition_4,
+	asn_MBR_longitudinalPositions_4,
 	1,	/* Single element */
-	&asn_SPC_longitudinalPosition_specs_4	/* Additional specs */
+	&asn_SPC_longitudinalPositions_specs_4	/* Additional specs */
 };
 
-static asn_TYPE_member_t asn_MBR_lateralPosition_6[] = {
+static asn_TYPE_member_t asn_MBR_lateralPositions_6[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
@@ -332,41 +419,41 @@ static asn_TYPE_member_t asn_MBR_lateralPosition_6[] = {
 		""
 		},
 };
-static const ber_tlv_tag_t asn_DEF_lateralPosition_tags_6[] = {
+static const ber_tlv_tag_t asn_DEF_lateralPositions_tags_6[] = {
 	(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static asn_SET_OF_specifics_t asn_SPC_lateralPosition_specs_6 = {
-	sizeof(struct Trajectory__lateralPosition),
-	offsetof(struct Trajectory__lateralPosition, _asn_ctx),
+static asn_SET_OF_specifics_t asn_SPC_lateralPositions_specs_6 = {
+	sizeof(struct Trajectory__lateralPositions),
+	offsetof(struct Trajectory__lateralPositions, _asn_ctx),
 	0,	/* XER encoding is XMLDelimitedItemList */
 };
 static /* Use -fall-defs-global to expose */
-asn_TYPE_descriptor_t asn_DEF_lateralPosition_6 = {
-	"lateralPosition",
-	"lateralPosition",
+asn_TYPE_descriptor_t asn_DEF_lateralPositions_6 = {
+	"lateralPositions",
+	"lateralPositions",
 	&asn_OP_SEQUENCE_OF,
-	asn_DEF_lateralPosition_tags_6,
-	sizeof(asn_DEF_lateralPosition_tags_6)
-		/sizeof(asn_DEF_lateralPosition_tags_6[0]) - 1, /* 1 */
-	asn_DEF_lateralPosition_tags_6,	/* Same as above */
-	sizeof(asn_DEF_lateralPosition_tags_6)
-		/sizeof(asn_DEF_lateralPosition_tags_6[0]), /* 2 */
+	asn_DEF_lateralPositions_tags_6,
+	sizeof(asn_DEF_lateralPositions_tags_6)
+		/sizeof(asn_DEF_lateralPositions_tags_6[0]) - 1, /* 1 */
+	asn_DEF_lateralPositions_tags_6,	/* Same as above */
+	sizeof(asn_DEF_lateralPositions_tags_6)
+		/sizeof(asn_DEF_lateralPositions_tags_6[0]), /* 2 */
 	{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
-		&asn_OER_type_lateralPosition_constr_6,
+		&asn_OER_type_lateralPositions_constr_6,
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-		&asn_PER_type_lateralPosition_constr_6,
+		&asn_PER_type_lateralPositions_constr_6,
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
 		SEQUENCE_OF_constraint
 	},
-	asn_MBR_lateralPosition_6,
+	asn_MBR_lateralPositions_6,
 	1,	/* Single element */
-	&asn_SPC_lateralPosition_specs_6	/* Additional specs */
+	&asn_SPC_lateralPositions_specs_6	/* Additional specs */
 };
 
-static asn_TYPE_member_t asn_MBR_headings_8[] = {
+static asn_TYPE_member_t asn_MBR_elevationPositions_8[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
@@ -385,38 +472,91 @@ static asn_TYPE_member_t asn_MBR_headings_8[] = {
 		""
 		},
 };
-static const ber_tlv_tag_t asn_DEF_headings_tags_8[] = {
+static const ber_tlv_tag_t asn_DEF_elevationPositions_tags_8[] = {
 	(ASN_TAG_CLASS_CONTEXT | (3 << 2)),
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static asn_SET_OF_specifics_t asn_SPC_headings_specs_8 = {
+static asn_SET_OF_specifics_t asn_SPC_elevationPositions_specs_8 = {
+	sizeof(struct Trajectory__elevationPositions),
+	offsetof(struct Trajectory__elevationPositions, _asn_ctx),
+	0,	/* XER encoding is XMLDelimitedItemList */
+};
+static /* Use -fall-defs-global to expose */
+asn_TYPE_descriptor_t asn_DEF_elevationPositions_8 = {
+	"elevationPositions",
+	"elevationPositions",
+	&asn_OP_SEQUENCE_OF,
+	asn_DEF_elevationPositions_tags_8,
+	sizeof(asn_DEF_elevationPositions_tags_8)
+		/sizeof(asn_DEF_elevationPositions_tags_8[0]) - 1, /* 1 */
+	asn_DEF_elevationPositions_tags_8,	/* Same as above */
+	sizeof(asn_DEF_elevationPositions_tags_8)
+		/sizeof(asn_DEF_elevationPositions_tags_8[0]), /* 2 */
+	{
+#if !defined(ASN_DISABLE_OER_SUPPORT)
+		&asn_OER_type_elevationPositions_constr_8,
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+		&asn_PER_type_elevationPositions_constr_8,
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+		SEQUENCE_OF_constraint
+	},
+	asn_MBR_elevationPositions_8,
+	1,	/* Single element */
+	&asn_SPC_elevationPositions_specs_8	/* Additional specs */
+};
+
+static asn_TYPE_member_t asn_MBR_headings_10[] = {
+	{ ATF_POINTER, 0, 0,
+		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
+		0,
+		&asn_DEF_Polynom,
+		0,
+		{
+#if !defined(ASN_DISABLE_OER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+			0
+		},
+		0, 0, /* No default value */
+		""
+		},
+};
+static const ber_tlv_tag_t asn_DEF_headings_tags_10[] = {
+	(ASN_TAG_CLASS_CONTEXT | (4 << 2)),
+	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
+};
+static asn_SET_OF_specifics_t asn_SPC_headings_specs_10 = {
 	sizeof(struct Trajectory__headings),
 	offsetof(struct Trajectory__headings, _asn_ctx),
 	0,	/* XER encoding is XMLDelimitedItemList */
 };
 static /* Use -fall-defs-global to expose */
-asn_TYPE_descriptor_t asn_DEF_headings_8 = {
+asn_TYPE_descriptor_t asn_DEF_headings_10 = {
 	"headings",
 	"headings",
 	&asn_OP_SEQUENCE_OF,
-	asn_DEF_headings_tags_8,
-	sizeof(asn_DEF_headings_tags_8)
-		/sizeof(asn_DEF_headings_tags_8[0]) - 1, /* 1 */
-	asn_DEF_headings_tags_8,	/* Same as above */
-	sizeof(asn_DEF_headings_tags_8)
-		/sizeof(asn_DEF_headings_tags_8[0]), /* 2 */
+	asn_DEF_headings_tags_10,
+	sizeof(asn_DEF_headings_tags_10)
+		/sizeof(asn_DEF_headings_tags_10[0]) - 1, /* 1 */
+	asn_DEF_headings_tags_10,	/* Same as above */
+	sizeof(asn_DEF_headings_tags_10)
+		/sizeof(asn_DEF_headings_tags_10[0]), /* 2 */
 	{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
-		&asn_OER_type_headings_constr_8,
+		&asn_OER_type_headings_constr_10,
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-		&asn_PER_type_headings_constr_8,
+		&asn_PER_type_headings_constr_10,
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
 		SEQUENCE_OF_constraint
 	},
-	asn_MBR_headings_8,
+	asn_MBR_headings_10,
 	1,	/* Single element */
-	&asn_SPC_headings_specs_8	/* Additional specs */
+	&asn_SPC_headings_specs_10	/* Additional specs */
 };
 
 asn_TYPE_member_t asn_MBR_Trajectory_1[] = {
@@ -437,73 +577,111 @@ asn_TYPE_member_t asn_MBR_Trajectory_1[] = {
 		0, 0, /* No default value */
 		"intermediatePoints"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct Trajectory, longitudinalPosition),
+	{ ATF_NOFLAGS, 0, offsetof(struct Trajectory, longitudinalPositions),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		0,
-		&asn_DEF_longitudinalPosition_4,
+		&asn_DEF_longitudinalPositions_4,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
-			&asn_OER_memb_longitudinalPosition_constr_4,
+			&asn_OER_memb_longitudinalPositions_constr_4,
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-			&asn_PER_memb_longitudinalPosition_constr_4,
+			&asn_PER_memb_longitudinalPositions_constr_4,
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
-			memb_longitudinalPosition_constraint_1
+			memb_longitudinalPositions_constraint_1
 		},
 		0, 0, /* No default value */
-		"longitudinalPosition"
+		"longitudinalPositions"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct Trajectory, lateralPosition),
+	{ ATF_NOFLAGS, 0, offsetof(struct Trajectory, lateralPositions),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		0,
-		&asn_DEF_lateralPosition_6,
+		&asn_DEF_lateralPositions_6,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
-			&asn_OER_memb_lateralPosition_constr_6,
+			&asn_OER_memb_lateralPositions_constr_6,
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-			&asn_PER_memb_lateralPosition_constr_6,
+			&asn_PER_memb_lateralPositions_constr_6,
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
-			memb_lateralPosition_constraint_1
+			memb_lateralPositions_constraint_1
 		},
 		0, 0, /* No default value */
-		"lateralPosition"
+		"lateralPositions"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct Trajectory, headings),
+	{ ATF_POINTER, 2, offsetof(struct Trajectory, elevationPositions),
 		(ASN_TAG_CLASS_CONTEXT | (3 << 2)),
 		0,
-		&asn_DEF_headings_8,
+		&asn_DEF_elevationPositions_8,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
-			&asn_OER_memb_headings_constr_8,
+			&asn_OER_memb_elevationPositions_constr_8,
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-			&asn_PER_memb_headings_constr_8,
+			&asn_PER_memb_elevationPositions_constr_8,
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+			memb_elevationPositions_constraint_1
+		},
+		0, 0, /* No default value */
+		"elevationPositions"
+		},
+	{ ATF_POINTER, 1, offsetof(struct Trajectory, headings),
+		(ASN_TAG_CLASS_CONTEXT | (4 << 2)),
+		0,
+		&asn_DEF_headings_10,
+		0,
+		{
+#if !defined(ASN_DISABLE_OER_SUPPORT)
+			&asn_OER_memb_headings_constr_10,
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+			&asn_PER_memb_headings_constr_10,
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
 			memb_headings_constraint_1
 		},
 		0, 0, /* No default value */
 		"headings"
 		},
+	{ ATF_NOFLAGS, 0, offsetof(struct Trajectory, spead),
+		(ASN_TAG_CLASS_CONTEXT | (5 << 2)),
+		-1,	/* IMPLICIT tag at current level */
+		&asn_DEF_NativeInteger,
+		0,
+		{
+#if !defined(ASN_DISABLE_OER_SUPPORT)
+			&asn_OER_memb_spead_constr_12,
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+			&asn_PER_memb_spead_constr_12,
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+			memb_spead_constraint_1
+		},
+		0, 0, /* No default value */
+		"spead"
+		},
 };
+static const int asn_MAP_Trajectory_oms_1[] = { 3, 4 };
 static const ber_tlv_tag_t asn_DEF_Trajectory_tags_1[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
 static const asn_TYPE_tag2member_t asn_MAP_Trajectory_tag2el_1[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* intermediatePoints */
-    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* longitudinalPosition */
-    { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 }, /* lateralPosition */
-    { (ASN_TAG_CLASS_CONTEXT | (3 << 2)), 3, 0, 0 } /* headings */
+    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* longitudinalPositions */
+    { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 }, /* lateralPositions */
+    { (ASN_TAG_CLASS_CONTEXT | (3 << 2)), 3, 0, 0 }, /* elevationPositions */
+    { (ASN_TAG_CLASS_CONTEXT | (4 << 2)), 4, 0, 0 }, /* headings */
+    { (ASN_TAG_CLASS_CONTEXT | (5 << 2)), 5, 0, 0 } /* spead */
 };
 asn_SEQUENCE_specifics_t asn_SPC_Trajectory_specs_1 = {
 	sizeof(struct Trajectory),
 	offsetof(struct Trajectory, _asn_ctx),
 	asn_MAP_Trajectory_tag2el_1,
-	4,	/* Count of tags in the map */
-	0, 0, 0,	/* Optional elements (not needed) */
+	6,	/* Count of tags in the map */
+	asn_MAP_Trajectory_oms_1,	/* Optional members */
+	2, 0,	/* Root/Additions */
 	-1,	/* First extension addition */
 };
 asn_TYPE_descriptor_t asn_DEF_Trajectory = {
@@ -526,7 +704,7 @@ asn_TYPE_descriptor_t asn_DEF_Trajectory = {
 		SEQUENCE_constraint
 	},
 	asn_MBR_Trajectory_1,
-	4,	/* Elements count */
+	6,	/* Elements count */
 	&asn_SPC_Trajectory_specs_1	/* Additional specs */
 };
 

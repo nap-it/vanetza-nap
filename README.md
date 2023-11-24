@@ -12,6 +12,15 @@ The following message types are supported:
 * Vulnerable Road User Awareness Message (VAM)
 * Signal Phase And Timing Extended Message (SPATEM)
 * MAP (topology) Extended Message (MAPEM)
+* Maneuver Coordination Message (MCM)
+* Signal Status Extended Message (SSEM)
+* Signal Request Extended Message (SREM)
+* RTCM Extended Message (RTCMEM)
+* Infrastructure to Vehicle Information Message (IVIM)
+* Electric Vehicle Charging Spot Notification (EVCSN)
+* Electric Vehicle Recharging Spot Reservation (EVRSR)
+* Interference Management Zone Message (IMZM)
+* Tyre Information System and Tyre Pressure Gauge (TISTPG)
 * GeoNetworking Beacons
 
 Put simply, NAP-Vanetza's purpose is to manage the encoding, decoding, sending, and receiving of ETSI C-ITS messages, thus abstracting those layers from VANET application developers.

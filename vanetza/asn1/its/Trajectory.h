@@ -12,6 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
+#include "NativeInteger.h"
 #include "asn_SEQUENCE_OF.h"
 #include "constr_SEQUENCE_OF.h"
 #include "constr_SEQUENCE.h"
@@ -32,24 +33,31 @@ typedef struct Trajectory {
 		/* Context for parsing across buffer boundaries */
 		asn_struct_ctx_t _asn_ctx;
 	} intermediatePoints;
-	struct Trajectory__longitudinalPosition {
+	struct Trajectory__longitudinalPositions {
 		A_SEQUENCE_OF(struct Polynom) list;
 		
 		/* Context for parsing across buffer boundaries */
 		asn_struct_ctx_t _asn_ctx;
-	} longitudinalPosition;
-	struct Trajectory__lateralPosition {
+	} longitudinalPositions;
+	struct Trajectory__lateralPositions {
 		A_SEQUENCE_OF(struct Polynom) list;
 		
 		/* Context for parsing across buffer boundaries */
 		asn_struct_ctx_t _asn_ctx;
-	} lateralPosition;
+	} lateralPositions;
+	struct Trajectory__elevationPositions {
+		A_SEQUENCE_OF(struct Polynom) list;
+		
+		/* Context for parsing across buffer boundaries */
+		asn_struct_ctx_t _asn_ctx;
+	} *elevationPositions;
 	struct Trajectory__headings {
 		A_SEQUENCE_OF(struct Polynom) list;
 		
 		/* Context for parsing across buffer boundaries */
 		asn_struct_ctx_t _asn_ctx;
-	} headings;
+	} *headings;
+	long	 spead;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
@@ -58,7 +66,7 @@ typedef struct Trajectory {
 /* Implementation */
 extern asn_TYPE_descriptor_t asn_DEF_Trajectory;
 extern asn_SEQUENCE_specifics_t asn_SPC_Trajectory_specs_1;
-extern asn_TYPE_member_t asn_MBR_Trajectory_1[4];
+extern asn_TYPE_member_t asn_MBR_Trajectory_1[6];
 
 #ifdef __cplusplus
 }
