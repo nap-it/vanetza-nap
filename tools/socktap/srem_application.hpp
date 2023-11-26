@@ -4,7 +4,7 @@
 #include <vanetza/common/runtime.hpp>
 #include <vanetza/asn1/srem.hpp>
 
-class SremApplication : public Application, public Mqtt_client
+class SremApplication : public Application, public PubSub_application
 {
 public:
     SremApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_);
@@ -21,7 +21,7 @@ private:
     vanetza::PositionProvider& positioning_;
     vanetza::Runtime& runtime_;
     vanetza::Clock::duration srem_interval_;
-    PubSub* pubsub_;
+    PubSub* pubsub;
     config_t config_s;
     metrics_t metrics_s;
 

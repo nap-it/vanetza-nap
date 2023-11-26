@@ -26,10 +26,10 @@ ip::udp::socket srem_udp_socket(srem_io_service_);
 ip::udp::endpoint srem_remote_endpoint;
 boost::system::error_code srem_err;
 
-SremApplication::SremApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority) :
+SremApplication::SremApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
     positioning_(positioning), runtime_(rt), srem_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
 {
-    this->pubsub.subscribe(config_s.srem, this);
+    this->pubsub->subscribe(config_s.srem, this);
     
     srem_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "srem"}, {"direction", "rx"}}));
     srem_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "srem"}, {"direction", "tx"}}));
@@ -71,7 +71,7 @@ void SremApplication::indicate(const DataIndication& indication, UpPacketPtr pac
     SREM_t srem_t = {(*srem)->header, (*srem)->srm};
     Document srem_json = buildJSON(srem_t, cp.time_received, cp.rssi, cp.size());
 
-    pubsub->publish(config_s.srem, srem_json, srem_udp_socket, srem_remote_endpoint, srem_err, srem_rx_counter, srem_rx_latency, cp.time_received, "SREM");    
+    pubsub->publish(config_s.srem, srem_json, &srem_udp_socket, &srem_remote_endpoint, &srem_err, srem_rx_counter, srem_rx_latency, cp.time_received, "SREM");    
 }
 
 void SremApplication::schedule_timer()
@@ -149,7 +149,7 @@ void SremApplication::on_message(string topic, string mqtt_message, std::unique_
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr, std::move(router))) {
+        if (!Application::request(request, std::move(packet), nullptr, router.get())) {
             return;
         }
     } catch(std::runtime_error& e) {

@@ -26,10 +26,10 @@ ip::udp::socket ivim_udp_socket(ivim_io_service_);
 ip::udp::endpoint ivim_remote_endpoint;
 boost::system::error_code ivim_err;
 
-IvimApplication::IvimApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority) :
+IvimApplication::IvimApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
     positioning_(positioning), runtime_(rt), ivim_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
 {
-    this->pubsub.subscribe(config_s.ivim, this);
+    this->pubsub->subscribe(config_s.ivim, this);
     
     ivim_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "ivim"}, {"direction", "rx"}}));
     ivim_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "ivim"}, {"direction", "tx"}}));
@@ -71,7 +71,7 @@ void IvimApplication::indicate(const DataIndication& indication, UpPacketPtr pac
     IVIM_t ivim_t = {(*ivim)->header, (*ivim)->ivi};
     Document ivim_json = buildJSON(ivim_t, cp.time_received, cp.rssi, cp.size());
 
-    pubsub->publish(config_s.ivim, ivim_json, ivim_udp_socket, ivim_remote_endpoint, ivim_err, ivim_rx_counter, ivim_rx_latency, cp.time_received, "IVIM");  
+    pubsub->publish(config_s.ivim, ivim_json, &ivim_udp_socket, &ivim_remote_endpoint, &ivim_err, ivim_rx_counter, ivim_rx_latency, cp.time_received, "IVIM");  
 }
 
 void IvimApplication::schedule_timer()
@@ -149,7 +149,7 @@ void IvimApplication::on_message(string topic, string mqtt_message, std::unique_
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr, std::move(router))) {
+        if (!Application::request(request, std::move(packet), nullptr, router.get())) {
             return;
         }
     } catch(std::runtime_error& e) {

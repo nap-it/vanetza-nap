@@ -4,7 +4,7 @@
 #include <vanetza/common/runtime.hpp>
 #include <vanetza/asn1/mapem.hpp>
 
-class MapemApplication : public Application, public Mqtt_client
+class MapemApplication : public Application, public PubSub_application
 {
 public:
     MapemApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_);

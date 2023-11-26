@@ -28,7 +28,7 @@ private:
     PubSub* pubsub;
     config_t config_s;
     metrics_t metrics_s;
-    vanetza::geonet::Router* timer_router;
+    std::unique_ptr<vanetza::geonet::Router> timer_router;
 
     Document buildJSON(CAM_t cam, Document& cam_json_full, double time_reception, int rssi, int packet_size, bool include_fields, bool rx, bool full);
 

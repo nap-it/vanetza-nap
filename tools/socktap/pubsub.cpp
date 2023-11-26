@@ -112,7 +112,7 @@ void PubSub::manual_subscribe(message_config_t message_config, std::string topic
     }
 }
 
-void PubSub::publish(message_config_t message_config, rapidjson::Document message_json, boost::asio::ip::udp::socket* udp_socket, boost::asio::ip::udp::endpoint* remote_endpoint, boost::system::error_code* err, prometheus::Counter* counter, prometheus::Counter* latency, double time_received, std::string message_type) {
+void PubSub::publish(message_config_t message_config, rapidjson::Document& message_json, boost::asio::ip::udp::socket* udp_socket, boost::asio::ip::udp::endpoint* remote_endpoint, boost::system::error_code* err, prometheus::Counter* counter, prometheus::Counter* latency, double time_received, std::string message_type) {
     StringBuffer fullBuffer;
     Writer<StringBuffer> writer(fullBuffer);
     message_json.Accept(writer);
@@ -150,7 +150,7 @@ void PubSub::publish(message_config_t message_config, rapidjson::Document messag
     if(config.enable_json_prints) std::cout << message_type << " JSON: " << messageJSON << std::endl;
 }
 
-void PubSub::publish_time(message_config_t message_config, rapidjson::Value message_json) {
+void PubSub::publish_time(message_config_t message_config, rapidjson::Value& message_json) {
     StringBuffer fullBuffer;
     Writer<StringBuffer> writer(fullBuffer);
     message_json.Accept(writer);

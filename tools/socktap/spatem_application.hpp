@@ -4,7 +4,7 @@
 #include <vanetza/common/runtime.hpp>
 #include <vanetza/asn1/spatem.hpp>
 
-class SpatemApplication : public Application, public Mqtt_client
+class SpatemApplication : public Application, public PubSub_application
 {
 public:
     SpatemApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_);

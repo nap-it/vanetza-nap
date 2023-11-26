@@ -26,10 +26,10 @@ ip::udp::socket evrsrm_udp_socket(evrsrm_io_service_);
 ip::udp::endpoint evrsrm_remote_endpoint;
 boost::system::error_code evrsrm_err;
 
-EvrsrmApplication::EvrsrmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority) :
+EvrsrmApplication::EvrsrmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
     positioning_(positioning), runtime_(rt), evrsrm_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
 {
-    this->pubsub.subscribe(config_s.evrsrm, this);
+    this->pubsub->subscribe(config_s.evrsrm, this);
     
     evrsrm_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "evrsrm"}, {"direction", "rx"}}));
     evrsrm_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "evrsrm"}, {"direction", "tx"}}));
@@ -71,7 +71,7 @@ void EvrsrmApplication::indicate(const DataIndication& indication, UpPacketPtr p
     EV_RSR_t evrsrm_t = {(*evrsrm)->header, (*evrsrm)->messageBody};
     Document evrsrm_json = buildJSON(evrsrm_t, cp.time_received, cp.rssi, cp.size());
 
-    pubsub->publish(config_s.evrsrm, evrsrm_json, evrsrm_udp_socket, evrsrm_remote_endpoint, evrsrm_err, evrsrm_rx_counter, evrsrm_rx_latency, cp.time_received, "EVRSRM");
+    pubsub->publish(config_s.evrsrm, evrsrm_json, &evrsrm_udp_socket, &evrsrm_remote_endpoint, &evrsrm_err, evrsrm_rx_counter, evrsrm_rx_latency, cp.time_received, "EVRSRM");
 }
 
 void EvrsrmApplication::schedule_timer()
@@ -149,7 +149,7 @@ void EvrsrmApplication::on_message(string topic, string mqtt_message, std::uniqu
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr, std::move(router))) {
+        if (!Application::request(request, std::move(packet), nullptr, router.get())) {
             return;
         }
     } catch(std::runtime_error& e) {

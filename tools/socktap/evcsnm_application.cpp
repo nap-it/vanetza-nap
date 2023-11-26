@@ -26,10 +26,10 @@ ip::udp::socket evcsnm_udp_socket(evcsnm_io_service_);
 ip::udp::endpoint evcsnm_remote_endpoint;
 boost::system::error_code evcsnm_err;
 
-EvcsnmApplication::EvcsnmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority) :
+EvcsnmApplication::EvcsnmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
     positioning_(positioning), runtime_(rt), evcsnm_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
 {
-    this->pubsub.subscribe(config_s.evcsnm, this);
+    this->pubsub->subscribe(config_s.evcsnm, this);
     
     evcsnm_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "evcsnm"}, {"direction", "rx"}}));
     evcsnm_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "evcsnm"}, {"direction", "tx"}}));
@@ -71,7 +71,7 @@ void EvcsnmApplication::indicate(const DataIndication& indication, UpPacketPtr p
     EvcsnPdu_t evcsnm_t = {(*evcsnm)->header, (*evcsnm)->evcsn};
     Document evcsnm_json = buildJSON(evcsnm_t, cp.time_received, cp.rssi, cp.size());
 
-    pubsub->publish(config_s.evcsnm, evcsnm_json, evcsnm_udp_socket, evcsnm_remote_endpoint, evcsnm_err, evcsnm_rx_counter, evcsnm_rx_latency, evcsnm.time_received, "EVCSNM"); 
+    pubsub->publish(config_s.evcsnm, evcsnm_json, &evcsnm_udp_socket, &evcsnm_remote_endpoint, &evcsnm_err, evcsnm_rx_counter, evcsnm_rx_latency, cp.time_received, "EVCSNM"); 
 }
 
 void EvcsnmApplication::schedule_timer()
@@ -149,7 +149,7 @@ void EvcsnmApplication::on_message(string topic, string mqtt_message, std::uniqu
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr, std::move(router))) {
+        if (!Application::request(request, std::move(packet), nullptr, router.get())) {
             return;
         }
     } catch(std::runtime_error& e) {

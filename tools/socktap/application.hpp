@@ -22,7 +22,6 @@
 
 static vanetza::geonet::GbcDataRequest request_gbc(const vanetza::btp::DataRequestGeoNetParams&, vanetza::geonet::Router* router);
 static vanetza::geonet::ShbDataRequest request_shb(const vanetza::btp::DataRequestGeoNetParams&, vanetza::geonet::Router* router);
-void start_application_thread();
 
 class Application : public vanetza::btp::IndicationInterface
 {
@@ -43,6 +42,7 @@ public:
     virtual PortType port() = 0;
     virtual PromiscuousHook* promiscuous_hook();
     void on_message(string);
+    int priority;
 
 protected:
     bool request(const DataRequest& request, DownPacketPtr packet, std::string* mqtt_message, vanetza::geonet::Router* router);

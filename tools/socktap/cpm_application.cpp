@@ -26,10 +26,10 @@ ip::udp::socket cpm_udp_socket(cpm_io_service_);
 ip::udp::endpoint cpm_remote_endpoint;
 boost::system::error_code cpm_err;
 
-CpmApplication::CpmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority) :
+CpmApplication::CpmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
     positioning_(positioning), runtime_(rt), cpm_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
 {
-    this->pubsub.subscribe(config_s.cpm, this);
+    this->pubsub->subscribe(config_s.cpm, this);
     
     cpm_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "cpm"}, {"direction", "rx"}}));
     cpm_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "cpm"}, {"direction", "tx"}}));
@@ -71,7 +71,7 @@ void CpmApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     CPM_t cpm_t = {(*cpm)->header, (*cpm)->cpm};
     Document cpm_json = buildJSON(cpm_t, cp.time_received, cp.rssi, cp.size());
 
-    pubsub->publish(config_s.cpm, cpm_json, cpm_udp_socket, cpm_remote_endpoint, cpm_err, cpm_rx_counter, cpm_rx_latency, cp.time_received, "CPM");
+    pubsub->publish(config_s.cpm, cpm_json, &cpm_udp_socket, &cpm_remote_endpoint, &cpm_err, cpm_rx_counter, cpm_rx_latency, cp.time_received, "CPM");
 }
 
 void CpmApplication::schedule_timer()
@@ -150,7 +150,7 @@ void CpmApplication::on_message(string topic, string mqtt_message, std::unique_p
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr, std::move(router))) {
+        if (!Application::request(request, std::move(packet), nullptr, router.get())) {
             return;
         }
     } catch(std::runtime_error& e) {

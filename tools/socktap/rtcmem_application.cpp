@@ -26,10 +26,10 @@ ip::udp::socket rtcmem_udp_socket(rtcmem_io_service_);
 ip::udp::endpoint rtcmem_remote_endpoint;
 boost::system::error_code rtcmem_err;
 
-RtcmemApplication::RtcmemApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority) :
+RtcmemApplication::RtcmemApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
     positioning_(positioning), runtime_(rt), rtcmem_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
 {
-    this->pubsub.subscribe(config_s.rtcmem, this);
+    this->pubsub->subscribe(config_s.rtcmem, this);
     
     rtcmem_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "rtcmem"}, {"direction", "rx"}}));
     rtcmem_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "rtcmem"}, {"direction", "tx"}}));
@@ -71,7 +71,7 @@ void RtcmemApplication::indicate(const DataIndication& indication, UpPacketPtr p
     RTCMEM_t rtcmem_t = {(*rtcmem)->header, (*rtcmem)->rtcmc};
     Document rtcmem_json = buildJSON(rtcmem_t, cp.time_received, cp.rssi, cp.size());
 
-    pubsub->publish(config_s.rtcmem, rtcmem_json, rtcmem_udp_socket, rtcmem_remote_endpoint, rtcmem_err, rtcmem_rx_counter, rtcmem_rx_latency, cp.time_received, "RTCMEM");   
+    pubsub->publish(config_s.rtcmem, rtcmem_json, &rtcmem_udp_socket, &rtcmem_remote_endpoint, &rtcmem_err, rtcmem_rx_counter, rtcmem_rx_latency, cp.time_received, "RTCMEM");   
 }
 
 void RtcmemApplication::schedule_timer()
@@ -149,7 +149,7 @@ void RtcmemApplication::on_message(string topic, string mqtt_message, std::uniqu
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr, std::move(router))) {
+        if (!Application::request(request, std::move(packet), nullptr, router.get())) {
             return;
         }
     } catch(std::runtime_error& e) {

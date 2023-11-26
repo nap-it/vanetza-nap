@@ -4,7 +4,7 @@
 #include <vanetza/common/runtime.hpp>
 #include <vanetza/asn1/ivim.hpp>
 
-class IvimApplication : public Application, public Mqtt_client
+class IvimApplication : public Application, public PubSub_application
 {
 public:
     IvimApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_);

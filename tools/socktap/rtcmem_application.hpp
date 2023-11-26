@@ -4,7 +4,7 @@
 #include <vanetza/common/runtime.hpp>
 #include <vanetza/asn1/rtcmem.hpp>
 
-class RtcmemApplication : public Application, public Mqtt_client
+class RtcmemApplication : public Application, public PubSub_application
 {
 public:
     RtcmemApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_);

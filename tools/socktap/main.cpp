@@ -159,7 +159,7 @@ int main(int argc, const char** argv)
         context.set_link_layer(link_layer.get());
 
         std::unique_ptr<vanetza::geonet::Router> ptr = std::make_unique<vanetza::geonet::Router>(trigger.runtime(), mib);
-        ptr->packet_dropped = std::bind(&RouterContext::log_packet_drop, context, std::placeholders::_1);
+        ptr->packet_dropped = std::bind(&RouterContext::log_packet_drop, &context, std::placeholders::_1);
         ptr->set_address(mib.itsGnLocalGnAddr);
         ptr->set_transport_handler(geonet::UpperProtocol::BTP_B, &context.dispatcher_);
         ptr->set_security_entity(security.get());
@@ -167,8 +167,6 @@ int main(int argc, const char** argv)
         PubSub* pubsub = new PubSub(config_s, num_threads);
 
         std::map<std::string, std::unique_ptr<Application>> apps;
-
-        start_application_thread();
 
         if (config_s.cam.enabled) {
             std::unique_ptr<CamApplication> cam_app {

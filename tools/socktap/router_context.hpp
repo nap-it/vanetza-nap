@@ -14,7 +14,7 @@
 class Application;
 class TimeTrigger;
 
-std::vector<std::unique_ptr<vanetza::geonet::Router>> routers;
+extern std::vector<std::unique_ptr<vanetza::geonet::Router>> routers;
 
 void packet_reception_thread(int i);
 void packet_processing_thread();
@@ -37,12 +37,13 @@ public:
     void set_link_layer(LinkLayer*);
 
     DccPassthrough& get_dccp();
+    
+    void log_packet_drop(vanetza::geonet::Router::PacketDropReason);
 
     vanetza::btp::PortDispatcher dispatcher_;
 
 private:
     void indicate(vanetza::CohesivePacket&& packet, const vanetza::EthernetHeader& hdr);
-    void log_packet_drop(vanetza::geonet::Router::PacketDropReason);
     void update_position_vector();
     void update_packet_flow(const vanetza::geonet::LongPositionVector&);
 

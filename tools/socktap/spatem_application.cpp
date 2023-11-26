@@ -26,10 +26,10 @@ ip::udp::socket spatem_udp_socket(spatem_io_service_);
 ip::udp::endpoint spatem_remote_endpoint;
 boost::system::error_code spatem_err;
 
-SpatemApplication::SpatemApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority) :
+SpatemApplication::SpatemApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
     positioning_(positioning), runtime_(rt), spatem_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
 {
-    this->pubsub.subscribe(config_s.spatem, this);
+    this->pubsub->subscribe(config_s.spatem, this);
     
     spatem_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "spatem"}, {"direction", "rx"}}));
     spatem_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "spatem"}, {"direction", "tx"}}));
@@ -71,7 +71,7 @@ void SpatemApplication::indicate(const DataIndication& indication, UpPacketPtr p
     SPATEM_t spatem_t = {(*spatem)->header, (*spatem)->spat};
     Document spatem_json = buildJSON(spatem_t, cp.time_received, cp.rssi, cp.size());
 
-    pubsub->publish(config_s.spatem, spatem_json, spatem_udp_socket, spatem_remote_endpoint, spatem_err, spatem_rx_counter, spatem_rx_latency, cp.time_received, "SPATEM");  
+    pubsub->publish(config_s.spatem, spatem_json, &spatem_udp_socket, &spatem_remote_endpoint, &spatem_err, spatem_rx_counter, spatem_rx_latency, cp.time_received, "SPATEM");  
 }
 
 void SpatemApplication::schedule_timer()
@@ -149,7 +149,7 @@ void SpatemApplication::on_message(string topic, string mqtt_message, std::uniqu
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr, std::move(router))) {
+        if (!Application::request(request, std::move(packet), nullptr, router.get())) {
             return;
         }
     } catch(std::runtime_error& e) {

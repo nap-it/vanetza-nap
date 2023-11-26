@@ -26,10 +26,10 @@ ip::udp::socket ssem_udp_socket(ssem_io_service_);
 ip::udp::endpoint ssem_remote_endpoint;
 boost::system::error_code ssem_err;
 
-SsemApplication::SsemApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority) :
+SsemApplication::SsemApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
     positioning_(positioning), runtime_(rt), ssem_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
 {
-    this->pubsub.subscribe(config_s.ssem, this);
+    this->pubsub->subscribe(config_s.ssem, this);
     
     ssem_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "ssem"}, {"direction", "rx"}}));
     ssem_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "ssem"}, {"direction", "tx"}}));
@@ -71,7 +71,7 @@ void SsemApplication::indicate(const DataIndication& indication, UpPacketPtr pac
     SSEM_t ssem_t = {(*ssem)->header, (*ssem)->ssm};
     Document ssem_json = buildJSON(ssem_t, cp.time_received, cp.rssi, cp.size());
 
-    pubsub->publish(config_s.ssem, ssem_json, ssem_udp_socket, ssem_remote_endpoint, ssem_err, ssem_rx_counter, ssem_rx_latency, cp.time_received, "SSEM");   
+    pubsub->publish(config_s.ssem, ssem_json, &ssem_udp_socket, &ssem_remote_endpoint, &ssem_err, ssem_rx_counter, ssem_rx_latency, cp.time_received, "SSEM");   
 }
 
 void SsemApplication::schedule_timer()
@@ -149,7 +149,7 @@ void SsemApplication::on_message(string topic, string mqtt_message, std::unique_
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr, std::move(router))) {
+        if (!Application::request(request, std::move(packet), nullptr, router.get())) {
             return;
         }
     } catch(std::runtime_error& e) {

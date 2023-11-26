@@ -27,7 +27,7 @@ boost::system::error_code denm_err;
 DenmApplication::DenmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
     positioning_(positioning), runtime_(rt), denm_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
 {
-    this->pubsub.subscribe(config_s.denm, this);
+    this->pubsub->subscribe(config_s.denm, this);
 
     denm_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "denm"}, {"direction", "rx"}}));
     denm_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "denm"}, {"direction", "tx"}}));
@@ -69,7 +69,7 @@ void DenmApplication::indicate(const DataIndication& indication, UpPacketPtr pac
     DENM_t denm_t = {(*denm)->header, (*denm)->denm};
     Document denm_json = buildJSON(denm_t, cp.time_received, cp.rssi, cp.size());
 
-    pubsub->publish(config_s.denm, denm_json, denm_udp_socket, denm_remote_endpoint, denm_err, denm_rx_counter, denm_rx_latency, cp.time_received, "DENM");
+    pubsub->publish(config_s.denm, denm_json, &denm_udp_socket, &denm_remote_endpoint, &denm_err, denm_rx_counter, denm_rx_latency, cp.time_received, "DENM");
 }
 
 void DenmApplication::schedule_timer()
@@ -148,7 +148,7 @@ void DenmApplication::on_message(string topic, string mqtt_message, std::unique_
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr, std::move(router))) {
+        if (!Application::request(request, std::move(packet), nullptr, router.get())) {
             return;
         }
     } catch(std::runtime_error& e) {

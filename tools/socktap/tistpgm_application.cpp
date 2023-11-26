@@ -26,10 +26,10 @@ ip::udp::socket tistpgm_udp_socket(tistpgm_io_service_);
 ip::udp::endpoint tistpgm_remote_endpoint;
 boost::system::error_code tistpgm_err;
 
-TistpgmApplication::TistpgmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority) :
+TistpgmApplication::TistpgmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
     positioning_(positioning), runtime_(rt), tistpgm_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
 {
-    this->pubsub.subscribe(config_s.tistpgm, this);
+    this->pubsub->subscribe(config_s.tistpgm, this);
     
     tistpgm_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "tistpgm"}, {"direction", "rx"}}));
     tistpgm_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "tistpgm"}, {"direction", "tx"}}));
@@ -71,7 +71,7 @@ void TistpgmApplication::indicate(const DataIndication& indication, UpPacketPtr 
     TisTpgTransactionsPdu_t tistpgm_t = {(*tistpgm)->header, (*tistpgm)->tisTpgTransaction};
     Document tistpgm_json = buildJSON(tistpgm_t, cp.time_received, cp.rssi, cp.size());
 
-    pubsub->publish(config_s.tistpgm, tistpgm_json, tistpgm_udp_socket, tistpgm_remote_endpoint, tistpgm_err, tistpgm_rx_counter, tistpgm_rx_latency, cp.time_received, "TISTPGM");  
+    pubsub->publish(config_s.tistpgm, tistpgm_json, &tistpgm_udp_socket, &tistpgm_remote_endpoint, &tistpgm_err, tistpgm_rx_counter, tistpgm_rx_latency, cp.time_received, "TISTPGM");  
 }
 
 void TistpgmApplication::schedule_timer()
@@ -149,7 +149,7 @@ void TistpgmApplication::on_message(string topic, string mqtt_message, std::uniq
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr, std::move(router))) {
+        if (!Application::request(request, std::move(packet), nullptr, router.get())) {
             return;
         }
     } catch(std::runtime_error& e) {

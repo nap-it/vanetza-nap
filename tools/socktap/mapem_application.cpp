@@ -26,10 +26,10 @@ ip::udp::socket mapem_udp_socket(mapem_io_service_);
 ip::udp::endpoint mapem_remote_endpoint;
 boost::system::error_code mapem_err;
 
-MapemApplication::MapemApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority) :
+MapemApplication::MapemApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
     positioning_(positioning), runtime_(rt), mapem_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
 {
-    this->pubsub.subscribe(config_s.mapem, this);
+    this->pubsub->subscribe(config_s.mapem, this);
     
     mapem_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "mapem"}, {"direction", "rx"}}));
     mapem_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "mapem"}, {"direction", "tx"}}));
@@ -71,7 +71,7 @@ void MapemApplication::indicate(const DataIndication& indication, UpPacketPtr pa
     MAPEM_t mapem_t = {(*mapem)->header, (*mapem)->map};
     Document mapem_json = buildJSON(mapem_t, cp.time_received, cp.rssi, cp.size());
 
-    pubsub->publish(config_s.mapem, mapem_json, mapem_udp_socket, mapem_remote_endpoint, mapem_err, mapem_rx_counter, mapem_rx_latency, cp.time_received, "MAPEM");
+    pubsub->publish(config_s.mapem, mapem_json, &mapem_udp_socket, &mapem_remote_endpoint, &mapem_err, mapem_rx_counter, mapem_rx_latency, cp.time_received, "MAPEM");
 }
 
 void MapemApplication::schedule_timer()
@@ -150,7 +150,7 @@ void MapemApplication::on_message(string topic, string mqtt_message, std::unique
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr, std::move(router))) {
+        if (!Application::request(request, std::move(packet), nullptr, router.get())) {
             return;
         }
     } catch(std::runtime_error& e) {

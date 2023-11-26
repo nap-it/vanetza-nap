@@ -18,6 +18,8 @@
 using namespace vanetza;
 using namespace std::chrono;
 
+std::vector<std::unique_ptr<vanetza::geonet::Router>> routers;
+
 typedef struct queued_processing {
     const vanetza::btp::DataIndication& indication; 
     vanetza::geonet::Router::UpPacketPtr packet;

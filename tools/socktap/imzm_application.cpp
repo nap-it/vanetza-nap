@@ -26,10 +26,10 @@ ip::udp::socket imzm_udp_socket(imzm_io_service_);
 ip::udp::endpoint imzm_remote_endpoint;
 boost::system::error_code imzm_err;
 
-ImzmApplication::ImzmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority) :
+ImzmApplication::ImzmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
     positioning_(positioning), runtime_(rt), imzm_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
 {
-    this->pubsub.subscribe(config_s.imzm, this);
+    this->pubsub->subscribe(config_s.imzm, this);
     
     imzm_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "imzm"}, {"direction", "rx"}}));
     imzm_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "imzm"}, {"direction", "tx"}}));
@@ -71,7 +71,7 @@ void ImzmApplication::indicate(const DataIndication& indication, UpPacketPtr pac
     IMZM_t imzm_t = {(*imzm)->header, (*imzm)->imzm};
     Document imzm_json = buildJSON(imzm_t, cp.time_received, cp.rssi, cp.size());
 
-    pubsub->publish(config_s.imzm, imzm_json, imzm_udp_socket, imzm_remote_endpoint, imzm_err, imzm_rx_counter, imzm_rx_latency, cp.time_received, "IMZM");  
+    pubsub->publish(config_s.imzm, imzm_json, &imzm_udp_socket, &imzm_remote_endpoint, &imzm_err, imzm_rx_counter, imzm_rx_latency, cp.time_received, "IMZM");  
 }
 
 void ImzmApplication::schedule_timer()
@@ -149,7 +149,7 @@ void ImzmApplication::on_message(string topic, string mqtt_message, std::unique_
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr, std::move(router))) {
+        if (!Application::request(request, std::move(packet), nullptr, router.get())) {
             return;
         }
     } catch(std::runtime_error& e) {

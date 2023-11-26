@@ -26,10 +26,10 @@ ip::udp::socket mcm_udp_socket(mcm_io_service_);
 ip::udp::endpoint mcm_remote_endpoint;
 boost::system::error_code mcm_err;
 
-McmApplication::McmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority) :
+McmApplication::McmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
     positioning_(positioning), runtime_(rt), mcm_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
 {
-    this->pubsub.subscribe(config_s.mcm, this);
+    this->pubsub->subscribe(config_s.mcm, this);
     
     mcm_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "mcm"}, {"direction", "rx"}}));
     mcm_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "mcm"}, {"direction", "tx"}}));
@@ -71,7 +71,7 @@ void McmApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     MCM_t mcm_t = {(*mcm)->header, (*mcm)->payload};
     Document mcm_json = buildJSON(mcm_t, cp.time_received, cp.rssi, cp.size());
 
-    pubsub->publish(config_s.mcm, mcm_json, mcm_udp_socket, mcm_remote_endpoint, mcm_err, mcm_rx_counter, mcm_rx_latency, cp.time_received, "MCM"); 
+    pubsub->publish(config_s.mcm, mcm_json, &mcm_udp_socket, &mcm_remote_endpoint, &mcm_err, mcm_rx_counter, mcm_rx_latency, cp.time_received, "MCM"); 
 }
 
 void McmApplication::schedule_timer()
@@ -149,7 +149,7 @@ void McmApplication::on_message(string topic, string mqtt_message, std::unique_p
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr, std::move(router))) {
+        if (!Application::request(request, std::move(packet), nullptr, router.get())) {
             return;
         }
     } catch(std::runtime_error& e) {

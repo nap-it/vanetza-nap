@@ -34,8 +34,8 @@ private:
 public:
     PubSub(config_t config_, int num_threads_);
     ~PubSub();
-    void publish(message_config_t message_config, rapidjson::Document message_json, boost::asio::ip::udp::socket* udp_socket, boost::asio::ip::udp::endpoint* remote_endpoint, boost::system::error_code* err, prometheus::Counter* counter, prometheus::Counter* latency, double time_received, std::string message_type);
-    void publish_time(message_config_t message_config, rapidjson::Value message_json);
+    void publish(message_config_t message_config, rapidjson::Document& message_json, boost::asio::ip::udp::socket* udp_socket, boost::asio::ip::udp::endpoint* remote_endpoint, boost::system::error_code* err, prometheus::Counter* counter, prometheus::Counter* latency, double time_received, std::string message_type);
+    void publish_time(message_config_t message_config, rapidjson::Value& message_json);
     void subscribe(message_config_t message_config, PubSub_application* app);
     void manual_subscribe(message_config_t message_config, std::string topic, PubSub_application* app);
     void on_message(std::string topic, std::string message, int priority);

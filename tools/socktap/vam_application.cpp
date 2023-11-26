@@ -28,7 +28,7 @@ ip::udp::socket vam_udp_socket(vam_io_service_);
 ip::udp::endpoint vam_remote_endpoint;
 boost::system::error_code vam_err;
 
-VamApplication::VamApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority) :
+VamApplication::VamApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
     positioning_(positioning), runtime_(rt), vam_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
 {
     vam_persistence = {};
@@ -260,7 +260,7 @@ void VamApplication::on_message(string topic, string mqtt_message, std::unique_p
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr, std::move(router))) {
+        if (!Application::request(request, std::move(packet), nullptr, router.get())) {
             return;
         }
     } catch(std::runtime_error& e) {
