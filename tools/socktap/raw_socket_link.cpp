@@ -14,6 +14,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
+#include <linux/filter.h>
 #include "rssi_reader.hpp"
 
 #include <boost/asio.hpp>
@@ -29,6 +30,25 @@ RawSocketLink::RawSocketLink(boost::asio::generic::raw_protocol::socket&& socket
     socket_(std::move(socket)), receive_buffer_(2048, 0x00),
     receive_endpoint_(socket_.local_endpoint())
 {   
+    // BPF filter
+    struct sock_filter bpf_code[] = {
+        { 0x28, 0, 0, 0x0000000c },  // ldh [12]
+        { 0x15, 0, 1, 0x00008947 },  // jeq #0x8947, jt 2, jf 3
+        { 0x06, 0, 0, 0x0000ffff },  // ret #65535
+        { 0x06, 0, 0, 0x00000000 },  // ret #0
+    };
+
+    struct sock_fprog bpf_filter = {
+        .len = sizeof(bpf_code)/sizeof(struct sock_filter), 
+        .filter = bpf_code,
+    };
+
+    // Apply the BPF filter
+    if (setsockopt(socket_.native_handle(), SOL_SOCKET, SO_ATTACH_FILTER, 
+        &bpf_filter, sizeof(bpf_filter)) < 0) {
+        std::cout << "Could not apply BPF filter to raw socket link. Proceeding with unfiltered socket." << std::endl;
+    }
+
     rssi_enabled = _rssi_enabled;
     if (rssi_enabled) start_rssi_reader();
     do_receive();

@@ -14,19 +14,19 @@ private:
     std::mutex                  d_mutex;
     std::condition_variable     d_condition;
     int num_queues = 2 * 3; 
-    std::deque<queued_transmission*>  d_queue[2 * 3];
+    std::deque<std::unique_ptr<queued_transmission>>  d_queue[2 * 3];
 public:
     transmission_thread_queue() {
 
     }
-    void push(queued_transmission* value, int priorityLevel) {
+    void push(std::unique_ptr<queued_transmission> value, int priorityLevel) {
         {
             std::unique_lock<std::mutex> lock(this->d_mutex);
-            this->d_queue[priorityLevel].push_front(value);
+            this->d_queue[priorityLevel].push_front(std::move(value));
         }
         this->d_condition.notify_one();
     }
-    queued_transmission* pop() {
+    std::unique_ptr<queued_transmission> pop() {
         std::unique_lock<std::mutex> lock(this->d_mutex);
         this->d_condition.wait(lock, [=] {
             for(int i = 0; i < this->num_queues; i++) {
@@ -36,9 +36,9 @@ public:
         });
         for (int priorityLevel = 0; priorityLevel < num_queues; priorityLevel++) {
             if (!this->d_queue[priorityLevel].empty()) {
-                queued_transmission* rc = std::move(this->d_queue[priorityLevel].back());
+                std::unique_ptr<queued_transmission> rc = std::move(this->d_queue[priorityLevel].back());
                 this->d_queue[priorityLevel].pop_back();
-                return rc;
+                return std::move(rc);
             }
         }
         return nullptr;
@@ -69,6 +69,7 @@ PubSub::PubSub(config_t config_, int num_threads_) :
     }
     this->dds = new Dds(this->config.to_dds_key, this->config.from_dds_key, this);
 
+    transmission_tq = new transmission_thread_queue();
     for(int i = 0; i < num_threads; i++) {
         transmission_threads.push_back(std::thread(message_transmission_thread, i));
         transmission_threads[i].detach();
@@ -83,7 +84,7 @@ PubSub::~PubSub() {
 
 void PubSub::on_message(std::string topic, std::string message, int priority) {
     queued_transmission qt{topic, message};
-    transmission_tq->push(&qt, lookupTable[topic] + (3 * priority));
+    transmission_tq->push(std::make_unique<queued_transmission>(std::move(qt)), lookupTable[topic] + (3 * priority));
 }
 
 void PubSub::subscribe(message_config_t message_config, PubSub_application* app) {
@@ -162,8 +163,9 @@ void PubSub::publish_time(message_config_t message_config, rapidjson::Value& mes
 
 void message_transmission_thread(int i) {
     while (true){
-        queued_transmission* qt = transmission_tq->pop();
-        subscribers[qt->topic]->on_message(qt->topic, qt->message, std::move(routers[i]));
+        std::unique_ptr<queued_transmission> qt = transmission_tq->pop();
+        //std::cout << "TRANSMISSION, THREAD: " << i << std::endl;
+        subscribers[qt->topic]->on_message(qt->topic, qt->message, get_router(i));
     }
 }
 

@@ -11,11 +11,11 @@
 class CamApplication : public Application, public PubSub_application
 {
 public:
-    CamApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, std::unique_ptr<vanetza::geonet::Router> timer_router_, int priority_);
+    CamApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, vanetza::geonet::Router* timer_router_, int priority_);
     PortType port() override;
     void indicate(const DataIndication&, UpPacketPtr) override;
     void set_interval(vanetza::Clock::duration);
-    void on_message(string, string, std::unique_ptr<vanetza::geonet::Router> router);
+    void on_message(string, string, vanetza::geonet::Router* router);
     int priority;
 
 private:
@@ -28,7 +28,7 @@ private:
     PubSub* pubsub;
     config_t config_s;
     metrics_t metrics_s;
-    std::unique_ptr<vanetza::geonet::Router> timer_router;
+    vanetza::geonet::Router* timer_router;
 
     Document buildJSON(CAM_t cam, Document& cam_json_full, double time_reception, int rssi, int packet_size, bool include_fields, bool rx, bool full);
 

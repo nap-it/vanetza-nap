@@ -25,6 +25,7 @@
 #include <boost/program_options.hpp>
 #include <iostream>
 #include <prometheus/exposer.h>
+#include <unistd.h>
 
 namespace asio = boost::asio;
 namespace gn = vanetza::geonet;
@@ -158,19 +159,13 @@ int main(int argc, const char** argv)
         context.require_position_fix(vm.count("require-gnss-fix") > 0);
         context.set_link_layer(link_layer.get());
 
-        std::unique_ptr<vanetza::geonet::Router> ptr = std::make_unique<vanetza::geonet::Router>(trigger.runtime(), mib);
-        ptr->packet_dropped = std::bind(&RouterContext::log_packet_drop, &context, std::placeholders::_1);
-        ptr->set_address(mib.itsGnLocalGnAddr);
-        ptr->set_transport_handler(geonet::UpperProtocol::BTP_B, &context.dispatcher_);
-        ptr->set_security_entity(security.get());
-
         PubSub* pubsub = new PubSub(config_s, num_threads);
 
         std::map<std::string, std::unique_ptr<Application>> apps;
 
         if (config_s.cam.enabled) {
             std::unique_ptr<CamApplication> cam_app {
-                new CamApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, std::move(ptr), 1)
+                new CamApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, get_router(num_threads), 1)
             };
             cam_app->set_interval(std::chrono::milliseconds(config_s.cam.periodicity));
             apps.emplace("cam", std::move(cam_app));

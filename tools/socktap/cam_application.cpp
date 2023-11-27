@@ -35,8 +35,8 @@ double time_speed = 0;
 HeadingValue_t last_heading = LLONG_MIN;
 double time_heading = 0;
 
-CamApplication::CamApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, std::unique_ptr<vanetza::geonet::Router> timer_router_, int priority_) :
-    positioning_(positioning), runtime_(rt), cam_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), timer_router(std::move(timer_router_)), priority(priority_)
+CamApplication::CamApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, vanetza::geonet::Router* timer_router_, int priority_) :
+    positioning_(positioning), runtime_(rt), cam_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), timer_router(timer_router_), priority(priority_)
 {
     persistence = {};
     if(config_s.cam.mqtt_enabled) pubsub->manual_subscribe(config_s.cam, config_s.cam.topic_in, this);
@@ -342,7 +342,7 @@ Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, doubl
     return simpleDocument;
 }
 
-void CamApplication::on_message(string topic, string mqtt_message, std::unique_ptr<vanetza::geonet::Router> router) {
+void CamApplication::on_message(string topic, string mqtt_message, vanetza::geonet::Router* router) {
 
     const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
@@ -481,7 +481,7 @@ void CamApplication::on_message(string topic, string mqtt_message, std::unique_p
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr, router.get())) {
+        if (!Application::request(request, std::move(packet), nullptr, router)) {
             return;
         }
     } catch(std::runtime_error& e) {
@@ -634,7 +634,7 @@ void CamApplication::on_timer(Clock::time_point)
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr, this->timer_router.get())) {
+        if (!Application::request(request, std::move(packet), nullptr, this->timer_router)) {
             return;
         }
     } catch(std::runtime_error& e) {

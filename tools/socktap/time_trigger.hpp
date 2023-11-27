@@ -12,9 +12,9 @@ public:
     TimeTrigger(boost::asio::io_service&);
     vanetza::Runtime& runtime() { return runtime_; }
     void schedule();
+    boost::posix_time::ptime now() const;
 
 private:
-    boost::posix_time::ptime now() const;
     void on_timeout(const boost::system::error_code&);
     void update_runtime();
 

@@ -11,7 +11,7 @@ public:
     PortType port() override;
     void indicate(const DataIndication&, UpPacketPtr) override;
     void set_interval(vanetza::Clock::duration);
-    void on_message(string, string, std::unique_ptr<vanetza::geonet::Router> router);
+    void on_message(string, string, vanetza::geonet::Router* router);
     int priority;
 
 private:

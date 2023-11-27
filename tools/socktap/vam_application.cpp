@@ -207,7 +207,7 @@ Document VamApplication::buildJSON(VAM_t message, Document& vam_json_full, doubl
     return document;
 }
 
-void VamApplication::on_message(string topic, string mqtt_message, std::unique_ptr<vanetza::geonet::Router> router) {
+void VamApplication::on_message(string topic, string mqtt_message, vanetza::geonet::Router* router) {
 
     const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
@@ -260,7 +260,7 @@ void VamApplication::on_message(string topic, string mqtt_message, std::unique_p
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr, router.get())) {
+        if (!Application::request(request, std::move(packet), nullptr, router)) {
             return;
         }
     } catch(std::runtime_error& e) {

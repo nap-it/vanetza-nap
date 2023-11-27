@@ -97,7 +97,7 @@ Document SpatemApplication::buildJSON(SPATEM_t message, double time_reception, i
     return document;
 }
 
-void SpatemApplication::on_message(string topic, string mqtt_message, std::unique_ptr<vanetza::geonet::Router> router) {
+void SpatemApplication::on_message(string topic, string mqtt_message, vanetza::geonet::Router* router) {
 
     const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
@@ -149,7 +149,7 @@ void SpatemApplication::on_message(string topic, string mqtt_message, std::uniqu
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
     try {
-        if (!Application::request(request, std::move(packet), nullptr, router.get())) {
+        if (!Application::request(request, std::move(packet), nullptr, router)) {
             return;
         }
     } catch(std::runtime_error& e) {

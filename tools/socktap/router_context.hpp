@@ -18,6 +18,7 @@ extern std::vector<std::unique_ptr<vanetza::geonet::Router>> routers;
 
 void packet_reception_thread(int i);
 void packet_processing_thread();
+vanetza::geonet::Router* get_router(int i);
 
 class RouterContext
 {

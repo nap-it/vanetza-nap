@@ -41,6 +41,10 @@ Application::PromiscuousHook* Application::promiscuous_hook()
 
 bool Application::request(const DataRequest& request, DownPacketPtr packet, std::string* mqtt_message, vanetza::geonet::Router* router)
 {
+    btp::HeaderB btp_header;
+    btp_header.destination_port = this->port();
+    btp_header.destination_port_info = host_cast<uint16_t>(0);
+    packet->layer(OsiLayer::Transport) = btp_header;
     vanetza::geonet::DataConfirm confirm(vanetza::geonet::DataConfirm::ResultCode::Rejected_Unspecified);
     try {
         if (router && packet) {

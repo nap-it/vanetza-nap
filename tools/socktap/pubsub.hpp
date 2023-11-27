@@ -21,7 +21,7 @@
 class PubSub_application
 {
 public:
-    virtual void on_message(std::string, std::string, std::unique_ptr<vanetza::geonet::Router> router){};
+    virtual void on_message(std::string, std::string, vanetza::geonet::Router* router){};
     int priority;
 };
 
