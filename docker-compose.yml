@@ -13,12 +13,10 @@ services:
             - VANETZA_INTERFACE=br0
             - START_EMBEDDED_MOSQUITTO=true
             - SUPPORT_MAC_BLOCKING=true
+            - VANETZA_ENABLE_JSON_PRINTS=false
         networks:
             vanetzalan0:
                 ipv4_address: 192.168.98.10
-        sysctls:      
-            kernel.msgmax:  65536
-            kernel.msgmnb:  65536
 
     obu:
         hostname: obu
@@ -33,12 +31,10 @@ services:
             - VANETZA_INTERFACE=br0
             - START_EMBEDDED_MOSQUITTO=true
             - SUPPORT_MAC_BLOCKING=true
+            - VANETZA_ENABLE_JSON_PRINTS=false
         networks:
             vanetzalan0:
                 ipv4_address: 192.168.98.20
-        sysctls:      
-            kernel.msgmax:  65536
-            kernel.msgmnb:  65536
             
 networks:
   vanetzalan0:

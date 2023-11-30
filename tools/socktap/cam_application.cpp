@@ -39,11 +39,21 @@ CamApplication::CamApplication(vanetza::PositionProvider& positioning, vanetza::
     positioning_(positioning), runtime_(rt), cam_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), timer_router(timer_router_), priority(priority_)
 {
     persistence = {};
-    if(config_s.cam.mqtt_enabled) pubsub->manual_subscribe(config_s.cam, config_s.cam.topic_in, this);
-    if(config_s.cam.mqtt_enabled) pubsub->manual_subscribe(config_s.cam, config_s.full_cam_topic_in, this);
-    if(config_s.cam.mqtt_enabled && pubsub->remote_mqtt != NULL) pubsub->manual_subscribe(config_s.cam, config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_in, this);
-    if(config_s.cam.mqtt_enabled && pubsub->remote_mqtt != NULL) pubsub->manual_subscribe(config_s.cam, config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_cam_topic_in, this);
-    
+    if(config_s.cam.mqtt_enabled) {
+        pubsub->manual_subscribe(config_s.cam, config_s.cam.topic_in, this);
+        pubsub->manual_subscribe(config_s.cam, config_s.full_cam_topic_in, this);
+    }
+    if(config_s.cam.mqtt_enabled && pubsub->remote_mqtt != NULL) {
+        pubsub->manual_subscribe(config_s.cam, config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_in, this);
+        pubsub->manual_subscribe(config_s.cam, config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_cam_topic_in, this);
+    }
+    if(config_s.cam.dds_enabled) {
+        pubsub->manual_provision(config_s.cam, config_s.cam.topic_out);
+        pubsub->manual_provision(config_s.cam, config_s.full_cam_topic_out);
+        pubsub->manual_provision(config_s.cam, config_s.own_cam_topic_out);
+        pubsub->manual_provision(config_s.cam, config_s.own_full_cam_topic_out);
+    }
+
     cam_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "cam"}, {"direction", "rx"}}));
     cam_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "cam"}, {"direction", "tx"}}));
     cam_rx_latency = &((*metrics_s.latency_counter).Add({{"message", "cam"}, {"direction", "rx"}}));

@@ -91,7 +91,10 @@ void PubSub::subscribe(message_config_t message_config, PubSub_application* app)
     std::string topic = message_config.topic_in;
     subscribers[topic] = app;
     lookupTable[topic] = app->priority;
-    if(message_config.dds_enabled) this->dds->subscribe(topic);
+    if(message_config.dds_enabled) {
+        this->dds->subscribe(topic);
+        this->dds->provison_publisher(message_config.topic_out);
+    }
     if(message_config.mqtt_enabled) {
         this->local_mqtt->subscribe(topic);
         if(this->remote_mqtt != NULL) {
@@ -100,6 +103,12 @@ void PubSub::subscribe(message_config_t message_config, PubSub_application* app)
             lookupTable[remote_topic] = app->priority;
             this->remote_mqtt->subscribe(remote_topic);
         }
+    }
+}
+
+void PubSub::manual_provision(message_config_t message_config, std::string topic) {
+    if(message_config.dds_enabled) {
+        this->dds->provison_publisher(topic);
     }
 }
 

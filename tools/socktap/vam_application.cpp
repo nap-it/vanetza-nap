@@ -32,11 +32,18 @@ VamApplication::VamApplication(PositionProvider& positioning, Runtime& rt, PubSu
     positioning_(positioning), runtime_(rt), vam_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
 {
     vam_persistence = {};
-    if(config_s.vam.mqtt_enabled) this->pubsub->manual_subscribe(config_s.vam, config_s.vam.topic_in, this);
-    if(config_s.vam.mqtt_enabled) this->pubsub->manual_subscribe(config_s.vam, config_s.full_vam_topic_in, this);
-    if(config_s.vam.mqtt_enabled && pubsub->remote_mqtt != NULL) this->pubsub->manual_subscribe(config_s.vam, config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.vam.topic_in, this);
-    if(config_s.vam.mqtt_enabled && pubsub->remote_mqtt != NULL) this->pubsub->manual_subscribe(config_s.vam, config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_vam_topic_in, this);
-
+    if(config_s.vam.mqtt_enabled) {
+        pubsub->manual_subscribe(config_s.vam, config_s.vam.topic_in, this);
+        pubsub->manual_subscribe(config_s.vam, config_s.full_vam_topic_in, this);
+    }
+    if(config_s.vam.mqtt_enabled && pubsub->remote_mqtt != NULL) {
+        pubsub->manual_subscribe(config_s.vam, config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.vam.topic_in, this);
+        pubsub->manual_subscribe(config_s.vam, config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_vam_topic_in, this);
+    }
+    if(config_s.vam.dds_enabled) {
+        pubsub->manual_provision(config_s.vam, config_s.vam.topic_out);
+        pubsub->manual_provision(config_s.vam, config_s.full_vam_topic_out);
+    }
     vam_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "vam"}, {"direction", "rx"}}));
     vam_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "vam"}, {"direction", "tx"}}));
     vam_rx_latency = &((*metrics_s.latency_counter).Add({{"message", "vam"}, {"direction", "rx"}}));

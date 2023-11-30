@@ -10,8 +10,8 @@
 #include <boost/asio.hpp>
 #include <boost/asio/ip/udp.hpp>
 #include <boost/asio/ip/host_name.hpp>
-#include "mqtt.h"
-#include "dds.h"
+#include "mqtt.hpp"
+#include "dds.hpp"
 #include "router_context.hpp"
 #include "config.hpp"
 #include "rapidjson/document.h"
@@ -37,6 +37,7 @@ public:
     void publish(message_config_t message_config, rapidjson::Document& message_json, boost::asio::ip::udp::socket* udp_socket, boost::asio::ip::udp::endpoint* remote_endpoint, boost::system::error_code* err, prometheus::Counter* counter, prometheus::Counter* latency, double time_received, std::string message_type);
     void publish_time(message_config_t message_config, rapidjson::Value& message_json);
     void subscribe(message_config_t message_config, PubSub_application* app);
+    void manual_provision(message_config_t message_config, std::string topic);
     void manual_subscribe(message_config_t message_config, std::string topic, PubSub_application* app);
     void on_message(std::string topic, std::string message, int priority);
 
