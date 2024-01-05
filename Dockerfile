@@ -28,6 +28,7 @@ WORKDIR /tmp
 RUN git clone https://github.com/jupp0r/prometheus-cpp.git
 WORKDIR /tmp/prometheus-cpp
 RUN git submodule update --init
+RUN git checkout a944ec100251019cd44d070bbf2fd22f5139d6d0
 RUN cmake -B_build -DCPACK_GENERATOR=DEB -DBUILD_SHARED_LIBS=ON
 RUN cmake --build _build --target package --parallel $(nproc)
 RUN dpkg -i _build/*.deb
