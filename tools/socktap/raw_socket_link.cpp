@@ -5,6 +5,7 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <mutex>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,6 +26,7 @@ using namespace vanetza;
 using namespace std::chrono;
 
 bool rssi_enabled = false;
+std::mutex xmit_mtx; 
 
 RawSocketLink::RawSocketLink(boost::asio::generic::raw_protocol::socket&& socket, bool _rssi_enabled) :
     socket_(std::move(socket)), receive_buffer_(2048, 0x00),
@@ -57,7 +59,9 @@ RawSocketLink::RawSocketLink(boost::asio::generic::raw_protocol::socket&& socket
 void RawSocketLink::request(const access::DataRequest& request, std::unique_ptr<ChunkPacket> packet)
 {
     packet->layer(OsiLayer::Link) = create_ethernet_header(request.destination_addr, request.source_addr, request.ether_type);
+    xmit_mtx.lock();
     transmit(std::move(packet));
+    xmit_mtx.unlock();
 }
 
 std::size_t RawSocketLink::transmit(std::unique_ptr<ChunkPacket> packet)

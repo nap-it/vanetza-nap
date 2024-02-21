@@ -27,6 +27,10 @@
 #include <prometheus/exposer.h>
 #include <unistd.h>
 
+// DEBUG PURPOSES:
+//#include <thread>
+//#include <vector>
+
 namespace asio = boost::asio;
 namespace gn = vanetza::geonet;
 namespace po = boost::program_options;
@@ -155,9 +159,12 @@ int main(int argc, const char** argv)
             num_threads = config_s.num_threads;
         }
 
+        // DEBUG PURPOSES
+        //std::this_thread::sleep_for(std::chrono::milliseconds(20000));
+
         RouterContext context(mib, trigger, *positioning, security.get(), config_s.ignore_own_messages, config_s.ignore_rsu_messages, num_threads, io_service);
-        context.require_position_fix(vm.count("require-gnss-fix") > 0);
         context.set_link_layer(link_layer.get());
+        context.require_position_fix(vm.count("require-gnss-fix") > 0);
 
         PubSub* pubsub = new PubSub(config_s, num_threads);
 

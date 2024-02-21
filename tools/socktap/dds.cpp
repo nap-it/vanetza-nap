@@ -27,7 +27,7 @@ public:
         if (reader->take_next_sample(&message, &info) == ReturnCode_t::RETCODE_OK) {
             if (info.valid_data) {
                 dds->on_message(reader->get_topicdescription()->get_name(), message.message());
-                std::cout << "Message: " << message.message() << " RECEIVED." << std::endl;
+                //std::cout << "Message: " << message.message() << " RECEIVED." << std::endl;
             }
         }
     }
@@ -54,12 +54,12 @@ Dds::~Dds() {
 }
 
 void Dds::publish(string topic, string message) {
-    MQTTMessage* mqttMessage = new MQTTMessage();
+    std::unique_ptr<MQTTMessage> mqttMessage = std::make_unique<MQTTMessage>();
     mqttMessage->uuid(1);
     mqttMessage->topic(topic);
     mqttMessage->message(message);
     mqttMessage->datetime(std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
-    dds_publishers[topic].get()->publish(mqttMessage);
+    dds_publishers[topic]->publish(std::move(mqttMessage));
 }
 
 void Dds::subscribe(string topic) {

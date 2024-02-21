@@ -22,7 +22,7 @@ using namespace std::chrono;
 std::vector<std::unique_ptr<vanetza::geonet::Router>> routers;
 
 typedef struct queued_processing {
-    const vanetza::btp::DataIndication& indication; 
+    std::shared_ptr<const vanetza::btp::DataIndication> indication; 
     vanetza::geonet::Router::UpPacketPtr packet;
 } queued_processing;
 
@@ -52,7 +52,7 @@ public:
             if (!this->d_queue[priorityLevel].empty()) {
                 std::unique_ptr<queued_processing> rc = std::move(this->d_queue[priorityLevel].back());
                 this->d_queue[priorityLevel].pop_back();
-                return std::move(rc);
+                return rc;
             }
         }
         return nullptr;
@@ -64,8 +64,8 @@ processing_thread_queue* processing_tq;
 std::unordered_map<int, int> lookupTable;
 
 typedef struct queued_reception {
-    CohesivePacket packet;
-    const EthernetHeader& hdr;
+    std::unique_ptr<CohesivePacket> packet;
+    std::shared_ptr<const EthernetHeader> hdr;
 } queued_reception;
 
 class reception_thread_queue
@@ -97,8 +97,8 @@ public:
 class IndicationQueue : public vanetza::btp::IndicationInterface {
 public:
     void indicate(const vanetza::btp::DataIndication& indication, vanetza::geonet::Router::UpPacketPtr packet) { 
-        auto copiedIndication = std::make_shared<vanetza::btp::DataIndication>(indication);
-        queued_processing qp{ *copiedIndication, std::move(packet) };
+        auto copiedIndication = std::make_shared<vanetza::btp::DataIndication>(std::move(indication));
+        queued_processing qp{ std::move(copiedIndication), std::move(packet) };
         processing_tq->push(std::make_unique<queued_processing>(std::move(qp)), lookupTable[indication.destination_port.get()]);
     }
 };
@@ -111,25 +111,9 @@ reception_thread_queue* reception_tq;
 std::map<int, Application*> applications;
 
 RouterContext::RouterContext(const geonet::MIB& mib, TimeTrigger& trigger, vanetza::PositionProvider& positioning, vanetza::security::SecurityEntity* security_entity, bool ignore_own_messages_, bool ignore_rsu_messages_, int num_threads_, boost::asio::io_service& io_context) :
-    mib_(mib), positioning_(positioning),ignore_own_messages(ignore_own_messages_), ignore_rsu_messages(ignore_rsu_messages_), num_threads(num_threads_), io_context_(io_context)
+    mib_(mib), positioning_(positioning), security_entity_(security_entity), ignore_own_messages(ignore_own_messages_), ignore_rsu_messages(ignore_rsu_messages_), num_threads(num_threads_), io_context_(io_context)
 {
-    reception_tq = new reception_thread_queue();
-    for(int i = 0; i < num_threads + 1; i++) {
-        std::unique_ptr<vanetza::geonet::Router> ptr = std::make_unique<vanetza::geonet::Router>(trigger.runtime(), mib_);
-        routers.push_back(std::move(ptr));
-        routers[i]->packet_dropped = std::bind(&RouterContext::log_packet_drop, this, std::placeholders::_1);
-        routers[i]->set_address(mib_.itsGnLocalGnAddr);
-        routers[i]->set_transport_handler(geonet::UpperProtocol::BTP_B, &dispatcher_);
-        routers[i]->set_security_entity(security_entity);
-    }
-    for(int i = 0; i < num_threads; i++) {
-        reception_tq = new reception_thread_queue();
-        reception_threads.push_back(std::thread(packet_reception_thread, i));
-        reception_threads[i].detach();
-        processing_tq = new processing_thread_queue();
-        processing_threads.push_back(std::thread(packet_processing_thread));
-        processing_threads[i].detach();
-    } 
+
 }
 
 RouterContext::~RouterContext()
@@ -152,6 +136,29 @@ void RouterContext::set_link_layer(LinkLayer* link_layer)
     if (link_layer) {
 
         dccp = new DccPassthrough { *link_layer, io_context_ };
+
+        reception_tq = new reception_thread_queue();
+        for(int i = 0; i < num_threads; i++) {
+            reception_tq = new reception_thread_queue();
+            reception_threads.push_back(std::thread(packet_reception_thread, i));
+            std::unique_ptr<vanetza::geonet::Router> ptr = std::make_unique<vanetza::geonet::Router>(dccp->get_trigger(reception_threads[i].get_id()).runtime(), mib_);
+            routers.push_back(std::move(ptr));
+            routers[i]->packet_dropped = std::bind(&RouterContext::log_packet_drop, this, std::placeholders::_1);
+            routers[i]->set_address(mib_.itsGnLocalGnAddr);
+            routers[i]->set_transport_handler(geonet::UpperProtocol::BTP_B, &dispatcher_);
+            routers[i]->set_security_entity(security_entity_);
+            reception_threads[i].detach();
+            processing_tq = new processing_thread_queue();
+            processing_threads.push_back(std::thread(packet_processing_thread));
+            processing_threads[i].detach();
+        }
+        std::unique_ptr<vanetza::geonet::Router> ptr = std::make_unique<vanetza::geonet::Router>(dccp->get_trigger(reception_threads[num_threads].get_id()).runtime(), mib_);
+        routers.push_back(std::move(ptr));
+        routers[num_threads]->packet_dropped = std::bind(&RouterContext::log_packet_drop, this, std::placeholders::_1);
+        routers[num_threads]->set_address(mib_.itsGnLocalGnAddr);
+        routers[num_threads]->set_transport_handler(geonet::UpperProtocol::BTP_B, &dispatcher_);
+        routers[num_threads]->set_security_entity(security_entity_);
+
         update_position_vector();
         dccp->get_trigger().schedule();
 
@@ -172,7 +179,8 @@ void RouterContext::set_link_layer(LinkLayer* link_layer)
 void RouterContext::indicate(CohesivePacket&& packet, const EthernetHeader& hdr)
 {
     if ((!ignore_own_messages || hdr.source != mib_.itsGnLocalGnAddr.mid()) && (!ignore_rsu_messages || ((int) hdr.source.octets[3]) != 0x01) && hdr.type == access::ethertype::GeoNetworking) {
-        queued_reception qr{std::move(packet), hdr};
+        auto sharedHdr = std::make_shared<const EthernetHeader>(hdr);
+        queued_reception qr{std::make_unique<CohesivePacket>(std::move(packet)), sharedHdr};
         reception_tq->push(std::make_unique<queued_reception>(std::move(qr)));
     }
 }
@@ -181,9 +189,9 @@ void packet_reception_thread(int i) {
     while (true) {
         std::unique_ptr<queued_reception> qr = reception_tq->pop();
         //std::cout << "RECEPTION, THREAD: " << i << std::endl;
-        std::unique_ptr<PacketVariant> up { new PacketVariant(std::move(qr->packet)) };
+        std::unique_ptr<PacketVariant> up { new PacketVariant(*std::move(qr->packet)) };
         dccp->get_trigger().schedule(); // ensure the clock is up-to-date for the security entity
-        routers[i]->indicate(std::move(up), qr->hdr.source, qr->hdr.destination);
+        routers[i]->indicate(std::move(up), qr->hdr->source, qr->hdr->destination);
         dccp->get_trigger().schedule(); // schedule packet forwarding
     }
 }
@@ -244,8 +252,8 @@ DccPassthrough &RouterContext::get_dccp() {
 
 void packet_processing_thread(){
     while(true) {
-        std::unique_ptr<queued_processing> qp = std::move(processing_tq->pop());
-        applications[qp->indication.destination_port.get()]->indicate(qp->indication, std::move(qp->packet));
+        std::unique_ptr<queued_processing> qp = processing_tq->pop();
+        applications[qp->indication->destination_port.get()]->indicate(*std::move(qp->indication), std::move(qp->packet));
     }
 }
 

@@ -110,12 +110,12 @@ public:
         return true;
     }
 
-    bool publish(MSG *msg) {
-        std::cout << "Going to publish" << std::endl;
+    bool publish(std::unique_ptr<MSG> msg) {
+        //std::cout << "Going to publish" << std::endl;
         if (writerListener_.matched_ > 0)
         {
-            writer_->write(msg);
-            std::cout << "Published" << std::endl;
+            writer_->write(msg.get());
+            //std::cout << "Published" << std::endl;
             return true;
         }
         return false;
