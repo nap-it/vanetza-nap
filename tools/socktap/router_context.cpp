@@ -111,7 +111,7 @@ reception_thread_queue* reception_tq;
 std::map<int, Application*> applications;
 
 RouterContext::RouterContext(const geonet::MIB& mib, TimeTrigger& trigger, vanetza::PositionProvider& positioning, vanetza::security::SecurityEntity* security_entity, bool ignore_own_messages_, bool ignore_rsu_messages_, int num_threads_, boost::asio::io_service& io_context) :
-    mib_(mib), positioning_(positioning), security_entity_(security_entity), ignore_own_messages(ignore_own_messages_), ignore_rsu_messages(ignore_rsu_messages_), num_threads(num_threads_), io_context_(io_context)
+    mib_(mib), trigger_(trigger), positioning_(positioning), security_entity_(security_entity), ignore_own_messages(ignore_own_messages_), ignore_rsu_messages(ignore_rsu_messages_), num_threads(num_threads_), io_context_(io_context)
 {
 
 }
@@ -152,7 +152,7 @@ void RouterContext::set_link_layer(LinkLayer* link_layer)
             processing_threads.push_back(std::thread(packet_processing_thread));
             processing_threads[i].detach();
         }
-        std::unique_ptr<vanetza::geonet::Router> ptr = std::make_unique<vanetza::geonet::Router>(dccp->get_trigger(reception_threads[num_threads].get_id()).runtime(), mib_);
+        std::unique_ptr<vanetza::geonet::Router> ptr = std::make_unique<vanetza::geonet::Router>(trigger_.runtime(), mib_);
         routers.push_back(std::move(ptr));
         routers[num_threads]->packet_dropped = std::bind(&RouterContext::log_packet_drop, this, std::placeholders::_1);
         routers[num_threads]->set_address(mib_.itsGnLocalGnAddr);

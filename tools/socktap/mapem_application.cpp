@@ -15,7 +15,7 @@ using namespace vanetza;
 using namespace vanetza::facilities;
 using namespace std::chrono;
 using namespace boost::asio;
-
+ 
 prometheus::Counter *mapem_rx_counter;
 prometheus::Counter *mapem_tx_counter;
 prometheus::Counter *mapem_rx_latency;
@@ -26,8 +26,8 @@ ip::udp::socket mapem_udp_socket(mapem_io_service_);
 ip::udp::endpoint mapem_remote_endpoint;
 boost::system::error_code mapem_err;
 
-MapemApplication::MapemApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
-    positioning_(positioning), runtime_(rt), mapem_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
+MapemApplication::MapemApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_) :
+    positioning_(positioning), runtime_(rt), mapem_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_), prom_mtx(prom_mtx_)
 {
     this->pubsub->subscribe(config_s.mapem, this);
     
@@ -67,11 +67,32 @@ void MapemApplication::indicate(const DataIndication& indication, UpPacketPtr pa
 
     asn1::PacketVisitor<asn1::Mapem> visitor;
     std::shared_ptr<const asn1::Mapem> mapem = boost::apply_visitor(visitor, *packet);
-
+    if (mapem == 0) {
+        std::cout << "-- Vanetza Decoding Error --\nReceived an encoded MAPEM message that does not meet ETSI spec" << std::endl;
+        //std::cout << "\nInvalid sender: " << cp. << std::endl;
+        return;
+    }
     MAPEM_t mapem_t = {(*mapem)->header, (*mapem)->map};
-    Document mapem_json = buildJSON(mapem_t, cp.time_received, cp.rssi, cp.size());
 
-    pubsub->publish(config_s.mapem, mapem_json, &mapem_udp_socket, &mapem_remote_endpoint, &mapem_err, mapem_rx_counter, mapem_rx_latency, cp.time_received, "MAPEM");
+    if(config_s.publish_encoded_payloads) {
+        const std::vector<uint8_t> vec = std::vector<uint8_t>(cp[OsiLayer::Application].begin(), cp[OsiLayer::Application].end());
+        pubsub->publish_encoded(
+            config_s.mapem,
+            vec, 
+            cp.rssi,
+            true,
+            cp.size(),
+            mapem_t.header.stationID,
+            config_s.station_id,
+            config_s.station_type,
+            cp.time_received,
+            "");
+    }
+    const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+
+    Document mapem_json = buildJSON(mapem_t, cp.time_received, cp.rssi, cp.size());
+    pubsub->publish(config_s.mapem, mapem_json, &mapem_udp_socket, &mapem_remote_endpoint, &mapem_err, mapem_rx_counter, mapem_rx_latency, cp.time_received, time_encoded, "MAPEM");
+
 }
 
 void MapemApplication::schedule_timer()
@@ -97,52 +118,59 @@ Document MapemApplication::buildJSON(MAPEM_t message, double time_reception, int
     return document;
 }
 
-void MapemApplication::on_message(string topic, string mqtt_message, vanetza::geonet::Router* router) {
+void MapemApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, vanetza::geonet::Router* router) {
 
-    const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    const double time_processing = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
-    MapData_t mapem;
-
+    DownPacketPtr packet { new DownPacket() };
     Document document;
+    Value payload;
+
+    if (!is_encoded) {
+        MapData_t mapem;
     
-    try {
-        document.Parse(mqtt_message.c_str());
-        if(document.HasParseError() || !document.IsObject()) {
-            std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows JSON spec\n" << std::endl;
+        try {
+            document.Parse(mqtt_message.c_str());
+            if(document.HasParseError() || !document.IsObject()) {
+                std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows JSON spec\n" << std::endl;
+                std::cout << "Invalid payload: " << mqtt_message << std::endl;
+                return;
+            }
+        } catch(...) {
+            std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
             std::cout << "Invalid payload: " << mqtt_message << std::endl;
             return;
         }
-    } catch(...) {
-        std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
-        std::cout << "Invalid payload: " << mqtt_message << std::endl;
-        return;
+
+        payload = document.GetObject();
+
+        try {
+            from_json(payload, mapem, "MAPEM");
+        } catch (VanetzaJSONException& e) {
+            std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+            std::cout << e.what() << std::endl;
+            std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
+            return;
+        } catch(...) {
+            std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+            std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
+            return;
+        }
+
+        vanetza::asn1::Mapem message;
+
+        ItsPduHeader_t& header = message->header;
+        header.protocolVersion = 2;
+        header.messageID = ItsPduHeader__messageID_mapem;
+        header.stationID = config_s.station_id;
+
+        message->map = mapem;
+
+        packet->layer(OsiLayer::Application) = std::move(message);
+    } else {
+        std::vector<unsigned char> bytesCopy(bytes.begin(), bytes.end());
+        packet->layer(OsiLayer::Application) = std::move(bytesCopy);
     }
-
-    Value& payload = document.GetObject();
-    try {
-        from_json(payload, mapem, "MAPEM");
-    } catch (VanetzaJSONException& e) {
-        std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
-        std::cout << e.what() << std::endl;
-        std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
-        return;
-    } catch(...) {
-        std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
-        std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
-        return;
-    }
-
-    vanetza::asn1::Mapem message;
-
-    ItsPduHeader_t& header = message->header;
-    header.protocolVersion = 2;
-    header.messageID = ItsPduHeader__messageID_mapem;
-    header.stationID = config_s.station_id;
-
-    message->map = mapem;
-
-    DownPacketPtr packet { new DownPacket() };
-    packet->layer(OsiLayer::Application) = std::move(message);
 
     DataRequest request;
     request.its_aid = aid::RLT;
@@ -164,26 +192,31 @@ void MapemApplication::on_message(string topic, string mqtt_message, vanetza::ge
     }
 
     if(config_s.mapem.mqtt_time_enabled) {
+        const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+
         Document document;
         Document::AllocatorType& allocator = document.GetAllocator();
         Value timePayload(kObjectType);
+        Value timeTest(kObjectType);
 
         timePayload.AddMember("timestamp", time_reception, allocator)
             .AddMember("stationID", config_s.station_id, allocator)
             .AddMember("receiverID", config_s.station_id, allocator)
-            .AddMember("receiverType", config_s.station_type, allocator)
-            .AddMember("fields", Value(kObjectType).AddMember("mapem", payload, allocator), allocator);
+            .AddMember("receiverType", config_s.station_type, allocator);
+        if(!is_encoded) timePayload.AddMember("fields", Value(kObjectType).AddMember("mapem", payload, allocator), allocator);
 
-        const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-        timePayload.AddMember("test", Value(kObjectType).AddMember("wave_timestamp", time_now, allocator), allocator);
+        timeTest.AddMember("wave_timestamp", time_now, allocator);
+        timeTest.AddMember("start_processing_timestamp", time_processing, allocator);
+        timePayload.AddMember("test", timeTest, allocator);
 
         pubsub->publish_time(config_s.mapem, timePayload);
-    
     }
 
-    mapem_tx_counter->Increment();
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    prom_mtx.lock();
+    mapem_tx_counter->Increment();
     mapem_tx_latency->Increment(time_now - time_reception);
+    prom_mtx.unlock();
 }
 
 void MapemApplication::on_timer(Clock::time_point)

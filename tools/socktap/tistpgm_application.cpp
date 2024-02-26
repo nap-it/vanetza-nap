@@ -26,15 +26,15 @@ ip::udp::socket tistpgm_udp_socket(tistpgm_io_service_);
 ip::udp::endpoint tistpgm_remote_endpoint;
 boost::system::error_code tistpgm_err;
 
-TistpgmApplication::TistpgmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
-    positioning_(positioning), runtime_(rt), tistpgm_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
-{
-    this->pubsub->subscribe(config_s.tistpgm, this);
-    
+TistpgmApplication::TistpgmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_) :
+    positioning_(positioning), runtime_(rt), tistpgm_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_), prom_mtx(prom_mtx_)
+{   
     tistpgm_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "tistpgm"}, {"direction", "rx"}}));
     tistpgm_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "tistpgm"}, {"direction", "tx"}}));
     tistpgm_rx_latency = &((*metrics_s.latency_counter).Add({{"message", "tistpgm"}, {"direction", "rx"}}));
     tistpgm_tx_latency = &((*metrics_s.latency_counter).Add({{"message", "tistpgm"}, {"direction", "tx"}}));
+
+    this->pubsub->subscribe(config_s.tistpgm, this);
 
     if(config_s.tistpgm.udp_out_port != 0) {
         tistpgm_udp_socket.open(ip::udp::v4());
@@ -67,11 +67,32 @@ void TistpgmApplication::indicate(const DataIndication& indication, UpPacketPtr 
 
     asn1::PacketVisitor<asn1::Tistpgm> visitor;
     std::shared_ptr<const asn1::Tistpgm> tistpgm = boost::apply_visitor(visitor, *packet);
-
+    if (tistpgm == 0) {
+        std::cout << "-- Vanetza Decoding Error --\nReceived an encoded TISTPGM message that does not meet ETSI spec" << std::endl;
+        //std::cout << "\nInvalid sender: " << cp. << std::endl;
+        return;
+    }
     TisTpgTransactionsPdu_t tistpgm_t = {(*tistpgm)->header, (*tistpgm)->tisTpgTransaction};
-    Document tistpgm_json = buildJSON(tistpgm_t, cp.time_received, cp.rssi, cp.size());
 
-    pubsub->publish(config_s.tistpgm, tistpgm_json, &tistpgm_udp_socket, &tistpgm_remote_endpoint, &tistpgm_err, tistpgm_rx_counter, tistpgm_rx_latency, cp.time_received, "TISTPGM");  
+    if(config_s.publish_encoded_payloads) {
+        const std::vector<uint8_t> vec = std::vector<uint8_t>(cp[OsiLayer::Application].begin(), cp[OsiLayer::Application].end());
+        pubsub->publish_encoded(
+            config_s.tistpgm,
+            vec, 
+            cp.rssi,
+            true,
+            cp.size(),
+            tistpgm_t.header.stationID,
+            config_s.station_id,
+            config_s.station_type,
+            cp.time_received,
+            "");
+    }
+    const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+
+    Document tistpgm_json = buildJSON(tistpgm_t, cp.time_received, cp.rssi, cp.size());
+    pubsub->publish(config_s.tistpgm, tistpgm_json, &tistpgm_udp_socket, &tistpgm_remote_endpoint, &tistpgm_err, tistpgm_rx_counter, tistpgm_rx_latency, cp.time_received, time_encoded, "TISTPGM");
+ 
 }
 
 void TistpgmApplication::schedule_timer()
@@ -97,51 +118,59 @@ Document TistpgmApplication::buildJSON(TisTpgTransactionsPdu_t message, double t
     return document;
 }
 
-void TistpgmApplication::on_message(string topic, string mqtt_message, vanetza::geonet::Router* router) {
+void TistpgmApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, vanetza::geonet::Router* router) {
 
-    const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    const double time_processing = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
-    TisTpgTransaction_t tistpgm;
-
+    DownPacketPtr packet { new DownPacket() };
     Document document;
+    Value payload;
+
+    if (!is_encoded) {
+        TisTpgTransaction_t tistpgm;
     
-    try {
-        document.Parse(mqtt_message.c_str());
-        if(document.HasParseError() || !document.IsObject()) {
-            std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows JSON spec\n" << std::endl;
+        try {
+            document.Parse(mqtt_message.c_str());
+            if(document.HasParseError() || !document.IsObject()) {
+                std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows JSON spec\n" << std::endl;
+                std::cout << "Invalid payload: " << mqtt_message << std::endl;
+                return;
+            }
+        } catch(...) {
+            std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
             std::cout << "Invalid payload: " << mqtt_message << std::endl;
             return;
         }
-    } catch(...) {
-        std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
-        std::cout << "Invalid payload: " << mqtt_message << std::endl;
-        return;
+
+        payload = document.GetObject();
+
+        try {
+            from_json(payload, tistpgm, "TISTPGM");
+        } catch (VanetzaJSONException& e) {
+            std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+            std::cout << e.what() << std::endl;
+            std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
+            return;
+        } catch(...) {
+            std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+            std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
+            return;
+        }
+
+        vanetza::asn1::Tistpgm message;
+
+        ItsPduHeader_t& header = message->header;
+        header.protocolVersion = 2;
+        header.messageID = ItsPduHeader__messageID_tistpgtransaction;
+        header.stationID = config_s.station_id;
+
+        message->tisTpgTransaction = tistpgm;
+
+        packet->layer(OsiLayer::Application) = std::move(message);
+    } else {
+        std::vector<unsigned char> bytesCopy(bytes.begin(), bytes.end());
+        packet->layer(OsiLayer::Application) = std::move(bytesCopy);
     }
-
-    Value& payload = document.GetObject();
-    try {
-        from_json(payload, tistpgm, "TISTPGM");
-    } catch (VanetzaJSONException& e) {
-        std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
-        std::cout << e.what() << std::endl;
-        std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
-        return;
-    } catch(...) {
-        std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
-        std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
-        return;
-    }
-    vanetza::asn1::Tistpgm message;
-
-    ItsPduHeader_t& header = message->header;
-    header.protocolVersion = 2;
-    header.messageID = ItsPduHeader__messageID_tistpgtransaction;
-    header.stationID = config_s.station_id;
-
-    message->tisTpgTransaction = tistpgm;
-
-    DownPacketPtr packet { new DownPacket() };
-    packet->layer(OsiLayer::Application) = std::move(message);
 
     DataRequest request;
     request.its_aid = aid::TLM;
@@ -163,25 +192,31 @@ void TistpgmApplication::on_message(string topic, string mqtt_message, vanetza::
     }
 
     if(config_s.tistpgm.mqtt_time_enabled) {
+        const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+
         Document document;
         Document::AllocatorType& allocator = document.GetAllocator();
         Value timePayload(kObjectType);
+        Value timeTest(kObjectType);
 
         timePayload.AddMember("timestamp", time_reception, allocator)
             .AddMember("stationID", config_s.station_id, allocator)
             .AddMember("receiverID", config_s.station_id, allocator)
-            .AddMember("receiverType", config_s.station_type, allocator)
-            .AddMember("fields", Value(kObjectType).AddMember("tistpgm", payload, allocator), allocator);
+            .AddMember("receiverType", config_s.station_type, allocator);
+        if(!is_encoded) timePayload.AddMember("fields", Value(kObjectType).AddMember("tistpgm", payload, allocator), allocator);
 
-        const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-        timePayload.AddMember("test", Value(kObjectType).AddMember("wave_timestamp", time_now, allocator), allocator);
+        timeTest.AddMember("wave_timestamp", time_now, allocator);
+        timeTest.AddMember("start_processing_timestamp", time_processing, allocator);
+        timePayload.AddMember("test", timeTest, allocator);
 
         pubsub->publish_time(config_s.tistpgm, timePayload);
     }
 
-    tistpgm_tx_counter->Increment();
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    prom_mtx.lock();
+    tistpgm_tx_counter->Increment();
     tistpgm_tx_latency->Increment(time_now - time_reception);
+    prom_mtx.unlock();
 }
 
 void TistpgmApplication::on_timer(Clock::time_point)

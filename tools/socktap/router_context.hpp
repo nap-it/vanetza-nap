@@ -54,6 +54,7 @@ private:
     std::unique_ptr<DccPassthrough> request_interface_;
     std::list<Application*> applications_;
     vanetza::security::SecurityEntity* security_entity_;
+    TimeTrigger& trigger_;
     bool require_position_fix_ = false;
     bool ignore_own_messages = true;
     bool ignore_rsu_messages = false;

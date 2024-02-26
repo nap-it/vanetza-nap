@@ -15381,7 +15381,7 @@ Value to_json(const Trajectory& p, Document::AllocatorType& allocator) {
     json.AddMember("intermediatePoints", to_json((p.intermediatePoints), allocator), allocator);
     json.AddMember("longitudinalPositions", to_json((p.longitudinalPositions), allocator), allocator);
     json.AddMember("lateralPositions", to_json((p.lateralPositions), allocator), allocator);
-    json.AddMember("spead", to_json((p.spead), allocator), allocator);
+    json.AddMember("speed", to_json((p.speed), allocator), allocator);
     if (p.elevationPositions != 0) json.AddMember("elevationPositions", to_json(*(p.elevationPositions), allocator), allocator);
     if (p.headings != 0) json.AddMember("headings", to_json(*(p.headings), allocator), allocator);
     return json;
@@ -15397,7 +15397,7 @@ void from_json(const Value& j, Trajectory& p, std::string field) {
         else { p.elevationPositions=nullptr; }
         if (j.HasMember("headings")) { p.headings = vanetza::asn1::allocate<Trajectory::Trajectory__headings>(); from_json(j["headings"], *(p.headings), "headings"); }
         else { p.headings=nullptr; }
-        from_json(j["spead"], (p.spead), "spead");
+        from_json(j["speed"], (p.speed), "speed");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();

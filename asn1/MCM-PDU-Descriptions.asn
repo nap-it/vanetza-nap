@@ -187,7 +187,7 @@ Trajectory::= SEQUENCE {
 	lateralPositions SEQUENCE SIZE (1..11) OF Polynom,
 	elevationPositions SEQUENCE SIZE (1..11) OF Polynom OPTIONAL,
 	headings SEQUENCE SIZE (1..11) OF Polynom OPTIONAL,
-	spead INTEGER (0..511) -- in meters per second
+	speed INTEGER (0..511) -- in meters per second
 }
 
 IntermediatePoint::= CHOICE {

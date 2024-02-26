@@ -26,8 +26,8 @@ ip::udp::socket mcm_udp_socket(mcm_io_service_);
 ip::udp::endpoint mcm_remote_endpoint;
 boost::system::error_code mcm_err;
 
-McmApplication::McmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
-    positioning_(positioning), runtime_(rt), mcm_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
+McmApplication::McmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_) :
+    positioning_(positioning), runtime_(rt), mcm_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_), prom_mtx(prom_mtx_)
 {
     this->pubsub->subscribe(config_s.mcm, this);
     
@@ -67,11 +67,32 @@ void McmApplication::indicate(const DataIndication& indication, UpPacketPtr pack
 
     asn1::PacketVisitor<asn1::Mcm> visitor;
     std::shared_ptr<const asn1::Mcm> mcm = boost::apply_visitor(visitor, *packet);
-
+    if (mcm == 0) {
+        std::cout << "-- Vanetza Decoding Error --\nReceived an encoded MCM message that does not meet ETSI spec" << std::endl;
+        //std::cout << "\nInvalid sender: " << cp. << std::endl;
+        return;
+    }
     MCM_t mcm_t = {(*mcm)->header, (*mcm)->payload};
-    Document mcm_json = buildJSON(mcm_t, cp.time_received, cp.rssi, cp.size());
 
-    pubsub->publish(config_s.mcm, mcm_json, &mcm_udp_socket, &mcm_remote_endpoint, &mcm_err, mcm_rx_counter, mcm_rx_latency, cp.time_received, "MCM"); 
+    if(config_s.publish_encoded_payloads) {
+        const std::vector<uint8_t> vec = std::vector<uint8_t>(cp[OsiLayer::Application].begin(), cp[OsiLayer::Application].end());
+        pubsub->publish_encoded(
+            config_s.mcm,
+            vec, 
+            cp.rssi,
+            true,
+            cp.size(),
+            mcm_t.header.stationID,
+            config_s.station_id,
+            config_s.station_type,
+            cp.time_received,
+            "");
+    }
+    const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+
+    Document mcm_json = buildJSON(mcm_t, cp.time_received, cp.rssi, cp.size());
+    pubsub->publish(config_s.mcm, mcm_json, &mcm_udp_socket, &mcm_remote_endpoint, &mcm_err, mcm_rx_counter, mcm_rx_latency, cp.time_received, time_encoded, "MCM");
+    
 }
 
 void McmApplication::schedule_timer()
@@ -97,51 +118,59 @@ Document McmApplication::buildJSON(MCM_t message, double time_reception, int rss
     return document;
 }
 
-void McmApplication::on_message(string topic, string mqtt_message, vanetza::geonet::Router* router) {
+void McmApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, vanetza::geonet::Router* router) {
 
-    const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    const double time_processing = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
-    WrappedMcmInformationBlocks_t mcm;
-
+    DownPacketPtr packet { new DownPacket() };
     Document document;
+    Value payload;
+
+    if (!is_encoded) {
+        WrappedMcmInformationBlocks_t mcm;
     
-    try {
-        document.Parse(mqtt_message.c_str());
-        if(document.HasParseError() || !document.IsObject()) {
-            std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows JSON spec\n" << std::endl;
+        try {
+            document.Parse(mqtt_message.c_str());
+            if(document.HasParseError() || !document.IsObject()) {
+                std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows JSON spec\n" << std::endl;
+                std::cout << "Invalid payload: " << mqtt_message << std::endl;
+                return;
+            }
+        } catch(...) {
+            std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
             std::cout << "Invalid payload: " << mqtt_message << std::endl;
             return;
         }
-    } catch(...) {
-        std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
-        std::cout << "Invalid payload: " << mqtt_message << std::endl;
-        return;
+
+        payload = document.GetObject();
+
+        try {
+            from_json(payload, mcm, "MCM");
+        } catch (VanetzaJSONException& e) {
+            std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+            std::cout << e.what() << std::endl;
+            std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
+            return;
+        } catch(...) {
+            std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+            std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
+            return;
+        }
+
+        vanetza::asn1::Mcm message;
+
+        ItsPduHeader_t& header = message->header;
+        header.protocolVersion = 2;
+        header.messageID = ItsPduHeader__messageID_mcm;
+        header.stationID = config_s.station_id;
+
+        message->payload = mcm;
+
+        packet->layer(OsiLayer::Application) = std::move(message);
+    } else {
+        std::vector<unsigned char> bytesCopy(bytes.begin(), bytes.end());
+        packet->layer(OsiLayer::Application) = std::move(bytesCopy);
     }
-
-    Value& payload = document.GetObject();
-    try {
-        from_json(payload, mcm, "MCM");
-    } catch (VanetzaJSONException& e) {
-        std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
-        std::cout << e.what() << std::endl;
-        std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
-        return;
-    } catch(...) {
-        std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
-        std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
-        return;
-    }
-    vanetza::asn1::Mcm message;
-
-    ItsPduHeader_t& header = message->header;
-    header.protocolVersion = 2;
-    header.messageID = ItsPduHeader__messageID_mcm;
-    header.stationID = config_s.station_id;
-
-    message->payload = mcm;
-
-    DownPacketPtr packet { new DownPacket() };
-    packet->layer(OsiLayer::Application) = std::move(message);
 
     DataRequest request;
     request.its_aid = aid::TLM;
@@ -163,26 +192,31 @@ void McmApplication::on_message(string topic, string mqtt_message, vanetza::geon
     }
 
     if(config_s.mcm.mqtt_time_enabled) {
+        const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+
         Document document;
         Document::AllocatorType& allocator = document.GetAllocator();
         Value timePayload(kObjectType);
+        Value timeTest(kObjectType);
 
         timePayload.AddMember("timestamp", time_reception, allocator)
             .AddMember("stationID", config_s.station_id, allocator)
             .AddMember("receiverID", config_s.station_id, allocator)
-            .AddMember("receiverType", config_s.station_type, allocator)
-            .AddMember("fields", Value(kObjectType).AddMember("mcm", payload, allocator), allocator);
+            .AddMember("receiverType", config_s.station_type, allocator);
+        if(!is_encoded) timePayload.AddMember("fields", Value(kObjectType).AddMember("mcm", payload, allocator), allocator);
 
-        const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-        timePayload.AddMember("test", Value(kObjectType).AddMember("wave_timestamp", time_now, allocator), allocator);
+        timeTest.AddMember("wave_timestamp", time_now, allocator);
+        timeTest.AddMember("start_processing_timestamp", time_processing, allocator);
+        timePayload.AddMember("test", timeTest, allocator);
 
         pubsub->publish_time(config_s.mcm, timePayload);
-    
     }
 
-    mcm_tx_counter->Increment();
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    prom_mtx.lock();
+    mcm_tx_counter->Increment();
     mcm_tx_latency->Increment(time_now - time_reception);
+    prom_mtx.unlock();
 }
 
 void McmApplication::on_timer(Clock::time_point)

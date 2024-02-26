@@ -19,6 +19,7 @@
 
 #include <prometheus/counter.h>
 #include <prometheus/registry.h>
+#include <mutex>
 
 static vanetza::geonet::GbcDataRequest request_gbc(const vanetza::btp::DataRequestGeoNetParams&, vanetza::geonet::Router* router);
 static vanetza::geonet::ShbDataRequest request_shb(const vanetza::btp::DataRequestGeoNetParams&, vanetza::geonet::Router* router);

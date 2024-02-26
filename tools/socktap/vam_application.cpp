@@ -28,10 +28,18 @@ ip::udp::socket vam_udp_socket(vam_io_service_);
 ip::udp::endpoint vam_remote_endpoint;
 boost::system::error_code vam_err;
 
-VamApplication::VamApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
-    positioning_(positioning), runtime_(rt), vam_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
+std::mutex vam_persistence_mtx;
+
+VamApplication::VamApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_) :
+    positioning_(positioning), runtime_(rt), vam_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_), prom_mtx(prom_mtx_)
 {
     vam_persistence = {};
+    
+    vam_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "vam"}, {"direction", "rx"}}));
+    vam_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "vam"}, {"direction", "tx"}}));
+    vam_rx_latency = &((*metrics_s.latency_counter).Add({{"message", "vam"}, {"direction", "rx"}}));
+    vam_tx_latency = &((*metrics_s.latency_counter).Add({{"message", "vam"}, {"direction", "tx"}}));
+
     if(config_s.vam.mqtt_enabled) {
         pubsub->manual_subscribe(config_s.vam, config_s.vam.topic_in, this);
         pubsub->manual_subscribe(config_s.vam, config_s.full_vam_topic_in, this);
@@ -44,10 +52,6 @@ VamApplication::VamApplication(PositionProvider& positioning, Runtime& rt, PubSu
         pubsub->manual_provision(config_s.vam, config_s.vam.topic_out);
         pubsub->manual_provision(config_s.vam, config_s.full_vam_topic_out);
     }
-    vam_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "vam"}, {"direction", "rx"}}));
-    vam_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "vam"}, {"direction", "tx"}}));
-    vam_rx_latency = &((*metrics_s.latency_counter).Add({{"message", "vam"}, {"direction", "rx"}}));
-    vam_tx_latency = &((*metrics_s.latency_counter).Add({{"message", "vam"}, {"direction", "tx"}}));
 
     if(config_s.vam.udp_out_port != 0) {
         vam_udp_socket.open(ip::udp::v4());
@@ -80,8 +84,29 @@ void VamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
 
     asn1::PacketVisitor<asn1::Vam> visitor;
     std::shared_ptr<const asn1::Vam> vam = boost::apply_visitor(visitor, *packet);
-
+    if (vam == 0) {
+        std::cout << "-- Vanetza Decoding Error --\nReceived an encoded VAM message that does not meet ETSI spec" << std::endl;
+        //std::cout << "\nInvalid sender: " << cp. << std::endl;
+        return;
+    }
     VAM_t vam_t = {(*vam)->header, (*vam)->vam};
+
+    if(config_s.publish_encoded_payloads) {
+        const std::vector<uint8_t> vec = std::vector<uint8_t>(cp[OsiLayer::Application].begin(), cp[OsiLayer::Application].end());
+        pubsub->publish_encoded(
+            config_s.vam,
+            vec, 
+            cp.rssi,
+            true,
+            cp.size(),
+            vam_t.header.stationID,
+            config_s.station_id,
+            config_s.station_type,
+            cp.time_received,
+            "");
+    }
+    const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+
     Document vam_json_full(kObjectType);
     Document vam_json = buildJSON(vam_t, vam_json_full, cp.time_received, cp.rssi, cp.size());
 
@@ -119,12 +144,15 @@ void VamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     const double time_full_remote = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     */
 
-    vam_rx_counter->Increment();
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    prom_mtx.lock();
+    vam_rx_counter->Increment();
     vam_rx_latency->Increment(time_now - cp.time_received);
+    prom_mtx.unlock();
 
     if(config_s.vam.mqtt_test_enabled) {
         Document::AllocatorType& allocator = vam_json.GetAllocator();
+        if (config_s.publish_encoded_payloads != 0) vam_json["test"].AddMember("encoded_timestamp", time_encoded, allocator);
         if (config_s.vam.udp_out_port != 0) vam_json["test"].AddMember("full_udp_timestamp", time_simple_udp, allocator);
         if (config_s.vam.dds_enabled != 0) vam_json["test"].AddMember("full_dds_timestamp", time_simple_dds, allocator);
         if (config_s.vam.mqtt_enabled != 0) vam_json["test"].AddMember("full_local_timestamp", time_simple_local, allocator);
@@ -187,7 +215,11 @@ Document VamApplication::buildJSON(VAM_t message, Document& vam_json_full, doubl
     if (basic.stationType == 1 || basic.stationType == 13) { // person or animal
         newInfo = isNewInfo(header.stationID, time_reception);
 
-        if(newInfo) vam_persistence[header.stationID] = {{"time", time_reception}};
+        if(newInfo) {
+            vam_persistence_mtx.lock();
+            vam_persistence[header.stationID] = {{"time", time_reception}};
+            vam_persistence_mtx.unlock();
+        }
 
     } else {
         long latitude = (long) basic.referencePosition.latitude;
@@ -197,7 +229,11 @@ Document VamApplication::buildJSON(VAM_t message, Document& vam_json_full, doubl
 
         newInfo = isNewInfo(header.stationID, latitude, longitude, speed, heading, time_reception);
 
-        if(newInfo) vam_persistence[header.stationID] = {{"lat", (double) latitude}, {"lng", (double) longitude}, {"speed", (double) speed}, {"heading", (long) heading}, {"time", time_reception}};
+        if(newInfo) {
+            vam_persistence_mtx.lock();
+            vam_persistence[header.stationID] = {{"lat", (double) latitude}, {"lng", (double) longitude}, {"speed", (double) speed}, {"heading", (long) heading}, {"time", time_reception}};
+            vam_persistence_mtx.unlock();
+        }
     }
 
     document.AddMember("timestamp", time_reception, allocator)
@@ -214,52 +250,59 @@ Document VamApplication::buildJSON(VAM_t message, Document& vam_json_full, doubl
     return document;
 }
 
-void VamApplication::on_message(string topic, string mqtt_message, vanetza::geonet::Router* router) {
+void VamApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, vanetza::geonet::Router* router) {
 
-    const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    const double time_processing = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
-    VruAwareness_t vam;
-
+    DownPacketPtr packet { new DownPacket() };
     Document document;
+    Value payload;
+
+    if (!is_encoded) {
+        VruAwareness_t vam;
     
-    try {
-        document.Parse(mqtt_message.c_str());
-        if(document.HasParseError() || !document.IsObject()) {
-            std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows JSON spec\n" << std::endl;
+        try {
+            document.Parse(mqtt_message.c_str());
+            if(document.HasParseError() || !document.IsObject()) {
+                std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows JSON spec\n" << std::endl;
+                std::cout << "Invalid payload: " << mqtt_message << std::endl;
+                return;
+            }
+        } catch(...) {
+            std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
             std::cout << "Invalid payload: " << mqtt_message << std::endl;
             return;
         }
-    } catch(...) {
-        std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
-        std::cout << "Invalid payload: " << mqtt_message << std::endl;
-        return;
+
+        payload = document.GetObject();
+
+        try {
+            from_json(payload, vam, "VAM");
+        } catch (VanetzaJSONException& e) {
+            std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+            std::cout << e.what() << std::endl;
+            std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
+            return;
+        } catch(...) {
+            std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+            std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
+            return;
+        }
+
+        vanetza::asn1::Vam message;
+
+        ItsPduHeader_t& header = message->header;
+        header.protocolVersion = 1;
+        header.messageID = ItsPduHeader__messageID_vam;
+        header.stationID = config_s.station_id;
+
+        message->vam = vam;
+
+        packet->layer(OsiLayer::Application) = std::move(message);
+    } else {
+        std::vector<unsigned char> bytesCopy(bytes.begin(), bytes.end());
+        packet->layer(OsiLayer::Application) = std::move(bytesCopy);
     }
-
-    Value& payload = document.GetObject();
-    try {
-        from_json(payload, vam, "VAM");
-    } catch (VanetzaJSONException& e) {
-        std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
-        std::cout << e.what() << std::endl;
-        std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
-        return;
-    } catch(...) {
-        std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
-        std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
-        return;
-    }
-
-    vanetza::asn1::Vam message;
-
-    ItsPduHeader_t& header = message->header;
-    header.protocolVersion = 1;
-    header.messageID = ItsPduHeader__messageID_vam;
-    header.stationID = config_s.station_id;
-
-    message->vam = vam;
-
-    DownPacketPtr packet { new DownPacket() };
-    packet->layer(OsiLayer::Application) = std::move(message);
 
     DataRequest request;
     request.its_aid = aid::VRU;
@@ -281,32 +324,31 @@ void VamApplication::on_message(string topic, string mqtt_message, vanetza::geon
     }
 
     if(config_s.vam.mqtt_time_enabled) {
+        const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+
         Document document;
         Document::AllocatorType& allocator = document.GetAllocator();
         Value timePayload(kObjectType);
+        Value timeTest(kObjectType);
 
         timePayload.AddMember("timestamp", time_reception, allocator)
             .AddMember("stationID", config_s.station_id, allocator)
             .AddMember("receiverID", config_s.station_id, allocator)
-            .AddMember("receiverType", config_s.station_type, allocator)
-            .AddMember("fields", Value(kObjectType).AddMember("vam", payload, allocator), allocator);
+            .AddMember("receiverType", config_s.station_type, allocator);
+        if(!is_encoded) timePayload.AddMember("fields", Value(kObjectType).AddMember("vam", payload, allocator), allocator);
 
-        const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-        timePayload.AddMember("test", Value(kObjectType).AddMember("wave_timestamp", time_now, allocator), allocator);
+        timeTest.AddMember("wave_timestamp", time_now, allocator);
+        timeTest.AddMember("start_processing_timestamp", time_processing, allocator);
+        timePayload.AddMember("test", timeTest, allocator);
 
-        StringBuffer fullBuffer;
-        Writer<StringBuffer> writer(fullBuffer);
-        timePayload.Accept(writer);
-        const char* timeJSON = fullBuffer.GetString();
-
-        pubsub->local_mqtt->publish(config_s.vam.topic_time, timeJSON);
-        if (pubsub->remote_mqtt != NULL) pubsub->remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.vam.topic_time, timeJSON);
-    
+        pubsub->publish_time(config_s.vam, timePayload);
     }
 
-    vam_tx_counter->Increment();
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    prom_mtx.lock();
+    vam_tx_counter->Increment();
     vam_tx_latency->Increment(time_now - time_reception);
+    prom_mtx.unlock();
 }
 
 void VamApplication::on_timer(Clock::time_point)

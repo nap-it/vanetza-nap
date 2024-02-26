@@ -26,15 +26,15 @@ ip::udp::socket rtcmem_udp_socket(rtcmem_io_service_);
 ip::udp::endpoint rtcmem_remote_endpoint;
 boost::system::error_code rtcmem_err;
 
-RtcmemApplication::RtcmemApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
-    positioning_(positioning), runtime_(rt), rtcmem_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
+RtcmemApplication::RtcmemApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_) :
+    positioning_(positioning), runtime_(rt), rtcmem_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_), prom_mtx(prom_mtx_)
 {
-    this->pubsub->subscribe(config_s.rtcmem, this);
-    
     rtcmem_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "rtcmem"}, {"direction", "rx"}}));
     rtcmem_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "rtcmem"}, {"direction", "tx"}}));
     rtcmem_rx_latency = &((*metrics_s.latency_counter).Add({{"message", "rtcmem"}, {"direction", "rx"}}));
     rtcmem_tx_latency = &((*metrics_s.latency_counter).Add({{"message", "rtcmem"}, {"direction", "tx"}}));
+
+    this->pubsub->subscribe(config_s.rtcmem, this);
 
     if(config_s.rtcmem.udp_out_port != 0) {
         rtcmem_udp_socket.open(ip::udp::v4());
@@ -67,11 +67,27 @@ void RtcmemApplication::indicate(const DataIndication& indication, UpPacketPtr p
 
     asn1::PacketVisitor<asn1::Rtcmem> visitor;
     std::shared_ptr<const asn1::Rtcmem> rtcmem = boost::apply_visitor(visitor, *packet);
-
     RTCMEM_t rtcmem_t = {(*rtcmem)->header, (*rtcmem)->rtcmc};
-    Document rtcmem_json = buildJSON(rtcmem_t, cp.time_received, cp.rssi, cp.size());
 
-    pubsub->publish(config_s.rtcmem, rtcmem_json, &rtcmem_udp_socket, &rtcmem_remote_endpoint, &rtcmem_err, rtcmem_rx_counter, rtcmem_rx_latency, cp.time_received, "RTCMEM");   
+    if(config_s.publish_encoded_payloads) {
+        const std::vector<uint8_t> vec = std::vector<uint8_t>(cp[OsiLayer::Application].begin(), cp[OsiLayer::Application].end());
+        pubsub->publish_encoded(
+            config_s.rtcmem,
+            vec, 
+            cp.rssi,
+            true,
+            cp.size(),
+            rtcmem_t.header.stationID,
+            config_s.station_id,
+            config_s.station_type,
+            cp.time_received,
+            "");
+    }
+    const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+
+    Document rtcmem_json = buildJSON(rtcmem_t, cp.time_received, cp.rssi, cp.size());
+    pubsub->publish(config_s.rtcmem, rtcmem_json, &rtcmem_udp_socket, &rtcmem_remote_endpoint, &rtcmem_err, rtcmem_rx_counter, rtcmem_rx_latency, cp.time_received, time_encoded, "RTCMEM");
+
 }
 
 void RtcmemApplication::schedule_timer()
@@ -97,51 +113,59 @@ Document RtcmemApplication::buildJSON(RTCMEM_t message, double time_reception, i
     return document;
 }
 
-void RtcmemApplication::on_message(string topic, string mqtt_message, vanetza::geonet::Router* router) {
+void RtcmemApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, vanetza::geonet::Router* router) {
 
-    const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    const double time_processing = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
-    RTCMcorrections_t rtcmem;
-
+    DownPacketPtr packet { new DownPacket() };
     Document document;
+    Value payload;
+
+    if (!is_encoded) {
+        RTCMcorrections_t rtcmem;
     
-    try {
-        document.Parse(mqtt_message.c_str());
-        if(document.HasParseError() || !document.IsObject()) {
-            std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows JSON spec\n" << std::endl;
+        try {
+            document.Parse(mqtt_message.c_str());
+            if(document.HasParseError() || !document.IsObject()) {
+                std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows JSON spec\n" << std::endl;
+                std::cout << "Invalid payload: " << mqtt_message << std::endl;
+                return;
+            }
+        } catch(...) {
+            std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
             std::cout << "Invalid payload: " << mqtt_message << std::endl;
             return;
         }
-    } catch(...) {
-        std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
-        std::cout << "Invalid payload: " << mqtt_message << std::endl;
-        return;
+
+        payload = document.GetObject();
+
+        try {
+            from_json(payload, rtcmem, "RTCMEM");
+        } catch (VanetzaJSONException& e) {
+            std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+            std::cout << e.what() << std::endl;
+            std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
+            return;
+        } catch(...) {
+            std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+            std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
+            return;
+        }
+
+        vanetza::asn1::Rtcmem message;
+
+        ItsPduHeader_t& header = message->header;
+        header.protocolVersion = 2;
+        header.messageID = ItsPduHeader__messageID_rtcmem;
+        header.stationID = config_s.station_id;
+
+        message->rtcmc = rtcmem;
+
+        packet->layer(OsiLayer::Application) = std::move(message);
+    } else {
+        std::vector<unsigned char> bytesCopy(bytes.begin(), bytes.end());
+        packet->layer(OsiLayer::Application) = std::move(bytesCopy);
     }
-
-    Value& payload = document.GetObject();
-    try {
-        from_json(payload, rtcmem, "RTCMEM");
-    } catch (VanetzaJSONException& e) {
-        std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
-        std::cout << e.what() << std::endl;
-        std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
-        return;
-    } catch(...) {
-        std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
-        std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
-        return;
-    }
-    vanetza::asn1::Rtcmem message;
-
-    ItsPduHeader_t& header = message->header;
-    header.protocolVersion = 2;
-    header.messageID = ItsPduHeader__messageID_rtcmem;
-    header.stationID = config_s.station_id;
-
-    message->rtcmc = rtcmem;
-
-    DownPacketPtr packet { new DownPacket() };
-    packet->layer(OsiLayer::Application) = std::move(message);
 
     DataRequest request;
     request.its_aid = aid::TLM;
@@ -163,26 +187,31 @@ void RtcmemApplication::on_message(string topic, string mqtt_message, vanetza::g
     }
 
     if(config_s.rtcmem.mqtt_time_enabled) {
+        const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+
         Document document;
         Document::AllocatorType& allocator = document.GetAllocator();
         Value timePayload(kObjectType);
+        Value timeTest(kObjectType);
 
         timePayload.AddMember("timestamp", time_reception, allocator)
             .AddMember("stationID", config_s.station_id, allocator)
             .AddMember("receiverID", config_s.station_id, allocator)
-            .AddMember("receiverType", config_s.station_type, allocator)
-            .AddMember("fields", Value(kObjectType).AddMember("rtcmem", payload, allocator), allocator);
+            .AddMember("receiverType", config_s.station_type, allocator);
+        if(!is_encoded) timePayload.AddMember("fields", Value(kObjectType).AddMember("rtcmem", payload, allocator), allocator);
 
-        const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-        timePayload.AddMember("test", Value(kObjectType).AddMember("wave_timestamp", time_now, allocator), allocator);
+        timeTest.AddMember("wave_timestamp", time_now, allocator);
+        timeTest.AddMember("start_processing_timestamp", time_processing, allocator);
+        timePayload.AddMember("test", timeTest, allocator);
 
         pubsub->publish_time(config_s.rtcmem, timePayload);
-    
     }
 
-    rtcmem_tx_counter->Increment();
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    prom_mtx.lock();
+    rtcmem_tx_counter->Increment();
     rtcmem_tx_latency->Increment(time_now - time_reception);
+    prom_mtx.unlock();
 }
 
 void RtcmemApplication::on_timer(Clock::time_point)

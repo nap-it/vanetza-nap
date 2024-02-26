@@ -28,8 +28,7 @@
 #include <unistd.h>
 
 // DEBUG PURPOSES:
-//#include <thread>
-//#include <vector>
+#include <thread>
 
 namespace asio = boost::asio;
 namespace gn = vanetza::geonet;
@@ -78,7 +77,6 @@ int main(int argc, const char** argv)
         EthernetDevice device(device_name);
         vanetza::MacAddress mac_address = device.address();
 
-        std::cout << config_s.mac_address << std::endl;
         if (config_s.mac_address != "") {
             std::cout << "Using MAC address: " << config_s.mac_address << "." << std::endl;
 
@@ -166,13 +164,15 @@ int main(int argc, const char** argv)
         context.set_link_layer(link_layer.get());
         context.require_position_fix(vm.count("require-gnss-fix") > 0);
 
-        PubSub* pubsub = new PubSub(config_s, num_threads);
+        std::mutex prom_mtx; 
+
+        PubSub* pubsub = new PubSub(config_s, num_threads, prom_mtx);
 
         std::map<std::string, std::unique_ptr<Application>> apps;
 
         if (config_s.cam.enabled) {
             std::unique_ptr<CamApplication> cam_app {
-                new CamApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, get_router(num_threads), 1)
+                new CamApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, get_router(num_threads), 1, prom_mtx)
             };
             cam_app->set_interval(std::chrono::milliseconds(config_s.cam.periodicity));
             apps.emplace("cam", std::move(cam_app));
@@ -180,7 +180,7 @@ int main(int argc, const char** argv)
 
         if (config_s.denm.enabled) {
             std::unique_ptr<DenmApplication> denm_app {
-                new DenmApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 0)
+                new DenmApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 0, prom_mtx)
             };
             denm_app->set_interval(std::chrono::milliseconds(config_s.denm.periodicity));
             apps.emplace("denm", std::move(denm_app));
@@ -188,7 +188,7 @@ int main(int argc, const char** argv)
 
         if (config_s.cpm.enabled) {
             std::unique_ptr<CpmApplication> cpm_app {
-                    new CpmApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 0)
+                    new CpmApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 0, prom_mtx)
             };
             cpm_app->set_interval(std::chrono::milliseconds(config_s.cpm.periodicity));
             apps.emplace("cpm", std::move(cpm_app));
@@ -196,7 +196,7 @@ int main(int argc, const char** argv)
 
         if (config_s.vam.enabled) {
             std::unique_ptr<VamApplication> vam_app {
-                    new VamApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 1)
+                    new VamApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 1, prom_mtx)
             };
             vam_app->set_interval(std::chrono::milliseconds(config_s.vam.periodicity));
             apps.emplace("vam", std::move(vam_app));
@@ -204,7 +204,7 @@ int main(int argc, const char** argv)
 
         if (config_s.spatem.enabled) {
             std::unique_ptr<SpatemApplication> spatem_app {
-                    new SpatemApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 1)
+                    new SpatemApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 1, prom_mtx)
             };
             spatem_app->set_interval(std::chrono::milliseconds(config_s.spatem.periodicity));
             apps.emplace("spatem", std::move(spatem_app));
@@ -212,7 +212,7 @@ int main(int argc, const char** argv)
 
         if (config_s.mapem.enabled) {
             std::unique_ptr<MapemApplication> mapem_app {
-                    new MapemApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 1)
+                    new MapemApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 1, prom_mtx)
             };
             mapem_app->set_interval(std::chrono::milliseconds(config_s.mapem.periodicity));
             apps.emplace("mapem", std::move(mapem_app));
@@ -220,7 +220,7 @@ int main(int argc, const char** argv)
 
         if (config_s.ssem.enabled) {
             std::unique_ptr<SsemApplication> ssem_app {
-                    new SsemApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 2)
+                    new SsemApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 2, prom_mtx)
             };
             ssem_app->set_interval(std::chrono::milliseconds(config_s.ssem.periodicity));
             apps.emplace("ssem", std::move(ssem_app));
@@ -228,7 +228,7 @@ int main(int argc, const char** argv)
 
         if (config_s.srem.enabled) {
             std::unique_ptr<SremApplication> srem_app {
-                    new SremApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 2)
+                    new SremApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 2, prom_mtx)
             };
             srem_app->set_interval(std::chrono::milliseconds(config_s.srem.periodicity));
             apps.emplace("srem", std::move(srem_app));
@@ -236,7 +236,7 @@ int main(int argc, const char** argv)
 
         if (config_s.rtcmem.enabled) {
             std::unique_ptr<RtcmemApplication> rtcmem_app {
-                    new RtcmemApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 2)
+                    new RtcmemApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 2, prom_mtx)
             };
             rtcmem_app->set_interval(std::chrono::milliseconds(config_s.rtcmem.periodicity));
             apps.emplace("rtcmem", std::move(rtcmem_app));
@@ -244,7 +244,7 @@ int main(int argc, const char** argv)
 
         if (config_s.ivim.enabled) {
             std::unique_ptr<IvimApplication> ivim_app {
-                    new IvimApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 2)
+                    new IvimApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 2, prom_mtx)
             };
             ivim_app->set_interval(std::chrono::milliseconds(config_s.ivim.periodicity));
             apps.emplace("ivim", std::move(ivim_app));
@@ -252,7 +252,7 @@ int main(int argc, const char** argv)
 
         if (config_s.evcsnm.enabled) {
             std::unique_ptr<EvcsnmApplication> evcsnm_app {
-                    new EvcsnmApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 2)
+                    new EvcsnmApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 2, prom_mtx)
             };
             evcsnm_app->set_interval(std::chrono::milliseconds(config_s.evcsnm.periodicity));
             apps.emplace("evcsnm", std::move(evcsnm_app));
@@ -260,7 +260,7 @@ int main(int argc, const char** argv)
 
         if (config_s.evrsrm.enabled) {
             std::unique_ptr<EvrsrmApplication> evrsrm_app {
-                    new EvrsrmApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 2)
+                    new EvrsrmApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 2, prom_mtx)
             };
             evrsrm_app->set_interval(std::chrono::milliseconds(config_s.evrsrm.periodicity));
             apps.emplace("evrsrm", std::move(evrsrm_app));
@@ -268,7 +268,7 @@ int main(int argc, const char** argv)
 
         if (config_s.imzm.enabled) {
             std::unique_ptr<ImzmApplication> imzm_app {
-                    new ImzmApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 2)
+                    new ImzmApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 2, prom_mtx)
             };
             imzm_app->set_interval(std::chrono::milliseconds(config_s.imzm.periodicity));
             apps.emplace("imzm", std::move(imzm_app));
@@ -276,7 +276,7 @@ int main(int argc, const char** argv)
 
         if (config_s.tistpgm.enabled) {
             std::unique_ptr<TistpgmApplication> tistpgm_app {
-                    new TistpgmApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 2)
+                    new TistpgmApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 2, prom_mtx)
             };
             tistpgm_app->set_interval(std::chrono::milliseconds(config_s.tistpgm.periodicity));
             apps.emplace("tistpgm", std::move(tistpgm_app));
@@ -284,7 +284,7 @@ int main(int argc, const char** argv)
 
         if (config_s.mcm.enabled) {
             std::unique_ptr<McmApplication> mcm_app {
-                    new McmApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 1)
+                    new McmApplication(*positioning, context.get_dccp().get_trigger().runtime(), pubsub, config_s, metrics_s, 1, prom_mtx)
             };
             mcm_app->set_interval(std::chrono::milliseconds(config_s.mcm.periodicity));
             apps.emplace("mcm", std::move(mcm_app));

@@ -1,16 +1,19 @@
 FROM debian:bullseye-slim
 ENV TZ=Europe/Lisbon
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-#RUN printf "deb http://httpredir.debian.org/debian buster-backports main non-free\ndeb-src http://httpredir.debian.org/debian buster-backports main non-free\n" > /etc/apt/sources.list.d/backports.list
+RUN printf "deb http://httpredir.debian.org/debian bullseye-backports main non-free\ndeb-src http://httpredir.debian.org/debian bullseye-backports main non-free\n" > /etc/apt/sources.list.d/backports.list
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
-    cmake \
+    cmake/bullseye-backports \
+    cmake-data/bullseye-backports \
     git \
     mosquitto \
     libboost-date-time-dev \
     libmosquittopp-dev \
     libboost-program-options-dev \
     libboost-system-dev \
+    libasio-dev \
+    libtinyxml2-dev \
     libcrypto++-dev \
     libgeographic-dev \
     libgps-dev \
@@ -18,8 +21,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libnl-3-dev \
     libnl-genl-3-dev \
     zlib1g-dev \
-    libfastcdr-dev \
-    libfastrtps-dev \
     libcurl4-openssl-dev \
     ca-certificates \
     file \
@@ -31,6 +32,26 @@ RUN git submodule update --init
 RUN cmake -B_build -DCPACK_GENERATOR=DEB -DBUILD_SHARED_LIBS=ON
 RUN cmake --build _build --target package --parallel $(nproc)
 RUN dpkg -i _build/*.deb
+WORKDIR /tmp
+RUN git clone https://github.com/eProsima/foonathan_memory_vendor.git
+RUN mkdir /tmp/foonathan_memory_vendor/build
+WORKDIR /tmp/foonathan_memory_vendor/build
+RUN cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local/ -DBUILD_SHARED_LIBS=ON
+RUN cmake --build . --target install --parallel $(nproc)
+WORKDIR /tmp
+RUN git clone https://github.com/eProsima/Fast-CDR.git
+RUN mkdir /tmp/Fast-CDR/build
+WORKDIR /tmp/Fast-CDR/build
+RUN cmake ..
+RUN cmake --build . --target install --parallel $(nproc)
+WORKDIR /tmp
+RUN git clone https://github.com/eProsima/Fast-DDS.git
+WORKDIR /tmp/Fast-DDS/
+RUN git checkout v2.13.2
+RUN mkdir /tmp/Fast-DDS/build
+WORKDIR /tmp/Fast-DDS/build
+RUN cmake ..
+RUN cmake --build . --target install --parallel $(nproc)
 RUN mkdir /vanetza
 COPY . /vanetza
 WORKDIR /vanetza
@@ -49,14 +70,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libmosquittopp1 \
     libboost-program-options1.74.0 \
     libboost-system1.74.0 \
+    libtinyxml2-8 \
     libcrypto++ \
     libgeographic19 \
     libnl-3-dev \
     libnl-genl-3-dev \
     libssl1.1 \
     zlib1g \
-    libfastcdr1 \
-    libfastrtps2 \
     iproute2 \
     libgps-dev \
     iptables \
@@ -79,6 +99,8 @@ ENV EMBEDDED_MOSQUITTO_PORT=1883
 COPY --from=0 /vanetza/bin/socktap /usr/local/bin/socktap
 COPY --from=0 /vanetza/tools/socktap/config.ini /config.ini
 COPY --from=0 /vanetza/entrypoint.sh /entrypoint.sh
+COPY --from=0 /usr/local/lib/libfast* /usr/local/lib
+COPY --from=0 /usr/local/lib/libfoon* /usr/local/lib
 COPY --from=0 /tmp/prometheus-cpp/_build/*.deb /deps/
 RUN dpkg -i /deps/*.deb
 RUN chmod +x /entrypoint.sh

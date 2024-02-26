@@ -26,15 +26,15 @@ ip::udp::socket ivim_udp_socket(ivim_io_service_);
 ip::udp::endpoint ivim_remote_endpoint;
 boost::system::error_code ivim_err;
 
-IvimApplication::IvimApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
-    positioning_(positioning), runtime_(rt), ivim_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
-{
-    this->pubsub->subscribe(config_s.ivim, this);
-    
+IvimApplication::IvimApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_) :
+    positioning_(positioning), runtime_(rt), ivim_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_), prom_mtx(prom_mtx_)
+{    
     ivim_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "ivim"}, {"direction", "rx"}}));
     ivim_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "ivim"}, {"direction", "tx"}}));
     ivim_rx_latency = &((*metrics_s.latency_counter).Add({{"message", "ivim"}, {"direction", "rx"}}));
     ivim_tx_latency = &((*metrics_s.latency_counter).Add({{"message", "ivim"}, {"direction", "tx"}}));
+
+    this->pubsub->subscribe(config_s.ivim, this);
 
     if(config_s.ivim.udp_out_port != 0) {
         ivim_udp_socket.open(ip::udp::v4());
@@ -67,11 +67,32 @@ void IvimApplication::indicate(const DataIndication& indication, UpPacketPtr pac
 
     asn1::PacketVisitor<asn1::Ivim> visitor;
     std::shared_ptr<const asn1::Ivim> ivim = boost::apply_visitor(visitor, *packet);
-
+    if (ivim == 0) {
+        std::cout << "-- Vanetza Decoding Error --\nReceived an encoded IVIM message that does not meet ETSI spec" << std::endl;
+        //std::cout << "\nInvalid sender: " << cp. << std::endl;
+        return;
+    }
     IVIM_t ivim_t = {(*ivim)->header, (*ivim)->ivi};
-    Document ivim_json = buildJSON(ivim_t, cp.time_received, cp.rssi, cp.size());
 
-    pubsub->publish(config_s.ivim, ivim_json, &ivim_udp_socket, &ivim_remote_endpoint, &ivim_err, ivim_rx_counter, ivim_rx_latency, cp.time_received, "IVIM");  
+    if(config_s.publish_encoded_payloads) {
+        const std::vector<uint8_t> vec = std::vector<uint8_t>(cp[OsiLayer::Application].begin(), cp[OsiLayer::Application].end());
+        pubsub->publish_encoded(
+            config_s.ivim,
+            vec, 
+            cp.rssi,
+            true,
+            cp.size(),
+            ivim_t.header.stationID,
+            config_s.station_id,
+            config_s.station_type,
+            cp.time_received,
+            "");
+    }
+    const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+
+    Document ivim_json = buildJSON(ivim_t, cp.time_received, cp.rssi, cp.size());
+    pubsub->publish(config_s.ivim, ivim_json, &ivim_udp_socket, &ivim_remote_endpoint, &ivim_err, ivim_rx_counter, ivim_rx_latency, cp.time_received, time_encoded, "IVIM");
+
 }
 
 void IvimApplication::schedule_timer()
@@ -97,51 +118,59 @@ Document IvimApplication::buildJSON(IVIM_t message, double time_reception, int r
     return document;
 }
 
-void IvimApplication::on_message(string topic, string mqtt_message, vanetza::geonet::Router* router) {
+void IvimApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, vanetza::geonet::Router* router) {
 
-    const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    const double time_processing = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
-    IviStructure_t ivim;
-
+    DownPacketPtr packet { new DownPacket() };
     Document document;
+    Value payload;
+
+    if (!is_encoded) {
+        IviStructure_t ivim;
     
-    try {
-        document.Parse(mqtt_message.c_str());
-        if(document.HasParseError() || !document.IsObject()) {
-            std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows JSON spec\n" << std::endl;
+        try {
+            document.Parse(mqtt_message.c_str());
+            if(document.HasParseError() || !document.IsObject()) {
+                std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows JSON spec\n" << std::endl;
+                std::cout << "Invalid payload: " << mqtt_message << std::endl;
+                return;
+            }
+        } catch(...) {
+            std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
             std::cout << "Invalid payload: " << mqtt_message << std::endl;
             return;
         }
-    } catch(...) {
-        std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
-        std::cout << "Invalid payload: " << mqtt_message << std::endl;
-        return;
+
+        payload = document.GetObject();
+
+        try {
+            from_json(payload, ivim, "IVIM");
+        } catch (VanetzaJSONException& e) {
+            std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+            std::cout << e.what() << std::endl;
+            std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
+            return;
+        } catch(...) {
+            std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+            std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
+            return;
+        }
+
+        vanetza::asn1::Ivim message;
+
+        ItsPduHeader_t& header = message->header;
+        header.protocolVersion = 2;
+        header.messageID = ItsPduHeader__messageID_ivim;
+        header.stationID = config_s.station_id;
+
+        message->ivi = ivim;
+
+        packet->layer(OsiLayer::Application) = std::move(message);
+    } else {
+        std::vector<unsigned char> bytesCopy(bytes.begin(), bytes.end());
+        packet->layer(OsiLayer::Application) = std::move(bytesCopy);
     }
-
-    Value& payload = document.GetObject();
-    try {
-        from_json(payload, ivim, "IVIM");
-    } catch (VanetzaJSONException& e) {
-        std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
-        std::cout << e.what() << std::endl;
-        std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
-        return;
-    } catch(...) {
-        std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
-        std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
-        return;
-    }
-    vanetza::asn1::Ivim message;
-
-    ItsPduHeader_t& header = message->header;
-    header.protocolVersion = 2;
-    header.messageID = ItsPduHeader__messageID_ivim;
-    header.stationID = config_s.station_id;
-
-    message->ivi = ivim;
-
-    DownPacketPtr packet { new DownPacket() };
-    packet->layer(OsiLayer::Application) = std::move(message);
 
     DataRequest request;
     request.its_aid = aid::TLM;
@@ -163,26 +192,31 @@ void IvimApplication::on_message(string topic, string mqtt_message, vanetza::geo
     }
 
     if(config_s.ivim.mqtt_time_enabled) {
+        const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+
         Document document;
         Document::AllocatorType& allocator = document.GetAllocator();
         Value timePayload(kObjectType);
+        Value timeTest(kObjectType);
 
         timePayload.AddMember("timestamp", time_reception, allocator)
             .AddMember("stationID", config_s.station_id, allocator)
             .AddMember("receiverID", config_s.station_id, allocator)
-            .AddMember("receiverType", config_s.station_type, allocator)
-            .AddMember("fields", Value(kObjectType).AddMember("ivim", payload, allocator), allocator);
+            .AddMember("receiverType", config_s.station_type, allocator);
+        if(!is_encoded) timePayload.AddMember("fields", Value(kObjectType).AddMember("ivim", payload, allocator), allocator);
 
-        const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-        timePayload.AddMember("test", Value(kObjectType).AddMember("wave_timestamp", time_now, allocator), allocator);
+        timeTest.AddMember("wave_timestamp", time_now, allocator);
+        timeTest.AddMember("start_processing_timestamp", time_processing, allocator);
+        timePayload.AddMember("test", timeTest, allocator);
 
         pubsub->publish_time(config_s.ivim, timePayload);
-    
     }
 
-    ivim_tx_counter->Increment();
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    prom_mtx.lock();
+    ivim_tx_counter->Increment();
     ivim_tx_latency->Increment(time_now - time_reception);
+    prom_mtx.unlock();
 }
 
 void IvimApplication::on_timer(Clock::time_point)

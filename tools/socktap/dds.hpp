@@ -17,6 +17,7 @@
 #include "fastdds/DDSPublisher.hpp"
 
 #include "fastdds/MQTTMessagePubSubTypes.h"
+#include "fastdds/EncodedITSMessagePubSubTypes.h"
 
 using namespace std;
 
@@ -28,12 +29,14 @@ private:
     PubSub* pubsub;
 
 public:
-    Dds(int to_dds_port, int from_dds_port, PubSub* pubsub_);
+    Dds(PubSub* pubsub_);
     ~Dds();
     void publish(string topic, string message);
+    void publish(string topic, const std::vector<uint8_t>& payload, int16_t rssi, bool newInfo, int16_t packetSize, int32_t stationID, int32_t receiverID, int16_t receiverType, double timestamp, string test);
     void provison_publisher(string topic);
     void subscribe(string topic);
     void on_message(string topic, string message);
+    void on_message(string topic, const std::vector<uint8_t>& payload);
 };
 
 #endif /* DDS_HPP_PSIGPUTG */

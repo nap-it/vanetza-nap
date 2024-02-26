@@ -53,19 +53,17 @@ RawSocketLink::RawSocketLink(boost::asio::generic::raw_protocol::socket&& socket
 
     rssi_enabled = _rssi_enabled;
     if (rssi_enabled) start_rssi_reader();
-    do_receive();
 }
 
 void RawSocketLink::request(const access::DataRequest& request, std::unique_ptr<ChunkPacket> packet)
 {
     packet->layer(OsiLayer::Link) = create_ethernet_header(request.destination_addr, request.source_addr, request.ether_type);
-    xmit_mtx.lock();
     transmit(std::move(packet));
-    xmit_mtx.unlock();
 }
 
 std::size_t RawSocketLink::transmit(std::unique_ptr<ChunkPacket> packet)
 {
+    std::array<vanetza::ByteBuffer, layers_> buffers_;
     std::array<boost::asio::const_buffer, layers_> const_buffers;
     for (auto& layer : osi_layer_range<OsiLayer::Physical, OsiLayer::Application>()) {
         const auto index = distance(OsiLayer::Physical, layer);
@@ -73,7 +71,10 @@ std::size_t RawSocketLink::transmit(std::unique_ptr<ChunkPacket> packet)
         const_buffers[index] = boost::asio::buffer(buffers_[index]);
     }
 
-    return socket_.send(const_buffers);
+    xmit_mtx.lock();
+    std::size_t res = socket_.send(const_buffers);
+    xmit_mtx.unlock();
+    return res;
 }
 
 void RawSocketLink::indicate(IndicationCallback callback)
@@ -83,10 +84,12 @@ void RawSocketLink::indicate(IndicationCallback callback)
 
 void RawSocketLink::do_receive()
 {
-    namespace sph = std::placeholders;
-    socket_.async_receive_from(
-            boost::asio::buffer(receive_buffer_), receive_endpoint_,
-            std::bind(&RawSocketLink::on_read, this, sph::_1, sph::_2));
+    while(true) {
+        boost::system::error_code ec;
+        std::size_t bytesReceived = socket_.receive_from(
+            boost::asio::buffer(receive_buffer_), receive_endpoint_, 0, ec);
+        on_read(ec, bytesReceived);
+    }
 }
 
 void RawSocketLink::on_read(const boost::system::error_code& ec, std::size_t read_bytes)
@@ -113,7 +116,6 @@ void RawSocketLink::on_read(const boost::system::error_code& ec, std::size_t rea
                 callback_(std::move(packet), *eth);
             }
         }
-        do_receive();
     }
 }
 

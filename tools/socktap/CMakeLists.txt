@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 #set(CMAKE_BUILD_TYPE Debug)
-set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wno-terminate -Wno-narrowing -I/usr/include/libnl3 -lnl-genl-3 -lnl-3 -ldl -O2")
+set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wno-terminate -Wno-narrowing -L/usr/local/lib -I/usr/include/libnl3 -lnl-genl-3 -lnl-3 -ldl -O2")
 
 set(RAPID_JSON_DIR ${PROJECT_SOURCE_DIR}/vendor/rapidjson)
 
@@ -54,7 +54,9 @@ add_executable(socktap
     fastdds/DDSPublisher.hpp
     fastdds/DDSSubscriber.cpp
     fastdds/MQTTMessage.cxx
-    fastdds/MQTTMessagePubSubTypes.cxx)
+    fastdds/MQTTMessagePubSubTypes.cxx
+    fastdds/EncodedITSMessage.cxx
+    fastdds/EncodedITSMessagePubSubTypes.cxx)
 
 target_link_libraries(socktap PUBLIC mosquittopp fastrtps fastcdr)
 target_link_libraries(socktap PUBLIC nl-genl-3 nl-3 dl)

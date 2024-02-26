@@ -24,15 +24,15 @@ ip::udp::socket denm_udp_socket(denm_io_service_);
 ip::udp::endpoint denm_remote_endpoint;
 boost::system::error_code denm_err;
 
-DenmApplication::DenmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_) :
-    positioning_(positioning), runtime_(rt), denm_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_)
+DenmApplication::DenmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_) :
+    positioning_(positioning), runtime_(rt), denm_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_), prom_mtx(prom_mtx_)
 {
-    this->pubsub->subscribe(config_s.denm, this);
-
     denm_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "denm"}, {"direction", "rx"}}));
     denm_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "denm"}, {"direction", "tx"}}));
     denm_rx_latency = &((*metrics_s.latency_counter).Add({{"message", "denm"}, {"direction", "rx"}}));
     denm_tx_latency = &((*metrics_s.latency_counter).Add({{"message", "denm"}, {"direction", "tx"}}));
+
+    this->pubsub->subscribe(config_s.denm, this);
 
     if(config_s.denm.udp_out_port != 0) {
         denm_udp_socket.open(ip::udp::v4());
@@ -65,11 +65,31 @@ void DenmApplication::indicate(const DataIndication& indication, UpPacketPtr pac
 
     asn1::PacketVisitor<asn1::Denm> visitor;
     std::shared_ptr<const asn1::Denm> denm = boost::apply_visitor(visitor, *packet);
-
+    if (denm == 0) {
+        std::cout << "-- Vanetza Decoding Error --\nReceived an encoded DENM message that does not meet ETSI spec" << std::endl;
+        //std::cout << "\nInvalid sender: " << cp. << std::endl;
+        return;
+    }
     DENM_t denm_t = {(*denm)->header, (*denm)->denm};
-    Document denm_json = buildJSON(denm_t, cp.time_received, cp.rssi, cp.size());
 
-    pubsub->publish(config_s.denm, denm_json, &denm_udp_socket, &denm_remote_endpoint, &denm_err, denm_rx_counter, denm_rx_latency, cp.time_received, "DENM");
+    if(config_s.publish_encoded_payloads) {
+        const std::vector<uint8_t> vec = std::vector<uint8_t>(cp[OsiLayer::Application].begin(), cp[OsiLayer::Application].end());
+        pubsub->publish_encoded(
+            config_s.denm,
+            vec, 
+            cp.rssi,
+            true,
+            cp.size(),
+            denm_t.header.stationID,
+            config_s.station_id,
+            config_s.station_type,
+            cp.time_received,
+            "");
+    }
+    const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+
+    Document denm_json = buildJSON(denm_t, cp.time_received, cp.rssi, cp.size());
+    pubsub->publish(config_s.denm, denm_json, &denm_udp_socket, &denm_remote_endpoint, &denm_err, denm_rx_counter, denm_rx_latency, cp.time_received, time_encoded, "DENM");
 }
 
 void DenmApplication::schedule_timer()
@@ -95,52 +115,59 @@ Document DenmApplication::buildJSON(DENM_t message, double time_reception, int r
     return document;
 }
 
-void DenmApplication::on_message(string topic, string mqtt_message, vanetza::geonet::Router* router) {
+void DenmApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, vanetza::geonet::Router* router) {
 
-    const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    const double time_processing = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
-    DecentralizedEnvironmentalNotificationMessage_t denm;
-
+    DownPacketPtr packet { new DownPacket() };
     Document document;
+    Value payload;
+
+    if (!is_encoded) {
+        DecentralizedEnvironmentalNotificationMessage_t denm;
     
-    try {
-        document.Parse(mqtt_message.c_str());
-        if(document.HasParseError() || !document.IsObject()) {
-            std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows JSON spec\n" << std::endl;
+        try {
+            document.Parse(mqtt_message.c_str());
+            if(document.HasParseError() || !document.IsObject()) {
+                std::cout << "-- Vanetza JSON Decoding Error --\nCheck that the message format follows JSON spec\n" << std::endl;
+                std::cout << "Invalid payload: " << mqtt_message << std::endl;
+                return;
+            }
+        } catch(...) {
+            std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
             std::cout << "Invalid payload: " << mqtt_message << std::endl;
             return;
         }
-    } catch(...) {
-        std::cout << "-- Unexpected Error --\nVanetza couldn't decode the JSON message.\nNo other info available\n" << std::endl;
-        std::cout << "Invalid payload: " << mqtt_message << std::endl;
-        return;
+
+        payload = document.GetObject();
+
+        try {
+            from_json(payload, denm, "DENM");
+        } catch (VanetzaJSONException& e) {
+            std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+            std::cout << e.what() << std::endl;
+            std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
+            return;
+        } catch(...) {
+            std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+            std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
+            return;
+        }
+
+        vanetza::asn1::Denm message;
+
+        ItsPduHeader_t& header = message->header;
+        header.protocolVersion = 2;
+        header.messageID = ItsPduHeader__messageID_denm;
+        header.stationID = config_s.station_id;
+
+        message->denm = denm;
+
+        packet->layer(OsiLayer::Application) = std::move(message);
+    } else {
+        std::vector<unsigned char> bytesCopy(bytes.begin(), bytes.end());
+        packet->layer(OsiLayer::Application) = std::move(bytesCopy);
     }
-
-    Value& payload = document.GetObject();
-    try {
-        from_json(payload, denm, "DENM");
-    } catch (VanetzaJSONException& e) {
-        std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
-        std::cout << e.what() << std::endl;
-        std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
-        return;
-    } catch(...) {
-        std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
-        std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
-        return;
-    }
-
-    vanetza::asn1::Denm message;
-
-    ItsPduHeader_t& header = message->header;
-    header.protocolVersion = 2;
-    header.messageID = ItsPduHeader__messageID_denm;
-    header.stationID = config_s.station_id;
-
-    message->denm = denm;
-
-    DownPacketPtr packet { new DownPacket() };
-    packet->layer(OsiLayer::Application) = std::move(message);
 
     DataRequest request;
     request.its_aid = aid::DEN;
@@ -162,26 +189,31 @@ void DenmApplication::on_message(string topic, string mqtt_message, vanetza::geo
     }
 
     if(config_s.denm.mqtt_time_enabled) {
+        const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+
         Document document;
         Document::AllocatorType& allocator = document.GetAllocator();
         Value timePayload(kObjectType);
+        Value timeTest(kObjectType);
 
         timePayload.AddMember("timestamp", time_reception, allocator)
             .AddMember("stationID", config_s.station_id, allocator)
             .AddMember("receiverID", config_s.station_id, allocator)
-            .AddMember("receiverType", config_s.station_type, allocator)
-            .AddMember("fields", Value(kObjectType).AddMember("denm", payload, allocator), allocator);
+            .AddMember("receiverType", config_s.station_type, allocator);
+        if(!is_encoded) timePayload.AddMember("fields", Value(kObjectType).AddMember("denm", payload, allocator), allocator);
 
-        const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-        timePayload.AddMember("test", Value(kObjectType).AddMember("wave_timestamp", time_now, allocator), allocator);
+        timeTest.AddMember("wave_timestamp", time_now, allocator);
+        timeTest.AddMember("start_processing_timestamp", time_processing, allocator);
+        timePayload.AddMember("test", timeTest, allocator);
 
         pubsub->publish_time(config_s.denm, timePayload);
-    
     }
 
-    denm_tx_counter->Increment();
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    prom_mtx.lock();
+    denm_tx_counter->Increment();
     denm_tx_latency->Increment(time_now - time_reception);
+    prom_mtx.unlock();
 }
 
 void DenmApplication::on_timer(Clock::time_point)

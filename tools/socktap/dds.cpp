@@ -24,27 +24,40 @@ public:
 
     void on_data_available(DataReader* reader) override {
         SampleInfo info;
-        if (reader->take_next_sample(&message, &info) == ReturnCode_t::RETCODE_OK) {
-            if (info.valid_data) {
-                dds->on_message(reader->get_topicdescription()->get_name(), message.message());
-                //std::cout << "Message: " << message.message() << " RECEIVED." << std::endl;
+        if(reader->get_topicdescription()->get_type_name() == "MQTTMessage") {
+            if (reader->take_next_sample(&message, &info) == ReturnCode_t::RETCODE_OK) {
+                if (info.valid_data) {
+                    dds->on_message(reader->get_topicdescription()->get_name(), message.message());
+                    //std::cout << "Message: " << message.message() << " RECEIVED." << std::endl;
+                }
+            }
+        } else {
+            if (reader->take_next_sample(&encodedMessage, &info) == ReturnCode_t::RETCODE_OK) {
+                if (info.valid_data) {
+                    dds->on_message(reader->get_topicdescription()->get_name(), encodedMessage.message());
+                }
             }
         }
     }
     MQTTMessage message;
+    EncodedITSMessage encodedMessage;
     Dds* dds;
 };
 
 SubListener* listener_;
 TypeSupport* typeSupport;
+TypeSupport* encodedTypeSupport;
 MQTTMessagePubSubType mqttMessagePubSubType;
-std::map<std::string, std::unique_ptr<DDSPublisher<MQTTMessage, MQTTMessagePubSubType>>> dds_publishers;
+EncodedITSMessagePubSubType encodedITSMessagePubSubType;
+std::map<std::string, std::unique_ptr<DDSPublisher<MQTTMessage, MQTTMessagePubSubType>>> json_dds_publishers;
+std::map<std::string, std::unique_ptr<DDSPublisher<EncodedITSMessage, EncodedITSMessagePubSubType>>> encoded_dds_publishers;
 std::map<std::string, std::unique_ptr<DDSSubscriber>> dds_subscribers;
 
-Dds::Dds(int to_dds_key, int from_dds_key, PubSub* pubsub_) {
+Dds::Dds(PubSub* pubsub_) {
     this->pubsub = pubsub_;
     listener_ = new SubListener(this);
     typeSupport = new TypeSupport(&mqttMessagePubSubType);
+    encodedTypeSupport = new TypeSupport(&encodedITSMessagePubSubType);
     std::thread dds_th(&Dds::from_dds_thread, this);
     dds_th.detach();
 }
@@ -59,21 +72,46 @@ void Dds::publish(string topic, string message) {
     mqttMessage->topic(topic);
     mqttMessage->message(message);
     mqttMessage->datetime(std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
-    dds_publishers[topic]->publish(std::move(mqttMessage));
+    json_dds_publishers[topic]->publish(std::move(mqttMessage));
+}
+
+void Dds::publish(string topic, const std::vector<uint8_t>& payload, int16_t rssi, bool newInfo, int16_t packetSize, int32_t stationID, int32_t receiverID, int16_t receiverType, double timestamp, string test) {
+    std::unique_ptr<EncodedITSMessage> encodedITSMessage = std::make_unique<EncodedITSMessage>();
+    encodedITSMessage->topic(topic + "_enc");
+    encodedITSMessage->message(payload);
+    encodedITSMessage->rssi(eprosima::fastcdr::optional<int16_t>(rssi));
+    encodedITSMessage->newInfo(eprosima::fastcdr::optional<bool>(newInfo));
+    encodedITSMessage->packetSize(eprosima::fastcdr::optional<int16_t>(packetSize));
+    encodedITSMessage->stationID(eprosima::fastcdr::optional<int32_t>(stationID));
+    encodedITSMessage->receiverID(eprosima::fastcdr::optional<int32_t>(receiverID));
+    encodedITSMessage->receiverType(eprosima::fastcdr::optional<int16_t>(receiverType));
+    encodedITSMessage->timestamp(eprosima::fastcdr::optional<double>(timestamp));
+    encodedITSMessage->test(eprosima::fastcdr::optional<string>(test));
+    encoded_dds_publishers[topic]->publish(std::move(encodedITSMessage));
 }
 
 void Dds::subscribe(string topic) {
     std::unique_ptr<DDSSubscriber> ptr = \
         std::make_unique<DDSSubscriber>(listener_, typeSupport);
     ptr.get()->init("Vanetza", 0, topic, "MQTTMessage", TOPIC_QOS_DEFAULT);
+    std::unique_ptr<DDSSubscriber> ptr_enc = \
+        std::make_unique<DDSSubscriber>(listener_, encodedTypeSupport);
+    std::string enc_topic = topic + "_enc";
+    ptr_enc.get()->init("Vanetza", 0, enc_topic, "EncodedITSMessage", TOPIC_QOS_DEFAULT);
     dds_subscribers[topic] = std::move(ptr);
+    dds_subscribers[topic + "_enc"] = std::move(ptr_enc);
 }
 
 void Dds::provison_publisher(string topic) {
     std::unique_ptr<DDSPublisher<MQTTMessage, MQTTMessagePubSubType>> ptr = \
         std::make_unique<DDSPublisher<MQTTMessage, MQTTMessagePubSubType>>(typeSupport);
     ptr.get()->init("Vanetza", 0, topic, "MQTTMessage", TOPIC_QOS_DEFAULT);
-    dds_publishers[topic] = std::move(ptr);
+    std::unique_ptr<DDSPublisher<EncodedITSMessage, EncodedITSMessagePubSubType>> ptr_enc = \
+        std::make_unique<DDSPublisher<EncodedITSMessage, EncodedITSMessagePubSubType>>(encodedTypeSupport);
+    std::string enc_topic = topic + "_enc";
+    ptr_enc.get()->init("Vanetza", 0, enc_topic, "EncodedITSMessage", TOPIC_QOS_DEFAULT);
+    json_dds_publishers[topic] = std::move(ptr);
+    encoded_dds_publishers[topic] = std::move(ptr_enc);
 }
 
 void Dds::from_dds_thread() {
@@ -84,4 +122,8 @@ void Dds::from_dds_thread() {
 
 void Dds::on_message(string topic, string message) {
     this->pubsub->on_message(topic, message, 0);
+}
+
+void Dds::on_message(string topic, const std::vector<uint8_t>& payload) {
+    this->pubsub->on_message(topic, payload, 0);
 }

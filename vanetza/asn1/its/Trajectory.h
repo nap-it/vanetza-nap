@@ -57,7 +57,7 @@ typedef struct Trajectory {
 		/* Context for parsing across buffer boundaries */
 		asn_struct_ctx_t _asn_ctx;
 	} *headings;
-	long	 spead;
+	long	 speed;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
