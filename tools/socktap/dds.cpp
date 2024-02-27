@@ -25,13 +25,15 @@ public:
     void on_data_available(DataReader* reader) override {
         SampleInfo info;
         if(reader->get_topicdescription()->get_type_name() == "MQTTMessage") {
+            MQTTMessage message;
             if (reader->take_next_sample(&message, &info) == ReturnCode_t::RETCODE_OK) {
                 if (info.valid_data) {
                     dds->on_message(reader->get_topicdescription()->get_name(), message.message());
-                    //std::cout << "Message: " << message.message() << " RECEIVED." << std::endl;
+                    //std::cout << "Message: " << message.message() << " RECEIVED ON TOPIC " << reader->get_topicdescription()->get_name() << std::endl;
                 }
             }
         } else {
+            EncodedITSMessage encodedMessage;
             if (reader->take_next_sample(&encodedMessage, &info) == ReturnCode_t::RETCODE_OK) {
                 if (info.valid_data) {
                     dds->on_message(reader->get_topicdescription()->get_name(), encodedMessage.message(), (encodedMessage.test().has_value() ? encodedMessage.test().value() : std::string("")));
@@ -39,8 +41,7 @@ public:
             }
         }
     }
-    MQTTMessage message;
-    EncodedITSMessage encodedMessage;
+
     Dds* dds;
 };
 
