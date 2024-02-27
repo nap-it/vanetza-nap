@@ -15,7 +15,7 @@ public:
     PortType port() override;
     void indicate(const DataIndication&, UpPacketPtr) override;
     void set_interval(vanetza::Clock::duration);
-    void on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, vanetza::geonet::Router* router);
+    void on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, string test, vanetza::geonet::Router* router);
     int priority;
 
 private:

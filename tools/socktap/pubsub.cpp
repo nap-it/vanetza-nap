@@ -9,6 +9,7 @@ typedef struct queued_transmission {
     std::vector<uint8_t> payload;
     bool is_encoded;
     const double time_reception;
+    string test;
 } queued_transmission;
 
 class transmission_thread_queue
@@ -88,13 +89,13 @@ PubSub::~PubSub() {
 void PubSub::on_message(std::string topic, std::string message, int priority) {
     const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     std::vector<uint8_t> emptyVector;
-    queued_transmission qt{topic, message, emptyVector, false, time_reception};
+    queued_transmission qt{topic, message, emptyVector, false, time_reception, ""};
     transmission_tq->push(std::make_unique<queued_transmission>(std::move(qt)), lookupTable[topic] + (3 * priority));
 }
 
-void PubSub::on_message(std::string topic, const std::vector<uint8_t>& message, int priority) {
+void PubSub::on_message(std::string topic, const std::vector<uint8_t>& message, int priority, std::string test) {
     const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    queued_transmission qt{topic, "", message, true, time_reception};
+    queued_transmission qt{topic, "", message, true, time_reception, test};
     transmission_tq->push(std::make_unique<queued_transmission>(std::move(qt)), lookupTable[topic] + (3 * priority));
 }
 
@@ -196,7 +197,7 @@ void message_transmission_thread(int i) {
     while (true){
         std::unique_ptr<queued_transmission> qt = transmission_tq->pop();
         //std::cout << "TRANSMISSION, THREAD: " << i << std::endl;     
-        subscribers[qt->topic]->on_message(qt->topic, qt->message, qt->payload, qt->is_encoded, qt->time_reception, get_router(i));
+        subscribers[qt->topic]->on_message(qt->topic, qt->message, qt->payload, qt->is_encoded, qt->time_reception, qt->test, get_router(i));
 
     }
 }

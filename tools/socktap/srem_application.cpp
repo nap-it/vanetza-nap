@@ -118,7 +118,7 @@ Document SremApplication::buildJSON(SREM_t message, double time_reception, int r
     return document;
 }
 
-void SremApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, vanetza::geonet::Router* router) {
+void SremApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, string test, vanetza::geonet::Router* router) {
 
     const double time_processing = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 

@@ -36,7 +36,7 @@ public:
     void provison_publisher(string topic);
     void subscribe(string topic);
     void on_message(string topic, string message);
-    void on_message(string topic, const std::vector<uint8_t>& payload);
+    void on_message(string topic, const std::vector<uint8_t>& payload, string test);
 };
 
 #endif /* DDS_HPP_PSIGPUTG */

@@ -117,7 +117,7 @@ Document CpmApplication::buildJSON(CPM_t message, double time_reception, int rss
     return document;
 }
 
-void CpmApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, vanetza::geonet::Router* router) {
+void CpmApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, string test, vanetza::geonet::Router* router) {
 
     const double time_processing = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
@@ -206,6 +206,7 @@ void CpmApplication::on_message(string topic, string mqtt_message, const std::ve
 
         timeTest.AddMember("wave_timestamp", time_now, allocator);
         timeTest.AddMember("start_processing_timestamp", time_processing, allocator);
+        if(test != "") timeTest.AddMember("request_info", Value().SetString(test.c_str(), test.size()), allocator);
         timePayload.AddMember("test", timeTest, allocator);
 
         pubsub->publish_time(config_s.cpm, timePayload);

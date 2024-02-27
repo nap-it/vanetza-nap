@@ -24,7 +24,7 @@
 
 #include "MQTTMessage.h"
 
-constexpr uint32_t MQTTMessage_max_cdr_typesize {532UL};
+constexpr uint32_t MQTTMessage_max_cdr_typesize {20000ULL};
 constexpr uint32_t MQTTMessage_max_key_cdr_typesize {0UL};
 
 

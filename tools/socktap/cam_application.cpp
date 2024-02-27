@@ -389,7 +389,7 @@ Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, doubl
     return simpleDocument;
 }
 
-void CamApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, vanetza::geonet::Router* router) {
+void CamApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, string test, vanetza::geonet::Router* router) {
 
     const double time_processing = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
@@ -566,6 +566,7 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
 
         timeTest.AddMember("wave_timestamp", time_now, simpleAllocator);
         timeTest.AddMember("start_processing_timestamp", time_processing, simpleAllocator);
+        if(test != "") timeTest.AddMember("request_info", Value().SetString(test.c_str(), test.size()), simpleAllocator);
         simplePayload.AddMember("test", timeTest, simpleAllocator);
 
         StringBuffer simpleBuffer;        Writer<StringBuffer> simpleWriter(simpleBuffer);

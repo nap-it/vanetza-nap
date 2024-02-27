@@ -118,7 +118,7 @@ Document TistpgmApplication::buildJSON(TisTpgTransactionsPdu_t message, double t
     return document;
 }
 
-void TistpgmApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, vanetza::geonet::Router* router) {
+void TistpgmApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, string test, vanetza::geonet::Router* router) {
 
     const double time_processing = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
@@ -207,6 +207,7 @@ void TistpgmApplication::on_message(string topic, string mqtt_message, const std
 
         timeTest.AddMember("wave_timestamp", time_now, allocator);
         timeTest.AddMember("start_processing_timestamp", time_processing, allocator);
+        if(test != "") timeTest.AddMember("request_info", Value().SetString(test.c_str(), test.size()), allocator);
         timePayload.AddMember("test", timeTest, allocator);
 
         pubsub->publish_time(config_s.tistpgm, timePayload);

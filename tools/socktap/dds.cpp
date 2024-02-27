@@ -34,7 +34,7 @@ public:
         } else {
             if (reader->take_next_sample(&encodedMessage, &info) == ReturnCode_t::RETCODE_OK) {
                 if (info.valid_data) {
-                    dds->on_message(reader->get_topicdescription()->get_name(), encodedMessage.message());
+                    dds->on_message(reader->get_topicdescription()->get_name(), encodedMessage.message(), (encodedMessage.test().has_value() ? encodedMessage.test().value() : std::string("")));
                 }
             }
         }
@@ -124,6 +124,6 @@ void Dds::on_message(string topic, string message) {
     this->pubsub->on_message(topic, message, 0);
 }
 
-void Dds::on_message(string topic, const std::vector<uint8_t>& payload) {
-    this->pubsub->on_message(topic, payload, 0);
+void Dds::on_message(string topic, const std::vector<uint8_t>& payload, string test) {
+    this->pubsub->on_message(topic, payload, 0, test);
 }

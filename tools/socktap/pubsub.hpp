@@ -22,7 +22,7 @@
 class PubSub_application
 {
 public:
-    virtual void on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, vanetza::geonet::Router* router){};
+    virtual void on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, string test, vanetza::geonet::Router* router){};
     int priority;
 };
 
@@ -42,7 +42,7 @@ public:
     void manual_provision(message_config_t message_config, std::string topic);
     void manual_subscribe(message_config_t message_config, std::string topic, PubSub_application* app);
     void on_message(std::string topic, std::string message, int priority);
-    void on_message(std::string topic, const std::vector<uint8_t>& message, int priority);
+    void on_message(std::string topic, const std::vector<uint8_t>& message, int priority, std::string test);
 
     Mqtt* local_mqtt;
     Mqtt* remote_mqtt;
