@@ -573,7 +573,7 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
         simplePayload.Accept(simpleWriter);
         const char* simpleJSON = simpleBuffer.GetString();
 
-        if(topic == config_s.full_cam_topic_in) {
+        if(topic == config_s.full_cam_topic_in || topic == config_s.full_cam_topic_in + "_enc") {
             pubsub->local_mqtt->publish(config_s.full_cam_topic_time, simpleJSON);
             if (pubsub->remote_mqtt != NULL) pubsub->remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_cam_topic_time, simpleJSON);
         }
