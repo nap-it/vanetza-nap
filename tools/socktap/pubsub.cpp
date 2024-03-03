@@ -71,7 +71,7 @@ PubSub::PubSub(config_t config_, int num_threads_, std::mutex& prom_mtx_) :
             this->remote_mqtt = new Mqtt(host_name + "_" + to_string(uni(rng)), this->config.remote_mqtt_broker, this->config.remote_mqtt_port, this);
         }
     }
-    this->dds = new Dds(this);
+    this->dds = new Dds(this, config_);
 
     transmission_tq = new transmission_thread_queue();
     for(int i = 0; i < num_threads; i++) {

@@ -7,6 +7,7 @@
 #include <fastdds/dds/publisher/Publisher.hpp>
 #include <fastdds/dds/publisher/DataWriter.hpp>
 #include <fastdds/dds/publisher/DataWriterListener.hpp>
+#include "DDSCommon.hpp"
 
 using namespace eprosima::fastdds::dds;
 
@@ -37,21 +38,21 @@ public:
 template <class MSG, class MSG_TYPE>
 class DDSPublisher {
 public:
-    DDSPublisher(TypeSupport* type) : participant_(nullptr), publisher_(nullptr), topic_(nullptr), writer_(nullptr), type_(type) {}
+    DDSPublisher(TypeSupport* type) : topic_(nullptr), writer_(nullptr), type_(type) {}
     ~DDSPublisher() {
         if (writer_ != nullptr)
         {
-            publisher_->delete_datawriter(writer_);
+            get_publisher(participantName_, domain_id_)->delete_datawriter(writer_);
         }
         if (publisher_ != nullptr)
         {
-            participant_->delete_publisher(publisher_);
+            get_participant(participantName_, domain_id_)->delete_publisher(publisher_);
         }
         if (topic_ != nullptr)
         {
-            participant_->delete_topic(topic_);
+            get_participant(participantName_, domain_id_)->delete_topic(topic_);
         }
-        DomainParticipantFactory::get_instance()->delete_participant(participant_);
+        //DomainParticipantFactory::get_instance()->delete_participant(participant_);
     }
 
     /**
@@ -68,21 +69,14 @@ public:
             std::basic_string<char> &topic_name, \
             const std::basic_string<char> &type_name, \
             const TopicQos &topic_qos) {
-        DomainParticipantQos participantQos;
-        participantQos.name(participantName);
-        participant_ = DomainParticipantFactory::get_instance()->create_participant(domain_id, participantQos);
-
-        if (participant_ == nullptr)
-        {
-            std::cout << "[Participant] Not created" << std::endl;
-            return false;
-        }
+        participantName_ = participantName;
+        domain_id_ = domain_id_;
 
         // Register the Type
-        type_->register_type(participant_, type_name);
+        type_->register_type(get_participant(participantName, domain_id), type_name);
 
         // Create the publications Topic
-        topic_ = participant_->create_topic(topic_name, type_name, topic_qos);
+        topic_ = get_participant(participantName, domain_id)->create_topic(topic_name, type_name, topic_qos);
 
         if (topic_ == nullptr)
         {
@@ -90,17 +84,8 @@ public:
             return false;
         }
 
-        // Create the Publisher
-        publisher_ = participant_->create_publisher(PUBLISHER_QOS_DEFAULT, nullptr);
-
-        if (publisher_ == nullptr)
-        {
-            std::cout << "[Publisher] Not created" << std::endl;
-            return false;
-        }
-
         // Create the DataWriter
-        writer_ = publisher_->create_datawriter(topic_, DATAWRITER_QOS_DEFAULT, &writerListener_);
+        writer_ = get_publisher(participantName, domain_id)->create_datawriter(topic_, DATAWRITER_QOS_DEFAULT, &writerListener_);
 
         if (writer_ == nullptr)
         {
@@ -123,11 +108,11 @@ public:
     //void run();
 
 private:
-    DomainParticipant* participant_;
     PubListener writerListener_;
-    Publisher* publisher_;
     Topic* topic_;
     DataWriter* writer_;
     TypeSupport* type_;
+    eprosima::fastrtps::fixed_string<255> participantName_;
+    DomainId_t domain_id_;
 };
 #endif //DDSPUBLISHER_H

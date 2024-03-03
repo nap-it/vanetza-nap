@@ -46,6 +46,8 @@ void read_config(config_t* config_s, string path) {
     config_s->ignore_own_messages = getenv("VANETZA_IGNORE_OWN_MESSAGES") == NULL ? reader.GetBoolean("general", "ignore_own_messages", true) : (strcmp((getenv("VANETZA_IGNORE_OWN_MESSAGES")), "true") == 0);
     config_s->ignore_rsu_messages = getenv("VANETZA_IGNORE_RSU_MESSAGES") == NULL ? reader.GetBoolean("general", "ignore_rsu_messages", false) : (strcmp((getenv("VANETZA_IGNORE_RSU_MESSAGES")), "true") == 0);
     config_s->enable_json_prints = getenv("VANETZA_ENABLE_JSON_PRINTS") == NULL ? reader.GetBoolean("general", "enable_json_prints", true) : (strcmp((getenv("VANETZA_ENABLE_JSON_PRINTS")), "true") == 0);
+    config_s->dds_participant_name = getenv("VANETZA_DDS_PARTICIPANT_NAME") == NULL ? reader.Get("general", "dds_participant_name", "Vanetza") : getenv("VANETZA_DDS_PARTICIPANT_NAME");
+    config_s->dds_domain_id = getenv("VANETZA_DDS_DOMAIN_ID") == NULL ? reader.GetInteger("general", "dds_domain_id", 0) : stoi(getenv("VANETZA_DDS_DOMAIN_ID"));
     config_s->num_threads = getenv("VANETZA_NUM_THREADS") == NULL ? reader.GetInteger("general", "num_threads", -1) : stoi(getenv("VANETZA_NUM_THREADS"));
     config_s->publish_encoded_payloads = getenv("VANETZA_PUBLISH_ENCODED_PAYLOADS") == NULL ? reader.GetBoolean("general", "publish_encoded_payloads", false) : (strcmp((getenv("VANETZA_PUBLISH_ENCODED_PAYLOADS")), "true") == 0);
     config_s->cam = read_message_config(reader, "VANETZA_CAM", "cam");

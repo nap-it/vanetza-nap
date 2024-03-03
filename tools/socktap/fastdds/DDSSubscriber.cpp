@@ -11,20 +11,20 @@
 
 using namespace eprosima::fastdds::dds;
 
-DDSSubscriber::DDSSubscriber(DataReaderListener* listener, TypeSupport* type) : participant_(nullptr), subscriber_(nullptr), topic_(nullptr), reader_(nullptr), readerListener_(listener), type_(type) {
+DDSSubscriber::DDSSubscriber(DataReaderListener* listener, TypeSupport* type) : topic_(nullptr), reader_(nullptr), readerListener_(listener), type_(type) {
 }
 
 DDSSubscriber::~DDSSubscriber() {
     if (reader_ != nullptr) {
-        subscriber_->delete_datareader(reader_);
+        get_subscriber(participantName_, domain_id_)->delete_datareader(reader_);
     }
     if (topic_ != nullptr) {
-        participant_->delete_topic(topic_);
+        get_participant(participantName_, domain_id_)->delete_topic(topic_);
     }
     if (subscriber_ != nullptr) {
-        participant_->delete_subscriber(subscriber_);
+        get_participant(participantName_, domain_id_)->delete_subscriber(subscriber_);
     }
-    DomainParticipantFactory::get_instance()->delete_participant(participant_);
+    //DomainParticipantFactory::get_instance()->delete_participant(participant_);
 }
 
 //!Initialize the subscriberDDSSubscriber::
@@ -34,33 +34,21 @@ bool DDSSubscriber::init(const eprosima::fastrtps::fixed_string<255> &participan
                         const std::basic_string<char> &type_name, \
                         const TopicQos &topic_qos
 ) {
-    DomainParticipantQos participantQos;
-    participantQos.name(participantName);
-    participant_ = DomainParticipantFactory::get_instance()->create_participant(domain_id, participantQos);
-
-    if (participant_ == nullptr) {
-        return false;
-    }
+    participantName_ = participantName;
+    domain_id_ = domain_id_;
 
     // Register the Type
-    type_->register_type(participant_, type_name);
+    type_->register_type(get_participant(participantName, domain_id), type_name);
 
     // Create the subscriptions Topic
-    topic_ = participant_->create_topic(topic_name, type_name, topic_qos);
+    topic_ = get_participant(participantName, domain_id)->create_topic(topic_name, type_name, topic_qos);
 
     if (topic_ == nullptr) {
         return false;
-    }
-
-    // Create the Subscriber
-    subscriber_ = participant_->create_subscriber(SUBSCRIBER_QOS_DEFAULT, nullptr);
-
-    if (subscriber_ == nullptr) {
-        return false;
-    }
+    }    
 
     // Create the DataReader
-    reader_ = subscriber_->create_datareader(topic_, DATAREADER_QOS_DEFAULT, readerListener_);
+    reader_ = get_subscriber(participantName, domain_id)->create_datareader(topic_, DATAREADER_QOS_DEFAULT, readerListener_);
 
     if (reader_ == nullptr) {
         return false;

@@ -54,13 +54,15 @@ std::map<std::string, std::unique_ptr<DDSPublisher<MQTTMessage, MQTTMessagePubSu
 std::map<std::string, std::unique_ptr<DDSPublisher<EncodedITSMessage, EncodedITSMessagePubSubType>>> encoded_dds_publishers;
 std::map<std::string, std::unique_ptr<DDSSubscriber>> dds_subscribers;
 
-Dds::Dds(PubSub* pubsub_) {
+Dds::Dds(PubSub* pubsub_, config_t config) {
     this->pubsub = pubsub_;
     listener_ = new SubListener(this);
     typeSupport = new TypeSupport(&mqttMessagePubSubType);
     encodedTypeSupport = new TypeSupport(&encodedITSMessagePubSubType);
     std::thread dds_th(&Dds::from_dds_thread, this);
     dds_th.detach();
+    this->participantName = config.dds_participant_name;
+    this->domain_id = config.dds_domain_id;
 }
 
 Dds::~Dds() {
@@ -94,11 +96,11 @@ void Dds::publish(string topic, const std::vector<uint8_t>& payload, int16_t rss
 void Dds::subscribe(string topic) {
     std::unique_ptr<DDSSubscriber> ptr = \
         std::make_unique<DDSSubscriber>(listener_, typeSupport);
-    ptr.get()->init("Vanetza", 0, topic, "MQTTMessage", TOPIC_QOS_DEFAULT);
+    ptr.get()->init(participantName, domain_id, topic, "MQTTMessage", TOPIC_QOS_DEFAULT);
     std::unique_ptr<DDSSubscriber> ptr_enc = \
         std::make_unique<DDSSubscriber>(listener_, encodedTypeSupport);
     std::string enc_topic = topic + "_enc";
-    ptr_enc.get()->init("Vanetza", 0, enc_topic, "EncodedITSMessage", TOPIC_QOS_DEFAULT);
+    ptr_enc.get()->init(participantName, domain_id, enc_topic, "EncodedITSMessage", TOPIC_QOS_DEFAULT);
     dds_subscribers[topic] = std::move(ptr);
     dds_subscribers[topic + "_enc"] = std::move(ptr_enc);
 }
@@ -106,11 +108,11 @@ void Dds::subscribe(string topic) {
 void Dds::provison_publisher(string topic) {
     std::unique_ptr<DDSPublisher<MQTTMessage, MQTTMessagePubSubType>> ptr = \
         std::make_unique<DDSPublisher<MQTTMessage, MQTTMessagePubSubType>>(typeSupport);
-    ptr.get()->init("Vanetza", 0, topic, "MQTTMessage", TOPIC_QOS_DEFAULT);
+    ptr.get()->init(participantName, domain_id, topic, "MQTTMessage", TOPIC_QOS_DEFAULT);
     std::unique_ptr<DDSPublisher<EncodedITSMessage, EncodedITSMessagePubSubType>> ptr_enc = \
         std::make_unique<DDSPublisher<EncodedITSMessage, EncodedITSMessagePubSubType>>(encodedTypeSupport);
     std::string enc_topic = topic + "_enc";
-    ptr_enc.get()->init("Vanetza", 0, enc_topic, "EncodedITSMessage", TOPIC_QOS_DEFAULT);
+    ptr_enc.get()->init(participantName, domain_id, enc_topic, "EncodedITSMessage", TOPIC_QOS_DEFAULT);
     json_dds_publishers[topic] = std::move(ptr);
     encoded_dds_publishers[topic] = std::move(ptr_enc);
 }

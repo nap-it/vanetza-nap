@@ -51,6 +51,7 @@ add_executable(socktap
     router_context.cpp
     security.cpp
     time_trigger.cpp
+    fastdds/DDSCommon.hpp
     fastdds/DDSPublisher.hpp
     fastdds/DDSSubscriber.cpp
     fastdds/MQTTMessage.cxx

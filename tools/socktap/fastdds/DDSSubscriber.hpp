@@ -9,6 +9,7 @@
 #include <fastdds/dds/subscriber/DataReaderListener.hpp>
 #include <fastdds/dds/subscriber/qos/DataReaderQos.hpp>
 #include <fastdds/dds/subscriber/SampleInfo.hpp>
+#include "DDSCommon.hpp"
 
 using namespace eprosima::fastdds::dds;
 
@@ -23,11 +24,12 @@ public:
               const TopicQos &topic_qos);
 
 private:
-    DomainParticipant *participant_;
     Subscriber *subscriber_;
     DataReader *reader_;
     Topic *topic_;
     TypeSupport* type_;
     DataReaderListener* readerListener_;
+    eprosima::fastrtps::fixed_string<255> participantName_;
+    DomainId_t domain_id_;
 };
 #endif //DDSSUBSCRIBER_H

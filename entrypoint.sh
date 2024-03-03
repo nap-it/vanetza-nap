@@ -16,6 +16,7 @@ if [ -e "/info.ini" ]; then
     update_config_field "/info.ini" "mobility" "longitude" "/config.ini" "station" "longitude"
     update_config_field "/info.ini" "mobility" "macAddr" "/config.ini" "station" "mac_address"
     update_config_field "/info.ini" "mobility" "interface" "/config.ini" "general" "interface"
+    update_config_field "/info.ini" "general" "id" "/config.ini" "general" "dds_domain_id"
     echo "Config update process complete"
 else
     echo "No global board config file found. Skipping config update process"
