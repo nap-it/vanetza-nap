@@ -138,8 +138,8 @@ void RouterContext::set_link_layer(LinkLayer* link_layer)
         dccp = new DccPassthrough { *link_layer, io_context_ };
 
         reception_tq = new reception_thread_queue();
+        processing_tq = new processing_thread_queue();
         for(int i = 0; i < num_threads; i++) {
-            reception_tq = new reception_thread_queue();
             reception_threads.push_back(std::thread(packet_reception_thread, i));
             std::unique_ptr<vanetza::geonet::Router> ptr = std::make_unique<vanetza::geonet::Router>(dccp->get_trigger(reception_threads[i].get_id()).runtime(), mib_);
             routers.push_back(std::move(ptr));
@@ -148,7 +148,6 @@ void RouterContext::set_link_layer(LinkLayer* link_layer)
             routers[i]->set_transport_handler(geonet::UpperProtocol::BTP_B, &dispatcher_);
             routers[i]->set_security_entity(security_entity_);
             reception_threads[i].detach();
-            processing_tq = new processing_thread_queue();
             processing_threads.push_back(std::thread(packet_processing_thread));
             processing_threads[i].detach();
         }
@@ -188,7 +187,6 @@ void RouterContext::indicate(CohesivePacket&& packet, const EthernetHeader& hdr)
 void packet_reception_thread(int i) {
     while (true) {
         std::unique_ptr<queued_reception> qr = reception_tq->pop();
-        //std::cout << "RECEPTION, THREAD: " << i << std::endl;
         std::unique_ptr<PacketVariant> up { new PacketVariant(*std::move(qr->packet)) };
         dccp->get_trigger().schedule(); // ensure the clock is up-to-date for the security entity
         routers[i]->indicate(std::move(up), qr->hdr->source, qr->hdr->destination);
