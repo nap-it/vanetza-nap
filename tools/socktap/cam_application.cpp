@@ -102,6 +102,8 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
 
     if(config_s.publish_encoded_payloads) {
         const std::vector<uint8_t> vec = std::vector<uint8_t>(cp[OsiLayer::Application].begin(), cp[OsiLayer::Application].end());
+        double time_pre_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+        string test = "{\"encoded_timestamp\": " + to_string(time_pre_encoded) + "}";
         pubsub->publish_encoded(
             config_s.cam,
             vec, 
@@ -112,7 +114,7 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
             config_s.station_id,
             config_s.station_type,
             cp.time_received,
-            "");
+            test);
     }
     const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
