@@ -187,6 +187,8 @@ void RouterContext::indicate(CohesivePacket&& packet, const EthernetHeader& hdr)
 void packet_reception_thread(int i) {
     while (true) {
         std::unique_ptr<queued_reception> qr = reception_tq->pop();
+        const double time_queue = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+        qr->packet.get()->time_queue = time_queue;
         std::unique_ptr<PacketVariant> up { new PacketVariant(*std::move(qr->packet)) };
         dccp->get_trigger().schedule(); // ensure the clock is up-to-date for the security entity
         routers[i]->indicate(std::move(up), qr->hdr->source, qr->hdr->destination);

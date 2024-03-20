@@ -1,6 +1,6 @@
-#include "evrsrm_application.hpp"
+#include "imzm_application.hpp"
 #include <vanetza/btp/ports.hpp>
-#include <vanetza/asn1/evrsrm.hpp>
+#include <vanetza/asn1/imzm.hpp>
 #include <vanetza/asn1/packet_visitor.hpp>
 #include <boost/units/cmath.hpp>
 #include <boost/units/systems/si/prefixes.hpp>
@@ -16,46 +16,47 @@ using namespace vanetza::facilities;
 using namespace std::chrono;
 using namespace boost::asio;
 
-prometheus::Counter *evrsrm_rx_counter;
-prometheus::Counter *evrsrm_tx_counter;
-prometheus::Counter *evrsrm_rx_latency;
-prometheus::Counter *evrsrm_tx_latency;
+prometheus::Counter *imzm_rx_counter;
+prometheus::Counter *imzm_tx_counter;
+prometheus::Counter *imzm_rx_latency;
+prometheus::Counter *imzm_tx_latency;
 
-boost::asio::io_service evrsrm_io_service_;
-ip::udp::socket evrsrm_udp_socket(evrsrm_io_service_);
-ip::udp::endpoint evrsrm_remote_endpoint;
-boost::system::error_code evrsrm_err;
+boost::asio::io_service imzm_io_service_;
+ip::udp::socket imzm_udp_socket(imzm_io_service_);
+ip::udp::endpoint imzm_remote_endpoint;
+boost::system::error_code imzm_err;
 
-EvrsrmApplication::EvrsrmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_) :
-    positioning_(positioning), runtime_(rt), evrsrm_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_), prom_mtx(prom_mtx_)
+ImzmApplication::ImzmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_) :
+    positioning_(positioning), runtime_(rt), imzm_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_), prom_mtx(prom_mtx_)
 {   
-    evrsrm_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "evrsrm"}, {"direction", "rx"}}));
-    evrsrm_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "evrsrm"}, {"direction", "tx"}}));
-    evrsrm_rx_latency = &((*metrics_s.latency_counter).Add({{"message", "evrsrm"}, {"direction", "rx"}}));
-    evrsrm_tx_latency = &((*metrics_s.latency_counter).Add({{"message", "evrsrm"}, {"direction", "tx"}}));
+    imzm_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "imzm"}, {"direction", "rx"}}));
+    imzm_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "imzm"}, {"direction", "tx"}}));
+    imzm_rx_latency = &((*metrics_s.latency_counter).Add({{"message", "imzm"}, {"direction", "rx"}}));
+    imzm_tx_latency = &((*metrics_s.latency_counter).Add({{"message", "imzm"}, {"direction", "tx"}}));
 
-    this->pubsub->subscribe(config_s.evrsrm, this);
+    this->pubsub->subscribe(config_s.imzm, this);
 
-    if(config_s.evrsrm.udp_out_port != 0) {
-        evrsrm_udp_socket.open(ip::udp::v4());
-        evrsrm_remote_endpoint = ip::udp::endpoint(ip::address::from_string(config_s.evrsrm.udp_out_addr), config_s.evrsrm.udp_out_port);
+    if(config_s.imzm.udp_out_port != 0) {
+        imzm_udp_socket.open(ip::udp::v4());
+        imzm_remote_endpoint = ip::udp::endpoint(ip::address::from_string(config_s.imzm.udp_out_addr), config_s.imzm.udp_out_port);
     }
 }
 
-void EvrsrmApplication::set_interval(Clock::duration interval)
+void ImzmApplication::set_interval(Clock::duration interval)
 {
-    evrsrm_interval_ = interval;
+    imzm_interval_ = interval;
     runtime_.cancel(this);
     if (interval != std::chrono::milliseconds(0)) schedule_timer();
 }
 
-EvrsrmApplication::PortType EvrsrmApplication::port()
+ImzmApplication::PortType ImzmApplication::port()
 {
-    return btp::ports::EV_RSR;
+    return btp::ports::IMZM;
 }
 
-void EvrsrmApplication::indicate(const DataIndication& indication, UpPacketPtr packet)
+void ImzmApplication::indicate(const DataIndication& indication, UpPacketPtr packet)
 {
+    const double time_queue2 = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     struct indication_visitor : public boost::static_visitor<CohesivePacket>
     {
         CohesivePacket operator()(CohesivePacket& packet) {return packet;}
@@ -65,26 +66,26 @@ void EvrsrmApplication::indicate(const DataIndication& indication, UpPacketPtr p
     UpPacket* packet_ptr = packet.get();
     CohesivePacket cp = boost::apply_visitor(ivis, *packet_ptr);
 
-    asn1::PacketVisitor<asn1::Evrsrm> visitor;
-    std::shared_ptr<const asn1::Evrsrm> evrsrm = boost::apply_visitor(visitor, *packet);
-    if (evrsrm == 0) {
-        std::cout << "-- Vanetza Decoding Error --\nReceived an encoded EVRSRM message that does not meet ETSI spec" << std::endl;
+    asn1::PacketVisitor<asn1::Imzm> visitor;
+    std::shared_ptr<const asn1::Imzm> imzm = boost::apply_visitor(visitor, *packet);
+    if (imzm == 0) {
+        std::cout << "-- Vanetza Decoding Error --\nReceived an encoded IMZM message that does not meet ETSI spec" << std::endl;
         //std::cout << "\nInvalid sender: " << cp. << std::endl;
         return;
     }
-    EV_RSR_t evrsrm_t = {(*evrsrm)->header, (*evrsrm)->messageBody};
+    IMZM_t imzm_t = {(*imzm)->header, (*imzm)->imzm};
 
     if(config_s.publish_encoded_payloads) {
         const std::vector<uint8_t> vec = std::vector<uint8_t>(cp[OsiLayer::Application].begin(), cp[OsiLayer::Application].end());
         double time_pre_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
         string test = "{\"encoded_timestamp\": " + to_string(time_pre_encoded) + "}";
         pubsub->publish_encoded(
-            config_s.evrsrm,
+            config_s.imzm,
             vec, 
             cp.rssi,
             true,
             cp.size(),
-            evrsrm_t.header.stationID,
+            imzm_t.header.stationID,
             config_s.station_id,
             config_s.station_type,
             cp.time_received,
@@ -92,20 +93,21 @@ void EvrsrmApplication::indicate(const DataIndication& indication, UpPacketPtr p
     }
     const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
-    Document evrsrm_json = buildJSON(evrsrm_t, cp.time_received, cp.rssi, cp.size());
-    pubsub->publish(config_s.evrsrm, evrsrm_json, &evrsrm_udp_socket, &evrsrm_remote_endpoint, &evrsrm_err, evrsrm_rx_counter, evrsrm_rx_latency, cp.time_received, time_encoded, "EVRSRM");
+    Document imzm_json = buildJSON(imzm_t, cp.time_received, cp.rssi, cp.size(), cp.time_queue);
+    pubsub->publish(config_s.imzm, imzm_json, &imzm_udp_socket, &imzm_remote_endpoint, &imzm_err, imzm_rx_counter, imzm_rx_latency, cp.time_received, time_encoded, cp.time_queue, time_queue2, "IMZM");
 
 }
 
-void EvrsrmApplication::schedule_timer()
+void ImzmApplication::schedule_timer()
 {
-    runtime_.schedule(evrsrm_interval_, std::bind(&EvrsrmApplication::on_timer, this, std::placeholders::_1), this);
+    runtime_.schedule(imzm_interval_, std::bind(&ImzmApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-Document EvrsrmApplication::buildJSON(EV_RSR_t message, double time_reception, int rssi, int packet_size) {
+Document ImzmApplication::buildJSON(IMZM_t message, double time_reception, int rssi, int packet_size, double time_queue) {
     ItsPduHeader_t& header = message.header;
     Document document(kObjectType);
     Document::AllocatorType& allocator = document.GetAllocator();
+    Value jsonTest(kObjectType);
 
     document.AddMember("timestamp", time_reception, allocator)
         .AddMember("rssi", rssi, allocator)
@@ -115,12 +117,14 @@ Document EvrsrmApplication::buildJSON(EV_RSR_t message, double time_reception, i
         .AddMember("packet_size", packet_size, allocator)
         .AddMember("fields", to_json(message, allocator), allocator);
 
+    jsonTest.AddMember("start_processing_timestamp", time_queue, allocator);
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    document.AddMember("test", Value(kObjectType).AddMember("json_timestamp", time_now, allocator), allocator);
+    jsonTest.AddMember("json_timestamp", time_now, allocator);
+    document.AddMember("test", jsonTest, allocator);
     return document;
 }
 
-void EvrsrmApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, string test, vanetza::geonet::Router* router) {
+void ImzmApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, string test, vanetza::geonet::Router* router) {
 
     const double time_processing = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
@@ -129,7 +133,7 @@ void EvrsrmApplication::on_message(string topic, string mqtt_message, const std:
     Value payload;
 
     if (!is_encoded) {
-        EV_RSR_MessageBody_t evrsrm;
+        InterferenceManagementZoneMessage_t imzm;
     
         try {
             document.Parse(mqtt_message.c_str());
@@ -147,7 +151,7 @@ void EvrsrmApplication::on_message(string topic, string mqtt_message, const std:
         payload = document.GetObject();
 
         try {
-            from_json(payload, evrsrm, "EVRSRM");
+            from_json(payload, imzm, "IMZM");
         } catch (VanetzaJSONException& e) {
             std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
             std::cout << e.what() << std::endl;
@@ -159,14 +163,14 @@ void EvrsrmApplication::on_message(string topic, string mqtt_message, const std:
             return;
         }
 
-        vanetza::asn1::Evrsrm message;
+        vanetza::asn1::Imzm message;
 
         ItsPduHeader_t& header = message->header;
         header.protocolVersion = 2;
-        header.messageID = ItsPduHeader__messageID_ev_rsr;
+        header.messageID = ItsPduHeader__messageID_imzm;
         header.stationID = config_s.station_id;
 
-        message->messageBody = evrsrm;
+        message->imzm = imzm;
 
         packet->layer(OsiLayer::Application) = std::move(message);
     } else {
@@ -193,7 +197,7 @@ void EvrsrmApplication::on_message(string topic, string mqtt_message, const std:
         return;
     }
 
-    if(config_s.evrsrm.mqtt_time_enabled) {
+    if(config_s.imzm.mqtt_time_enabled) {
         const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
         Document document;
@@ -205,24 +209,24 @@ void EvrsrmApplication::on_message(string topic, string mqtt_message, const std:
             .AddMember("stationID", config_s.station_id, allocator)
             .AddMember("receiverID", config_s.station_id, allocator)
             .AddMember("receiverType", config_s.station_type, allocator);
-        if(!is_encoded) timePayload.AddMember("fields", Value(kObjectType).AddMember("evrsrm", payload, allocator), allocator);
+        if(!is_encoded) timePayload.AddMember("fields", Value(kObjectType).AddMember("imzm", payload, allocator), allocator);
 
         timeTest.AddMember("wave_timestamp", time_now, allocator);
         timeTest.AddMember("start_processing_timestamp", time_processing, allocator);
         if(test != "") timeTest.AddMember("request_info", Value().SetString(test.c_str(), test.size()), allocator);
         timePayload.AddMember("test", timeTest, allocator);
 
-        pubsub->publish_time(config_s.evrsrm, timePayload);
+        pubsub->publish_time(config_s.imzm, timePayload);
     }
 
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     prom_mtx.lock();
-    evrsrm_tx_counter->Increment();
-    evrsrm_tx_latency->Increment(time_now - time_reception);
+    imzm_tx_counter->Increment();
+    imzm_tx_latency->Increment(time_now - time_reception);
     prom_mtx.unlock();
 }
 
-void EvrsrmApplication::on_timer(Clock::time_point)
+void ImzmApplication::on_timer(Clock::time_point)
 {
 
 }

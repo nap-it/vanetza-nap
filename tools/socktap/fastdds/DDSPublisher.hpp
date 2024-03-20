@@ -21,11 +21,11 @@ public:
     void on_publication_matched(DataWriter*, const PublicationMatchedStatus& info) override {
         if (info.current_count_change == 1) {
             matched_ = info.total_count;
-            std::cout << "Publisher matched." << std::endl;
+            std::cout << "New DDS Subscriber Discovered" << std::endl;
         }
         else if (info.current_count_change == -1) {
             matched_ = info.total_count;
-            std::cout << "Publisher unmatched." << std::endl;
+            std::cout << "Existing DDS Subscriber Removed" << std::endl;
         }
         else {
             std::cout << info.current_count_change

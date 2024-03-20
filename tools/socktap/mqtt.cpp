@@ -73,7 +73,7 @@ bool Mqtt::subscribe(string topic) {
 }
 
 void Mqtt::on_subscribe(int, int, const int *) {
-    cout << TAG <<"Subscription succeeded." << endl;
+    //cout << TAG <<"Subscription succeeded." << endl;
 }
 
 void Mqtt::on_message(const struct mosquitto_message *message) {

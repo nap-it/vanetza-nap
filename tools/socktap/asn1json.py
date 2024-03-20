@@ -473,13 +473,13 @@ Value to_json_""" + self.name.replace("-", "_") + """(const """ + self.name.repl
 void from_json_""" + self.name.replace("-", "_") + """(const Value& j, """ + self.name.replace("-", "_") + """_t& p, std::string field) {
     try {
         """ + self.name.replace("-", "_") + """_t* p_tmp = vanetza::asn1::allocate<""" + self.name.replace("-", "_") + """_t>();
-        """ + '\n    '.join(["bool " + m[0].replace("-", "_") + ";" for m in self.members]) + """
-        """ + '\n    '.join(['if (j.HasMember("' + m[0] + '")) from_json(j["' + m[0] + '"], ' + '(' + m[0].replace("-", "_") + '), "' + m[0] + '");' for m in self.members]) + """
+        """ + '\n        '.join(["bool " + m[0].replace("-", "_") + ";" for m in self.members]) + """
+        """ + '\n        '.join(['if (j.HasMember("' + m[0] + '")) from_json(j["' + m[0] + '"], ' + '(' + m[0].replace("-", "_") + '), "' + m[0] + '");' for m in self.members]) + """
         p_tmp->size = (""" + str(len(self.members)) + """ / 8) + 1;
         p_tmp->bits_unused = (""" + str(len(self.members)) + """ % 8) != 0 ? 8 - (""" + str(len(self.members)) + """ % 8) : 0;
         p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
-        """ + '\n    '.join(['*(p_tmp->buf + (sizeof(uint8_t) * ' + str(i) + ')) = (uint8_t) 0;' for i in range(int(len(self.members) / 8) + 1)]) + """
-        """ + '\n    '.join(['if (' + m[0].replace("-", "_") + ') *(p_tmp->buf + (sizeof(uint8_t) * ' + str(int(int(m[1])/8)) + ')) |= (1 << ' + str(7 - (int(m[1]) % 8)) + ');' for m in self.members]) + """
+        """ + '\n        '.join(['*(p_tmp->buf + (sizeof(uint8_t) * ' + str(i) + ')) = (uint8_t) 0;' for i in range(int(len(self.members) / 8) + 1)]) + """
+        """ + '\n        '.join(['if (' + m[0].replace("-", "_") + ') *(p_tmp->buf + (sizeof(uint8_t) * ' + str(int(int(m[1])/8)) + ')) |= (1 << ' + str(7 - (int(m[1]) % 8)) + ');' for m in self.members]) + """
         p = *p_tmp;
         delete p_tmp;
     } catch(VanetzaJSONException& ex) {
@@ -587,7 +587,7 @@ for asn1_file in asn1_files:
             parse_type(type_name, top_level_key, asn1_file, asn1_type)
 
 intro = """/*
-*   JSON marshalling and unmarshalling functions for use by nlohmann::json
+*   JSON marshalling and unmarshalling functions for use by RapidJSON
 *   Auto-generated from the asn1 directory by asn1json.py on """ + str(datetime.now()) + """
 */
 
@@ -699,7 +699,7 @@ void from_json(const Value& j, NULL_t& p, std::string field) {
 """
 
 header_intro = """/*
-*   JSON marshalling and unmarshalling functions for use by nlohmann::json
+*   JSON marshalling and unmarshalling functions for use by RapidJSON
 *   Auto-generated from the asn1 directory by asn1json.py on """ + str(datetime.now()) + """
 */
 

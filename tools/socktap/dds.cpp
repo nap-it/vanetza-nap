@@ -13,9 +13,9 @@ public:
 
     void on_subscription_matched(DataReader*, const SubscriptionMatchedStatus& info) override {
         if (info.current_count_change == 1) {
-            std::cout << "Subscriber matched." << std::endl;
+            std::cout << "New DDS Publisher Discovered" << std::endl;
         } else if (info.current_count_change == -1) {
-            std::cout << "Subscriber unmatched." << std::endl;
+            std::cout << "Existing DDS Publisher Removed" << std::endl;
         } else {
             std::cout << info.current_count_change
                 << " is not a valid value for SubscriptionMatchedStatus current count change" << std::endl;
@@ -62,7 +62,13 @@ Dds::Dds(PubSub* pubsub_, config_t config) {
     std::thread dds_th(&Dds::from_dds_thread, this);
     dds_th.detach();
     this->participantName = config.dds_participant_name;
-    this->domain_id = config.dds_domain_id;
+    if (config.dds_domain_id >= 0 && config.dds_domain_id <= 232) {
+        this->domain_id = config.dds_domain_id;
+    } else {
+        std::cout << "DDS Domain ID is outside allowed range (0-232). Using default ID (0)" << std::endl;
+        this->domain_id = 0;
+    }
+    
 }
 
 Dds::~Dds() {

@@ -1,13 +1,13 @@
-#include "application.hpp"
+#include "../application.hpp"
 #include <vanetza/common/clock.hpp>
 #include <vanetza/common/position_provider.hpp>
 #include <vanetza/common/runtime.hpp>
-#include <vanetza/asn1/mapem.hpp>
+#include <vanetza/asn1/spatem.hpp>
 
-class MapemApplication : public Application, public PubSub_application
+class SpatemApplication : public Application, public PubSub_application
 {
 public:
-    MapemApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_);
+    SpatemApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_);
     PortType port() override;
     void indicate(const DataIndication&, UpPacketPtr) override;
     void set_interval(vanetza::Clock::duration);
@@ -20,12 +20,12 @@ private:
 
     vanetza::PositionProvider& positioning_;
     vanetza::Runtime& runtime_;
-    vanetza::Clock::duration mapem_interval_;
+    vanetza::Clock::duration spatem_interval_;
     PubSub* pubsub;
     std::mutex& prom_mtx;
     config_t config_s;
     metrics_t metrics_s;
 
-    Document buildJSON(MAPEM_t spatem, double time_reception, int rssi, int packet_size) ;
+    Document buildJSON(SPATEM_t spatem, double time_reception, int rssi, int packet_size, double time_queue);
 };
 

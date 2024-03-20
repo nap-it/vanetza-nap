@@ -119,7 +119,7 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
     Document cam_json_full(kObjectType);
-    Document cam_json = buildJSON(cam_t, cam_json_full, cp.time_received, cp.rssi, cp.size(), true, true, true);
+    Document cam_json = buildJSON(cam_t, cam_json_full, cp.time_received, cp.time_queue, cp.rssi, cp.size(), true, true, true);
 
     StringBuffer simpleBuffer;
     Writer<StringBuffer> simpleWriter(simpleBuffer);
@@ -281,7 +281,7 @@ void CamApplication::schedule_timer()
     runtime_.schedule(cam_interval_, std::bind(&CamApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, double time_reception, int rssi, int packet_size, bool include_fields, bool rx, bool full) {
+Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, double time_reception, double time_queue, int rssi, int packet_size, bool include_fields, bool rx, bool full) {
     ItsPduHeader_t& header = message.header;
     CoopAwareness_t& cam = message.cam;
     BasicContainer_t& basic = cam.camParameters.basicContainer;
@@ -290,22 +290,6 @@ Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, doubl
     AccelerationControl_t* acc = cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.accelerationControl;
 
     bool has_vehicle = cam.camParameters.highFrequencyContainer.present == HighFrequencyContainer_PR_basicVehicleContainerHighFrequency;
-
-    string driveDirection = "UNAVAILABLE";
-    if (has_vehicle) {
-        switch(bvc.driveDirection) {
-            case(0):
-                driveDirection = "FORWARD";
-                driveDirection = "FORWARD";
-                break;
-            case(1):
-                driveDirection = "BACKWARD";
-                break;
-            default:
-                driveDirection = "UNAVAILABLE";
-                break;
-        }
-    }
     
     long latitude = (long) basic.referencePosition.latitude;
     long longitude = (long) basic.referencePosition.longitude;
@@ -318,11 +302,27 @@ Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, doubl
 
     Document simpleDocument(kObjectType);
     Document::AllocatorType& simpleAllocator = simpleDocument.GetAllocator();
+    Value jsonTest(kObjectType);
+    Value simpleJsonTest(kObjectType);
 
     if(full) {
         cam_json_full.AddMember("fields", to_json(message, fullAllocator), fullAllocator);
     }
-    
+
+    simpleDocument.AddMember("driveDirection", "UNAVAILABLE", simpleAllocator);
+    if (has_vehicle) {
+        switch(bvc.driveDirection) {
+            case(0):
+                simpleDocument["driveDirection"] = "FORWARD";
+                break;
+            case(1):
+                simpleDocument["driveDirection"] = "BACKWARD"; 
+                break;
+            default:
+                break;
+        }
+    }
+
     // RapidJSON does not implement MergePatch. Implementing it would be computationally expensive. This is preferrable.
     if(include_fields) {
         if(full) {
@@ -357,7 +357,6 @@ Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, doubl
                 .AddMember("headingConf", !has_vehicle ? 127 : (((bvc.heading.headingConfidence == 126) || (bvc.heading.headingConfidence == 127)) ? bvc.heading.headingConfidence : static_cast<double>(bvc.heading.headingConfidence) / pow(10, 1)), simpleAllocator)
                 .AddMember("speed", !has_vehicle ? 16383 : ((speed == 16383) ? speed : static_cast<double>(speed) / pow(10, 2)), simpleAllocator)
                 .AddMember("speedConf", !has_vehicle ? 126 : (((bvc.speed.speedConfidence == 126) || (bvc.speed.speedConfidence == 127)) ? bvc.speed.speedConfidence : static_cast<double>(bvc.speed.speedConfidence) / pow(10, 2)), simpleAllocator)
-                .AddMember("driveDirection", Value().SetString(driveDirection.c_str(), driveDirection.size()), simpleAllocator)
                 .AddMember("length", !has_vehicle ? 1023 : ((bvc.vehicleLength.vehicleLengthValue == 1023) ? bvc.vehicleLength.vehicleLengthValue : static_cast<double>(bvc.vehicleLength.vehicleLengthValue) / pow(10, 1)), simpleAllocator)
                 .AddMember("width", !has_vehicle ? 62 : (((bvc.vehicleWidth == 61) || (bvc.vehicleWidth == 62)) ? bvc.vehicleWidth : static_cast<double>(bvc.vehicleWidth) / pow(10, 1)), simpleAllocator)
                 .AddMember("acceleration", !has_vehicle ? 161 : ((bvc.longitudinalAcceleration.longitudinalAccelerationValue == 161) ? bvc.longitudinalAcceleration.longitudinalAccelerationValue : static_cast<double>(bvc.longitudinalAcceleration.longitudinalAccelerationValue) / pow(10, 1)), simpleAllocator)
@@ -385,9 +384,13 @@ Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, doubl
 
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     if (full) {
-        cam_json_full.AddMember("test", Value(kObjectType).AddMember("json_timestamp", time_now, fullAllocator), fullAllocator);
+        if (time_queue != 0) jsonTest.AddMember("start_processing_timestamp", time_queue, fullAllocator);
+        jsonTest.AddMember("json_timestamp", time_now, fullAllocator);
+        cam_json_full.AddMember("test", jsonTest, fullAllocator);
     }
-    simpleDocument.AddMember("test", Value(kObjectType).AddMember("json_timestamp", time_now, simpleAllocator), simpleAllocator);
+    if (time_queue != 0) simpleJsonTest.AddMember("start_processing_timestamp", time_queue, simpleAllocator);
+    simpleJsonTest.AddMember("json_timestamp", time_now, simpleAllocator);
+    simpleDocument.AddMember("test", simpleJsonTest, simpleAllocator);
     return simpleDocument;
 }
 
@@ -686,7 +689,7 @@ void CamApplication::on_timer(Clock::time_point)
     
     Document cam_json_full(kObjectType);
     Document::AllocatorType& fullAllocator = cam_json_full.GetAllocator();
-    Document cam_json = buildJSON(cam_t, cam_json_full, time_now_mqtt, -255, 0, true, false, true);
+    Document cam_json = buildJSON(cam_t, cam_json_full, time_now_mqtt, 0, -255, 0, true, false, true);
     Document::AllocatorType& simpleAllocator = cam_json.GetAllocator();
 
     DownPacketPtr packet { new DownPacket() };

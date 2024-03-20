@@ -5,6 +5,7 @@
 
 std::map<std::string, int> rssi;
 std::map<std::string, int> mcs;
+std::map<std::string, double> timeout;
 
 Netlink nl;
 Neighbour w;
@@ -192,6 +193,8 @@ static int getNeighbourInfo_callback(struct nl_msg *msg, void *arg) {
   else if (station_mcs <= 27.0) mcs[mac] = 8;
   else mcs[mac] = -1;
 
+  timeout[mac] = (double) std::chrono::duration_cast< std::chrono::microseconds >(std::chrono::system_clock::now().time_since_epoch()).count() / 1000000.0;
+
   return NL_SKIP;
 }
 
@@ -271,9 +274,25 @@ int rssi_main() {
     return -1;
   }
 
+  int i = 0;
   while(1){
     send_message(&nl, &w);
     nanosleep((const struct timespec[]){{0, 50000000L}}, NULL);
+    i++;
+    if(i == 100) {
+      i = 0;
+      const double time_now = (double) std::chrono::duration_cast< std::chrono::microseconds >(std::chrono::system_clock::now().time_since_epoch()).count() / 1000000.0;
+      auto it = timeout.begin();
+      while (it != timeout.end()) {
+          if (time_now - it->second >= 1) {
+              rssi.erase(it->first);
+              mcs.erase(it->first);
+              it = timeout.erase(it);
+          } else {
+              ++it;
+          }
+      }
+    }
   }
 
   nl_cb_put(nl.cb1);

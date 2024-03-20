@@ -9,7 +9,7 @@ typedef struct queued_transmission {
     std::vector<uint8_t> payload;
     bool is_encoded;
     const double time_reception;
-    string test;
+    std::string test;
 } queued_transmission;
 
 class transmission_thread_queue
@@ -42,7 +42,7 @@ public:
             if (!this->d_queue[priorityLevel].empty()) {
                 std::unique_ptr<queued_transmission> rc = std::move(this->d_queue[priorityLevel].back());
                 this->d_queue[priorityLevel].pop_back();
-                return std::move(rc);
+                return rc;
             }
         }
         return nullptr;
@@ -142,7 +142,7 @@ void PubSub::publish_encoded(message_config_t message_config, const std::vector<
     }
 }
 
-void PubSub::publish(message_config_t message_config, rapidjson::Document& message_json, boost::asio::ip::udp::socket* udp_socket, boost::asio::ip::udp::endpoint* remote_endpoint, boost::system::error_code* err, prometheus::Counter* counter, prometheus::Counter* latency, double time_received, double time_encoded, std::string message_type) {
+void PubSub::publish(message_config_t message_config, rapidjson::Document& message_json, boost::asio::ip::udp::socket* udp_socket, boost::asio::ip::udp::endpoint* remote_endpoint, boost::system::error_code* err, prometheus::Counter* counter, prometheus::Counter* latency, double time_received, double time_encoded, double time_queue, double time_queue2, std::string message_type) {
     StringBuffer fullBuffer;
     Writer<StringBuffer> writer(fullBuffer);
     message_json.Accept(writer);
@@ -166,6 +166,8 @@ void PubSub::publish(message_config_t message_config, rapidjson::Document& messa
 
     if(message_config.mqtt_test_enabled) {
         Document::AllocatorType& allocator = message_json.GetAllocator();
+        message_json["test"].AddMember("start_processing_timestamp", time_queue, allocator);
+        message_json["test"].AddMember("start_processing_timestamp2", time_queue2, allocator);
         if (config.publish_encoded_payloads != 0) message_json["test"].AddMember("encoded_timestamp", time_encoded, allocator);
         if (message_config.udp_out_port != 0) message_json["test"].AddMember("full_udp_timestamp", time_full_udp, allocator);
         if (message_config.dds_enabled != 0) message_json["test"].AddMember("full_dds_timestamp", time_full_dds, allocator);
@@ -195,8 +197,7 @@ void PubSub::publish_time(message_config_t message_config, rapidjson::Value& mes
 
 void message_transmission_thread(int i) {
     while (true){
-        std::unique_ptr<queued_transmission> qt = transmission_tq->pop();
-        //std::cout << "TRANSMISSION, THREAD: " << i << std::endl;     
+        std::unique_ptr<queued_transmission> qt = transmission_tq->pop();   
         subscribers[qt->topic]->on_message(qt->topic, qt->message, qt->payload, qt->is_encoded, qt->time_reception, qt->test, get_router(i));
 
     }

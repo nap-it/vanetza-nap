@@ -18,6 +18,17 @@ endif()
 find_package(Threads REQUIRED)
 find_package(RapidJSON)
 
+file(GLOB APPLICATIONS_SRC 
+    applications/*.cpp
+    applications/*.hpp
+)
+
+file(GLOB FASTDDS_SRC
+    fastdds/*.cpp
+    fastdds/*.hpp
+    fastdds/*.cxx
+)
+
 add_executable(socktap
     asn1json.cpp
     config_reader.hpp
@@ -26,21 +37,7 @@ add_executable(socktap
     mqtt.hpp mqtt.cpp
     dds.hpp dds.cpp
     application.cpp
-    cam_application.cpp
-    denm_application.cpp
-    cpm_application.cpp
-    vam_application.cpp
-    spatem_application.cpp
-    mapem_application.cpp
-    ssem_application.cpp
-    srem_application.cpp
-    rtcmem_application.cpp
-    ivim_application.cpp
-    evcsnm_application.cpp
-    evrsrm_application.cpp
-    imzm_application.cpp
-    tistpgm_application.cpp
-    mcm_application.cpp
+    ${APPLICATIONS_SRC}
     dcc_passthrough.cpp
     ethernet_device.cpp
     link_layer.cpp
@@ -51,13 +48,7 @@ add_executable(socktap
     router_context.cpp
     security.cpp
     time_trigger.cpp
-    fastdds/DDSCommon.hpp
-    fastdds/DDSPublisher.hpp
-    fastdds/DDSSubscriber.cpp
-    fastdds/MQTTMessage.cxx
-    fastdds/MQTTMessagePubSubTypes.cxx
-    fastdds/EncodedITSMessage.cxx
-    fastdds/EncodedITSMessagePubSubTypes.cxx)
+    ${FASTDDS_SRC})
 
 target_link_libraries(socktap PUBLIC mosquittopp fastrtps fastcdr)
 target_link_libraries(socktap PUBLIC nl-genl-3 nl-3 dl)

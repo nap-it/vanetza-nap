@@ -1,4 +1,4 @@
-#include "application.hpp"
+#include "../application.hpp"
 #include <vanetza/common/clock.hpp>
 #include <vanetza/common/position_provider.hpp>
 #include <vanetza/common/runtime.hpp>
@@ -26,6 +26,6 @@ private:
     config_t config_s;
     metrics_t metrics_s;
 
-    Document buildJSON(IVIM_t ivim, double time_reception, int rssi, int packet_size);
+    Document buildJSON(IVIM_t ivim, double time_reception, int rssi, int packet_size, double time_queue);
 };
 

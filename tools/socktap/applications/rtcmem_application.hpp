@@ -1,13 +1,13 @@
-#include "application.hpp"
+#include "../application.hpp"
 #include <vanetza/common/clock.hpp>
 #include <vanetza/common/position_provider.hpp>
 #include <vanetza/common/runtime.hpp>
-#include <vanetza/asn1/tistpgm.hpp>
+#include <vanetza/asn1/rtcmem.hpp>
 
-class TistpgmApplication : public Application, public PubSub_application
+class RtcmemApplication : public Application, public PubSub_application
 {
 public:
-    TistpgmApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_);
+    RtcmemApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_);
     PortType port() override;
     void indicate(const DataIndication&, UpPacketPtr) override;
     void set_interval(vanetza::Clock::duration);
@@ -20,12 +20,12 @@ private:
 
     vanetza::PositionProvider& positioning_;
     vanetza::Runtime& runtime_;
-    vanetza::Clock::duration tistpgm_interval_;
+    vanetza::Clock::duration rtcmem_interval_;
     PubSub* pubsub;
     std::mutex& prom_mtx;
     config_t config_s;
     metrics_t metrics_s;
 
-    Document buildJSON(TisTpgTransactionsPdu_t tistpgm, double time_reception, int rssi, int packet_size);
+    Document buildJSON(RTCMEM_t rtcmem, double time_reception, int rssi, int packet_size, double time_queue);
 };
 

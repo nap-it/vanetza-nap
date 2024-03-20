@@ -56,6 +56,7 @@ McmApplication::PortType McmApplication::port()
 
 void McmApplication::indicate(const DataIndication& indication, UpPacketPtr packet)
 {
+    const double time_queue2 = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     struct indication_visitor : public boost::static_visitor<CohesivePacket>
     {
         CohesivePacket operator()(CohesivePacket& packet) {return packet;}
@@ -92,8 +93,8 @@ void McmApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     }
     const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
-    Document mcm_json = buildJSON(mcm_t, cp.time_received, cp.rssi, cp.size());
-    pubsub->publish(config_s.mcm, mcm_json, &mcm_udp_socket, &mcm_remote_endpoint, &mcm_err, mcm_rx_counter, mcm_rx_latency, cp.time_received, time_encoded, "MCM");
+    Document mcm_json = buildJSON(mcm_t, cp.time_received, cp.rssi, cp.size(), cp.time_queue);
+    pubsub->publish(config_s.mcm, mcm_json, &mcm_udp_socket, &mcm_remote_endpoint, &mcm_err, mcm_rx_counter, mcm_rx_latency, cp.time_received, time_encoded, cp.time_queue, time_queue2, "MCM");
     
 }
 
@@ -102,10 +103,11 @@ void McmApplication::schedule_timer()
     runtime_.schedule(mcm_interval_, std::bind(&McmApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-Document McmApplication::buildJSON(MCM_t message, double time_reception, int rssi, int packet_size) {
+Document McmApplication::buildJSON(MCM_t message, double time_reception, int rssi, int packet_size, double time_queue) {
     ItsPduHeader_t& header = message.header;
     Document document(kObjectType);
     Document::AllocatorType& allocator = document.GetAllocator();
+    Value jsonTest(kObjectType);
 
     document.AddMember("timestamp", time_reception, allocator)
         .AddMember("rssi", rssi, allocator)
@@ -115,8 +117,10 @@ Document McmApplication::buildJSON(MCM_t message, double time_reception, int rss
         .AddMember("packet_size", packet_size, allocator)
         .AddMember("fields", to_json(message, allocator), allocator);
 
+    jsonTest.AddMember("start_processing_timestamp", time_queue, allocator);
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    document.AddMember("test", Value(kObjectType).AddMember("json_timestamp", time_now, allocator), allocator);
+    jsonTest.AddMember("json_timestamp", time_now, allocator);
+    document.AddMember("test", jsonTest, allocator);
     return document;
 }
 

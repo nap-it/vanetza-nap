@@ -1,6 +1,6 @@
-#include "mapem_application.hpp"
+#include "tistpgm_application.hpp"
 #include <vanetza/btp/ports.hpp>
-#include <vanetza/asn1/mapem.hpp>
+#include <vanetza/asn1/tistpgm.hpp>
 #include <vanetza/asn1/packet_visitor.hpp>
 #include <boost/units/cmath.hpp>
 #include <boost/units/systems/si/prefixes.hpp>
@@ -15,47 +15,48 @@ using namespace vanetza;
 using namespace vanetza::facilities;
 using namespace std::chrono;
 using namespace boost::asio;
- 
-prometheus::Counter *mapem_rx_counter;
-prometheus::Counter *mapem_tx_counter;
-prometheus::Counter *mapem_rx_latency;
-prometheus::Counter *mapem_tx_latency;
 
-boost::asio::io_service mapem_io_service_;
-ip::udp::socket mapem_udp_socket(mapem_io_service_);
-ip::udp::endpoint mapem_remote_endpoint;
-boost::system::error_code mapem_err;
+prometheus::Counter *tistpgm_rx_counter;
+prometheus::Counter *tistpgm_tx_counter;
+prometheus::Counter *tistpgm_rx_latency;
+prometheus::Counter *tistpgm_tx_latency;
 
-MapemApplication::MapemApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_) :
-    positioning_(positioning), runtime_(rt), mapem_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_), prom_mtx(prom_mtx_)
-{
-    this->pubsub->subscribe(config_s.mapem, this);
-    
-    mapem_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "mapem"}, {"direction", "rx"}}));
-    mapem_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "mapem"}, {"direction", "tx"}}));
-    mapem_rx_latency = &((*metrics_s.latency_counter).Add({{"message", "mapem"}, {"direction", "rx"}}));
-    mapem_tx_latency = &((*metrics_s.latency_counter).Add({{"message", "mapem"}, {"direction", "tx"}}));
+boost::asio::io_service tistpgm_io_service_;
+ip::udp::socket tistpgm_udp_socket(tistpgm_io_service_);
+ip::udp::endpoint tistpgm_remote_endpoint;
+boost::system::error_code tistpgm_err;
 
-    if(config_s.mapem.udp_out_port != 0) {
-        mapem_udp_socket.open(ip::udp::v4());
-        mapem_remote_endpoint = ip::udp::endpoint(ip::address::from_string(config_s.mapem.udp_out_addr), config_s.mapem.udp_out_port);
+TistpgmApplication::TistpgmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_) :
+    positioning_(positioning), runtime_(rt), tistpgm_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_), prom_mtx(prom_mtx_)
+{   
+    tistpgm_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "tistpgm"}, {"direction", "rx"}}));
+    tistpgm_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "tistpgm"}, {"direction", "tx"}}));
+    tistpgm_rx_latency = &((*metrics_s.latency_counter).Add({{"message", "tistpgm"}, {"direction", "rx"}}));
+    tistpgm_tx_latency = &((*metrics_s.latency_counter).Add({{"message", "tistpgm"}, {"direction", "tx"}}));
+
+    this->pubsub->subscribe(config_s.tistpgm, this);
+
+    if(config_s.tistpgm.udp_out_port != 0) {
+        tistpgm_udp_socket.open(ip::udp::v4());
+        tistpgm_remote_endpoint = ip::udp::endpoint(ip::address::from_string(config_s.tistpgm.udp_out_addr), config_s.tistpgm.udp_out_port);
     }
 }
 
-void MapemApplication::set_interval(Clock::duration interval)
+void TistpgmApplication::set_interval(Clock::duration interval)
 {
-    mapem_interval_ = interval;
+    tistpgm_interval_ = interval;
     runtime_.cancel(this);
     if (interval != std::chrono::milliseconds(0)) schedule_timer();
 }
 
-MapemApplication::PortType MapemApplication::port()
+TistpgmApplication::PortType TistpgmApplication::port()
 {
-    return btp::ports::TOPO;
+    return btp::ports::TRM;
 }
 
-void MapemApplication::indicate(const DataIndication& indication, UpPacketPtr packet)
+void TistpgmApplication::indicate(const DataIndication& indication, UpPacketPtr packet)
 {
+    const double time_queue2 = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     struct indication_visitor : public boost::static_visitor<CohesivePacket>
     {
         CohesivePacket operator()(CohesivePacket& packet) {return packet;}
@@ -65,26 +66,26 @@ void MapemApplication::indicate(const DataIndication& indication, UpPacketPtr pa
     UpPacket* packet_ptr = packet.get();
     CohesivePacket cp = boost::apply_visitor(ivis, *packet_ptr);
 
-    asn1::PacketVisitor<asn1::Mapem> visitor;
-    std::shared_ptr<const asn1::Mapem> mapem = boost::apply_visitor(visitor, *packet);
-    if (mapem == 0) {
-        std::cout << "-- Vanetza Decoding Error --\nReceived an encoded MAPEM message that does not meet ETSI spec" << std::endl;
+    asn1::PacketVisitor<asn1::Tistpgm> visitor;
+    std::shared_ptr<const asn1::Tistpgm> tistpgm = boost::apply_visitor(visitor, *packet);
+    if (tistpgm == 0) {
+        std::cout << "-- Vanetza Decoding Error --\nReceived an encoded TISTPGM message that does not meet ETSI spec" << std::endl;
         //std::cout << "\nInvalid sender: " << cp. << std::endl;
         return;
     }
-    MAPEM_t mapem_t = {(*mapem)->header, (*mapem)->map};
+    TisTpgTransactionsPdu_t tistpgm_t = {(*tistpgm)->header, (*tistpgm)->tisTpgTransaction};
 
     if(config_s.publish_encoded_payloads) {
         const std::vector<uint8_t> vec = std::vector<uint8_t>(cp[OsiLayer::Application].begin(), cp[OsiLayer::Application].end());
         double time_pre_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
         string test = "{\"encoded_timestamp\": " + to_string(time_pre_encoded) + "}";
         pubsub->publish_encoded(
-            config_s.mapem,
+            config_s.tistpgm,
             vec, 
             cp.rssi,
             true,
             cp.size(),
-            mapem_t.header.stationID,
+            tistpgm_t.header.stationID,
             config_s.station_id,
             config_s.station_type,
             cp.time_received,
@@ -92,20 +93,21 @@ void MapemApplication::indicate(const DataIndication& indication, UpPacketPtr pa
     }
     const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
-    Document mapem_json = buildJSON(mapem_t, cp.time_received, cp.rssi, cp.size());
-    pubsub->publish(config_s.mapem, mapem_json, &mapem_udp_socket, &mapem_remote_endpoint, &mapem_err, mapem_rx_counter, mapem_rx_latency, cp.time_received, time_encoded, "MAPEM");
-
+    Document tistpgm_json = buildJSON(tistpgm_t, cp.time_received, cp.rssi, cp.size(), cp.time_queue);
+    pubsub->publish(config_s.tistpgm, tistpgm_json, &tistpgm_udp_socket, &tistpgm_remote_endpoint, &tistpgm_err, tistpgm_rx_counter, tistpgm_rx_latency, cp.time_received, time_encoded, cp.time_queue, time_queue2, "TISTPGM");
+ 
 }
 
-void MapemApplication::schedule_timer()
+void TistpgmApplication::schedule_timer()
 {
-    runtime_.schedule(mapem_interval_, std::bind(&MapemApplication::on_timer, this, std::placeholders::_1), this);
+    runtime_.schedule(tistpgm_interval_, std::bind(&TistpgmApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-Document MapemApplication::buildJSON(MAPEM_t message, double time_reception, int rssi, int packet_size) {
+Document TistpgmApplication::buildJSON(TisTpgTransactionsPdu_t message, double time_reception, int rssi, int packet_size, double time_queue) {
     ItsPduHeader_t& header = message.header;
     Document document(kObjectType);
-    Document::AllocatorType& allocator = document.GetAllocator();
+    Document::AllocatorType& allocator = document.GetAllocator();\
+    Value jsonTest(kObjectType);
 
     document.AddMember("timestamp", time_reception, allocator)
         .AddMember("rssi", rssi, allocator)
@@ -115,12 +117,14 @@ Document MapemApplication::buildJSON(MAPEM_t message, double time_reception, int
         .AddMember("packet_size", packet_size, allocator)
         .AddMember("fields", to_json(message, allocator), allocator);
 
+    jsonTest.AddMember("start_processing_timestamp", time_queue, allocator);
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    document.AddMember("test", Value(kObjectType).AddMember("json_timestamp", time_now, allocator), allocator);
+    jsonTest.AddMember("json_timestamp", time_now, allocator);
+    document.AddMember("test", jsonTest, allocator);
     return document;
 }
 
-void MapemApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, string test, vanetza::geonet::Router* router) {
+void TistpgmApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, string test, vanetza::geonet::Router* router) {
 
     const double time_processing = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
@@ -129,7 +133,7 @@ void MapemApplication::on_message(string topic, string mqtt_message, const std::
     Value payload;
 
     if (!is_encoded) {
-        MapData_t mapem;
+        TisTpgTransaction_t tistpgm;
     
         try {
             document.Parse(mqtt_message.c_str());
@@ -147,7 +151,7 @@ void MapemApplication::on_message(string topic, string mqtt_message, const std::
         payload = document.GetObject();
 
         try {
-            from_json(payload, mapem, "MAPEM");
+            from_json(payload, tistpgm, "TISTPGM");
         } catch (VanetzaJSONException& e) {
             std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
             std::cout << e.what() << std::endl;
@@ -159,14 +163,14 @@ void MapemApplication::on_message(string topic, string mqtt_message, const std::
             return;
         }
 
-        vanetza::asn1::Mapem message;
+        vanetza::asn1::Tistpgm message;
 
         ItsPduHeader_t& header = message->header;
         header.protocolVersion = 2;
-        header.messageID = ItsPduHeader__messageID_mapem;
+        header.messageID = ItsPduHeader__messageID_tistpgtransaction;
         header.stationID = config_s.station_id;
 
-        message->map = mapem;
+        message->tisTpgTransaction = tistpgm;
 
         packet->layer(OsiLayer::Application) = std::move(message);
     } else {
@@ -175,7 +179,7 @@ void MapemApplication::on_message(string topic, string mqtt_message, const std::
     }
 
     DataRequest request;
-    request.its_aid = aid::RLT;
+    request.its_aid = aid::TLM;
     request.transport_type = geonet::TransportType::SHB;
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
@@ -193,7 +197,7 @@ void MapemApplication::on_message(string topic, string mqtt_message, const std::
         return;
     }
 
-    if(config_s.mapem.mqtt_time_enabled) {
+    if(config_s.tistpgm.mqtt_time_enabled) {
         const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
         Document document;
@@ -205,24 +209,24 @@ void MapemApplication::on_message(string topic, string mqtt_message, const std::
             .AddMember("stationID", config_s.station_id, allocator)
             .AddMember("receiverID", config_s.station_id, allocator)
             .AddMember("receiverType", config_s.station_type, allocator);
-        if(!is_encoded) timePayload.AddMember("fields", Value(kObjectType).AddMember("mapem", payload, allocator), allocator);
+        if(!is_encoded) timePayload.AddMember("fields", Value(kObjectType).AddMember("tistpgm", payload, allocator), allocator);
 
         timeTest.AddMember("wave_timestamp", time_now, allocator);
         timeTest.AddMember("start_processing_timestamp", time_processing, allocator);
         if(test != "") timeTest.AddMember("request_info", Value().SetString(test.c_str(), test.size()), allocator);
         timePayload.AddMember("test", timeTest, allocator);
 
-        pubsub->publish_time(config_s.mapem, timePayload);
+        pubsub->publish_time(config_s.tistpgm, timePayload);
     }
 
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     prom_mtx.lock();
-    mapem_tx_counter->Increment();
-    mapem_tx_latency->Increment(time_now - time_reception);
+    tistpgm_tx_counter->Increment();
+    tistpgm_tx_latency->Increment(time_now - time_reception);
     prom_mtx.unlock();
 }
 
-void MapemApplication::on_timer(Clock::time_point)
+void TistpgmApplication::on_timer(Clock::time_point)
 {
 
 }

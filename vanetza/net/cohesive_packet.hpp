@@ -88,6 +88,7 @@ public:
     int rssi;
     std::map<std::string, int> mcs;
     double time_received;
+    double time_queue;
 
 private:
     void reset_iterators(OsiLayer layer);

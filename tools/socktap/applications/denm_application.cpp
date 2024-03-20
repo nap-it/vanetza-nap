@@ -1,10 +1,9 @@
-#include "rtcmem_application.hpp"
+#include "denm_application.hpp"
 #include <vanetza/btp/ports.hpp>
-#include <vanetza/asn1/rtcmem.hpp>
+#include <vanetza/asn1/denm.hpp>
 #include <vanetza/asn1/packet_visitor.hpp>
 #include <boost/units/cmath.hpp>
 #include <boost/units/systems/si/prefixes.hpp>
-#include <vanetza/facilities/cam_functions.hpp>
 #include <boost/asio.hpp>
 #include <chrono>
 #include <exception>
@@ -12,50 +11,50 @@
 #include <iostream>
 
 using namespace vanetza;
-using namespace vanetza::facilities;
 using namespace std::chrono;
 using namespace boost::asio;
 
-prometheus::Counter *rtcmem_rx_counter;
-prometheus::Counter *rtcmem_tx_counter;
-prometheus::Counter *rtcmem_rx_latency;
-prometheus::Counter *rtcmem_tx_latency;
+prometheus::Counter *denm_rx_counter;
+prometheus::Counter *denm_tx_counter;
+prometheus::Counter *denm_rx_latency;
+prometheus::Counter *denm_tx_latency;
 
-boost::asio::io_service rtcmem_io_service_;
-ip::udp::socket rtcmem_udp_socket(rtcmem_io_service_);
-ip::udp::endpoint rtcmem_remote_endpoint;
-boost::system::error_code rtcmem_err;
+boost::asio::io_service denm_io_service_;
+ip::udp::socket denm_udp_socket(denm_io_service_);
+ip::udp::endpoint denm_remote_endpoint;
+boost::system::error_code denm_err;
 
-RtcmemApplication::RtcmemApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_) :
-    positioning_(positioning), runtime_(rt), rtcmem_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_), prom_mtx(prom_mtx_)
+DenmApplication::DenmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_) :
+    positioning_(positioning), runtime_(rt), denm_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_), prom_mtx(prom_mtx_)
 {
-    rtcmem_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "rtcmem"}, {"direction", "rx"}}));
-    rtcmem_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "rtcmem"}, {"direction", "tx"}}));
-    rtcmem_rx_latency = &((*metrics_s.latency_counter).Add({{"message", "rtcmem"}, {"direction", "rx"}}));
-    rtcmem_tx_latency = &((*metrics_s.latency_counter).Add({{"message", "rtcmem"}, {"direction", "tx"}}));
+    denm_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "denm"}, {"direction", "rx"}}));
+    denm_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "denm"}, {"direction", "tx"}}));
+    denm_rx_latency = &((*metrics_s.latency_counter).Add({{"message", "denm"}, {"direction", "rx"}}));
+    denm_tx_latency = &((*metrics_s.latency_counter).Add({{"message", "denm"}, {"direction", "tx"}}));
 
-    this->pubsub->subscribe(config_s.rtcmem, this);
+    this->pubsub->subscribe(config_s.denm, this);
 
-    if(config_s.rtcmem.udp_out_port != 0) {
-        rtcmem_udp_socket.open(ip::udp::v4());
-        rtcmem_remote_endpoint = ip::udp::endpoint(ip::address::from_string(config_s.rtcmem.udp_out_addr), config_s.rtcmem.udp_out_port);
+    if(config_s.denm.udp_out_port != 0) {
+        denm_udp_socket.open(ip::udp::v4());
+        denm_remote_endpoint = ip::udp::endpoint(ip::address::from_string(config_s.denm.udp_out_addr), config_s.denm.udp_out_port);
     }
 }
 
-void RtcmemApplication::set_interval(Clock::duration interval)
+void DenmApplication::set_interval(Clock::duration interval)
 {
-    rtcmem_interval_ = interval;
+    denm_interval_ = interval;
     runtime_.cancel(this);
     if (interval != std::chrono::milliseconds(0)) schedule_timer();
 }
 
-RtcmemApplication::PortType RtcmemApplication::port()
+DenmApplication::PortType DenmApplication::port()
 {
-    return btp::ports::TRM;
+    return btp::ports::DENM;
 }
 
-void RtcmemApplication::indicate(const DataIndication& indication, UpPacketPtr packet)
+void DenmApplication::indicate(const DataIndication& indication, UpPacketPtr packet)
 {
+    const double time_queue2 = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     struct indication_visitor : public boost::static_visitor<CohesivePacket>
     {
         CohesivePacket operator()(CohesivePacket& packet) {return packet;}
@@ -65,21 +64,26 @@ void RtcmemApplication::indicate(const DataIndication& indication, UpPacketPtr p
     UpPacket* packet_ptr = packet.get();
     CohesivePacket cp = boost::apply_visitor(ivis, *packet_ptr);
 
-    asn1::PacketVisitor<asn1::Rtcmem> visitor;
-    std::shared_ptr<const asn1::Rtcmem> rtcmem = boost::apply_visitor(visitor, *packet);
-    RTCMEM_t rtcmem_t = {(*rtcmem)->header, (*rtcmem)->rtcmc};
+    asn1::PacketVisitor<asn1::Denm> visitor;
+    std::shared_ptr<const asn1::Denm> denm = boost::apply_visitor(visitor, *packet);
+    if (denm == 0) {
+        std::cout << "-- Vanetza Decoding Error --\nReceived an encoded DENM message that does not meet ETSI spec" << std::endl;
+        //std::cout << "\nInvalid sender: " << cp. << std::endl;
+        return;
+    }
+    DENM_t denm_t = {(*denm)->header, (*denm)->denm};
 
     if(config_s.publish_encoded_payloads) {
         const std::vector<uint8_t> vec = std::vector<uint8_t>(cp[OsiLayer::Application].begin(), cp[OsiLayer::Application].end());
         double time_pre_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
         string test = "{\"encoded_timestamp\": " + to_string(time_pre_encoded) + "}";
         pubsub->publish_encoded(
-            config_s.rtcmem,
+            config_s.denm,
             vec, 
             cp.rssi,
             true,
             cp.size(),
-            rtcmem_t.header.stationID,
+            denm_t.header.stationID,
             config_s.station_id,
             config_s.station_type,
             cp.time_received,
@@ -87,20 +91,20 @@ void RtcmemApplication::indicate(const DataIndication& indication, UpPacketPtr p
     }
     const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
-    Document rtcmem_json = buildJSON(rtcmem_t, cp.time_received, cp.rssi, cp.size());
-    pubsub->publish(config_s.rtcmem, rtcmem_json, &rtcmem_udp_socket, &rtcmem_remote_endpoint, &rtcmem_err, rtcmem_rx_counter, rtcmem_rx_latency, cp.time_received, time_encoded, "RTCMEM");
-
+    Document denm_json = buildJSON(denm_t, cp.time_received, cp.rssi, cp.size(), cp.time_queue);
+    pubsub->publish(config_s.denm, denm_json, &denm_udp_socket, &denm_remote_endpoint, &denm_err, denm_rx_counter, denm_rx_latency, cp.time_received, time_encoded, cp.time_queue, time_queue2, "DENM");
 }
 
-void RtcmemApplication::schedule_timer()
+void DenmApplication::schedule_timer()
 {
-    runtime_.schedule(rtcmem_interval_, std::bind(&RtcmemApplication::on_timer, this, std::placeholders::_1), this);
+    runtime_.schedule(denm_interval_, std::bind(&DenmApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-Document RtcmemApplication::buildJSON(RTCMEM_t message, double time_reception, int rssi, int packet_size) {
+Document DenmApplication::buildJSON(DENM_t message, double time_reception, int rssi, int packet_size, double time_queue) {
     ItsPduHeader_t& header = message.header;
     Document document(kObjectType);
     Document::AllocatorType& allocator = document.GetAllocator();
+    Value jsonTest(kObjectType);
 
     document.AddMember("timestamp", time_reception, allocator)
         .AddMember("rssi", rssi, allocator)
@@ -110,12 +114,14 @@ Document RtcmemApplication::buildJSON(RTCMEM_t message, double time_reception, i
         .AddMember("packet_size", packet_size, allocator)
         .AddMember("fields", to_json(message, allocator), allocator);
 
+    jsonTest.AddMember("start_processing_timestamp", time_queue, allocator);
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    document.AddMember("test", Value(kObjectType).AddMember("json_timestamp", time_now, allocator), allocator);
+    jsonTest.AddMember("json_timestamp", time_now, allocator);
+    document.AddMember("test", jsonTest, allocator);
     return document;
 }
 
-void RtcmemApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, string test, vanetza::geonet::Router* router) {
+void DenmApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, string test, vanetza::geonet::Router* router) {
 
     const double time_processing = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
@@ -124,7 +130,7 @@ void RtcmemApplication::on_message(string topic, string mqtt_message, const std:
     Value payload;
 
     if (!is_encoded) {
-        RTCMcorrections_t rtcmem;
+        DecentralizedEnvironmentalNotificationMessage_t denm;
     
         try {
             document.Parse(mqtt_message.c_str());
@@ -142,7 +148,7 @@ void RtcmemApplication::on_message(string topic, string mqtt_message, const std:
         payload = document.GetObject();
 
         try {
-            from_json(payload, rtcmem, "RTCMEM");
+            from_json(payload, denm, "DENM");
         } catch (VanetzaJSONException& e) {
             std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
             std::cout << e.what() << std::endl;
@@ -154,14 +160,14 @@ void RtcmemApplication::on_message(string topic, string mqtt_message, const std:
             return;
         }
 
-        vanetza::asn1::Rtcmem message;
+        vanetza::asn1::Denm message;
 
         ItsPduHeader_t& header = message->header;
         header.protocolVersion = 2;
-        header.messageID = ItsPduHeader__messageID_rtcmem;
+        header.messageID = ItsPduHeader__messageID_denm;
         header.stationID = config_s.station_id;
 
-        message->rtcmc = rtcmem;
+        message->denm = denm;
 
         packet->layer(OsiLayer::Application) = std::move(message);
     } else {
@@ -170,7 +176,7 @@ void RtcmemApplication::on_message(string topic, string mqtt_message, const std:
     }
 
     DataRequest request;
-    request.its_aid = aid::TLM;
+    request.its_aid = aid::DEN;
     request.transport_type = geonet::TransportType::SHB;
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
 
@@ -188,7 +194,7 @@ void RtcmemApplication::on_message(string topic, string mqtt_message, const std:
         return;
     }
 
-    if(config_s.rtcmem.mqtt_time_enabled) {
+    if(config_s.denm.mqtt_time_enabled) {
         const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
         Document document;
@@ -200,24 +206,24 @@ void RtcmemApplication::on_message(string topic, string mqtt_message, const std:
             .AddMember("stationID", config_s.station_id, allocator)
             .AddMember("receiverID", config_s.station_id, allocator)
             .AddMember("receiverType", config_s.station_type, allocator);
-        if(!is_encoded) timePayload.AddMember("fields", Value(kObjectType).AddMember("rtcmem", payload, allocator), allocator);
+        if(!is_encoded) timePayload.AddMember("fields", Value(kObjectType).AddMember("denm", payload, allocator), allocator);
 
         timeTest.AddMember("wave_timestamp", time_now, allocator);
         timeTest.AddMember("start_processing_timestamp", time_processing, allocator);
         if(test != "") timeTest.AddMember("request_info", Value().SetString(test.c_str(), test.size()), allocator);
         timePayload.AddMember("test", timeTest, allocator);
 
-        pubsub->publish_time(config_s.rtcmem, timePayload);
+        pubsub->publish_time(config_s.denm, timePayload);
     }
 
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     prom_mtx.lock();
-    rtcmem_tx_counter->Increment();
-    rtcmem_tx_latency->Increment(time_now - time_reception);
+    denm_tx_counter->Increment();
+    denm_tx_latency->Increment(time_now - time_reception);
     prom_mtx.unlock();
 }
 
-void RtcmemApplication::on_timer(Clock::time_point)
+void DenmApplication::on_timer(Clock::time_point)
 {
 
 }

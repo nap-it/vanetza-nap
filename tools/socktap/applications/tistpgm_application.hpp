@@ -1,16 +1,13 @@
-#ifndef DENM_APPLICATION_HPP_EUIC2VFR
-#define DENM_APPLICATION_HPP_EUIC2VFR
-
-#include "application.hpp"
+#include "../application.hpp"
 #include <vanetza/common/clock.hpp>
 #include <vanetza/common/position_provider.hpp>
 #include <vanetza/common/runtime.hpp>
-#include <vanetza/asn1/denm.hpp>
+#include <vanetza/asn1/tistpgm.hpp>
 
-class DenmApplication : public Application, public PubSub_application
+class TistpgmApplication : public Application, public PubSub_application
 {
 public:
-    DenmApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_);
+    TistpgmApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_);
     PortType port() override;
     void indicate(const DataIndication&, UpPacketPtr) override;
     void set_interval(vanetza::Clock::duration);
@@ -23,13 +20,12 @@ private:
 
     vanetza::PositionProvider& positioning_;
     vanetza::Runtime& runtime_;
-    vanetza::Clock::duration denm_interval_;
+    vanetza::Clock::duration tistpgm_interval_;
     PubSub* pubsub;
     std::mutex& prom_mtx;
     config_t config_s;
     metrics_t metrics_s;
 
-    Document buildJSON(DENM_t denm, double time_reception, int rssi, int packet_size);
+    Document buildJSON(TisTpgTransactionsPdu_t tistpgm, double time_reception, int rssi, int packet_size, double time_queue);
 };
 
-#endif /* DENM_APPLICATION_HPP_EUIC2VFR */

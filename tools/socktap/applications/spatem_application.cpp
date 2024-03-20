@@ -1,6 +1,6 @@
-#include "srem_application.hpp"
+#include "spatem_application.hpp"
 #include <vanetza/btp/ports.hpp>
-#include <vanetza/asn1/srem.hpp>
+#include <vanetza/asn1/spatem.hpp>
 #include <vanetza/asn1/packet_visitor.hpp>
 #include <boost/units/cmath.hpp>
 #include <boost/units/systems/si/prefixes.hpp>
@@ -16,46 +16,48 @@ using namespace vanetza::facilities;
 using namespace std::chrono;
 using namespace boost::asio;
 
-prometheus::Counter *srem_rx_counter;
-prometheus::Counter *srem_tx_counter;
-prometheus::Counter *srem_rx_latency;
-prometheus::Counter *srem_tx_latency;
+std::mutex prom_mtx; 
+prometheus::Counter *spatem_rx_counter;
+prometheus::Counter *spatem_tx_counter;
+prometheus::Counter *spatem_rx_latency;
+prometheus::Counter *spatem_tx_latency;
 
-boost::asio::io_service srem_io_service_;
-ip::udp::socket srem_udp_socket(srem_io_service_);
-ip::udp::endpoint srem_remote_endpoint;
-boost::system::error_code srem_err;
+boost::asio::io_service spatem_io_service_;
+ip::udp::socket spatem_udp_socket(spatem_io_service_);
+ip::udp::endpoint spatem_remote_endpoint;
+boost::system::error_code spatem_err;
 
-SremApplication::SremApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_) :
-    positioning_(positioning), runtime_(rt), srem_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_), prom_mtx(prom_mtx_)
+SpatemApplication::SpatemApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_) :
+    positioning_(positioning), runtime_(rt), spatem_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_), prom_mtx(prom_mtx_)
 {
-    srem_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "srem"}, {"direction", "rx"}}));
-    srem_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "srem"}, {"direction", "tx"}}));
-    srem_rx_latency = &((*metrics_s.latency_counter).Add({{"message", "srem"}, {"direction", "rx"}}));
-    srem_tx_latency = &((*metrics_s.latency_counter).Add({{"message", "srem"}, {"direction", "tx"}}));
+    spatem_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "spatem"}, {"direction", "rx"}}));
+    spatem_tx_counter = &((*metrics_s.packet_counter).Add({{"message", "spatem"}, {"direction", "tx"}}));
+    spatem_rx_latency = &((*metrics_s.latency_counter).Add({{"message", "spatem"}, {"direction", "rx"}}));
+    spatem_tx_latency = &((*metrics_s.latency_counter).Add({{"message", "spatem"}, {"direction", "tx"}}));
 
-    this->pubsub->subscribe(config_s.srem, this);
+    this->pubsub->subscribe(config_s.spatem, this);
 
-    if(config_s.srem.udp_out_port != 0) {
-        srem_udp_socket.open(ip::udp::v4());
-        srem_remote_endpoint = ip::udp::endpoint(ip::address::from_string(config_s.srem.udp_out_addr), config_s.srem.udp_out_port);
+    if(config_s.spatem.udp_out_port != 0) {
+        spatem_udp_socket.open(ip::udp::v4());
+        spatem_remote_endpoint = ip::udp::endpoint(ip::address::from_string(config_s.spatem.udp_out_addr), config_s.spatem.udp_out_port);
     }
 }
 
-void SremApplication::set_interval(Clock::duration interval)
+void SpatemApplication::set_interval(Clock::duration interval)
 {
-    srem_interval_ = interval;
+    spatem_interval_ = interval;
     runtime_.cancel(this);
     if (interval != std::chrono::milliseconds(0)) schedule_timer();
 }
 
-SremApplication::PortType SremApplication::port()
+SpatemApplication::PortType SpatemApplication::port()
 {
-    return btp::ports::SREM;
+    return btp::ports::SPAT;
 }
 
-void SremApplication::indicate(const DataIndication& indication, UpPacketPtr packet)
+void SpatemApplication::indicate(const DataIndication& indication, UpPacketPtr packet)
 {
+    const double time_queue2 = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     struct indication_visitor : public boost::static_visitor<CohesivePacket>
     {
         CohesivePacket operator()(CohesivePacket& packet) {return packet;}
@@ -65,26 +67,26 @@ void SremApplication::indicate(const DataIndication& indication, UpPacketPtr pac
     UpPacket* packet_ptr = packet.get();
     CohesivePacket cp = boost::apply_visitor(ivis, *packet_ptr);
 
-    asn1::PacketVisitor<asn1::Srem> visitor;
-    std::shared_ptr<const asn1::Srem> srem = boost::apply_visitor(visitor, *packet);
-    if (srem == 0) {
-        std::cout << "-- Vanetza Decoding Error --\nReceived an encoded SREM message that does not meet ETSI spec" << std::endl;
+    asn1::PacketVisitor<asn1::Spatem> visitor;
+    std::shared_ptr<const asn1::Spatem> spatem = boost::apply_visitor(visitor, *packet);
+    if (spatem == 0) {
+        std::cout << "-- Vanetza Decoding Error --\nReceived an encoded SPATEM message that does not meet ETSI spec" << std::endl;
         //std::cout << "\nInvalid sender: " << cp. << std::endl;
         return;
     }
-    SREM_t srem_t = {(*srem)->header, (*srem)->srm};
+    SPATEM_t spatem_t = {(*spatem)->header, (*spatem)->spat};
 
     if(config_s.publish_encoded_payloads) {
         const std::vector<uint8_t> vec = std::vector<uint8_t>(cp[OsiLayer::Application].begin(), cp[OsiLayer::Application].end());
         double time_pre_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
         string test = "{\"encoded_timestamp\": " + to_string(time_pre_encoded) + "}";
         pubsub->publish_encoded(
-            config_s.srem,
+            config_s.spatem,
             vec, 
             cp.rssi,
             true,
             cp.size(),
-            srem_t.header.stationID,
+            spatem_t.header.stationID,
             config_s.station_id,
             config_s.station_type,
             cp.time_received,
@@ -92,20 +94,21 @@ void SremApplication::indicate(const DataIndication& indication, UpPacketPtr pac
     }
     const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
-    Document srem_json = buildJSON(srem_t, cp.time_received, cp.rssi, cp.size());
-    pubsub->publish(config_s.srem, srem_json, &srem_udp_socket, &srem_remote_endpoint, &srem_err, srem_rx_counter, srem_rx_latency, cp.time_received, time_encoded, "SREM");
+    Document spatem_json = buildJSON(spatem_t, cp.time_received, cp.rssi, cp.size(), cp.time_queue);
+    pubsub->publish(config_s.spatem, spatem_json, &spatem_udp_socket, &spatem_remote_endpoint, &spatem_err, spatem_rx_counter, spatem_rx_latency, cp.time_received, time_encoded, cp.time_queue, time_queue2, "SPATEM");
 
 }
 
-void SremApplication::schedule_timer()
+void SpatemApplication::schedule_timer()
 {
-    runtime_.schedule(srem_interval_, std::bind(&SremApplication::on_timer, this, std::placeholders::_1), this);
+    runtime_.schedule(spatem_interval_, std::bind(&SpatemApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-Document SremApplication::buildJSON(SREM_t message, double time_reception, int rssi, int packet_size) {
+Document SpatemApplication::buildJSON(SPATEM_t message, double time_reception, int rssi, int packet_size, double time_queue) {
     ItsPduHeader_t& header = message.header;
     Document document(kObjectType);
     Document::AllocatorType& allocator = document.GetAllocator();
+    Value jsonTest(kObjectType);
 
     document.AddMember("timestamp", time_reception, allocator)
         .AddMember("rssi", rssi, allocator)
@@ -115,12 +118,14 @@ Document SremApplication::buildJSON(SREM_t message, double time_reception, int r
         .AddMember("packet_size", packet_size, allocator)
         .AddMember("fields", to_json(message, allocator), allocator);
 
+    jsonTest.AddMember("start_processing_timestamp", time_queue, allocator);
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    document.AddMember("test", Value(kObjectType).AddMember("json_timestamp", time_now, allocator), allocator);
+    jsonTest.AddMember("json_timestamp", time_now, allocator);
+    document.AddMember("test", jsonTest, allocator);
     return document;
 }
 
-void SremApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, string test, vanetza::geonet::Router* router) {
+void SpatemApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, string test, vanetza::geonet::Router* router) {
 
     const double time_processing = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
@@ -129,7 +134,7 @@ void SremApplication::on_message(string topic, string mqtt_message, const std::v
     Value payload;
 
     if (!is_encoded) {
-        SignalRequestMessage_t srem;
+        SPAT_t spatem;
     
         try {
             document.Parse(mqtt_message.c_str());
@@ -147,7 +152,7 @@ void SremApplication::on_message(string topic, string mqtt_message, const std::v
         payload = document.GetObject();
 
         try {
-            from_json(payload, srem, "SREM");
+            from_json(payload, spatem, "SPATEM");
         } catch (VanetzaJSONException& e) {
             std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
             std::cout << e.what() << std::endl;
@@ -159,14 +164,14 @@ void SremApplication::on_message(string topic, string mqtt_message, const std::v
             return;
         }
 
-        vanetza::asn1::Srem message;
+        vanetza::asn1::Spatem message;
 
         ItsPduHeader_t& header = message->header;
         header.protocolVersion = 2;
-        header.messageID = ItsPduHeader__messageID_srem;
+        header.messageID = ItsPduHeader__messageID_spatem;
         header.stationID = config_s.station_id;
 
-        message->srm = srem;
+        message->spat = spatem;
 
         packet->layer(OsiLayer::Application) = std::move(message);
     } else {
@@ -193,7 +198,7 @@ void SremApplication::on_message(string topic, string mqtt_message, const std::v
         return;
     }
 
-    if(config_s.srem.mqtt_time_enabled) {
+    if(config_s.spatem.mqtt_time_enabled) {
         const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
         Document document;
@@ -205,23 +210,24 @@ void SremApplication::on_message(string topic, string mqtt_message, const std::v
             .AddMember("stationID", config_s.station_id, allocator)
             .AddMember("receiverID", config_s.station_id, allocator)
             .AddMember("receiverType", config_s.station_type, allocator);
-        if(!is_encoded) timePayload.AddMember("fields", Value(kObjectType).AddMember("srem", payload, allocator), allocator);
+        if(!is_encoded) timePayload.AddMember("fields", Value(kObjectType).AddMember("spatem", payload, allocator), allocator);
 
         timeTest.AddMember("wave_timestamp", time_now, allocator);
         timeTest.AddMember("start_processing_timestamp", time_processing, allocator);
+        if(test != "") timeTest.AddMember("request_info", Value().SetString(test.c_str(), test.size()), allocator);
         timePayload.AddMember("test", timeTest, allocator);
 
-        pubsub->publish_time(config_s.srem, timePayload);
+        pubsub->publish_time(config_s.spatem, timePayload);
     }
 
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     prom_mtx.lock();
-    srem_tx_counter->Increment();
-    srem_tx_latency->Increment(time_now - time_reception);
+    spatem_tx_counter->Increment();
+    spatem_tx_latency->Increment(time_now - time_reception);
     prom_mtx.unlock();
 }
 
-void SremApplication::on_timer(Clock::time_point)
+void SpatemApplication::on_timer(Clock::time_point)
 {
 
 }
