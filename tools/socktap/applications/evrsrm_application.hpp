@@ -26,6 +26,6 @@ private:
     config_t config_s;
     metrics_t metrics_s;
 
-    Document buildJSON(EV_RSR_t evrsrm, double time_reception, int rssi, int packet_size, double time_queue);
+    Document buildJSON(EV_RSR_t evrsrm, double time_reception, int rssi, int packet_size, double time_queue, channel channel_info);
 };
 

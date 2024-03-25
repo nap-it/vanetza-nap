@@ -94,7 +94,7 @@ void SpatemApplication::indicate(const DataIndication& indication, UpPacketPtr p
     }
     const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
-    Document spatem_json = buildJSON(spatem_t, cp.time_received, cp.rssi, cp.size(), cp.time_queue);
+    Document spatem_json = buildJSON(spatem_t, cp.time_received, cp.rssi, cp.size(), cp.time_queue, parse_channel_info(cp));
     pubsub->publish(config_s.spatem, spatem_json, &spatem_udp_socket, &spatem_remote_endpoint, &spatem_err, spatem_rx_counter, spatem_rx_latency, cp.time_received, time_encoded, cp.time_queue, time_queue2, "SPATEM");
 
 }
@@ -104,7 +104,7 @@ void SpatemApplication::schedule_timer()
     runtime_.schedule(spatem_interval_, std::bind(&SpatemApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-Document SpatemApplication::buildJSON(SPATEM_t message, double time_reception, int rssi, int packet_size, double time_queue) {
+Document SpatemApplication::buildJSON(SPATEM_t message, double time_reception, int rssi, int packet_size, double time_queue, channel channel_info) {
     ItsPduHeader_t& header = message.header;
     Document document(kObjectType);
     Document::AllocatorType& allocator = document.GetAllocator();
@@ -119,6 +119,13 @@ Document SpatemApplication::buildJSON(SPATEM_t message, double time_reception, i
         .AddMember("fields", to_json(message, allocator), allocator);
 
     jsonTest.AddMember("start_processing_timestamp", time_queue, allocator);
+    if(channel_info.frequency != -1) {
+        jsonTest.AddMember("channel_frequency", channel_info.frequency, allocator);
+        if (channel_info.noise != -1) jsonTest.AddMember("channel_noise", channel_info.noise, allocator);
+        jsonTest.AddMember("channel_busy_time", channel_info.chan_busy_time, allocator);
+        jsonTest.AddMember("channel_rx_time", channel_info.chan_rx_time, allocator);
+        jsonTest.AddMember("channel_tx_time", channel_info.chan_tx_time, allocator);
+    }
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     jsonTest.AddMember("json_timestamp", time_now, allocator);
     document.AddMember("test", jsonTest, allocator);

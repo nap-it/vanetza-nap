@@ -110,7 +110,7 @@ void VamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
     Document vam_json_full(kObjectType);
-    Document vam_json = buildJSON(vam_t, vam_json_full, cp.time_received, cp.rssi, cp.size(), cp.time_queue);
+    Document vam_json = buildJSON(vam_t, vam_json_full, cp.time_received, cp.rssi, cp.size(), cp.time_queue, parse_channel_info(cp));
 
     StringBuffer simpleBuffer;
     Writer<StringBuffer> simpleWriter(simpleBuffer);
@@ -204,7 +204,7 @@ void VamApplication::schedule_timer()
     runtime_.schedule(vam_interval_, std::bind(&VamApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-Document VamApplication::buildJSON(VAM_t message, Document& vam_json_full, double time_reception, int rssi, int packet_size, double time_queue) {
+Document VamApplication::buildJSON(VAM_t message, Document& vam_json_full, double time_reception, int rssi, int packet_size, double time_queue, channel channel_info) {
     ItsPduHeader_t& header = message.header;
     VruAwareness_t& vam = message.vam;
     BasicContainer_t& basic = vam.vamParameters.basicContainer;
@@ -249,6 +249,13 @@ Document VamApplication::buildJSON(VAM_t message, Document& vam_json_full, doubl
         .AddMember("fields", to_json(message, allocator), allocator);
 
     jsonTest.AddMember("start_processing_timestamp", time_queue, allocator);
+    if(channel_info.frequency != -1) {
+        jsonTest.AddMember("channel_frequency", channel_info.frequency, allocator);
+        if (channel_info.noise != -1) jsonTest.AddMember("channel_noise", channel_info.noise, allocator);
+        jsonTest.AddMember("channel_busy_time", channel_info.chan_busy_time, allocator);
+        jsonTest.AddMember("channel_rx_time", channel_info.chan_rx_time, allocator);
+        jsonTest.AddMember("channel_tx_time", channel_info.chan_tx_time, allocator);
+    }
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     jsonTest.AddMember("json_timestamp", time_now, allocator);
     document.AddMember("test", jsonTest, allocator);

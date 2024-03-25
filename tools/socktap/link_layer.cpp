@@ -9,7 +9,7 @@
 #endif
 
 std::unique_ptr<LinkLayer>
-create_link_layer(boost::asio::io_service& io_service, const EthernetDevice& device, const std::string& name, const int rssi_port)
+create_link_layer(boost::asio::io_service& io_service, const EthernetDevice& device, const std::string& name, const std::string& device_name, const bool rssi_enabled)
 {
     std::unique_ptr<LinkLayer> link_layer;
 
@@ -19,7 +19,7 @@ create_link_layer(boost::asio::io_service& io_service, const EthernetDevice& dev
         raw_socket.bind(device.endpoint(AF_PACKET));
 
         if (name == "ethernet") {
-            RawSocketLink* rawSocketLink = new RawSocketLink { std::move(raw_socket), rssi_port };
+            RawSocketLink* rawSocketLink = new RawSocketLink { std::move(raw_socket), device_name, rssi_enabled };
             link_layer.reset(rawSocketLink);
             std::thread receive_thread = std::thread([rawSocketLink]() {
                 rawSocketLink->do_receive();

@@ -28,7 +28,7 @@ using namespace std::chrono;
 bool rssi_enabled = false;
 std::mutex xmit_mtx; 
 
-RawSocketLink::RawSocketLink(boost::asio::generic::raw_protocol::socket&& socket, bool _rssi_enabled) :
+RawSocketLink::RawSocketLink(boost::asio::generic::raw_protocol::socket&& socket, const std::string& device_name, bool _rssi_enabled) :
     socket_(std::move(socket)), receive_buffer_(2048, 0x00),
     receive_endpoint_(socket_.local_endpoint())
 {   
@@ -52,7 +52,7 @@ RawSocketLink::RawSocketLink(boost::asio::generic::raw_protocol::socket&& socket
     }
 
     rssi_enabled = _rssi_enabled;
-    if (rssi_enabled) start_rssi_reader();
+    if (rssi_enabled) start_rssi_reader(device_name);
 }
 
 void RawSocketLink::request(const access::DataRequest& request, std::unique_ptr<ChunkPacket> packet)
@@ -110,6 +110,12 @@ void RawSocketLink::on_read(const boost::system::error_code& ec, std::size_t rea
                     packet.rssi = nrssi;
                 }
                 packet.mcs = get_mcs();
+                Survey s = get_survey();
+                packet.frequency = s.frequency;
+                packet.noise = s.noise;
+                packet.chan_busy_time = s.chan_busy_time;
+                packet.chan_rx_time = s.chan_rx_time;
+                packet.chan_tx_time = s.chan_tx_time;
             }
             packet.time_received = time_reception;
             if (callback_ && eth) {

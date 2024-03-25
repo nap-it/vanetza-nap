@@ -7,8 +7,11 @@ std::map<std::string, int> rssi;
 std::map<std::string, int> mcs;
 std::map<std::string, double> timeout;
 
+std::string devname;
+
 Netlink nl;
 Neighbour w;
+Survey survey;
 
 struct stats_parse_policy {
         ::nla_policy pol[NL80211_STA_INFO_MAX + 1];
@@ -18,8 +21,11 @@ struct rate_parse_policy {
         ::nla_policy pol[NL80211_RATE_INFO_MAX + 1];
 } rate_policy;
 
-void mac_addr_n2a(char *mac_addr, const unsigned char *arg)
-{
+struct survey_parse_policy {
+        ::nla_policy pol[NL80211_SURVEY_INFO_MAX + 1];
+} survey_policy;
+
+void mac_addr_n2a(char *mac_addr, const unsigned char *arg) {
 	int i, l;
 
 	l = 0;
@@ -34,7 +40,7 @@ void mac_addr_n2a(char *mac_addr, const unsigned char *arg)
 	}
 }
 
-static int initNl80211(Netlink* nl, Neighbour* w) {
+static int initNl80211(Netlink* nl, Neighbour* w, Survey* s) {
   nl->socket = nl_socket_alloc();
   if (!nl->socket) {
     fprintf(stderr, "Failed to allocate netlink socket.\n");
@@ -58,43 +64,35 @@ static int initNl80211(Netlink* nl, Neighbour* w) {
     return -ENOENT;
   }
 
-  nl->cb1 = nl_cb_alloc(NL_CB_DEFAULT);
-  nl->cb2 = nl_cb_alloc(NL_CB_DEFAULT);
-  if ((!nl->cb1) || (!nl->cb2)) {
+  nl->cbInterface = nl_cb_alloc(NL_CB_DEFAULT);
+  nl->cbStation = nl_cb_alloc(NL_CB_DEFAULT);
+  nl->cbSurvey = nl_cb_alloc(NL_CB_DEFAULT);
+  if ((!nl->cbInterface) || (!nl->cbStation) || (!nl->cbSurvey)) {
      fprintf(stderr, "Failed to allocate netlink callback.\n");
      nl_close(nl->socket);
      nl_socket_free(nl->socket);
      return ENOMEM;
   }
 
-  nl_cb_set(nl->cb1, NL_CB_VALID , NL_CB_CUSTOM, getInterfaceName, w);
-  nl_cb_set(nl->cb1, NL_CB_FINISH, NL_CB_CUSTOM, finish_handler1, &(nl->result1));
-  nl_cb_set(nl->cb2, NL_CB_VALID , NL_CB_CUSTOM, getNeighbourInfo_callback, w);
-  nl_cb_set(nl->cb2, NL_CB_FINISH, NL_CB_CUSTOM, finish_handler2, &(nl->result2));
+  nl_cb_set(nl->cbInterface, NL_CB_VALID , NL_CB_CUSTOM, getInterfaceName_callback, w);
+  nl_cb_set(nl->cbInterface, NL_CB_FINISH, NL_CB_CUSTOM, finish_handler, &(nl->resultInterface));
+  nl_cb_set(nl->cbStation, NL_CB_VALID , NL_CB_CUSTOM, getNeighbourInfo_callback, w);
+  nl_cb_set(nl->cbStation, NL_CB_FINISH, NL_CB_CUSTOM, finish_handler, &(nl->resultStation));
+  nl_cb_set(nl->cbSurvey, NL_CB_VALID , NL_CB_CUSTOM, getWirelessSurvey_callback, s);
+  nl_cb_set(nl->cbSurvey, NL_CB_FINISH, NL_CB_CUSTOM, finish_handler, &(nl->resultSurvey));
 
   return nl->id;
 }
 
-
-static int finish_handler1(struct nl_msg *msg, void *arg) {
+static int finish_handler(struct nl_msg *msg, void *arg) {
   int *ret = (int *) arg;
   *ret = 0;
   return NL_SKIP;
 }
 
-static int finish_handler2(struct nl_msg *msg, void *arg) {
-  int *ret = (int *) arg;
-  *ret = 0;
-  return NL_SKIP;
-}
-
-
-static int getInterfaceName(struct nl_msg *msg, void *arg) {
-
+static int getInterfaceName_callback(struct nl_msg *msg, void *arg) {
   struct genlmsghdr *gnlh = (genlmsghdr*) nlmsg_data(nlmsg_hdr(msg));
-
   struct nlattr *tb_msg[NL80211_ATTR_MAX + 1];
-
   //nl_msg_dump(msg, stdout);
 
   nla_parse(tb_msg,
@@ -103,17 +101,16 @@ static int getInterfaceName(struct nl_msg *msg, void *arg) {
             genlmsg_attrlen(gnlh, 0),
             NULL);
 
-  if (tb_msg[NL80211_ATTR_IFNAME]) {
+  if (tb_msg[NL80211_ATTR_IFNAME] && nla_get_string(tb_msg[NL80211_ATTR_IFNAME]) == devname) {
     strcpy(((Neighbour*)arg)->ifname, nla_get_string(tb_msg[NL80211_ATTR_IFNAME]));
-  }
 
-  if (tb_msg[NL80211_ATTR_IFINDEX]) {
-    ((Neighbour*)arg)->ifindex = nla_get_u32(tb_msg[NL80211_ATTR_IFINDEX]);
+    if (tb_msg[NL80211_ATTR_IFINDEX]) {
+      ((Neighbour*)arg)->ifindex = nla_get_u32(tb_msg[NL80211_ATTR_IFINDEX]);
+    }
   }
 
   return NL_SKIP;
 }
-
 
 static int getNeighbourInfo_callback(struct nl_msg *msg, void *arg) {
   struct nlattr *tb[NL80211_ATTR_MAX + 1];
@@ -198,18 +195,50 @@ static int getNeighbourInfo_callback(struct nl_msg *msg, void *arg) {
   return NL_SKIP;
 }
 
+static int getWirelessSurvey_callback(struct nl_msg *msg, void *arg) {
+	struct nlattr *tb[NL80211_ATTR_MAX + 1];
+  struct genlmsghdr *gnlh = (genlmsghdr*) nlmsg_data(nlmsg_hdr(msg));
+	struct nlattr *sinfo[NL80211_SURVEY_INFO_MAX + 1];
 
-static int send_message(Netlink* nl, Neighbour* w) {
-  nl->result1 = 1;
-  nl->result2 = 1;
+	nla_parse(tb, NL80211_ATTR_MAX, genlmsg_attrdata(gnlh, 0),
+		  genlmsg_attrlen(gnlh, 0), NULL);
+	
+	if (!tb[NL80211_ATTR_SURVEY_INFO]) {
+		fprintf(stderr, "survey data missing!\n");
+		return NL_SKIP;
+	}
+	if (nla_parse_nested(sinfo, NL80211_SURVEY_INFO_MAX,
+			     tb[NL80211_ATTR_SURVEY_INFO],
+			     survey_policy.pol)) {
+		fprintf(stderr, "failed to parse nested attributes!\n");
+		return NL_SKIP;
+	}
 
-  struct nl_msg* msg1 = nlmsg_alloc();
-  if (!msg1) {
-    fprintf(stderr, "Failed to allocate netlink message.\n");
+  if(sinfo[NL80211_SURVEY_INFO_IN_USE]) {
+    ((Survey*)arg)->frequency = nla_get_u32(sinfo[NL80211_SURVEY_INFO_FREQUENCY]);
+    if (sinfo[NL80211_SURVEY_INFO_NOISE]) ((Survey*)arg)->noise = (int8_t)nla_get_u8(sinfo[NL80211_SURVEY_INFO_NOISE]);
+    else ((Survey*)arg)->noise = -1;
+    if (sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME_BUSY]) ((Survey*)arg)->chan_busy_time = round((double) nla_get_u64(sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME_BUSY]) / nla_get_u64(sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME]) * 1000000) / 1000000;
+    if (sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME_RX]) ((Survey*)arg)->chan_rx_time = round((double) nla_get_u64(sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME_RX]) / nla_get_u64(sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME]) * 1000000) / 1000000;
+    if (sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME_TX]) ((Survey*)arg)->chan_tx_time = round((double) nla_get_u64(sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME_TX]) / nla_get_u64(sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME]) * 1000000) / 1000000;
+  }
+ 
+	return NL_SKIP;
+}
+
+static int send_message(Netlink* nl, Neighbour* w, Survey* s) {
+  nl->resultInterface = 1;
+  nl->resultStation = 1;
+  nl->resultSurvey = 1;
+
+  // Message 1 - NL80211_CMD_GET_INTERFACE
+  struct nl_msg* msgInterface = nlmsg_alloc();
+  if (!msgInterface) {
+    fprintf(stderr, "Failed to allocate netlink interface message.\n");
     return -2;
   }
 
-  genlmsg_put(msg1,
+  genlmsg_put(msgInterface,
               NL_AUTO_PORT,
               NL_AUTO_SEQ,
               nl->id,
@@ -218,21 +247,20 @@ static int send_message(Netlink* nl, Neighbour* w) {
               NL80211_CMD_GET_INTERFACE,
               0);
 
-  nl_send_auto(nl->socket, msg1);
+  nl_send_auto(nl->socket, msgInterface);
 
-  while (nl->result1 > 0) { nl_recvmsgs(nl->socket, nl->cb1); }
-  nlmsg_free(msg1);
-
+  while (nl->resultInterface > 0) { nl_recvmsgs(nl->socket, nl->cbInterface); }
+  nlmsg_free(msgInterface);
   if (w->ifindex < 0) { return -1; }
 
-  struct nl_msg* msg2 = nlmsg_alloc();
-
-  if (!msg2) {
-    fprintf(stderr, "Failed to allocate netlink message.\n");
+  // Message 2 - NL80211_CMD_GET_STATION
+  struct nl_msg* msgStation = nlmsg_alloc();
+  if (!msgStation) {
+    fprintf(stderr, "Failed to allocate netlink station message.\n");
     return -2;
   }
 
-  genlmsg_put(msg2,
+  genlmsg_put(msgStation,
               NL_AUTO_PORT,
               NL_AUTO_SEQ,
               nl->id,
@@ -241,16 +269,36 @@ static int send_message(Netlink* nl, Neighbour* w) {
               NL80211_CMD_GET_STATION,
               0);
 
-  nla_put_u32(msg2, NL80211_ATTR_IFINDEX, w->ifindex);
-  nl_send_auto(nl->socket, msg2);
-  while (nl->result2 > 0) { nl_recvmsgs(nl->socket, nl->cb2); }
-  nlmsg_free(msg2);
+  nla_put_u32(msgStation, NL80211_ATTR_IFINDEX, w->ifindex);
+  nl_send_auto(nl->socket, msgStation);
+  while (nl->resultStation > 0) { nl_recvmsgs(nl->socket, nl->cbStation); }
+  nlmsg_free(msgStation);
+
+  // Message 3 - NL80211_CMD_GET_SURVEY
+  struct nl_msg* msgSurvey = nlmsg_alloc();
+  if (!msgSurvey) {
+    fprintf(stderr, "Failed to allocate netlink survey message.\n");
+    return -2;
+  }
+
+  genlmsg_put(msgSurvey,
+              NL_AUTO_PORT,
+              NL_AUTO_SEQ,
+              nl->id,
+              0,
+              NLM_F_DUMP,
+              NL80211_CMD_GET_SURVEY,
+              0);
+
+  nla_put_u32(msgSurvey, NL80211_ATTR_IFINDEX, w->ifindex);
+  nl_send_auto(nl->socket, msgSurvey);
+  while (nl->resultSurvey > 0) { nl_recvmsgs(nl->socket, nl->cbSurvey); }
+  nlmsg_free(msgSurvey);
 
   return 0;
 }
 
 int rssi_main() {
-
   stats_policy.pol[NL80211_STA_INFO_INACTIVE_TIME].type = NLA_U32;
   stats_policy.pol[NL80211_STA_INFO_RX_BYTES].type = NLA_U32;
   stats_policy.pol[NL80211_STA_INFO_TX_BYTES].type = NLA_U32;
@@ -267,8 +315,13 @@ int rssi_main() {
   rate_policy.pol[NL80211_RATE_INFO_40_MHZ_WIDTH].type = NLA_FLAG;
   rate_policy.pol[NL80211_RATE_INFO_SHORT_GI].type = NLA_FLAG;
 
+  survey_policy.pol[NL80211_SURVEY_INFO_FREQUENCY].type = NLA_U32;
+  survey_policy.pol[NL80211_SURVEY_INFO_NOISE].type = NLA_U8;
+
+  survey.frequency = -1;
+
   printf("Initializing netlink 802.11\n");
-  nl.id = initNl80211(&nl, &w);
+  nl.id = initNl80211(&nl, &w, &survey);
   if (nl.id < 0) {
     fprintf(stderr, "Error initializing netlink 802.11\n");
     return -1;
@@ -276,7 +329,7 @@ int rssi_main() {
 
   int i = 0;
   while(1){
-    send_message(&nl, &w);
+    send_message(&nl, &w, &survey);
     nanosleep((const struct timespec[]){{0, 50000000L}}, NULL);
     i++;
     if(i == 100) {
@@ -295,15 +348,15 @@ int rssi_main() {
     }
   }
 
-  nl_cb_put(nl.cb1);
-  nl_cb_put(nl.cb2);
+  nl_cb_put(nl.cbInterface);
+  nl_cb_put(nl.cbStation);
   nl_close(nl.socket);
   nl_socket_free(nl.socket);
   return 0;
 }
 
-void start_rssi_reader()
-{
+void start_rssi_reader(const std::string& device_name) {
+  devname = device_name;
   std::thread t1(rssi_main);
   t1.detach();
 }
@@ -317,4 +370,8 @@ int get_rssi(std::string mac) {
 
 std::map<std::string, int> get_mcs() {
   return mcs;
+}
+
+Survey get_survey() {
+  return survey;
 }

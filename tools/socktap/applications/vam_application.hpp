@@ -26,7 +26,7 @@ private:
     config_t config_s;
     metrics_t metrics_s;
 
-    Document buildJSON(VAM_t vam, Document& vam_json_full, double time_reception, int rssi, int packet_size, double time_queue);
+    Document buildJSON(VAM_t vam, Document& vam_json_full, double time_reception, int rssi, int packet_size, double time_queue, channel channel_info);
 
     bool isNewInfo(long stationID, long latitude, long longitude, double speed, long heading, double time_reception);
     bool isNewInfo(long stationID, double time_reception);

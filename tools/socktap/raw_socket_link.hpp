@@ -12,7 +12,7 @@
 class RawSocketLink : public LinkLayer
 {
 public:
-    RawSocketLink(boost::asio::generic::raw_protocol::socket&&, bool _rssi_enabled);
+    RawSocketLink(boost::asio::generic::raw_protocol::socket&&, const std::string& device_name, bool _rssi_enabled);
     void request(const vanetza::access::DataRequest&, std::unique_ptr<vanetza::ChunkPacket>) override;
     void indicate(IndicationCallback) override;
     void do_receive();

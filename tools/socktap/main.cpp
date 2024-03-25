@@ -73,6 +73,9 @@ int main(int argc, const char** argv)
         asio::io_service io_service;
         TimeTrigger trigger(io_service);
 
+        // DEBUG PURPOSES
+        //std::this_thread::sleep_for(std::chrono::milliseconds(20000));
+
         const char* device_name = config_s.interface.c_str();
         EthernetDevice device(device_name);
         vanetza::MacAddress mac_address = device.address();
@@ -87,7 +90,7 @@ int main(int argc, const char** argv)
         }
 
         const std::string link_layer_name = "ethernet";
-        auto link_layer =  create_link_layer(io_service, device, link_layer_name, config_s.rssi_enabled);
+        auto link_layer =  create_link_layer(io_service, device, link_layer_name, device_name, config_s.rssi_enabled);
         if (!link_layer) {
             std::cerr << "No link layer '" << link_layer_name << "' found." << std::endl;
             return 1;
@@ -156,9 +159,6 @@ int main(int argc, const char** argv)
         if (config_s.num_threads > 0) {
             num_threads = config_s.num_threads;
         }
-
-        // DEBUG PURPOSES
-        //std::this_thread::sleep_for(std::chrono::milliseconds(20000));
 
         RouterContext context(mib, trigger, *positioning, security.get(), config_s.ignore_own_messages, config_s.ignore_rsu_messages, num_threads, io_service);
         context.set_link_layer(link_layer.get());

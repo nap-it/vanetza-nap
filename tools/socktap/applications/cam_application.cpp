@@ -119,7 +119,7 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
     Document cam_json_full(kObjectType);
-    Document cam_json = buildJSON(cam_t, cam_json_full, cp.time_received, cp.time_queue, cp.rssi, cp.size(), true, true, true);
+    Document cam_json = buildJSON(cam_t, cam_json_full, cp.time_received, cp.time_queue, cp.rssi, cp.size(), parse_channel_info(cp), true, true, true);
 
     StringBuffer simpleBuffer;
     Writer<StringBuffer> simpleWriter(simpleBuffer);
@@ -281,7 +281,7 @@ void CamApplication::schedule_timer()
     runtime_.schedule(cam_interval_, std::bind(&CamApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, double time_reception, double time_queue, int rssi, int packet_size, bool include_fields, bool rx, bool full) {
+Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, double time_reception, double time_queue, int rssi, int packet_size, channel channel_info, bool include_fields, bool rx, bool full) {
     ItsPduHeader_t& header = message.header;
     CoopAwareness_t& cam = message.cam;
     BasicContainer_t& basic = cam.camParameters.basicContainer;
@@ -385,10 +385,24 @@ Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, doubl
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     if (full) {
         if (time_queue != 0) jsonTest.AddMember("start_processing_timestamp", time_queue, fullAllocator);
+        if(channel_info.frequency != -1) {
+            jsonTest.AddMember("channel_frequency", channel_info.frequency, fullAllocator);
+            if (channel_info.noise != -1) jsonTest.AddMember("channel_noise", channel_info.noise, fullAllocator);
+            jsonTest.AddMember("channel_busy_time", channel_info.chan_busy_time, fullAllocator);
+            jsonTest.AddMember("channel_rx_time", channel_info.chan_rx_time, fullAllocator);
+            jsonTest.AddMember("channel_tx_time", channel_info.chan_tx_time, fullAllocator);
+        }
         jsonTest.AddMember("json_timestamp", time_now, fullAllocator);
         cam_json_full.AddMember("test", jsonTest, fullAllocator);
     }
     if (time_queue != 0) simpleJsonTest.AddMember("start_processing_timestamp", time_queue, simpleAllocator);
+    if(channel_info.frequency != -1) {
+        simpleJsonTest.AddMember("channel_frequency", channel_info.frequency, simpleAllocator);
+        if (channel_info.noise != -1) simpleJsonTest.AddMember("channel_noise", channel_info.noise, simpleAllocator);
+        simpleJsonTest.AddMember("channel_busy_time", channel_info.chan_busy_time, simpleAllocator);
+        simpleJsonTest.AddMember("channel_rx_time", channel_info.chan_rx_time, simpleAllocator);
+        simpleJsonTest.AddMember("channel_tx_time", channel_info.chan_tx_time, simpleAllocator);
+    }
     simpleJsonTest.AddMember("json_timestamp", time_now, simpleAllocator);
     simpleDocument.AddMember("test", simpleJsonTest, simpleAllocator);
     return simpleDocument;
@@ -689,7 +703,7 @@ void CamApplication::on_timer(Clock::time_point)
     
     Document cam_json_full(kObjectType);
     Document::AllocatorType& fullAllocator = cam_json_full.GetAllocator();
-    Document cam_json = buildJSON(cam_t, cam_json_full, time_now_mqtt, 0, -255, 0, true, false, true);
+    Document cam_json = buildJSON(cam_t, cam_json_full, time_now_mqtt, 0, -255, 0, channel{-1,-1,-1,-1,-1}, true, false, true);
     Document::AllocatorType& simpleAllocator = cam_json.GetAllocator();
 
     DownPacketPtr packet { new DownPacket() };

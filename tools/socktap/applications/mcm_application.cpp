@@ -93,7 +93,7 @@ void McmApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     }
     const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
-    Document mcm_json = buildJSON(mcm_t, cp.time_received, cp.rssi, cp.size(), cp.time_queue);
+    Document mcm_json = buildJSON(mcm_t, cp.time_received, cp.rssi, cp.size(), cp.time_queue, parse_channel_info(cp));
     pubsub->publish(config_s.mcm, mcm_json, &mcm_udp_socket, &mcm_remote_endpoint, &mcm_err, mcm_rx_counter, mcm_rx_latency, cp.time_received, time_encoded, cp.time_queue, time_queue2, "MCM");
     
 }
@@ -103,7 +103,7 @@ void McmApplication::schedule_timer()
     runtime_.schedule(mcm_interval_, std::bind(&McmApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-Document McmApplication::buildJSON(MCM_t message, double time_reception, int rssi, int packet_size, double time_queue) {
+Document McmApplication::buildJSON(MCM_t message, double time_reception, int rssi, int packet_size, double time_queue, channel channel_info) {
     ItsPduHeader_t& header = message.header;
     Document document(kObjectType);
     Document::AllocatorType& allocator = document.GetAllocator();
@@ -118,6 +118,13 @@ Document McmApplication::buildJSON(MCM_t message, double time_reception, int rss
         .AddMember("fields", to_json(message, allocator), allocator);
 
     jsonTest.AddMember("start_processing_timestamp", time_queue, allocator);
+    if(channel_info.frequency != -1) {
+        jsonTest.AddMember("channel_frequency", channel_info.frequency, allocator);
+        if (channel_info.noise != -1) jsonTest.AddMember("channel_noise", channel_info.noise, allocator);
+        jsonTest.AddMember("channel_busy_time", channel_info.chan_busy_time, allocator);
+        jsonTest.AddMember("channel_rx_time", channel_info.chan_rx_time, allocator);
+        jsonTest.AddMember("channel_tx_time", channel_info.chan_tx_time, allocator);
+    }
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     jsonTest.AddMember("json_timestamp", time_now, allocator);
     document.AddMember("test", jsonTest, allocator);
