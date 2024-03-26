@@ -435,11 +435,13 @@ public:
     const char* what() const noexcept override {
         message = "\nError: " + cause + "\nIn: ";
         auto it = contextList.rbegin();
-        ++it;
-        for (; it != contextList.rend(); ++it) {
-            message += *it;
-            if (std::next(it) != contextList.rend()) {
-                message += " -> ";
+        if(it != contextList.rend()) {
+            ++it;
+            for (; it != contextList.rend(); ++it) {
+                message += *it;
+                if (std::next(it) != contextList.rend()) {
+                    message += " -> ";
+                }
             }
         }
         return message.c_str();

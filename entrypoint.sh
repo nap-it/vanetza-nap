@@ -16,6 +16,7 @@ if [ -e "/info.ini" ]; then
     update_config_field "/info.ini" "mobility" "longitude" "/config.ini" "station" "longitude"
     update_config_field "/info.ini" "mobility" "macAddr" "/config.ini" "station" "mac_address"
     update_config_field "/info.ini" "mobility" "interface" "/config.ini" "general" "interface"
+    update_config_field "/info.ini" "general" "id" "/config.ini" "general" "dds_domain_id"
     echo "Config update process complete"
 else
     echo "No global board config file found. Skipping config update process"
@@ -45,15 +46,4 @@ if [ -n "$START_EMBEDDED_MOSQUITTO" ] && [ $START_EMBEDDED_MOSQUITTO = true ] ; 
     sleep 2
 fi
 
-if [ $(uname -m) = "armv7l" ] ; then
-    cd /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/linux-arm/
-    export LD_LIBRARY_PATH=$(pwd)
-fi
-if [ $(uname -m) = "aarch64" ] ; then
-    cd /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/linux-arm64/
-    export LD_LIBRARY_PATH=$(pwd)
-fi
-
-/root/go/src/dds-vanetza-service/main /config.ini /Vanetza_DDS_Spec.xml &>/dev/null &
-sleep 1
 /usr/local/bin/socktap -c /config.ini

@@ -87,7 +87,13 @@ public:
 
     int rssi;
     std::map<std::string, int> mcs;
+    int frequency;
+    int noise;
+    double chan_busy_time;
+    double chan_rx_time;
+    double chan_tx_time;
     double time_received;
+    double time_queue;
 
 private:
     void reset_iterators(OsiLayer layer);

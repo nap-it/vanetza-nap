@@ -48,9 +48,11 @@ typedef struct config {
     bool mcs_enabled;
     bool ignore_own_messages;
     bool ignore_rsu_messages;
-    int to_dds_key;
-    int from_dds_key;
     bool enable_json_prints;
+    string dds_participant_name;
+    int dds_domain_id;
+    int num_threads;
+    bool publish_encoded_payloads;
     message_config_t cam;
     message_config_t denm;
     message_config_t cpm;

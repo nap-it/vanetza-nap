@@ -13,12 +13,14 @@ def on_connect(client, userdata, flags, rc):
 
 # É chamada automaticamente sempre que recebe uma mensagem nos tópicos subscritos em cima
 def on_message(client, userdata, msg):
-    message = json.loads(msg.payload.decode('utf-8'))
+    message = msg.payload.decode('utf-8')
     
     print('Topic: ' + msg.topic)
     print('Message' + message)
 
-    # lat = message["latitude"]
+    obj = json.loads(message)
+
+    # lat = obj["latitude"]
     # ...
 
 

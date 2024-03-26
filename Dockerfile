@@ -1,26 +1,27 @@
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 ENV TZ=Europe/Lisbon
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN printf "deb http://httpredir.debian.org/debian buster-backports main non-free\ndeb-src http://httpredir.debian.org/debian buster-backports main non-free" > /etc/apt/sources.list.d/backports.list
+RUN printf "deb http://httpredir.debian.org/debian bullseye-backports main non-free\ndeb-src http://httpredir.debian.org/debian bullseye-backports main non-free\n" > /etc/apt/sources.list.d/backports.list
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
-    cmake/buster-backports \
+    cmake/bullseye-backports \
+    cmake-data/bullseye-backports \
     git \
     mosquitto \
     libboost-date-time-dev \
     libmosquittopp-dev \
     libboost-program-options-dev \
     libboost-system-dev \
+    libasio-dev \
+    libtinyxml2-dev \
     libcrypto++-dev \
     libgeographic-dev \
-    libgps-dev/buster-backports \
+    libgps-dev \
     libssl-dev \
     libnl-3-dev \
     libnl-genl-3-dev \
     zlib1g-dev \
     libcurl4-openssl-dev \
-    golang-src/buster-backports \
-    golang-go/buster-backports \
     ca-certificates \
     file \
     && rm -rf /var/lib/apt/lists/*
@@ -32,6 +33,26 @@ RUN git checkout a944ec100251019cd44d070bbf2fd22f5139d6d0
 RUN cmake -B_build -DCPACK_GENERATOR=DEB -DBUILD_SHARED_LIBS=ON
 RUN cmake --build _build --target package --parallel $(nproc)
 RUN dpkg -i _build/*.deb
+WORKDIR /tmp
+RUN git clone https://github.com/eProsima/foonathan_memory_vendor.git
+RUN mkdir /tmp/foonathan_memory_vendor/build
+WORKDIR /tmp/foonathan_memory_vendor/build
+RUN cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local/ -DBUILD_SHARED_LIBS=ON
+RUN cmake --build . --target install --parallel $(nproc)
+WORKDIR /tmp
+RUN git clone https://github.com/eProsima/Fast-CDR.git
+RUN mkdir /tmp/Fast-CDR/build
+WORKDIR /tmp/Fast-CDR/build
+RUN cmake ..
+RUN cmake --build . --target install --parallel $(nproc)
+WORKDIR /tmp
+RUN git clone https://github.com/eProsima/Fast-DDS.git
+WORKDIR /tmp/Fast-DDS/
+RUN git checkout v2.13.2
+RUN mkdir /tmp/Fast-DDS/build
+WORKDIR /tmp/Fast-DDS/build
+RUN cmake ..
+RUN cmake --build . --target install --parallel $(nproc)
 RUN mkdir /vanetza
 COPY . /vanetza
 WORKDIR /vanetza
@@ -39,35 +60,26 @@ RUN rm -f CMakeCache.txt
 RUN cmake .
 RUN cmake --build . --target socktap -j $(nproc)
 RUN cp /vanetza/bin/socktap /usr/local/bin/socktap
-RUN mkdir -p /root/go/src/dds-vanetza-service
-RUN cp -r /vanetza/tools/dds_service/* /root/go/src/dds-vanetza-service
-WORKDIR /root/go/src/dds-vanetza-service
-RUN GOMAXPROCS=1 GO111MODULE="on" go mod tidy \
-    && rm -rf /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/osx-x64 \
-    && rm -rf /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/win-x64 \
-    && arch=$(uname -m); [ "$arch" != "arm" ] && rm -rf /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/linux-arm; [ "$arch" != "aarch64" ] && rm -rf /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/linux-arm64; [ "$arch" != "x86_64" ] && rm -rf /root/go/pkg/mod/github.com/rticommunity/*/rticonnextdds-connector/lib/linux-x64; echo done
-RUN chmod +x build.sh
-RUN /bin/bash build.sh
-WORKDIR /vanetza
 
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 ENV TZ=Europe/Lisbon
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN printf "deb http://httpredir.debian.org/debian buster-backports main non-free\ndeb-src http://httpredir.debian.org/debian buster-backports main non-free" > /etc/apt/sources.list.d/backports.list
+#RUN printf "deb http://httpredir.debian.org/debian buster-backports main non-free\ndeb-src http://httpredir.debian.org/debian buster-backports main non-free\n" > /etc/apt/sources.list.d/backports.list
 RUN apt-get update && apt-get install -y --no-install-recommends \
     mosquitto \
-    libboost-date-time1.67.0 \
+    libboost-date-time1.74.0 \
     libmosquittopp1 \
-    libboost-program-options1.67.0 \
-    libboost-system1.67.0 \
+    libboost-program-options1.74.0 \
+    libboost-system1.74.0 \
+    libtinyxml2-8 \
     libcrypto++ \
-    libgeographic17 \
+    libgeographic19 \
     libnl-3-dev \
     libnl-genl-3-dev \
     libssl1.1 \
     zlib1g \
-    iproute2/buster-backports \
-    libgps-dev/buster-backports \
+    iproute2 \
+    libgps-dev \
     iptables \
     bridge-utils \
     ebtables \
@@ -86,12 +98,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /
 ENV EMBEDDED_MOSQUITTO_PORT=1883
 COPY --from=0 /vanetza/bin/socktap /usr/local/bin/socktap
-COPY --from=0 /root/go/src/dds-vanetza-service/Vanetza_DDS_Spec.xml /Vanetza_DDS_Spec.xml
 COPY --from=0 /vanetza/tools/socktap/config.ini /config.ini
 COPY --from=0 /vanetza/entrypoint.sh /entrypoint.sh
-COPY --from=0 /root/go/src/dds-vanetza-service/main /root/go/src/dds-vanetza-service/main
-COPY --from=0 /root/go/src/dds-vanetza-service/main /root/go/src/dds-vanetza-service/main
-COPY --from=0 /root/go/pkg/mod/github.com/rticommunity/ /root/go/pkg/mod/github.com/rticommunity/
+COPY --from=0 /usr/local/lib/libfast* /usr/local/lib
+COPY --from=0 /usr/local/lib/libfoon* /usr/local/lib
 COPY --from=0 /tmp/prometheus-cpp/_build/*.deb /deps/
 RUN dpkg -i /deps/*.deb
 RUN chmod +x /entrypoint.sh

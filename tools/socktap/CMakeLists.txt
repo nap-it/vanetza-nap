@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 #set(CMAKE_BUILD_TYPE Debug)
-set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wno-terminate -Wno-narrowing -I/usr/include/libnl3 -lnl-genl-3 -lnl-3 -ldl -O2")
+set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wno-terminate -Wno-narrowing -L/usr/local/lib -I/usr/include/libnl3 -lnl-genl-3 -lnl-3 -ldl -O2")
 
 set(RAPID_JSON_DIR ${PROJECT_SOURCE_DIR}/vendor/rapidjson)
 
@@ -18,28 +18,26 @@ endif()
 find_package(Threads REQUIRED)
 find_package(RapidJSON)
 
+file(GLOB APPLICATIONS_SRC 
+    applications/*.cpp
+    applications/*.hpp
+)
+
+file(GLOB FASTDDS_SRC
+    fastdds/*.cpp
+    fastdds/*.hpp
+    fastdds/*.cxx
+)
+
 add_executable(socktap
     asn1json.cpp
     config_reader.hpp
     config.hpp config.cpp
-    mqtt.h mqtt.cpp
-    dds.h dds.cpp
+    pubsub.hpp pubsub.cpp
+    mqtt.hpp mqtt.cpp
+    dds.hpp dds.cpp
     application.cpp
-    cam_application.cpp
-    denm_application.cpp
-    cpm_application.cpp
-    vam_application.cpp
-    spatem_application.cpp
-    mapem_application.cpp
-    ssem_application.cpp
-    srem_application.cpp
-    rtcmem_application.cpp
-    ivim_application.cpp
-    evcsnm_application.cpp
-    evrsrm_application.cpp
-    imzm_application.cpp
-    tistpgm_application.cpp
-    mcm_application.cpp
+    ${APPLICATIONS_SRC}
     dcc_passthrough.cpp
     ethernet_device.cpp
     link_layer.cpp
@@ -49,9 +47,10 @@ add_executable(socktap
     raw_socket_link.cpp
     router_context.cpp
     security.cpp
-    time_trigger.cpp)
+    time_trigger.cpp
+    ${FASTDDS_SRC})
 
-target_link_libraries(socktap PUBLIC mosquittopp)
+target_link_libraries(socktap PUBLIC mosquittopp fastrtps fastcdr)
 target_link_libraries(socktap PUBLIC nl-genl-3 nl-3 dl)
 target_link_libraries(socktap PUBLIC Boost::system Boost::program_options Threads::Threads vanetza)
 

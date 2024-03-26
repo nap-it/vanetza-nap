@@ -13,6 +13,8 @@
 #include <thread>
 #include <map>
 #include <iostream>
+#include <chrono>
+#include <math.h>
 
 //
 #include <sys/socket.h>
@@ -22,8 +24,8 @@
 typedef struct {
   int id;
   struct nl_sock* socket;
-  struct nl_cb* cb1,* cb2;
-  int result1, result2;
+  struct nl_cb* cbInterface,* cbStation, * cbSurvey;
+  int resultInterface, resultStation, resultSurvey;
 } Netlink;
 
 typedef struct {
@@ -37,13 +39,22 @@ typedef struct {
   u_int32_t d_throughput;
 } Neighbour;
 
-static int initNl80211(Netlink* nl, Neighbour* w);
-static int finish_handler1(struct nl_msg *msg, void *arg);
-static int finish_handler2(struct nl_msg *msg, void *arg);
-static int getInterfaceName(struct nl_msg *msg, void *arg);
+typedef struct {
+  int frequency;
+  int noise;
+  double chan_busy_time;
+  double chan_rx_time;
+  double chan_tx_time;
+} Survey;
+
+static int initNl80211(Netlink* nl, Neighbour* w, Survey* s);
+static int finish_handler(struct nl_msg *msg, void *arg);
+static int getInterfaceName_callback(struct nl_msg *msg, void *arg);
 static int getNeighbourInfo_callback(struct nl_msg *msg, void *arg);
-static int send_message(Netlink* nl, Neighbour* w);
+static int getWirelessSurvey_callback(struct nl_msg *msg, void *arg);
+static int send_message(Netlink* nl, Neighbour* w, Survey* s);
 int rssi_main();
-void start_rssi_reader();
+void start_rssi_reader(const std::string& device_name);
 int get_rssi(std::string mac);
 std::map<std::string, int> get_mcs();
+Survey get_survey();

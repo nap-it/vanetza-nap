@@ -6,7 +6,6 @@
 #include <vanetza/dcc/mapping.hpp>
 #include <vanetza/net/chunk_packet.hpp>
 #include <iostream>
-#include <thread>
 
 using namespace vanetza;
 
@@ -45,8 +44,12 @@ bool DccPassthrough::allow_packet_flow()
 
 TimeTrigger &DccPassthrough::get_trigger() {
     std::thread::id curr_id = std::this_thread::get_id();
-    if (!triggers_.count(curr_id)) {
-        triggers_[curr_id] = new TimeTrigger(io_context_);
+    return this->get_trigger(curr_id);
+}
+
+TimeTrigger &DccPassthrough::get_trigger(std::thread::id id) {
+    if (!triggers_.count(id)) {
+        triggers_[id] = new TimeTrigger(io_context_);
     }
-    return *(triggers_[curr_id]);
+    return *(triggers_[id]);
 }

@@ -6,6 +6,7 @@
 #include <vanetza/dcc/data_request.hpp>
 #include <vanetza/dcc/interface.hpp>
 #include <vanetza/net/cohesive_packet.hpp>
+#include <thread>
 
 class DccPassthrough : public vanetza::dcc::RequestInterface
 {
@@ -17,6 +18,7 @@ public:
     void allow_packet_flow(bool allow);
     bool allow_packet_flow();
     TimeTrigger& get_trigger();
+    TimeTrigger& get_trigger(std::thread::id id);
 
 private:
     vanetza::access::Interface& access_;

@@ -13,16 +13,24 @@
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 
-#include "dds.h"
+#include "pubsub.hpp"
 #include "router_context.hpp"
 #include "config.hpp"
 
 #include <prometheus/counter.h>
 #include <prometheus/registry.h>
+#include <mutex>
 
 static vanetza::geonet::GbcDataRequest request_gbc(const vanetza::btp::DataRequestGeoNetParams&, vanetza::geonet::Router* router);
 static vanetza::geonet::ShbDataRequest request_shb(const vanetza::btp::DataRequestGeoNetParams&, vanetza::geonet::Router* router);
-void start_application_thread();
+
+typedef struct {
+  int frequency;
+  int noise;
+  double chan_busy_time;
+  double chan_rx_time;
+  double chan_tx_time;
+} channel;
 
 class Application : public vanetza::btp::IndicationInterface
 {
@@ -43,14 +51,15 @@ public:
     virtual PortType port() = 0;
     virtual PromiscuousHook* promiscuous_hook();
     void on_message(string);
+    int priority;
 
 protected:
-    bool request(const DataRequest&, DownPacketPtr, std::string* mqtt_message);
-
-private:
-    friend class RouterContext;
-    vanetza::geonet::Router* router_;
+    bool request(const DataRequest& request, DownPacketPtr packet, std::string* mqtt_message, vanetza::geonet::Router* router);
 };
+
+static channel parse_channel_info(vanetza::CohesivePacket cp) {
+    return channel{cp.frequency, cp.noise, cp.chan_busy_time, cp.chan_rx_time, cp.chan_tx_time};
+}
 
 #endif /* APPLICATION_HPP_PSIGPUTG */
 

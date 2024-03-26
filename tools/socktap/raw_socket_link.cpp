@@ -5,6 +5,7 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <mutex>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,6 +15,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
+#include <linux/filter.h>
 #include "rssi_reader.hpp"
 
 #include <boost/asio.hpp>
@@ -24,14 +26,33 @@ using namespace vanetza;
 using namespace std::chrono;
 
 bool rssi_enabled = false;
+std::mutex xmit_mtx; 
 
-RawSocketLink::RawSocketLink(boost::asio::generic::raw_protocol::socket&& socket, bool _rssi_enabled) :
+RawSocketLink::RawSocketLink(boost::asio::generic::raw_protocol::socket&& socket, const std::string& device_name, bool _rssi_enabled) :
     socket_(std::move(socket)), receive_buffer_(2048, 0x00),
     receive_endpoint_(socket_.local_endpoint())
 {   
+    // BPF filter
+    struct sock_filter bpf_code[] = {
+        { 0x28, 0, 0, 0x0000000c },  // ldh [12]
+        { 0x15, 0, 1, 0x00008947 },  // jeq #0x8947, jt 2, jf 3
+        { 0x06, 0, 0, 0x0000ffff },  // ret #65535
+        { 0x06, 0, 0, 0x00000000 },  // ret #0
+    };
+
+    struct sock_fprog bpf_filter = {
+        .len = sizeof(bpf_code)/sizeof(struct sock_filter), 
+        .filter = bpf_code,
+    };
+
+    // Apply the BPF filter
+    if (setsockopt(socket_.native_handle(), SOL_SOCKET, SO_ATTACH_FILTER, 
+        &bpf_filter, sizeof(bpf_filter)) < 0) {
+        std::cout << "Could not apply BPF filter to raw socket link. Proceeding with unfiltered socket." << std::endl;
+    }
+
     rssi_enabled = _rssi_enabled;
-    if (rssi_enabled) start_rssi_reader();
-    do_receive();
+    if (rssi_enabled) start_rssi_reader(device_name);
 }
 
 void RawSocketLink::request(const access::DataRequest& request, std::unique_ptr<ChunkPacket> packet)
@@ -42,6 +63,7 @@ void RawSocketLink::request(const access::DataRequest& request, std::unique_ptr<
 
 std::size_t RawSocketLink::transmit(std::unique_ptr<ChunkPacket> packet)
 {
+    std::array<vanetza::ByteBuffer, layers_> buffers_;
     std::array<boost::asio::const_buffer, layers_> const_buffers;
     for (auto& layer : osi_layer_range<OsiLayer::Physical, OsiLayer::Application>()) {
         const auto index = distance(OsiLayer::Physical, layer);
@@ -49,7 +71,10 @@ std::size_t RawSocketLink::transmit(std::unique_ptr<ChunkPacket> packet)
         const_buffers[index] = boost::asio::buffer(buffers_[index]);
     }
 
-    return socket_.send(const_buffers);
+    xmit_mtx.lock();
+    std::size_t res = socket_.send(const_buffers);
+    xmit_mtx.unlock();
+    return res;
 }
 
 void RawSocketLink::indicate(IndicationCallback callback)
@@ -59,10 +84,12 @@ void RawSocketLink::indicate(IndicationCallback callback)
 
 void RawSocketLink::do_receive()
 {
-    namespace sph = std::placeholders;
-    socket_.async_receive_from(
-            boost::asio::buffer(receive_buffer_), receive_endpoint_,
-            std::bind(&RawSocketLink::on_read, this, sph::_1, sph::_2));
+    while(true) {
+        boost::system::error_code ec;
+        std::size_t bytesReceived = socket_.receive_from(
+            boost::asio::buffer(receive_buffer_), receive_endpoint_, 0, ec);
+        on_read(ec, bytesReceived);
+    }
 }
 
 void RawSocketLink::on_read(const boost::system::error_code& ec, std::size_t read_bytes)
@@ -83,13 +110,18 @@ void RawSocketLink::on_read(const boost::system::error_code& ec, std::size_t rea
                     packet.rssi = nrssi;
                 }
                 packet.mcs = get_mcs();
+                Survey s = get_survey();
+                packet.frequency = s.frequency;
+                packet.noise = s.noise;
+                packet.chan_busy_time = s.chan_busy_time;
+                packet.chan_rx_time = s.chan_rx_time;
+                packet.chan_tx_time = s.chan_tx_time;
             }
             packet.time_received = time_reception;
             if (callback_ && eth) {
                 callback_(std::move(packet), *eth);
             }
         }
-        do_receive();
     }
 }
 

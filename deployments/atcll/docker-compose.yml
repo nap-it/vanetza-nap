@@ -12,7 +12,6 @@ services:
         environment:
             - START_EMBEDDED_MOSQUITTO=false
             - SUPPORT_MAC_BLOCKING=false
-        network_mode: "host"
-        sysctls:
-            kernel.msgmax:  65536
-            kernel.msgmnb:  65536
+        network_mode: "host" 
+        ipc: shareable
+        shm_size: 300M

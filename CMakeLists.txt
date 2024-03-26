@@ -2,9 +2,8 @@ cmake_minimum_required(VERSION 3.12)
 project(Vanetza VERSION 0.8)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
-set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wno-narrowing -O2")
-
 #set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wno-narrowing -O2")
 
 # enable convenient CMake policies if available
 if(POLICY CMP0074)
@@ -17,7 +16,7 @@ if(POLICY CMP0077)
 endif()
 
 # Vanetza makes extensive use of C++11
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED OFF)
 
 # Load conan configuration if available

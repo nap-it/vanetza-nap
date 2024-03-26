@@ -1,0 +1,13 @@
+struct EncodedITSMessage
+{
+    string topic;
+    sequence<octet> message;
+    @optional short rssi;
+    @optional boolean newInfo;
+    @optional short packetSize;
+    @optional long stationID;
+    @optional long receiverID;
+    @optional short receiverType;
+    @optional double timestamp;
+    @optional string test;
+};

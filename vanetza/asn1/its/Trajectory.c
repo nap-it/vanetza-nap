@@ -138,7 +138,7 @@ memb_headings_constraint_1(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static int
-memb_spead_constraint_1(const asn_TYPE_descriptor_t *td, const void *sptr,
+memb_speed_constraint_1(const asn_TYPE_descriptor_t *td, const void *sptr,
 			asn_app_constraint_failed_f *ctfailcb, void *app_key) {
 	long value;
 	
@@ -283,12 +283,12 @@ static asn_per_constraints_t asn_PER_memb_headings_constr_10 CC_NOTUSED = {
 };
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
 #if !defined(ASN_DISABLE_OER_SUPPORT)
-static asn_oer_constraints_t asn_OER_memb_spead_constr_12 CC_NOTUSED = {
+static asn_oer_constraints_t asn_OER_memb_speed_constr_12 CC_NOTUSED = {
 	{ 2, 1 }	/* (0..511) */,
 	-1};
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-static asn_per_constraints_t asn_PER_memb_spead_constr_12 CC_NOTUSED = {
+static asn_per_constraints_t asn_PER_memb_speed_constr_12 CC_NOTUSED = {
 	{ APC_CONSTRAINED,	 9,  9,  0,  511 }	/* (0..511) */,
 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
 	0, 0	/* No PER value map */
@@ -645,22 +645,22 @@ asn_TYPE_member_t asn_MBR_Trajectory_1[] = {
 		0, 0, /* No default value */
 		"headings"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct Trajectory, spead),
+	{ ATF_NOFLAGS, 0, offsetof(struct Trajectory, speed),
 		(ASN_TAG_CLASS_CONTEXT | (5 << 2)),
 		-1,	/* IMPLICIT tag at current level */
 		&asn_DEF_NativeInteger,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
-			&asn_OER_memb_spead_constr_12,
+			&asn_OER_memb_speed_constr_12,
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-			&asn_PER_memb_spead_constr_12,
+			&asn_PER_memb_speed_constr_12,
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
-			memb_spead_constraint_1
+			memb_speed_constraint_1
 		},
 		0, 0, /* No default value */
-		"spead"
+		"speed"
 		},
 };
 static const int asn_MAP_Trajectory_oms_1[] = { 3, 4 };
@@ -673,7 +673,7 @@ static const asn_TYPE_tag2member_t asn_MAP_Trajectory_tag2el_1[] = {
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 }, /* lateralPositions */
     { (ASN_TAG_CLASS_CONTEXT | (3 << 2)), 3, 0, 0 }, /* elevationPositions */
     { (ASN_TAG_CLASS_CONTEXT | (4 << 2)), 4, 0, 0 }, /* headings */
-    { (ASN_TAG_CLASS_CONTEXT | (5 << 2)), 5, 0, 0 } /* spead */
+    { (ASN_TAG_CLASS_CONTEXT | (5 << 2)), 5, 0, 0 } /* speed */
 };
 asn_SEQUENCE_specifics_t asn_SPC_Trajectory_specs_1 = {
 	sizeof(struct Trajectory),
