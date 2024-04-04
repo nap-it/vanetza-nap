@@ -215,7 +215,7 @@ static int getWirelessSurvey_callback(struct nl_msg *msg, void *arg) {
 	}
 
   if(sinfo[NL80211_SURVEY_INFO_IN_USE]) {
-      ((Survey*)arg)->timestamp = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+      ((Survey*)arg)->timestamp = (double) std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count() / 1000000.0;
       ((Survey*)arg)->frequency = nla_get_u32(sinfo[NL80211_SURVEY_INFO_FREQUENCY]);
       if (sinfo[NL80211_SURVEY_INFO_NOISE]) ((Survey*)arg)->noise = (int8_t)nla_get_u8(sinfo[NL80211_SURVEY_INFO_NOISE]);
       else ((Survey*)arg)->noise = -1;
