@@ -218,9 +218,9 @@ static int getWirelessSurvey_callback(struct nl_msg *msg, void *arg) {
     ((Survey*)arg)->frequency = nla_get_u32(sinfo[NL80211_SURVEY_INFO_FREQUENCY]);
     if (sinfo[NL80211_SURVEY_INFO_NOISE]) ((Survey*)arg)->noise = (int8_t)nla_get_u8(sinfo[NL80211_SURVEY_INFO_NOISE]);
     else ((Survey*)arg)->noise = -1;
-    if (sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME) ((Survey*)arg)->chan_active_time = nla_get_u64(sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME];
-    if (sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME_BUSY]) ((Survey*)arg)->chan_busy_time = nla_get_u64(sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME_BUSY];
-    if (sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME_RX]) ((Survey*)arg)->chan_rx_time = nla_get_u64(sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME_RX];
+    if (sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME) ((Survey*)arg)->chan_active_time = nla_get_u64(sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME]);
+    if (sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME_BUSY]) ((Survey*)arg)->chan_busy_time = nla_get_u64(sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME_BUSY]);
+    if (sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME_RX]) ((Survey*)arg)->chan_rx_time = nla_get_u64(sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME_RX]);
     if (sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME_TX]) ((Survey*)arg)->chan_tx_time = nla_get_u64(sinfo[NL80211_SURVEY_INFO_CHANNEL_TIME_TX]);
   }
  
