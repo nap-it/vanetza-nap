@@ -89,9 +89,11 @@ public:
     std::map<std::string, int> mcs;
     int frequency;
     int noise;
-    double chan_busy_time;
-    double chan_rx_time;
-    double chan_tx_time;
+    int chan_active_time;
+    int chan_busy_time;
+    int chan_rx_time;
+    int chan_tx_time;
+    double timestamp;
     double time_received;
     double time_queue;
 
