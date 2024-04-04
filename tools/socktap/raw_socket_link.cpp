@@ -118,6 +118,7 @@ void RawSocketLink::on_read(const boost::system::error_code& ec, std::size_t rea
                 packet.chan_tx_time = s.chan_tx_time;
                 packet.chan_active_time = s.chan_active_time;
                 packet.timestamp = s.timestamp;
+                std::cout << "Packet timestamp:" << packet.timestamp << endl;
 
             }
             packet.time_received = time_reception;
