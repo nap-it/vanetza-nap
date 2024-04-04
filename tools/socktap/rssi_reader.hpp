@@ -42,9 +42,11 @@ typedef struct {
 typedef struct {
   int frequency;
   int noise;
-  double chan_busy_time;
-  double chan_rx_time;
-  double chan_tx_time;
+  int chan_active_time;
+  int chan_busy_time;
+  int chan_rx_time;
+  int chan_tx_time;
+  double timestamp;
 } Survey;
 
 static int initNl80211(Netlink* nl, Neighbour* w, Survey* s);

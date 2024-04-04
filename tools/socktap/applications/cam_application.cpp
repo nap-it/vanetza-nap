@@ -388,6 +388,7 @@ Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, doubl
         if(channel_info.frequency != -1) {
             jsonTest.AddMember("channel_frequency", channel_info.frequency, fullAllocator);
             if (channel_info.noise != -1) jsonTest.AddMember("channel_noise", channel_info.noise, fullAllocator);
+            simpleJsonTest.AddMember("channel_active_time", channel_info.chan_active_time, simpleAllocator);
             jsonTest.AddMember("channel_busy_time", channel_info.chan_busy_time, fullAllocator);
             jsonTest.AddMember("channel_rx_time", channel_info.chan_rx_time, fullAllocator);
             jsonTest.AddMember("channel_tx_time", channel_info.chan_tx_time, fullAllocator);
@@ -399,6 +400,7 @@ Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, doubl
     if(channel_info.frequency != -1) {
         simpleJsonTest.AddMember("channel_frequency", channel_info.frequency, simpleAllocator);
         if (channel_info.noise != -1) simpleJsonTest.AddMember("channel_noise", channel_info.noise, simpleAllocator);
+        simpleJsonTest.AddMember("channel_active_time", channel_info.chan_active_time, simpleAllocator);
         simpleJsonTest.AddMember("channel_busy_time", channel_info.chan_busy_time, simpleAllocator);
         simpleJsonTest.AddMember("channel_rx_time", channel_info.chan_rx_time, simpleAllocator);
         simpleJsonTest.AddMember("channel_tx_time", channel_info.chan_tx_time, simpleAllocator);
