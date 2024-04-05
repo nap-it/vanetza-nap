@@ -27,10 +27,10 @@ static vanetza::geonet::ShbDataRequest request_shb(const vanetza::btp::DataReque
 typedef struct {
   int frequency;
   int noise;
-  int chan_active_time;
   int chan_busy_time;
   int chan_rx_time;
   int chan_tx_time;
+  int chan_active_time;
   double timestamp;
 } channel;
 
@@ -60,7 +60,7 @@ protected:
 };
 
 static channel parse_channel_info(vanetza::CohesivePacket cp) {
-    return channel{cp.frequency, cp.noise, cp.chan_busy_time, cp.chan_rx_time, cp.chan_tx_time};
+    return channel{cp.frequency, cp.noise, cp.chan_busy_time, cp.chan_rx_time, cp.chan_tx_time, cp.chan_active_time, cp.timestamp};
 }
 
 #endif /* APPLICATION_HPP_PSIGPUTG */
