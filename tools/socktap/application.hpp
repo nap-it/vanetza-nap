@@ -60,6 +60,7 @@ protected:
 };
 
 static channel parse_channel_info(vanetza::CohesivePacket cp) {
+    std::cout << "CohesivePacket timestamp:" <<  cp.timestamp << std::endl;
     return channel{cp.frequency, cp.noise, cp.chan_busy_time, cp.chan_rx_time, cp.chan_tx_time, cp.chan_active_time, cp.timestamp};
 }
 
