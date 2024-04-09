@@ -1,5 +1,6 @@
 #include "data_confirm.hpp"
 #include "data_request.hpp"
+#include <iostream>
 
 namespace vanetza
 {
@@ -47,6 +48,7 @@ DataConfirm::ResultCode validate_payload(const std::unique_ptr<DownPacket>& payl
         // leave code to unspecified
     } else if (payload->size() > mib.itsGnMaxSduSize) {
         result = DataConfirm::ResultCode::Rejected_Max_SDU_Size;
+        std::cout << "Generated packet size exceeds ITS/GN Max SDU Size. Size: " << payload->size() << std::endl;
     } else {
         result = DataConfirm::ResultCode::Accepted;
     }

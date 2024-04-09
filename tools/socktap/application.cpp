@@ -63,7 +63,7 @@ bool Application::request(const DataRequest& request, DownPacketPtr packet, std:
         if (confirm.accepted()) {
             return true;
         } else {
-            std::cout << "Application data request failed" << std::endl;
+            std::cout << "Application data request failed. Reason: " << static_cast<std::underlying_type<vanetza::geonet::DataConfirm::ResultCode>::type>(confirm.result_code) << std::endl;
             return false;
         }
     } catch(std::runtime_error& e) {
