@@ -87,14 +87,14 @@ public:
 
     int rssi;
     std::map<std::string, int> mcs;
-    int frequency;
+    unsigned int frequency;
     int noise;
-    int chan_active_time;
-    int chan_busy_time;
-    int chan_rx_time;
-    int chan_tx_time;
-    double timestamp;
-    double time_received;
+    unsigned long chan_active_time;
+    unsigned long chan_busy_time;
+    unsigned long chan_rx_time;
+    unsigned long chan_tx_time;
+    unsigned double timestamp;
+    unsigned double time_received;
     double time_queue;
 
 private:

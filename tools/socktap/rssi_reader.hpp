@@ -40,13 +40,13 @@ typedef struct {
 } Neighbour;
 
 typedef struct {
-  int frequency;
+  unsigned int frequency;
   int noise;
-  int chan_busy_time;
-  int chan_rx_time;
-  int chan_tx_time;
-  int chan_active_time;
-  double timestamp;
+  unsigned long chan_busy_time;
+  unsigned long chan_rx_time;
+  unsigned long chan_tx_time;
+  unsigned long chan_active_time;
+  unsigned double timestamp;
 } Survey;
 
 static int initNl80211(Netlink* nl, Neighbour* w, Survey* s);
