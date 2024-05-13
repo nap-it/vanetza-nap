@@ -93,8 +93,8 @@ public:
     unsigned long chan_busy_time;
     unsigned long chan_rx_time;
     unsigned long chan_tx_time;
-    unsigned double timestamp;
-    unsigned double time_received;
+    double timestamp;
+    double time_received;
     double time_queue;
 
 private:

@@ -46,7 +46,7 @@ typedef struct {
   unsigned long chan_rx_time;
   unsigned long chan_tx_time;
   unsigned long chan_active_time;
-  unsigned double timestamp;
+  double timestamp;
 } Survey;
 
 static int initNl80211(Netlink* nl, Neighbour* w, Survey* s);
