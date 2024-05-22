@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_ImzmContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct ImzmContainer, interferenceManagementZones),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_InterferenceManagementZones,
+		&asn_DEF_IMZM_PDU_Descriptions_InterferenceManagementZones,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

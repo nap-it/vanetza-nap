@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_TisTpgTRM_Location_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct TisTpgTRM_Location, vehiclePosition),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ReferencePosition,
+		&asn_DEF_ITS_Container_ReferencePosition,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -28,7 +28,7 @@ asn_TYPE_member_t asn_MBR_TisTpgTRM_Location_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct TisTpgTRM_Location, vehicleSpeed),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Speed,
+		&asn_DEF_ITS_Container_Speed,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -45,7 +45,7 @@ asn_TYPE_member_t asn_MBR_TisTpgTRM_Location_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct TisTpgTRM_Location, vehicleHeading),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Heading,
+		&asn_DEF_ITS_Container_Heading,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

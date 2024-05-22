@@ -12,18 +12,18 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "Heading.h"
-#include "Speed.h"
-#include "DriveDirection.h"
-#include "VehicleLength.h"
-#include "VehicleWidth.h"
-#include "LongitudinalAcceleration.h"
-#include "Curvature.h"
-#include "CurvatureCalculationMode.h"
-#include "YawRate.h"
-#include "AccelerationControl.h"
-#include "LanePosition.h"
-#include "PerformanceClass.h"
+#include "ITS-Container_Heading.h"
+#include "ITS-Container_Speed.h"
+#include "ITS-Container_DriveDirection.h"
+#include "ITS-Container_VehicleLength.h"
+#include "ITS-Container_VehicleWidth.h"
+#include "ITS-Container_LongitudinalAcceleration.h"
+#include "ITS-Container_Curvature.h"
+#include "ITS-Container_CurvatureCalculationMode.h"
+#include "ITS-Container_YawRate.h"
+#include "ITS-Container_AccelerationControl.h"
+#include "ITS-Container_LanePosition.h"
+#include "ITS-Container_PerformanceClass.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -31,29 +31,29 @@ extern "C" {
 #endif
 
 /* Forward declarations */
-struct SteeringWheelAngle;
-struct LateralAcceleration;
-struct VerticalAcceleration;
-struct CenDsrcTollingZone;
+struct ITS_Container_SteeringWheelAngle;
+struct ITS_Container_LateralAcceleration;
+struct ITS_Container_VerticalAcceleration;
+struct ITS_Container_CenDsrcTollingZone;
 
 /* BasicVehicleContainerHighFrequency */
 typedef struct BasicVehicleContainerHighFrequency {
-	Heading_t	 heading;
-	Speed_t	 speed;
-	DriveDirection_t	 driveDirection;
-	VehicleLength_t	 vehicleLength;
-	VehicleWidth_t	 vehicleWidth;
-	LongitudinalAcceleration_t	 longitudinalAcceleration;
-	Curvature_t	 curvature;
-	CurvatureCalculationMode_t	 curvatureCalculationMode;
-	YawRate_t	 yawRate;
-	AccelerationControl_t	*accelerationControl;	/* OPTIONAL */
-	LanePosition_t	*lanePosition;	/* OPTIONAL */
-	struct SteeringWheelAngle	*steeringWheelAngle;	/* OPTIONAL */
-	struct LateralAcceleration	*lateralAcceleration;	/* OPTIONAL */
-	struct VerticalAcceleration	*verticalAcceleration;	/* OPTIONAL */
-	PerformanceClass_t	*performanceClass;	/* OPTIONAL */
-	struct CenDsrcTollingZone	*cenDsrcTollingZone;	/* OPTIONAL */
+	ITS_Container_Heading_t	 heading;
+	ITS_Container_Speed_t	 speed;
+	ITS_Container_DriveDirection_t	 driveDirection;
+	ITS_Container_VehicleLength_t	 vehicleLength;
+	ITS_Container_VehicleWidth_t	 vehicleWidth;
+	ITS_Container_LongitudinalAcceleration_t	 longitudinalAcceleration;
+	ITS_Container_Curvature_t	 curvature;
+	ITS_Container_CurvatureCalculationMode_t	 curvatureCalculationMode;
+	ITS_Container_YawRate_t	 yawRate;
+	ITS_Container_AccelerationControl_t	*accelerationControl;	/* OPTIONAL */
+	ITS_Container_LanePosition_t	*lanePosition;	/* OPTIONAL */
+	struct ITS_Container_SteeringWheelAngle	*steeringWheelAngle;	/* OPTIONAL */
+	struct ITS_Container_LateralAcceleration	*lateralAcceleration;	/* OPTIONAL */
+	struct ITS_Container_VerticalAcceleration	*verticalAcceleration;	/* OPTIONAL */
+	ITS_Container_PerformanceClass_t	*performanceClass;	/* OPTIONAL */
+	struct ITS_Container_CenDsrcTollingZone	*cenDsrcTollingZone;	/* OPTIONAL */
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
@@ -69,10 +69,10 @@ extern asn_TYPE_member_t asn_MBR_BasicVehicleContainerHighFrequency_1[16];
 #endif
 
 /* Referred external types */
-#include "SteeringWheelAngle.h"
-#include "LateralAcceleration.h"
-#include "VerticalAcceleration.h"
-#include "CenDsrcTollingZone.h"
+#include "ITS-Container_SteeringWheelAngle.h"
+#include "ITS-Container_LateralAcceleration.h"
+#include "ITS-Container_VerticalAcceleration.h"
+#include "ITS-Container_CenDsrcTollingZone.h"
 
 #endif	/* _BasicVehicleContainerHighFrequency_H_ */
 #include "asn_internal.h"

@@ -104,7 +104,7 @@ void IvimApplication::schedule_timer()
 }
 
 Document IvimApplication::buildJSON(IVIM_t message, double time_reception, int rssi, int packet_size, double time_queue, channel channel_info) {
-    ItsPduHeader_t& header = message.header;
+    ITS_Container_ItsPduHeader_t& header = message.header;
     Document document(kObjectType);
     Document::AllocatorType& allocator = document.GetAllocator();
     Value jsonTest(kObjectType);
@@ -172,12 +172,19 @@ void IvimApplication::on_message(string topic, string mqtt_message, const std::v
 
         vanetza::asn1::Ivim message;
 
-        ItsPduHeader_t& header = message->header;
+        ITS_Container_ItsPduHeader_t& header = message->header;
         header.protocolVersion = 2;
-        header.messageID = ItsPduHeader__messageID_ivim;
+        header.messageID = MessageId_ivim;
         header.stationID = config_s.station_id;
 
         message->ivi = ivim;
+
+        std::string error;
+        if (config_s.debug_enabled && !message.validate(error)) {
+            std::cout << "-- Vanetza UPER Encoding Error --\nCheck that the message format follows ETSI spec\nError message: " << error << std::endl;
+            std::cout << "Invalid payload: " << mqtt_message << std::endl;
+            return;
+        }
 
         packet->layer(OsiLayer::Application) = std::move(message);
     } else {

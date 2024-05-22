@@ -20,11 +20,11 @@ extern "C" {
 #endif
 
 /* Forward declarations */
-struct ReferencePosition;
+struct ITS_Container_ReferencePosition;
 
 /* TisTpgTCM-Location */
 typedef struct TisTpgTCM_Location {
-	struct ReferencePosition	*tpgLocation;	/* OPTIONAL */
+	struct ITS_Container_ReferencePosition	*tpgLocation;	/* OPTIONAL */
 	UTF8String_t	*address;	/* OPTIONAL */
 	/*
 	 * This type is extensible,
@@ -45,7 +45,7 @@ extern asn_TYPE_member_t asn_MBR_TisTpgTCM_Location_1[2];
 #endif
 
 /* Referred external types */
-#include "ReferencePosition.h"
+#include "ITS-Container_ReferencePosition.h"
 
 #endif	/* _TisTpgTCM_Location_H_ */
 #include "asn_internal.h"

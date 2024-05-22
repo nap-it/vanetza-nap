@@ -12,8 +12,8 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "ReferencePosition.h"
-#include "PathDeltaTime.h"
+#include "ITS-Container_ReferencePosition.h"
+#include "ITS-Container_PathDeltaTime.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -22,8 +22,8 @@ extern "C" {
 
 /* VruPathPoint */
 typedef struct VruPathPoint {
-	ReferencePosition_t	 pathPosition;
-	PathDeltaTime_t	*pathDeltaTime;	/* OPTIONAL */
+	ITS_Container_ReferencePosition_t	 pathPosition;
+	ITS_Container_PathDeltaTime_t	*pathDeltaTime;	/* OPTIONAL */
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;

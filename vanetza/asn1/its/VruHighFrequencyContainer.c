@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_VruHighFrequencyContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct VruHighFrequencyContainer, heading),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Heading,
+		&asn_DEF_ITS_Container_Heading,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -28,7 +28,7 @@ asn_TYPE_member_t asn_MBR_VruHighFrequencyContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct VruHighFrequencyContainer, speed),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Speed,
+		&asn_DEF_ITS_Container_Speed,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -45,7 +45,7 @@ asn_TYPE_member_t asn_MBR_VruHighFrequencyContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct VruHighFrequencyContainer, longitudinalAcceleration),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_LongitudinalAcceleration,
+		&asn_DEF_ITS_Container_LongitudinalAcceleration,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -62,7 +62,7 @@ asn_TYPE_member_t asn_MBR_VruHighFrequencyContainer_1[] = {
 	{ ATF_POINTER, 11, offsetof(struct VruHighFrequencyContainer, curvature),
 		(ASN_TAG_CLASS_CONTEXT | (3 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Curvature,
+		&asn_DEF_ITS_Container_Curvature,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -79,7 +79,7 @@ asn_TYPE_member_t asn_MBR_VruHighFrequencyContainer_1[] = {
 	{ ATF_POINTER, 10, offsetof(struct VruHighFrequencyContainer, curvatureCalculationMode),
 		(ASN_TAG_CLASS_CONTEXT | (4 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_CurvatureCalculationMode,
+		&asn_DEF_ITS_Container_CurvatureCalculationMode,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -96,7 +96,7 @@ asn_TYPE_member_t asn_MBR_VruHighFrequencyContainer_1[] = {
 	{ ATF_POINTER, 9, offsetof(struct VruHighFrequencyContainer, yawRate),
 		(ASN_TAG_CLASS_CONTEXT | (5 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_YawRate,
+		&asn_DEF_ITS_Container_YawRate,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -113,7 +113,7 @@ asn_TYPE_member_t asn_MBR_VruHighFrequencyContainer_1[] = {
 	{ ATF_POINTER, 8, offsetof(struct VruHighFrequencyContainer, lateralAcceleration),
 		(ASN_TAG_CLASS_CONTEXT | (6 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_LateralAcceleration,
+		&asn_DEF_ITS_Container_LateralAcceleration,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -130,7 +130,7 @@ asn_TYPE_member_t asn_MBR_VruHighFrequencyContainer_1[] = {
 	{ ATF_POINTER, 7, offsetof(struct VruHighFrequencyContainer, verticalAcceleration),
 		(ASN_TAG_CLASS_CONTEXT | (7 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_VerticalAcceleration,
+		&asn_DEF_ITS_Container_VerticalAcceleration,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -164,7 +164,7 @@ asn_TYPE_member_t asn_MBR_VruHighFrequencyContainer_1[] = {
 	{ ATF_POINTER, 5, offsetof(struct VruHighFrequencyContainer, environment),
 		(ASN_TAG_CLASS_CONTEXT | (9 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_VruEnvironment,
+		&asn_DEF_VAM_PDU_Descriptions_VruEnvironment,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -181,7 +181,7 @@ asn_TYPE_member_t asn_MBR_VruHighFrequencyContainer_1[] = {
 	{ ATF_POINTER, 4, offsetof(struct VruHighFrequencyContainer, movementControl),
 		(ASN_TAG_CLASS_CONTEXT | (10 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_VruMovementControl,
+		&asn_DEF_VAM_PDU_Descriptions_VruMovementControl,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -232,7 +232,7 @@ asn_TYPE_member_t asn_MBR_VruHighFrequencyContainer_1[] = {
 	{ ATF_POINTER, 1, offsetof(struct VruHighFrequencyContainer, deviceUsage),
 		(ASN_TAG_CLASS_CONTEXT | (13 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_VruDeviceUsage,
+		&asn_DEF_VAM_PDU_Descriptions_VruDeviceUsage,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

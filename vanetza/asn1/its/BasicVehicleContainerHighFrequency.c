@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_BasicVehicleContainerHighFrequency_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct BasicVehicleContainerHighFrequency, heading),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Heading,
+		&asn_DEF_ITS_Container_Heading,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -28,7 +28,7 @@ asn_TYPE_member_t asn_MBR_BasicVehicleContainerHighFrequency_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct BasicVehicleContainerHighFrequency, speed),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Speed,
+		&asn_DEF_ITS_Container_Speed,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -45,7 +45,7 @@ asn_TYPE_member_t asn_MBR_BasicVehicleContainerHighFrequency_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct BasicVehicleContainerHighFrequency, driveDirection),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_DriveDirection,
+		&asn_DEF_ITS_Container_DriveDirection,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -62,7 +62,7 @@ asn_TYPE_member_t asn_MBR_BasicVehicleContainerHighFrequency_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct BasicVehicleContainerHighFrequency, vehicleLength),
 		(ASN_TAG_CLASS_CONTEXT | (3 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_VehicleLength,
+		&asn_DEF_ITS_Container_VehicleLength,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -79,7 +79,7 @@ asn_TYPE_member_t asn_MBR_BasicVehicleContainerHighFrequency_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct BasicVehicleContainerHighFrequency, vehicleWidth),
 		(ASN_TAG_CLASS_CONTEXT | (4 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_VehicleWidth,
+		&asn_DEF_ITS_Container_VehicleWidth,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -96,7 +96,7 @@ asn_TYPE_member_t asn_MBR_BasicVehicleContainerHighFrequency_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct BasicVehicleContainerHighFrequency, longitudinalAcceleration),
 		(ASN_TAG_CLASS_CONTEXT | (5 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_LongitudinalAcceleration,
+		&asn_DEF_ITS_Container_LongitudinalAcceleration,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -113,7 +113,7 @@ asn_TYPE_member_t asn_MBR_BasicVehicleContainerHighFrequency_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct BasicVehicleContainerHighFrequency, curvature),
 		(ASN_TAG_CLASS_CONTEXT | (6 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Curvature,
+		&asn_DEF_ITS_Container_Curvature,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -130,7 +130,7 @@ asn_TYPE_member_t asn_MBR_BasicVehicleContainerHighFrequency_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct BasicVehicleContainerHighFrequency, curvatureCalculationMode),
 		(ASN_TAG_CLASS_CONTEXT | (7 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_CurvatureCalculationMode,
+		&asn_DEF_ITS_Container_CurvatureCalculationMode,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -147,7 +147,7 @@ asn_TYPE_member_t asn_MBR_BasicVehicleContainerHighFrequency_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct BasicVehicleContainerHighFrequency, yawRate),
 		(ASN_TAG_CLASS_CONTEXT | (8 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_YawRate,
+		&asn_DEF_ITS_Container_YawRate,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -164,7 +164,7 @@ asn_TYPE_member_t asn_MBR_BasicVehicleContainerHighFrequency_1[] = {
 	{ ATF_POINTER, 7, offsetof(struct BasicVehicleContainerHighFrequency, accelerationControl),
 		(ASN_TAG_CLASS_CONTEXT | (9 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_AccelerationControl,
+		&asn_DEF_ITS_Container_AccelerationControl,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -181,7 +181,7 @@ asn_TYPE_member_t asn_MBR_BasicVehicleContainerHighFrequency_1[] = {
 	{ ATF_POINTER, 6, offsetof(struct BasicVehicleContainerHighFrequency, lanePosition),
 		(ASN_TAG_CLASS_CONTEXT | (10 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_LanePosition,
+		&asn_DEF_ITS_Container_LanePosition,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -198,7 +198,7 @@ asn_TYPE_member_t asn_MBR_BasicVehicleContainerHighFrequency_1[] = {
 	{ ATF_POINTER, 5, offsetof(struct BasicVehicleContainerHighFrequency, steeringWheelAngle),
 		(ASN_TAG_CLASS_CONTEXT | (11 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_SteeringWheelAngle,
+		&asn_DEF_ITS_Container_SteeringWheelAngle,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -215,7 +215,7 @@ asn_TYPE_member_t asn_MBR_BasicVehicleContainerHighFrequency_1[] = {
 	{ ATF_POINTER, 4, offsetof(struct BasicVehicleContainerHighFrequency, lateralAcceleration),
 		(ASN_TAG_CLASS_CONTEXT | (12 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_LateralAcceleration,
+		&asn_DEF_ITS_Container_LateralAcceleration,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -232,7 +232,7 @@ asn_TYPE_member_t asn_MBR_BasicVehicleContainerHighFrequency_1[] = {
 	{ ATF_POINTER, 3, offsetof(struct BasicVehicleContainerHighFrequency, verticalAcceleration),
 		(ASN_TAG_CLASS_CONTEXT | (13 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_VerticalAcceleration,
+		&asn_DEF_ITS_Container_VerticalAcceleration,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -249,7 +249,7 @@ asn_TYPE_member_t asn_MBR_BasicVehicleContainerHighFrequency_1[] = {
 	{ ATF_POINTER, 2, offsetof(struct BasicVehicleContainerHighFrequency, performanceClass),
 		(ASN_TAG_CLASS_CONTEXT | (14 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_PerformanceClass,
+		&asn_DEF_ITS_Container_PerformanceClass,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -266,7 +266,7 @@ asn_TYPE_member_t asn_MBR_BasicVehicleContainerHighFrequency_1[] = {
 	{ ATF_POINTER, 1, offsetof(struct BasicVehicleContainerHighFrequency, cenDsrcTollingZone),
 		(ASN_TAG_CLASS_CONTEXT | (15 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_CenDsrcTollingZone,
+		&asn_DEF_ITS_Container_CenDsrcTollingZone,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

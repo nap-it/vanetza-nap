@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "ItsPduHeader.h"
+#include "ITS-Container_ItsPduHeader.h"
 #include "MapData.h"
 #include "constr_SEQUENCE.h"
 
@@ -22,7 +22,7 @@ extern "C" {
 
 /* MAPEM */
 typedef struct MAPEM {
-	ItsPduHeader_t	 header;
+	ITS_Container_ItsPduHeader_t	 header;
 	MapData_t	 map;
 	
 	/* Context for parsing across buffer boundaries */

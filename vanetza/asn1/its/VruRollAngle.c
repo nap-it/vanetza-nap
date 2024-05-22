@@ -8,7 +8,7 @@
 #include "VruRollAngle.h"
 
 /*
- * This type is implemented using Heading,
+ * This type is implemented using ITS_Container_Heading,
  * so here we adjust the DEF accordingly.
  */
 static const ber_tlv_tag_t asn_DEF_VruRollAngle_tags_1[] = {
@@ -33,8 +33,8 @@ asn_TYPE_descriptor_t asn_DEF_VruRollAngle = {
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
 		SEQUENCE_constraint
 	},
-	asn_MBR_Heading_1,
+	asn_MBR_ITS_Container_Heading_1,
 	2,	/* Elements count */
-	&asn_SPC_Heading_specs_1	/* Additional specs */
+	&asn_SPC_ITS_Container_Heading_specs_1	/* Additional specs */
 };
 

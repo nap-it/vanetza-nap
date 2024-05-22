@@ -12,14 +12,14 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "ElevInt.h"
+#include "Uint16.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /* Elevation */
-typedef ElevInt_t	 Elevation_t;
+typedef Uint16_t	 Elevation_t;
 
 /* Implementation */
 extern asn_per_constraints_t asn_PER_type_Elevation_constr_1;

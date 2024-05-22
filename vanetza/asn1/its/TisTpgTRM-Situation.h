@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "TimestampIts.h"
+#include "ITS-Container_TimestampIts.h"
 #include "PairingID.h"
 #include "constr_SEQUENCE.h"
 
@@ -22,7 +22,7 @@ extern "C" {
 
 /* TisTpgTRM-Situation */
 typedef struct TisTpgTRM_Situation {
-	TimestampIts_t	 estArrivalTime;
+	ITS_Container_TimestampIts_t	 estArrivalTime;
 	PairingID_t	*proposedPairingID;	/* OPTIONAL */
 	
 	/* Context for parsing across buffer boundaries */

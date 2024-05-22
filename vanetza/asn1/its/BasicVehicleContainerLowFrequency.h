@@ -12,9 +12,9 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "VehicleRole.h"
-#include "ExteriorLights.h"
-#include "PathHistory.h"
+#include "ITS-Container_VehicleRole.h"
+#include "ITS-Container_ExteriorLights.h"
+#include "ITS-Container_PathHistory.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -23,9 +23,9 @@ extern "C" {
 
 /* BasicVehicleContainerLowFrequency */
 typedef struct BasicVehicleContainerLowFrequency {
-	VehicleRole_t	 vehicleRole;
-	ExteriorLights_t	 exteriorLights;
-	PathHistory_t	 pathHistory;
+	ITS_Container_VehicleRole_t	 vehicleRole;
+	ITS_Container_ExteriorLights_t	 exteriorLights;
+	ITS_Container_PathHistory_t	 pathHistory;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;

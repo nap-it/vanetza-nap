@@ -48,7 +48,7 @@ asn_TYPE_member_t asn_MBR_TisTpgTCM_Management_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct TisTpgTCM_Management, generationTime),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_TimestampIts,
+		&asn_DEF_ITS_Container_TimestampIts,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -65,7 +65,7 @@ asn_TYPE_member_t asn_MBR_TisTpgTCM_Management_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct TisTpgTCM_Management, tpgStationID),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_StationID,
+		&asn_DEF_ITS_Container_StationID,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

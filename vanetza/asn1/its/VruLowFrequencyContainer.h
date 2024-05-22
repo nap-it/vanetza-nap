@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "VruSizeClass.h"
+#include "VAM-PDU-Descriptions_VruSizeClass.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -20,14 +20,14 @@ extern "C" {
 #endif
 
 /* Forward declarations */
-struct VruProfileAndSubprofile;
-struct VruExteriorLights;
+struct VAM_PDU_Descriptions_VruProfileAndSubprofile;
+struct VAM_PDU_Descriptions_VruExteriorLights;
 
 /* VruLowFrequencyContainer */
 typedef struct VruLowFrequencyContainer {
-	struct VruProfileAndSubprofile	*profileAndSubprofile;	/* OPTIONAL */
-	struct VruExteriorLights	*exteriorLights;	/* OPTIONAL */
-	VruSizeClass_t	*sizeClass;	/* OPTIONAL */
+	struct VAM_PDU_Descriptions_VruProfileAndSubprofile	*profileAndSubprofile;	/* OPTIONAL */
+	struct VAM_PDU_Descriptions_VruExteriorLights	*exteriorLights;	/* OPTIONAL */
+	VAM_PDU_Descriptions_VruSizeClass_t	*sizeClass;	/* OPTIONAL */
 	/*
 	 * This type is extensible,
 	 * possible extensions are below.
@@ -47,8 +47,8 @@ extern asn_TYPE_member_t asn_MBR_VruLowFrequencyContainer_1[3];
 #endif
 
 /* Referred external types */
-#include "VruProfileAndSubprofile.h"
-#include "VruExteriorLights.h"
+#include "VAM-PDU-Descriptions_VruProfileAndSubprofile.h"
+#include "VAM-PDU-Descriptions_VruExteriorLights.h"
 
 #endif	/* _VruLowFrequencyContainer_H_ */
 #include "asn_internal.h"

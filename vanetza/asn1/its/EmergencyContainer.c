@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_EmergencyContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct EmergencyContainer, lightBarSirenInUse),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_LightBarSirenInUse,
+		&asn_DEF_ITS_Container_LightBarSirenInUse,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -28,7 +28,7 @@ asn_TYPE_member_t asn_MBR_EmergencyContainer_1[] = {
 	{ ATF_POINTER, 2, offsetof(struct EmergencyContainer, incidentIndication),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_CauseCode,
+		&asn_DEF_ITS_Container_CauseCode,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -45,7 +45,7 @@ asn_TYPE_member_t asn_MBR_EmergencyContainer_1[] = {
 	{ ATF_POINTER, 1, offsetof(struct EmergencyContainer, emergencyPriority),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_EmergencyPriority,
+		&asn_DEF_ITS_Container_EmergencyPriority,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

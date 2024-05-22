@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "CauseCode.h"
+#include "ITS-Container_CauseCode.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -21,7 +21,7 @@ extern "C" {
 
 /* TisTpgDRM-Situation */
 typedef struct TisTpgDRM_Situation {
-	CauseCode_t	 causeCode;
+	ITS_Container_CauseCode_t	 causeCode;
 	/*
 	 * This type is extensible,
 	 * possible extensions are below.

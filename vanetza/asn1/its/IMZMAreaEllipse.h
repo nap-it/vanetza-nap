@@ -13,7 +13,7 @@
 
 /* Including external dependencies */
 #include "SemiRangeLength.h"
-#include "WGS84AngleValue.h"
+#include "VAM-PDU-Descriptions_WGS84AngleValue.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -28,7 +28,7 @@ typedef struct IMZMAreaEllipse {
 	struct OffsetPoint	*nodeCenterPoint;	/* OPTIONAL */
 	SemiRangeLength_t	 semiMajorRangeLength;
 	SemiRangeLength_t	 semiMinorRangeLength;
-	WGS84AngleValue_t	 semiMajorRangeOrientation;
+	VAM_PDU_Descriptions_WGS84AngleValue_t	 semiMajorRangeOrientation;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;

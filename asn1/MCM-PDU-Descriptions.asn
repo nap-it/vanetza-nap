@@ -11,9 +11,6 @@ IMPORTS
     EmergencyStatus, AltitudeConfidence, Altitude, LaneCount FROM ITS-Container {
         itu-t (0) identified-organization (4) etsi (0) itsDomain (5) wg1 (1) ts (102894) cdd (2) version (2) 
     }
-    WGS84AngleValue FROM CPM-PDU-Descriptions {
-        itu-t (0) identified-organization (4) etsi (0) itsDomain (5) wg1 (1) tr (103562) cpm (1) version (1)
-    }
     GenerationDeltaTime FROM CAM-PDU-Descriptions {
         itu-t (0) identified-organization (4) etsi (0) itsDomain (5) wg1 (1) en (302637) cam (2) version (2)
     };
@@ -253,5 +250,7 @@ Reason::= ENUMERATED {
 	laneClosing (2),
 	laneChange (3)
 }
+
+WGS84AngleValue             ::= INTEGER {wgs84North(0), wgs84East(900), wgs84South(1800), wgs84West(2700), unavailable(3601)} (0..3601)
 
 END

@@ -12,14 +12,14 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "Heading.h"
+#include "ITS-Container_Heading.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /* VruOrientation */
-typedef Heading_t	 VruOrientation_t;
+typedef ITS_Container_Heading_t	 VruOrientation_t;
 
 /* Implementation */
 extern asn_TYPE_descriptor_t asn_DEF_VruOrientation;
@@ -30,6 +30,7 @@ ber_type_decoder_f VruOrientation_decode_ber;
 der_type_encoder_f VruOrientation_encode_der;
 xer_type_decoder_f VruOrientation_decode_xer;
 xer_type_encoder_f VruOrientation_encode_xer;
+jer_type_encoder_f VruOrientation_encode_jer;
 oer_type_decoder_f VruOrientation_decode_oer;
 oer_type_encoder_f VruOrientation_encode_oer;
 per_type_decoder_f VruOrientation_decode_uper;

@@ -12,8 +12,8 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "Traces.h"
-#include "RoadType.h"
+#include "ITS-Container_Traces.h"
+#include "ITS-Container_RoadType.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -21,15 +21,15 @@ extern "C" {
 #endif
 
 /* Forward declarations */
-struct Speed;
-struct Heading;
+struct ITS_Container_Speed;
+struct ITS_Container_Heading;
 
 /* LocationContainer */
 typedef struct LocationContainer {
-	struct Speed	*eventSpeed;	/* OPTIONAL */
-	struct Heading	*eventPositionHeading;	/* OPTIONAL */
-	Traces_t	 traces;
-	RoadType_t	*roadType;	/* OPTIONAL */
+	struct ITS_Container_Speed	*eventSpeed;	/* OPTIONAL */
+	struct ITS_Container_Heading	*eventPositionHeading;	/* OPTIONAL */
+	ITS_Container_Traces_t	 traces;
+	ITS_Container_RoadType_t	*roadType;	/* OPTIONAL */
 	/*
 	 * This type is extensible,
 	 * possible extensions are below.
@@ -49,8 +49,8 @@ extern asn_TYPE_member_t asn_MBR_LocationContainer_1[4];
 #endif
 
 /* Referred external types */
-#include "Speed.h"
-#include "Heading.h"
+#include "ITS-Container_Speed.h"
+#include "ITS-Container_Heading.h"
 
 #endif	/* _LocationContainer_H_ */
 #include "asn_internal.h"

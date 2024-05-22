@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_ImpactReductionContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct ImpactReductionContainer, heightLonCarrLeft),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_HeightLonCarr,
+		&asn_DEF_ITS_Container_HeightLonCarr,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -28,7 +28,7 @@ asn_TYPE_member_t asn_MBR_ImpactReductionContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct ImpactReductionContainer, heightLonCarrRight),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_HeightLonCarr,
+		&asn_DEF_ITS_Container_HeightLonCarr,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -45,7 +45,7 @@ asn_TYPE_member_t asn_MBR_ImpactReductionContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct ImpactReductionContainer, posLonCarrLeft),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_PosLonCarr,
+		&asn_DEF_ITS_Container_PosLonCarr,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -62,7 +62,7 @@ asn_TYPE_member_t asn_MBR_ImpactReductionContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct ImpactReductionContainer, posLonCarrRight),
 		(ASN_TAG_CLASS_CONTEXT | (3 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_PosLonCarr,
+		&asn_DEF_ITS_Container_PosLonCarr,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -79,7 +79,7 @@ asn_TYPE_member_t asn_MBR_ImpactReductionContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct ImpactReductionContainer, positionOfPillars),
 		(ASN_TAG_CLASS_CONTEXT | (4 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_PositionOfPillars,
+		&asn_DEF_ITS_Container_PositionOfPillars,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -96,7 +96,7 @@ asn_TYPE_member_t asn_MBR_ImpactReductionContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct ImpactReductionContainer, posCentMass),
 		(ASN_TAG_CLASS_CONTEXT | (5 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_PosCentMass,
+		&asn_DEF_ITS_Container_PosCentMass,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -113,7 +113,7 @@ asn_TYPE_member_t asn_MBR_ImpactReductionContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct ImpactReductionContainer, wheelBaseVehicle),
 		(ASN_TAG_CLASS_CONTEXT | (6 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_WheelBaseVehicle,
+		&asn_DEF_ITS_Container_WheelBaseVehicle,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -130,7 +130,7 @@ asn_TYPE_member_t asn_MBR_ImpactReductionContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct ImpactReductionContainer, turningRadius),
 		(ASN_TAG_CLASS_CONTEXT | (7 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_TurningRadius,
+		&asn_DEF_ITS_Container_TurningRadius,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -147,7 +147,7 @@ asn_TYPE_member_t asn_MBR_ImpactReductionContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct ImpactReductionContainer, posFrontAx),
 		(ASN_TAG_CLASS_CONTEXT | (8 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_PosFrontAx,
+		&asn_DEF_ITS_Container_PosFrontAx,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -164,7 +164,7 @@ asn_TYPE_member_t asn_MBR_ImpactReductionContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct ImpactReductionContainer, positionOfOccupants),
 		(ASN_TAG_CLASS_CONTEXT | (9 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_PositionOfOccupants,
+		&asn_DEF_ITS_Container_PositionOfOccupants,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -181,7 +181,7 @@ asn_TYPE_member_t asn_MBR_ImpactReductionContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct ImpactReductionContainer, vehicleMass),
 		(ASN_TAG_CLASS_CONTEXT | (10 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_VehicleMass,
+		&asn_DEF_ITS_Container_VehicleMass,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -198,7 +198,7 @@ asn_TYPE_member_t asn_MBR_ImpactReductionContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct ImpactReductionContainer, requestResponseIndication),
 		(ASN_TAG_CLASS_CONTEXT | (11 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_RequestResponseIndication,
+		&asn_DEF_ITS_Container_RequestResponseIndication,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

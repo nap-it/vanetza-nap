@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "TimestampIts.h"
+#include "ITS-Container_TimestampIts.h"
 #include "TotalTpgStations.h"
 #include "constr_SEQUENCE.h"
 
@@ -22,7 +22,7 @@ extern "C" {
 
 /* TisTpgSNM-Management */
 typedef struct TisTpgSNM_Management {
-	TimestampIts_t	 generationTime;
+	ITS_Container_TimestampIts_t	 generationTime;
 	TotalTpgStations_t	 totalTpgStations;
 	/*
 	 * This type is extensible,

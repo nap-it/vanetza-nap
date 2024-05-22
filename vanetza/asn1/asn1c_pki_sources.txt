@@ -45,7 +45,6 @@ pki/EccP384CurvePoint.c
 pki/EcdsaP256Signature.c
 pki/EcdsaP384Signature.c
 pki/EciesP256EncryptedKey.c
-pki/ElevInt.c
 pki/Elevation.c
 pki/EncryptedData.c
 pki/EncryptedDataEncryptionKey.c
@@ -141,6 +140,7 @@ pki/SymmAlgorithm.c
 pki/SymmRecipientInfo.c
 pki/SymmetricCiphertext.c
 pki/SymmetricEncryptionKey.c
+pki/TestCertificate.c
 pki/ThreeDLocation.c
 pki/Time32.c
 pki/Time64.c

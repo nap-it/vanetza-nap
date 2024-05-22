@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "GenerationDeltaTime.h"
+#include "CAM-PDU-Descriptions_GenerationDeltaTime.h"
 #include "ImzmParameters.h"
 #include "constr_SEQUENCE.h"
 
@@ -22,7 +22,7 @@ extern "C" {
 
 /* InterferenceManagementZoneMessage */
 typedef struct InterferenceManagementZoneMessage {
-	GenerationDeltaTime_t	 generationDeltaTime;
+	CAM_PDU_Descriptions_GenerationDeltaTime_t	 generationDeltaTime;
 	ImzmParameters_t	 imzmParameters;
 	
 	/* Context for parsing across buffer boundaries */

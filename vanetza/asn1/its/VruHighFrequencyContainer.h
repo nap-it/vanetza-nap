@@ -12,44 +12,44 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "Heading.h"
-#include "Speed.h"
-#include "LongitudinalAcceleration.h"
-#include "CurvatureCalculationMode.h"
-#include "VruEnvironment.h"
-#include "VruMovementControl.h"
-#include "VruDeviceUsage.h"
+#include "ITS-Container_Heading.h"
+#include "ITS-Container_Speed.h"
+#include "ITS-Container_LongitudinalAcceleration.h"
+#include "ITS-Container_CurvatureCalculationMode.h"
+#include "VAM-PDU-Descriptions_VruEnvironment.h"
+#include "VAM-PDU-Descriptions_VruMovementControl.h"
+#include "VAM-PDU-Descriptions_VruDeviceUsage.h"
+#include "constr_SEQUENCE.h"
 #include "VruOrientation.h"
 #include "VruRollAngle.h"
-#include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /* Forward declarations */
-struct Curvature;
-struct YawRate;
-struct LateralAcceleration;
-struct VerticalAcceleration;
+struct ITS_Container_Curvature;
+struct ITS_Container_YawRate;
+struct ITS_Container_LateralAcceleration;
+struct ITS_Container_VerticalAcceleration;
 struct VruLanePosition;
 
 /* VruHighFrequencyContainer */
 typedef struct VruHighFrequencyContainer {
-	Heading_t	 heading;
-	Speed_t	 speed;
-	LongitudinalAcceleration_t	 longitudinalAcceleration;
-	struct Curvature	*curvature;	/* OPTIONAL */
-	CurvatureCalculationMode_t	*curvatureCalculationMode;	/* OPTIONAL */
-	struct YawRate	*yawRate;	/* OPTIONAL */
-	struct LateralAcceleration	*lateralAcceleration;	/* OPTIONAL */
-	struct VerticalAcceleration	*verticalAcceleration;	/* OPTIONAL */
+	ITS_Container_Heading_t	 heading;
+	ITS_Container_Speed_t	 speed;
+	ITS_Container_LongitudinalAcceleration_t	 longitudinalAcceleration;
+	struct ITS_Container_Curvature	*curvature;	/* OPTIONAL */
+	ITS_Container_CurvatureCalculationMode_t	*curvatureCalculationMode;	/* OPTIONAL */
+	struct ITS_Container_YawRate	*yawRate;	/* OPTIONAL */
+	struct ITS_Container_LateralAcceleration	*lateralAcceleration;	/* OPTIONAL */
+	struct ITS_Container_VerticalAcceleration	*verticalAcceleration;	/* OPTIONAL */
 	struct VruLanePosition	*vruLanePosition;	/* OPTIONAL */
-	VruEnvironment_t	*environment;	/* OPTIONAL */
-	VruMovementControl_t	*movementControl;	/* OPTIONAL */
+	VAM_PDU_Descriptions_VruEnvironment_t	*environment;	/* OPTIONAL */
+	VAM_PDU_Descriptions_VruMovementControl_t	*movementControl;	/* OPTIONAL */
 	VruOrientation_t	*orientation;	/* OPTIONAL */
-	VruRollAngle_t		*rollAngle;	/* OPTIONAL */
-	VruDeviceUsage_t	*deviceUsage;	/* OPTIONAL */
+	VruRollAngle_t	*rollAngle;	/* OPTIONAL */
+	VAM_PDU_Descriptions_VruDeviceUsage_t	*deviceUsage;	/* OPTIONAL */
 	/*
 	 * This type is extensible,
 	 * possible extensions are below.
@@ -69,10 +69,10 @@ extern asn_TYPE_member_t asn_MBR_VruHighFrequencyContainer_1[14];
 #endif
 
 /* Referred external types */
-#include "Curvature.h"
-#include "YawRate.h"
-#include "LateralAcceleration.h"
-#include "VerticalAcceleration.h"
+#include "ITS-Container_Curvature.h"
+#include "ITS-Container_YawRate.h"
+#include "ITS-Container_LateralAcceleration.h"
+#include "ITS-Container_VerticalAcceleration.h"
 #include "VruLanePosition.h"
 #include "VruOrientation.h"
 #include "VruRollAngle.h"

@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "ManagementContainer.h"
+#include "DENM-PDU-Descriptions_ManagementContainer.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -26,7 +26,7 @@ struct AlacarteContainer;
 
 /* DecentralizedEnvironmentalNotificationMessage */
 typedef struct DecentralizedEnvironmentalNotificationMessage {
-	ManagementContainer_t	 management;
+	DENM_PDU_Descriptions_ManagementContainer_t	 management;
 	struct SituationContainer	*situation;	/* OPTIONAL */
 	struct LocationContainer	*location;	/* OPTIONAL */
 	struct AlacarteContainer	*alacarte;	/* OPTIONAL */

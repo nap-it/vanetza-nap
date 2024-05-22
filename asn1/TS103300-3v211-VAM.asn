@@ -319,4 +319,43 @@ StabilityChangeIndication ::= SEQUENCE {
 
 StabilityLossProbability ::= INTEGER { zero(0), twoPercent (1), fourPercent(2), unavailable (63) } (0..63)
 
+AreaCircular ::= SEQUENCE {
+    nodeCenterPoint      OffsetPoint OPTIONAL,
+    radius               Radius
+}
+
+AreaRectangle ::= SEQUENCE {
+    nodeCenterPoint             OffsetPoint OPTIONAL,
+    semiMajorRangeLength        SemiRangeLength,
+    semiMinorRangeLength        SemiRangeLength,
+    semiMajorRangeOrientation   WGS84AngleValue,
+    semiHeight                  SemiRangeLength OPTIONAL
+}
+
+AreaPolygon ::= SEQUENCE {
+    polyPointList   PolyPointList
+}
+
+PolyPointList ::= SEQUENCE (SIZE(3..16, ...)) OF OffsetPoint
+
+OffsetPoint ::= SEQUENCE {
+    nodeOffsetPointxy   NodeOffsetPointXY (WITH COMPONENTS {..., node-LatLon ABSENT, regional ABSENT}),
+    nodeOffsetPointZ    NodeOffsetPointZ OPTIONAL
+}
+
+NodeOffsetPointZ ::= CHOICE {
+    node-Z1 Offset-B10, -- node is within 5.11m of last node
+    node-Z2 Offset-B11, -- node is within 10.23m of last node
+    node-Z3 Offset-B12, -- node is within 20.47m of last node
+    node-Z4 Offset-B13, -- node is within 40.96m of last node
+    node-Z5 Offset-B14, -- node is within 81.91m of last node
+    node-Z6 Offset-B16  -- node is within 327.67m of last node
+}
+
+Radius                      ::= INTEGER {zeroPointOneMeter(1), oneMeter(10)}  (0..10000)
+
+SemiRangeLength             ::= INTEGER {zeroPointOneMeter(1), oneMeter(10)} (0..10000)
+
+WGS84AngleValue             ::= INTEGER {wgs84North(0), wgs84East(900), wgs84South(1800), wgs84West(2700), unavailable(3601)} (0..3601)
+
 END

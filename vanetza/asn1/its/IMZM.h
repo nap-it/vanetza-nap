@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "ItsPduHeader.h"
+#include "ITS-Container_ItsPduHeader.h"
 #include "InterferenceManagementZoneMessage.h"
 #include "constr_SEQUENCE.h"
 
@@ -22,7 +22,7 @@ extern "C" {
 
 /* IMZM */
 typedef struct IMZM {
-	ItsPduHeader_t	 header;
+	ITS_Container_ItsPduHeader_t	 header;
 	InterferenceManagementZoneMessage_t	 imzm;
 	
 	/* Context for parsing across buffer boundaries */

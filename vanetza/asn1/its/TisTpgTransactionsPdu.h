@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "ItsPduHeader.h"
+#include "ITS-Container_ItsPduHeader.h"
 #include "TisTpgTransaction.h"
 #include "constr_SEQUENCE.h"
 
@@ -22,7 +22,7 @@ extern "C" {
 
 /* TisTpgTransactionsPdu */
 typedef struct TisTpgTransactionsPdu {
-	ItsPduHeader_t	 header;
+	ITS_Container_ItsPduHeader_t	 header;
 	TisTpgTransaction_t	 tisTpgTransaction;
 	
 	/* Context for parsing across buffer boundaries */

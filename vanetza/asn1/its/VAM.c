@@ -11,7 +11,7 @@ static asn_TYPE_member_t asn_MBR_VAM_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct VAM, header),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ItsPduHeaderVam,
+		&asn_DEF_ITS_Container_ItsPduHeader,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

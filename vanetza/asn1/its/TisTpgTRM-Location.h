@@ -12,9 +12,9 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "ReferencePosition.h"
-#include "Speed.h"
-#include "Heading.h"
+#include "ITS-Container_ReferencePosition.h"
+#include "ITS-Container_Speed.h"
+#include "ITS-Container_Heading.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -23,9 +23,9 @@ extern "C" {
 
 /* TisTpgTRM-Location */
 typedef struct TisTpgTRM_Location {
-	ReferencePosition_t	 vehiclePosition;
-	Speed_t	 vehicleSpeed;
-	Heading_t	 vehicleHeading;
+	ITS_Container_ReferencePosition_t	 vehiclePosition;
+	ITS_Container_Speed_t	 vehicleSpeed;
+	ITS_Container_Heading_t	 vehicleHeading;
 	/*
 	 * This type is extensible,
 	 * possible extensions are below.

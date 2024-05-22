@@ -26,9 +26,9 @@ typedef enum Ieee1609Dot2Content_PR {
 	Ieee1609Dot2Content_PR_unsecuredData,
 	Ieee1609Dot2Content_PR_signedData,
 	Ieee1609Dot2Content_PR_encryptedData,
-	Ieee1609Dot2Content_PR_signedCertificateRequest
+	Ieee1609Dot2Content_PR_signedCertificateRequest,
 	/* Extensions may appear below */
-	
+	Ieee1609Dot2Content_PR_signedX509CertificateRequest
 } Ieee1609Dot2Content_PR;
 
 /* Forward declarations */
@@ -46,6 +46,7 @@ typedef struct Ieee1609Dot2Content {
 		 * This type is extensible,
 		 * possible extensions are below.
 		 */
+		Opaque_t	 signedX509CertificateRequest;
 	} choice;
 	
 	/* Context for parsing across buffer boundaries */
@@ -55,7 +56,7 @@ typedef struct Ieee1609Dot2Content {
 /* Implementation */
 extern asn_TYPE_descriptor_t asn_DEF_Ieee1609Dot2Content;
 extern asn_CHOICE_specifics_t asn_SPC_Ieee1609Dot2Content_specs_1;
-extern asn_TYPE_member_t asn_MBR_Ieee1609Dot2Content_1[4];
+extern asn_TYPE_member_t asn_MBR_Ieee1609Dot2Content_1[5];
 extern asn_per_constraints_t asn_PER_type_Ieee1609Dot2Content_constr_1;
 
 #ifdef __cplusplus

@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "ItsPduHeader.h"
+#include "ITS-Container_ItsPduHeader.h"
 #include "DecentralizedEnvironmentalNotificationMessage.h"
 #include "constr_SEQUENCE.h"
 
@@ -22,7 +22,7 @@ extern "C" {
 
 /* DENM */
 typedef struct DENM {
-	ItsPduHeader_t	 header;
+	ITS_Container_ItsPduHeader_t	 header;
 	DecentralizedEnvironmentalNotificationMessage_t	 denm;
 	
 	/* Context for parsing across buffer boundaries */

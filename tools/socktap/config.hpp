@@ -53,6 +53,7 @@ typedef struct config {
     int dds_domain_id;
     int num_threads;
     bool publish_encoded_payloads;
+    bool debug_enabled;
     message_config_t cam;
     message_config_t denm;
     message_config_t cpm;

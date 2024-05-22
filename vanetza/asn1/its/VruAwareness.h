@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "GenerationDeltaTime.h"
+#include "CAM-PDU-Descriptions_GenerationDeltaTime.h"
 #include "VamParameters.h"
 #include "constr_SEQUENCE.h"
 
@@ -22,7 +22,7 @@ extern "C" {
 
 /* VruAwareness */
 typedef struct VruAwareness {
-	GenerationDeltaTime_t	 generationDeltaTime;
+	CAM_PDU_Descriptions_GenerationDeltaTime_t	 generationDeltaTime;
 	VamParameters_t	 vamParameters;
 	
 	/* Context for parsing across buffer boundaries */

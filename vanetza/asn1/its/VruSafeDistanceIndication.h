@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "StationID.h"
+#include "ITS-Container_StationID.h"
 #include "StationSafeDistanceIndication.h"
 #include "ActionDeltaTime.h"
 #include "constr_SEQUENCE.h"
@@ -23,7 +23,7 @@ extern "C" {
 
 /* VruSafeDistanceIndication */
 typedef struct VruSafeDistanceIndication {
-	StationID_t	*subjectStation;	/* OPTIONAL */
+	ITS_Container_StationID_t	*subjectStation;	/* OPTIONAL */
 	StationSafeDistanceIndication_t	 stationSafeDistanceIndication;
 	ActionDeltaTime_t	*timeToCollision;	/* OPTIONAL */
 	/*

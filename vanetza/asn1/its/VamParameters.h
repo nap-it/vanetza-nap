@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "BasicContainer.h"
+#include "CAM-PDU-Descriptions_BasicContainer.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -28,7 +28,7 @@ struct VruMotionPredictionContainer;
 
 /* VamParameters */
 typedef struct VamParameters {
-	BasicContainer_t	 basicContainer;
+	CAM_PDU_Descriptions_BasicContainer_t	 basicContainer;
 	struct VruHighFrequencyContainer	*vruHighFrequencyContainer;	/* OPTIONAL */
 	struct VruLowFrequencyContainer	*vruLowFrequencyContainer;	/* OPTIONAL */
 	struct VruClusterInformationContainer	*vruClusterInformationContainer;	/* OPTIONAL */

@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "InterferenceManagementZones.h"
+#include "IMZM-PDU-Descriptions_InterferenceManagementZones.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -21,7 +21,7 @@ extern "C" {
 
 /* ImzmContainer */
 typedef struct ImzmContainer {
-	InterferenceManagementZones_t	 interferenceManagementZones;
+	IMZM_PDU_Descriptions_InterferenceManagementZones_t	 interferenceManagementZones;
 	/*
 	 * This type is extensible,
 	 * possible extensions are below.

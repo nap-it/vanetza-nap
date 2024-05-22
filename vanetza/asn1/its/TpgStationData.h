@@ -12,15 +12,15 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "StationID.h"
+#include "ITS-Container_StationID.h"
 #include "TpgAutomation.h"
 #include "TpgNumber.h"
 #include "TpgProvider.h"
-#include "ReferencePosition.h"
+#include "ITS-Container_ReferencePosition.h"
 #include "Accessibility.h"
 #include "UTF8String.h"
-#include "PhoneNumber.h"
-#include "OpeningDaysHours.h"
+#include "ITS-Container_PhoneNumber.h"
+#include "ITS-Container_OpeningDaysHours.h"
 #include "BookingInfo.h"
 #include "AvailableTpgNumber.h"
 #include "CancellationCondition.h"
@@ -31,20 +31,20 @@ extern "C" {
 #endif
 
 /* Forward declarations */
-struct DigitalMap;
+struct ITS_Container_DigitalMap;
 
 /* TpgStationData */
 typedef struct TpgStationData {
-	StationID_t	 tpgStationID;
+	ITS_Container_StationID_t	 tpgStationID;
 	TpgAutomation_t	 tpgAutomationLevel;
 	TpgNumber_t	 tpgNumber;
 	TpgProvider_t	 tpgProvider;
-	ReferencePosition_t	 tpgLocation;
+	ITS_Container_ReferencePosition_t	 tpgLocation;
 	Accessibility_t	 accessibility;
 	UTF8String_t	*address;	/* OPTIONAL */
-	PhoneNumber_t	*phoneNumber;	/* OPTIONAL */
-	struct DigitalMap	*digitalMap;	/* OPTIONAL */
-	OpeningDaysHours_t	*openingDaysHours;	/* OPTIONAL */
+	ITS_Container_PhoneNumber_t	*phoneNumber;	/* OPTIONAL */
+	struct ITS_Container_DigitalMap	*digitalMap;	/* OPTIONAL */
+	ITS_Container_OpeningDaysHours_t	*openingDaysHours;	/* OPTIONAL */
 	BookingInfo_t	*bookingInfo;	/* OPTIONAL */
 	AvailableTpgNumber_t	*availableTpgNumber;	/* OPTIONAL */
 	CancellationCondition_t	*cancellationCondition;	/* OPTIONAL */
@@ -67,7 +67,7 @@ extern asn_TYPE_member_t asn_MBR_TpgStationData_1[13];
 #endif
 
 /* Referred external types */
-#include "DigitalMap.h"
+#include "ITS-Container_DigitalMap.h"
 
 #endif	/* _TpgStationData_H_ */
 #include "asn_internal.h"

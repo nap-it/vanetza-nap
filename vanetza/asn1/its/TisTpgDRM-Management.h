@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "TimestampIts.h"
+#include "ITS-Container_TimestampIts.h"
 #include "UNVehicleClassifcation.h"
 #include "CustomerContract.h"
 #include "TisProfile.h"
@@ -24,7 +24,7 @@ extern "C" {
 
 /* TisTpgDRM-Management */
 typedef struct TisTpgDRM_Management {
-	TimestampIts_t	 generationTime;
+	ITS_Container_TimestampIts_t	 generationTime;
 	UNVehicleClassifcation_t	 vehicleType;
 	CustomerContract_t	*costumerContract;	/* OPTIONAL */
 	TisProfile_t	 tisProfile;

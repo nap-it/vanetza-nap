@@ -11,7 +11,7 @@ static asn_TYPE_member_t asn_MBR_SREM_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct SREM, header),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ItsPduHeader,
+		&asn_DEF_ITS_Container_ItsPduHeader,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

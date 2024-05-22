@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_TisTpgDRM_Situation_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct TisTpgDRM_Situation, causeCode),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_CauseCode,
+		&asn_DEF_ITS_Container_CauseCode,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

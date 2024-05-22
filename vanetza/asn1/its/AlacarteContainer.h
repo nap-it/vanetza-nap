@@ -12,9 +12,9 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "LanePosition.h"
+#include "ITS-Container_LanePosition.h"
 #include "ITS-Container_Temperature.h"
-#include "PositioningSolutionType.h"
+#include "ITS-Container_PositioningSolutionType.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -28,11 +28,11 @@ struct StationaryVehicleContainer;
 
 /* AlacarteContainer */
 typedef struct AlacarteContainer {
-	LanePosition_t	*lanePosition;	/* OPTIONAL */
+	ITS_Container_LanePosition_t	*lanePosition;	/* OPTIONAL */
 	struct ImpactReductionContainer	*impactReduction;	/* OPTIONAL */
 	ITS_Container_Temperature_t	*externalTemperature;	/* OPTIONAL */
 	struct RoadWorksContainerExtended	*roadWorks;	/* OPTIONAL */
-	PositioningSolutionType_t	*positioningSolution;	/* OPTIONAL */
+	ITS_Container_PositioningSolutionType_t	*positioningSolution;	/* OPTIONAL */
 	struct StationaryVehicleContainer	*stationaryVehicle;	/* OPTIONAL */
 	/*
 	 * This type is extensible,

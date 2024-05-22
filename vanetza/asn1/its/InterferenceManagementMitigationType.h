@@ -13,7 +13,7 @@
 
 /* Including external dependencies */
 #include "NULL.h"
-#include "MitigationForTechnologies.h"
+#include "IMZM-PDU-Descriptions_MitigationForTechnologies.h"
 #include "constr_CHOICE.h"
 
 #ifdef __cplusplus
@@ -32,7 +32,7 @@ typedef struct InterferenceManagementMitigationType {
 	InterferenceManagementMitigationType_PR present;
 	union InterferenceManagementMitigationType_u {
 		NULL_t	 unavailable;
-		MitigationForTechnologies_t	 mitigationForTechnologies;
+		IMZM_PDU_Descriptions_MitigationForTechnologies_t	 mitigationForTechnologies;
 	} choice;
 	
 	/* Context for parsing across buffer boundaries */

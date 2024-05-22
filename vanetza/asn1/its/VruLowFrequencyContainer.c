@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_VruLowFrequencyContainer_1[] = {
 	{ ATF_POINTER, 3, offsetof(struct VruLowFrequencyContainer, profileAndSubprofile),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		+1,	/* EXPLICIT tag at current level */
-		&asn_DEF_VruProfileAndSubprofile,
+		&asn_DEF_VAM_PDU_Descriptions_VruProfileAndSubprofile,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -28,7 +28,7 @@ asn_TYPE_member_t asn_MBR_VruLowFrequencyContainer_1[] = {
 	{ ATF_POINTER, 2, offsetof(struct VruLowFrequencyContainer, exteriorLights),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_VruExteriorLights,
+		&asn_DEF_VAM_PDU_Descriptions_VruExteriorLights,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -45,7 +45,7 @@ asn_TYPE_member_t asn_MBR_VruLowFrequencyContainer_1[] = {
 	{ ATF_POINTER, 1, offsetof(struct VruLowFrequencyContainer, sizeClass),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_VruSizeClass,
+		&asn_DEF_VAM_PDU_Descriptions_VruSizeClass,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

@@ -13,7 +13,7 @@
 
 /* Including external dependencies */
 #include "PairingID.h"
-#include "TimestampIts.h"
+#include "ITS-Container_TimestampIts.h"
 #include "CancellationCondition.h"
 #include "constr_SEQUENCE.h"
 
@@ -24,7 +24,7 @@ extern "C" {
 /* TisTpgTCM-Situation */
 typedef struct TisTpgTCM_Situation {
 	PairingID_t	*pairingID;	/* OPTIONAL */
-	TimestampIts_t	 reservationTimeLimit;
+	ITS_Container_TimestampIts_t	 reservationTimeLimit;
 	CancellationCondition_t	*cancellationCondition;	/* OPTIONAL */
 	/*
 	 * This type is extensible,

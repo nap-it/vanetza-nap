@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_VruClusterOperationContainer_1[] = {
 	{ ATF_POINTER, 4, offsetof(struct VruClusterOperationContainer, clusterJoinInfo),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ClusterJoinInfo,
+		&asn_DEF_VAM_PDU_Descriptions_ClusterJoinInfo,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -28,7 +28,7 @@ asn_TYPE_member_t asn_MBR_VruClusterOperationContainer_1[] = {
 	{ ATF_POINTER, 3, offsetof(struct VruClusterOperationContainer, clusterLeaveInfo),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ClusterLeaveInfo,
+		&asn_DEF_VAM_PDU_Descriptions_ClusterLeaveInfo,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -45,7 +45,7 @@ asn_TYPE_member_t asn_MBR_VruClusterOperationContainer_1[] = {
 	{ ATF_POINTER, 2, offsetof(struct VruClusterOperationContainer, clusterBreakupInfo),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ClusterBreakupInfo,
+		&asn_DEF_VAM_PDU_Descriptions_ClusterBreakupInfo,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

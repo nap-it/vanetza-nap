@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_VruPathPoint_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct VruPathPoint, pathPosition),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ReferencePosition,
+		&asn_DEF_ITS_Container_ReferencePosition,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -28,7 +28,7 @@ asn_TYPE_member_t asn_MBR_VruPathPoint_1[] = {
 	{ ATF_POINTER, 1, offsetof(struct VruPathPoint, pathDeltaTime),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_PathDeltaTime,
+		&asn_DEF_ITS_Container_PathDeltaTime,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

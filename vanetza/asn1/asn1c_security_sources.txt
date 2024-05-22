@@ -19,7 +19,6 @@ security/EccP384CurvePoint.c
 security/EcdsaP256Signature.c
 security/EcdsaP384Signature.c
 security/EciesP256EncryptedKey.c
-security/ElevInt.c
 security/Elevation.c
 security/EncryptedData.c
 security/EncryptedDataEncryptionKey.c
@@ -97,6 +96,7 @@ security/SymmAlgorithm.c
 security/SymmRecipientInfo.c
 security/SymmetricCiphertext.c
 security/SymmetricEncryptionKey.c
+security/TestCertificate.c
 security/ThreeDLocation.c
 security/Time32.c
 security/Time64.c

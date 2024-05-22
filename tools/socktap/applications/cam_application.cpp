@@ -29,10 +29,10 @@ ip::udp::socket cam_udp_socket(cam_io_service_);
 ip::udp::endpoint cam_remote_endpoint;
 boost::system::error_code cam_err;
 
-SpeedValue_t last_speed = LLONG_MIN;
+ITS_Container_SpeedValue_t last_speed = LLONG_MIN;
 double time_speed = 0;
 
-HeadingValue_t last_heading = LLONG_MIN;
+ITS_Container_HeadingValue_t last_heading = LLONG_MIN;
 double time_heading = 0;
 
 std::mutex cam_persistence_mtx;
@@ -282,12 +282,12 @@ void CamApplication::schedule_timer()
 }
 
 Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, double time_reception, double time_queue, int rssi, int packet_size, channel channel_info, bool include_fields, bool rx, bool full) {
-    ItsPduHeader_t& header = message.header;
+    ITS_Container_ItsPduHeader_t& header = message.header;
     CoopAwareness_t& cam = message.cam;
-    BasicContainer_t& basic = cam.camParameters.basicContainer;
+    CAM_PDU_Descriptions_BasicContainer_t& basic = cam.camParameters.basicContainer;
     HighFrequencyContainer& high = cam.camParameters.highFrequencyContainer;
     BasicVehicleContainerHighFrequency& bvc = cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency;
-    AccelerationControl_t* acc = cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.accelerationControl;
+    ITS_Container_AccelerationControl_t* acc = cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.accelerationControl;
 
     bool has_vehicle = cam.camParameters.highFrequencyContainer.present == HighFrequencyContainer_PR_basicVehicleContainerHighFrequency;
     
@@ -417,12 +417,12 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
     Value payload;
 
     CoopAwareness_t* cam_ptr = vanetza::asn1::allocate<CoopAwareness_t>();
-    AccelerationControl_t* p_tmp = vanetza::asn1::allocate<AccelerationControl_t>();
+    ITS_Container_AccelerationControl_t* p_tmp = vanetza::asn1::allocate<ITS_Container_AccelerationControl_t>();
 
     vanetza::asn1::Cam message;
-    ItsPduHeader_t& header = message->header;
+    ITS_Container_ItsPduHeader_t& header = message->header;
     header.protocolVersion = 2;  
-    header.messageID = ItsPduHeader__messageID_cam;
+    header.messageID = MessageId_cam;
     
     if (!is_encoded) {
         CoopAwareness_t cam;
@@ -461,7 +461,7 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
                 header.stationID = payload["stationID"].GetUint64();
                 const auto time_now = duration_cast<milliseconds>(runtime_.now().time_since_epoch());
                 uint16_t gen_delta_time = time_now.count();
-                cam_ptr->generationDeltaTime = gen_delta_time * GenerationDeltaTime_oneMilliSec;
+                cam_ptr->generationDeltaTime = gen_delta_time * CAM_PDU_Descriptions_GenerationDeltaTime_oneMilliSec;
                 cam_ptr->camParameters.basicContainer.referencePosition.latitude = (payload["latitude"].GetDouble() == 900000001) ? (long) payload["latitude"].GetDouble() : (long) ((double) payload["latitude"].GetDouble() * pow(10, 7));
                 cam_ptr->camParameters.basicContainer.referencePosition.longitude = (payload["longitude"].GetDouble() == 1800000001) ? (long) payload["longitude"].GetDouble() : (long) ((double) payload["longitude"].GetDouble() * pow(10, 7));
                 cam_ptr->camParameters.basicContainer.referencePosition.positionConfidenceEllipse.semiMajorConfidence = payload["semiMajorConf"].GetInt64();
@@ -476,9 +476,9 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.heading.headingConfidence = (payload["headingConf"].GetInt64() == 126 || payload["headingConf"].GetInt64() == 127) ? (long) payload["headingConf"].GetInt64() : (long) ((double) payload["headingConf"].GetInt64() * pow(10, 1));
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.speed.speedValue = (payload["speed"].GetDouble() == 16383) ? (long) payload["speed"].GetDouble() : (long) ((double) payload["speed"].GetDouble() * pow(10, 2));
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.speed.speedConfidence = (payload["speedConf"].GetInt64() == 126 || payload["speedConf"].GetInt64() == 127) ? (long) payload["speedConf"].GetInt64() : (long) ((double) payload["speedConf"].GetInt64() * pow(10, 2));
-                if(payload["driveDirection"] == "FORWARD") cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.driveDirection = DriveDirection_forward;
-                else if(payload["driveDirection"] == "BACKWARD") cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.driveDirection = DriveDirection_backward;
-                else cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.driveDirection = DriveDirection_unavailable;
+                if(payload["driveDirection"] == "FORWARD") cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.driveDirection = ITS_Container_DriveDirection_forward;
+                else if(payload["driveDirection"] == "BACKWARD") cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.driveDirection = ITS_Container_DriveDirection_backward;
+                else cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.driveDirection = ITS_Container_DriveDirection_unavailable;
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.vehicleLength.vehicleLengthValue = (payload["length"].GetDouble() == 1023) ? (long) payload["length"].GetDouble() : (long) ((double) payload["length"].GetDouble() * pow(10, 1));
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.vehicleWidth = (payload["width"].GetDouble() == 61 || payload["width"].GetDouble() == 62) ? (long) payload["width"].GetDouble() : (long) ((double) payload["width"].GetDouble() * pow(10,1));
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.longitudinalAcceleration.longitudinalAccelerationValue = (payload["acceleration"].GetDouble() == 161) ? (long) payload["acceleration"].GetDouble() : (long) ((double) payload["acceleration"].GetDouble() * pow(10,1));
@@ -509,13 +509,13 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.verticalAcceleration = nullptr;
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.performanceClass = nullptr;
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.cenDsrcTollingZone = nullptr;
-                cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.longitudinalAcceleration.longitudinalAccelerationConfidence = AccelerationConfidence_unavailable;
-                cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.yawRate.yawRateConfidence = YawRateConfidence_unavailable;
-                cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.heading.headingConfidence = HeadingConfidence_unavailable;
-                cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.speed.speedConfidence = SpeedConfidence_unavailable;
-                cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.curvature.curvatureConfidence = CurvatureConfidence_unavailable;
-                cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.curvatureCalculationMode = CurvatureCalculationMode_yawRateUsed;
-                cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.vehicleLength.vehicleLengthConfidenceIndication = VehicleLengthConfidenceIndication_noTrailerPresent;
+                cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.longitudinalAcceleration.longitudinalAccelerationConfidence = ITS_Container_AccelerationConfidence_unavailable;
+                cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.yawRate.yawRateConfidence = ITS_Container_YawRateConfidence_unavailable;
+                cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.heading.headingConfidence = ITS_Container_HeadingConfidence_unavailable;
+                cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.speed.speedConfidence = ITS_Container_SpeedConfidence_unavailable;
+                cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.curvature.curvatureConfidence = ITS_Container_CurvatureConfidence_unavailable;
+                cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.curvatureCalculationMode = ITS_Container_CurvatureCalculationMode_yawRateUsed;
+                cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.vehicleLength.vehicleLengthConfidenceIndication = ITS_Container_VehicleLengthConfidenceIndication_noTrailerPresent;
                 cam_ptr->camParameters.lowFrequencyContainer = nullptr;
                 cam_ptr->camParameters.specialVehicleContainer = nullptr;
                 if (payload.HasMember("specialVehicle")) {
@@ -540,6 +540,13 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
                 std::cout << "Invalid payload: " << mqtt_message << std::endl;
                 return;
             }
+        }
+
+        std::string error;
+        if (config_s.debug_enabled && !message.validate(error)) {
+            std::cout << "-- Vanetza UPER Encoding Error --\nCheck that the message format follows ETSI spec\nError message: " << error << std::endl;
+            std::cout << "Invalid payload: " << mqtt_message << std::endl;
+            return;
         }
 
         packet->layer(OsiLayer::Application) = std::move(message);
@@ -616,46 +623,46 @@ void CamApplication::on_timer(Clock::time_point)
 
     const double time_now_mqtt = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
-    ItsPduHeader_t& header = message->header;
+    ITS_Container_ItsPduHeader_t& header = message->header;
     header.protocolVersion = 2;
-    header.messageID = ItsPduHeader__messageID_cam;
+    header.messageID = MessageId_cam;
     header.stationID = config_s.station_id;
 
     const auto time_now = duration_cast<milliseconds>(runtime_.now().time_since_epoch());
     uint16_t gen_delta_time = time_now.count();
 
     CoopAwareness_t& cam = message->cam;
-    cam.generationDeltaTime = gen_delta_time * GenerationDeltaTime_oneMilliSec;
+    cam.generationDeltaTime = gen_delta_time * CAM_PDU_Descriptions_GenerationDeltaTime_oneMilliSec;
 
     auto position = positioning_.position_fix();
     
-    SpeedValue_t speed = SpeedValue_unavailable;
+    ITS_Container_SpeedValue_t speed = ITS_Container_SpeedValue_unavailable;
     if (position.speed.value().value() >= 0 && position.speed.value().value() <= 16382) speed = position.speed.value().value() * 100;
-    LongitudinalAccelerationValue_t acceleration = LongitudinalAccelerationValue_unavailable;
+    ITS_Container_LongitudinalAccelerationValue_t acceleration = ITS_Container_LongitudinalAccelerationValue_unavailable;
 
     const double millis_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
     if(time_speed == 0) time_speed = millis_now;
     if (last_speed != LLONG_MIN && (speed != last_speed || millis_now - time_speed >= 1)) {
         acceleration = (int)((speed - last_speed) * 10);
-        if (acceleration < -160 || acceleration > 160) acceleration = LongitudinalAccelerationValue_unavailable;
+        if (acceleration < -160 || acceleration > 160) acceleration = ITS_Container_LongitudinalAccelerationValue_unavailable;
         time_speed = millis_now;
     }
     last_speed = speed;
 
-    HeadingValue_t heading = HeadingValue_unavailable;
+    ITS_Container_HeadingValue_t heading = ITS_Container_HeadingValue_unavailable;
     if (position.course.value().value() >= 0 && position.course.value().value() <= 3600) heading = position.course.value().value();
-    YawRateValue_t yaw_rate = YawRateValue_unavailable;
+    ITS_Container_YawRateValue_t yaw_rate = ITS_Container_YawRateValue_unavailable;
 
     if(time_heading == 0) time_heading = millis_now;
     if (last_heading != LLONG_MIN && (heading != last_heading || millis_now - time_heading >= 1)) {
         yaw_rate = (int)((heading - last_heading) * 100);
-        if (yaw_rate < -32766 || yaw_rate > 32766) yaw_rate = YawRateValue_unavailable;
+        if (yaw_rate < -32766 || yaw_rate > 32766) yaw_rate = ITS_Container_YawRateValue_unavailable;
         time_heading = millis_now;
     }
     last_heading = heading;
 
-    BasicContainer_t& basic = cam.camParameters.basicContainer;
+    CAM_PDU_Descriptions_BasicContainer_t& basic = cam.camParameters.basicContainer;
     basic.stationType = config_s.station_type;
     copy(position, basic.referencePosition);
 
@@ -667,37 +674,38 @@ void CamApplication::on_timer(Clock::time_point)
         cam.camParameters.highFrequencyContainer.present = HighFrequencyContainer_PR_basicVehicleContainerHighFrequency;
         BasicVehicleContainerHighFrequency& bvc = cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency;
         bvc.heading.headingValue = heading;
-        bvc.heading.headingConfidence = HeadingConfidence_unavailable;
+        bvc.heading.headingConfidence = ITS_Container_HeadingConfidence_unavailable;
         if (position.course.confidence().value() > 0 && position.course.confidence().value() <= 125) bvc.heading.headingConfidence = position.course.confidence().value();
 
         bvc.speed.speedValue = speed;
-        bvc.speed.speedConfidence = SpeedConfidence_unavailable; 
+        bvc.speed.speedConfidence = ITS_Container_SpeedConfidence_unavailable; 
         if (position.speed.confidence().value() > 0 && position.speed.confidence().value() <= 125) bvc.speed.speedConfidence = position.speed.confidence().value();
 
-        bvc.driveDirection = DriveDirection_forward;
+        bvc.driveDirection = ITS_Container_DriveDirection_forward;
         bvc.longitudinalAcceleration.longitudinalAccelerationValue = acceleration;
 
         bvc.vehicleLength.vehicleLengthValue = config_s.length * 10;
-        bvc.vehicleLength.vehicleLengthConfidenceIndication = VehicleLengthConfidenceIndication_noTrailerPresent;
+        bvc.vehicleLength.vehicleLengthConfidenceIndication = ITS_Container_VehicleLengthConfidenceIndication_noTrailerPresent;
         bvc.vehicleWidth = config_s.width * 10;
 
-        bvc.curvature.curvatureValue = CurvatureValue_unavailable;
-        bvc.curvature.curvatureConfidence = CurvatureConfidence_unavailable;
-        bvc.curvatureCalculationMode = CurvatureCalculationMode_yawRateUsed;
+        bvc.curvature.curvatureValue = ITS_Container_CurvatureValue_unavailable;
+        bvc.curvature.curvatureConfidence = ITS_Container_CurvatureConfidence_unavailable;
+        bvc.curvatureCalculationMode = ITS_Container_CurvatureCalculationMode_yawRateUsed;
 
         bvc.yawRate.yawRateValue = yaw_rate;
 
-        bvc.accelerationControl = vanetza::asn1::allocate<AccelerationControl_t>();
+        bvc.accelerationControl = vanetza::asn1::allocate<ITS_Container_AccelerationControl_t>();
         bvc.accelerationControl->buf = (uint8_t *) calloc(1, sizeof(uint8_t));
         bvc.accelerationControl->size = 1;
         bvc.accelerationControl->bits_unused = 1;
         *(bvc.accelerationControl->buf) = (uint8_t) 0b10111110;
     }
     
-    //std::string error;
-    //if (!message.validate(error)) {
-    //    throw std::runtime_error("Invalid high frequency CAM: %s" + error);
-    //}
+    std::string error;
+    if (config_s.debug_enabled && !message.validate(error)) {
+        std::cout << "-- Vanetza UPER Encoding Error --\nCheck that the message format follows ETSI spec\nError message: " << error << std::endl;
+        return;
+    }
 
     CAM_t cam_t = {message->header, message->cam};
     

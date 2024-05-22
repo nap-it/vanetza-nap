@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_DecentralizedEnvironmentalNotificationMessage_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct DecentralizedEnvironmentalNotificationMessage, management),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ManagementContainer,
+		&asn_DEF_DENM_PDU_Descriptions_ManagementContainer,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

@@ -119,7 +119,7 @@ asn_TYPE_member_t asn_MBR_ManoeuvreAdvice_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct ManoeuvreAdvice, executantPosition),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ReferencePositionWithConfidence,
+		&asn_DEF_MCM_PDU_Descriptions_ReferencePositionWithConfidence,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -136,7 +136,7 @@ asn_TYPE_member_t asn_MBR_ManoeuvreAdvice_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct ManoeuvreAdvice, executantHeading),
 		(ASN_TAG_CLASS_CONTEXT | (3 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Heading,
+		&asn_DEF_ITS_Container_Heading,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

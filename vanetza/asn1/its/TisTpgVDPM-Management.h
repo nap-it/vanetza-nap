@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "TimestampIts.h"
+#include "ITS-Container_TimestampIts.h"
 #include "TisProfile.h"
 #include "Language.h"
 #include "UNVehicleClassifcation.h"
@@ -27,7 +27,7 @@ extern "C" {
 
 /* TisTpgVDPM-Management */
 typedef struct TisTpgVDPM_Management {
-	TimestampIts_t	 generationTime;
+	ITS_Container_TimestampIts_t	 generationTime;
 	TisProfile_t	*tisProfile;	/* OPTIONAL */
 	Language_t	 language;
 	UNVehicleClassifcation_t	 vehicleType;

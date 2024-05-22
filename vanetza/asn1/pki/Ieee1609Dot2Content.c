@@ -88,12 +88,30 @@ asn_TYPE_member_t asn_MBR_Ieee1609Dot2Content_1[] = {
 		0, 0, /* No default value */
 		"signedCertificateRequest"
 		},
+	{ ATF_NOFLAGS, 0, offsetof(struct Ieee1609Dot2Content, choice.signedX509CertificateRequest),
+		(ASN_TAG_CLASS_CONTEXT | (4 << 2)),
+		-1,	/* IMPLICIT tag at current level */
+		&asn_DEF_Opaque,
+		0,
+		{
+#if !defined(ASN_DISABLE_OER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+			0
+		},
+		0, 0, /* No default value */
+		"signedX509CertificateRequest"
+		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_Ieee1609Dot2Content_tag2el_1[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* unsecuredData */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* signedData */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 }, /* encryptedData */
-    { (ASN_TAG_CLASS_CONTEXT | (3 << 2)), 3, 0, 0 } /* signedCertificateRequest */
+    { (ASN_TAG_CLASS_CONTEXT | (3 << 2)), 3, 0, 0 }, /* signedCertificateRequest */
+    { (ASN_TAG_CLASS_CONTEXT | (4 << 2)), 4, 0, 0 } /* signedX509CertificateRequest */
 };
 asn_CHOICE_specifics_t asn_SPC_Ieee1609Dot2Content_specs_1 = {
 	sizeof(struct Ieee1609Dot2Content),
@@ -101,7 +119,7 @@ asn_CHOICE_specifics_t asn_SPC_Ieee1609Dot2Content_specs_1 = {
 	offsetof(struct Ieee1609Dot2Content, present),
 	sizeof(((struct Ieee1609Dot2Content *)0)->present),
 	asn_MAP_Ieee1609Dot2Content_tag2el_1,
-	4,	/* Count of tags in the map */
+	5,	/* Count of tags in the map */
 	0, 0,
 	4	/* Extensions start */
 };
@@ -123,7 +141,7 @@ asn_TYPE_descriptor_t asn_DEF_Ieee1609Dot2Content = {
 		CHOICE_constraint
 	},
 	asn_MBR_Ieee1609Dot2Content_1,
-	4,	/* Elements count */
+	5,	/* Elements count */
 	&asn_SPC_Ieee1609Dot2Content_specs_1	/* Additional specs */
 };
 

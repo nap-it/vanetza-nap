@@ -50,6 +50,7 @@ void read_config(config_t* config_s, string path) {
     config_s->dds_domain_id = getenv("VANETZA_DDS_DOMAIN_ID") == NULL ? reader.GetInteger("general", "dds_domain_id", 0) : stoi(getenv("VANETZA_DDS_DOMAIN_ID"));
     config_s->num_threads = getenv("VANETZA_NUM_THREADS") == NULL ? reader.GetInteger("general", "num_threads", -1) : stoi(getenv("VANETZA_NUM_THREADS"));
     config_s->publish_encoded_payloads = getenv("VANETZA_PUBLISH_ENCODED_PAYLOADS") == NULL ? reader.GetBoolean("general", "publish_encoded_payloads", false) : (strcmp((getenv("VANETZA_PUBLISH_ENCODED_PAYLOADS")), "true") == 0);
+    config_s->debug_enabled = getenv("VANETZA_DEBUG_ENABLED") == NULL ? reader.GetBoolean("general", "debug_enabled", false) : (strcmp((getenv("VANETZA_DEBUG_ENABLED")), "true") == 0);
     config_s->cam = read_message_config(reader, "VANETZA_CAM", "cam");
     config_s->denm = read_message_config(reader, "VANETZA_DENM", "denm");
     config_s->cpm = read_message_config(reader, "VANETZA_CPM", "cpm");

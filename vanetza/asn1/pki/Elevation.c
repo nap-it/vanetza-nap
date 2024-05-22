@@ -33,7 +33,7 @@ Elevation_constraint(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 /*
- * This type is implemented using ElevInt,
+ * This type is implemented using Uint16,
  * so here we adjust the DEF accordingly.
  */
 #if !defined(ASN_DISABLE_OER_SUPPORT)

@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_VamParameters_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct VamParameters, basicContainer),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_BasicContainer,
+		&asn_DEF_CAM_PDU_Descriptions_BasicContainer,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

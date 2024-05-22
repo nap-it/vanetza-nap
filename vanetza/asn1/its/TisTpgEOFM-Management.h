@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "TimestampIts.h"
+#include "ITS-Container_TimestampIts.h"
 #include "FillingStatus.h"
 #include "NumberOfAppliedPressure.h"
 #include "PairingID.h"
@@ -27,7 +27,7 @@ struct AppliedTyrePressures;
 
 /* TisTpgEOFM-Management */
 typedef struct TisTpgEOFM_Management {
-	TimestampIts_t	 generationTime;
+	ITS_Container_TimestampIts_t	 generationTime;
 	FillingStatus_t	 fillingStatus;
 	NumberOfAppliedPressure_t	 numberOfAppliedPressure;
 	struct AppliedTyrePressures	*appliedTyrePressures;	/* OPTIONAL */

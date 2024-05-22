@@ -12,8 +12,8 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "TimestampIts.h"
-#include "StationID.h"
+#include "ITS-Container_TimestampIts.h"
+#include "ITS-Container_StationID.h"
 #include "ReservationStatus.h"
 #include "NativeInteger.h"
 #include "CustomerContract.h"
@@ -27,8 +27,8 @@ extern "C" {
 
 /* TisTpgTCM-Management */
 typedef struct TisTpgTCM_Management {
-	TimestampIts_t	 generationTime;
-	StationID_t	 tpgStationID;
+	ITS_Container_TimestampIts_t	 generationTime;
+	ITS_Container_StationID_t	 tpgStationID;
 	ReservationStatus_t	 reservationStatus;
 	long	*reservedTpg;	/* OPTIONAL */
 	CustomerContract_t	*costumercontract;	/* OPTIONAL */

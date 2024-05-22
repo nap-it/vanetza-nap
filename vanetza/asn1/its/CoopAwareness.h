@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "GenerationDeltaTime.h"
+#include "CAM-PDU-Descriptions_GenerationDeltaTime.h"
 #include "CamParameters.h"
 #include "constr_SEQUENCE.h"
 
@@ -22,7 +22,7 @@ extern "C" {
 
 /* CoopAwareness */
 typedef struct CoopAwareness {
-	GenerationDeltaTime_t	 generationDeltaTime;
+	CAM_PDU_Descriptions_GenerationDeltaTime_t	 generationDeltaTime;
 	CamParameters_t	 camParameters;
 	
 	/* Context for parsing across buffer boundaries */

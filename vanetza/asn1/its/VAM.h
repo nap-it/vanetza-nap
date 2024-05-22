@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "ItsPduHeaderVam.h"
+#include "ITS-Container_ItsPduHeader.h"
 #include "VruAwareness.h"
 #include "constr_SEQUENCE.h"
 
@@ -22,7 +22,7 @@ extern "C" {
 
 /* VAM */
 typedef struct VAM {
-	ItsPduHeaderVam_t	 header;
+	ITS_Container_ItsPduHeader_t	 header;
 	VruAwareness_t	 vam;
 	
 	/* Context for parsing across buffer boundaries */

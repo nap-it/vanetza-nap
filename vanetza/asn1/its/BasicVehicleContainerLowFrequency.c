@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_BasicVehicleContainerLowFrequency_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct BasicVehicleContainerLowFrequency, vehicleRole),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_VehicleRole,
+		&asn_DEF_ITS_Container_VehicleRole,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -28,7 +28,7 @@ asn_TYPE_member_t asn_MBR_BasicVehicleContainerLowFrequency_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct BasicVehicleContainerLowFrequency, exteriorLights),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ExteriorLights,
+		&asn_DEF_ITS_Container_ExteriorLights,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -45,7 +45,7 @@ asn_TYPE_member_t asn_MBR_BasicVehicleContainerLowFrequency_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct BasicVehicleContainerLowFrequency, pathHistory),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_PathHistory,
+		&asn_DEF_ITS_Container_PathHistory,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

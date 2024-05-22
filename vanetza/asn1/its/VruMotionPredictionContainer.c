@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_VruMotionPredictionContainer_1[] = {
 	{ ATF_POINTER, 7, offsetof(struct VruMotionPredictionContainer, pathHistory),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_PathHistory,
+		&asn_DEF_ITS_Container_PathHistory,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -62,7 +62,7 @@ asn_TYPE_member_t asn_MBR_VruMotionPredictionContainer_1[] = {
 	{ ATF_POINTER, 4, offsetof(struct VruMotionPredictionContainer, trajectoryInterceptionIndication),
 		(ASN_TAG_CLASS_CONTEXT | (3 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_SequenceOfTrajectoryInterceptionIndication,
+		&asn_DEF_VAM_PDU_Descriptions_SequenceOfTrajectoryInterceptionIndication,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -79,7 +79,7 @@ asn_TYPE_member_t asn_MBR_VruMotionPredictionContainer_1[] = {
 	{ ATF_POINTER, 3, offsetof(struct VruMotionPredictionContainer, accelerationChangeIndication),
 		(ASN_TAG_CLASS_CONTEXT | (4 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_AccelerationChangeIndication,
+		&asn_DEF_VAM_PDU_Descriptions_AccelerationChangeIndication,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -96,7 +96,7 @@ asn_TYPE_member_t asn_MBR_VruMotionPredictionContainer_1[] = {
 	{ ATF_POINTER, 2, offsetof(struct VruMotionPredictionContainer, headingChangeIndication),
 		(ASN_TAG_CLASS_CONTEXT | (5 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_HeadingChangeIndication,
+		&asn_DEF_VAM_PDU_Descriptions_HeadingChangeIndication,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -113,7 +113,7 @@ asn_TYPE_member_t asn_MBR_VruMotionPredictionContainer_1[] = {
 	{ ATF_POINTER, 1, offsetof(struct VruMotionPredictionContainer, stabilityChangeIndication),
 		(ASN_TAG_CLASS_CONTEXT | (6 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_StabilityChangeIndication,
+		&asn_DEF_VAM_PDU_Descriptions_StabilityChangeIndication,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

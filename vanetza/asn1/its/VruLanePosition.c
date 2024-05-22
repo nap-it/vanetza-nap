@@ -40,7 +40,7 @@ asn_TYPE_member_t asn_MBR_VruLanePosition_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct VruLanePosition, choice.vehicularLanePosition),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_LanePosition,
+		&asn_DEF_ITS_Container_LanePosition,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -57,7 +57,7 @@ asn_TYPE_member_t asn_MBR_VruLanePosition_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct VruLanePosition, choice.trafficIslandPosition),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_TrafficIslandPosition,
+		&asn_DEF_VAM_PDU_Descriptions_TrafficIslandPosition,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -74,7 +74,7 @@ asn_TYPE_member_t asn_MBR_VruLanePosition_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct VruLanePosition, choice.mapPosition),
 		(ASN_TAG_CLASS_CONTEXT | (3 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_MapPosition,
+		&asn_DEF_VAM_PDU_Descriptions_MapPosition,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

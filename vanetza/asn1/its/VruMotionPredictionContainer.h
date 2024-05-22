@@ -19,23 +19,23 @@ extern "C" {
 #endif
 
 /* Forward declarations */
-struct PathHistory;
+struct ITS_Container_PathHistory;
 struct SequenceOfVruPathPoint;
 struct SequenceOfVruSafeDistanceIndication;
-struct SequenceOfTrajectoryInterceptionIndication;
-struct AccelerationChangeIndication;
-struct HeadingChangeIndication;
-struct StabilityChangeIndication;
+struct VAM_PDU_Descriptions_SequenceOfTrajectoryInterceptionIndication;
+struct VAM_PDU_Descriptions_AccelerationChangeIndication;
+struct VAM_PDU_Descriptions_HeadingChangeIndication;
+struct VAM_PDU_Descriptions_StabilityChangeIndication;
 
 /* VruMotionPredictionContainer */
 typedef struct VruMotionPredictionContainer {
-	struct PathHistory	*pathHistory;	/* OPTIONAL */
+	struct ITS_Container_PathHistory	*pathHistory;	/* OPTIONAL */
 	struct SequenceOfVruPathPoint	*pathPrediction;	/* OPTIONAL */
 	struct SequenceOfVruSafeDistanceIndication	*safeDistance;	/* OPTIONAL */
-	struct SequenceOfTrajectoryInterceptionIndication	*trajectoryInterceptionIndication;	/* OPTIONAL */
-	struct AccelerationChangeIndication	*accelerationChangeIndication;	/* OPTIONAL */
-	struct HeadingChangeIndication	*headingChangeIndication;	/* OPTIONAL */
-	struct StabilityChangeIndication	*stabilityChangeIndication;	/* OPTIONAL */
+	struct VAM_PDU_Descriptions_SequenceOfTrajectoryInterceptionIndication	*trajectoryInterceptionIndication;	/* OPTIONAL */
+	struct VAM_PDU_Descriptions_AccelerationChangeIndication	*accelerationChangeIndication;	/* OPTIONAL */
+	struct VAM_PDU_Descriptions_HeadingChangeIndication	*headingChangeIndication;	/* OPTIONAL */
+	struct VAM_PDU_Descriptions_StabilityChangeIndication	*stabilityChangeIndication;	/* OPTIONAL */
 	/*
 	 * This type is extensible,
 	 * possible extensions are below.
@@ -55,13 +55,13 @@ extern asn_TYPE_member_t asn_MBR_VruMotionPredictionContainer_1[7];
 #endif
 
 /* Referred external types */
-#include "PathHistory.h"
+#include "ITS-Container_PathHistory.h"
 #include "SequenceOfVruPathPoint.h"
 #include "SequenceOfVruSafeDistanceIndication.h"
-#include "SequenceOfTrajectoryInterceptionIndication.h"
-#include "AccelerationChangeIndication.h"
-#include "HeadingChangeIndication.h"
-#include "StabilityChangeIndication.h"
+#include "VAM-PDU-Descriptions_SequenceOfTrajectoryInterceptionIndication.h"
+#include "VAM-PDU-Descriptions_AccelerationChangeIndication.h"
+#include "VAM-PDU-Descriptions_HeadingChangeIndication.h"
+#include "VAM-PDU-Descriptions_StabilityChangeIndication.h"
 
 #endif	/* _VruMotionPredictionContainer_H_ */
 #include "asn_internal.h"

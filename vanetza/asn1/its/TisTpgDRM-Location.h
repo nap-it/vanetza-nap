@@ -12,9 +12,9 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "ReferencePosition.h"
-#include "Speed.h"
-#include "Heading.h"
+#include "ITS-Container_ReferencePosition.h"
+#include "ITS-Container_Speed.h"
+#include "ITS-Container_Heading.h"
 #include "SearchRange.h"
 #include "SearchCondition.h"
 #include "constr_SEQUENCE.h"
@@ -24,14 +24,14 @@ extern "C" {
 #endif
 
 /* Forward declarations */
-struct ReferencePosition;
+struct ITS_Container_ReferencePosition;
 
 /* TisTpgDRM-Location */
 typedef struct TisTpgDRM_Location {
-	ReferencePosition_t	 vehiclePosition;
-	Speed_t	 vehicleSpeed;
-	Heading_t	 vehicleHeading;
-	struct ReferencePosition	*requestedPosition;	/* OPTIONAL */
+	ITS_Container_ReferencePosition_t	 vehiclePosition;
+	ITS_Container_Speed_t	 vehicleSpeed;
+	ITS_Container_Heading_t	 vehicleHeading;
+	struct ITS_Container_ReferencePosition	*requestedPosition;	/* OPTIONAL */
 	SearchRange_t	*searchRange;	/* OPTIONAL */
 	SearchCondition_t	*searchCondition;	/* OPTIONAL */
 	/*
@@ -53,7 +53,7 @@ extern asn_TYPE_member_t asn_MBR_TisTpgDRM_Location_1[6];
 #endif
 
 /* Referred external types */
-#include "ReferencePosition.h"
+#include "ITS-Container_ReferencePosition.h"
 
 #endif	/* _TisTpgDRM_Location_H_ */
 #include "asn_internal.h"

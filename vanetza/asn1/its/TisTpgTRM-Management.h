@@ -12,9 +12,9 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "TimestampIts.h"
+#include "ITS-Container_TimestampIts.h"
 #include "UNVehicleClassifcation.h"
-#include "StationID.h"
+#include "ITS-Container_StationID.h"
 #include "ReservationStatus.h"
 #include "CustomerContract.h"
 #include "ReservationID.h"
@@ -26,9 +26,9 @@ extern "C" {
 
 /* TisTpgTRM-Management */
 typedef struct TisTpgTRM_Management {
-	TimestampIts_t	 generationTime;
+	ITS_Container_TimestampIts_t	 generationTime;
 	UNVehicleClassifcation_t	 vehicleType;
-	StationID_t	 tpgStationID;
+	ITS_Container_StationID_t	 tpgStationID;
 	ReservationStatus_t	 reservationStatus;
 	CustomerContract_t	*costumercontract;	/* OPTIONAL */
 	ReservationID_t	*reservationID;	/* OPTIONAL */

@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_SafetyCarContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct SafetyCarContainer, lightBarSirenInUse),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_LightBarSirenInUse,
+		&asn_DEF_ITS_Container_LightBarSirenInUse,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -28,7 +28,7 @@ asn_TYPE_member_t asn_MBR_SafetyCarContainer_1[] = {
 	{ ATF_POINTER, 3, offsetof(struct SafetyCarContainer, incidentIndication),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_CauseCode,
+		&asn_DEF_ITS_Container_CauseCode,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -45,7 +45,7 @@ asn_TYPE_member_t asn_MBR_SafetyCarContainer_1[] = {
 	{ ATF_POINTER, 2, offsetof(struct SafetyCarContainer, trafficRule),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_TrafficRule,
+		&asn_DEF_ITS_Container_TrafficRule,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -62,7 +62,7 @@ asn_TYPE_member_t asn_MBR_SafetyCarContainer_1[] = {
 	{ ATF_POINTER, 1, offsetof(struct SafetyCarContainer, speedLimit),
 		(ASN_TAG_CLASS_CONTEXT | (3 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_SpeedLimit,
+		&asn_DEF_ITS_Container_SpeedLimit,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

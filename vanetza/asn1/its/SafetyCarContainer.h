@@ -12,9 +12,9 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "LightBarSirenInUse.h"
-#include "TrafficRule.h"
-#include "SpeedLimit.h"
+#include "ITS-Container_LightBarSirenInUse.h"
+#include "ITS-Container_TrafficRule.h"
+#include "ITS-Container_SpeedLimit.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -22,14 +22,14 @@ extern "C" {
 #endif
 
 /* Forward declarations */
-struct CauseCode;
+struct ITS_Container_CauseCode;
 
 /* SafetyCarContainer */
 typedef struct SafetyCarContainer {
-	LightBarSirenInUse_t	 lightBarSirenInUse;
-	struct CauseCode	*incidentIndication;	/* OPTIONAL */
-	TrafficRule_t	*trafficRule;	/* OPTIONAL */
-	SpeedLimit_t	*speedLimit;	/* OPTIONAL */
+	ITS_Container_LightBarSirenInUse_t	 lightBarSirenInUse;
+	struct ITS_Container_CauseCode	*incidentIndication;	/* OPTIONAL */
+	ITS_Container_TrafficRule_t	*trafficRule;	/* OPTIONAL */
+	ITS_Container_SpeedLimit_t	*speedLimit;	/* OPTIONAL */
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
@@ -45,7 +45,7 @@ extern asn_TYPE_member_t asn_MBR_SafetyCarContainer_1[4];
 #endif
 
 /* Referred external types */
-#include "CauseCode.h"
+#include "ITS-Container_CauseCode.h"
 
 #endif	/* _SafetyCarContainer_H_ */
 #include "asn_internal.h"

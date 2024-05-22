@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_PublicTransportContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct PublicTransportContainer, embarkationStatus),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_EmbarkationStatus,
+		&asn_DEF_ITS_Container_EmbarkationStatus,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -28,7 +28,7 @@ asn_TYPE_member_t asn_MBR_PublicTransportContainer_1[] = {
 	{ ATF_POINTER, 1, offsetof(struct PublicTransportContainer, ptActivation),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_PtActivation,
+		&asn_DEF_ITS_Container_PtActivation,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

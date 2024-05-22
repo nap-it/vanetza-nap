@@ -1,18 +1,18 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by RapidJSON
-*   Auto-generated from the asn1 directory by asn1json.py on 2024-03-20 04:52:50.296321
+*   Auto-generated from the asn1 directory by asn1json.py on 2024-05-22 16:46:21.165192
 */
 
 #include "asn1json.hpp"
 #include <boost/optional.hpp>
 
-Value to_json(const TimestampIts_t& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_TimestampIts_t& p, Document::AllocatorType& allocator) {
     long tmp;
     asn_INTEGER2long(&p, &tmp);
     return Value(tmp);
 }
 
-void from_json(const Value& j, TimestampIts_t& p, std::string field) {
+void from_json(const Value& j, ITS_Container_TimestampIts_t& p, std::string field) {
     try {
         p.buf = nullptr;
         asn_long2INTEGER(&p, j.IsDouble() ? static_cast<long>(j.GetDouble()) : j.GetInt64());
@@ -29,6 +29,19 @@ Value to_json(const long& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, long& p, std::string field) {
     try {  
         p = j.IsDouble() ? static_cast<long>(j.GetDouble()) : j.GetInt64();
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+Value to_json(const unsigned long* p, Document::AllocatorType& allocator) {
+    return Value(*p);
+}
+
+void from_json(const Value& j, long* p, std::string field) {
+    try {  
+        *p = j.IsDouble() ? static_cast<long>(j.GetDouble()) : j.GetInt64();
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -111,11 +124,3968 @@ void from_json(const Value& j, NULL_t& p, std::string field) {
 
 
 /*
+*   AccelerationControl - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_ETSI_ITS_CDD_AccelerationControl(const ETSI_ITS_CDD_AccelerationControl_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("brakePedalEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("gasPedalEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("emergencyBrakeEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("collisionWarningEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("accEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("cruiseControlEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    json.AddMember("speedLimiterEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8)))), allocator);
+    return json;
+}
+
+void from_json_ETSI_ITS_CDD_AccelerationControl(const Value& j, ETSI_ITS_CDD_AccelerationControl_t& p, std::string field) {
+    try {
+        ETSI_ITS_CDD_AccelerationControl_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_AccelerationControl_t>();
+        bool brakePedalEngaged;
+        bool gasPedalEngaged;
+        bool emergencyBrakeEngaged;
+        bool collisionWarningEngaged;
+        bool accEngaged;
+        bool cruiseControlEngaged;
+        bool speedLimiterEngaged;
+        if (j.HasMember("brakePedalEngaged")) from_json(j["brakePedalEngaged"], (brakePedalEngaged), "brakePedalEngaged");
+        if (j.HasMember("gasPedalEngaged")) from_json(j["gasPedalEngaged"], (gasPedalEngaged), "gasPedalEngaged");
+        if (j.HasMember("emergencyBrakeEngaged")) from_json(j["emergencyBrakeEngaged"], (emergencyBrakeEngaged), "emergencyBrakeEngaged");
+        if (j.HasMember("collisionWarningEngaged")) from_json(j["collisionWarningEngaged"], (collisionWarningEngaged), "collisionWarningEngaged");
+        if (j.HasMember("accEngaged")) from_json(j["accEngaged"], (accEngaged), "accEngaged");
+        if (j.HasMember("cruiseControlEngaged")) from_json(j["cruiseControlEngaged"], (cruiseControlEngaged), "cruiseControlEngaged");
+        if (j.HasMember("speedLimiterEngaged")) from_json(j["speedLimiterEngaged"], (speedLimiterEngaged), "speedLimiterEngaged");
+        p_tmp->size = (7 / 8) + 1;
+        p_tmp->bits_unused = (7 % 8) != 0 ? 8 - (7 % 8) : 0;
+        p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+        *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+        if (brakePedalEngaged) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
+        if (gasPedalEngaged) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
+        if (emergencyBrakeEngaged) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 5);
+        if (collisionWarningEngaged) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 4);
+        if (accEngaged) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 3);
+        if (cruiseControlEngaged) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 2);
+        if (speedLimiterEngaged) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 1);
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   CountryCode - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_ETSI_ITS_CDD_CountryCode(const ETSI_ITS_CDD_CountryCode_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    return json;
+}
+
+void from_json_ETSI_ITS_CDD_CountryCode(const Value& j, ETSI_ITS_CDD_CountryCode_t& p, std::string field) {
+    try {
+        ETSI_ITS_CDD_CountryCode_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_CountryCode_t>();
+        
+        
+        p_tmp->size = (0 / 8) + 1;
+        p_tmp->bits_unused = (0 % 8) != 0 ? 8 - (0 % 8) : 0;
+        p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+        *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+        
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   DrivingLaneStatus - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_ETSI_ITS_CDD_DrivingLaneStatus(const ETSI_ITS_CDD_DrivingLaneStatus_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    return json;
+}
+
+void from_json_ETSI_ITS_CDD_DrivingLaneStatus(const Value& j, ETSI_ITS_CDD_DrivingLaneStatus_t& p, std::string field) {
+    try {
+        ETSI_ITS_CDD_DrivingLaneStatus_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_DrivingLaneStatus_t>();
+        
+        
+        p_tmp->size = (0 / 8) + 1;
+        p_tmp->bits_unused = (0 % 8) != 0 ? 8 - (0 % 8) : 0;
+        p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+        *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+        
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   EmergencyPriority - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_ETSI_ITS_CDD_EmergencyPriority(const ETSI_ITS_CDD_EmergencyPriority_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("requestForRightOfWay", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("requestForFreeCrossingAtATrafficLight", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    return json;
+}
+
+void from_json_ETSI_ITS_CDD_EmergencyPriority(const Value& j, ETSI_ITS_CDD_EmergencyPriority_t& p, std::string field) {
+    try {
+        ETSI_ITS_CDD_EmergencyPriority_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_EmergencyPriority_t>();
+        bool requestForRightOfWay;
+        bool requestForFreeCrossingAtATrafficLight;
+        if (j.HasMember("requestForRightOfWay")) from_json(j["requestForRightOfWay"], (requestForRightOfWay), "requestForRightOfWay");
+        if (j.HasMember("requestForFreeCrossingAtATrafficLight")) from_json(j["requestForFreeCrossingAtATrafficLight"], (requestForFreeCrossingAtATrafficLight), "requestForFreeCrossingAtATrafficLight");
+        p_tmp->size = (2 / 8) + 1;
+        p_tmp->bits_unused = (2 % 8) != 0 ? 8 - (2 % 8) : 0;
+        p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+        *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+        if (requestForRightOfWay) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
+        if (requestForFreeCrossingAtATrafficLight) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   EnergyStorageType - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_ETSI_ITS_CDD_EnergyStorageType(const ETSI_ITS_CDD_EnergyStorageType_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("hydrogenStorage", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("electricEnergyStorage", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("liquidPropaneGas", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("compressedNaturalGas", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("diesel", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("gasoline", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    json.AddMember("ammonia", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8)))), allocator);
+    return json;
+}
+
+void from_json_ETSI_ITS_CDD_EnergyStorageType(const Value& j, ETSI_ITS_CDD_EnergyStorageType_t& p, std::string field) {
+    try {
+        ETSI_ITS_CDD_EnergyStorageType_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_EnergyStorageType_t>();
+        bool hydrogenStorage;
+        bool electricEnergyStorage;
+        bool liquidPropaneGas;
+        bool compressedNaturalGas;
+        bool diesel;
+        bool gasoline;
+        bool ammonia;
+        if (j.HasMember("hydrogenStorage")) from_json(j["hydrogenStorage"], (hydrogenStorage), "hydrogenStorage");
+        if (j.HasMember("electricEnergyStorage")) from_json(j["electricEnergyStorage"], (electricEnergyStorage), "electricEnergyStorage");
+        if (j.HasMember("liquidPropaneGas")) from_json(j["liquidPropaneGas"], (liquidPropaneGas), "liquidPropaneGas");
+        if (j.HasMember("compressedNaturalGas")) from_json(j["compressedNaturalGas"], (compressedNaturalGas), "compressedNaturalGas");
+        if (j.HasMember("diesel")) from_json(j["diesel"], (diesel), "diesel");
+        if (j.HasMember("gasoline")) from_json(j["gasoline"], (gasoline), "gasoline");
+        if (j.HasMember("ammonia")) from_json(j["ammonia"], (ammonia), "ammonia");
+        p_tmp->size = (7 / 8) + 1;
+        p_tmp->bits_unused = (7 % 8) != 0 ? 8 - (7 % 8) : 0;
+        p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+        *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+        if (hydrogenStorage) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
+        if (electricEnergyStorage) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
+        if (liquidPropaneGas) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 5);
+        if (compressedNaturalGas) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 4);
+        if (diesel) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 3);
+        if (gasoline) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 2);
+        if (ammonia) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 1);
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   ExteriorLights - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_ETSI_ITS_CDD_ExteriorLights(const ETSI_ITS_CDD_ExteriorLights_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("lowBeamHeadlightsOn", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("highBeamHeadlightsOn", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("leftTurnSignalOn", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("rightTurnSignalOn", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("daytimeRunningLightsOn", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("reverseLightOn", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    json.AddMember("fogLightOn", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8)))), allocator);
+    json.AddMember("parkingLightsOn", (bool) (*(p.buf + (sizeof(uint8_t) * (7 / 8))) & (1 << ((7 * ((7 / 8) + 1))-(7 % 8)))), allocator);
+    return json;
+}
+
+void from_json_ETSI_ITS_CDD_ExteriorLights(const Value& j, ETSI_ITS_CDD_ExteriorLights_t& p, std::string field) {
+    try {
+        ETSI_ITS_CDD_ExteriorLights_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_ExteriorLights_t>();
+        bool lowBeamHeadlightsOn;
+        bool highBeamHeadlightsOn;
+        bool leftTurnSignalOn;
+        bool rightTurnSignalOn;
+        bool daytimeRunningLightsOn;
+        bool reverseLightOn;
+        bool fogLightOn;
+        bool parkingLightsOn;
+        if (j.HasMember("lowBeamHeadlightsOn")) from_json(j["lowBeamHeadlightsOn"], (lowBeamHeadlightsOn), "lowBeamHeadlightsOn");
+        if (j.HasMember("highBeamHeadlightsOn")) from_json(j["highBeamHeadlightsOn"], (highBeamHeadlightsOn), "highBeamHeadlightsOn");
+        if (j.HasMember("leftTurnSignalOn")) from_json(j["leftTurnSignalOn"], (leftTurnSignalOn), "leftTurnSignalOn");
+        if (j.HasMember("rightTurnSignalOn")) from_json(j["rightTurnSignalOn"], (rightTurnSignalOn), "rightTurnSignalOn");
+        if (j.HasMember("daytimeRunningLightsOn")) from_json(j["daytimeRunningLightsOn"], (daytimeRunningLightsOn), "daytimeRunningLightsOn");
+        if (j.HasMember("reverseLightOn")) from_json(j["reverseLightOn"], (reverseLightOn), "reverseLightOn");
+        if (j.HasMember("fogLightOn")) from_json(j["fogLightOn"], (fogLightOn), "fogLightOn");
+        if (j.HasMember("parkingLightsOn")) from_json(j["parkingLightsOn"], (parkingLightsOn), "parkingLightsOn");
+        p_tmp->size = (8 / 8) + 1;
+        p_tmp->bits_unused = (8 % 8) != 0 ? 8 - (8 % 8) : 0;
+        p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+        *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+        *(p_tmp->buf + (sizeof(uint8_t) * 1)) = (uint8_t) 0;
+        if (lowBeamHeadlightsOn) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
+        if (highBeamHeadlightsOn) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
+        if (leftTurnSignalOn) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 5);
+        if (rightTurnSignalOn) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 4);
+        if (daytimeRunningLightsOn) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 3);
+        if (reverseLightOn) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 2);
+        if (fogLightOn) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 1);
+        if (parkingLightsOn) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 0);
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   LightBarSirenInUse - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_ETSI_ITS_CDD_LightBarSirenInUse(const ETSI_ITS_CDD_LightBarSirenInUse_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("lightBarActivated", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("sirenActivated", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    return json;
+}
+
+void from_json_ETSI_ITS_CDD_LightBarSirenInUse(const Value& j, ETSI_ITS_CDD_LightBarSirenInUse_t& p, std::string field) {
+    try {
+        ETSI_ITS_CDD_LightBarSirenInUse_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_LightBarSirenInUse_t>();
+        bool lightBarActivated;
+        bool sirenActivated;
+        if (j.HasMember("lightBarActivated")) from_json(j["lightBarActivated"], (lightBarActivated), "lightBarActivated");
+        if (j.HasMember("sirenActivated")) from_json(j["sirenActivated"], (sirenActivated), "sirenActivated");
+        p_tmp->size = (2 / 8) + 1;
+        p_tmp->bits_unused = (2 % 8) != 0 ? 8 - (2 % 8) : 0;
+        p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+        *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+        if (lightBarActivated) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
+        if (sirenActivated) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   MatrixIncludedComponents - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_MatrixIncludedComponents(const MatrixIncludedComponents_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("xPosition", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("yPosition", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("zPosition", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("xVelocityOrVelocityMagnitude", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("yVelocityOrVelocityDirection", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("zSpeed", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    json.AddMember("xAccelOrAccelMagnitude", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8)))), allocator);
+    json.AddMember("yAccelOrAccelDirection", (bool) (*(p.buf + (sizeof(uint8_t) * (7 / 8))) & (1 << ((7 * ((7 / 8) + 1))-(7 % 8)))), allocator);
+    json.AddMember("zAcceleration", (bool) (*(p.buf + (sizeof(uint8_t) * (8 / 8))) & (1 << ((7 * ((8 / 8) + 1))-(8 % 8)))), allocator);
+    json.AddMember("zAngle", (bool) (*(p.buf + (sizeof(uint8_t) * (9 / 8))) & (1 << ((7 * ((9 / 8) + 1))-(9 % 8)))), allocator);
+    json.AddMember("yAngle", (bool) (*(p.buf + (sizeof(uint8_t) * (10 / 8))) & (1 << ((7 * ((10 / 8) + 1))-(10 % 8)))), allocator);
+    json.AddMember("xAngle", (bool) (*(p.buf + (sizeof(uint8_t) * (11 / 8))) & (1 << ((7 * ((11 / 8) + 1))-(11 % 8)))), allocator);
+    json.AddMember("zAngularVelocity", (bool) (*(p.buf + (sizeof(uint8_t) * (12 / 8))) & (1 << ((7 * ((12 / 8) + 1))-(12 % 8)))), allocator);
+    return json;
+}
+
+void from_json_MatrixIncludedComponents(const Value& j, MatrixIncludedComponents_t& p, std::string field) {
+    try {
+        MatrixIncludedComponents_t* p_tmp = vanetza::asn1::allocate<MatrixIncludedComponents_t>();
+        bool xPosition;
+        bool yPosition;
+        bool zPosition;
+        bool xVelocityOrVelocityMagnitude;
+        bool yVelocityOrVelocityDirection;
+        bool zSpeed;
+        bool xAccelOrAccelMagnitude;
+        bool yAccelOrAccelDirection;
+        bool zAcceleration;
+        bool zAngle;
+        bool yAngle;
+        bool xAngle;
+        bool zAngularVelocity;
+        if (j.HasMember("xPosition")) from_json(j["xPosition"], (xPosition), "xPosition");
+        if (j.HasMember("yPosition")) from_json(j["yPosition"], (yPosition), "yPosition");
+        if (j.HasMember("zPosition")) from_json(j["zPosition"], (zPosition), "zPosition");
+        if (j.HasMember("xVelocityOrVelocityMagnitude")) from_json(j["xVelocityOrVelocityMagnitude"], (xVelocityOrVelocityMagnitude), "xVelocityOrVelocityMagnitude");
+        if (j.HasMember("yVelocityOrVelocityDirection")) from_json(j["yVelocityOrVelocityDirection"], (yVelocityOrVelocityDirection), "yVelocityOrVelocityDirection");
+        if (j.HasMember("zSpeed")) from_json(j["zSpeed"], (zSpeed), "zSpeed");
+        if (j.HasMember("xAccelOrAccelMagnitude")) from_json(j["xAccelOrAccelMagnitude"], (xAccelOrAccelMagnitude), "xAccelOrAccelMagnitude");
+        if (j.HasMember("yAccelOrAccelDirection")) from_json(j["yAccelOrAccelDirection"], (yAccelOrAccelDirection), "yAccelOrAccelDirection");
+        if (j.HasMember("zAcceleration")) from_json(j["zAcceleration"], (zAcceleration), "zAcceleration");
+        if (j.HasMember("zAngle")) from_json(j["zAngle"], (zAngle), "zAngle");
+        if (j.HasMember("yAngle")) from_json(j["yAngle"], (yAngle), "yAngle");
+        if (j.HasMember("xAngle")) from_json(j["xAngle"], (xAngle), "xAngle");
+        if (j.HasMember("zAngularVelocity")) from_json(j["zAngularVelocity"], (zAngularVelocity), "zAngularVelocity");
+        p_tmp->size = (13 / 8) + 1;
+        p_tmp->bits_unused = (13 % 8) != 0 ? 8 - (13 % 8) : 0;
+        p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+        *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+        *(p_tmp->buf + (sizeof(uint8_t) * 1)) = (uint8_t) 0;
+        if (xPosition) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
+        if (yPosition) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
+        if (zPosition) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 5);
+        if (xVelocityOrVelocityMagnitude) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 4);
+        if (yVelocityOrVelocityDirection) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 3);
+        if (zSpeed) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 2);
+        if (xAccelOrAccelMagnitude) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 1);
+        if (yAccelOrAccelDirection) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 0);
+        if (zAcceleration) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 7);
+        if (zAngle) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 6);
+        if (yAngle) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 5);
+        if (xAngle) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 4);
+        if (zAngularVelocity) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 3);
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   PositionOfOccupants - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_ETSI_ITS_CDD_PositionOfOccupants(const ETSI_ITS_CDD_PositionOfOccupants_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("row1LeftOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("row1RightOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("row1MidOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("row1NotDetectable", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("row1NotPresent", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("row2LeftOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    json.AddMember("row2RightOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8)))), allocator);
+    json.AddMember("row2MidOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (7 / 8))) & (1 << ((7 * ((7 / 8) + 1))-(7 % 8)))), allocator);
+    json.AddMember("row2NotDetectable", (bool) (*(p.buf + (sizeof(uint8_t) * (8 / 8))) & (1 << ((7 * ((8 / 8) + 1))-(8 % 8)))), allocator);
+    json.AddMember("row2NotPresent", (bool) (*(p.buf + (sizeof(uint8_t) * (9 / 8))) & (1 << ((7 * ((9 / 8) + 1))-(9 % 8)))), allocator);
+    json.AddMember("row3LeftOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (10 / 8))) & (1 << ((7 * ((10 / 8) + 1))-(10 % 8)))), allocator);
+    json.AddMember("row3RightOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (11 / 8))) & (1 << ((7 * ((11 / 8) + 1))-(11 % 8)))), allocator);
+    json.AddMember("row3MidOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (12 / 8))) & (1 << ((7 * ((12 / 8) + 1))-(12 % 8)))), allocator);
+    json.AddMember("row3NotDetectable", (bool) (*(p.buf + (sizeof(uint8_t) * (13 / 8))) & (1 << ((7 * ((13 / 8) + 1))-(13 % 8)))), allocator);
+    json.AddMember("row3NotPresent", (bool) (*(p.buf + (sizeof(uint8_t) * (14 / 8))) & (1 << ((7 * ((14 / 8) + 1))-(14 % 8)))), allocator);
+    json.AddMember("row4LeftOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (15 / 8))) & (1 << ((7 * ((15 / 8) + 1))-(15 % 8)))), allocator);
+    json.AddMember("row4RightOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (16 / 8))) & (1 << ((7 * ((16 / 8) + 1))-(16 % 8)))), allocator);
+    json.AddMember("row4MidOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (17 / 8))) & (1 << ((7 * ((17 / 8) + 1))-(17 % 8)))), allocator);
+    json.AddMember("row4NotDetectable", (bool) (*(p.buf + (sizeof(uint8_t) * (18 / 8))) & (1 << ((7 * ((18 / 8) + 1))-(18 % 8)))), allocator);
+    json.AddMember("row4NotPresent", (bool) (*(p.buf + (sizeof(uint8_t) * (19 / 8))) & (1 << ((7 * ((19 / 8) + 1))-(19 % 8)))), allocator);
+    return json;
+}
+
+void from_json_ETSI_ITS_CDD_PositionOfOccupants(const Value& j, ETSI_ITS_CDD_PositionOfOccupants_t& p, std::string field) {
+    try {
+        ETSI_ITS_CDD_PositionOfOccupants_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_PositionOfOccupants_t>();
+        bool row1LeftOccupied;
+        bool row1RightOccupied;
+        bool row1MidOccupied;
+        bool row1NotDetectable;
+        bool row1NotPresent;
+        bool row2LeftOccupied;
+        bool row2RightOccupied;
+        bool row2MidOccupied;
+        bool row2NotDetectable;
+        bool row2NotPresent;
+        bool row3LeftOccupied;
+        bool row3RightOccupied;
+        bool row3MidOccupied;
+        bool row3NotDetectable;
+        bool row3NotPresent;
+        bool row4LeftOccupied;
+        bool row4RightOccupied;
+        bool row4MidOccupied;
+        bool row4NotDetectable;
+        bool row4NotPresent;
+        if (j.HasMember("row1LeftOccupied")) from_json(j["row1LeftOccupied"], (row1LeftOccupied), "row1LeftOccupied");
+        if (j.HasMember("row1RightOccupied")) from_json(j["row1RightOccupied"], (row1RightOccupied), "row1RightOccupied");
+        if (j.HasMember("row1MidOccupied")) from_json(j["row1MidOccupied"], (row1MidOccupied), "row1MidOccupied");
+        if (j.HasMember("row1NotDetectable")) from_json(j["row1NotDetectable"], (row1NotDetectable), "row1NotDetectable");
+        if (j.HasMember("row1NotPresent")) from_json(j["row1NotPresent"], (row1NotPresent), "row1NotPresent");
+        if (j.HasMember("row2LeftOccupied")) from_json(j["row2LeftOccupied"], (row2LeftOccupied), "row2LeftOccupied");
+        if (j.HasMember("row2RightOccupied")) from_json(j["row2RightOccupied"], (row2RightOccupied), "row2RightOccupied");
+        if (j.HasMember("row2MidOccupied")) from_json(j["row2MidOccupied"], (row2MidOccupied), "row2MidOccupied");
+        if (j.HasMember("row2NotDetectable")) from_json(j["row2NotDetectable"], (row2NotDetectable), "row2NotDetectable");
+        if (j.HasMember("row2NotPresent")) from_json(j["row2NotPresent"], (row2NotPresent), "row2NotPresent");
+        if (j.HasMember("row3LeftOccupied")) from_json(j["row3LeftOccupied"], (row3LeftOccupied), "row3LeftOccupied");
+        if (j.HasMember("row3RightOccupied")) from_json(j["row3RightOccupied"], (row3RightOccupied), "row3RightOccupied");
+        if (j.HasMember("row3MidOccupied")) from_json(j["row3MidOccupied"], (row3MidOccupied), "row3MidOccupied");
+        if (j.HasMember("row3NotDetectable")) from_json(j["row3NotDetectable"], (row3NotDetectable), "row3NotDetectable");
+        if (j.HasMember("row3NotPresent")) from_json(j["row3NotPresent"], (row3NotPresent), "row3NotPresent");
+        if (j.HasMember("row4LeftOccupied")) from_json(j["row4LeftOccupied"], (row4LeftOccupied), "row4LeftOccupied");
+        if (j.HasMember("row4RightOccupied")) from_json(j["row4RightOccupied"], (row4RightOccupied), "row4RightOccupied");
+        if (j.HasMember("row4MidOccupied")) from_json(j["row4MidOccupied"], (row4MidOccupied), "row4MidOccupied");
+        if (j.HasMember("row4NotDetectable")) from_json(j["row4NotDetectable"], (row4NotDetectable), "row4NotDetectable");
+        if (j.HasMember("row4NotPresent")) from_json(j["row4NotPresent"], (row4NotPresent), "row4NotPresent");
+        p_tmp->size = (20 / 8) + 1;
+        p_tmp->bits_unused = (20 % 8) != 0 ? 8 - (20 % 8) : 0;
+        p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+        *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+        *(p_tmp->buf + (sizeof(uint8_t) * 1)) = (uint8_t) 0;
+        *(p_tmp->buf + (sizeof(uint8_t) * 2)) = (uint8_t) 0;
+        if (row1LeftOccupied) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
+        if (row1RightOccupied) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
+        if (row1MidOccupied) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 5);
+        if (row1NotDetectable) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 4);
+        if (row1NotPresent) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 3);
+        if (row2LeftOccupied) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 2);
+        if (row2RightOccupied) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 1);
+        if (row2MidOccupied) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 0);
+        if (row2NotDetectable) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 7);
+        if (row2NotPresent) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 6);
+        if (row3LeftOccupied) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 5);
+        if (row3RightOccupied) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 4);
+        if (row3MidOccupied) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 3);
+        if (row3NotDetectable) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 2);
+        if (row3NotPresent) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 1);
+        if (row4LeftOccupied) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 0);
+        if (row4RightOccupied) *(p_tmp->buf + (sizeof(uint8_t) * 2)) |= (1 << 7);
+        if (row4MidOccupied) *(p_tmp->buf + (sizeof(uint8_t) * 2)) |= (1 << 6);
+        if (row4NotDetectable) *(p_tmp->buf + (sizeof(uint8_t) * 2)) |= (1 << 5);
+        if (row4NotPresent) *(p_tmp->buf + (sizeof(uint8_t) * 2)) |= (1 << 4);
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   SensorTypes - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_SensorTypes(const SensorTypes_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("undefined", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("radar", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("lidar", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("monovideo", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("stereovision", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("nightvision", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    json.AddMember("ultrasonic", (bool) (*(p.buf + (sizeof(uint8_t) * (6 / 8))) & (1 << ((7 * ((6 / 8) + 1))-(6 % 8)))), allocator);
+    json.AddMember("pmd", (bool) (*(p.buf + (sizeof(uint8_t) * (7 / 8))) & (1 << ((7 * ((7 / 8) + 1))-(7 % 8)))), allocator);
+    json.AddMember("inductionLoop", (bool) (*(p.buf + (sizeof(uint8_t) * (8 / 8))) & (1 << ((7 * ((8 / 8) + 1))-(8 % 8)))), allocator);
+    json.AddMember("sphericalCamera", (bool) (*(p.buf + (sizeof(uint8_t) * (9 / 8))) & (1 << ((7 * ((9 / 8) + 1))-(9 % 8)))), allocator);
+    json.AddMember("uwb", (bool) (*(p.buf + (sizeof(uint8_t) * (10 / 8))) & (1 << ((7 * ((10 / 8) + 1))-(10 % 8)))), allocator);
+    json.AddMember("acoustic", (bool) (*(p.buf + (sizeof(uint8_t) * (11 / 8))) & (1 << ((7 * ((11 / 8) + 1))-(11 % 8)))), allocator);
+    json.AddMember("localAggregation", (bool) (*(p.buf + (sizeof(uint8_t) * (12 / 8))) & (1 << ((7 * ((12 / 8) + 1))-(12 % 8)))), allocator);
+    json.AddMember("itsAggregation", (bool) (*(p.buf + (sizeof(uint8_t) * (13 / 8))) & (1 << ((7 * ((13 / 8) + 1))-(13 % 8)))), allocator);
+    return json;
+}
+
+void from_json_SensorTypes(const Value& j, SensorTypes_t& p, std::string field) {
+    try {
+        SensorTypes_t* p_tmp = vanetza::asn1::allocate<SensorTypes_t>();
+        bool undefined;
+        bool radar;
+        bool lidar;
+        bool monovideo;
+        bool stereovision;
+        bool nightvision;
+        bool ultrasonic;
+        bool pmd;
+        bool inductionLoop;
+        bool sphericalCamera;
+        bool uwb;
+        bool acoustic;
+        bool localAggregation;
+        bool itsAggregation;
+        if (j.HasMember("undefined")) from_json(j["undefined"], (undefined), "undefined");
+        if (j.HasMember("radar")) from_json(j["radar"], (radar), "radar");
+        if (j.HasMember("lidar")) from_json(j["lidar"], (lidar), "lidar");
+        if (j.HasMember("monovideo")) from_json(j["monovideo"], (monovideo), "monovideo");
+        if (j.HasMember("stereovision")) from_json(j["stereovision"], (stereovision), "stereovision");
+        if (j.HasMember("nightvision")) from_json(j["nightvision"], (nightvision), "nightvision");
+        if (j.HasMember("ultrasonic")) from_json(j["ultrasonic"], (ultrasonic), "ultrasonic");
+        if (j.HasMember("pmd")) from_json(j["pmd"], (pmd), "pmd");
+        if (j.HasMember("inductionLoop")) from_json(j["inductionLoop"], (inductionLoop), "inductionLoop");
+        if (j.HasMember("sphericalCamera")) from_json(j["sphericalCamera"], (sphericalCamera), "sphericalCamera");
+        if (j.HasMember("uwb")) from_json(j["uwb"], (uwb), "uwb");
+        if (j.HasMember("acoustic")) from_json(j["acoustic"], (acoustic), "acoustic");
+        if (j.HasMember("localAggregation")) from_json(j["localAggregation"], (localAggregation), "localAggregation");
+        if (j.HasMember("itsAggregation")) from_json(j["itsAggregation"], (itsAggregation), "itsAggregation");
+        p_tmp->size = (14 / 8) + 1;
+        p_tmp->bits_unused = (14 % 8) != 0 ? 8 - (14 % 8) : 0;
+        p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+        *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+        *(p_tmp->buf + (sizeof(uint8_t) * 1)) = (uint8_t) 0;
+        if (undefined) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
+        if (radar) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
+        if (lidar) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 5);
+        if (monovideo) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 4);
+        if (stereovision) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 3);
+        if (nightvision) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 2);
+        if (ultrasonic) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 1);
+        if (pmd) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 0);
+        if (inductionLoop) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 7);
+        if (sphericalCamera) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 6);
+        if (uwb) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 5);
+        if (acoustic) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 4);
+        if (localAggregation) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 3);
+        if (itsAggregation) *(p_tmp->buf + (sizeof(uint8_t) * 1)) |= (1 << 2);
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   SpecialTransportType - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_ETSI_ITS_CDD_SpecialTransportType(const ETSI_ITS_CDD_SpecialTransportType_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("heavyLoad", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("excessWidth", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("excessLength", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("excessHeight", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    return json;
+}
+
+void from_json_ETSI_ITS_CDD_SpecialTransportType(const Value& j, ETSI_ITS_CDD_SpecialTransportType_t& p, std::string field) {
+    try {
+        ETSI_ITS_CDD_SpecialTransportType_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_SpecialTransportType_t>();
+        bool heavyLoad;
+        bool excessWidth;
+        bool excessLength;
+        bool excessHeight;
+        if (j.HasMember("heavyLoad")) from_json(j["heavyLoad"], (heavyLoad), "heavyLoad");
+        if (j.HasMember("excessWidth")) from_json(j["excessWidth"], (excessWidth), "excessWidth");
+        if (j.HasMember("excessLength")) from_json(j["excessLength"], (excessLength), "excessLength");
+        if (j.HasMember("excessHeight")) from_json(j["excessHeight"], (excessHeight), "excessHeight");
+        p_tmp->size = (4 / 8) + 1;
+        p_tmp->bits_unused = (4 % 8) != 0 ? 8 - (4 % 8) : 0;
+        p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+        *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+        if (heavyLoad) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
+        if (excessWidth) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
+        if (excessLength) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 5);
+        if (excessHeight) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 4);
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   StoredInformationType - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_StoredInformationType(const StoredInformationType_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("undefined", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("staticDb", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("dynamicDb", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("realTimeDb", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("map", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    return json;
+}
+
+void from_json_StoredInformationType(const Value& j, StoredInformationType_t& p, std::string field) {
+    try {
+        StoredInformationType_t* p_tmp = vanetza::asn1::allocate<StoredInformationType_t>();
+        bool undefined;
+        bool staticDb;
+        bool dynamicDb;
+        bool realTimeDb;
+        bool map;
+        if (j.HasMember("undefined")) from_json(j["undefined"], (undefined), "undefined");
+        if (j.HasMember("staticDb")) from_json(j["staticDb"], (staticDb), "staticDb");
+        if (j.HasMember("dynamicDb")) from_json(j["dynamicDb"], (dynamicDb), "dynamicDb");
+        if (j.HasMember("realTimeDb")) from_json(j["realTimeDb"], (realTimeDb), "realTimeDb");
+        if (j.HasMember("map")) from_json(j["map"], (map), "map");
+        p_tmp->size = (5 / 8) + 1;
+        p_tmp->bits_unused = (5 % 8) != 0 ? 8 - (5 % 8) : 0;
+        p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+        *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+        if (undefined) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
+        if (staticDb) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
+        if (dynamicDb) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 5);
+        if (realTimeDb) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 4);
+        if (map) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 3);
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   VruClusterProfiles - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_VruClusterProfiles(const VruClusterProfiles_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("pedestrian", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("bicyclist", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("motorcyclist", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("animal", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    return json;
+}
+
+void from_json_VruClusterProfiles(const Value& j, VruClusterProfiles_t& p, std::string field) {
+    try {
+        VruClusterProfiles_t* p_tmp = vanetza::asn1::allocate<VruClusterProfiles_t>();
+        bool pedestrian;
+        bool bicyclist;
+        bool motorcyclist;
+        bool animal;
+        if (j.HasMember("pedestrian")) from_json(j["pedestrian"], (pedestrian), "pedestrian");
+        if (j.HasMember("bicyclist")) from_json(j["bicyclist"], (bicyclist), "bicyclist");
+        if (j.HasMember("motorcyclist")) from_json(j["motorcyclist"], (motorcyclist), "motorcyclist");
+        if (j.HasMember("animal")) from_json(j["animal"], (animal), "animal");
+        p_tmp->size = (4 / 8) + 1;
+        p_tmp->bits_unused = (4 % 8) != 0 ? 8 - (4 % 8) : 0;
+        p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+        *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+        if (pedestrian) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
+        if (bicyclist) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
+        if (motorcyclist) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 5);
+        if (animal) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 4);
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   VruSpecificExteriorLights - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_ETSI_ITS_CDD_VruSpecificExteriorLights(const ETSI_ITS_CDD_VruSpecificExteriorLights_t p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("unavailable", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
+    json.AddMember("backFlashLight", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
+    json.AddMember("helmetLight", (bool) (*(p.buf + (sizeof(uint8_t) * (2 / 8))) & (1 << ((7 * ((2 / 8) + 1))-(2 % 8)))), allocator);
+    json.AddMember("armLight", (bool) (*(p.buf + (sizeof(uint8_t) * (3 / 8))) & (1 << ((7 * ((3 / 8) + 1))-(3 % 8)))), allocator);
+    json.AddMember("legLight", (bool) (*(p.buf + (sizeof(uint8_t) * (4 / 8))) & (1 << ((7 * ((4 / 8) + 1))-(4 % 8)))), allocator);
+    json.AddMember("wheelLight", (bool) (*(p.buf + (sizeof(uint8_t) * (5 / 8))) & (1 << ((7 * ((5 / 8) + 1))-(5 % 8)))), allocator);
+    return json;
+}
+
+void from_json_ETSI_ITS_CDD_VruSpecificExteriorLights(const Value& j, ETSI_ITS_CDD_VruSpecificExteriorLights_t& p, std::string field) {
+    try {
+        ETSI_ITS_CDD_VruSpecificExteriorLights_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_VruSpecificExteriorLights_t>();
+        bool unavailable;
+        bool backFlashLight;
+        bool helmetLight;
+        bool armLight;
+        bool legLight;
+        bool wheelLight;
+        if (j.HasMember("unavailable")) from_json(j["unavailable"], (unavailable), "unavailable");
+        if (j.HasMember("backFlashLight")) from_json(j["backFlashLight"], (backFlashLight), "backFlashLight");
+        if (j.HasMember("helmetLight")) from_json(j["helmetLight"], (helmetLight), "helmetLight");
+        if (j.HasMember("armLight")) from_json(j["armLight"], (armLight), "armLight");
+        if (j.HasMember("legLight")) from_json(j["legLight"], (legLight), "legLight");
+        if (j.HasMember("wheelLight")) from_json(j["wheelLight"], (wheelLight), "wheelLight");
+        p_tmp->size = (6 / 8) + 1;
+        p_tmp->bits_unused = (6 % 8) != 0 ? 8 - (6 % 8) : 0;
+        p_tmp->buf = (uint8_t *) calloc(1, sizeof(uint8_t) * p_tmp->size);
+        *(p_tmp->buf + (sizeof(uint8_t) * 0)) = (uint8_t) 0;
+        if (unavailable) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 7);
+        if (backFlashLight) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 6);
+        if (helmetLight) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 5);
+        if (armLight) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 4);
+        if (legLight) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 3);
+        if (wheelLight) *(p_tmp->buf + (sizeof(uint8_t) * 0)) |= (1 << 2);
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   AccelerationComponent - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const AccelerationComponent_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("value", to_json((p.value), allocator), allocator);
+    json.AddMember("confidence", to_json(((p.confidence) == 102) ? (p.confidence) : (double)(p.confidence) / 10.0, allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, AccelerationComponent_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["value"], (p.value), "value");
+        double confidence; from_json(j["confidence"], (confidence), "confidence"); (p.confidence) = ((confidence) != 102) ? confidence * 10 : confidence;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   AccelerationChangeIndication - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_AccelerationChangeIndication_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("accelOrDecel", to_json((p.accelOrDecel), allocator), allocator);
+    json.AddMember("actionDeltaTime", to_json((p.actionDeltaTime), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_AccelerationChangeIndication_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["accelOrDecel"], (p.accelOrDecel), "accelOrDecel");
+        from_json(j["actionDeltaTime"], (p.actionDeltaTime), "actionDeltaTime");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   AccelerationMagnitude - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const AccelerationMagnitude_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("accelerationMagnitudeValue", to_json((p.accelerationMagnitudeValue), allocator), allocator);
+    json.AddMember("accelerationConfidence", to_json(((p.accelerationConfidence) == 102) ? (p.accelerationConfidence) : (double)(p.accelerationConfidence) / 10.0, allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, AccelerationMagnitude_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["accelerationMagnitudeValue"], (p.accelerationMagnitudeValue), "accelerationMagnitudeValue");
+        double accelerationConfidence; from_json(j["accelerationConfidence"], (accelerationConfidence), "accelerationConfidence"); (p.accelerationConfidence) = ((accelerationConfidence) != 102) ? accelerationConfidence * 10 : accelerationConfidence;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   ActionId - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ActionId_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("originatingStationId", to_json((p.originatingStationId), allocator), allocator);
+    json.AddMember("sequenceNumber", to_json((p.sequenceNumber), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ActionId_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["originatingStationId"], (p.originatingStationId), "originatingStationId");
+        from_json(j["sequenceNumber"], (p.sequenceNumber), "sequenceNumber");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   ActionID - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ActionID_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("originatingStationId", to_json((p.originatingStationId), allocator), allocator);
+    json.AddMember("sequenceNumber", to_json((p.sequenceNumber), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_ActionID_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["originatingStationId"], (p.originatingStationId), "originatingStationId");
+        from_json(j["sequenceNumber"], (p.sequenceNumber), "sequenceNumber");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   ActionIdList - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ActionIdList_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const ActionId_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ActionIdList_t& p, std::string field) {
+    try {
+        ActionIdList_t* p_tmp = vanetza::asn1::allocate<ActionIdList_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            ActionId_t *element = vanetza::asn1::allocate<ActionId_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   Altitude - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_Altitude_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("altitudeValue", to_json(((p.altitudeValue) == 800001) ? (p.altitudeValue) : (double)(p.altitudeValue) / 100.0, allocator), allocator);
+    json.AddMember("altitudeConfidence", to_json((p.altitudeConfidence), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_Altitude_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        double altitudeValue; from_json(j["altitudeValue"], (altitudeValue), "altitudeValue"); (p.altitudeValue) = ((altitudeValue) != 800001) ? altitudeValue * 100 : altitudeValue;
+        from_json(j["altitudeConfidence"], (p.altitudeConfidence), "altitudeConfidence");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   BasicLaneInformation - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const BasicLaneInformation_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("laneNumber", to_json((p.laneNumber), allocator), allocator);
+    json.AddMember("direction", to_json((p.direction), allocator), allocator);
+    if (p.laneWidth != 0) json.AddMember("laneWidth", to_json(*(p.laneWidth), allocator), allocator);
+    if (p.connectingLane != 0) json.AddMember("connectingLane", to_json(*(p.connectingLane), allocator), allocator);
+    if (p.connectingRoadSection != 0) json.AddMember("connectingRoadSection", to_json(*(p.connectingRoadSection), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, BasicLaneInformation_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["laneNumber"], (p.laneNumber), "laneNumber");
+        from_json(j["direction"], (p.direction), "direction");
+        if (j.HasMember("laneWidth")) { p.laneWidth = vanetza::asn1::allocate<ETSI_ITS_CDD_LaneWidth_t>(); from_json(j["laneWidth"], *(p.laneWidth), "laneWidth"); }
+        else { p.laneWidth=nullptr; }
+        if (j.HasMember("connectingLane")) { p.connectingLane = vanetza::asn1::allocate<ETSI_ITS_CDD_LanePosition_t>(); from_json(j["connectingLane"], *(p.connectingLane), "connectingLane"); }
+        else { p.connectingLane=nullptr; }
+        if (j.HasMember("connectingRoadSection")) { p.connectingRoadSection = vanetza::asn1::allocate<RoadSectionId_t>(); from_json(j["connectingRoadSection"], *(p.connectingRoadSection), "connectingRoadSection"); }
+        else { p.connectingRoadSection=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   CartesianAngle - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const CartesianAngle_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("value", to_json(((p.value) == 3601) ? (p.value) : (double)(p.value) / 10.0, allocator), allocator);
+    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, CartesianAngle_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        double value; from_json(j["value"], (value), "value"); (p.value) = ((value) != 3601) ? value * 10 : value;
+        from_json(j["confidence"], (p.confidence), "confidence");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   CartesianAngularVelocityComponent - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const CartesianAngularVelocityComponent_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("value", to_json((p.value), allocator), allocator);
+    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, CartesianAngularVelocityComponent_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["value"], (p.value), "value");
+        from_json(j["confidence"], (p.confidence), "confidence");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   CartesianAngularAccelerationComponent - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const CartesianAngularAccelerationComponent_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("value", to_json((p.value), allocator), allocator);
+    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, CartesianAngularAccelerationComponent_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["value"], (p.value), "value");
+        from_json(j["confidence"], (p.confidence), "confidence");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   CartesianCoordinateWithConfidence - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const CartesianCoordinateWithConfidence_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("value", to_json((p.value), allocator), allocator);
+    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, CartesianCoordinateWithConfidence_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["value"], (p.value), "value");
+        from_json(j["confidence"], (p.confidence), "confidence");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   CartesianPosition3d - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const CartesianPosition3d_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("xCoordinate", to_json((p.xCoordinate), allocator), allocator);
+    json.AddMember("yCoordinate", to_json((p.yCoordinate), allocator), allocator);
+    if (p.zCoordinate != 0) json.AddMember("zCoordinate", to_json(*(p.zCoordinate), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, CartesianPosition3d_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["xCoordinate"], (p.xCoordinate), "xCoordinate");
+        from_json(j["yCoordinate"], (p.yCoordinate), "yCoordinate");
+        if (j.HasMember("zCoordinate")) { p.zCoordinate = vanetza::asn1::allocate<CartesianCoordinate_t>(); from_json(j["zCoordinate"], *(p.zCoordinate), "zCoordinate"); }
+        else { p.zCoordinate=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   CartesianPosition3dWithConfidence - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const CartesianPosition3dWithConfidence_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("xCoordinate", to_json((p.xCoordinate), allocator), allocator);
+    json.AddMember("yCoordinate", to_json((p.yCoordinate), allocator), allocator);
+    if (p.zCoordinate != 0) json.AddMember("zCoordinate", to_json(*(p.zCoordinate), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, CartesianPosition3dWithConfidence_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["xCoordinate"], (p.xCoordinate), "xCoordinate");
+        from_json(j["yCoordinate"], (p.yCoordinate), "yCoordinate");
+        if (j.HasMember("zCoordinate")) { p.zCoordinate = vanetza::asn1::allocate<CartesianCoordinateWithConfidence_t>(); from_json(j["zCoordinate"], *(p.zCoordinate), "zCoordinate"); }
+        else { p.zCoordinate=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   CauseCode - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_CauseCode_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("causeCode", to_json((p.causeCode), allocator), allocator);
+    json.AddMember("subCauseCode", to_json((p.subCauseCode), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_CauseCode_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["causeCode"], (p.causeCode), "causeCode");
+        from_json(j["subCauseCode"], (p.subCauseCode), "subCauseCode");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   CauseCodeChoice - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const CauseCodeChoice_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == CauseCodeChoice_PR_reserved0) {
+        json.AddMember("reserved0", to_json(p.choice.reserved0, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_trafficCondition1) {
+        json.AddMember("trafficCondition1", to_json(p.choice.trafficCondition1, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_accident2) {
+        json.AddMember("accident2", to_json(p.choice.accident2, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_roadworks3) {
+        json.AddMember("roadworks3", to_json(p.choice.roadworks3, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved4) {
+        json.AddMember("reserved4", to_json(p.choice.reserved4, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_impassability5) {
+        json.AddMember("impassability5", to_json(p.choice.impassability5, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_adverseWeatherCondition_Adhesion6) {
+        json.AddMember("adverseWeatherCondition-Adhesion6", to_json(p.choice.adverseWeatherCondition_Adhesion6, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_aquaplaning7) {
+        json.AddMember("aquaplaning7", to_json(p.choice.aquaplaning7, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved8) {
+        json.AddMember("reserved8", to_json(p.choice.reserved8, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_hazardousLocation_SurfaceCondition9) {
+        json.AddMember("hazardousLocation-SurfaceCondition9", to_json(p.choice.hazardousLocation_SurfaceCondition9, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_hazardousLocation_ObstacleOnTheRoad10) {
+        json.AddMember("hazardousLocation-ObstacleOnTheRoad10", to_json(p.choice.hazardousLocation_ObstacleOnTheRoad10, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_hazardousLocation_AnimalOnTheRoad11) {
+        json.AddMember("hazardousLocation-AnimalOnTheRoad11", to_json(p.choice.hazardousLocation_AnimalOnTheRoad11, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_humanPresenceOnTheRoad12) {
+        json.AddMember("humanPresenceOnTheRoad12", to_json(p.choice.humanPresenceOnTheRoad12, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved13) {
+        json.AddMember("reserved13", to_json(p.choice.reserved13, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_wrongWayDriving14) {
+        json.AddMember("wrongWayDriving14", to_json(p.choice.wrongWayDriving14, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_rescueAndRecoveryWorkInProgress15) {
+        json.AddMember("rescueAndRecoveryWorkInProgress15", to_json(p.choice.rescueAndRecoveryWorkInProgress15, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved16) {
+        json.AddMember("reserved16", to_json(p.choice.reserved16, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_adverseWeatherCondition_ExtremeWeatherCondition17) {
+        json.AddMember("adverseWeatherCondition-ExtremeWeatherCondition17", to_json(p.choice.adverseWeatherCondition_ExtremeWeatherCondition17, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_adverseWeatherCondition_Visibility18) {
+        json.AddMember("adverseWeatherCondition-Visibility18", to_json(p.choice.adverseWeatherCondition_Visibility18, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_adverseWeatherCondition_Precipitation19) {
+        json.AddMember("adverseWeatherCondition-Precipitation19", to_json(p.choice.adverseWeatherCondition_Precipitation19, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_violence20) {
+        json.AddMember("violence20", to_json(p.choice.violence20, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved21) {
+        json.AddMember("reserved21", to_json(p.choice.reserved21, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved22) {
+        json.AddMember("reserved22", to_json(p.choice.reserved22, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved23) {
+        json.AddMember("reserved23", to_json(p.choice.reserved23, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved24) {
+        json.AddMember("reserved24", to_json(p.choice.reserved24, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved25) {
+        json.AddMember("reserved25", to_json(p.choice.reserved25, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_slowVehicle26) {
+        json.AddMember("slowVehicle26", to_json(p.choice.slowVehicle26, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_dangerousEndOfQueue27) {
+        json.AddMember("dangerousEndOfQueue27", to_json(p.choice.dangerousEndOfQueue27, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_publicTransportVehicleApproaching28) {
+        json.AddMember("publicTransportVehicleApproaching28", to_json(p.choice.publicTransportVehicleApproaching28, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved29) {
+        json.AddMember("reserved29", to_json(p.choice.reserved29, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved30) {
+        json.AddMember("reserved30", to_json(p.choice.reserved30, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved31) {
+        json.AddMember("reserved31", to_json(p.choice.reserved31, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved32) {
+        json.AddMember("reserved32", to_json(p.choice.reserved32, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved33) {
+        json.AddMember("reserved33", to_json(p.choice.reserved33, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved34) {
+        json.AddMember("reserved34", to_json(p.choice.reserved34, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved35) {
+        json.AddMember("reserved35", to_json(p.choice.reserved35, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved36) {
+        json.AddMember("reserved36", to_json(p.choice.reserved36, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved37) {
+        json.AddMember("reserved37", to_json(p.choice.reserved37, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved38) {
+        json.AddMember("reserved38", to_json(p.choice.reserved38, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved39) {
+        json.AddMember("reserved39", to_json(p.choice.reserved39, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved40) {
+        json.AddMember("reserved40", to_json(p.choice.reserved40, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved41) {
+        json.AddMember("reserved41", to_json(p.choice.reserved41, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved42) {
+        json.AddMember("reserved42", to_json(p.choice.reserved42, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved43) {
+        json.AddMember("reserved43", to_json(p.choice.reserved43, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved44) {
+        json.AddMember("reserved44", to_json(p.choice.reserved44, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved45) {
+        json.AddMember("reserved45", to_json(p.choice.reserved45, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved46) {
+        json.AddMember("reserved46", to_json(p.choice.reserved46, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved47) {
+        json.AddMember("reserved47", to_json(p.choice.reserved47, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved48) {
+        json.AddMember("reserved48", to_json(p.choice.reserved48, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved49) {
+        json.AddMember("reserved49", to_json(p.choice.reserved49, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved50) {
+        json.AddMember("reserved50", to_json(p.choice.reserved50, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved51) {
+        json.AddMember("reserved51", to_json(p.choice.reserved51, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved52) {
+        json.AddMember("reserved52", to_json(p.choice.reserved52, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved53) {
+        json.AddMember("reserved53", to_json(p.choice.reserved53, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved54) {
+        json.AddMember("reserved54", to_json(p.choice.reserved54, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved55) {
+        json.AddMember("reserved55", to_json(p.choice.reserved55, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved56) {
+        json.AddMember("reserved56", to_json(p.choice.reserved56, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved57) {
+        json.AddMember("reserved57", to_json(p.choice.reserved57, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved58) {
+        json.AddMember("reserved58", to_json(p.choice.reserved58, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved59) {
+        json.AddMember("reserved59", to_json(p.choice.reserved59, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved60) {
+        json.AddMember("reserved60", to_json(p.choice.reserved60, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved61) {
+        json.AddMember("reserved61", to_json(p.choice.reserved61, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved62) {
+        json.AddMember("reserved62", to_json(p.choice.reserved62, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved63) {
+        json.AddMember("reserved63", to_json(p.choice.reserved63, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved64) {
+        json.AddMember("reserved64", to_json(p.choice.reserved64, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved65) {
+        json.AddMember("reserved65", to_json(p.choice.reserved65, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved66) {
+        json.AddMember("reserved66", to_json(p.choice.reserved66, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved67) {
+        json.AddMember("reserved67", to_json(p.choice.reserved67, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved68) {
+        json.AddMember("reserved68", to_json(p.choice.reserved68, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved69) {
+        json.AddMember("reserved69", to_json(p.choice.reserved69, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved70) {
+        json.AddMember("reserved70", to_json(p.choice.reserved70, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved71) {
+        json.AddMember("reserved71", to_json(p.choice.reserved71, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved72) {
+        json.AddMember("reserved72", to_json(p.choice.reserved72, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved73) {
+        json.AddMember("reserved73", to_json(p.choice.reserved73, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved74) {
+        json.AddMember("reserved74", to_json(p.choice.reserved74, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved75) {
+        json.AddMember("reserved75", to_json(p.choice.reserved75, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved76) {
+        json.AddMember("reserved76", to_json(p.choice.reserved76, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved77) {
+        json.AddMember("reserved77", to_json(p.choice.reserved77, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved78) {
+        json.AddMember("reserved78", to_json(p.choice.reserved78, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved79) {
+        json.AddMember("reserved79", to_json(p.choice.reserved79, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved80) {
+        json.AddMember("reserved80", to_json(p.choice.reserved80, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved81) {
+        json.AddMember("reserved81", to_json(p.choice.reserved81, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved82) {
+        json.AddMember("reserved82", to_json(p.choice.reserved82, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved83) {
+        json.AddMember("reserved83", to_json(p.choice.reserved83, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved84) {
+        json.AddMember("reserved84", to_json(p.choice.reserved84, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved85) {
+        json.AddMember("reserved85", to_json(p.choice.reserved85, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved86) {
+        json.AddMember("reserved86", to_json(p.choice.reserved86, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved87) {
+        json.AddMember("reserved87", to_json(p.choice.reserved87, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved88) {
+        json.AddMember("reserved88", to_json(p.choice.reserved88, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved89) {
+        json.AddMember("reserved89", to_json(p.choice.reserved89, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved90) {
+        json.AddMember("reserved90", to_json(p.choice.reserved90, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_vehicleBreakdown91) {
+        json.AddMember("vehicleBreakdown91", to_json(p.choice.vehicleBreakdown91, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_postCrash92) {
+        json.AddMember("postCrash92", to_json(p.choice.postCrash92, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_humanProblem93) {
+        json.AddMember("humanProblem93", to_json(p.choice.humanProblem93, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_stationaryVehicle94) {
+        json.AddMember("stationaryVehicle94", to_json(p.choice.stationaryVehicle94, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_emergencyVehicleApproaching95) {
+        json.AddMember("emergencyVehicleApproaching95", to_json(p.choice.emergencyVehicleApproaching95, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_hazardousLocation_DangerousCurve96) {
+        json.AddMember("hazardousLocation-DangerousCurve96", to_json(p.choice.hazardousLocation_DangerousCurve96, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_collisionRisk97) {
+        json.AddMember("collisionRisk97", to_json(p.choice.collisionRisk97, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_signalViolation98) {
+        json.AddMember("signalViolation98", to_json(p.choice.signalViolation98, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_dangerousSituation99) {
+        json.AddMember("dangerousSituation99", to_json(p.choice.dangerousSituation99, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_railwayLevelCrossing100) {
+        json.AddMember("railwayLevelCrossing100", to_json(p.choice.railwayLevelCrossing100, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved101) {
+        json.AddMember("reserved101", to_json(p.choice.reserved101, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved102) {
+        json.AddMember("reserved102", to_json(p.choice.reserved102, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved103) {
+        json.AddMember("reserved103", to_json(p.choice.reserved103, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved104) {
+        json.AddMember("reserved104", to_json(p.choice.reserved104, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved105) {
+        json.AddMember("reserved105", to_json(p.choice.reserved105, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved106) {
+        json.AddMember("reserved106", to_json(p.choice.reserved106, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved107) {
+        json.AddMember("reserved107", to_json(p.choice.reserved107, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved108) {
+        json.AddMember("reserved108", to_json(p.choice.reserved108, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved109) {
+        json.AddMember("reserved109", to_json(p.choice.reserved109, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved110) {
+        json.AddMember("reserved110", to_json(p.choice.reserved110, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved111) {
+        json.AddMember("reserved111", to_json(p.choice.reserved111, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved112) {
+        json.AddMember("reserved112", to_json(p.choice.reserved112, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved113) {
+        json.AddMember("reserved113", to_json(p.choice.reserved113, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved114) {
+        json.AddMember("reserved114", to_json(p.choice.reserved114, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved115) {
+        json.AddMember("reserved115", to_json(p.choice.reserved115, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved116) {
+        json.AddMember("reserved116", to_json(p.choice.reserved116, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved117) {
+        json.AddMember("reserved117", to_json(p.choice.reserved117, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved118) {
+        json.AddMember("reserved118", to_json(p.choice.reserved118, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved119) {
+        json.AddMember("reserved119", to_json(p.choice.reserved119, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved120) {
+        json.AddMember("reserved120", to_json(p.choice.reserved120, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved121) {
+        json.AddMember("reserved121", to_json(p.choice.reserved121, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved122) {
+        json.AddMember("reserved122", to_json(p.choice.reserved122, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved123) {
+        json.AddMember("reserved123", to_json(p.choice.reserved123, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved124) {
+        json.AddMember("reserved124", to_json(p.choice.reserved124, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved125) {
+        json.AddMember("reserved125", to_json(p.choice.reserved125, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved126) {
+        json.AddMember("reserved126", to_json(p.choice.reserved126, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved127) {
+        json.AddMember("reserved127", to_json(p.choice.reserved127, allocator), allocator);
+    } else if (p.present == CauseCodeChoice_PR_reserved128) {
+        json.AddMember("reserved128", to_json(p.choice.reserved128, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, CauseCodeChoice_t& p, std::string field) {
+    try {
+        if (j.HasMember("reserved0")) {
+        p.present = CauseCodeChoice_PR_reserved0;
+            from_json(j["reserved0"], p.choice.reserved0, "reserved0");
+        } else if (j.HasMember("trafficCondition1")) {
+        p.present = CauseCodeChoice_PR_trafficCondition1;
+            from_json(j["trafficCondition1"], p.choice.trafficCondition1, "trafficCondition1");
+        } else if (j.HasMember("accident2")) {
+        p.present = CauseCodeChoice_PR_accident2;
+            from_json(j["accident2"], p.choice.accident2, "accident2");
+        } else if (j.HasMember("roadworks3")) {
+        p.present = CauseCodeChoice_PR_roadworks3;
+            from_json(j["roadworks3"], p.choice.roadworks3, "roadworks3");
+        } else if (j.HasMember("reserved4")) {
+        p.present = CauseCodeChoice_PR_reserved4;
+            from_json(j["reserved4"], p.choice.reserved4, "reserved4");
+        } else if (j.HasMember("impassability5")) {
+        p.present = CauseCodeChoice_PR_impassability5;
+            from_json(j["impassability5"], p.choice.impassability5, "impassability5");
+        } else if (j.HasMember("adverseWeatherCondition-Adhesion6")) {
+        p.present = CauseCodeChoice_PR_adverseWeatherCondition_Adhesion6;
+            from_json(j["adverseWeatherCondition-Adhesion6"], p.choice.adverseWeatherCondition_Adhesion6, "adverseWeatherCondition-Adhesion6");
+        } else if (j.HasMember("aquaplaning7")) {
+        p.present = CauseCodeChoice_PR_aquaplaning7;
+            from_json(j["aquaplaning7"], p.choice.aquaplaning7, "aquaplaning7");
+        } else if (j.HasMember("reserved8")) {
+        p.present = CauseCodeChoice_PR_reserved8;
+            from_json(j["reserved8"], p.choice.reserved8, "reserved8");
+        } else if (j.HasMember("hazardousLocation-SurfaceCondition9")) {
+        p.present = CauseCodeChoice_PR_hazardousLocation_SurfaceCondition9;
+            from_json(j["hazardousLocation-SurfaceCondition9"], p.choice.hazardousLocation_SurfaceCondition9, "hazardousLocation-SurfaceCondition9");
+        } else if (j.HasMember("hazardousLocation-ObstacleOnTheRoad10")) {
+        p.present = CauseCodeChoice_PR_hazardousLocation_ObstacleOnTheRoad10;
+            from_json(j["hazardousLocation-ObstacleOnTheRoad10"], p.choice.hazardousLocation_ObstacleOnTheRoad10, "hazardousLocation-ObstacleOnTheRoad10");
+        } else if (j.HasMember("hazardousLocation-AnimalOnTheRoad11")) {
+        p.present = CauseCodeChoice_PR_hazardousLocation_AnimalOnTheRoad11;
+            from_json(j["hazardousLocation-AnimalOnTheRoad11"], p.choice.hazardousLocation_AnimalOnTheRoad11, "hazardousLocation-AnimalOnTheRoad11");
+        } else if (j.HasMember("humanPresenceOnTheRoad12")) {
+        p.present = CauseCodeChoice_PR_humanPresenceOnTheRoad12;
+            from_json(j["humanPresenceOnTheRoad12"], p.choice.humanPresenceOnTheRoad12, "humanPresenceOnTheRoad12");
+        } else if (j.HasMember("reserved13")) {
+        p.present = CauseCodeChoice_PR_reserved13;
+            from_json(j["reserved13"], p.choice.reserved13, "reserved13");
+        } else if (j.HasMember("wrongWayDriving14")) {
+        p.present = CauseCodeChoice_PR_wrongWayDriving14;
+            from_json(j["wrongWayDriving14"], p.choice.wrongWayDriving14, "wrongWayDriving14");
+        } else if (j.HasMember("rescueAndRecoveryWorkInProgress15")) {
+        p.present = CauseCodeChoice_PR_rescueAndRecoveryWorkInProgress15;
+            from_json(j["rescueAndRecoveryWorkInProgress15"], p.choice.rescueAndRecoveryWorkInProgress15, "rescueAndRecoveryWorkInProgress15");
+        } else if (j.HasMember("reserved16")) {
+        p.present = CauseCodeChoice_PR_reserved16;
+            from_json(j["reserved16"], p.choice.reserved16, "reserved16");
+        } else if (j.HasMember("adverseWeatherCondition-ExtremeWeatherCondition17")) {
+        p.present = CauseCodeChoice_PR_adverseWeatherCondition_ExtremeWeatherCondition17;
+            from_json(j["adverseWeatherCondition-ExtremeWeatherCondition17"], p.choice.adverseWeatherCondition_ExtremeWeatherCondition17, "adverseWeatherCondition-ExtremeWeatherCondition17");
+        } else if (j.HasMember("adverseWeatherCondition-Visibility18")) {
+        p.present = CauseCodeChoice_PR_adverseWeatherCondition_Visibility18;
+            from_json(j["adverseWeatherCondition-Visibility18"], p.choice.adverseWeatherCondition_Visibility18, "adverseWeatherCondition-Visibility18");
+        } else if (j.HasMember("adverseWeatherCondition-Precipitation19")) {
+        p.present = CauseCodeChoice_PR_adverseWeatherCondition_Precipitation19;
+            from_json(j["adverseWeatherCondition-Precipitation19"], p.choice.adverseWeatherCondition_Precipitation19, "adverseWeatherCondition-Precipitation19");
+        } else if (j.HasMember("violence20")) {
+        p.present = CauseCodeChoice_PR_violence20;
+            from_json(j["violence20"], p.choice.violence20, "violence20");
+        } else if (j.HasMember("reserved21")) {
+        p.present = CauseCodeChoice_PR_reserved21;
+            from_json(j["reserved21"], p.choice.reserved21, "reserved21");
+        } else if (j.HasMember("reserved22")) {
+        p.present = CauseCodeChoice_PR_reserved22;
+            from_json(j["reserved22"], p.choice.reserved22, "reserved22");
+        } else if (j.HasMember("reserved23")) {
+        p.present = CauseCodeChoice_PR_reserved23;
+            from_json(j["reserved23"], p.choice.reserved23, "reserved23");
+        } else if (j.HasMember("reserved24")) {
+        p.present = CauseCodeChoice_PR_reserved24;
+            from_json(j["reserved24"], p.choice.reserved24, "reserved24");
+        } else if (j.HasMember("reserved25")) {
+        p.present = CauseCodeChoice_PR_reserved25;
+            from_json(j["reserved25"], p.choice.reserved25, "reserved25");
+        } else if (j.HasMember("slowVehicle26")) {
+        p.present = CauseCodeChoice_PR_slowVehicle26;
+            from_json(j["slowVehicle26"], p.choice.slowVehicle26, "slowVehicle26");
+        } else if (j.HasMember("dangerousEndOfQueue27")) {
+        p.present = CauseCodeChoice_PR_dangerousEndOfQueue27;
+            from_json(j["dangerousEndOfQueue27"], p.choice.dangerousEndOfQueue27, "dangerousEndOfQueue27");
+        } else if (j.HasMember("publicTransportVehicleApproaching28")) {
+        p.present = CauseCodeChoice_PR_publicTransportVehicleApproaching28;
+            from_json(j["publicTransportVehicleApproaching28"], p.choice.publicTransportVehicleApproaching28, "publicTransportVehicleApproaching28");
+        } else if (j.HasMember("reserved29")) {
+        p.present = CauseCodeChoice_PR_reserved29;
+            from_json(j["reserved29"], p.choice.reserved29, "reserved29");
+        } else if (j.HasMember("reserved30")) {
+        p.present = CauseCodeChoice_PR_reserved30;
+            from_json(j["reserved30"], p.choice.reserved30, "reserved30");
+        } else if (j.HasMember("reserved31")) {
+        p.present = CauseCodeChoice_PR_reserved31;
+            from_json(j["reserved31"], p.choice.reserved31, "reserved31");
+        } else if (j.HasMember("reserved32")) {
+        p.present = CauseCodeChoice_PR_reserved32;
+            from_json(j["reserved32"], p.choice.reserved32, "reserved32");
+        } else if (j.HasMember("reserved33")) {
+        p.present = CauseCodeChoice_PR_reserved33;
+            from_json(j["reserved33"], p.choice.reserved33, "reserved33");
+        } else if (j.HasMember("reserved34")) {
+        p.present = CauseCodeChoice_PR_reserved34;
+            from_json(j["reserved34"], p.choice.reserved34, "reserved34");
+        } else if (j.HasMember("reserved35")) {
+        p.present = CauseCodeChoice_PR_reserved35;
+            from_json(j["reserved35"], p.choice.reserved35, "reserved35");
+        } else if (j.HasMember("reserved36")) {
+        p.present = CauseCodeChoice_PR_reserved36;
+            from_json(j["reserved36"], p.choice.reserved36, "reserved36");
+        } else if (j.HasMember("reserved37")) {
+        p.present = CauseCodeChoice_PR_reserved37;
+            from_json(j["reserved37"], p.choice.reserved37, "reserved37");
+        } else if (j.HasMember("reserved38")) {
+        p.present = CauseCodeChoice_PR_reserved38;
+            from_json(j["reserved38"], p.choice.reserved38, "reserved38");
+        } else if (j.HasMember("reserved39")) {
+        p.present = CauseCodeChoice_PR_reserved39;
+            from_json(j["reserved39"], p.choice.reserved39, "reserved39");
+        } else if (j.HasMember("reserved40")) {
+        p.present = CauseCodeChoice_PR_reserved40;
+            from_json(j["reserved40"], p.choice.reserved40, "reserved40");
+        } else if (j.HasMember("reserved41")) {
+        p.present = CauseCodeChoice_PR_reserved41;
+            from_json(j["reserved41"], p.choice.reserved41, "reserved41");
+        } else if (j.HasMember("reserved42")) {
+        p.present = CauseCodeChoice_PR_reserved42;
+            from_json(j["reserved42"], p.choice.reserved42, "reserved42");
+        } else if (j.HasMember("reserved43")) {
+        p.present = CauseCodeChoice_PR_reserved43;
+            from_json(j["reserved43"], p.choice.reserved43, "reserved43");
+        } else if (j.HasMember("reserved44")) {
+        p.present = CauseCodeChoice_PR_reserved44;
+            from_json(j["reserved44"], p.choice.reserved44, "reserved44");
+        } else if (j.HasMember("reserved45")) {
+        p.present = CauseCodeChoice_PR_reserved45;
+            from_json(j["reserved45"], p.choice.reserved45, "reserved45");
+        } else if (j.HasMember("reserved46")) {
+        p.present = CauseCodeChoice_PR_reserved46;
+            from_json(j["reserved46"], p.choice.reserved46, "reserved46");
+        } else if (j.HasMember("reserved47")) {
+        p.present = CauseCodeChoice_PR_reserved47;
+            from_json(j["reserved47"], p.choice.reserved47, "reserved47");
+        } else if (j.HasMember("reserved48")) {
+        p.present = CauseCodeChoice_PR_reserved48;
+            from_json(j["reserved48"], p.choice.reserved48, "reserved48");
+        } else if (j.HasMember("reserved49")) {
+        p.present = CauseCodeChoice_PR_reserved49;
+            from_json(j["reserved49"], p.choice.reserved49, "reserved49");
+        } else if (j.HasMember("reserved50")) {
+        p.present = CauseCodeChoice_PR_reserved50;
+            from_json(j["reserved50"], p.choice.reserved50, "reserved50");
+        } else if (j.HasMember("reserved51")) {
+        p.present = CauseCodeChoice_PR_reserved51;
+            from_json(j["reserved51"], p.choice.reserved51, "reserved51");
+        } else if (j.HasMember("reserved52")) {
+        p.present = CauseCodeChoice_PR_reserved52;
+            from_json(j["reserved52"], p.choice.reserved52, "reserved52");
+        } else if (j.HasMember("reserved53")) {
+        p.present = CauseCodeChoice_PR_reserved53;
+            from_json(j["reserved53"], p.choice.reserved53, "reserved53");
+        } else if (j.HasMember("reserved54")) {
+        p.present = CauseCodeChoice_PR_reserved54;
+            from_json(j["reserved54"], p.choice.reserved54, "reserved54");
+        } else if (j.HasMember("reserved55")) {
+        p.present = CauseCodeChoice_PR_reserved55;
+            from_json(j["reserved55"], p.choice.reserved55, "reserved55");
+        } else if (j.HasMember("reserved56")) {
+        p.present = CauseCodeChoice_PR_reserved56;
+            from_json(j["reserved56"], p.choice.reserved56, "reserved56");
+        } else if (j.HasMember("reserved57")) {
+        p.present = CauseCodeChoice_PR_reserved57;
+            from_json(j["reserved57"], p.choice.reserved57, "reserved57");
+        } else if (j.HasMember("reserved58")) {
+        p.present = CauseCodeChoice_PR_reserved58;
+            from_json(j["reserved58"], p.choice.reserved58, "reserved58");
+        } else if (j.HasMember("reserved59")) {
+        p.present = CauseCodeChoice_PR_reserved59;
+            from_json(j["reserved59"], p.choice.reserved59, "reserved59");
+        } else if (j.HasMember("reserved60")) {
+        p.present = CauseCodeChoice_PR_reserved60;
+            from_json(j["reserved60"], p.choice.reserved60, "reserved60");
+        } else if (j.HasMember("reserved61")) {
+        p.present = CauseCodeChoice_PR_reserved61;
+            from_json(j["reserved61"], p.choice.reserved61, "reserved61");
+        } else if (j.HasMember("reserved62")) {
+        p.present = CauseCodeChoice_PR_reserved62;
+            from_json(j["reserved62"], p.choice.reserved62, "reserved62");
+        } else if (j.HasMember("reserved63")) {
+        p.present = CauseCodeChoice_PR_reserved63;
+            from_json(j["reserved63"], p.choice.reserved63, "reserved63");
+        } else if (j.HasMember("reserved64")) {
+        p.present = CauseCodeChoice_PR_reserved64;
+            from_json(j["reserved64"], p.choice.reserved64, "reserved64");
+        } else if (j.HasMember("reserved65")) {
+        p.present = CauseCodeChoice_PR_reserved65;
+            from_json(j["reserved65"], p.choice.reserved65, "reserved65");
+        } else if (j.HasMember("reserved66")) {
+        p.present = CauseCodeChoice_PR_reserved66;
+            from_json(j["reserved66"], p.choice.reserved66, "reserved66");
+        } else if (j.HasMember("reserved67")) {
+        p.present = CauseCodeChoice_PR_reserved67;
+            from_json(j["reserved67"], p.choice.reserved67, "reserved67");
+        } else if (j.HasMember("reserved68")) {
+        p.present = CauseCodeChoice_PR_reserved68;
+            from_json(j["reserved68"], p.choice.reserved68, "reserved68");
+        } else if (j.HasMember("reserved69")) {
+        p.present = CauseCodeChoice_PR_reserved69;
+            from_json(j["reserved69"], p.choice.reserved69, "reserved69");
+        } else if (j.HasMember("reserved70")) {
+        p.present = CauseCodeChoice_PR_reserved70;
+            from_json(j["reserved70"], p.choice.reserved70, "reserved70");
+        } else if (j.HasMember("reserved71")) {
+        p.present = CauseCodeChoice_PR_reserved71;
+            from_json(j["reserved71"], p.choice.reserved71, "reserved71");
+        } else if (j.HasMember("reserved72")) {
+        p.present = CauseCodeChoice_PR_reserved72;
+            from_json(j["reserved72"], p.choice.reserved72, "reserved72");
+        } else if (j.HasMember("reserved73")) {
+        p.present = CauseCodeChoice_PR_reserved73;
+            from_json(j["reserved73"], p.choice.reserved73, "reserved73");
+        } else if (j.HasMember("reserved74")) {
+        p.present = CauseCodeChoice_PR_reserved74;
+            from_json(j["reserved74"], p.choice.reserved74, "reserved74");
+        } else if (j.HasMember("reserved75")) {
+        p.present = CauseCodeChoice_PR_reserved75;
+            from_json(j["reserved75"], p.choice.reserved75, "reserved75");
+        } else if (j.HasMember("reserved76")) {
+        p.present = CauseCodeChoice_PR_reserved76;
+            from_json(j["reserved76"], p.choice.reserved76, "reserved76");
+        } else if (j.HasMember("reserved77")) {
+        p.present = CauseCodeChoice_PR_reserved77;
+            from_json(j["reserved77"], p.choice.reserved77, "reserved77");
+        } else if (j.HasMember("reserved78")) {
+        p.present = CauseCodeChoice_PR_reserved78;
+            from_json(j["reserved78"], p.choice.reserved78, "reserved78");
+        } else if (j.HasMember("reserved79")) {
+        p.present = CauseCodeChoice_PR_reserved79;
+            from_json(j["reserved79"], p.choice.reserved79, "reserved79");
+        } else if (j.HasMember("reserved80")) {
+        p.present = CauseCodeChoice_PR_reserved80;
+            from_json(j["reserved80"], p.choice.reserved80, "reserved80");
+        } else if (j.HasMember("reserved81")) {
+        p.present = CauseCodeChoice_PR_reserved81;
+            from_json(j["reserved81"], p.choice.reserved81, "reserved81");
+        } else if (j.HasMember("reserved82")) {
+        p.present = CauseCodeChoice_PR_reserved82;
+            from_json(j["reserved82"], p.choice.reserved82, "reserved82");
+        } else if (j.HasMember("reserved83")) {
+        p.present = CauseCodeChoice_PR_reserved83;
+            from_json(j["reserved83"], p.choice.reserved83, "reserved83");
+        } else if (j.HasMember("reserved84")) {
+        p.present = CauseCodeChoice_PR_reserved84;
+            from_json(j["reserved84"], p.choice.reserved84, "reserved84");
+        } else if (j.HasMember("reserved85")) {
+        p.present = CauseCodeChoice_PR_reserved85;
+            from_json(j["reserved85"], p.choice.reserved85, "reserved85");
+        } else if (j.HasMember("reserved86")) {
+        p.present = CauseCodeChoice_PR_reserved86;
+            from_json(j["reserved86"], p.choice.reserved86, "reserved86");
+        } else if (j.HasMember("reserved87")) {
+        p.present = CauseCodeChoice_PR_reserved87;
+            from_json(j["reserved87"], p.choice.reserved87, "reserved87");
+        } else if (j.HasMember("reserved88")) {
+        p.present = CauseCodeChoice_PR_reserved88;
+            from_json(j["reserved88"], p.choice.reserved88, "reserved88");
+        } else if (j.HasMember("reserved89")) {
+        p.present = CauseCodeChoice_PR_reserved89;
+            from_json(j["reserved89"], p.choice.reserved89, "reserved89");
+        } else if (j.HasMember("reserved90")) {
+        p.present = CauseCodeChoice_PR_reserved90;
+            from_json(j["reserved90"], p.choice.reserved90, "reserved90");
+        } else if (j.HasMember("vehicleBreakdown91")) {
+        p.present = CauseCodeChoice_PR_vehicleBreakdown91;
+            from_json(j["vehicleBreakdown91"], p.choice.vehicleBreakdown91, "vehicleBreakdown91");
+        } else if (j.HasMember("postCrash92")) {
+        p.present = CauseCodeChoice_PR_postCrash92;
+            from_json(j["postCrash92"], p.choice.postCrash92, "postCrash92");
+        } else if (j.HasMember("humanProblem93")) {
+        p.present = CauseCodeChoice_PR_humanProblem93;
+            from_json(j["humanProblem93"], p.choice.humanProblem93, "humanProblem93");
+        } else if (j.HasMember("stationaryVehicle94")) {
+        p.present = CauseCodeChoice_PR_stationaryVehicle94;
+            from_json(j["stationaryVehicle94"], p.choice.stationaryVehicle94, "stationaryVehicle94");
+        } else if (j.HasMember("emergencyVehicleApproaching95")) {
+        p.present = CauseCodeChoice_PR_emergencyVehicleApproaching95;
+            from_json(j["emergencyVehicleApproaching95"], p.choice.emergencyVehicleApproaching95, "emergencyVehicleApproaching95");
+        } else if (j.HasMember("hazardousLocation-DangerousCurve96")) {
+        p.present = CauseCodeChoice_PR_hazardousLocation_DangerousCurve96;
+            from_json(j["hazardousLocation-DangerousCurve96"], p.choice.hazardousLocation_DangerousCurve96, "hazardousLocation-DangerousCurve96");
+        } else if (j.HasMember("collisionRisk97")) {
+        p.present = CauseCodeChoice_PR_collisionRisk97;
+            from_json(j["collisionRisk97"], p.choice.collisionRisk97, "collisionRisk97");
+        } else if (j.HasMember("signalViolation98")) {
+        p.present = CauseCodeChoice_PR_signalViolation98;
+            from_json(j["signalViolation98"], p.choice.signalViolation98, "signalViolation98");
+        } else if (j.HasMember("dangerousSituation99")) {
+        p.present = CauseCodeChoice_PR_dangerousSituation99;
+            from_json(j["dangerousSituation99"], p.choice.dangerousSituation99, "dangerousSituation99");
+        } else if (j.HasMember("railwayLevelCrossing100")) {
+        p.present = CauseCodeChoice_PR_railwayLevelCrossing100;
+            from_json(j["railwayLevelCrossing100"], p.choice.railwayLevelCrossing100, "railwayLevelCrossing100");
+        } else if (j.HasMember("reserved101")) {
+        p.present = CauseCodeChoice_PR_reserved101;
+            from_json(j["reserved101"], p.choice.reserved101, "reserved101");
+        } else if (j.HasMember("reserved102")) {
+        p.present = CauseCodeChoice_PR_reserved102;
+            from_json(j["reserved102"], p.choice.reserved102, "reserved102");
+        } else if (j.HasMember("reserved103")) {
+        p.present = CauseCodeChoice_PR_reserved103;
+            from_json(j["reserved103"], p.choice.reserved103, "reserved103");
+        } else if (j.HasMember("reserved104")) {
+        p.present = CauseCodeChoice_PR_reserved104;
+            from_json(j["reserved104"], p.choice.reserved104, "reserved104");
+        } else if (j.HasMember("reserved105")) {
+        p.present = CauseCodeChoice_PR_reserved105;
+            from_json(j["reserved105"], p.choice.reserved105, "reserved105");
+        } else if (j.HasMember("reserved106")) {
+        p.present = CauseCodeChoice_PR_reserved106;
+            from_json(j["reserved106"], p.choice.reserved106, "reserved106");
+        } else if (j.HasMember("reserved107")) {
+        p.present = CauseCodeChoice_PR_reserved107;
+            from_json(j["reserved107"], p.choice.reserved107, "reserved107");
+        } else if (j.HasMember("reserved108")) {
+        p.present = CauseCodeChoice_PR_reserved108;
+            from_json(j["reserved108"], p.choice.reserved108, "reserved108");
+        } else if (j.HasMember("reserved109")) {
+        p.present = CauseCodeChoice_PR_reserved109;
+            from_json(j["reserved109"], p.choice.reserved109, "reserved109");
+        } else if (j.HasMember("reserved110")) {
+        p.present = CauseCodeChoice_PR_reserved110;
+            from_json(j["reserved110"], p.choice.reserved110, "reserved110");
+        } else if (j.HasMember("reserved111")) {
+        p.present = CauseCodeChoice_PR_reserved111;
+            from_json(j["reserved111"], p.choice.reserved111, "reserved111");
+        } else if (j.HasMember("reserved112")) {
+        p.present = CauseCodeChoice_PR_reserved112;
+            from_json(j["reserved112"], p.choice.reserved112, "reserved112");
+        } else if (j.HasMember("reserved113")) {
+        p.present = CauseCodeChoice_PR_reserved113;
+            from_json(j["reserved113"], p.choice.reserved113, "reserved113");
+        } else if (j.HasMember("reserved114")) {
+        p.present = CauseCodeChoice_PR_reserved114;
+            from_json(j["reserved114"], p.choice.reserved114, "reserved114");
+        } else if (j.HasMember("reserved115")) {
+        p.present = CauseCodeChoice_PR_reserved115;
+            from_json(j["reserved115"], p.choice.reserved115, "reserved115");
+        } else if (j.HasMember("reserved116")) {
+        p.present = CauseCodeChoice_PR_reserved116;
+            from_json(j["reserved116"], p.choice.reserved116, "reserved116");
+        } else if (j.HasMember("reserved117")) {
+        p.present = CauseCodeChoice_PR_reserved117;
+            from_json(j["reserved117"], p.choice.reserved117, "reserved117");
+        } else if (j.HasMember("reserved118")) {
+        p.present = CauseCodeChoice_PR_reserved118;
+            from_json(j["reserved118"], p.choice.reserved118, "reserved118");
+        } else if (j.HasMember("reserved119")) {
+        p.present = CauseCodeChoice_PR_reserved119;
+            from_json(j["reserved119"], p.choice.reserved119, "reserved119");
+        } else if (j.HasMember("reserved120")) {
+        p.present = CauseCodeChoice_PR_reserved120;
+            from_json(j["reserved120"], p.choice.reserved120, "reserved120");
+        } else if (j.HasMember("reserved121")) {
+        p.present = CauseCodeChoice_PR_reserved121;
+            from_json(j["reserved121"], p.choice.reserved121, "reserved121");
+        } else if (j.HasMember("reserved122")) {
+        p.present = CauseCodeChoice_PR_reserved122;
+            from_json(j["reserved122"], p.choice.reserved122, "reserved122");
+        } else if (j.HasMember("reserved123")) {
+        p.present = CauseCodeChoice_PR_reserved123;
+            from_json(j["reserved123"], p.choice.reserved123, "reserved123");
+        } else if (j.HasMember("reserved124")) {
+        p.present = CauseCodeChoice_PR_reserved124;
+            from_json(j["reserved124"], p.choice.reserved124, "reserved124");
+        } else if (j.HasMember("reserved125")) {
+        p.present = CauseCodeChoice_PR_reserved125;
+            from_json(j["reserved125"], p.choice.reserved125, "reserved125");
+        } else if (j.HasMember("reserved126")) {
+        p.present = CauseCodeChoice_PR_reserved126;
+            from_json(j["reserved126"], p.choice.reserved126, "reserved126");
+        } else if (j.HasMember("reserved127")) {
+        p.present = CauseCodeChoice_PR_reserved127;
+            from_json(j["reserved127"], p.choice.reserved127, "reserved127");
+        } else if (j.HasMember("reserved128")) {
+        p.present = CauseCodeChoice_PR_reserved128;
+            from_json(j["reserved128"], p.choice.reserved128, "reserved128");
+        } else {
+        p.present = CauseCodeChoice_PR_NOTHING;
+        }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   CauseCodeV2 - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const CauseCodeV2_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("ccAndScc", to_json((p.ccAndScc), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, CauseCodeV2_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["ccAndScc"], (p.ccAndScc), "ccAndScc");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   CenDsrcTollingZone - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_CenDsrcTollingZone_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("protectedZoneLatitude", to_json(((p.protectedZoneLatitude) == 900000001) ? (p.protectedZoneLatitude) : (double)(p.protectedZoneLatitude) / 10000000.0, allocator), allocator);
+    json.AddMember("protectedZoneLongitude", to_json(((p.protectedZoneLongitude) == 1800000001) ? (p.protectedZoneLongitude) : (double)(p.protectedZoneLongitude) / 10000000.0, allocator), allocator);
+    if (p.cenDsrcTollingZoneId != 0) json.AddMember("cenDsrcTollingZoneId", to_json(*(p.cenDsrcTollingZoneId), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_CenDsrcTollingZone_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        double protectedZoneLatitude; from_json(j["protectedZoneLatitude"], (protectedZoneLatitude), "protectedZoneLatitude"); (p.protectedZoneLatitude) = ((protectedZoneLatitude) != 900000001) ? protectedZoneLatitude * 10000000 : protectedZoneLatitude;
+        double protectedZoneLongitude; from_json(j["protectedZoneLongitude"], (protectedZoneLongitude), "protectedZoneLongitude"); (p.protectedZoneLongitude) = ((protectedZoneLongitude) != 1800000001) ? protectedZoneLongitude * 10000000 : protectedZoneLongitude;
+        if (j.HasMember("cenDsrcTollingZoneId")) { p.cenDsrcTollingZoneId = vanetza::asn1::allocate<ProtectedZoneId_t>(); from_json(j["cenDsrcTollingZoneId"], *(p.cenDsrcTollingZoneId), "cenDsrcTollingZoneId"); }
+        else { p.cenDsrcTollingZoneId=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   CircularShape - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const CircularShape_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("radius", to_json((p.radius), allocator), allocator);
+    if (p.shapeReferencePoint != 0) json.AddMember("shapeReferencePoint", to_json(*(p.shapeReferencePoint), allocator), allocator);
+    if (p.height != 0) json.AddMember("height", to_json(*(p.height), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, CircularShape_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        if (j.HasMember("shapeReferencePoint")) { p.shapeReferencePoint = vanetza::asn1::allocate<CartesianPosition3d_t>(); from_json(j["shapeReferencePoint"], *(p.shapeReferencePoint), "shapeReferencePoint"); }
+        else { p.shapeReferencePoint=nullptr; }
+        from_json(j["radius"], (p.radius), "radius");
+        if (j.HasMember("height")) { p.height = vanetza::asn1::allocate<StandardLength12b_t>(); from_json(j["height"], *(p.height), "height"); }
+        else { p.height=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   ClosedLanes - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ClosedLanes_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    if (p.innerhardShoulderStatus != 0) json.AddMember("innerhardShoulderStatus", to_json(*(p.innerhardShoulderStatus), allocator), allocator);
+    if (p.outerhardShoulderStatus != 0) json.AddMember("outerhardShoulderStatus", to_json(*(p.outerhardShoulderStatus), allocator), allocator);
+    if (p.drivingLaneStatus != 0) json.AddMember("drivingLaneStatus", to_json_ETSI_ITS_CDD_DrivingLaneStatus(*(p.drivingLaneStatus), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_ClosedLanes_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        if (j.HasMember("innerhardShoulderStatus")) { p.innerhardShoulderStatus = vanetza::asn1::allocate<ETSI_ITS_CDD_HardShoulderStatus_t>(); from_json(j["innerhardShoulderStatus"], *(p.innerhardShoulderStatus), "innerhardShoulderStatus"); }
+        else { p.innerhardShoulderStatus=nullptr; }
+        if (j.HasMember("outerhardShoulderStatus")) { p.outerhardShoulderStatus = vanetza::asn1::allocate<ETSI_ITS_CDD_HardShoulderStatus_t>(); from_json(j["outerhardShoulderStatus"], *(p.outerhardShoulderStatus), "outerhardShoulderStatus"); }
+        else { p.outerhardShoulderStatus=nullptr; }
+        if (j.HasMember("drivingLaneStatus")) { p.drivingLaneStatus = vanetza::asn1::allocate<ETSI_ITS_CDD_DrivingLaneStatus_t>(); from_json_ETSI_ITS_CDD_DrivingLaneStatus(j["drivingLaneStatus"],*(p.drivingLaneStatus), "drivingLaneStatus"); }
+        else { p.drivingLaneStatus=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   ClusterBreakupInfo - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ClusterBreakupInfo_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("clusterBreakupReason", to_json((p.clusterBreakupReason), allocator), allocator);
+    json.AddMember("breakupTime", to_json((p.breakupTime), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_ClusterBreakupInfo_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["clusterBreakupReason"], (p.clusterBreakupReason), "clusterBreakupReason");
+        from_json(j["breakupTime"], (p.breakupTime), "breakupTime");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   ClusterJoinInfo - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ClusterJoinInfo_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("clusterId", to_json((p.clusterId), allocator), allocator);
+    json.AddMember("joinTime", to_json((p.joinTime), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_ClusterJoinInfo_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["clusterId"], (p.clusterId), "clusterId");
+        from_json(j["joinTime"], (p.joinTime), "joinTime");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   ClusterLeaveInfo - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ClusterLeaveInfo_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("clusterId", to_json((p.clusterId), allocator), allocator);
+    json.AddMember("clusterLeaveReason", to_json((p.clusterLeaveReason), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_ClusterLeaveInfo_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["clusterId"], (p.clusterId), "clusterId");
+        from_json(j["clusterLeaveReason"], (p.clusterLeaveReason), "clusterLeaveReason");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   CorrelationColumn - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const CorrelationColumn_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const CorrelationCellValue_t po = *(p.list.array[i]);
+        // Value obj = to_json(po, allocator);
+        json.PushBack(po, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, CorrelationColumn_t& p, std::string field) {
+    try {
+        CorrelationColumn_t* p_tmp = vanetza::asn1::allocate<CorrelationColumn_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            CorrelationCellValue_t *element = vanetza::asn1::allocate<CorrelationCellValue_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   Curvature - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_Curvature_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("curvatureValue", to_json((p.curvatureValue), allocator), allocator);
+    json.AddMember("curvatureConfidence", to_json((p.curvatureConfidence), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_Curvature_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["curvatureValue"], (p.curvatureValue), "curvatureValue");
+        from_json(j["curvatureConfidence"], (p.curvatureConfidence), "curvatureConfidence");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   DangerousGoodsExtended - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_DangerousGoodsExtended_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("dangerousGoodsType", to_json((p.dangerousGoodsType), allocator), allocator);
+    json.AddMember("unNumber", to_json((p.unNumber), allocator), allocator);
+    json.AddMember("elevatedTemperature", to_json((p.elevatedTemperature), allocator), allocator);
+    json.AddMember("tunnelsRestricted", to_json((p.tunnelsRestricted), allocator), allocator);
+    json.AddMember("limitedQuantity", to_json((p.limitedQuantity), allocator), allocator);
+    if (p.emergencyActionCode != 0) json.AddMember("emergencyActionCode", to_json(*(p.emergencyActionCode), allocator), allocator);
+    if (p.companyName != 0) json.AddMember("companyName", to_json(*(p.companyName), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_DangerousGoodsExtended_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["dangerousGoodsType"], (p.dangerousGoodsType), "dangerousGoodsType");
+        from_json(j["unNumber"], (p.unNumber), "unNumber");
+        from_json(j["elevatedTemperature"], (p.elevatedTemperature), "elevatedTemperature");
+        from_json(j["tunnelsRestricted"], (p.tunnelsRestricted), "tunnelsRestricted");
+        from_json(j["limitedQuantity"], (p.limitedQuantity), "limitedQuantity");
+        if (j.HasMember("emergencyActionCode")) { p.emergencyActionCode = vanetza::asn1::allocate<IA5String_t>(); from_json(j["emergencyActionCode"], *(p.emergencyActionCode), "emergencyActionCode"); }
+        else { p.emergencyActionCode=nullptr; }
+        if (j.HasMember("companyName")) { p.companyName = vanetza::asn1::allocate<UTF8String_t>(); from_json(j["companyName"], *(p.companyName), "companyName"); }
+        else { p.companyName=nullptr; }
+        p.phoneNumber=nullptr;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   DeltaReferencePosition - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_DeltaReferencePosition_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("deltaLatitude", to_json((p.deltaLatitude), allocator), allocator);
+    json.AddMember("deltaLongitude", to_json((p.deltaLongitude), allocator), allocator);
+    json.AddMember("deltaAltitude", to_json((p.deltaAltitude), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_DeltaReferencePosition_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["deltaLatitude"], (p.deltaLatitude), "deltaLatitude");
+        from_json(j["deltaLongitude"], (p.deltaLongitude), "deltaLongitude");
+        from_json(j["deltaAltitude"], (p.deltaAltitude), "deltaAltitude");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   EllipticalShape - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const EllipticalShape_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("semiMajorAxisLength", to_json((p.semiMajorAxisLength), allocator), allocator);
+    json.AddMember("semiMinorAxisLength", to_json((p.semiMinorAxisLength), allocator), allocator);
+    if (p.shapeReferencePoint != 0) json.AddMember("shapeReferencePoint", to_json(*(p.shapeReferencePoint), allocator), allocator);
+    if (p.orientation != 0) json.AddMember("orientation", to_json((*(p.orientation) != 3601) ? (double) *(p.orientation) / 10.0 : *(p.orientation), allocator), allocator);
+    if (p.height != 0) json.AddMember("height", to_json(*(p.height), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, EllipticalShape_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        if (j.HasMember("shapeReferencePoint")) { p.shapeReferencePoint = vanetza::asn1::allocate<CartesianPosition3d_t>(); from_json(j["shapeReferencePoint"], *(p.shapeReferencePoint), "shapeReferencePoint"); }
+        else { p.shapeReferencePoint=nullptr; }
+        from_json(j["semiMajorAxisLength"], (p.semiMajorAxisLength), "semiMajorAxisLength");
+        from_json(j["semiMinorAxisLength"], (p.semiMinorAxisLength), "semiMinorAxisLength");
+        double orientation; if (j.HasMember("orientation")) { p.orientation = vanetza::asn1::allocate<CartesianAngleValue_t>(); from_json(j["orientation"], (orientation), "orientation"); *(p.orientation) = ((orientation) != 3601) ? orientation * 10 : orientation; }
+        else { p.orientation=nullptr; }
+        if (j.HasMember("height")) { p.height = vanetza::asn1::allocate<StandardLength12b_t>(); from_json(j["height"], *(p.height), "height"); }
+        else { p.height=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   EulerAnglesWithConfidence - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const EulerAnglesWithConfidence_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("zAngle", to_json((p.zAngle), allocator), allocator);
+    if (p.yAngle != 0) json.AddMember("yAngle", to_json(*(p.yAngle), allocator), allocator);
+    if (p.xAngle != 0) json.AddMember("xAngle", to_json(*(p.xAngle), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, EulerAnglesWithConfidence_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["zAngle"], (p.zAngle), "zAngle");
+        if (j.HasMember("yAngle")) { p.yAngle = vanetza::asn1::allocate<CartesianAngle_t>(); from_json(j["yAngle"], *(p.yAngle), "yAngle"); }
+        else { p.yAngle=nullptr; }
+        if (j.HasMember("xAngle")) { p.xAngle = vanetza::asn1::allocate<CartesianAngle_t>(); from_json(j["xAngle"], *(p.xAngle), "xAngle"); }
+        else { p.xAngle=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   EuVehicleCategoryCode - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_EuVehicleCategoryCode_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryL) {
+        json.AddMember("euVehicleCategoryL", to_json(p.choice.euVehicleCategoryL, allocator), allocator);
+    } else if (p.present == ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryM) {
+        json.AddMember("euVehicleCategoryM", to_json(p.choice.euVehicleCategoryM, allocator), allocator);
+    } else if (p.present == ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryN) {
+        json.AddMember("euVehicleCategoryN", to_json(p.choice.euVehicleCategoryN, allocator), allocator);
+    } else if (p.present == ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryO) {
+        json.AddMember("euVehicleCategoryO", to_json(p.choice.euVehicleCategoryO, allocator), allocator);
+    } else if (p.present == ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryT) {
+        json.AddMember("euVehicleCategoryT", to_json(p.choice.euVehicleCategoryT, allocator), allocator);
+    } else if (p.present == ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryG) {
+        json.AddMember("euVehicleCategoryG", to_json(p.choice.euVehicleCategoryG, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_EuVehicleCategoryCode_t& p, std::string field) {
+    try {
+        if (j.HasMember("euVehicleCategoryL")) {
+        p.present = ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryL;
+            from_json(j["euVehicleCategoryL"], p.choice.euVehicleCategoryL, "euVehicleCategoryL");
+        } else if (j.HasMember("euVehicleCategoryM")) {
+        p.present = ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryM;
+            from_json(j["euVehicleCategoryM"], p.choice.euVehicleCategoryM, "euVehicleCategoryM");
+        } else if (j.HasMember("euVehicleCategoryN")) {
+        p.present = ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryN;
+            from_json(j["euVehicleCategoryN"], p.choice.euVehicleCategoryN, "euVehicleCategoryN");
+        } else if (j.HasMember("euVehicleCategoryO")) {
+        p.present = ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryO;
+            from_json(j["euVehicleCategoryO"], p.choice.euVehicleCategoryO, "euVehicleCategoryO");
+        } else if (j.HasMember("euVehicleCategoryT")) {
+        p.present = ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryT;
+            from_json(j["euVehicleCategoryT"], p.choice.euVehicleCategoryT, "euVehicleCategoryT");
+        } else if (j.HasMember("euVehicleCategoryG")) {
+        p.present = ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryG;
+            from_json(j["euVehicleCategoryG"], p.choice.euVehicleCategoryG, "euVehicleCategoryG");
+        } else {
+        p.present = ETSI_ITS_CDD_EuVehicleCategoryCode_PR_NOTHING;
+        }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   EventPoint - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_EventPoint_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("eventPosition", to_json((p.eventPosition), allocator), allocator);
+    json.AddMember("informationQuality", to_json((p.informationQuality), allocator), allocator);
+    if (p.eventDeltaTime != 0) json.AddMember("eventDeltaTime", to_json(*(p.eventDeltaTime), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_EventPoint_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["eventPosition"], (p.eventPosition), "eventPosition");
+        if (j.HasMember("eventDeltaTime")) { p.eventDeltaTime = vanetza::asn1::allocate<ETSI_ITS_CDD_PathDeltaTime_t>(); from_json(j["eventDeltaTime"], *(p.eventDeltaTime), "eventDeltaTime"); }
+        else { p.eventDeltaTime=nullptr; }
+        from_json(j["informationQuality"], (p.informationQuality), "informationQuality");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   GeoPosition - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const GeoPosition_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("latitude", to_json(((p.latitude) == 900000001) ? (p.latitude) : (double)(p.latitude) / 10000000.0, allocator), allocator);
+    json.AddMember("longitude", to_json(((p.longitude) == 1800000001) ? (p.longitude) : (double)(p.longitude) / 10000000.0, allocator), allocator);
+    if (p.altitude != 0) json.AddMember("altitude", to_json((*(p.altitude) != 800001) ? (double) *(p.altitude) / 100.0 : *(p.altitude), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, GeoPosition_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        double latitude; from_json(j["latitude"], (latitude), "latitude"); (p.latitude) = ((latitude) != 900000001) ? latitude * 10000000 : latitude;
+        double longitude; from_json(j["longitude"], (longitude), "longitude"); (p.longitude) = ((longitude) != 1800000001) ? longitude * 10000000 : longitude;
+        double altitude; if (j.HasMember("altitude")) { p.altitude = vanetza::asn1::allocate<ETSI_ITS_CDD_AltitudeValue_t>(); from_json(j["altitude"], (altitude), "altitude"); *(p.altitude) = ((altitude) != 800001) ? altitude * 100 : altitude; }
+        else { p.altitude=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   Heading - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_Heading_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("headingValue", to_json(((p.headingValue) == 3601) ? (p.headingValue) : (double)(p.headingValue) / 10.0, allocator), allocator);
+    json.AddMember("headingConfidence", to_json(((p.headingConfidence) == 126 || (p.headingConfidence) == 127) ? (p.headingConfidence) : (double)(p.headingConfidence) / 10.0, allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_Heading_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        double headingValue; from_json(j["headingValue"], (headingValue), "headingValue"); (p.headingValue) = ((headingValue) != 3601) ? headingValue * 10 : headingValue;
+        double headingConfidence; from_json(j["headingConfidence"], (headingConfidence), "headingConfidence"); (p.headingConfidence) = ((headingConfidence) != 126 && (headingConfidence) != 127) ? headingConfidence * 10 : headingConfidence;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   HeadingChangeIndication - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_HeadingChangeIndication_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("direction", to_json((p.direction), allocator), allocator);
+    json.AddMember("actionDeltaTime", to_json((p.actionDeltaTime), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_HeadingChangeIndication_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["direction"], (p.direction), "direction");
+        from_json(j["actionDeltaTime"], (p.actionDeltaTime), "actionDeltaTime");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   InterferenceManagementChannel - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_InterferenceManagementChannel_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("centreFrequency", to_json((p.centreFrequency), allocator), allocator);
+    json.AddMember("channelWidth", to_json((p.channelWidth), allocator), allocator);
+    json.AddMember("exponent", to_json((p.exponent), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_InterferenceManagementChannel_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["centreFrequency"], (p.centreFrequency), "centreFrequency");
+        from_json(j["channelWidth"], (p.channelWidth), "channelWidth");
+        from_json(j["exponent"], (p.exponent), "exponent");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   IntersectionReferenceId - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const IntersectionReferenceId_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("id", to_json((p.id), allocator), allocator);
+    if (p.region != 0) json.AddMember("region", to_json(*(p.region), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, IntersectionReferenceId_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        if (j.HasMember("region")) { p.region = vanetza::asn1::allocate<Identifier2B_t>(); from_json(j["region"], *(p.region), "region"); }
+        else { p.region=nullptr; }
+        from_json(j["id"], (p.id), "id");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   ItsPduHeader - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ItsPduHeader_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("protocolVersion", to_json((p.protocolVersion), allocator), allocator);
+    json.AddMember("messageId", to_json((p.messageId), allocator), allocator);
+    json.AddMember("stationId", to_json((p.stationId), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_ItsPduHeader_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["protocolVersion"], (p.protocolVersion), "protocolVersion");
+        from_json(j["messageId"], (p.messageId), "messageId");
+        from_json(j["stationId"], (p.stationId), "stationId");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   LanePositionAndType - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const LanePositionAndType_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("transversalPosition", to_json((p.transversalPosition), allocator), allocator);
+    json.AddMember("laneType", to_json((p.laneType), allocator), allocator);
+    json.AddMember("direction", to_json((p.direction), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, LanePositionAndType_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["transversalPosition"], (p.transversalPosition), "transversalPosition");
+        from_json(j["laneType"], (p.laneType), "laneType");
+        from_json(j["direction"], (p.direction), "direction");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   LanePositionWithLateralDetails - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const LanePositionWithLateralDetails_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("transversalPosition", to_json((p.transversalPosition), allocator), allocator);
+    json.AddMember("laneType", to_json((p.laneType), allocator), allocator);
+    json.AddMember("direction", to_json((p.direction), allocator), allocator);
+    json.AddMember("distanceToLeftBorder", to_json((p.distanceToLeftBorder), allocator), allocator);
+    json.AddMember("distanceToRightBorder", to_json((p.distanceToRightBorder), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, LanePositionWithLateralDetails_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["transversalPosition"], (p.transversalPosition), "transversalPosition");
+        from_json(j["laneType"], (p.laneType), "laneType");
+        from_json(j["direction"], (p.direction), "direction");
+        from_json(j["distanceToLeftBorder"], (p.distanceToLeftBorder), "distanceToLeftBorder");
+        from_json(j["distanceToRightBorder"], (p.distanceToRightBorder), "distanceToRightBorder");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   LateralAcceleration - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_LateralAcceleration_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("lateralAccelerationValue", to_json(((p.lateralAccelerationValue) == 161) ? (p.lateralAccelerationValue) : (double)(p.lateralAccelerationValue) / 10.0, allocator), allocator);
+    json.AddMember("lateralAccelerationConfidence", to_json(((p.lateralAccelerationConfidence) == 102) ? (p.lateralAccelerationConfidence) : (double)(p.lateralAccelerationConfidence) / 10.0, allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_LateralAcceleration_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        double lateralAccelerationValue; from_json(j["lateralAccelerationValue"], (lateralAccelerationValue), "lateralAccelerationValue"); (p.lateralAccelerationValue) = ((lateralAccelerationValue) != 161) ? lateralAccelerationValue * 10 : lateralAccelerationValue;
+        double lateralAccelerationConfidence; from_json(j["lateralAccelerationConfidence"], (lateralAccelerationConfidence), "lateralAccelerationConfidence"); (p.lateralAccelerationConfidence) = ((lateralAccelerationConfidence) != 102) ? lateralAccelerationConfidence * 10 : lateralAccelerationConfidence;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   LongitudinalAcceleration - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_LongitudinalAcceleration_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("longitudinalAccelerationValue", to_json(((p.longitudinalAccelerationValue) == 161) ? (p.longitudinalAccelerationValue) : (double)(p.longitudinalAccelerationValue) / 10.0, allocator), allocator);
+    json.AddMember("longitudinalAccelerationConfidence", to_json(((p.longitudinalAccelerationConfidence) == 102) ? (p.longitudinalAccelerationConfidence) : (double)(p.longitudinalAccelerationConfidence) / 10.0, allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_LongitudinalAcceleration_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        double longitudinalAccelerationValue; from_json(j["longitudinalAccelerationValue"], (longitudinalAccelerationValue), "longitudinalAccelerationValue"); (p.longitudinalAccelerationValue) = ((longitudinalAccelerationValue) != 161) ? longitudinalAccelerationValue * 10 : longitudinalAccelerationValue;
+        double longitudinalAccelerationConfidence; from_json(j["longitudinalAccelerationConfidence"], (longitudinalAccelerationConfidence), "longitudinalAccelerationConfidence"); (p.longitudinalAccelerationConfidence) = ((longitudinalAccelerationConfidence) != 102) ? longitudinalAccelerationConfidence * 10 : longitudinalAccelerationConfidence;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   LongitudinalLanePosition - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const LongitudinalLanePosition_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("longitudinalLanePositionValue", to_json((p.longitudinalLanePositionValue), allocator), allocator);
+    json.AddMember("longitudinalLanePositionConfidence", to_json((p.longitudinalLanePositionConfidence), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, LongitudinalLanePosition_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["longitudinalLanePositionValue"], (p.longitudinalLanePositionValue), "longitudinalLanePositionValue");
+        from_json(j["longitudinalLanePositionConfidence"], (p.longitudinalLanePositionConfidence), "longitudinalLanePositionConfidence");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   LowerTriangularPositiveSemidefiniteMatrixColumns - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const LowerTriangularPositiveSemidefiniteMatrixColumns_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const CorrelationColumn_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, LowerTriangularPositiveSemidefiniteMatrixColumns_t& p, std::string field) {
+    try {
+        LowerTriangularPositiveSemidefiniteMatrixColumns_t* p_tmp = vanetza::asn1::allocate<LowerTriangularPositiveSemidefiniteMatrixColumns_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            CorrelationColumn_t *element = vanetza::asn1::allocate<CorrelationColumn_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   MapemLaneList - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const MapemLaneList_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const Identifier1B_t po = *(p.list.array[i]);
+        // Value obj = to_json(po, allocator);
+        json.PushBack(po, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, MapemLaneList_t& p, std::string field) {
+    try {
+        MapemLaneList_t* p_tmp = vanetza::asn1::allocate<MapemLaneList_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            Identifier1B_t *element = vanetza::asn1::allocate<Identifier1B_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   MapemConnectionList - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const MapemConnectionList_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const Identifier1B_t po = *(p.list.array[i]);
+        // Value obj = to_json(po, allocator);
+        json.PushBack(po, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, MapemConnectionList_t& p, std::string field) {
+    try {
+        MapemConnectionList_t* p_tmp = vanetza::asn1::allocate<MapemConnectionList_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            Identifier1B_t *element = vanetza::asn1::allocate<Identifier1B_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   MessageRateHz - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const MessageRateHz_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("mantissa", to_json((p.mantissa), allocator), allocator);
+    json.AddMember("exponent", to_json((p.exponent), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, MessageRateHz_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["mantissa"], (p.mantissa), "mantissa");
+        from_json(j["exponent"], (p.exponent), "exponent");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   MessageSegmentationInfo - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const MessageSegmentationInfo_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("totalMsgNo", to_json((p.totalMsgNo), allocator), allocator);
+    json.AddMember("thisMsgNo", to_json((p.thisMsgNo), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, MessageSegmentationInfo_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["totalMsgNo"], (p.totalMsgNo), "totalMsgNo");
+        from_json(j["thisMsgNo"], (p.thisMsgNo), "thisMsgNo");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   MetaInformation - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const MetaInformation_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("usedDetectionInformation", to_json_SensorTypes((p.usedDetectionInformation), allocator), allocator);
+    json.AddMember("usedStoredInformation", to_json_StoredInformationType((p.usedStoredInformation), allocator), allocator);
+    if (p.confidenceValue != 0) json.AddMember("confidenceValue", to_json(*(p.confidenceValue), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, MetaInformation_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json_SensorTypes(j["usedDetectionInformation"],(p.usedDetectionInformation), "usedDetectionInformation");
+        from_json_StoredInformationType(j["usedStoredInformation"],(p.usedStoredInformation), "usedStoredInformation");
+        if (j.HasMember("confidenceValue")) { p.confidenceValue = vanetza::asn1::allocate<ConfidenceLevel_t>(); from_json(j["confidenceValue"], *(p.confidenceValue), "confidenceValue"); }
+        else { p.confidenceValue=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   MitigationPerTechnologyClass - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_MitigationPerTechnologyClass_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("accessTechnologyClass", to_json((p.accessTechnologyClass), allocator), allocator);
+    if (p.lowDutyCycle != 0) json.AddMember("lowDutyCycle", to_json(*(p.lowDutyCycle), allocator), allocator);
+    if (p.powerReduction != 0) json.AddMember("powerReduction", to_json(*(p.powerReduction), allocator), allocator);
+    if (p.dmcToffLimit != 0) json.AddMember("dmcToffLimit", to_json(*(p.dmcToffLimit), allocator), allocator);
+    if (p.dmcTonLimit != 0) json.AddMember("dmcTonLimit", to_json(*(p.dmcTonLimit), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_MitigationPerTechnologyClass_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["accessTechnologyClass"], (p.accessTechnologyClass), "accessTechnologyClass");
+        if (j.HasMember("lowDutyCycle")) { p.lowDutyCycle = vanetza::asn1::allocate<long>(); from_json(j["lowDutyCycle"], *(p.lowDutyCycle), "lowDutyCycle"); }
+        else { p.lowDutyCycle=nullptr; }
+        if (j.HasMember("powerReduction")) { p.powerReduction = vanetza::asn1::allocate<long>(); from_json(j["powerReduction"], *(p.powerReduction), "powerReduction"); }
+        else { p.powerReduction=nullptr; }
+        if (j.HasMember("dmcToffLimit")) { p.dmcToffLimit = vanetza::asn1::allocate<long>(); from_json(j["dmcToffLimit"], *(p.dmcToffLimit), "dmcToffLimit"); }
+        else { p.dmcToffLimit=nullptr; }
+        if (j.HasMember("dmcTonLimit")) { p.dmcTonLimit = vanetza::asn1::allocate<long>(); from_json(j["dmcTonLimit"], *(p.dmcTonLimit), "dmcTonLimit"); }
+        else { p.dmcTonLimit=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   ObjectDimension - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ObjectDimension_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("value", to_json((double)(p.value) / 10.0, allocator), allocator);
+    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ObjectDimension_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        double value; from_json(j["value"], (value), "value"); (p.value) =value * 10;
+        from_json(j["confidence"], (p.confidence), "confidence");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   PathDeltaTimeChoice - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const PathDeltaTimeChoice_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == PathDeltaTimeChoice_PR_deltaTimeHighPrecision) {
+        json.AddMember("deltaTimeHighPrecision", to_json(p.choice.deltaTimeHighPrecision, allocator), allocator);
+    } else if (p.present == PathDeltaTimeChoice_PR_deltaTimeBigRange) {
+        json.AddMember("deltaTimeBigRange", to_json(p.choice.deltaTimeBigRange, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, PathDeltaTimeChoice_t& p, std::string field) {
+    try {
+        if (j.HasMember("deltaTimeHighPrecision")) {
+        p.present = PathDeltaTimeChoice_PR_deltaTimeHighPrecision;
+            from_json(j["deltaTimeHighPrecision"], p.choice.deltaTimeHighPrecision, "deltaTimeHighPrecision");
+        } else if (j.HasMember("deltaTimeBigRange")) {
+        p.present = PathDeltaTimeChoice_PR_deltaTimeBigRange;
+            from_json(j["deltaTimeBigRange"], p.choice.deltaTimeBigRange, "deltaTimeBigRange");
+        } else {
+        p.present = PathDeltaTimeChoice_PR_NOTHING;
+        }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   PathPoint - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_PathPoint_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("pathPosition", to_json((p.pathPosition), allocator), allocator);
+    if (p.pathDeltaTime != 0) json.AddMember("pathDeltaTime", to_json(*(p.pathDeltaTime), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_PathPoint_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["pathPosition"], (p.pathPosition), "pathPosition");
+        if (j.HasMember("pathDeltaTime")) { p.pathDeltaTime = vanetza::asn1::allocate<ETSI_ITS_CDD_PathDeltaTime_t>(); from_json(j["pathDeltaTime"], *(p.pathDeltaTime), "pathDeltaTime"); }
+        else { p.pathDeltaTime=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   PathReferences - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const PathReferences_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const PathId_t po = *(p.list.array[i]);
+        // Value obj = to_json(po, allocator);
+        json.PushBack(po, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, PathReferences_t& p, std::string field) {
+    try {
+        PathReferences_t* p_tmp = vanetza::asn1::allocate<PathReferences_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            PathId_t *element = vanetza::asn1::allocate<PathId_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   PosConfidenceEllipse - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_PosConfidenceEllipse_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("semiMajorConfidence", to_json((p.semiMajorConfidence), allocator), allocator);
+    json.AddMember("semiMinorConfidence", to_json((p.semiMinorConfidence), allocator), allocator);
+    json.AddMember("semiMajorOrientation", to_json(((p.semiMajorOrientation) == 3601) ? (p.semiMajorOrientation) : (double)(p.semiMajorOrientation) / 10.0, allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_PosConfidenceEllipse_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["semiMajorConfidence"], (p.semiMajorConfidence), "semiMajorConfidence");
+        from_json(j["semiMinorConfidence"], (p.semiMinorConfidence), "semiMinorConfidence");
+        double semiMajorOrientation; from_json(j["semiMajorOrientation"], (semiMajorOrientation), "semiMajorOrientation"); (p.semiMajorOrientation) = ((semiMajorOrientation) != 3601) ? semiMajorOrientation * 10 : semiMajorOrientation;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   PositionConfidenceEllipse - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_PositionConfidenceEllipse_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("semiMajorAxisLength", to_json((p.semiMajorAxisLength), allocator), allocator);
+    json.AddMember("semiMinorAxisLength", to_json((p.semiMinorAxisLength), allocator), allocator);
+    json.AddMember("semiMajorAxisOrientation", to_json((p.semiMajorAxisOrientation), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_PositionConfidenceEllipse_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["semiMajorAxisLength"], (p.semiMajorAxisLength), "semiMajorAxisLength");
+        from_json(j["semiMinorAxisLength"], (p.semiMinorAxisLength), "semiMinorAxisLength");
+        from_json(j["semiMajorAxisOrientation"], (p.semiMajorAxisOrientation), "semiMajorAxisOrientation");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   PositionOfPillars - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_PositionOfPillars_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const ETSI_ITS_CDD_PosPillar_t po = *(p.list.array[i]);
+        // Value obj = to_json(po, allocator);
+        json.PushBack(po, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_PositionOfPillars_t& p, std::string field) {
+    try {
+        ETSI_ITS_CDD_PositionOfPillars_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_PositionOfPillars_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            ETSI_ITS_CDD_PosPillar_t *element = vanetza::asn1::allocate<ETSI_ITS_CDD_PosPillar_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   ProtectedCommunicationZone - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ProtectedCommunicationZone_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("protectedZoneType", to_json((p.protectedZoneType), allocator), allocator);
+    json.AddMember("protectedZoneLatitude", to_json(((p.protectedZoneLatitude) == 900000001) ? (p.protectedZoneLatitude) : (double)(p.protectedZoneLatitude) / 10000000.0, allocator), allocator);
+    json.AddMember("protectedZoneLongitude", to_json(((p.protectedZoneLongitude) == 1800000001) ? (p.protectedZoneLongitude) : (double)(p.protectedZoneLongitude) / 10000000.0, allocator), allocator);
+    if (p.protectedZoneRadius != 0) json.AddMember("protectedZoneRadius", to_json(*(p.protectedZoneRadius), allocator), allocator);
+    if (p.protectedZoneId != 0) json.AddMember("protectedZoneId", to_json(*(p.protectedZoneId), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_ProtectedCommunicationZone_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["protectedZoneType"], (p.protectedZoneType), "protectedZoneType");
+        double protectedZoneLatitude; from_json(j["protectedZoneLatitude"], (protectedZoneLatitude), "protectedZoneLatitude"); (p.protectedZoneLatitude) = ((protectedZoneLatitude) != 900000001) ? protectedZoneLatitude * 10000000 : protectedZoneLatitude;
+        double protectedZoneLongitude; from_json(j["protectedZoneLongitude"], (protectedZoneLongitude), "protectedZoneLongitude"); (p.protectedZoneLongitude) = ((protectedZoneLongitude) != 1800000001) ? protectedZoneLongitude * 10000000 : protectedZoneLongitude;
+        if (j.HasMember("protectedZoneRadius")) { p.protectedZoneRadius = vanetza::asn1::allocate<ETSI_ITS_CDD_ProtectedZoneRadius_t>(); from_json(j["protectedZoneRadius"], *(p.protectedZoneRadius), "protectedZoneRadius"); }
+        else { p.protectedZoneRadius=nullptr; }
+        if (j.HasMember("protectedZoneId")) { p.protectedZoneId = vanetza::asn1::allocate<ProtectedZoneId_t>(); from_json(j["protectedZoneId"], *(p.protectedZoneId), "protectedZoneId"); }
+        else { p.protectedZoneId=nullptr; }
+        p.expiryTime=nullptr;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   ProtectedCommunicationZonesRSU - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ProtectedCommunicationZonesRSU_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const ETSI_ITS_CDD_ProtectedCommunicationZone_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_ProtectedCommunicationZonesRSU_t& p, std::string field) {
+    try {
+        ETSI_ITS_CDD_ProtectedCommunicationZonesRSU_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_ProtectedCommunicationZonesRSU_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            ETSI_ITS_CDD_ProtectedCommunicationZone_t *element = vanetza::asn1::allocate<ETSI_ITS_CDD_ProtectedCommunicationZone_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   Provider - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_Provider_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("countryCode", to_json_AVIAEINumberingAndDataStructures_CountryCode((p.countryCode), allocator), allocator);
+    json.AddMember("providerIdentifier", to_json((p.providerIdentifier), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_Provider_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json_AVIAEINumberingAndDataStructures_CountryCode(j["countryCode"],(p.countryCode), "countryCode");
+        from_json(j["providerIdentifier"], (p.providerIdentifier), "providerIdentifier");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   PtActivation - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_PtActivation_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("ptActivationType", to_json((p.ptActivationType), allocator), allocator);
+    json.AddMember("ptActivationData", to_json((p.ptActivationData), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_PtActivation_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["ptActivationType"], (p.ptActivationType), "ptActivationType");
+        from_json(j["ptActivationData"], (p.ptActivationData), "ptActivationData");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   RadialShape - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const RadialShape_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("range", to_json((p.range), allocator), allocator);
+    json.AddMember("horizontalOpeningAngleStart", to_json(((p.horizontalOpeningAngleStart) == 3601) ? (p.horizontalOpeningAngleStart) : (double)(p.horizontalOpeningAngleStart) / 10.0, allocator), allocator);
+    json.AddMember("horizontalOpeningAngleEnd", to_json(((p.horizontalOpeningAngleEnd) == 3601) ? (p.horizontalOpeningAngleEnd) : (double)(p.horizontalOpeningAngleEnd) / 10.0, allocator), allocator);
+    if (p.shapeReferencePoint != 0) json.AddMember("shapeReferencePoint", to_json(*(p.shapeReferencePoint), allocator), allocator);
+    if (p.verticalOpeningAngleStart != 0) json.AddMember("verticalOpeningAngleStart", to_json((*(p.verticalOpeningAngleStart) != 3601) ? (double) *(p.verticalOpeningAngleStart) / 10.0 : *(p.verticalOpeningAngleStart), allocator), allocator);
+    if (p.verticalOpeningAngleEnd != 0) json.AddMember("verticalOpeningAngleEnd", to_json((*(p.verticalOpeningAngleEnd) != 3601) ? (double) *(p.verticalOpeningAngleEnd) / 10.0 : *(p.verticalOpeningAngleEnd), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, RadialShape_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        if (j.HasMember("shapeReferencePoint")) { p.shapeReferencePoint = vanetza::asn1::allocate<CartesianPosition3d_t>(); from_json(j["shapeReferencePoint"], *(p.shapeReferencePoint), "shapeReferencePoint"); }
+        else { p.shapeReferencePoint=nullptr; }
+        from_json(j["range"], (p.range), "range");
+        double horizontalOpeningAngleStart; from_json(j["horizontalOpeningAngleStart"], (horizontalOpeningAngleStart), "horizontalOpeningAngleStart"); (p.horizontalOpeningAngleStart) = ((horizontalOpeningAngleStart) != 3601) ? horizontalOpeningAngleStart * 10 : horizontalOpeningAngleStart;
+        double horizontalOpeningAngleEnd; from_json(j["horizontalOpeningAngleEnd"], (horizontalOpeningAngleEnd), "horizontalOpeningAngleEnd"); (p.horizontalOpeningAngleEnd) = ((horizontalOpeningAngleEnd) != 3601) ? horizontalOpeningAngleEnd * 10 : horizontalOpeningAngleEnd;
+        double verticalOpeningAngleStart; if (j.HasMember("verticalOpeningAngleStart")) { p.verticalOpeningAngleStart = vanetza::asn1::allocate<CartesianAngleValue_t>(); from_json(j["verticalOpeningAngleStart"], (verticalOpeningAngleStart), "verticalOpeningAngleStart"); *(p.verticalOpeningAngleStart) = ((verticalOpeningAngleStart) != 3601) ? verticalOpeningAngleStart * 10 : verticalOpeningAngleStart; }
+        else { p.verticalOpeningAngleStart=nullptr; }
+        double verticalOpeningAngleEnd; if (j.HasMember("verticalOpeningAngleEnd")) { p.verticalOpeningAngleEnd = vanetza::asn1::allocate<CartesianAngleValue_t>(); from_json(j["verticalOpeningAngleEnd"], (verticalOpeningAngleEnd), "verticalOpeningAngleEnd"); *(p.verticalOpeningAngleEnd) = ((verticalOpeningAngleEnd) != 3601) ? verticalOpeningAngleEnd * 10 : verticalOpeningAngleEnd; }
+        else { p.verticalOpeningAngleEnd=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   RadialShapeDetails - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const RadialShapeDetails_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("range", to_json((p.range), allocator), allocator);
+    json.AddMember("horizontalOpeningAngleStart", to_json(((p.horizontalOpeningAngleStart) == 3601) ? (p.horizontalOpeningAngleStart) : (double)(p.horizontalOpeningAngleStart) / 10.0, allocator), allocator);
+    json.AddMember("horizontalOpeningAngleEnd", to_json(((p.horizontalOpeningAngleEnd) == 3601) ? (p.horizontalOpeningAngleEnd) : (double)(p.horizontalOpeningAngleEnd) / 10.0, allocator), allocator);
+    if (p.verticalOpeningAngleStart != 0) json.AddMember("verticalOpeningAngleStart", to_json((*(p.verticalOpeningAngleStart) != 3601) ? (double) *(p.verticalOpeningAngleStart) / 10.0 : *(p.verticalOpeningAngleStart), allocator), allocator);
+    if (p.verticalOpeningAngleEnd != 0) json.AddMember("verticalOpeningAngleEnd", to_json((*(p.verticalOpeningAngleEnd) != 3601) ? (double) *(p.verticalOpeningAngleEnd) / 10.0 : *(p.verticalOpeningAngleEnd), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, RadialShapeDetails_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["range"], (p.range), "range");
+        double horizontalOpeningAngleStart; from_json(j["horizontalOpeningAngleStart"], (horizontalOpeningAngleStart), "horizontalOpeningAngleStart"); (p.horizontalOpeningAngleStart) = ((horizontalOpeningAngleStart) != 3601) ? horizontalOpeningAngleStart * 10 : horizontalOpeningAngleStart;
+        double horizontalOpeningAngleEnd; from_json(j["horizontalOpeningAngleEnd"], (horizontalOpeningAngleEnd), "horizontalOpeningAngleEnd"); (p.horizontalOpeningAngleEnd) = ((horizontalOpeningAngleEnd) != 3601) ? horizontalOpeningAngleEnd * 10 : horizontalOpeningAngleEnd;
+        double verticalOpeningAngleStart; if (j.HasMember("verticalOpeningAngleStart")) { p.verticalOpeningAngleStart = vanetza::asn1::allocate<CartesianAngleValue_t>(); from_json(j["verticalOpeningAngleStart"], (verticalOpeningAngleStart), "verticalOpeningAngleStart"); *(p.verticalOpeningAngleStart) = ((verticalOpeningAngleStart) != 3601) ? verticalOpeningAngleStart * 10 : verticalOpeningAngleStart; }
+        else { p.verticalOpeningAngleStart=nullptr; }
+        double verticalOpeningAngleEnd; if (j.HasMember("verticalOpeningAngleEnd")) { p.verticalOpeningAngleEnd = vanetza::asn1::allocate<CartesianAngleValue_t>(); from_json(j["verticalOpeningAngleEnd"], (verticalOpeningAngleEnd), "verticalOpeningAngleEnd"); *(p.verticalOpeningAngleEnd) = ((verticalOpeningAngleEnd) != 3601) ? verticalOpeningAngleEnd * 10 : verticalOpeningAngleEnd; }
+        else { p.verticalOpeningAngleEnd=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   RectangularShape - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const RectangularShape_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("semiLength", to_json((p.semiLength), allocator), allocator);
+    json.AddMember("semiBreadth", to_json((p.semiBreadth), allocator), allocator);
+    if (p.shapeReferencePoint != 0) json.AddMember("shapeReferencePoint", to_json(*(p.shapeReferencePoint), allocator), allocator);
+    if (p.orientation != 0) json.AddMember("orientation", to_json((*(p.orientation) != 3601) ? (double) *(p.orientation) / 10.0 : *(p.orientation), allocator), allocator);
+    if (p.height != 0) json.AddMember("height", to_json(*(p.height), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, RectangularShape_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        if (j.HasMember("shapeReferencePoint")) { p.shapeReferencePoint = vanetza::asn1::allocate<CartesianPosition3d_t>(); from_json(j["shapeReferencePoint"], *(p.shapeReferencePoint), "shapeReferencePoint"); }
+        else { p.shapeReferencePoint=nullptr; }
+        from_json(j["semiLength"], (p.semiLength), "semiLength");
+        from_json(j["semiBreadth"], (p.semiBreadth), "semiBreadth");
+        double orientation; if (j.HasMember("orientation")) { p.orientation = vanetza::asn1::allocate<CartesianAngleValue_t>(); from_json(j["orientation"], (orientation), "orientation"); *(p.orientation) = ((orientation) != 3601) ? orientation * 10 : orientation; }
+        else { p.orientation=nullptr; }
+        if (j.HasMember("height")) { p.height = vanetza::asn1::allocate<StandardLength12b_t>(); from_json(j["height"], *(p.height), "height"); }
+        else { p.height=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   ReferencePosition - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ReferencePosition_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("latitude", to_json(((p.latitude) == 900000001) ? (p.latitude) : (double)(p.latitude) / 10000000.0, allocator), allocator);
+    json.AddMember("longitude", to_json(((p.longitude) == 1800000001) ? (p.longitude) : (double)(p.longitude) / 10000000.0, allocator), allocator);
+    json.AddMember("positionConfidenceEllipse", to_json((p.positionConfidenceEllipse), allocator), allocator);
+    json.AddMember("altitude", to_json((p.altitude), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_ReferencePosition_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        double latitude; from_json(j["latitude"], (latitude), "latitude"); (p.latitude) = ((latitude) != 900000001) ? latitude * 10000000 : latitude;
+        double longitude; from_json(j["longitude"], (longitude), "longitude"); (p.longitude) = ((longitude) != 1800000001) ? longitude * 10000000 : longitude;
+        from_json(j["positionConfidenceEllipse"], (p.positionConfidenceEllipse), "positionConfidenceEllipse");
+        from_json(j["altitude"], (p.altitude), "altitude");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   ReferencePositionWithConfidence - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ReferencePositionWithConfidence_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("latitude", to_json(((p.latitude) == 900000001) ? (p.latitude) : (double)(p.latitude) / 10000000.0, allocator), allocator);
+    json.AddMember("longitude", to_json(((p.longitude) == 1800000001) ? (p.longitude) : (double)(p.longitude) / 10000000.0, allocator), allocator);
+    json.AddMember("positionConfidenceEllipse", to_json((p.positionConfidenceEllipse), allocator), allocator);
+    json.AddMember("altitude", to_json((p.altitude), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_ReferencePositionWithConfidence_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        double latitude; from_json(j["latitude"], (latitude), "latitude"); (p.latitude) = ((latitude) != 900000001) ? latitude * 10000000 : latitude;
+        double longitude; from_json(j["longitude"], (longitude), "longitude"); (p.longitude) = ((longitude) != 1800000001) ? longitude * 10000000 : longitude;
+        from_json(j["positionConfidenceEllipse"], (p.positionConfidenceEllipse), "positionConfidenceEllipse");
+        from_json(j["altitude"], (p.altitude), "altitude");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   RestrictedTypes - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_RestrictedTypes_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const ETSI_ITS_CDD_StationType_t po = *(p.list.array[i]);
+        // Value obj = to_json(po, allocator);
+        json.PushBack(po, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_RestrictedTypes_t& p, std::string field) {
+    try {
+        ETSI_ITS_CDD_RestrictedTypes_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_RestrictedTypes_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            ETSI_ITS_CDD_StationType_t *element = vanetza::asn1::allocate<ETSI_ITS_CDD_StationType_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   RoadSectionDefinition - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const RoadSectionDefinition_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("startingPointSection", to_json((p.startingPointSection), allocator), allocator);
+    json.AddMember("connectedPaths", to_json((p.connectedPaths), allocator), allocator);
+    json.AddMember("includedPaths", to_json((p.includedPaths), allocator), allocator);
+    json.AddMember("isEventZoneIncluded", to_json((p.isEventZoneIncluded), allocator), allocator);
+    json.AddMember("isEventZoneConnected", to_json((p.isEventZoneConnected), allocator), allocator);
+    if (p.lengthOfSection != 0) json.AddMember("lengthOfSection", to_json(*(p.lengthOfSection), allocator), allocator);
+    if (p.endingPointSection != 0) json.AddMember("endingPointSection", to_json(*(p.endingPointSection), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, RoadSectionDefinition_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["startingPointSection"], (p.startingPointSection), "startingPointSection");
+        if (j.HasMember("lengthOfSection")) { p.lengthOfSection = vanetza::asn1::allocate<StandardLength2B_t>(); from_json(j["lengthOfSection"], *(p.lengthOfSection), "lengthOfSection"); }
+        else { p.lengthOfSection=nullptr; }
+        if (j.HasMember("endingPointSection")) { p.endingPointSection = vanetza::asn1::allocate<GeoPosition_t>(); from_json(j["endingPointSection"], *(p.endingPointSection), "endingPointSection"); }
+        else { p.endingPointSection=nullptr; }
+        from_json(j["connectedPaths"], (p.connectedPaths), "connectedPaths");
+        from_json(j["includedPaths"], (p.includedPaths), "includedPaths");
+        from_json(j["isEventZoneIncluded"], (p.isEventZoneIncluded), "isEventZoneIncluded");
+        from_json(j["isEventZoneConnected"], (p.isEventZoneConnected), "isEventZoneConnected");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   RoadSegmentReferenceId - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const RoadSegmentReferenceId_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("id", to_json((p.id), allocator), allocator);
+    if (p.region != 0) json.AddMember("region", to_json(*(p.region), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, RoadSegmentReferenceId_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        if (j.HasMember("region")) { p.region = vanetza::asn1::allocate<Identifier2B_t>(); from_json(j["region"], *(p.region), "region"); }
+        else { p.region=nullptr; }
+        from_json(j["id"], (p.id), "id");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   SafeDistanceIndication - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const SafeDistanceIndication_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("safeDistanceIndicator", to_json((p.safeDistanceIndicator), allocator), allocator);
+    if (p.subjectStation != 0) json.AddMember("subjectStation", to_json(*(p.subjectStation), allocator), allocator);
+    if (p.timeToCollision != 0) json.AddMember("timeToCollision", to_json(*(p.timeToCollision), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, SafeDistanceIndication_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        if (j.HasMember("subjectStation")) { p.subjectStation = vanetza::asn1::allocate<StationId_t>(); from_json(j["subjectStation"], *(p.subjectStation), "subjectStation"); }
+        else { p.subjectStation=nullptr; }
+        from_json(j["safeDistanceIndicator"], (p.safeDistanceIndicator), "safeDistanceIndicator");
+        if (j.HasMember("timeToCollision")) { p.timeToCollision = vanetza::asn1::allocate<DeltaTimeTenthOfSecond_t>(); from_json(j["timeToCollision"], *(p.timeToCollision), "timeToCollision"); }
+        else { p.timeToCollision=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   SequenceOfCartesianPosition3d - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const SequenceOfCartesianPosition3d_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const CartesianPosition3d_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, SequenceOfCartesianPosition3d_t& p, std::string field) {
+    try {
+        SequenceOfCartesianPosition3d_t* p_tmp = vanetza::asn1::allocate<SequenceOfCartesianPosition3d_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            CartesianPosition3d_t *element = vanetza::asn1::allocate<CartesianPosition3d_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   SequenceOfIdentifier1B - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const SequenceOfIdentifier1B_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const Identifier1B_t po = *(p.list.array[i]);
+        // Value obj = to_json(po, allocator);
+        json.PushBack(po, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, SequenceOfIdentifier1B_t& p, std::string field) {
+    try {
+        SequenceOfIdentifier1B_t* p_tmp = vanetza::asn1::allocate<SequenceOfIdentifier1B_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            Identifier1B_t *element = vanetza::asn1::allocate<Identifier1B_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   SequenceOfSafeDistanceIndication - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const SequenceOfSafeDistanceIndication_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const SafeDistanceIndication_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, SequenceOfSafeDistanceIndication_t& p, std::string field) {
+    try {
+        SequenceOfSafeDistanceIndication_t* p_tmp = vanetza::asn1::allocate<SequenceOfSafeDistanceIndication_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            SafeDistanceIndication_t *element = vanetza::asn1::allocate<SafeDistanceIndication_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   Speed - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_Speed_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("speedValue", to_json(((p.speedValue) == 16383) ? (p.speedValue) : (double)(p.speedValue) / 100.0, allocator), allocator);
+    json.AddMember("speedConfidence", to_json(((p.speedConfidence) == 126 || (p.speedConfidence) == 127) ? (p.speedConfidence) : (double)(p.speedConfidence) / 100.0, allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_Speed_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        double speedValue; from_json(j["speedValue"], (speedValue), "speedValue"); (p.speedValue) = ((speedValue) != 16383) ? speedValue * 100 : speedValue;
+        double speedConfidence; from_json(j["speedConfidence"], (speedConfidence), "speedConfidence"); (p.speedConfidence) = ((speedConfidence) != 126 && (speedConfidence) != 127) ? speedConfidence * 100 : speedConfidence;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   StabilityChangeIndication - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_StabilityChangeIndication_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("lossProbability", to_json((p.lossProbability), allocator), allocator);
+    json.AddMember("actionDeltaTime", to_json((p.actionDeltaTime), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_StabilityChangeIndication_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["lossProbability"], (p.lossProbability), "lossProbability");
+        from_json(j["actionDeltaTime"], (p.actionDeltaTime), "actionDeltaTime");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   SteeringWheelAngle - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_SteeringWheelAngle_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("steeringWheelAngleValue", to_json((p.steeringWheelAngleValue), allocator), allocator);
+    json.AddMember("steeringWheelAngleConfidence", to_json((p.steeringWheelAngleConfidence), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_SteeringWheelAngle_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["steeringWheelAngleValue"], (p.steeringWheelAngleValue), "steeringWheelAngleValue");
+        from_json(j["steeringWheelAngleConfidence"], (p.steeringWheelAngleConfidence), "steeringWheelAngleConfidence");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   TrafficIslandPosition - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_TrafficIslandPosition_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("oneSide", to_json((p.oneSide), allocator), allocator);
+    json.AddMember("otherSide", to_json((p.otherSide), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_TrafficIslandPosition_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["oneSide"], (p.oneSide), "oneSide");
+        from_json(j["otherSide"], (p.otherSide), "otherSide");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   TrailerData - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const TrailerData_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("refPointId", to_json((p.refPointId), allocator), allocator);
+    json.AddMember("hitchPointOffset", to_json((p.hitchPointOffset), allocator), allocator);
+    json.AddMember("hitchAngle", to_json((p.hitchAngle), allocator), allocator);
+    if (p.frontOverhang != 0) json.AddMember("frontOverhang", to_json(*(p.frontOverhang), allocator), allocator);
+    if (p.rearOverhang != 0) json.AddMember("rearOverhang", to_json(*(p.rearOverhang), allocator), allocator);
+    if (p.trailerWidth != 0) json.AddMember("trailerWidth", to_json((*(p.trailerWidth) != 61 && *(p.trailerWidth) != 62) ? (double) *(p.trailerWidth) / 10.0 : *(p.trailerWidth), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, TrailerData_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["refPointId"], (p.refPointId), "refPointId");
+        from_json(j["hitchPointOffset"], (p.hitchPointOffset), "hitchPointOffset");
+        if (j.HasMember("frontOverhang")) { p.frontOverhang = vanetza::asn1::allocate<StandardLength1B_t>(); from_json(j["frontOverhang"], *(p.frontOverhang), "frontOverhang"); }
+        else { p.frontOverhang=nullptr; }
+        if (j.HasMember("rearOverhang")) { p.rearOverhang = vanetza::asn1::allocate<StandardLength1B_t>(); from_json(j["rearOverhang"], *(p.rearOverhang), "rearOverhang"); }
+        else { p.rearOverhang=nullptr; }
+        double trailerWidth; if (j.HasMember("trailerWidth")) { p.trailerWidth = vanetza::asn1::allocate<ETSI_ITS_CDD_VehicleWidth_t>(); from_json(j["trailerWidth"], (trailerWidth), "trailerWidth"); *(p.trailerWidth) = ((trailerWidth) != 61 && (trailerWidth) != 62) ? trailerWidth * 10 : trailerWidth; }
+        else { p.trailerWidth=nullptr; }
+        from_json(j["hitchAngle"], (p.hitchAngle), "hitchAngle");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   TrajectoryInterceptionIndication - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_TrajectoryInterceptionIndication_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("trajectoryInterceptionProbability", to_json((p.trajectoryInterceptionProbability), allocator), allocator);
+    if (p.subjectStation != 0) json.AddMember("subjectStation", to_json(*(p.subjectStation), allocator), allocator);
+    if (p.trajectoryInterceptionConfidence != 0) json.AddMember("trajectoryInterceptionConfidence", to_json(*(p.trajectoryInterceptionConfidence), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_TrajectoryInterceptionIndication_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        if (j.HasMember("subjectStation")) { p.subjectStation = vanetza::asn1::allocate<StationId_t>(); from_json(j["subjectStation"], *(p.subjectStation), "subjectStation"); }
+        else { p.subjectStation=nullptr; }
+        from_json(j["trajectoryInterceptionProbability"], (p.trajectoryInterceptionProbability), "trajectoryInterceptionProbability");
+        if (j.HasMember("trajectoryInterceptionConfidence")) { p.trajectoryInterceptionConfidence = vanetza::asn1::allocate<ETSI_ITS_CDD_TrajectoryInterceptionConfidence_t>(); from_json(j["trajectoryInterceptionConfidence"], *(p.trajectoryInterceptionConfidence), "trajectoryInterceptionConfidence"); }
+        else { p.trajectoryInterceptionConfidence=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   Ext2 - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_Ext2_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == ETSI_ITS_CDD_Ext2_PR_content) {
+        json.AddMember("content", to_json(p.choice.content, allocator), allocator);
+    } else if (p.present == ETSI_ITS_CDD_Ext2_PR_extension) {
+        json.AddMember("extension", to_json(p.choice.extension, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_Ext2_t& p, std::string field) {
+    try {
+        if (j.HasMember("content")) {
+        p.present = ETSI_ITS_CDD_Ext2_PR_content;
+            from_json(j["content"], p.choice.content, "content");
+        } else if (j.HasMember("extension")) {
+        p.present = ETSI_ITS_CDD_Ext2_PR_extension;
+            from_json(j["extension"], p.choice.extension, "extension");
+        } else {
+        p.present = ETSI_ITS_CDD_Ext2_PR_NOTHING;
+        }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   VerticalAcceleration - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_VerticalAcceleration_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("verticalAccelerationValue", to_json(((p.verticalAccelerationValue) == 161) ? (p.verticalAccelerationValue) : (double)(p.verticalAccelerationValue) / 10.0, allocator), allocator);
+    json.AddMember("verticalAccelerationConfidence", to_json(((p.verticalAccelerationConfidence) == 102) ? (p.verticalAccelerationConfidence) : (double)(p.verticalAccelerationConfidence) / 10.0, allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_VerticalAcceleration_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        double verticalAccelerationValue; from_json(j["verticalAccelerationValue"], (verticalAccelerationValue), "verticalAccelerationValue"); (p.verticalAccelerationValue) = ((verticalAccelerationValue) != 161) ? verticalAccelerationValue * 10 : verticalAccelerationValue;
+        double verticalAccelerationConfidence; from_json(j["verticalAccelerationConfidence"], (verticalAccelerationConfidence), "verticalAccelerationConfidence"); (p.verticalAccelerationConfidence) = ((verticalAccelerationConfidence) != 102) ? verticalAccelerationConfidence * 10 : verticalAccelerationConfidence;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   VehicleIdentification - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_VehicleIdentification_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_VehicleIdentification_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        p.wMInumber=nullptr;
+        p.vDS=nullptr;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   VehicleLength - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_VehicleLength_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("vehicleLengthValue", to_json(((p.vehicleLengthValue) == 1023) ? (p.vehicleLengthValue) : (double)(p.vehicleLengthValue) / 10.0, allocator), allocator);
+    json.AddMember("vehicleLengthConfidenceIndication", to_json((p.vehicleLengthConfidenceIndication), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_VehicleLength_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        double vehicleLengthValue; from_json(j["vehicleLengthValue"], (vehicleLengthValue), "vehicleLengthValue"); (p.vehicleLengthValue) = ((vehicleLengthValue) != 1023) ? vehicleLengthValue * 10 : vehicleLengthValue;
+        from_json(j["vehicleLengthConfidenceIndication"], (p.vehicleLengthConfidenceIndication), "vehicleLengthConfidenceIndication");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   VehicleLengthV2 - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const VehicleLengthV2_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("vehicleLengthValue", to_json(((p.vehicleLengthValue) == 1023) ? (p.vehicleLengthValue) : (double)(p.vehicleLengthValue) / 10.0, allocator), allocator);
+    json.AddMember("trailerPresenceInformation", to_json((p.trailerPresenceInformation), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, VehicleLengthV2_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        double vehicleLengthValue; from_json(j["vehicleLengthValue"], (vehicleLengthValue), "vehicleLengthValue"); (p.vehicleLengthValue) = ((vehicleLengthValue) != 1023) ? vehicleLengthValue * 10 : vehicleLengthValue;
+        from_json(j["trailerPresenceInformation"], (p.trailerPresenceInformation), "trailerPresenceInformation");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   VelocityComponent - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const VelocityComponent_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("value", to_json((p.value), allocator), allocator);
+    json.AddMember("confidence", to_json(((p.confidence) == 126 || (p.confidence) == 127) ? (p.confidence) : (double)(p.confidence) / 100.0, allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, VelocityComponent_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["value"], (p.value), "value");
+        double confidence; from_json(j["confidence"], (confidence), "confidence"); (p.confidence) = ((confidence) != 126 && (confidence) != 127) ? confidence * 100 : confidence;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   VelocityPolarWithZ - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const VelocityPolarWithZ_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("velocityMagnitude", to_json((p.velocityMagnitude), allocator), allocator);
+    json.AddMember("velocityDirection", to_json((p.velocityDirection), allocator), allocator);
+    if (p.zVelocity != 0) json.AddMember("zVelocity", to_json(*(p.zVelocity), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, VelocityPolarWithZ_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["velocityMagnitude"], (p.velocityMagnitude), "velocityMagnitude");
+        from_json(j["velocityDirection"], (p.velocityDirection), "velocityDirection");
+        if (j.HasMember("zVelocity")) { p.zVelocity = vanetza::asn1::allocate<VelocityComponent_t>(); from_json(j["zVelocity"], *(p.zVelocity), "zVelocity"); }
+        else { p.zVelocity=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   VruExteriorLights - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_VruExteriorLights_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("vehicular", to_json_ITS_Container_ExteriorLights((p.vehicular), allocator), allocator);
+    json.AddMember("vruSpecific", to_json_ETSI_ITS_CDD_VruSpecificExteriorLights((p.vruSpecific), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_VruExteriorLights_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json_ITS_Container_ExteriorLights(j["vehicular"],(p.vehicular), "vehicular");
+        from_json_ETSI_ITS_CDD_VruSpecificExteriorLights(j["vruSpecific"],(p.vruSpecific), "vruSpecific");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   VruProfileAndSubprofile - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_VruProfileAndSubprofile_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == ETSI_ITS_CDD_VruProfileAndSubprofile_PR_pedestrian) {
+        json.AddMember("pedestrian", to_json(p.choice.pedestrian, allocator), allocator);
+    } else if (p.present == ETSI_ITS_CDD_VruProfileAndSubprofile_PR_bicyclistAndLightVruVehicle) {
+        json.AddMember("bicyclistAndLightVruVehicle", to_json(p.choice.bicyclistAndLightVruVehicle, allocator), allocator);
+    } else if (p.present == ETSI_ITS_CDD_VruProfileAndSubprofile_PR_motorcyclist) {
+        json.AddMember("motorcyclist", to_json(p.choice.motorcyclist, allocator), allocator);
+    } else if (p.present == ETSI_ITS_CDD_VruProfileAndSubprofile_PR_animal) {
+        json.AddMember("animal", to_json(p.choice.animal, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_VruProfileAndSubprofile_t& p, std::string field) {
+    try {
+        if (j.HasMember("pedestrian")) {
+        p.present = ETSI_ITS_CDD_VruProfileAndSubprofile_PR_pedestrian;
+            from_json(j["pedestrian"], p.choice.pedestrian, "pedestrian");
+        } else if (j.HasMember("bicyclistAndLightVruVehicle")) {
+        p.present = ETSI_ITS_CDD_VruProfileAndSubprofile_PR_bicyclistAndLightVruVehicle;
+            from_json(j["bicyclistAndLightVruVehicle"], p.choice.bicyclistAndLightVruVehicle, "bicyclistAndLightVruVehicle");
+        } else if (j.HasMember("motorcyclist")) {
+        p.present = ETSI_ITS_CDD_VruProfileAndSubprofile_PR_motorcyclist;
+            from_json(j["motorcyclist"], p.choice.motorcyclist, "motorcyclist");
+        } else if (j.HasMember("animal")) {
+        p.present = ETSI_ITS_CDD_VruProfileAndSubprofile_PR_animal;
+            from_json(j["animal"], p.choice.animal, "animal");
+        } else {
+        p.present = ETSI_ITS_CDD_VruProfileAndSubprofile_PR_NOTHING;
+        }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   Wgs84Angle - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const Wgs84Angle_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("value", to_json((p.value), allocator), allocator);
+    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, Wgs84Angle_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["value"], (p.value), "value");
+        from_json(j["confidence"], (p.confidence), "confidence");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   YawRate - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_YawRate_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("yawRateValue", to_json(((p.yawRateValue) == 32767) ? (p.yawRateValue) : (double)(p.yawRateValue) / 100.0, allocator), allocator);
+    json.AddMember("yawRateConfidence", to_json((p.yawRateConfidence), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_YawRate_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        double yawRateValue; from_json(j["yawRateValue"], (yawRateValue), "yawRateValue"); (p.yawRateValue) = ((yawRateValue) != 32767) ? yawRateValue * 100 : yawRateValue;
+        from_json(j["yawRateConfidence"], (p.yawRateConfidence), "yawRateConfidence");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
 *   ItsPduHeader - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const ItsPduHeader_t& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_ItsPduHeader_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("protocolVersion", to_json((p.protocolVersion), allocator), allocator);
     json.AddMember("messageID", to_json((p.messageID), allocator), allocator);
@@ -124,7 +4094,7 @@ Value to_json(const ItsPduHeader_t& p, Document::AllocatorType& allocator) {
     return json;
 }
 
-void from_json(const Value& j, ItsPduHeader_t& p, std::string field) {
+void from_json(const Value& j, ITS_Container_ItsPduHeader_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["protocolVersion"], (p.protocolVersion), "protocolVersion");
@@ -139,11 +4109,41 @@ void from_json(const Value& j, ItsPduHeader_t& p, std::string field) {
 
 
 /*
+*   ReferencePosition - Type SEQUENCE
+*   From ITS-Container - File TS102894-2v131-CDD.asn
+*/
+
+Value to_json(const ITS_Container_ReferencePosition_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("latitude", to_json(((p.latitude) == 900000001) ? (p.latitude) : (double)(p.latitude) / 10000000.0, allocator), allocator);
+    json.AddMember("longitude", to_json(((p.longitude) == 1800000001) ? (p.longitude) : (double)(p.longitude) / 10000000.0, allocator), allocator);
+    json.AddMember("positionConfidenceEllipse", to_json((p.positionConfidenceEllipse), allocator), allocator);
+    json.AddMember("altitude", to_json((p.altitude), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ITS_Container_ReferencePosition_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        double latitude; from_json(j["latitude"], (latitude), "latitude"); (p.latitude) = ((latitude) != 900000001) ? latitude * 10000000 : latitude;
+        double longitude; from_json(j["longitude"], (longitude), "longitude"); (p.longitude) = ((longitude) != 1800000001) ? longitude * 10000000 : longitude;
+        from_json(j["positionConfidenceEllipse"], (p.positionConfidenceEllipse), "positionConfidenceEllipse");
+        from_json(j["altitude"], (p.altitude), "altitude");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
 *   DeltaReferencePosition - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const DeltaReferencePosition_t& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_DeltaReferencePosition_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("deltaLatitude", to_json((p.deltaLatitude), allocator), allocator);
     json.AddMember("deltaLongitude", to_json((p.deltaLongitude), allocator), allocator);
@@ -152,7 +4152,7 @@ Value to_json(const DeltaReferencePosition_t& p, Document::AllocatorType& alloca
     return json;
 }
 
-void from_json(const Value& j, DeltaReferencePosition_t& p, std::string field) {
+void from_json(const Value& j, ITS_Container_DeltaReferencePosition_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["deltaLatitude"], (p.deltaLatitude), "deltaLatitude");
@@ -171,7 +4171,7 @@ void from_json(const Value& j, DeltaReferencePosition_t& p, std::string field) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const Altitude& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_Altitude_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("altitudeValue", to_json(((p.altitudeValue) == 800001) ? (p.altitudeValue) : (double)(p.altitudeValue) / 100.0, allocator), allocator);
     json.AddMember("altitudeConfidence", to_json((p.altitudeConfidence), allocator), allocator);
@@ -179,7 +4179,7 @@ Value to_json(const Altitude& p, Document::AllocatorType& allocator) {
     return json;
 }
 
-void from_json(const Value& j, Altitude& p, std::string field) {
+void from_json(const Value& j, ITS_Container_Altitude_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         double altitudeValue; from_json(j["altitudeValue"], (altitudeValue), "altitudeValue"); (p.altitudeValue) = ((altitudeValue) != 800001) ? altitudeValue * 100 : altitudeValue;
@@ -197,7 +4197,7 @@ void from_json(const Value& j, Altitude& p, std::string field) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const PosConfidenceEllipse& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_PosConfidenceEllipse_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("semiMajorConfidence", to_json((p.semiMajorConfidence), allocator), allocator);
     json.AddMember("semiMinorConfidence", to_json((p.semiMinorConfidence), allocator), allocator);
@@ -206,7 +4206,7 @@ Value to_json(const PosConfidenceEllipse& p, Document::AllocatorType& allocator)
     return json;
 }
 
-void from_json(const Value& j, PosConfidenceEllipse& p, std::string field) {
+void from_json(const Value& j, ITS_Container_PosConfidenceEllipse_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["semiMajorConfidence"], (p.semiMajorConfidence), "semiMajorConfidence");
@@ -225,19 +4225,45 @@ void from_json(const Value& j, PosConfidenceEllipse& p, std::string field) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const PathPoint& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_PathPoint_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("pathPosition", to_json((p.pathPosition), allocator), allocator);
     if (p.pathDeltaTime != 0) json.AddMember("pathDeltaTime", to_json(*(p.pathDeltaTime), allocator), allocator);
     return json;
 }
 
-void from_json(const Value& j, PathPoint& p, std::string field) {
+void from_json(const Value& j, ITS_Container_PathPoint_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["pathPosition"], (p.pathPosition), "pathPosition");
-        if (j.HasMember("pathDeltaTime")) { p.pathDeltaTime = vanetza::asn1::allocate<PathDeltaTime_t>(); from_json(j["pathDeltaTime"], *(p.pathDeltaTime), "pathDeltaTime"); }
+        if (j.HasMember("pathDeltaTime")) { p.pathDeltaTime = vanetza::asn1::allocate<ITS_Container_PathDeltaTime_t>(); from_json(j["pathDeltaTime"], *(p.pathDeltaTime), "pathDeltaTime"); }
         else { p.pathDeltaTime=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   PtActivation - Type SEQUENCE
+*   From ITS-Container - File TS102894-2v131-CDD.asn
+*/
+
+Value to_json(const ITS_Container_PtActivation_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("ptActivationType", to_json((p.ptActivationType), allocator), allocator);
+    json.AddMember("ptActivationData", to_json((p.ptActivationData), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ITS_Container_PtActivation_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["ptActivationType"], (p.ptActivationType), "ptActivationType");
+        from_json(j["ptActivationData"], (p.ptActivationData), "ptActivationData");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -251,7 +4277,7 @@ void from_json(const Value& j, PathPoint& p, std::string field) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json_AccelerationControl(const AccelerationControl_t p, Document::AllocatorType& allocator) {
+Value to_json_ITS_Container_AccelerationControl(const ITS_Container_AccelerationControl_t p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("brakePedalEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
     json.AddMember("gasPedalEngaged", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
@@ -263,9 +4289,9 @@ Value to_json_AccelerationControl(const AccelerationControl_t p, Document::Alloc
     return json;
 }
 
-void from_json_AccelerationControl(const Value& j, AccelerationControl_t& p, std::string field) {
+void from_json_ITS_Container_AccelerationControl(const Value& j, ITS_Container_AccelerationControl_t& p, std::string field) {
     try {
-        AccelerationControl_t* p_tmp = vanetza::asn1::allocate<AccelerationControl_t>();
+        ITS_Container_AccelerationControl_t* p_tmp = vanetza::asn1::allocate<ITS_Container_AccelerationControl_t>();
         bool brakePedalEngaged;
         bool gasPedalEngaged;
         bool emergencyBrakeEngaged;
@@ -304,7 +4330,7 @@ void from_json_AccelerationControl(const Value& j, AccelerationControl_t& p, std
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const CauseCode& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_CauseCode_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("causeCode", to_json((p.causeCode), allocator), allocator);
     json.AddMember("subCauseCode", to_json((p.subCauseCode), allocator), allocator);
@@ -312,7 +4338,7 @@ Value to_json(const CauseCode& p, Document::AllocatorType& allocator) {
     return json;
 }
 
-void from_json(const Value& j, CauseCode& p, std::string field) {
+void from_json(const Value& j, ITS_Container_CauseCode_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["causeCode"], (p.causeCode), "causeCode");
@@ -330,7 +4356,7 @@ void from_json(const Value& j, CauseCode& p, std::string field) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const Curvature& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_Curvature_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("curvatureValue", to_json((p.curvatureValue), allocator), allocator);
     json.AddMember("curvatureConfidence", to_json((p.curvatureConfidence), allocator), allocator);
@@ -338,7 +4364,7 @@ Value to_json(const Curvature& p, Document::AllocatorType& allocator) {
     return json;
 }
 
-void from_json(const Value& j, Curvature& p, std::string field) {
+void from_json(const Value& j, ITS_Container_Curvature_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["curvatureValue"], (p.curvatureValue), "curvatureValue");
@@ -356,7 +4382,7 @@ void from_json(const Value& j, Curvature& p, std::string field) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const Heading& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_Heading_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("headingValue", to_json(((p.headingValue) == 3601) ? (p.headingValue) : (double)(p.headingValue) / 10.0, allocator), allocator);
     json.AddMember("headingConfidence", to_json(((p.headingConfidence) == 126 || (p.headingConfidence) == 127) ? (p.headingConfidence) : (double)(p.headingConfidence) / 10.0, allocator), allocator);
@@ -364,7 +4390,7 @@ Value to_json(const Heading& p, Document::AllocatorType& allocator) {
     return json;
 }
 
-void from_json(const Value& j, Heading& p, std::string field) {
+void from_json(const Value& j, ITS_Container_Heading_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         double headingValue; from_json(j["headingValue"], (headingValue), "headingValue"); (p.headingValue) = ((headingValue) != 3601) ? headingValue * 10 : headingValue;
@@ -378,19 +4404,50 @@ void from_json(const Value& j, Heading& p, std::string field) {
 
 
 /*
+*   ClosedLanes - Type SEQUENCE
+*   From ITS-Container - File TS102894-2v131-CDD.asn
+*/
+
+Value to_json(const ITS_Container_ClosedLanes_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    if (p.innerhardShoulderStatus != 0) json.AddMember("innerhardShoulderStatus", to_json(*(p.innerhardShoulderStatus), allocator), allocator);
+    if (p.outerhardShoulderStatus != 0) json.AddMember("outerhardShoulderStatus", to_json(*(p.outerhardShoulderStatus), allocator), allocator);
+    if (p.drivingLaneStatus != 0) json.AddMember("drivingLaneStatus", to_json_ITS_Container_DrivingLaneStatus(*(p.drivingLaneStatus), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, ITS_Container_ClosedLanes_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        if (j.HasMember("innerhardShoulderStatus")) { p.innerhardShoulderStatus = vanetza::asn1::allocate<ITS_Container_HardShoulderStatus_t>(); from_json(j["innerhardShoulderStatus"], *(p.innerhardShoulderStatus), "innerhardShoulderStatus"); }
+        else { p.innerhardShoulderStatus=nullptr; }
+        if (j.HasMember("outerhardShoulderStatus")) { p.outerhardShoulderStatus = vanetza::asn1::allocate<ITS_Container_HardShoulderStatus_t>(); from_json(j["outerhardShoulderStatus"], *(p.outerhardShoulderStatus), "outerhardShoulderStatus"); }
+        else { p.outerhardShoulderStatus=nullptr; }
+        if (j.HasMember("drivingLaneStatus")) { p.drivingLaneStatus = vanetza::asn1::allocate<ITS_Container_DrivingLaneStatus_t>(); from_json_ITS_Container_DrivingLaneStatus(j["drivingLaneStatus"],*(p.drivingLaneStatus), "drivingLaneStatus"); }
+        else { p.drivingLaneStatus=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
 *   DrivingLaneStatus - Type BIT STRING
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json_DrivingLaneStatus(const DrivingLaneStatus_t p, Document::AllocatorType& allocator) {
+Value to_json_ITS_Container_DrivingLaneStatus(const ITS_Container_DrivingLaneStatus_t p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     
     return json;
 }
 
-void from_json_DrivingLaneStatus(const Value& j, DrivingLaneStatus_t& p, std::string field) {
+void from_json_ITS_Container_DrivingLaneStatus(const Value& j, ITS_Container_DrivingLaneStatus_t& p, std::string field) {
     try {
-        DrivingLaneStatus_t* p_tmp = vanetza::asn1::allocate<DrivingLaneStatus_t>();
+        ITS_Container_DrivingLaneStatus_t* p_tmp = vanetza::asn1::allocate<ITS_Container_DrivingLaneStatus_t>();
         
         
         p_tmp->size = (0 / 8) + 1;
@@ -411,7 +4468,7 @@ void from_json_DrivingLaneStatus(const Value& j, DrivingLaneStatus_t& p, std::st
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const Speed& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_Speed_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("speedValue", to_json(((p.speedValue) == 16383) ? (p.speedValue) : (double)(p.speedValue) / 100.0, allocator), allocator);
     json.AddMember("speedConfidence", to_json(((p.speedConfidence) == 126 || (p.speedConfidence) == 127) ? (p.speedConfidence) : (double)(p.speedConfidence) / 100.0, allocator), allocator);
@@ -419,7 +4476,7 @@ Value to_json(const Speed& p, Document::AllocatorType& allocator) {
     return json;
 }
 
-void from_json(const Value& j, Speed& p, std::string field) {
+void from_json(const Value& j, ITS_Container_Speed_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         double speedValue; from_json(j["speedValue"], (speedValue), "speedValue"); (p.speedValue) = ((speedValue) != 16383) ? speedValue * 100 : speedValue;
@@ -437,7 +4494,7 @@ void from_json(const Value& j, Speed& p, std::string field) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const LongitudinalAcceleration& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_LongitudinalAcceleration_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("longitudinalAccelerationValue", to_json(((p.longitudinalAccelerationValue) == 161) ? (p.longitudinalAccelerationValue) : (double)(p.longitudinalAccelerationValue) / 10.0, allocator), allocator);
     json.AddMember("longitudinalAccelerationConfidence", to_json(((p.longitudinalAccelerationConfidence) == 102) ? (p.longitudinalAccelerationConfidence) : (double)(p.longitudinalAccelerationConfidence) / 10.0, allocator), allocator);
@@ -445,7 +4502,7 @@ Value to_json(const LongitudinalAcceleration& p, Document::AllocatorType& alloca
     return json;
 }
 
-void from_json(const Value& j, LongitudinalAcceleration& p, std::string field) {
+void from_json(const Value& j, ITS_Container_LongitudinalAcceleration_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         double longitudinalAccelerationValue; from_json(j["longitudinalAccelerationValue"], (longitudinalAccelerationValue), "longitudinalAccelerationValue"); (p.longitudinalAccelerationValue) = ((longitudinalAccelerationValue) != 161) ? longitudinalAccelerationValue * 10 : longitudinalAccelerationValue;
@@ -463,7 +4520,7 @@ void from_json(const Value& j, LongitudinalAcceleration& p, std::string field) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const LateralAcceleration& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_LateralAcceleration_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("lateralAccelerationValue", to_json(((p.lateralAccelerationValue) == 161) ? (p.lateralAccelerationValue) : (double)(p.lateralAccelerationValue) / 10.0, allocator), allocator);
     json.AddMember("lateralAccelerationConfidence", to_json(((p.lateralAccelerationConfidence) == 102) ? (p.lateralAccelerationConfidence) : (double)(p.lateralAccelerationConfidence) / 10.0, allocator), allocator);
@@ -471,7 +4528,7 @@ Value to_json(const LateralAcceleration& p, Document::AllocatorType& allocator) 
     return json;
 }
 
-void from_json(const Value& j, LateralAcceleration& p, std::string field) {
+void from_json(const Value& j, ITS_Container_LateralAcceleration_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         double lateralAccelerationValue; from_json(j["lateralAccelerationValue"], (lateralAccelerationValue), "lateralAccelerationValue"); (p.lateralAccelerationValue) = ((lateralAccelerationValue) != 161) ? lateralAccelerationValue * 10 : lateralAccelerationValue;
@@ -489,7 +4546,7 @@ void from_json(const Value& j, LateralAcceleration& p, std::string field) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const VerticalAcceleration_t& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_VerticalAcceleration_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("verticalAccelerationValue", to_json(((p.verticalAccelerationValue) == 161) ? (p.verticalAccelerationValue) : (double)(p.verticalAccelerationValue) / 10.0, allocator), allocator);
     json.AddMember("verticalAccelerationConfidence", to_json(((p.verticalAccelerationConfidence) == 102) ? (p.verticalAccelerationConfidence) : (double)(p.verticalAccelerationConfidence) / 10.0, allocator), allocator);
@@ -497,7 +4554,7 @@ Value to_json(const VerticalAcceleration_t& p, Document::AllocatorType& allocato
     return json;
 }
 
-void from_json(const Value& j, VerticalAcceleration_t& p, std::string field) {
+void from_json(const Value& j, ITS_Container_VerticalAcceleration_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         double verticalAccelerationValue; from_json(j["verticalAccelerationValue"], (verticalAccelerationValue), "verticalAccelerationValue"); (p.verticalAccelerationValue) = ((verticalAccelerationValue) != 161) ? verticalAccelerationValue * 10 : verticalAccelerationValue;
@@ -515,7 +4572,7 @@ void from_json(const Value& j, VerticalAcceleration_t& p, std::string field) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json_ExteriorLights(const ExteriorLights_t p, Document::AllocatorType& allocator) {
+Value to_json_ITS_Container_ExteriorLights(const ITS_Container_ExteriorLights_t p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("lowBeamHeadlightsOn", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
     json.AddMember("highBeamHeadlightsOn", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
@@ -528,9 +4585,9 @@ Value to_json_ExteriorLights(const ExteriorLights_t p, Document::AllocatorType& 
     return json;
 }
 
-void from_json_ExteriorLights(const Value& j, ExteriorLights_t& p, std::string field) {
+void from_json_ITS_Container_ExteriorLights(const Value& j, ITS_Container_ExteriorLights_t& p, std::string field) {
     try {
-        ExteriorLights_t* p_tmp = vanetza::asn1::allocate<ExteriorLights_t>();
+        ITS_Container_ExteriorLights_t* p_tmp = vanetza::asn1::allocate<ITS_Container_ExteriorLights_t>();
         bool lowBeamHeadlightsOn;
         bool highBeamHeadlightsOn;
         bool leftTurnSignalOn;
@@ -573,7 +4630,7 @@ void from_json_ExteriorLights(const Value& j, ExteriorLights_t& p, std::string f
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const DangerousGoodsExtended& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_DangerousGoodsExtended_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("dangerousGoodsType", to_json((p.dangerousGoodsType), allocator), allocator);
     json.AddMember("unNumber", to_json((p.unNumber), allocator), allocator);
@@ -585,7 +4642,7 @@ Value to_json(const DangerousGoodsExtended& p, Document::AllocatorType& allocato
     return json;
 }
 
-void from_json(const Value& j, DangerousGoodsExtended& p, std::string field) {
+void from_json(const Value& j, ITS_Container_DangerousGoodsExtended_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["dangerousGoodsType"], (p.dangerousGoodsType), "dangerousGoodsType");
@@ -611,7 +4668,7 @@ void from_json(const Value& j, DangerousGoodsExtended& p, std::string field) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json_SpecialTransportType(const SpecialTransportType_t p, Document::AllocatorType& allocator) {
+Value to_json_ITS_Container_SpecialTransportType(const ITS_Container_SpecialTransportType_t p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("heavyLoad", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
     json.AddMember("excessWidth", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
@@ -620,9 +4677,9 @@ Value to_json_SpecialTransportType(const SpecialTransportType_t p, Document::All
     return json;
 }
 
-void from_json_SpecialTransportType(const Value& j, SpecialTransportType_t& p, std::string field) {
+void from_json_ITS_Container_SpecialTransportType(const Value& j, ITS_Container_SpecialTransportType_t& p, std::string field) {
     try {
-        SpecialTransportType_t* p_tmp = vanetza::asn1::allocate<SpecialTransportType_t>();
+        ITS_Container_SpecialTransportType_t* p_tmp = vanetza::asn1::allocate<ITS_Container_SpecialTransportType_t>();
         bool heavyLoad;
         bool excessWidth;
         bool excessLength;
@@ -652,16 +4709,16 @@ void from_json_SpecialTransportType(const Value& j, SpecialTransportType_t& p, s
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json_LightBarSirenInUse(const LightBarSirenInUse_t p, Document::AllocatorType& allocator) {
+Value to_json_ITS_Container_LightBarSirenInUse(const ITS_Container_LightBarSirenInUse_t p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("lightBarActivated", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
     json.AddMember("sirenActivated", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
     return json;
 }
 
-void from_json_LightBarSirenInUse(const Value& j, LightBarSirenInUse_t& p, std::string field) {
+void from_json_ITS_Container_LightBarSirenInUse(const Value& j, ITS_Container_LightBarSirenInUse_t& p, std::string field) {
     try {
-        LightBarSirenInUse_t* p_tmp = vanetza::asn1::allocate<LightBarSirenInUse_t>();
+        ITS_Container_LightBarSirenInUse_t* p_tmp = vanetza::asn1::allocate<ITS_Container_LightBarSirenInUse_t>();
         bool lightBarActivated;
         bool sirenActivated;
         if (j.HasMember("lightBarActivated")) from_json(j["lightBarActivated"], (lightBarActivated), "lightBarActivated");
@@ -685,7 +4742,7 @@ void from_json_LightBarSirenInUse(const Value& j, LightBarSirenInUse_t& p, std::
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json_PositionOfOccupants(const PositionOfOccupants_t p, Document::AllocatorType& allocator) {
+Value to_json_ITS_Container_PositionOfOccupants(const ITS_Container_PositionOfOccupants_t p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("row1LeftOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
     json.AddMember("row1RightOccupied", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
@@ -710,9 +4767,9 @@ Value to_json_PositionOfOccupants(const PositionOfOccupants_t p, Document::Alloc
     return json;
 }
 
-void from_json_PositionOfOccupants(const Value& j, PositionOfOccupants_t& p, std::string field) {
+void from_json_ITS_Container_PositionOfOccupants(const Value& j, ITS_Container_PositionOfOccupants_t& p, std::string field) {
     try {
-        PositionOfOccupants_t* p_tmp = vanetza::asn1::allocate<PositionOfOccupants_t>();
+        ITS_Container_PositionOfOccupants_t* p_tmp = vanetza::asn1::allocate<ITS_Container_PositionOfOccupants_t>();
         bool row1LeftOccupied;
         bool row1RightOccupied;
         bool row1MidOccupied;
@@ -792,14 +4849,14 @@ void from_json_PositionOfOccupants(const Value& j, PositionOfOccupants_t& p, std
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const VehicleIdentification& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_VehicleIdentification_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     
     
     return json;
 }
 
-void from_json(const Value& j, VehicleIdentification& p, std::string field) {
+void from_json(const Value& j, ITS_Container_VehicleIdentification_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         p.wMInumber=nullptr;
@@ -817,7 +4874,7 @@ void from_json(const Value& j, VehicleIdentification& p, std::string field) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json_EnergyStorageType(const EnergyStorageType_t p, Document::AllocatorType& allocator) {
+Value to_json_ITS_Container_EnergyStorageType(const ITS_Container_EnergyStorageType_t p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("hydrogenStorage", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
     json.AddMember("electricEnergyStorage", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
@@ -829,9 +4886,9 @@ Value to_json_EnergyStorageType(const EnergyStorageType_t p, Document::Allocator
     return json;
 }
 
-void from_json_EnergyStorageType(const Value& j, EnergyStorageType_t& p, std::string field) {
+void from_json_ITS_Container_EnergyStorageType(const Value& j, ITS_Container_EnergyStorageType_t& p, std::string field) {
     try {
-        EnergyStorageType_t* p_tmp = vanetza::asn1::allocate<EnergyStorageType_t>();
+        ITS_Container_EnergyStorageType_t* p_tmp = vanetza::asn1::allocate<ITS_Container_EnergyStorageType_t>();
         bool hydrogenStorage;
         bool electricEnergyStorage;
         bool liquidPropaneGas;
@@ -870,7 +4927,7 @@ void from_json_EnergyStorageType(const Value& j, EnergyStorageType_t& p, std::st
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const VehicleLength_t& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_VehicleLength_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("vehicleLengthValue", to_json(((p.vehicleLengthValue) == 1023) ? (p.vehicleLengthValue) : (double)(p.vehicleLengthValue) / 10.0, allocator), allocator);
     json.AddMember("vehicleLengthConfidenceIndication", to_json((p.vehicleLengthConfidenceIndication), allocator), allocator);
@@ -878,7 +4935,7 @@ Value to_json(const VehicleLength_t& p, Document::AllocatorType& allocator) {
     return json;
 }
 
-void from_json(const Value& j, VehicleLength_t& p, std::string field) {
+void from_json(const Value& j, ITS_Container_VehicleLength_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         double vehicleLengthValue; from_json(j["vehicleLengthValue"], (vehicleLengthValue), "vehicleLengthValue"); (p.vehicleLengthValue) = ((vehicleLengthValue) != 1023) ? vehicleLengthValue * 10 : vehicleLengthValue;
@@ -896,22 +4953,22 @@ void from_json(const Value& j, VehicleLength_t& p, std::string field) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const PathHistory& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_PathHistory_t& p, Document::AllocatorType& allocator) {
     Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        const PathPoint_t po = *(p.list.array[i]);
+        const ITS_Container_PathPoint_t po = *(p.list.array[i]);
         Value obj = to_json(po, allocator);
         json.PushBack(obj, allocator);
     }
     return json;
 }
 
-void from_json(const Value& j, PathHistory& p, std::string field) {
+void from_json(const Value& j, ITS_Container_PathHistory_t& p, std::string field) {
     try {
-        PathHistory* p_tmp = vanetza::asn1::allocate<PathHistory>();
+        ITS_Container_PathHistory_t* p_tmp = vanetza::asn1::allocate<ITS_Container_PathHistory_t>();
         for (SizeType i = 0; i < j.Size(); i++) {
             const Value& item = j[i];
-            PathPoint_t *element = vanetza::asn1::allocate<PathPoint_t>();
+            ITS_Container_PathPoint_t *element = vanetza::asn1::allocate<ITS_Container_PathPoint_t>();
             from_json(item, *element, "index #" + std::to_string(i));
             asn_set_add(&(p_tmp->list), element);
         }
@@ -928,16 +4985,16 @@ void from_json(const Value& j, PathHistory& p, std::string field) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json_EmergencyPriority(const EmergencyPriority_t p, Document::AllocatorType& allocator) {
+Value to_json_ITS_Container_EmergencyPriority(const ITS_Container_EmergencyPriority_t p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("requestForRightOfWay", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
     json.AddMember("requestForFreeCrossingAtATrafficLight", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
     return json;
 }
 
-void from_json_EmergencyPriority(const Value& j, EmergencyPriority_t& p, std::string field) {
+void from_json_ITS_Container_EmergencyPriority(const Value& j, ITS_Container_EmergencyPriority_t& p, std::string field) {
     try {
-        EmergencyPriority_t* p_tmp = vanetza::asn1::allocate<EmergencyPriority_t>();
+        ITS_Container_EmergencyPriority_t* p_tmp = vanetza::asn1::allocate<ITS_Container_EmergencyPriority_t>();
         bool requestForRightOfWay;
         bool requestForFreeCrossingAtATrafficLight;
         if (j.HasMember("requestForRightOfWay")) from_json(j["requestForRightOfWay"], (requestForRightOfWay), "requestForRightOfWay");
@@ -961,7 +5018,7 @@ void from_json_EmergencyPriority(const Value& j, EmergencyPriority_t& p, std::st
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const SteeringWheelAngle& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_SteeringWheelAngle_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("steeringWheelAngleValue", to_json((p.steeringWheelAngleValue), allocator), allocator);
     json.AddMember("steeringWheelAngleConfidence", to_json((p.steeringWheelAngleConfidence), allocator), allocator);
@@ -969,7 +5026,7 @@ Value to_json(const SteeringWheelAngle& p, Document::AllocatorType& allocator) {
     return json;
 }
 
-void from_json(const Value& j, SteeringWheelAngle& p, std::string field) {
+void from_json(const Value& j, ITS_Container_SteeringWheelAngle_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["steeringWheelAngleValue"], (p.steeringWheelAngleValue), "steeringWheelAngleValue");
@@ -987,7 +5044,7 @@ void from_json(const Value& j, SteeringWheelAngle& p, std::string field) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const YawRate& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_YawRate_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("yawRateValue", to_json(((p.yawRateValue) == 32767) ? (p.yawRateValue) : (double)(p.yawRateValue) / 100.0, allocator), allocator);
     json.AddMember("yawRateConfidence", to_json((p.yawRateConfidence), allocator), allocator);
@@ -995,7 +5052,7 @@ Value to_json(const YawRate& p, Document::AllocatorType& allocator) {
     return json;
 }
 
-void from_json(const Value& j, YawRate& p, std::string field) {
+void from_json(const Value& j, ITS_Container_YawRate_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         double yawRateValue; from_json(j["yawRateValue"], (yawRateValue), "yawRateValue"); (p.yawRateValue) = ((yawRateValue) != 32767) ? yawRateValue * 100 : yawRateValue;
@@ -1013,7 +5070,7 @@ void from_json(const Value& j, YawRate& p, std::string field) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const ActionID& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_ActionID_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("originatingStationID", to_json((p.originatingStationID), allocator), allocator);
     json.AddMember("sequenceNumber", to_json((p.sequenceNumber), allocator), allocator);
@@ -1021,7 +5078,7 @@ Value to_json(const ActionID& p, Document::AllocatorType& allocator) {
     return json;
 }
 
-void from_json(const Value& j, ActionID& p, std::string field) {
+void from_json(const Value& j, ITS_Container_ActionID_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["originatingStationID"], (p.originatingStationID), "originatingStationID");
@@ -1035,11 +5092,43 @@ void from_json(const Value& j, ActionID& p, std::string field) {
 
 
 /*
+*   ItineraryPath - Type SEQUENCE OF
+*   From ITS-Container - File TS102894-2v131-CDD.asn
+*/
+
+Value to_json(const ITS_Container_ItineraryPath_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const ITS_Container_ReferencePosition_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ITS_Container_ItineraryPath_t& p, std::string field) {
+    try {
+        ITS_Container_ItineraryPath_t* p_tmp = vanetza::asn1::allocate<ITS_Container_ItineraryPath_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            ITS_Container_ReferencePosition_t *element = vanetza::asn1::allocate<ITS_Container_ReferencePosition_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
 *   ProtectedCommunicationZone - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const ProtectedCommunicationZone& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_ProtectedCommunicationZone_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("protectedZoneType", to_json((p.protectedZoneType), allocator), allocator);
     json.AddMember("protectedZoneLatitude", to_json(((p.protectedZoneLatitude) == 900000001) ? (p.protectedZoneLatitude) : (double)(p.protectedZoneLatitude) / 10000000.0, allocator), allocator);
@@ -1049,13 +5138,13 @@ Value to_json(const ProtectedCommunicationZone& p, Document::AllocatorType& allo
     return json;
 }
 
-void from_json(const Value& j, ProtectedCommunicationZone& p, std::string field) {
+void from_json(const Value& j, ITS_Container_ProtectedCommunicationZone_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["protectedZoneType"], (p.protectedZoneType), "protectedZoneType");
         double protectedZoneLatitude; from_json(j["protectedZoneLatitude"], (protectedZoneLatitude), "protectedZoneLatitude"); (p.protectedZoneLatitude) = ((protectedZoneLatitude) != 900000001) ? protectedZoneLatitude * 10000000 : protectedZoneLatitude;
         double protectedZoneLongitude; from_json(j["protectedZoneLongitude"], (protectedZoneLongitude), "protectedZoneLongitude"); (p.protectedZoneLongitude) = ((protectedZoneLongitude) != 1800000001) ? protectedZoneLongitude * 10000000 : protectedZoneLongitude;
-        if (j.HasMember("protectedZoneRadius")) { p.protectedZoneRadius = vanetza::asn1::allocate<ProtectedZoneRadius_t>(); from_json(j["protectedZoneRadius"], *(p.protectedZoneRadius), "protectedZoneRadius"); }
+        if (j.HasMember("protectedZoneRadius")) { p.protectedZoneRadius = vanetza::asn1::allocate<ITS_Container_ProtectedZoneRadius_t>(); from_json(j["protectedZoneRadius"], *(p.protectedZoneRadius), "protectedZoneRadius"); }
         else { p.protectedZoneRadius=nullptr; }
         if (j.HasMember("protectedZoneID")) { p.protectedZoneID = vanetza::asn1::allocate<ProtectedZoneID_t>(); from_json(j["protectedZoneID"], *(p.protectedZoneID), "protectedZoneID"); }
         else { p.protectedZoneID=nullptr; }
@@ -1073,22 +5162,22 @@ void from_json(const Value& j, ProtectedCommunicationZone& p, std::string field)
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const Traces& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_Traces_t& p, Document::AllocatorType& allocator) {
     Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        const PathHistory_t po = *(p.list.array[i]);
+        const ITS_Container_PathHistory_t po = *(p.list.array[i]);
         Value obj = to_json(po, allocator);
         json.PushBack(obj, allocator);
     }
     return json;
 }
 
-void from_json(const Value& j, Traces& p, std::string field) {
+void from_json(const Value& j, ITS_Container_Traces_t& p, std::string field) {
     try {
-        Traces* p_tmp = vanetza::asn1::allocate<Traces>();
+        ITS_Container_Traces_t* p_tmp = vanetza::asn1::allocate<ITS_Container_Traces_t>();
         for (SizeType i = 0; i < j.Size(); i++) {
             const Value& item = j[i];
-            PathHistory_t *element = vanetza::asn1::allocate<PathHistory_t>();
+            ITS_Container_PathHistory_t *element = vanetza::asn1::allocate<ITS_Container_PathHistory_t>();
             from_json(item, *element, "index #" + std::to_string(i));
             asn_set_add(&(p_tmp->list), element);
         }
@@ -1105,22 +5194,22 @@ void from_json(const Value& j, Traces& p, std::string field) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const PositionOfPillars& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_PositionOfPillars_t& p, Document::AllocatorType& allocator) {
     Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        const PosPillar_t po = *(p.list.array[i]);
+        const ITS_Container_PosPillar_t po = *(p.list.array[i]);
         // Value obj = to_json(po, allocator);
         json.PushBack(po, allocator);
     }
     return json;
 }
 
-void from_json(const Value& j, PositionOfPillars& p, std::string field) {
+void from_json(const Value& j, ITS_Container_PositionOfPillars_t& p, std::string field) {
     try {
-        PositionOfPillars* p_tmp = vanetza::asn1::allocate<PositionOfPillars>();
+        ITS_Container_PositionOfPillars_t* p_tmp = vanetza::asn1::allocate<ITS_Container_PositionOfPillars_t>();
         for (SizeType i = 0; i < j.Size(); i++) {
             const Value& item = j[i];
-            PosPillar_t *element = vanetza::asn1::allocate<PosPillar_t>();
+            ITS_Container_PosPillar_t *element = vanetza::asn1::allocate<ITS_Container_PosPillar_t>();
             from_json(item, *element, "index #" + std::to_string(i));
             asn_set_add(&(p_tmp->list), element);
         }
@@ -1137,22 +5226,54 @@ void from_json(const Value& j, PositionOfPillars& p, std::string field) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const RestrictedTypes& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_RestrictedTypes_t& p, Document::AllocatorType& allocator) {
     Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        const StationType_t po = *(p.list.array[i]);
+        const ITS_Container_StationType_t po = *(p.list.array[i]);
         // Value obj = to_json(po, allocator);
         json.PushBack(po, allocator);
     }
     return json;
 }
 
-void from_json(const Value& j, RestrictedTypes& p, std::string field) {
+void from_json(const Value& j, ITS_Container_RestrictedTypes_t& p, std::string field) {
     try {
-        RestrictedTypes* p_tmp = vanetza::asn1::allocate<RestrictedTypes>();
+        ITS_Container_RestrictedTypes_t* p_tmp = vanetza::asn1::allocate<ITS_Container_RestrictedTypes_t>();
         for (SizeType i = 0; i < j.Size(); i++) {
             const Value& item = j[i];
-            StationType_t *element = vanetza::asn1::allocate<StationType_t>();
+            ITS_Container_StationType_t *element = vanetza::asn1::allocate<ITS_Container_StationType_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   EventHistory - Type SEQUENCE OF
+*   From ITS-Container - File TS102894-2v131-CDD.asn
+*/
+
+Value to_json(const ITS_Container_EventHistory_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const ITS_Container_EventPoint_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ITS_Container_EventHistory_t& p, std::string field) {
+    try {
+        ITS_Container_EventHistory_t* p_tmp = vanetza::asn1::allocate<ITS_Container_EventHistory_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            ITS_Container_EventPoint_t *element = vanetza::asn1::allocate<ITS_Container_EventPoint_t>();
             from_json(item, *element, "index #" + std::to_string(i));
             asn_set_add(&(p_tmp->list), element);
         }
@@ -1169,7 +5290,7 @@ void from_json(const Value& j, RestrictedTypes& p, std::string field) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const EventPoint& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_EventPoint_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("eventPosition", to_json((p.eventPosition), allocator), allocator);
     json.AddMember("informationQuality", to_json((p.informationQuality), allocator), allocator);
@@ -1177,11 +5298,11 @@ Value to_json(const EventPoint& p, Document::AllocatorType& allocator) {
     return json;
 }
 
-void from_json(const Value& j, EventPoint& p, std::string field) {
+void from_json(const Value& j, ITS_Container_EventPoint_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["eventPosition"], (p.eventPosition), "eventPosition");
-        if (j.HasMember("eventDeltaTime")) { p.eventDeltaTime = vanetza::asn1::allocate<PathDeltaTime_t>(); from_json(j["eventDeltaTime"], *(p.eventDeltaTime), "eventDeltaTime"); }
+        if (j.HasMember("eventDeltaTime")) { p.eventDeltaTime = vanetza::asn1::allocate<ITS_Container_PathDeltaTime_t>(); from_json(j["eventDeltaTime"], *(p.eventDeltaTime), "eventDeltaTime"); }
         else { p.eventDeltaTime=nullptr; }
         from_json(j["informationQuality"], (p.informationQuality), "informationQuality");
     } catch(VanetzaJSONException& ex) {
@@ -1197,22 +5318,22 @@ void from_json(const Value& j, EventPoint& p, std::string field) {
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const ProtectedCommunicationZonesRSU& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_ProtectedCommunicationZonesRSU_t& p, Document::AllocatorType& allocator) {
     Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        const ProtectedCommunicationZone_t po = *(p.list.array[i]);
+        const ITS_Container_ProtectedCommunicationZone_t po = *(p.list.array[i]);
         Value obj = to_json(po, allocator);
         json.PushBack(obj, allocator);
     }
     return json;
 }
 
-void from_json(const Value& j, ProtectedCommunicationZonesRSU& p, std::string field) {
+void from_json(const Value& j, ITS_Container_ProtectedCommunicationZonesRSU_t& p, std::string field) {
     try {
-        ProtectedCommunicationZonesRSU* p_tmp = vanetza::asn1::allocate<ProtectedCommunicationZonesRSU>();
+        ITS_Container_ProtectedCommunicationZonesRSU_t* p_tmp = vanetza::asn1::allocate<ITS_Container_ProtectedCommunicationZonesRSU_t>();
         for (SizeType i = 0; i < j.Size(); i++) {
             const Value& item = j[i];
-            ProtectedCommunicationZone_t *element = vanetza::asn1::allocate<ProtectedCommunicationZone_t>();
+            ITS_Container_ProtectedCommunicationZone_t *element = vanetza::asn1::allocate<ITS_Container_ProtectedCommunicationZone_t>();
             from_json(item, *element, "index #" + std::to_string(i));
             asn_set_add(&(p_tmp->list), element);
         }
@@ -1229,7 +5350,7 @@ void from_json(const Value& j, ProtectedCommunicationZonesRSU& p, std::string fi
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const CenDsrcTollingZone& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_CenDsrcTollingZone_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("protectedZoneLatitude", to_json(((p.protectedZoneLatitude) == 900000001) ? (p.protectedZoneLatitude) : (double)(p.protectedZoneLatitude) / 10000000.0, allocator), allocator);
     json.AddMember("protectedZoneLongitude", to_json(((p.protectedZoneLongitude) == 1800000001) ? (p.protectedZoneLongitude) : (double)(p.protectedZoneLongitude) / 10000000.0, allocator), allocator);
@@ -1237,12 +5358,12 @@ Value to_json(const CenDsrcTollingZone& p, Document::AllocatorType& allocator) {
     return json;
 }
 
-void from_json(const Value& j, CenDsrcTollingZone& p, std::string field) {
+void from_json(const Value& j, ITS_Container_CenDsrcTollingZone_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         double protectedZoneLatitude; from_json(j["protectedZoneLatitude"], (protectedZoneLatitude), "protectedZoneLatitude"); (p.protectedZoneLatitude) = ((protectedZoneLatitude) != 900000001) ? protectedZoneLatitude * 10000000 : protectedZoneLatitude;
         double protectedZoneLongitude; from_json(j["protectedZoneLongitude"], (protectedZoneLongitude), "protectedZoneLongitude"); (p.protectedZoneLongitude) = ((protectedZoneLongitude) != 1800000001) ? protectedZoneLongitude * 10000000 : protectedZoneLongitude;
-        if (j.HasMember("cenDsrcTollingZoneID")) { p.cenDsrcTollingZoneID = vanetza::asn1::allocate<CenDsrcTollingZoneID_t>(); from_json(j["cenDsrcTollingZoneID"], *(p.cenDsrcTollingZoneID), "cenDsrcTollingZoneID"); }
+        if (j.HasMember("cenDsrcTollingZoneID")) { p.cenDsrcTollingZoneID = vanetza::asn1::allocate<ITS_Container_CenDsrcTollingZoneID_t>(); from_json(j["cenDsrcTollingZoneID"], *(p.cenDsrcTollingZoneID), "cenDsrcTollingZoneID"); }
         else { p.cenDsrcTollingZoneID=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -1251,6 +5372,38 @@ void from_json(const Value& j, CenDsrcTollingZone& p, std::string field) {
 }
 
 
+
+/*
+*   DigitalMap - Type SEQUENCE OF
+*   From ITS-Container - File TS102894-2v131-CDD.asn
+*/
+
+Value to_json(const ITS_Container_DigitalMap_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const ITS_Container_ReferencePosition_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ITS_Container_DigitalMap_t& p, std::string field) {
+    try {
+        ITS_Container_DigitalMap_t* p_tmp = vanetza::asn1::allocate<ITS_Container_DigitalMap_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            ITS_Container_ReferencePosition_t *element = vanetza::asn1::allocate<ITS_Container_ReferencePosition_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
 
 /*
 *   LaneAttributes-addGrpC - Type SEQUENCE
@@ -1268,9 +5421,9 @@ Value to_json(const LaneAttributes_addGrpC& p, Document::AllocatorType& allocato
 void from_json(const Value& j, LaneAttributes_addGrpC& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        if (j.HasMember("maxVehicleHeight")) { p.maxVehicleHeight = vanetza::asn1::allocate<VehicleHeight_t>(); from_json(j["maxVehicleHeight"], *(p.maxVehicleHeight), "maxVehicleHeight"); }
+        if (j.HasMember("maxVehicleHeight")) { p.maxVehicleHeight = vanetza::asn1::allocate<DSRC_VehicleHeight_t>(); from_json(j["maxVehicleHeight"], *(p.maxVehicleHeight), "maxVehicleHeight"); }
         else { p.maxVehicleHeight=nullptr; }
-        if (j.HasMember("maxVehicleWeight")) { p.maxVehicleWeight = vanetza::asn1::allocate<VehicleMass_t>(); from_json(j["maxVehicleWeight"], *(p.maxVehicleWeight), "maxVehicleWeight"); }
+        if (j.HasMember("maxVehicleWeight")) { p.maxVehicleWeight = vanetza::asn1::allocate<ITS_Container_VehicleMass_t>(); from_json(j["maxVehicleWeight"], *(p.maxVehicleWeight), "maxVehicleWeight"); }
         else { p.maxVehicleWeight=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -1652,11 +5805,11 @@ void from_json(const Value& j, ComputedLane::ComputedLane__offsetXaxis& p, std::
     try {
         if (j.HasMember("small")) {
         p.present = ComputedLane__offsetXaxis_PR::ComputedLane__offsetXaxis_PR_small;
-        from_json(j["small"], p.choice.small, "small");
-    } else if (j.HasMember("large")) {
+            from_json(j["small"], p.choice.small, "small");
+        } else if (j.HasMember("large")) {
         p.present = ComputedLane__offsetXaxis_PR::ComputedLane__offsetXaxis_PR_large;
-        from_json(j["large"], p.choice.large, "large");
-    } else {
+            from_json(j["large"], p.choice.large, "large");
+        } else {
         p.present = ComputedLane__offsetXaxis_PR::ComputedLane__offsetXaxis_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -1684,11 +5837,11 @@ void from_json(const Value& j, ComputedLane::ComputedLane__offsetYaxis& p, std::
     try {
         if (j.HasMember("small")) {
         p.present = ComputedLane__offsetYaxis_PR::ComputedLane__offsetYaxis_PR_small;
-        from_json(j["small"], p.choice.small, "small");
-    } else if (j.HasMember("large")) {
+            from_json(j["small"], p.choice.small, "small");
+        } else if (j.HasMember("large")) {
         p.present = ComputedLane__offsetYaxis_PR::ComputedLane__offsetYaxis_PR_large;
-        from_json(j["large"], p.choice.large, "large");
-    } else {
+            from_json(j["large"], p.choice.large, "large");
+        } else {
         p.present = ComputedLane__offsetYaxis_PR::ComputedLane__offsetYaxis_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -1900,14 +6053,14 @@ void from_json(const Value& j, IntersectionAccessPoint_t& p, std::string field) 
     try {
         if (j.HasMember("lane")) {
         p.present = IntersectionAccessPoint_PR_lane;
-        from_json(j["lane"], p.choice.lane, "lane");
-    } else if (j.HasMember("approach")) {
+            from_json(j["lane"], p.choice.lane, "lane");
+        } else if (j.HasMember("approach")) {
         p.present = IntersectionAccessPoint_PR_approach;
-        from_json(j["approach"], p.choice.approach, "approach");
-    } else if (j.HasMember("connection")) {
+            from_json(j["approach"], p.choice.approach, "approach");
+        } else if (j.HasMember("connection")) {
         p.present = IntersectionAccessPoint_PR_connection;
-        from_json(j["connection"], p.choice.connection, "connection");
-    } else {
+            from_json(j["connection"], p.choice.connection, "connection");
+        } else {
         p.present = IntersectionAccessPoint_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -2283,26 +6436,26 @@ void from_json(const Value& j, NodeOffsetPointXY& p, std::string field) {
     try {
         if (j.HasMember("node-XY1")) {
         p.present = NodeOffsetPointXY_PR_node_XY1;
-        from_json(j["node-XY1"], p.choice.node_XY1, "node-XY1");
-    } else if (j.HasMember("node-XY2")) {
+            from_json(j["node-XY1"], p.choice.node_XY1, "node-XY1");
+        } else if (j.HasMember("node-XY2")) {
         p.present = NodeOffsetPointXY_PR_node_XY2;
-        from_json(j["node-XY2"], p.choice.node_XY2, "node-XY2");
-    } else if (j.HasMember("node-XY3")) {
+            from_json(j["node-XY2"], p.choice.node_XY2, "node-XY2");
+        } else if (j.HasMember("node-XY3")) {
         p.present = NodeOffsetPointXY_PR_node_XY3;
-        from_json(j["node-XY3"], p.choice.node_XY3, "node-XY3");
-    } else if (j.HasMember("node-XY4")) {
+            from_json(j["node-XY3"], p.choice.node_XY3, "node-XY3");
+        } else if (j.HasMember("node-XY4")) {
         p.present = NodeOffsetPointXY_PR_node_XY4;
-        from_json(j["node-XY4"], p.choice.node_XY4, "node-XY4");
-    } else if (j.HasMember("node-XY5")) {
+            from_json(j["node-XY4"], p.choice.node_XY4, "node-XY4");
+        } else if (j.HasMember("node-XY5")) {
         p.present = NodeOffsetPointXY_PR_node_XY5;
-        from_json(j["node-XY5"], p.choice.node_XY5, "node-XY5");
-    } else if (j.HasMember("node-XY6")) {
+            from_json(j["node-XY5"], p.choice.node_XY5, "node-XY5");
+        } else if (j.HasMember("node-XY6")) {
         p.present = NodeOffsetPointXY_PR_node_XY6;
-        from_json(j["node-XY6"], p.choice.node_XY6, "node-XY6");
-    } else if (j.HasMember("node-LatLon")) {
+            from_json(j["node-XY6"], p.choice.node_XY6, "node-XY6");
+        } else if (j.HasMember("node-LatLon")) {
         p.present = NodeOffsetPointXY_PR_node_LatLon;
-        from_json(j["node-LatLon"], p.choice.node_LatLon, "node-LatLon");
-    } else {
+            from_json(j["node-LatLon"], p.choice.node_LatLon, "node-LatLon");
+        } else {
         p.present = NodeOffsetPointXY_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -2503,8 +6656,8 @@ void from_json(const Value& j, RestrictionUserType& p, std::string field) {
     try {
         if (j.HasMember("basicType")) {
         p.present = RestrictionUserType_PR_basicType;
-        from_json(j["basicType"], p.choice.basicType, "basicType");
-    } else {
+            from_json(j["basicType"], p.choice.basicType, "basicType");
+        } else {
         p.present = RestrictionUserType_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -2834,8 +6987,8 @@ void from_json(const Value& j, VehicleID_t& p, std::string field) {
     try {
         if (j.HasMember("stationID")) {
         p.present = VehicleID_PR_stationID;
-        from_json(j["stationID"], p.choice.stationID, "stationID");
-    } else {
+            from_json(j["stationID"], p.choice.stationID, "stationID");
+        } else {
         p.present = VehicleID_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -3637,15 +7790,15 @@ void from_json(const Value& j, FreightContainerData_t& p, std::string field) {
 *   From AVIAEINumberingAndDataStructures - File ISO14816.asn
 */
 
-Value to_json_CountryCode(const CountryCode_t p, Document::AllocatorType& allocator) {
+Value to_json_AVIAEINumberingAndDataStructures_CountryCode(const AVIAEINumberingAndDataStructures_CountryCode_t p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     
     return json;
 }
 
-void from_json_CountryCode(const Value& j, CountryCode_t& p, std::string field) {
+void from_json_AVIAEINumberingAndDataStructures_CountryCode(const Value& j, AVIAEINumberingAndDataStructures_CountryCode_t& p, std::string field) {
     try {
-        CountryCode_t* p_tmp = vanetza::asn1::allocate<CountryCode_t>();
+        AVIAEINumberingAndDataStructures_CountryCode_t* p_tmp = vanetza::asn1::allocate<AVIAEINumberingAndDataStructures_CountryCode_t>();
         
         
         p_tmp->size = (0 / 8) + 1;
@@ -3827,14 +7980,14 @@ void from_json(const Value& j, GddStructure::GddStructure__pictogramCode::GddStr
     try {
         if (j.HasMember("trafficSignPictogram")) {
         p.present = GddStructure__pictogramCode__serviceCategoryCode_PR::GddStructure__pictogramCode__serviceCategoryCode_PR_trafficSignPictogram;
-        from_json(j["trafficSignPictogram"], p.choice.trafficSignPictogram, "trafficSignPictogram");
-    } else if (j.HasMember("publicFacilitiesPictogram")) {
+            from_json(j["trafficSignPictogram"], p.choice.trafficSignPictogram, "trafficSignPictogram");
+        } else if (j.HasMember("publicFacilitiesPictogram")) {
         p.present = GddStructure__pictogramCode__serviceCategoryCode_PR::GddStructure__pictogramCode__serviceCategoryCode_PR_publicFacilitiesPictogram;
-        from_json(j["publicFacilitiesPictogram"], p.choice.publicFacilitiesPictogram, "publicFacilitiesPictogram");
-    } else if (j.HasMember("ambientOrRoadConditionPictogram")) {
+            from_json(j["publicFacilitiesPictogram"], p.choice.publicFacilitiesPictogram, "publicFacilitiesPictogram");
+        } else if (j.HasMember("ambientOrRoadConditionPictogram")) {
         p.present = GddStructure__pictogramCode__serviceCategoryCode_PR::GddStructure__pictogramCode__serviceCategoryCode_PR_ambientOrRoadConditionPictogram;
-        from_json(j["ambientOrRoadConditionPictogram"], p.choice.ambientOrRoadConditionPictogram, "ambientOrRoadConditionPictogram");
-    } else {
+            from_json(j["ambientOrRoadConditionPictogram"], p.choice.ambientOrRoadConditionPictogram, "ambientOrRoadConditionPictogram");
+        } else {
         p.present = GddStructure__pictogramCode__serviceCategoryCode_PR::GddStructure__pictogramCode__serviceCategoryCode_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -4601,6 +8754,34 @@ void from_json(const Value& j, EfcDsrcApplication_DriverCharacteristics_t& p, st
 
 
 /*
+*   EFC-ContextMark - Type SEQUENCE
+*   From EfcDsrcApplication - File ISO14906-0-6.asn
+*/
+
+Value to_json(const EFC_ContextMark_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("contractProvider", to_json((p.contractProvider), allocator), allocator);
+    json.AddMember("typeOfContract", to_json((p.typeOfContract), allocator), allocator);
+    json.AddMember("contextVersion", to_json((p.contextVersion), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, EFC_ContextMark_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["contractProvider"], (p.contractProvider), "contractProvider");
+        from_json(j["typeOfContract"], (p.typeOfContract), "typeOfContract");
+        from_json(j["contextVersion"], (p.contextVersion), "contextVersion");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
 *   EnvironmentalCharacteristics - Type SEQUENCE
 *   From EfcDsrcApplication - File ISO14906-0-6.asn
 */
@@ -4720,7 +8901,7 @@ void from_json(const Value& j, ExhaustEmissionValues_t& p, std::string field) {
 
 Value to_json(const LPN_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("countryCode", to_json_CountryCode((p.countryCode), allocator), allocator);
+    json.AddMember("countryCode", to_json_AVIAEINumberingAndDataStructures_CountryCode((p.countryCode), allocator), allocator);
     json.AddMember("alphabetIndicator", to_json((p.alphabetIndicator), allocator), allocator);
     json.AddMember("licencePlateNumber", to_json((p.licencePlateNumber), allocator), allocator);
     
@@ -4730,7 +8911,7 @@ Value to_json(const LPN_t& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, LPN_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json_CountryCode(j["countryCode"],(p.countryCode), "countryCode");
+        from_json_AVIAEINumberingAndDataStructures_CountryCode(j["countryCode"],(p.countryCode), "countryCode");
         from_json(j["alphabetIndicator"], (p.alphabetIndicator), "alphabetIndicator");
         from_json(j["licencePlateNumber"], (p.licencePlateNumber), "licencePlateNumber");
     } catch(VanetzaJSONException& ex) {
@@ -4786,11 +8967,11 @@ void from_json(const Value& j, SignedValue_t& p, std::string field) {
     try {
         if (j.HasMember("positive")) {
         p.present = SignedValue_PR_positive;
-        from_json(j["positive"], p.choice.positive, "positive");
-    } else if (j.HasMember("negative")) {
+            from_json(j["positive"], p.choice.positive, "positive");
+        } else if (j.HasMember("negative")) {
         p.present = SignedValue_PR_negative;
-        from_json(j["negative"], p.choice.negative, "negative");
-    } else {
+            from_json(j["negative"], p.choice.negative, "negative");
+        } else {
         p.present = SignedValue_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -4804,18 +8985,18 @@ void from_json(const Value& j, SignedValue_t& p, std::string field) {
 *   From EfcDsrcApplication - File ISO14906-0-6.asn
 */
 
-Value to_json(const Provider_t& p, Document::AllocatorType& allocator) {
+Value to_json(const EfcDsrcApplication_Provider_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("countryCode", to_json_CountryCode((p.countryCode), allocator), allocator);
+    json.AddMember("countryCode", to_json_AVIAEINumberingAndDataStructures_CountryCode((p.countryCode), allocator), allocator);
     json.AddMember("providerIdentifier", to_json((p.providerIdentifier), allocator), allocator);
     
     return json;
 }
 
-void from_json(const Value& j, Provider_t& p, std::string field) {
+void from_json(const Value& j, EfcDsrcApplication_Provider_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json_CountryCode(j["countryCode"],(p.countryCode), "countryCode");
+        from_json_AVIAEINumberingAndDataStructures_CountryCode(j["countryCode"],(p.countryCode), "countryCode");
         from_json(j["providerIdentifier"], (p.providerIdentifier), "providerIdentifier");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -5228,30 +9409,62 @@ void from_json(const Value& j, VehicleWeightLimits_t& p, std::string field) {
 
 
 /*
-*   Ext2 - Type CHOICE
+*   Ext1 - Type CHOICE
 *   From CITSapplMgmtIDs - File ISO17419.asn
 */
 
-Value to_json(const Ext2& p, Document::AllocatorType& allocator) {
+Value to_json(const CITSapplMgmtIDs_Ext1_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    if (p.present == Ext2_PR_content) {
+    if (p.present == CITSapplMgmtIDs_Ext1_PR_content) {
         json.AddMember("content", to_json(p.choice.content, allocator), allocator);
-    } else if (p.present == Ext2_PR_extension) {
+    } else if (p.present == CITSapplMgmtIDs_Ext1_PR_extension) {
         json.AddMember("extension", to_json(p.choice.extension, allocator), allocator);
     }
     return json;
 }
 
-void from_json(const Value& j, Ext2& p, std::string field) {
+void from_json(const Value& j, CITSapplMgmtIDs_Ext1_t& p, std::string field) {
     try {
         if (j.HasMember("content")) {
-        p.present = Ext2_PR_content;
-        from_json(j["content"], p.choice.content, "content");
-    } else if (j.HasMember("extension")) {
-        p.present = Ext2_PR_extension;
-        from_json(j["extension"], p.choice.extension, "extension");
-    } else {
-        p.present = Ext2_PR_NOTHING;
+        p.present = CITSapplMgmtIDs_Ext1_PR_content;
+            from_json(j["content"], p.choice.content, "content");
+        } else if (j.HasMember("extension")) {
+        p.present = CITSapplMgmtIDs_Ext1_PR_extension;
+            from_json(j["extension"], p.choice.extension, "extension");
+        } else {
+        p.present = CITSapplMgmtIDs_Ext1_PR_NOTHING;
+        }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   Ext2 - Type CHOICE
+*   From CITSapplMgmtIDs - File ISO17419.asn
+*/
+
+Value to_json(const CITSapplMgmtIDs_Ext2_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == CITSapplMgmtIDs_Ext2_PR_content) {
+        json.AddMember("content", to_json(p.choice.content, allocator), allocator);
+    } else if (p.present == CITSapplMgmtIDs_Ext2_PR_extension) {
+        json.AddMember("extension", to_json(p.choice.extension, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, CITSapplMgmtIDs_Ext2_t& p, std::string field) {
+    try {
+        if (j.HasMember("content")) {
+        p.present = CITSapplMgmtIDs_Ext2_PR_content;
+            from_json(j["content"], p.choice.content, "content");
+        } else if (j.HasMember("extension")) {
+        p.present = CITSapplMgmtIDs_Ext2_PR_extension;
+            from_json(j["extension"], p.choice.extension, "extension");
+        } else {
+        p.present = CITSapplMgmtIDs_Ext2_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -5264,36 +9477,36 @@ void from_json(const Value& j, Ext2& p, std::string field) {
 *   From ElectronicRegistrationIdentificationVehicleDataModule - File ISO24534-3.asn
 */
 
-Value to_json(const EuVehicleCategoryCode& p, Document::AllocatorType& allocator) {
+Value to_json(const ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    if (p.present == EuVehicleCategoryCode_PR_euVehicleCategoryL) {
+    if (p.present == ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_PR_euVehicleCategoryL) {
         json.AddMember("euVehicleCategoryL", to_json(p.choice.euVehicleCategoryL, allocator), allocator);
-    } else if (p.present == EuVehicleCategoryCode_PR_euVehicleCategoryM) {
+    } else if (p.present == ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_PR_euVehicleCategoryM) {
         json.AddMember("euVehicleCategoryM", to_json(p.choice.euVehicleCategoryM, allocator), allocator);
-    } else if (p.present == EuVehicleCategoryCode_PR_euVehicleCategoryN) {
+    } else if (p.present == ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_PR_euVehicleCategoryN) {
         json.AddMember("euVehicleCategoryN", to_json(p.choice.euVehicleCategoryN, allocator), allocator);
-    } else if (p.present == EuVehicleCategoryCode_PR_euVehicleCategoryO) {
+    } else if (p.present == ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_PR_euVehicleCategoryO) {
         json.AddMember("euVehicleCategoryO", to_json(p.choice.euVehicleCategoryO, allocator), allocator);
     }
     return json;
 }
 
-void from_json(const Value& j, EuVehicleCategoryCode& p, std::string field) {
+void from_json(const Value& j, ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_t& p, std::string field) {
     try {
         if (j.HasMember("euVehicleCategoryL")) {
-        p.present = EuVehicleCategoryCode_PR_euVehicleCategoryL;
-        from_json(j["euVehicleCategoryL"], p.choice.euVehicleCategoryL, "euVehicleCategoryL");
-    } else if (j.HasMember("euVehicleCategoryM")) {
-        p.present = EuVehicleCategoryCode_PR_euVehicleCategoryM;
-        from_json(j["euVehicleCategoryM"], p.choice.euVehicleCategoryM, "euVehicleCategoryM");
-    } else if (j.HasMember("euVehicleCategoryN")) {
-        p.present = EuVehicleCategoryCode_PR_euVehicleCategoryN;
-        from_json(j["euVehicleCategoryN"], p.choice.euVehicleCategoryN, "euVehicleCategoryN");
-    } else if (j.HasMember("euVehicleCategoryO")) {
-        p.present = EuVehicleCategoryCode_PR_euVehicleCategoryO;
-        from_json(j["euVehicleCategoryO"], p.choice.euVehicleCategoryO, "euVehicleCategoryO");
-    } else {
-        p.present = EuVehicleCategoryCode_PR_NOTHING;
+        p.present = ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_PR_euVehicleCategoryL;
+            from_json(j["euVehicleCategoryL"], p.choice.euVehicleCategoryL, "euVehicleCategoryL");
+        } else if (j.HasMember("euVehicleCategoryM")) {
+        p.present = ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_PR_euVehicleCategoryM;
+            from_json(j["euVehicleCategoryM"], p.choice.euVehicleCategoryM, "euVehicleCategoryM");
+        } else if (j.HasMember("euVehicleCategoryN")) {
+        p.present = ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_PR_euVehicleCategoryN;
+            from_json(j["euVehicleCategoryN"], p.choice.euVehicleCategoryN, "euVehicleCategoryN");
+        } else if (j.HasMember("euVehicleCategoryO")) {
+        p.present = ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_PR_euVehicleCategoryO;
+            from_json(j["euVehicleCategoryO"], p.choice.euVehicleCategoryO, "euVehicleCategoryO");
+        } else {
+        p.present = ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -5309,7 +9522,7 @@ void from_json(const Value& j, EuVehicleCategoryCode& p, std::string field) {
 Value to_json(const ConnectedDenms& p, Document::AllocatorType& allocator) {
     Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        const ActionID_t po = *(p.list.array[i]);
+        const ITS_Container_ActionID_t po = *(p.list.array[i]);
         Value obj = to_json(po, allocator);
         json.PushBack(obj, allocator);
     }
@@ -5321,7 +9534,7 @@ void from_json(const Value& j, ConnectedDenms& p, std::string field) {
         ConnectedDenms* p_tmp = vanetza::asn1::allocate<ConnectedDenms>();
         for (SizeType i = 0; i < j.Size(); i++) {
             const Value& item = j[i];
-            ActionID_t *element = vanetza::asn1::allocate<ActionID_t>();
+            ITS_Container_ActionID_t *element = vanetza::asn1::allocate<ITS_Container_ActionID_t>();
             from_json(item, *element, "index #" + std::to_string(i));
             asn_set_add(&(p_tmp->list), element);
         }
@@ -5341,7 +9554,7 @@ void from_json(const Value& j, ConnectedDenms& p, std::string field) {
 Value to_json(const DeltaReferencePositions& p, Document::AllocatorType& allocator) {
     Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        const DeltaReferencePosition_t po = *(p.list.array[i]);
+        const ITS_Container_DeltaReferencePosition_t po = *(p.list.array[i]);
         Value obj = to_json(po, allocator);
         json.PushBack(obj, allocator);
     }
@@ -5353,7 +9566,7 @@ void from_json(const Value& j, DeltaReferencePositions& p, std::string field) {
         DeltaReferencePositions* p_tmp = vanetza::asn1::allocate<DeltaReferencePositions>();
         for (SizeType i = 0; i < j.Size(); i++) {
             const Value& item = j[i];
-            DeltaReferencePosition_t *element = vanetza::asn1::allocate<DeltaReferencePosition_t>();
+            ITS_Container_DeltaReferencePosition_t *element = vanetza::asn1::allocate<ITS_Container_DeltaReferencePosition_t>();
             from_json(item, *element, "index #" + std::to_string(i));
             asn_set_add(&(p_tmp->list), element);
         }
@@ -5373,7 +9586,7 @@ void from_json(const Value& j, DeltaReferencePositions& p, std::string field) {
 Value to_json(const IviIdentificationNumbers& p, Document::AllocatorType& allocator) {
     Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        const IviIdentificationNumber_t po = *(p.list.array[i]);
+        const IVI_IviIdentificationNumber_t po = *(p.list.array[i]);
         // Value obj = to_json(po, allocator);
         json.PushBack(po, allocator);
     }
@@ -5385,7 +9598,7 @@ void from_json(const Value& j, IviIdentificationNumbers& p, std::string field) {
         IviIdentificationNumbers* p_tmp = vanetza::asn1::allocate<IviIdentificationNumbers>();
         for (SizeType i = 0; i < j.Size(); i++) {
             const Value& item = j[i];
-            IviIdentificationNumber_t *element = vanetza::asn1::allocate<IviIdentificationNumber_t>();
+            IVI_IviIdentificationNumber_t *element = vanetza::asn1::allocate<IVI_IviIdentificationNumber_t>();
             from_json(item, *element, "index #" + std::to_string(i));
             asn_set_add(&(p_tmp->list), element);
         }
@@ -5437,7 +9650,7 @@ void from_json(const Value& j, LaneIds& p, std::string field) {
 Value to_json(const LanePositions& p, Document::AllocatorType& allocator) {
     Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        const LanePosition_t po = *(p.list.array[i]);
+        const ITS_Container_LanePosition_t po = *(p.list.array[i]);
         // Value obj = to_json(po, allocator);
         json.PushBack(po, allocator);
     }
@@ -5449,7 +9662,7 @@ void from_json(const Value& j, LanePositions& p, std::string field) {
         LanePositions* p_tmp = vanetza::asn1::allocate<LanePositions>();
         for (SizeType i = 0; i < j.Size(); i++) {
             const Value& item = j[i];
-            LanePosition_t *element = vanetza::asn1::allocate<LanePosition_t>();
+            ITS_Container_LanePosition_t *element = vanetza::asn1::allocate<ITS_Container_LanePosition_t>();
             from_json(item, *element, "index #" + std::to_string(i));
             asn_set_add(&(p_tmp->list), element);
         }
@@ -5602,7 +9815,7 @@ void from_json(const Value& j, ComputedSegment& p, std::string field) {
         from_json(j["laneWidth"], (p.laneWidth), "laneWidth");
         if (j.HasMember("offsetDistance")) { p.offsetDistance = vanetza::asn1::allocate<long>(); from_json(j["offsetDistance"], *(p.offsetDistance), "offsetDistance"); }
         else { p.offsetDistance=nullptr; }
-        if (j.HasMember("offsetPosition")) { p.offsetPosition = vanetza::asn1::allocate<DeltaReferencePosition_t>(); from_json(j["offsetPosition"], *(p.offsetPosition), "offsetPosition"); }
+        if (j.HasMember("offsetPosition")) { p.offsetPosition = vanetza::asn1::allocate<ITS_Container_DeltaReferencePosition_t>(); from_json(j["offsetPosition"], *(p.offsetPosition), "offsetPosition"); }
         else { p.offsetPosition=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -5659,14 +9872,14 @@ void from_json(const Value& j, ISO14823Code::ISO14823Code__pictogramCode::ISO148
     try {
         if (j.HasMember("trafficSignPictogram")) {
         p.present = ISO14823Code__pictogramCode__serviceCategoryCode_PR::ISO14823Code__pictogramCode__serviceCategoryCode_PR_trafficSignPictogram;
-        from_json(j["trafficSignPictogram"], p.choice.trafficSignPictogram, "trafficSignPictogram");
-    } else if (j.HasMember("publicFacilitiesPictogram")) {
+            from_json(j["trafficSignPictogram"], p.choice.trafficSignPictogram, "trafficSignPictogram");
+        } else if (j.HasMember("publicFacilitiesPictogram")) {
         p.present = ISO14823Code__pictogramCode__serviceCategoryCode_PR::ISO14823Code__pictogramCode__serviceCategoryCode_PR_publicFacilitiesPictogram;
-        from_json(j["publicFacilitiesPictogram"], p.choice.publicFacilitiesPictogram, "publicFacilitiesPictogram");
-    } else if (j.HasMember("ambientOrRoadConditionPictogram")) {
+            from_json(j["publicFacilitiesPictogram"], p.choice.publicFacilitiesPictogram, "publicFacilitiesPictogram");
+        } else if (j.HasMember("ambientOrRoadConditionPictogram")) {
         p.present = ISO14823Code__pictogramCode__serviceCategoryCode_PR::ISO14823Code__pictogramCode__serviceCategoryCode_PR_ambientOrRoadConditionPictogram;
-        from_json(j["ambientOrRoadConditionPictogram"], p.choice.ambientOrRoadConditionPictogram, "ambientOrRoadConditionPictogram");
-    } else {
+            from_json(j["ambientOrRoadConditionPictogram"], p.choice.ambientOrRoadConditionPictogram, "ambientOrRoadConditionPictogram");
+        } else {
         p.present = ISO14823Code__pictogramCode__serviceCategoryCode_PR::ISO14823Code__pictogramCode__serviceCategoryCode_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -5806,7 +10019,7 @@ Value to_json(const LoadType& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("goodsType", to_json((p.goodsType), allocator), allocator);
     json.AddMember("dangerousGoodsType", to_json((p.dangerousGoodsType), allocator), allocator);
-    json.AddMember("specialTransportType", to_json_SpecialTransportType((p.specialTransportType), allocator), allocator);
+    json.AddMember("specialTransportType", to_json_ITS_Container_SpecialTransportType((p.specialTransportType), allocator), allocator);
     
     return json;
 }
@@ -5816,7 +10029,7 @@ void from_json(const Value& j, LoadType& p, std::string field) {
         p._asn_ctx.ptr = nullptr;
         from_json(j["goodsType"], (p.goodsType), "goodsType");
         from_json(j["dangerousGoodsType"], (p.dangerousGoodsType), "dangerousGoodsType");
-        from_json_SpecialTransportType(j["specialTransportType"],(p.specialTransportType), "specialTransportType");
+        from_json_ITS_Container_SpecialTransportType(j["specialTransportType"],(p.specialTransportType), "specialTransportType");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -5830,26 +10043,26 @@ void from_json(const Value& j, LoadType& p, std::string field) {
 *   From IVI - File ISO19321IVIv2.asn
 */
 
-Value to_json(const MapReference& p, Document::AllocatorType& allocator) {
+Value to_json(const IVI_MapReference_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    if (p.present == MapReference_PR_roadsegment) {
+    if (p.present == IVI_MapReference_PR_roadsegment) {
         json.AddMember("roadsegment", to_json(p.choice.roadsegment, allocator), allocator);
-    } else if (p.present == MapReference_PR_intersection) {
+    } else if (p.present == IVI_MapReference_PR_intersection) {
         json.AddMember("intersection", to_json(p.choice.intersection, allocator), allocator);
     }
     return json;
 }
 
-void from_json(const Value& j, MapReference& p, std::string field) {
+void from_json(const Value& j, IVI_MapReference_t& p, std::string field) {
     try {
         if (j.HasMember("roadsegment")) {
-        p.present = MapReference_PR_roadsegment;
-        from_json(j["roadsegment"], p.choice.roadsegment, "roadsegment");
-    } else if (j.HasMember("intersection")) {
-        p.present = MapReference_PR_intersection;
-        from_json(j["intersection"], p.choice.intersection, "intersection");
-    } else {
-        p.present = MapReference_PR_NOTHING;
+        p.present = IVI_MapReference_PR_roadsegment;
+            from_json(j["roadsegment"], p.choice.roadsegment, "roadsegment");
+        } else if (j.HasMember("intersection")) {
+        p.present = IVI_MapReference_PR_intersection;
+            from_json(j["intersection"], p.choice.intersection, "intersection");
+        } else {
+        p.present = IVI_MapReference_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -5971,23 +10184,23 @@ void from_json(const Value& j, VehicleCharacteristicsFixValues& p, std::string f
     try {
         if (j.HasMember("simpleVehicleType")) {
         p.present = VehicleCharacteristicsFixValues_PR_simpleVehicleType;
-        from_json(j["simpleVehicleType"], p.choice.simpleVehicleType, "simpleVehicleType");
-    } else if (j.HasMember("euVehicleCategoryCode")) {
+            from_json(j["simpleVehicleType"], p.choice.simpleVehicleType, "simpleVehicleType");
+        } else if (j.HasMember("euVehicleCategoryCode")) {
         p.present = VehicleCharacteristicsFixValues_PR_euVehicleCategoryCode;
-        from_json(j["euVehicleCategoryCode"], p.choice.euVehicleCategoryCode, "euVehicleCategoryCode");
-    } else if (j.HasMember("euroAndCo2value")) {
+            from_json(j["euVehicleCategoryCode"], p.choice.euVehicleCategoryCode, "euVehicleCategoryCode");
+        } else if (j.HasMember("euroAndCo2value")) {
         p.present = VehicleCharacteristicsFixValues_PR_euroAndCo2value;
-        from_json(j["euroAndCo2value"], p.choice.euroAndCo2value, "euroAndCo2value");
-    } else if (j.HasMember("engineCharacteristics")) {
+            from_json(j["euroAndCo2value"], p.choice.euroAndCo2value, "euroAndCo2value");
+        } else if (j.HasMember("engineCharacteristics")) {
         p.present = VehicleCharacteristicsFixValues_PR_engineCharacteristics;
-        from_json(j["engineCharacteristics"], p.choice.engineCharacteristics, "engineCharacteristics");
-    } else if (j.HasMember("loadType")) {
+            from_json(j["engineCharacteristics"], p.choice.engineCharacteristics, "engineCharacteristics");
+        } else if (j.HasMember("loadType")) {
         p.present = VehicleCharacteristicsFixValues_PR_loadType;
-        from_json(j["loadType"], p.choice.loadType, "loadType");
-    } else if (j.HasMember("usage")) {
+            from_json(j["loadType"], p.choice.loadType, "loadType");
+        } else if (j.HasMember("usage")) {
         p.present = VehicleCharacteristicsFixValues_PR_usage;
-        from_json(j["usage"], p.choice.usage, "usage");
-    } else {
+            from_json(j["usage"], p.choice.usage, "usage");
+        } else {
         p.present = VehicleCharacteristicsFixValues_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -6027,29 +10240,29 @@ void from_json(const Value& j, VehicleCharacteristicsRanges::VehicleCharacterist
     try {
         if (j.HasMember("numberOfAxles")) {
         p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_numberOfAxles;
-        from_json(j["numberOfAxles"], p.choice.numberOfAxles, "numberOfAxles");
-    } else if (j.HasMember("vehicleDimensions")) {
+            from_json(j["numberOfAxles"], p.choice.numberOfAxles, "numberOfAxles");
+        } else if (j.HasMember("vehicleDimensions")) {
         p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_vehicleDimensions;
-        from_json(j["vehicleDimensions"], p.choice.vehicleDimensions, "vehicleDimensions");
-    } else if (j.HasMember("vehicleWeightLimits")) {
+            from_json(j["vehicleDimensions"], p.choice.vehicleDimensions, "vehicleDimensions");
+        } else if (j.HasMember("vehicleWeightLimits")) {
         p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_vehicleWeightLimits;
-        from_json(j["vehicleWeightLimits"], p.choice.vehicleWeightLimits, "vehicleWeightLimits");
-    } else if (j.HasMember("axleWeightLimits")) {
+            from_json(j["vehicleWeightLimits"], p.choice.vehicleWeightLimits, "vehicleWeightLimits");
+        } else if (j.HasMember("axleWeightLimits")) {
         p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_axleWeightLimits;
-        from_json(j["axleWeightLimits"], p.choice.axleWeightLimits, "axleWeightLimits");
-    } else if (j.HasMember("passengerCapacity")) {
+            from_json(j["axleWeightLimits"], p.choice.axleWeightLimits, "axleWeightLimits");
+        } else if (j.HasMember("passengerCapacity")) {
         p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_passengerCapacity;
-        from_json(j["passengerCapacity"], p.choice.passengerCapacity, "passengerCapacity");
-    } else if (j.HasMember("exhaustEmissionValues")) {
+            from_json(j["passengerCapacity"], p.choice.passengerCapacity, "passengerCapacity");
+        } else if (j.HasMember("exhaustEmissionValues")) {
         p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_exhaustEmissionValues;
-        from_json(j["exhaustEmissionValues"], p.choice.exhaustEmissionValues, "exhaustEmissionValues");
-    } else if (j.HasMember("dieselEmissionValues")) {
+            from_json(j["exhaustEmissionValues"], p.choice.exhaustEmissionValues, "exhaustEmissionValues");
+        } else if (j.HasMember("dieselEmissionValues")) {
         p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_dieselEmissionValues;
-        from_json(j["dieselEmissionValues"], p.choice.dieselEmissionValues, "dieselEmissionValues");
-    } else if (j.HasMember("soundLevel")) {
+            from_json(j["dieselEmissionValues"], p.choice.dieselEmissionValues, "dieselEmissionValues");
+        } else if (j.HasMember("soundLevel")) {
         p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_soundLevel;
-        from_json(j["soundLevel"], p.choice.soundLevel, "soundLevel");
-    } else {
+            from_json(j["soundLevel"], p.choice.soundLevel, "soundLevel");
+        } else {
         p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -6085,6 +10298,32 @@ void from_json(const Value& j, VehicleCharacteristicsRanges& p, std::string fiel
 
 
 /*
+*   BasicContainer - Type SEQUENCE
+*   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
+*/
+
+Value to_json(const CAM_PDU_Descriptions_BasicContainer_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("stationType", to_json((p.stationType), allocator), allocator);
+    json.AddMember("referencePosition", to_json((p.referencePosition), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, CAM_PDU_Descriptions_BasicContainer_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["stationType"], (p.stationType), "stationType");
+        from_json(j["referencePosition"], (p.referencePosition), "referencePosition");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
 *   BasicVehicleContainerHighFrequency - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
@@ -6100,7 +10339,7 @@ Value to_json(const BasicVehicleContainerHighFrequency& p, Document::AllocatorTy
     json.AddMember("curvature", to_json((p.curvature), allocator), allocator);
     json.AddMember("curvatureCalculationMode", to_json((p.curvatureCalculationMode), allocator), allocator);
     json.AddMember("yawRate", to_json((p.yawRate), allocator), allocator);
-    if (p.accelerationControl != 0) json.AddMember("accelerationControl", to_json_AccelerationControl(*(p.accelerationControl), allocator), allocator);
+    if (p.accelerationControl != 0) json.AddMember("accelerationControl", to_json_ITS_Container_AccelerationControl(*(p.accelerationControl), allocator), allocator);
     if (p.lanePosition != 0) json.AddMember("lanePosition", to_json(*(p.lanePosition), allocator), allocator);
     if (p.steeringWheelAngle != 0) json.AddMember("steeringWheelAngle", to_json(*(p.steeringWheelAngle), allocator), allocator);
     if (p.lateralAcceleration != 0) json.AddMember("lateralAcceleration", to_json(*(p.lateralAcceleration), allocator), allocator);
@@ -6122,19 +10361,19 @@ void from_json(const Value& j, BasicVehicleContainerHighFrequency& p, std::strin
         from_json(j["curvature"], (p.curvature), "curvature");
         from_json(j["curvatureCalculationMode"], (p.curvatureCalculationMode), "curvatureCalculationMode");
         from_json(j["yawRate"], (p.yawRate), "yawRate");
-        if (j.HasMember("accelerationControl")) { p.accelerationControl = vanetza::asn1::allocate<AccelerationControl_t>(); from_json_AccelerationControl(j["accelerationControl"],*(p.accelerationControl), "accelerationControl"); }
+        if (j.HasMember("accelerationControl")) { p.accelerationControl = vanetza::asn1::allocate<ITS_Container_AccelerationControl_t>(); from_json_ITS_Container_AccelerationControl(j["accelerationControl"],*(p.accelerationControl), "accelerationControl"); }
         else { p.accelerationControl=nullptr; }
-        if (j.HasMember("lanePosition")) { p.lanePosition = vanetza::asn1::allocate<LanePosition_t>(); from_json(j["lanePosition"], *(p.lanePosition), "lanePosition"); }
+        if (j.HasMember("lanePosition")) { p.lanePosition = vanetza::asn1::allocate<ITS_Container_LanePosition_t>(); from_json(j["lanePosition"], *(p.lanePosition), "lanePosition"); }
         else { p.lanePosition=nullptr; }
-        if (j.HasMember("steeringWheelAngle")) { p.steeringWheelAngle = vanetza::asn1::allocate<SteeringWheelAngle_t>(); from_json(j["steeringWheelAngle"], *(p.steeringWheelAngle), "steeringWheelAngle"); }
+        if (j.HasMember("steeringWheelAngle")) { p.steeringWheelAngle = vanetza::asn1::allocate<ITS_Container_SteeringWheelAngle_t>(); from_json(j["steeringWheelAngle"], *(p.steeringWheelAngle), "steeringWheelAngle"); }
         else { p.steeringWheelAngle=nullptr; }
-        if (j.HasMember("lateralAcceleration")) { p.lateralAcceleration = vanetza::asn1::allocate<LateralAcceleration_t>(); from_json(j["lateralAcceleration"], *(p.lateralAcceleration), "lateralAcceleration"); }
+        if (j.HasMember("lateralAcceleration")) { p.lateralAcceleration = vanetza::asn1::allocate<ITS_Container_LateralAcceleration_t>(); from_json(j["lateralAcceleration"], *(p.lateralAcceleration), "lateralAcceleration"); }
         else { p.lateralAcceleration=nullptr; }
-        if (j.HasMember("verticalAcceleration")) { p.verticalAcceleration = vanetza::asn1::allocate<VerticalAcceleration_t>(); from_json(j["verticalAcceleration"], *(p.verticalAcceleration), "verticalAcceleration"); }
+        if (j.HasMember("verticalAcceleration")) { p.verticalAcceleration = vanetza::asn1::allocate<ITS_Container_VerticalAcceleration_t>(); from_json(j["verticalAcceleration"], *(p.verticalAcceleration), "verticalAcceleration"); }
         else { p.verticalAcceleration=nullptr; }
-        if (j.HasMember("performanceClass")) { p.performanceClass = vanetza::asn1::allocate<PerformanceClass_t>(); from_json(j["performanceClass"], *(p.performanceClass), "performanceClass"); }
+        if (j.HasMember("performanceClass")) { p.performanceClass = vanetza::asn1::allocate<ITS_Container_PerformanceClass_t>(); from_json(j["performanceClass"], *(p.performanceClass), "performanceClass"); }
         else { p.performanceClass=nullptr; }
-        if (j.HasMember("cenDsrcTollingZone")) { p.cenDsrcTollingZone = vanetza::asn1::allocate<CenDsrcTollingZone_t>(); from_json(j["cenDsrcTollingZone"], *(p.cenDsrcTollingZone), "cenDsrcTollingZone"); }
+        if (j.HasMember("cenDsrcTollingZone")) { p.cenDsrcTollingZone = vanetza::asn1::allocate<ITS_Container_CenDsrcTollingZone_t>(); from_json(j["cenDsrcTollingZone"], *(p.cenDsrcTollingZone), "cenDsrcTollingZone"); }
         else { p.cenDsrcTollingZone=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -6152,7 +10391,7 @@ void from_json(const Value& j, BasicVehicleContainerHighFrequency& p, std::strin
 Value to_json(const BasicVehicleContainerLowFrequency& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("vehicleRole", to_json((p.vehicleRole), allocator), allocator);
-    json.AddMember("exteriorLights", to_json_ExteriorLights((p.exteriorLights), allocator), allocator);
+    json.AddMember("exteriorLights", to_json_ITS_Container_ExteriorLights((p.exteriorLights), allocator), allocator);
     json.AddMember("pathHistory", to_json((p.pathHistory), allocator), allocator);
     
     return json;
@@ -6162,8 +10401,34 @@ void from_json(const Value& j, BasicVehicleContainerLowFrequency& p, std::string
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["vehicleRole"], (p.vehicleRole), "vehicleRole");
-        from_json_ExteriorLights(j["exteriorLights"],(p.exteriorLights), "exteriorLights");
+        from_json_ITS_Container_ExteriorLights(j["exteriorLights"],(p.exteriorLights), "exteriorLights");
         from_json(j["pathHistory"], (p.pathHistory), "pathHistory");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   PublicTransportContainer - Type SEQUENCE
+*   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
+*/
+
+Value to_json(const PublicTransportContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("embarkationStatus", to_json((p.embarkationStatus), allocator), allocator);
+    if (p.ptActivation != 0) json.AddMember("ptActivation", to_json(*(p.ptActivation), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, PublicTransportContainer& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["embarkationStatus"], (p.embarkationStatus), "embarkationStatus");
+        if (j.HasMember("ptActivation")) { p.ptActivation = vanetza::asn1::allocate<ITS_Container_PtActivation_t>(); from_json(j["ptActivation"], *(p.ptActivation), "ptActivation"); }
+        else { p.ptActivation=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -6179,8 +10444,8 @@ void from_json(const Value& j, BasicVehicleContainerLowFrequency& p, std::string
 
 Value to_json(const SpecialTransportContainer& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("specialTransportType", to_json_SpecialTransportType((p.specialTransportType), allocator), allocator);
-    json.AddMember("lightBarSirenInUse", to_json_LightBarSirenInUse((p.lightBarSirenInUse), allocator), allocator);
+    json.AddMember("specialTransportType", to_json_ITS_Container_SpecialTransportType((p.specialTransportType), allocator), allocator);
+    json.AddMember("lightBarSirenInUse", to_json_ITS_Container_LightBarSirenInUse((p.lightBarSirenInUse), allocator), allocator);
     
     return json;
 }
@@ -6188,8 +10453,8 @@ Value to_json(const SpecialTransportContainer& p, Document::AllocatorType& alloc
 void from_json(const Value& j, SpecialTransportContainer& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json_SpecialTransportType(j["specialTransportType"],(p.specialTransportType), "specialTransportType");
-        from_json_LightBarSirenInUse(j["lightBarSirenInUse"],(p.lightBarSirenInUse), "lightBarSirenInUse");
+        from_json_ITS_Container_SpecialTransportType(j["specialTransportType"],(p.specialTransportType), "specialTransportType");
+        from_json_ITS_Container_LightBarSirenInUse(j["lightBarSirenInUse"],(p.lightBarSirenInUse), "lightBarSirenInUse");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -6223,13 +10488,42 @@ void from_json(const Value& j, DangerousGoodsContainer& p, std::string field) {
 
 
 /*
+*   RoadWorksContainerBasic - Type SEQUENCE
+*   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
+*/
+
+Value to_json(const RoadWorksContainerBasic& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("lightBarSirenInUse", to_json_ITS_Container_LightBarSirenInUse((p.lightBarSirenInUse), allocator), allocator);
+    if (p.roadworksSubCauseCode != 0) json.AddMember("roadworksSubCauseCode", to_json(*(p.roadworksSubCauseCode), allocator), allocator);
+    if (p.closedLanes != 0) json.AddMember("closedLanes", to_json(*(p.closedLanes), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, RoadWorksContainerBasic& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        if (j.HasMember("roadworksSubCauseCode")) { p.roadworksSubCauseCode = vanetza::asn1::allocate<ITS_Container_RoadworksSubCauseCode_t>(); from_json(j["roadworksSubCauseCode"], *(p.roadworksSubCauseCode), "roadworksSubCauseCode"); }
+        else { p.roadworksSubCauseCode=nullptr; }
+        from_json_ITS_Container_LightBarSirenInUse(j["lightBarSirenInUse"],(p.lightBarSirenInUse), "lightBarSirenInUse");
+        if (j.HasMember("closedLanes")) { p.closedLanes = vanetza::asn1::allocate<ITS_Container_ClosedLanes_t>(); from_json(j["closedLanes"], *(p.closedLanes), "closedLanes"); }
+        else { p.closedLanes=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
 *   RescueContainer - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
 Value to_json(const RescueContainer& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("lightBarSirenInUse", to_json_LightBarSirenInUse((p.lightBarSirenInUse), allocator), allocator);
+    json.AddMember("lightBarSirenInUse", to_json_ITS_Container_LightBarSirenInUse((p.lightBarSirenInUse), allocator), allocator);
     
     return json;
 }
@@ -6237,7 +10531,7 @@ Value to_json(const RescueContainer& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, RescueContainer& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json_LightBarSirenInUse(j["lightBarSirenInUse"],(p.lightBarSirenInUse), "lightBarSirenInUse");
+        from_json_ITS_Container_LightBarSirenInUse(j["lightBarSirenInUse"],(p.lightBarSirenInUse), "lightBarSirenInUse");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -6253,19 +10547,19 @@ void from_json(const Value& j, RescueContainer& p, std::string field) {
 
 Value to_json(const EmergencyContainer& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("lightBarSirenInUse", to_json_LightBarSirenInUse((p.lightBarSirenInUse), allocator), allocator);
+    json.AddMember("lightBarSirenInUse", to_json_ITS_Container_LightBarSirenInUse((p.lightBarSirenInUse), allocator), allocator);
     if (p.incidentIndication != 0) json.AddMember("incidentIndication", to_json(*(p.incidentIndication), allocator), allocator);
-    if (p.emergencyPriority != 0) json.AddMember("emergencyPriority", to_json_EmergencyPriority(*(p.emergencyPriority), allocator), allocator);
+    if (p.emergencyPriority != 0) json.AddMember("emergencyPriority", to_json_ITS_Container_EmergencyPriority(*(p.emergencyPriority), allocator), allocator);
     return json;
 }
 
 void from_json(const Value& j, EmergencyContainer& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json_LightBarSirenInUse(j["lightBarSirenInUse"],(p.lightBarSirenInUse), "lightBarSirenInUse");
-        if (j.HasMember("incidentIndication")) { p.incidentIndication = vanetza::asn1::allocate<CauseCode_t>(); from_json(j["incidentIndication"], *(p.incidentIndication), "incidentIndication"); }
+        from_json_ITS_Container_LightBarSirenInUse(j["lightBarSirenInUse"],(p.lightBarSirenInUse), "lightBarSirenInUse");
+        if (j.HasMember("incidentIndication")) { p.incidentIndication = vanetza::asn1::allocate<ITS_Container_CauseCode_t>(); from_json(j["incidentIndication"], *(p.incidentIndication), "incidentIndication"); }
         else { p.incidentIndication=nullptr; }
-        if (j.HasMember("emergencyPriority")) { p.emergencyPriority = vanetza::asn1::allocate<EmergencyPriority_t>(); from_json_EmergencyPriority(j["emergencyPriority"],*(p.emergencyPriority), "emergencyPriority"); }
+        if (j.HasMember("emergencyPriority")) { p.emergencyPriority = vanetza::asn1::allocate<ITS_Container_EmergencyPriority_t>(); from_json_ITS_Container_EmergencyPriority(j["emergencyPriority"],*(p.emergencyPriority), "emergencyPriority"); }
         else { p.emergencyPriority=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -6282,7 +10576,7 @@ void from_json(const Value& j, EmergencyContainer& p, std::string field) {
 
 Value to_json(const SafetyCarContainer& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("lightBarSirenInUse", to_json_LightBarSirenInUse((p.lightBarSirenInUse), allocator), allocator);
+    json.AddMember("lightBarSirenInUse", to_json_ITS_Container_LightBarSirenInUse((p.lightBarSirenInUse), allocator), allocator);
     if (p.incidentIndication != 0) json.AddMember("incidentIndication", to_json(*(p.incidentIndication), allocator), allocator);
     if (p.trafficRule != 0) json.AddMember("trafficRule", to_json(*(p.trafficRule), allocator), allocator);
     if (p.speedLimit != 0) json.AddMember("speedLimit", to_json(*(p.speedLimit), allocator), allocator);
@@ -6292,12 +10586,12 @@ Value to_json(const SafetyCarContainer& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, SafetyCarContainer& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json_LightBarSirenInUse(j["lightBarSirenInUse"],(p.lightBarSirenInUse), "lightBarSirenInUse");
-        if (j.HasMember("incidentIndication")) { p.incidentIndication = vanetza::asn1::allocate<CauseCode_t>(); from_json(j["incidentIndication"], *(p.incidentIndication), "incidentIndication"); }
+        from_json_ITS_Container_LightBarSirenInUse(j["lightBarSirenInUse"],(p.lightBarSirenInUse), "lightBarSirenInUse");
+        if (j.HasMember("incidentIndication")) { p.incidentIndication = vanetza::asn1::allocate<ITS_Container_CauseCode_t>(); from_json(j["incidentIndication"], *(p.incidentIndication), "incidentIndication"); }
         else { p.incidentIndication=nullptr; }
-        if (j.HasMember("trafficRule")) { p.trafficRule = vanetza::asn1::allocate<TrafficRule_t>(); from_json(j["trafficRule"], *(p.trafficRule), "trafficRule"); }
+        if (j.HasMember("trafficRule")) { p.trafficRule = vanetza::asn1::allocate<ITS_Container_TrafficRule_t>(); from_json(j["trafficRule"], *(p.trafficRule), "trafficRule"); }
         else { p.trafficRule=nullptr; }
-        if (j.HasMember("speedLimit")) { p.speedLimit = vanetza::asn1::allocate<SpeedLimit_t>(); from_json(j["speedLimit"], *(p.speedLimit), "speedLimit"); }
+        if (j.HasMember("speedLimit")) { p.speedLimit = vanetza::asn1::allocate<ITS_Container_SpeedLimit_t>(); from_json(j["speedLimit"], *(p.speedLimit), "speedLimit"); }
         else { p.speedLimit=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -6322,8 +10616,85 @@ Value to_json(const RSUContainerHighFrequency& p, Document::AllocatorType& alloc
 void from_json(const Value& j, RSUContainerHighFrequency& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        if (j.HasMember("protectedCommunicationZonesRSU")) { p.protectedCommunicationZonesRSU = vanetza::asn1::allocate<ProtectedCommunicationZonesRSU_t>(); from_json(j["protectedCommunicationZonesRSU"], *(p.protectedCommunicationZonesRSU), "protectedCommunicationZonesRSU"); }
+        if (j.HasMember("protectedCommunicationZonesRSU")) { p.protectedCommunicationZonesRSU = vanetza::asn1::allocate<ITS_Container_ProtectedCommunicationZonesRSU_t>(); from_json(j["protectedCommunicationZonesRSU"], *(p.protectedCommunicationZonesRSU), "protectedCommunicationZonesRSU"); }
         else { p.protectedCommunicationZonesRSU=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   ManagementContainer - Type SEQUENCE
+*   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
+*/
+
+Value to_json(const DENM_PDU_Descriptions_ManagementContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("actionID", to_json((p.actionID), allocator), allocator);
+    json.AddMember("detectionTime", to_json((p.detectionTime), allocator), allocator);
+    json.AddMember("referenceTime", to_json((p.referenceTime), allocator), allocator);
+    json.AddMember("eventPosition", to_json((p.eventPosition), allocator), allocator);
+    json.AddMember("stationType", to_json((p.stationType), allocator), allocator);
+    if (p.termination != 0) json.AddMember("termination", to_json(*(p.termination), allocator), allocator);
+    if (p.relevanceDistance != 0) json.AddMember("relevanceDistance", to_json(*(p.relevanceDistance), allocator), allocator);
+    if (p.relevanceTrafficDirection != 0) json.AddMember("relevanceTrafficDirection", to_json(*(p.relevanceTrafficDirection), allocator), allocator);
+    if (p.validityDuration != 0) json.AddMember("validityDuration", to_json(*(p.validityDuration), allocator), allocator);
+    if (p.transmissionInterval != 0) json.AddMember("transmissionInterval", to_json(*(p.transmissionInterval), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, DENM_PDU_Descriptions_ManagementContainer& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["actionID"], (p.actionID), "actionID");
+        from_json(j["detectionTime"], (p.detectionTime), "detectionTime");
+        from_json(j["referenceTime"], (p.referenceTime), "referenceTime");
+        if (j.HasMember("termination")) { p.termination = vanetza::asn1::allocate<Termination_t>(); from_json(j["termination"], *(p.termination), "termination"); }
+        else { p.termination=nullptr; }
+        from_json(j["eventPosition"], (p.eventPosition), "eventPosition");
+        if (j.HasMember("relevanceDistance")) { p.relevanceDistance = vanetza::asn1::allocate<ITS_Container_RelevanceDistance_t>(); from_json(j["relevanceDistance"], *(p.relevanceDistance), "relevanceDistance"); }
+        else { p.relevanceDistance=nullptr; }
+        if (j.HasMember("relevanceTrafficDirection")) { p.relevanceTrafficDirection = vanetza::asn1::allocate<ITS_Container_RelevanceTrafficDirection_t>(); from_json(j["relevanceTrafficDirection"], *(p.relevanceTrafficDirection), "relevanceTrafficDirection"); }
+        else { p.relevanceTrafficDirection=nullptr; }
+        if (j.HasMember("validityDuration")) { p.validityDuration = vanetza::asn1::allocate<ITS_Container_ValidityDuration_t>(); from_json(j["validityDuration"], *(p.validityDuration), "validityDuration"); }
+        else { p.validityDuration=nullptr; }
+        if (j.HasMember("transmissionInterval")) { p.transmissionInterval = vanetza::asn1::allocate<ITS_Container_TransmissionInterval_t>(); from_json(j["transmissionInterval"], *(p.transmissionInterval), "transmissionInterval"); }
+        else { p.transmissionInterval=nullptr; }
+        from_json(j["stationType"], (p.stationType), "stationType");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   SituationContainer - Type SEQUENCE
+*   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
+*/
+
+Value to_json(const SituationContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("informationQuality", to_json((p.informationQuality), allocator), allocator);
+    json.AddMember("eventType", to_json((p.eventType), allocator), allocator);
+    if (p.linkedCause != 0) json.AddMember("linkedCause", to_json(*(p.linkedCause), allocator), allocator);
+    if (p.eventHistory != 0) json.AddMember("eventHistory", to_json(*(p.eventHistory), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, SituationContainer& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["informationQuality"], (p.informationQuality), "informationQuality");
+        from_json(j["eventType"], (p.eventType), "eventType");
+        if (j.HasMember("linkedCause")) { p.linkedCause = vanetza::asn1::allocate<ITS_Container_CauseCode_t>(); from_json(j["linkedCause"], *(p.linkedCause), "linkedCause"); }
+        else { p.linkedCause=nullptr; }
+        if (j.HasMember("eventHistory")) { p.eventHistory = vanetza::asn1::allocate<ITS_Container_EventHistory_t>(); from_json(j["eventHistory"], *(p.eventHistory), "eventHistory"); }
+        else { p.eventHistory=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -6349,12 +10720,12 @@ Value to_json(const LocationContainer& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, LocationContainer& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        if (j.HasMember("eventSpeed")) { p.eventSpeed = vanetza::asn1::allocate<Speed_t>(); from_json(j["eventSpeed"], *(p.eventSpeed), "eventSpeed"); }
+        if (j.HasMember("eventSpeed")) { p.eventSpeed = vanetza::asn1::allocate<ITS_Container_Speed_t>(); from_json(j["eventSpeed"], *(p.eventSpeed), "eventSpeed"); }
         else { p.eventSpeed=nullptr; }
-        if (j.HasMember("eventPositionHeading")) { p.eventPositionHeading = vanetza::asn1::allocate<Heading_t>(); from_json(j["eventPositionHeading"], *(p.eventPositionHeading), "eventPositionHeading"); }
+        if (j.HasMember("eventPositionHeading")) { p.eventPositionHeading = vanetza::asn1::allocate<ITS_Container_Heading_t>(); from_json(j["eventPositionHeading"], *(p.eventPositionHeading), "eventPositionHeading"); }
         else { p.eventPositionHeading=nullptr; }
         from_json(j["traces"], (p.traces), "traces");
-        if (j.HasMember("roadType")) { p.roadType = vanetza::asn1::allocate<RoadType_t>(); from_json(j["roadType"], *(p.roadType), "roadType"); }
+        if (j.HasMember("roadType")) { p.roadType = vanetza::asn1::allocate<ITS_Container_RoadType_t>(); from_json(j["roadType"], *(p.roadType), "roadType"); }
         else { p.roadType=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -6380,7 +10751,7 @@ Value to_json(const ImpactReductionContainer& p, Document::AllocatorType& alloca
     json.AddMember("wheelBaseVehicle", to_json((p.wheelBaseVehicle), allocator), allocator);
     json.AddMember("turningRadius", to_json((p.turningRadius), allocator), allocator);
     json.AddMember("posFrontAx", to_json((p.posFrontAx), allocator), allocator);
-    json.AddMember("positionOfOccupants", to_json_PositionOfOccupants((p.positionOfOccupants), allocator), allocator);
+    json.AddMember("positionOfOccupants", to_json_ITS_Container_PositionOfOccupants((p.positionOfOccupants), allocator), allocator);
     json.AddMember("vehicleMass", to_json((p.vehicleMass), allocator), allocator);
     json.AddMember("requestResponseIndication", to_json((p.requestResponseIndication), allocator), allocator);
     
@@ -6399,7 +10770,7 @@ void from_json(const Value& j, ImpactReductionContainer& p, std::string field) {
         from_json(j["wheelBaseVehicle"], (p.wheelBaseVehicle), "wheelBaseVehicle");
         from_json(j["turningRadius"], (p.turningRadius), "turningRadius");
         from_json(j["posFrontAx"], (p.posFrontAx), "posFrontAx");
-        from_json_PositionOfOccupants(j["positionOfOccupants"],(p.positionOfOccupants), "positionOfOccupants");
+        from_json_ITS_Container_PositionOfOccupants(j["positionOfOccupants"],(p.positionOfOccupants), "positionOfOccupants");
         from_json(j["vehicleMass"], (p.vehicleMass), "vehicleMass");
         from_json(j["requestResponseIndication"], (p.requestResponseIndication), "requestResponseIndication");
     } catch(VanetzaJSONException& ex) {
@@ -6423,24 +10794,24 @@ Value to_json(const StationaryVehicleContainer& p, Document::AllocatorType& allo
     if (p.carryingDangerousGoods != 0) json.AddMember("carryingDangerousGoods", to_json(*(p.carryingDangerousGoods), allocator), allocator);
     if (p.numberOfOccupants != 0) json.AddMember("numberOfOccupants", to_json(*(p.numberOfOccupants), allocator), allocator);
     if (p.vehicleIdentification != 0) json.AddMember("vehicleIdentification", to_json(*(p.vehicleIdentification), allocator), allocator);
-    if (p.energyStorageType != 0) json.AddMember("energyStorageType", to_json_EnergyStorageType(*(p.energyStorageType), allocator), allocator);
+    if (p.energyStorageType != 0) json.AddMember("energyStorageType", to_json_ITS_Container_EnergyStorageType(*(p.energyStorageType), allocator), allocator);
     return json;
 }
 
 void from_json(const Value& j, StationaryVehicleContainer& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        if (j.HasMember("stationarySince")) { p.stationarySince = vanetza::asn1::allocate<StationarySince_t>(); from_json(j["stationarySince"], *(p.stationarySince), "stationarySince"); }
+        if (j.HasMember("stationarySince")) { p.stationarySince = vanetza::asn1::allocate<ITS_Container_StationarySince_t>(); from_json(j["stationarySince"], *(p.stationarySince), "stationarySince"); }
         else { p.stationarySince=nullptr; }
-        if (j.HasMember("stationaryCause")) { p.stationaryCause = vanetza::asn1::allocate<CauseCode_t>(); from_json(j["stationaryCause"], *(p.stationaryCause), "stationaryCause"); }
+        if (j.HasMember("stationaryCause")) { p.stationaryCause = vanetza::asn1::allocate<ITS_Container_CauseCode_t>(); from_json(j["stationaryCause"], *(p.stationaryCause), "stationaryCause"); }
         else { p.stationaryCause=nullptr; }
-        if (j.HasMember("carryingDangerousGoods")) { p.carryingDangerousGoods = vanetza::asn1::allocate<DangerousGoodsExtended_t>(); from_json(j["carryingDangerousGoods"], *(p.carryingDangerousGoods), "carryingDangerousGoods"); }
+        if (j.HasMember("carryingDangerousGoods")) { p.carryingDangerousGoods = vanetza::asn1::allocate<ITS_Container_DangerousGoodsExtended_t>(); from_json(j["carryingDangerousGoods"], *(p.carryingDangerousGoods), "carryingDangerousGoods"); }
         else { p.carryingDangerousGoods=nullptr; }
-        if (j.HasMember("numberOfOccupants")) { p.numberOfOccupants = vanetza::asn1::allocate<NumberOfOccupants_t>(); from_json(j["numberOfOccupants"], *(p.numberOfOccupants), "numberOfOccupants"); }
+        if (j.HasMember("numberOfOccupants")) { p.numberOfOccupants = vanetza::asn1::allocate<ITS_Container_NumberOfOccupants_t>(); from_json(j["numberOfOccupants"], *(p.numberOfOccupants), "numberOfOccupants"); }
         else { p.numberOfOccupants=nullptr; }
-        if (j.HasMember("vehicleIdentification")) { p.vehicleIdentification = vanetza::asn1::allocate<VehicleIdentification_t>(); from_json(j["vehicleIdentification"], *(p.vehicleIdentification), "vehicleIdentification"); }
+        if (j.HasMember("vehicleIdentification")) { p.vehicleIdentification = vanetza::asn1::allocate<ITS_Container_VehicleIdentification_t>(); from_json(j["vehicleIdentification"], *(p.vehicleIdentification), "vehicleIdentification"); }
         else { p.vehicleIdentification=nullptr; }
-        if (j.HasMember("energyStorageType")) { p.energyStorageType = vanetza::asn1::allocate<EnergyStorageType_t>(); from_json_EnergyStorageType(j["energyStorageType"],*(p.energyStorageType), "energyStorageType"); }
+        if (j.HasMember("energyStorageType")) { p.energyStorageType = vanetza::asn1::allocate<ITS_Container_EnergyStorageType_t>(); from_json_ITS_Container_EnergyStorageType(j["energyStorageType"],*(p.energyStorageType), "energyStorageType"); }
         else { p.energyStorageType=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -6458,7 +10829,7 @@ void from_json(const Value& j, StationaryVehicleContainer& p, std::string field)
 Value to_json(const ReferenceDenms& p, Document::AllocatorType& allocator) {
     Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        const ActionID_t po = *(p.list.array[i]);
+        const ITS_Container_ActionID_t po = *(p.list.array[i]);
         Value obj = to_json(po, allocator);
         json.PushBack(obj, allocator);
     }
@@ -6470,7 +10841,7 @@ void from_json(const Value& j, ReferenceDenms& p, std::string field) {
         ReferenceDenms* p_tmp = vanetza::asn1::allocate<ReferenceDenms>();
         for (SizeType i = 0; i < j.Size(); i++) {
             const Value& item = j[i];
-            ActionID_t *element = vanetza::asn1::allocate<ActionID_t>();
+            ITS_Container_ActionID_t *element = vanetza::asn1::allocate<ITS_Container_ActionID_t>();
             from_json(item, *element, "index #" + std::to_string(i));
             asn_set_add(&(p_tmp->list), element);
         }
@@ -6487,7 +10858,7 @@ void from_json(const Value& j, ReferenceDenms& p, std::string field) {
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const MapPosition& p, Document::AllocatorType& allocator) {
+Value to_json(const VAM_PDU_Descriptions_MapPosition_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("intersectionId", to_json((p.intersectionId), allocator), allocator);
     json.AddMember("lane", to_json((p.lane), allocator), allocator);
@@ -6495,7 +10866,7 @@ Value to_json(const MapPosition& p, Document::AllocatorType& allocator) {
     return json;
 }
 
-void from_json(const Value& j, MapPosition& p, std::string field) {
+void from_json(const Value& j, VAM_PDU_Descriptions_MapPosition_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["intersectionId"], (p.intersectionId), "intersectionId");
@@ -6509,40 +10880,71 @@ void from_json(const Value& j, MapPosition& p, std::string field) {
 
 
 /*
+*   VruLowFrequencyContainer - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+Value to_json(const VruLowFrequencyContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    if (p.profileAndSubprofile != 0) json.AddMember("profileAndSubprofile", to_json(*(p.profileAndSubprofile), allocator), allocator);
+    if (p.exteriorLights != 0) json.AddMember("exteriorLights", to_json(*(p.exteriorLights), allocator), allocator);
+    if (p.sizeClass != 0) json.AddMember("sizeClass", to_json(*(p.sizeClass), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, VruLowFrequencyContainer& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        if (j.HasMember("profileAndSubprofile")) { p.profileAndSubprofile = vanetza::asn1::allocate<VAM_PDU_Descriptions_VruProfileAndSubprofile_t>(); from_json(j["profileAndSubprofile"], *(p.profileAndSubprofile), "profileAndSubprofile"); }
+        else { p.profileAndSubprofile=nullptr; }
+        if (j.HasMember("exteriorLights")) { p.exteriorLights = vanetza::asn1::allocate<VAM_PDU_Descriptions_VruExteriorLights_t>(); from_json(j["exteriorLights"], *(p.exteriorLights), "exteriorLights"); }
+        else { p.exteriorLights=nullptr; }
+        if (j.HasMember("sizeClass")) { p.sizeClass = vanetza::asn1::allocate<VAM_PDU_Descriptions_VruSizeClass_t>(); from_json(j["sizeClass"], *(p.sizeClass), "sizeClass"); }
+        else { p.sizeClass=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
 *   VruProfileAndSubprofile - Type CHOICE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const VruProfileAndSubprofile& p, Document::AllocatorType& allocator) {
+Value to_json(const VAM_PDU_Descriptions_VruProfileAndSubprofile_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    if (p.present == VruProfileAndSubprofile_PR_pedestrian) {
+    if (p.present == VAM_PDU_Descriptions_VruProfileAndSubprofile_PR_pedestrian) {
         json.AddMember("pedestrian", to_json(p.choice.pedestrian, allocator), allocator);
-    } else if (p.present == VruProfileAndSubprofile_PR_bicyclist) {
+    } else if (p.present == VAM_PDU_Descriptions_VruProfileAndSubprofile_PR_bicyclist) {
         json.AddMember("bicyclist", to_json(p.choice.bicyclist, allocator), allocator);
-    } else if (p.present == VruProfileAndSubprofile_PR_motorcylist) {
+    } else if (p.present == VAM_PDU_Descriptions_VruProfileAndSubprofile_PR_motorcylist) {
         json.AddMember("motorcylist", to_json(p.choice.motorcylist, allocator), allocator);
-    } else if (p.present == VruProfileAndSubprofile_PR_animal) {
+    } else if (p.present == VAM_PDU_Descriptions_VruProfileAndSubprofile_PR_animal) {
         json.AddMember("animal", to_json(p.choice.animal, allocator), allocator);
     }
     return json;
 }
 
-void from_json(const Value& j, VruProfileAndSubprofile& p, std::string field) {
+void from_json(const Value& j, VAM_PDU_Descriptions_VruProfileAndSubprofile_t& p, std::string field) {
     try {
         if (j.HasMember("pedestrian")) {
-        p.present = VruProfileAndSubprofile_PR_pedestrian;
-        from_json(j["pedestrian"], p.choice.pedestrian, "pedestrian");
-    } else if (j.HasMember("bicyclist")) {
-        p.present = VruProfileAndSubprofile_PR_bicyclist;
-        from_json(j["bicyclist"], p.choice.bicyclist, "bicyclist");
-    } else if (j.HasMember("motorcylist")) {
-        p.present = VruProfileAndSubprofile_PR_motorcylist;
-        from_json(j["motorcylist"], p.choice.motorcylist, "motorcylist");
-    } else if (j.HasMember("animal")) {
-        p.present = VruProfileAndSubprofile_PR_animal;
-        from_json(j["animal"], p.choice.animal, "animal");
-    } else {
-        p.present = VruProfileAndSubprofile_PR_NOTHING;
+        p.present = VAM_PDU_Descriptions_VruProfileAndSubprofile_PR_pedestrian;
+            from_json(j["pedestrian"], p.choice.pedestrian, "pedestrian");
+        } else if (j.HasMember("bicyclist")) {
+        p.present = VAM_PDU_Descriptions_VruProfileAndSubprofile_PR_bicyclist;
+            from_json(j["bicyclist"], p.choice.bicyclist, "bicyclist");
+        } else if (j.HasMember("motorcylist")) {
+        p.present = VAM_PDU_Descriptions_VruProfileAndSubprofile_PR_motorcylist;
+            from_json(j["motorcylist"], p.choice.motorcylist, "motorcylist");
+        } else if (j.HasMember("animal")) {
+        p.present = VAM_PDU_Descriptions_VruProfileAndSubprofile_PR_animal;
+            from_json(j["animal"], p.choice.animal, "animal");
+        } else {
+        p.present = VAM_PDU_Descriptions_VruProfileAndSubprofile_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -6551,11 +10953,37 @@ void from_json(const Value& j, VruProfileAndSubprofile& p, std::string field) {
 }
 
 /*
+*   VruExteriorLights - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+Value to_json(const VAM_PDU_Descriptions_VruExteriorLights_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("vruSpecific", to_json_VAM_PDU_Descriptions_VruSpecificExteriorLights((p.vruSpecific), allocator), allocator);
+    json.AddMember("vehicular", to_json_ITS_Container_ExteriorLights((p.vehicular), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, VAM_PDU_Descriptions_VruExteriorLights_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json_VAM_PDU_Descriptions_VruSpecificExteriorLights(j["vruSpecific"],(p.vruSpecific), "vruSpecific");
+        from_json_ITS_Container_ExteriorLights(j["vehicular"],(p.vehicular), "vehicular");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
 *   VruSpecificExteriorLights - Type BIT STRING
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json_VruSpecificExteriorLights(const VruSpecificExteriorLights_t p, Document::AllocatorType& allocator) {
+Value to_json_VAM_PDU_Descriptions_VruSpecificExteriorLights(const VAM_PDU_Descriptions_VruSpecificExteriorLights_t p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("unavailable", (bool) (*(p.buf + (sizeof(uint8_t) * (0 / 8))) & (1 << ((7 * ((0 / 8) + 1))-(0 % 8)))), allocator);
     json.AddMember("backFlashLight", (bool) (*(p.buf + (sizeof(uint8_t) * (1 / 8))) & (1 << ((7 * ((1 / 8) + 1))-(1 % 8)))), allocator);
@@ -6566,9 +10994,9 @@ Value to_json_VruSpecificExteriorLights(const VruSpecificExteriorLights_t p, Doc
     return json;
 }
 
-void from_json_VruSpecificExteriorLights(const Value& j, VruSpecificExteriorLights_t& p, std::string field) {
+void from_json_VAM_PDU_Descriptions_VruSpecificExteriorLights(const Value& j, VAM_PDU_Descriptions_VruSpecificExteriorLights_t& p, std::string field) {
     try {
-        VruSpecificExteriorLights_t* p_tmp = vanetza::asn1::allocate<VruSpecificExteriorLights_t>();
+        VAM_PDU_Descriptions_VruSpecificExteriorLights_t* p_tmp = vanetza::asn1::allocate<VAM_PDU_Descriptions_VruSpecificExteriorLights_t>();
         bool unavailable;
         bool backFlashLight;
         bool helmetLight;
@@ -6641,11 +11069,45 @@ void from_json_ClusterProfiles(const Value& j, ClusterProfiles_t& p, std::string
 }
 
 /*
+*   VruClusterOperationContainer - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+Value to_json(const VruClusterOperationContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    if (p.clusterJoinInfo != 0) json.AddMember("clusterJoinInfo", to_json(*(p.clusterJoinInfo), allocator), allocator);
+    if (p.clusterLeaveInfo != 0) json.AddMember("clusterLeaveInfo", to_json(*(p.clusterLeaveInfo), allocator), allocator);
+    if (p.clusterBreakupInfo != 0) json.AddMember("clusterBreakupInfo", to_json(*(p.clusterBreakupInfo), allocator), allocator);
+    if (p.clusterIdChangeTimeInfo != 0) json.AddMember("clusterIdChangeTimeInfo", to_json(*(p.clusterIdChangeTimeInfo), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, VruClusterOperationContainer& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        if (j.HasMember("clusterJoinInfo")) { p.clusterJoinInfo = vanetza::asn1::allocate<VAM_PDU_Descriptions_ClusterJoinInfo_t>(); from_json(j["clusterJoinInfo"], *(p.clusterJoinInfo), "clusterJoinInfo"); }
+        else { p.clusterJoinInfo=nullptr; }
+        if (j.HasMember("clusterLeaveInfo")) { p.clusterLeaveInfo = vanetza::asn1::allocate<VAM_PDU_Descriptions_ClusterLeaveInfo_t>(); from_json(j["clusterLeaveInfo"], *(p.clusterLeaveInfo), "clusterLeaveInfo"); }
+        else { p.clusterLeaveInfo=nullptr; }
+        if (j.HasMember("clusterBreakupInfo")) { p.clusterBreakupInfo = vanetza::asn1::allocate<VAM_PDU_Descriptions_ClusterBreakupInfo_t>(); from_json(j["clusterBreakupInfo"], *(p.clusterBreakupInfo), "clusterBreakupInfo"); }
+        else { p.clusterBreakupInfo=nullptr; }
+        if (j.HasMember("clusterIdChangeTimeInfo")) { p.clusterIdChangeTimeInfo = vanetza::asn1::allocate<VruClusterOpTimestamp_t>(); from_json(j["clusterIdChangeTimeInfo"], *(p.clusterIdChangeTimeInfo), "clusterIdChangeTimeInfo"); }
+        else { p.clusterIdChangeTimeInfo=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
 *   ClusterJoinInfo - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const ClusterJoinInfo& p, Document::AllocatorType& allocator) {
+Value to_json(const VAM_PDU_Descriptions_ClusterJoinInfo_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("clusterId", to_json((p.clusterId), allocator), allocator);
     json.AddMember("joinTime", to_json((p.joinTime), allocator), allocator);
@@ -6653,7 +11115,7 @@ Value to_json(const ClusterJoinInfo& p, Document::AllocatorType& allocator) {
     return json;
 }
 
-void from_json(const Value& j, ClusterJoinInfo& p, std::string field) {
+void from_json(const Value& j, VAM_PDU_Descriptions_ClusterJoinInfo_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["clusterId"], (p.clusterId), "clusterId");
@@ -6671,7 +11133,7 @@ void from_json(const Value& j, ClusterJoinInfo& p, std::string field) {
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const ClusterLeaveInfo& p, Document::AllocatorType& allocator) {
+Value to_json(const VAM_PDU_Descriptions_ClusterLeaveInfo_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("clusterId", to_json((p.clusterId), allocator), allocator);
     json.AddMember("clusterLeaveReason", to_json((p.clusterLeaveReason), allocator), allocator);
@@ -6679,7 +11141,7 @@ Value to_json(const ClusterLeaveInfo& p, Document::AllocatorType& allocator) {
     return json;
 }
 
-void from_json(const Value& j, ClusterLeaveInfo& p, std::string field) {
+void from_json(const Value& j, VAM_PDU_Descriptions_ClusterLeaveInfo_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["clusterId"], (p.clusterId), "clusterId");
@@ -6697,7 +11159,7 @@ void from_json(const Value& j, ClusterLeaveInfo& p, std::string field) {
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const ClusterBreakupInfo& p, Document::AllocatorType& allocator) {
+Value to_json(const VAM_PDU_Descriptions_ClusterBreakupInfo_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("clusterBreakupReason", to_json((p.clusterBreakupReason), allocator), allocator);
     json.AddMember("breakupTime", to_json((p.breakupTime), allocator), allocator);
@@ -6705,11 +11167,37 @@ Value to_json(const ClusterBreakupInfo& p, Document::AllocatorType& allocator) {
     return json;
 }
 
-void from_json(const Value& j, ClusterBreakupInfo& p, std::string field) {
+void from_json(const Value& j, VAM_PDU_Descriptions_ClusterBreakupInfo_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["clusterBreakupReason"], (p.clusterBreakupReason), "clusterBreakupReason");
         from_json(j["breakupTime"], (p.breakupTime), "breakupTime");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   VruPathPoint - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+Value to_json(const VruPathPoint& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("pathPosition", to_json((p.pathPosition), allocator), allocator);
+    if (p.pathDeltaTime != 0) json.AddMember("pathDeltaTime", to_json(*(p.pathDeltaTime), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, VruPathPoint& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["pathPosition"], (p.pathPosition), "pathPosition");
+        if (j.HasMember("pathDeltaTime")) { p.pathDeltaTime = vanetza::asn1::allocate<ITS_Container_PathDeltaTime_t>(); from_json(j["pathDeltaTime"], *(p.pathDeltaTime), "pathDeltaTime"); }
+        else { p.pathDeltaTime=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -6734,7 +11222,7 @@ Value to_json(const VruSafeDistanceIndication& p, Document::AllocatorType& alloc
 void from_json(const Value& j, VruSafeDistanceIndication& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        if (j.HasMember("subjectStation")) { p.subjectStation = vanetza::asn1::allocate<StationID_t>(); from_json(j["subjectStation"], *(p.subjectStation), "subjectStation"); }
+        if (j.HasMember("subjectStation")) { p.subjectStation = vanetza::asn1::allocate<ITS_Container_StationID_t>(); from_json(j["subjectStation"], *(p.subjectStation), "subjectStation"); }
         else { p.subjectStation=nullptr; }
         from_json(j["stationSafeDistanceIndication"], (p.stationSafeDistanceIndication), "stationSafeDistanceIndication");
         if (j.HasMember("timeToCollision")) { p.timeToCollision = vanetza::asn1::allocate<ActionDeltaTime_t>(); from_json(j["timeToCollision"], *(p.timeToCollision), "timeToCollision"); }
@@ -6748,11 +11236,43 @@ void from_json(const Value& j, VruSafeDistanceIndication& p, std::string field) 
 
 
 /*
+*   SequenceOfTrajectoryInterceptionIndication - Type SEQUENCE OF
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+Value to_json(const VAM_PDU_Descriptions_SequenceOfTrajectoryInterceptionIndication_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const VAM_PDU_Descriptions_TrajectoryInterceptionIndication_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, VAM_PDU_Descriptions_SequenceOfTrajectoryInterceptionIndication_t& p, std::string field) {
+    try {
+        VAM_PDU_Descriptions_SequenceOfTrajectoryInterceptionIndication_t* p_tmp = vanetza::asn1::allocate<VAM_PDU_Descriptions_SequenceOfTrajectoryInterceptionIndication_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            VAM_PDU_Descriptions_TrajectoryInterceptionIndication_t *element = vanetza::asn1::allocate<VAM_PDU_Descriptions_TrajectoryInterceptionIndication_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
 *   TrajectoryInterceptionIndication - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const TrajectoryInterceptionIndication& p, Document::AllocatorType& allocator) {
+Value to_json(const VAM_PDU_Descriptions_TrajectoryInterceptionIndication_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("trajectoryInterceptionProbability", to_json((p.trajectoryInterceptionProbability), allocator), allocator);
     if (p.subjectStation != 0) json.AddMember("subjectStation", to_json(*(p.subjectStation), allocator), allocator);
@@ -6760,13 +11280,13 @@ Value to_json(const TrajectoryInterceptionIndication& p, Document::AllocatorType
     return json;
 }
 
-void from_json(const Value& j, TrajectoryInterceptionIndication& p, std::string field) {
+void from_json(const Value& j, VAM_PDU_Descriptions_TrajectoryInterceptionIndication_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        if (j.HasMember("subjectStation")) { p.subjectStation = vanetza::asn1::allocate<StationID_t>(); from_json(j["subjectStation"], *(p.subjectStation), "subjectStation"); }
+        if (j.HasMember("subjectStation")) { p.subjectStation = vanetza::asn1::allocate<ITS_Container_StationID_t>(); from_json(j["subjectStation"], *(p.subjectStation), "subjectStation"); }
         else { p.subjectStation=nullptr; }
         from_json(j["trajectoryInterceptionProbability"], (p.trajectoryInterceptionProbability), "trajectoryInterceptionProbability");
-        if (j.HasMember("trajectoryInterceptionConfidence")) { p.trajectoryInterceptionConfidence = vanetza::asn1::allocate<TrajectoryInterceptionConfidence_t>(); from_json(j["trajectoryInterceptionConfidence"], *(p.trajectoryInterceptionConfidence), "trajectoryInterceptionConfidence"); }
+        if (j.HasMember("trajectoryInterceptionConfidence")) { p.trajectoryInterceptionConfidence = vanetza::asn1::allocate<VAM_PDU_Descriptions_TrajectoryInterceptionConfidence_t>(); from_json(j["trajectoryInterceptionConfidence"], *(p.trajectoryInterceptionConfidence), "trajectoryInterceptionConfidence"); }
         else { p.trajectoryInterceptionConfidence=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -6781,7 +11301,7 @@ void from_json(const Value& j, TrajectoryInterceptionIndication& p, std::string 
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const HeadingChangeIndication& p, Document::AllocatorType& allocator) {
+Value to_json(const VAM_PDU_Descriptions_HeadingChangeIndication_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("direction", to_json((p.direction), allocator), allocator);
     json.AddMember("actionDeltaTime", to_json((p.actionDeltaTime), allocator), allocator);
@@ -6789,7 +11309,7 @@ Value to_json(const HeadingChangeIndication& p, Document::AllocatorType& allocat
     return json;
 }
 
-void from_json(const Value& j, HeadingChangeIndication& p, std::string field) {
+void from_json(const Value& j, VAM_PDU_Descriptions_HeadingChangeIndication_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["direction"], (p.direction), "direction");
@@ -6807,7 +11327,7 @@ void from_json(const Value& j, HeadingChangeIndication& p, std::string field) {
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const AccelerationChangeIndication& p, Document::AllocatorType& allocator) {
+Value to_json(const VAM_PDU_Descriptions_AccelerationChangeIndication_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("accelOrDecel", to_json((p.accelOrDecel), allocator), allocator);
     json.AddMember("actionDeltaTime", to_json((p.actionDeltaTime), allocator), allocator);
@@ -6815,7 +11335,7 @@ Value to_json(const AccelerationChangeIndication& p, Document::AllocatorType& al
     return json;
 }
 
-void from_json(const Value& j, AccelerationChangeIndication& p, std::string field) {
+void from_json(const Value& j, VAM_PDU_Descriptions_AccelerationChangeIndication_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["accelOrDecel"], (p.accelOrDecel), "accelOrDecel");
@@ -6833,7 +11353,7 @@ void from_json(const Value& j, AccelerationChangeIndication& p, std::string fiel
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const StabilityChangeIndication& p, Document::AllocatorType& allocator) {
+Value to_json(const VAM_PDU_Descriptions_StabilityChangeIndication_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("lossProbability", to_json((p.lossProbability), allocator), allocator);
     json.AddMember("actionDeltaTime", to_json((p.actionDeltaTime), allocator), allocator);
@@ -6841,7 +11361,7 @@ Value to_json(const StabilityChangeIndication& p, Document::AllocatorType& alloc
     return json;
 }
 
-void from_json(const Value& j, StabilityChangeIndication& p, std::string field) {
+void from_json(const Value& j, VAM_PDU_Descriptions_StabilityChangeIndication_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["lossProbability"], (p.lossProbability), "lossProbability");
@@ -6853,6 +11373,58 @@ void from_json(const Value& j, StabilityChangeIndication& p, std::string field) 
 }
 
 
+
+/*
+*   NodeOffsetPointZ - Type CHOICE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+Value to_json(const NodeOffsetPointZ& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == NodeOffsetPointZ_PR_node_Z1) {
+        json.AddMember("node-Z1", to_json(p.choice.node_Z1, allocator), allocator);
+    } else if (p.present == NodeOffsetPointZ_PR_node_Z2) {
+        json.AddMember("node-Z2", to_json(p.choice.node_Z2, allocator), allocator);
+    } else if (p.present == NodeOffsetPointZ_PR_node_Z3) {
+        json.AddMember("node-Z3", to_json(p.choice.node_Z3, allocator), allocator);
+    } else if (p.present == NodeOffsetPointZ_PR_node_Z4) {
+        json.AddMember("node-Z4", to_json(p.choice.node_Z4, allocator), allocator);
+    } else if (p.present == NodeOffsetPointZ_PR_node_Z5) {
+        json.AddMember("node-Z5", to_json(p.choice.node_Z5, allocator), allocator);
+    } else if (p.present == NodeOffsetPointZ_PR_node_Z6) {
+        json.AddMember("node-Z6", to_json(p.choice.node_Z6, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, NodeOffsetPointZ& p, std::string field) {
+    try {
+        if (j.HasMember("node-Z1")) {
+        p.present = NodeOffsetPointZ_PR_node_Z1;
+            from_json(j["node-Z1"], p.choice.node_Z1, "node-Z1");
+        } else if (j.HasMember("node-Z2")) {
+        p.present = NodeOffsetPointZ_PR_node_Z2;
+            from_json(j["node-Z2"], p.choice.node_Z2, "node-Z2");
+        } else if (j.HasMember("node-Z3")) {
+        p.present = NodeOffsetPointZ_PR_node_Z3;
+            from_json(j["node-Z3"], p.choice.node_Z3, "node-Z3");
+        } else if (j.HasMember("node-Z4")) {
+        p.present = NodeOffsetPointZ_PR_node_Z4;
+            from_json(j["node-Z4"], p.choice.node_Z4, "node-Z4");
+        } else if (j.HasMember("node-Z5")) {
+        p.present = NodeOffsetPointZ_PR_node_Z5;
+            from_json(j["node-Z5"], p.choice.node_Z5, "node-Z5");
+        } else if (j.HasMember("node-Z6")) {
+        p.present = NodeOffsetPointZ_PR_node_Z6;
+            from_json(j["node-Z6"], p.choice.node_Z6, "node-Z6");
+        } else {
+        p.present = NodeOffsetPointZ_PR_NOTHING;
+        }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
 
 /*
 *   LaneDataAttribute - Type CHOICE
@@ -6881,23 +11453,23 @@ void from_json(const Value& j, LaneDataAttribute& p, std::string field) {
     try {
         if (j.HasMember("pathEndPointAngle")) {
         p.present = LaneDataAttribute_PR_pathEndPointAngle;
-        from_json(j["pathEndPointAngle"], p.choice.pathEndPointAngle, "pathEndPointAngle");
-    } else if (j.HasMember("laneCrownPointCenter")) {
+            from_json(j["pathEndPointAngle"], p.choice.pathEndPointAngle, "pathEndPointAngle");
+        } else if (j.HasMember("laneCrownPointCenter")) {
         p.present = LaneDataAttribute_PR_laneCrownPointCenter;
-        from_json(j["laneCrownPointCenter"], p.choice.laneCrownPointCenter, "laneCrownPointCenter");
-    } else if (j.HasMember("laneCrownPointLeft")) {
+            from_json(j["laneCrownPointCenter"], p.choice.laneCrownPointCenter, "laneCrownPointCenter");
+        } else if (j.HasMember("laneCrownPointLeft")) {
         p.present = LaneDataAttribute_PR_laneCrownPointLeft;
-        from_json(j["laneCrownPointLeft"], p.choice.laneCrownPointLeft, "laneCrownPointLeft");
-    } else if (j.HasMember("laneCrownPointRight")) {
+            from_json(j["laneCrownPointLeft"], p.choice.laneCrownPointLeft, "laneCrownPointLeft");
+        } else if (j.HasMember("laneCrownPointRight")) {
         p.present = LaneDataAttribute_PR_laneCrownPointRight;
-        from_json(j["laneCrownPointRight"], p.choice.laneCrownPointRight, "laneCrownPointRight");
-    } else if (j.HasMember("laneAngle")) {
+            from_json(j["laneCrownPointRight"], p.choice.laneCrownPointRight, "laneCrownPointRight");
+        } else if (j.HasMember("laneAngle")) {
         p.present = LaneDataAttribute_PR_laneAngle;
-        from_json(j["laneAngle"], p.choice.laneAngle, "laneAngle");
-    } else if (j.HasMember("speedLimits")) {
+            from_json(j["laneAngle"], p.choice.laneAngle, "laneAngle");
+        } else if (j.HasMember("speedLimits")) {
         p.present = LaneDataAttribute_PR_speedLimits;
-        from_json(j["speedLimits"], p.choice.speedLimits, "speedLimits");
-    } else {
+            from_json(j["speedLimits"], p.choice.speedLimits, "speedLimits");
+        } else {
         p.present = LaneDataAttribute_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -6980,88 +11552,23 @@ void from_json(const Value& j, NodeAttributeSetXY_t& p, std::string field) {
 
 
 /*
-*   OriginatingRSUContainer - Type CHOICE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   CpmPayload - Type SEQUENCE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const OriginatingRSUContainer& p, Document::AllocatorType& allocator) {
+Value to_json(const CpmPayload& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    if (p.present == OriginatingRSUContainer_PR_intersectionReferenceId) {
-        json.AddMember("intersectionReferenceId", to_json(p.choice.intersectionReferenceId, allocator), allocator);
-    } else if (p.present == OriginatingRSUContainer_PR_roadSegmentReferenceId) {
-        json.AddMember("roadSegmentReferenceId", to_json(p.choice.roadSegmentReferenceId, allocator), allocator);
-    }
-    return json;
-}
-
-void from_json(const Value& j, OriginatingRSUContainer& p, std::string field) {
-    try {
-        if (j.HasMember("intersectionReferenceId")) {
-        p.present = OriginatingRSUContainer_PR_intersectionReferenceId;
-        from_json(j["intersectionReferenceId"], p.choice.intersectionReferenceId, "intersectionReferenceId");
-    } else if (j.HasMember("roadSegmentReferenceId")) {
-        p.present = OriginatingRSUContainer_PR_roadSegmentReferenceId;
-        from_json(j["roadSegmentReferenceId"], p.choice.roadSegmentReferenceId, "roadSegmentReferenceId");
-    } else {
-        p.present = OriginatingRSUContainer_PR_NOTHING;
-        }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-/*
-*   VehicleSensorProperties - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const VehicleSensorProperties& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("range", to_json((p.range), allocator), allocator);
-    json.AddMember("horizontalOpeningAngleStart", to_json(((p.horizontalOpeningAngleStart) == 3601) ? (p.horizontalOpeningAngleStart) : (double)(p.horizontalOpeningAngleStart) / 10.0, allocator), allocator);
-    json.AddMember("horizontalOpeningAngleEnd", to_json(((p.horizontalOpeningAngleEnd) == 3601) ? (p.horizontalOpeningAngleEnd) : (double)(p.horizontalOpeningAngleEnd) / 10.0, allocator), allocator);
-    if (p.verticalOpeningAngleStart != 0) json.AddMember("verticalOpeningAngleStart", to_json((*(p.verticalOpeningAngleStart) != 3601) ? (double) *(p.verticalOpeningAngleStart) / 10.0 : *(p.verticalOpeningAngleStart), allocator), allocator);
-    if (p.verticalOpeningAngleEnd != 0) json.AddMember("verticalOpeningAngleEnd", to_json((*(p.verticalOpeningAngleEnd) != 3601) ? (double) *(p.verticalOpeningAngleEnd) / 10.0 : *(p.verticalOpeningAngleEnd), allocator), allocator);
-    return json;
-}
-
-void from_json(const Value& j, VehicleSensorProperties& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["range"], (p.range), "range");
-        double horizontalOpeningAngleStart; from_json(j["horizontalOpeningAngleStart"], (horizontalOpeningAngleStart), "horizontalOpeningAngleStart"); (p.horizontalOpeningAngleStart) = ((horizontalOpeningAngleStart) != 3601) ? horizontalOpeningAngleStart * 10 : horizontalOpeningAngleStart;
-        double horizontalOpeningAngleEnd; from_json(j["horizontalOpeningAngleEnd"], (horizontalOpeningAngleEnd), "horizontalOpeningAngleEnd"); (p.horizontalOpeningAngleEnd) = ((horizontalOpeningAngleEnd) != 3601) ? horizontalOpeningAngleEnd * 10 : horizontalOpeningAngleEnd;
-        double verticalOpeningAngleStart; if (j.HasMember("verticalOpeningAngleStart")) { p.verticalOpeningAngleStart = vanetza::asn1::allocate<CartesianAngleValue_t>(); from_json(j["verticalOpeningAngleStart"], (verticalOpeningAngleStart), "verticalOpeningAngleStart"); *(p.verticalOpeningAngleStart) = ((verticalOpeningAngleStart) != 3601) ? verticalOpeningAngleStart * 10 : verticalOpeningAngleStart; }
-        else { p.verticalOpeningAngleStart=nullptr; }
-        double verticalOpeningAngleEnd; if (j.HasMember("verticalOpeningAngleEnd")) { p.verticalOpeningAngleEnd = vanetza::asn1::allocate<CartesianAngleValue_t>(); from_json(j["verticalOpeningAngleEnd"], (verticalOpeningAngleEnd), "verticalOpeningAngleEnd"); *(p.verticalOpeningAngleEnd) = ((verticalOpeningAngleEnd) != 3601) ? verticalOpeningAngleEnd * 10 : verticalOpeningAngleEnd; }
-        else { p.verticalOpeningAngleEnd=nullptr; }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   ObjectDistanceWithConfidence - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const ObjectDistanceWithConfidence& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("value", to_json((double)(p.value) / 100.0, allocator), allocator);
-    json.AddMember("confidence", to_json(((p.confidence) == 101 || (p.confidence) == 102) ? (p.confidence) : (double)(p.confidence) / 100.0, allocator), allocator);
+    json.AddMember("managementContainer", to_json((p.managementContainer), allocator), allocator);
+    json.AddMember("cpmContainers", to_json((p.cpmContainers), allocator), allocator);
     
     return json;
 }
 
-void from_json(const Value& j, ObjectDistanceWithConfidence& p, std::string field) {
+void from_json(const Value& j, CpmPayload& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        double value; from_json(j["value"], (value), "value"); (p.value) =value * 100;
-        double confidence; from_json(j["confidence"], (confidence), "confidence"); (p.confidence) = ((confidence) != 101 && (confidence) != 102) ? confidence * 100 : confidence;
+        from_json(j["managementContainer"], (p.managementContainer), "managementContainer");
+        from_json(j["cpmContainers"], (p.cpmContainers), "cpmContainers");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -7071,23 +11578,23 @@ void from_json(const Value& j, ObjectDistanceWithConfidence& p, std::string fiel
 
 
 /*
-*   ObjectDimension - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   MessageRateRange - Type SEQUENCE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const ObjectDimension& p, Document::AllocatorType& allocator) {
+Value to_json(const MessageRateRange& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("value", to_json((double)(p.value) / 10.0, allocator), allocator);
-    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
+    json.AddMember("messageRateMin", to_json((p.messageRateMin), allocator), allocator);
+    json.AddMember("messageRateMax", to_json((p.messageRateMax), allocator), allocator);
     
     return json;
 }
 
-void from_json(const Value& j, ObjectDimension& p, std::string field) {
+void from_json(const Value& j, MessageRateRange& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        double value; from_json(j["value"], (value), "value"); (p.value) =value * 10;
-        from_json(j["confidence"], (p.confidence), "confidence");
+        from_json(j["messageRateMin"], (p.messageRateMin), "messageRateMin");
+        from_json(j["messageRateMax"], (p.messageRateMax), "messageRateMax");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -7097,23 +11604,22 @@ void from_json(const Value& j, ObjectDimension& p, std::string field) {
 
 
 /*
-*   CartesianAngle - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   OriginatingRsuContainer - Type SEQUENCE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const CartesianAngle& p, Document::AllocatorType& allocator) {
+Value to_json(const OriginatingRsuContainer& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("value", to_json(((p.value) == 3601) ? (p.value) : (double)(p.value) / 10.0, allocator), allocator);
-    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
     
+    if (p.mapReference != 0) json.AddMember("mapReference", to_json(*(p.mapReference), allocator), allocator);
     return json;
 }
 
-void from_json(const Value& j, CartesianAngle& p, std::string field) {
+void from_json(const Value& j, OriginatingRsuContainer& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        double value; from_json(j["value"], (value), "value"); (p.value) = ((value) != 3601) ? value * 10 : value;
-        from_json(j["confidence"], (p.confidence), "confidence");
+        if (j.HasMember("mapReference")) { p.mapReference = vanetza::asn1::allocate<ETSI_ITS_CDD_MapReference_t>(); from_json(j["mapReference"], *(p.mapReference), "mapReference"); }
+        else { p.mapReference=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -7123,78 +11629,26 @@ void from_json(const Value& j, CartesianAngle& p, std::string field) {
 
 
 /*
-*   WGS84Angle - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   TrailerDataSet - Type SEQUENCE OF
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const WGS84Angle& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("value", to_json(((p.value) == 3601) ? (p.value) : (double)(p.value) / 10.0, allocator), allocator);
-    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
-    
-    return json;
-}
-
-void from_json(const Value& j, WGS84Angle& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        double value; from_json(j["value"], (value), "value"); (p.value) = ((value) != 3601) ? value * 10 : value;
-        from_json(j["confidence"], (p.confidence), "confidence");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   SpeedExtended - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const SpeedExtended& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("value", to_json(((p.value) == 16383) ? (p.value) : (double)(p.value) / 100.0, allocator), allocator);
-    json.AddMember("confidence", to_json(((p.confidence) == 126 || (p.confidence) == 127) ? (p.confidence) : (double)(p.confidence) / 100.0, allocator), allocator);
-    
-    return json;
-}
-
-void from_json(const Value& j, SpeedExtended& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        double value; from_json(j["value"], (value), "value"); (p.value) = ((value) != 16383) ? value * 100 : value;
-        double confidence; from_json(j["confidence"], (confidence), "confidence"); (p.confidence) = ((confidence) != 126 && (confidence) != 127) ? confidence * 100 : confidence;
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   SensorIdList - Type SEQUENCE OF
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const SensorIdList& p, Document::AllocatorType& allocator) {
+Value to_json(const TrailerDataSet& p, Document::AllocatorType& allocator) {
     Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        const Identifier_t po = *(p.list.array[i]);
-        // Value obj = to_json(po, allocator);
-        json.PushBack(po, allocator);
+        const TrailerData_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
     return json;
 }
 
-void from_json(const Value& j, SensorIdList& p, std::string field) {
+void from_json(const Value& j, TrailerDataSet& p, std::string field) {
     try {
-        SensorIdList* p_tmp = vanetza::asn1::allocate<SensorIdList>();
+        TrailerDataSet* p_tmp = vanetza::asn1::allocate<TrailerDataSet>();
         for (SizeType i = 0; i < j.Size(); i++) {
             const Value& item = j[i];
-            Identifier_t *element = vanetza::asn1::allocate<Identifier_t>();
+            TrailerData_t *element = vanetza::asn1::allocate<TrailerData_t>();
             from_json(item, *element, "index #" + std::to_string(i));
             asn_set_add(&(p_tmp->list), element);
         }
@@ -7207,270 +11661,31 @@ void from_json(const Value& j, SensorIdList& p, std::string field) {
 }
 
 /*
-*   TrailerData - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   PerceivedObjectIds - Type SEQUENCE OF
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const TrailerData& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("refPointId", to_json((p.refPointId), allocator), allocator);
-    json.AddMember("hitchPointOffset", to_json((p.hitchPointOffset), allocator), allocator);
-    json.AddMember("frontOverhang", to_json((p.frontOverhang), allocator), allocator);
-    json.AddMember("rearOverhang", to_json((p.rearOverhang), allocator), allocator);
-    if (p.trailerWidth != 0) json.AddMember("trailerWidth", to_json((*(p.trailerWidth) != 61 && *(p.trailerWidth) != 62) ? (double) *(p.trailerWidth) / 10.0 : *(p.trailerWidth), allocator), allocator);
-    if (p.hitchAngle != 0) json.AddMember("hitchAngle", to_json(*(p.hitchAngle), allocator), allocator);
-    return json;
-}
-
-void from_json(const Value& j, TrailerData& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["refPointId"], (p.refPointId), "refPointId");
-        from_json(j["hitchPointOffset"], (p.hitchPointOffset), "hitchPointOffset");
-        from_json(j["frontOverhang"], (p.frontOverhang), "frontOverhang");
-        from_json(j["rearOverhang"], (p.rearOverhang), "rearOverhang");
-        double trailerWidth; if (j.HasMember("trailerWidth")) { p.trailerWidth = vanetza::asn1::allocate<VehicleWidth_t>(); from_json(j["trailerWidth"], (trailerWidth), "trailerWidth"); *(p.trailerWidth) = ((trailerWidth) != 61 && (trailerWidth) != 62) ? trailerWidth * 10 : trailerWidth; }
-        else { p.trailerWidth=nullptr; }
-        if (j.HasMember("hitchAngle")) { p.hitchAngle = vanetza::asn1::allocate<CartesianAngle_t>(); from_json(j["hitchAngle"], *(p.hitchAngle), "hitchAngle"); }
-        else { p.hitchAngle=nullptr; }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   LongitudinalLanePosition - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const LongitudinalLanePosition& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("longitudinalLanePositionValue", to_json((p.longitudinalLanePositionValue), allocator), allocator);
-    json.AddMember("longitudinalLanePositionConfidence", to_json((p.longitudinalLanePositionConfidence), allocator), allocator);
-    
-    return json;
-}
-
-void from_json(const Value& j, LongitudinalLanePosition& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["longitudinalLanePositionValue"], (p.longitudinalLanePositionValue), "longitudinalLanePositionValue");
-        from_json(j["longitudinalLanePositionConfidence"], (p.longitudinalLanePositionConfidence), "longitudinalLanePositionConfidence");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   MatchedPosition - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const MatchedPosition& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    
-    if (p.laneID != 0) json.AddMember("laneID", to_json(*(p.laneID), allocator), allocator);
-    if (p.longitudinalLanePosition != 0) json.AddMember("longitudinalLanePosition", to_json(*(p.longitudinalLanePosition), allocator), allocator);
-    return json;
-}
-
-void from_json(const Value& j, MatchedPosition& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        if (j.HasMember("laneID")) { p.laneID = vanetza::asn1::allocate<LaneID_t>(); from_json(j["laneID"], *(p.laneID), "laneID"); }
-        else { p.laneID=nullptr; }
-        if (j.HasMember("longitudinalLanePosition")) { p.longitudinalLanePosition = vanetza::asn1::allocate<LongitudinalLanePosition_t>(); from_json(j["longitudinalLanePosition"], *(p.longitudinalLanePosition), "longitudinalLanePosition"); }
-        else { p.longitudinalLanePosition=nullptr; }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   PerceivedObjectContainerSegmentInfo - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const PerceivedObjectContainerSegmentInfo& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("totalMsgSegments", to_json((p.totalMsgSegments), allocator), allocator);
-    json.AddMember("thisSegmentNum", to_json((p.thisSegmentNum), allocator), allocator);
-    
-    return json;
-}
-
-void from_json(const Value& j, PerceivedObjectContainerSegmentInfo& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["totalMsgSegments"], (p.totalMsgSegments), "totalMsgSegments");
-        from_json(j["thisSegmentNum"], (p.thisSegmentNum), "thisSegmentNum");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   VehicleSubclass - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const VehicleSubclass& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("type", to_json((p.type), allocator), allocator);
-    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
-    
-    return json;
-}
-
-void from_json(const Value& j, VehicleSubclass& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["type"], (p.type), "type");
-        from_json(j["confidence"], (p.confidence), "confidence");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   PersonSubclass - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const PersonSubclass& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("type", to_json((p.type), allocator), allocator);
-    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
-    
-    return json;
-}
-
-void from_json(const Value& j, PersonSubclass& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["type"], (p.type), "type");
-        from_json(j["confidence"], (p.confidence), "confidence");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   AnimalSubclass - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const AnimalSubclass& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("type", to_json((p.type), allocator), allocator);
-    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
-    
-    return json;
-}
-
-void from_json(const Value& j, AnimalSubclass& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["type"], (p.type), "type");
-        from_json(j["confidence"], (p.confidence), "confidence");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   OtherSubclass - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const OtherSubclass& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("type", to_json((p.type), allocator), allocator);
-    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
-    
-    return json;
-}
-
-void from_json(const Value& j, OtherSubclass& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["type"], (p.type), "type");
-        from_json(j["confidence"], (p.confidence), "confidence");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   NodeOffsetPointZ - Type CHOICE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const NodeOffsetPointZ& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    if (p.present == NodeOffsetPointZ_PR_node_Z1) {
-        json.AddMember("node-Z1", to_json(p.choice.node_Z1, allocator), allocator);
-    } else if (p.present == NodeOffsetPointZ_PR_node_Z2) {
-        json.AddMember("node-Z2", to_json(p.choice.node_Z2, allocator), allocator);
-    } else if (p.present == NodeOffsetPointZ_PR_node_Z3) {
-        json.AddMember("node-Z3", to_json(p.choice.node_Z3, allocator), allocator);
-    } else if (p.present == NodeOffsetPointZ_PR_node_Z4) {
-        json.AddMember("node-Z4", to_json(p.choice.node_Z4, allocator), allocator);
-    } else if (p.present == NodeOffsetPointZ_PR_node_Z5) {
-        json.AddMember("node-Z5", to_json(p.choice.node_Z5, allocator), allocator);
-    } else if (p.present == NodeOffsetPointZ_PR_node_Z6) {
-        json.AddMember("node-Z6", to_json(p.choice.node_Z6, allocator), allocator);
+Value to_json(const PerceivedObjectIds& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const Identifier2B_t po = *(p.list.array[i]);
+        // Value obj = to_json(po, allocator);
+        json.PushBack(po, allocator);
     }
     return json;
 }
 
-void from_json(const Value& j, NodeOffsetPointZ& p, std::string field) {
+void from_json(const Value& j, PerceivedObjectIds& p, std::string field) {
     try {
-        if (j.HasMember("node-Z1")) {
-        p.present = NodeOffsetPointZ_PR_node_Z1;
-        from_json(j["node-Z1"], p.choice.node_Z1, "node-Z1");
-    } else if (j.HasMember("node-Z2")) {
-        p.present = NodeOffsetPointZ_PR_node_Z2;
-        from_json(j["node-Z2"], p.choice.node_Z2, "node-Z2");
-    } else if (j.HasMember("node-Z3")) {
-        p.present = NodeOffsetPointZ_PR_node_Z3;
-        from_json(j["node-Z3"], p.choice.node_Z3, "node-Z3");
-    } else if (j.HasMember("node-Z4")) {
-        p.present = NodeOffsetPointZ_PR_node_Z4;
-        from_json(j["node-Z4"], p.choice.node_Z4, "node-Z4");
-    } else if (j.HasMember("node-Z5")) {
-        p.present = NodeOffsetPointZ_PR_node_Z5;
-        from_json(j["node-Z5"], p.choice.node_Z5, "node-Z5");
-    } else if (j.HasMember("node-Z6")) {
-        p.present = NodeOffsetPointZ_PR_node_Z6;
-        from_json(j["node-Z6"], p.choice.node_Z6, "node-Z6");
-    } else {
-        p.present = NodeOffsetPointZ_PR_NOTHING;
+        PerceivedObjectIds* p_tmp = vanetza::asn1::allocate<PerceivedObjectIds>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            Identifier2B_t *element = vanetza::asn1::allocate<Identifier2B_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
         }
+        p = *p_tmp;
+        delete p_tmp;
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -7632,11 +11847,11 @@ void from_json(const Value& j, Payment_ID& p, std::string field) {
     try {
         if (j.HasMember("contractID")) {
         p.present = Payment_ID_PR_contractID;
-        from_json(j["contractID"], p.choice.contractID, "contractID");
-    } else if (j.HasMember("externalIdentificationMeans")) {
+            from_json(j["contractID"], p.choice.contractID, "contractID");
+        } else if (j.HasMember("externalIdentificationMeans")) {
         p.present = Payment_ID_PR_externalIdentificationMeans;
-        from_json(j["externalIdentificationMeans"], p.choice.externalIdentificationMeans, "externalIdentificationMeans");
-    } else {
+            from_json(j["externalIdentificationMeans"], p.choice.externalIdentificationMeans, "externalIdentificationMeans");
+        } else {
         p.present = Payment_ID_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -7709,7 +11924,7 @@ void from_json_SupportedPaymentTypes(const Value& j, SupportedPaymentTypes_t& p,
 *   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
 */
 
-Value to_json(const InterferenceManagementChannel& p, Document::AllocatorType& allocator) {
+Value to_json(const IMZM_PDU_Descriptions_InterferenceManagementChannel_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("centreFrequency", to_json((p.centreFrequency), allocator), allocator);
     json.AddMember("channelWidth", to_json((p.channelWidth), allocator), allocator);
@@ -7718,7 +11933,7 @@ Value to_json(const InterferenceManagementChannel& p, Document::AllocatorType& a
     return json;
 }
 
-void from_json(const Value& j, InterferenceManagementChannel& p, std::string field) {
+void from_json(const Value& j, IMZM_PDU_Descriptions_InterferenceManagementChannel_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["centreFrequency"], (p.centreFrequency), "centreFrequency");
@@ -7733,11 +11948,43 @@ void from_json(const Value& j, InterferenceManagementChannel& p, std::string fie
 
 
 /*
+*   MitigationForTechnologies - Type SEQUENCE OF
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const IMZM_PDU_Descriptions_MitigationForTechnologies_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const IMZM_PDU_Descriptions_MitigationPerTechnologyClass_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, IMZM_PDU_Descriptions_MitigationForTechnologies_t& p, std::string field) {
+    try {
+        IMZM_PDU_Descriptions_MitigationForTechnologies_t* p_tmp = vanetza::asn1::allocate<IMZM_PDU_Descriptions_MitigationForTechnologies_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            IMZM_PDU_Descriptions_MitigationPerTechnologyClass_t *element = vanetza::asn1::allocate<IMZM_PDU_Descriptions_MitigationPerTechnologyClass_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
 *   MitigationPerTechnologyClass - Type SEQUENCE
 *   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
 */
 
-Value to_json(const MitigationPerTechnologyClass& p, Document::AllocatorType& allocator) {
+Value to_json(const IMZM_PDU_Descriptions_MitigationPerTechnologyClass_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("accessTechnologyClass", to_json((p.accessTechnologyClass), allocator), allocator);
     if (p.lowDutyCycle != 0) json.AddMember("lowDutyCycle", to_json(*(p.lowDutyCycle), allocator), allocator);
@@ -7747,7 +11994,7 @@ Value to_json(const MitigationPerTechnologyClass& p, Document::AllocatorType& al
     return json;
 }
 
-void from_json(const Value& j, MitigationPerTechnologyClass& p, std::string field) {
+void from_json(const Value& j, IMZM_PDU_Descriptions_MitigationPerTechnologyClass_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["accessTechnologyClass"], (p.accessTechnologyClass), "accessTechnologyClass");
@@ -7783,6 +12030,42 @@ void from_json(const Value& j, TisTpgDRM_Situation& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["causeCode"], (p.causeCode), "causeCode");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   TisTpgDRM-Location - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgDRM_Location& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("vehiclePosition", to_json((p.vehiclePosition), allocator), allocator);
+    json.AddMember("vehicleSpeed", to_json((p.vehicleSpeed), allocator), allocator);
+    json.AddMember("vehicleHeading", to_json((p.vehicleHeading), allocator), allocator);
+    if (p.requestedPosition != 0) json.AddMember("requestedPosition", to_json(*(p.requestedPosition), allocator), allocator);
+    if (p.searchRange != 0) json.AddMember("searchRange", to_json(*(p.searchRange), allocator), allocator);
+    if (p.searchCondition != 0) json.AddMember("searchCondition", to_json(*(p.searchCondition), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, TisTpgDRM_Location& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["vehiclePosition"], (p.vehiclePosition), "vehiclePosition");
+        from_json(j["vehicleSpeed"], (p.vehicleSpeed), "vehicleSpeed");
+        from_json(j["vehicleHeading"], (p.vehicleHeading), "vehicleHeading");
+        if (j.HasMember("requestedPosition")) { p.requestedPosition = vanetza::asn1::allocate<ITS_Container_ReferencePosition_t>(); from_json(j["requestedPosition"], *(p.requestedPosition), "requestedPosition"); }
+        else { p.requestedPosition=nullptr; }
+        if (j.HasMember("searchRange")) { p.searchRange = vanetza::asn1::allocate<SearchRange_t>(); from_json(j["searchRange"], *(p.searchRange), "searchRange"); }
+        else { p.searchRange=nullptr; }
+        if (j.HasMember("searchCondition")) { p.searchCondition = vanetza::asn1::allocate<SearchCondition_t>(); from_json(j["searchCondition"], *(p.searchCondition), "searchCondition"); }
+        else { p.searchCondition=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -7844,6 +12127,62 @@ void from_json(const Value& j, TisTpgTRM_Situation& p, std::string field) {
 
 
 /*
+*   TisTpgTRM-Location - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTRM_Location& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("vehiclePosition", to_json((p.vehiclePosition), allocator), allocator);
+    json.AddMember("vehicleSpeed", to_json((p.vehicleSpeed), allocator), allocator);
+    json.AddMember("vehicleHeading", to_json((p.vehicleHeading), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, TisTpgTRM_Location& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["vehiclePosition"], (p.vehiclePosition), "vehiclePosition");
+        from_json(j["vehicleSpeed"], (p.vehicleSpeed), "vehicleSpeed");
+        from_json(j["vehicleHeading"], (p.vehicleHeading), "vehicleHeading");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   TisTpgTCM-Location - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTCM_Location& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    if (p.tpgLocation != 0) json.AddMember("tpgLocation", to_json(*(p.tpgLocation), allocator), allocator);
+    if (p.address != 0) json.AddMember("address", to_json(*(p.address), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, TisTpgTCM_Location& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        if (j.HasMember("tpgLocation")) { p.tpgLocation = vanetza::asn1::allocate<ITS_Container_ReferencePosition_t>(); from_json(j["tpgLocation"], *(p.tpgLocation), "tpgLocation"); }
+        else { p.tpgLocation=nullptr; }
+        if (j.HasMember("address")) { p.address = vanetza::asn1::allocate<UTF8String_t>(); from_json(j["address"], *(p.address), "address"); }
+        else { p.address=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
 *   TyreData::TyreData__currentTyrePressure - Type CHOICE
 *   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
 */
@@ -7862,11 +12201,11 @@ void from_json(const Value& j, TyreData::TyreData__currentTyrePressure& p, std::
     try {
         if (j.HasMember("tyrePressureValue")) {
         p.present = TyreData__currentTyrePressure_PR::TyreData__currentTyrePressure_PR_tyrePressureValue;
-        from_json(j["tyrePressureValue"], p.choice.tyrePressureValue, "tyrePressureValue");
-    } else if (j.HasMember("unavailable")) {
+            from_json(j["tyrePressureValue"], p.choice.tyrePressureValue, "tyrePressureValue");
+        } else if (j.HasMember("unavailable")) {
         p.present = TyreData__currentTyrePressure_PR::TyreData__currentTyrePressure_PR_unavailable;
-        from_json(j["unavailable"], p.choice.unavailable, "unavailable");
-    } else {
+            from_json(j["unavailable"], p.choice.unavailable, "unavailable");
+        } else {
         p.present = TyreData__currentTyrePressure_PR::TyreData__currentTyrePressure_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -7894,11 +12233,11 @@ void from_json(const Value& j, TyreData::TyreData__currentInsideAirTemperature& 
     try {
         if (j.HasMember("tyreAirTemperatureValue")) {
         p.present = TyreData__currentInsideAirTemperature_PR::TyreData__currentInsideAirTemperature_PR_tyreAirTemperatureValue;
-        from_json(j["tyreAirTemperatureValue"], p.choice.tyreAirTemperatureValue, "tyreAirTemperatureValue");
-    } else if (j.HasMember("unavailable")) {
+            from_json(j["tyreAirTemperatureValue"], p.choice.tyreAirTemperatureValue, "tyreAirTemperatureValue");
+        } else if (j.HasMember("unavailable")) {
         p.present = TyreData__currentInsideAirTemperature_PR::TyreData__currentInsideAirTemperature_PR_unavailable;
-        from_json(j["unavailable"], p.choice.unavailable, "unavailable");
-    } else {
+            from_json(j["unavailable"], p.choice.unavailable, "unavailable");
+        } else {
         p.present = TyreData__currentInsideAirTemperature_PR::TyreData__currentInsideAirTemperature_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -7926,11 +12265,11 @@ void from_json(const Value& j, TyreData::TyreData__recommendedTyrePressure& p, s
     try {
         if (j.HasMember("axlePlacardPressureValue")) {
         p.present = TyreData__recommendedTyrePressure_PR::TyreData__recommendedTyrePressure_PR_axlePlacardPressureValue;
-        from_json(j["axlePlacardPressureValue"], p.choice.axlePlacardPressureValue, "axlePlacardPressureValue");
-    } else if (j.HasMember("unavailable")) {
+            from_json(j["axlePlacardPressureValue"], p.choice.axlePlacardPressureValue, "axlePlacardPressureValue");
+        } else if (j.HasMember("unavailable")) {
         p.present = TyreData__recommendedTyrePressure_PR::TyreData__recommendedTyrePressure_PR_unavailable;
-        from_json(j["unavailable"], p.choice.unavailable, "unavailable");
-    } else {
+            from_json(j["unavailable"], p.choice.unavailable, "unavailable");
+        } else {
         p.present = TyreData__recommendedTyrePressure_PR::TyreData__recommendedTyrePressure_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -7958,11 +12297,11 @@ void from_json(const Value& j, TyreData::TyreData__sensorState& p, std::string f
     try {
         if (j.HasMember("sensorStateValue")) {
         p.present = TyreData__sensorState_PR::TyreData__sensorState_PR_sensorStateValue;
-        from_json(j["sensorStateValue"], p.choice.sensorStateValue, "sensorStateValue");
-    } else if (j.HasMember("unavailable")) {
+            from_json(j["sensorStateValue"], p.choice.sensorStateValue, "sensorStateValue");
+        } else if (j.HasMember("unavailable")) {
         p.present = TyreData__sensorState_PR::TyreData__sensorState_PR_unavailable;
-        from_json(j["unavailable"], p.choice.unavailable, "unavailable");
-    } else {
+            from_json(j["unavailable"], p.choice.unavailable, "unavailable");
+        } else {
         p.present = TyreData__sensorState_PR::TyreData__sensorState_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -7990,11 +12329,11 @@ void from_json(const Value& j, AppliedTyrePressure& p, std::string field) {
     try {
         if (j.HasMember("tyrePressureValue")) {
         p.present = AppliedTyrePressure_PR_tyrePressureValue;
-        from_json(j["tyrePressureValue"], p.choice.tyrePressureValue, "tyrePressureValue");
-    } else if (j.HasMember("unavailable")) {
+            from_json(j["tyrePressureValue"], p.choice.tyrePressureValue, "tyrePressureValue");
+        } else if (j.HasMember("unavailable")) {
         p.present = AppliedTyrePressure_PR_unavailable;
-        from_json(j["unavailable"], p.choice.unavailable, "unavailable");
-    } else {
+            from_json(j["unavailable"], p.choice.unavailable, "unavailable");
+        } else {
         p.present = AppliedTyrePressure_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -8263,11 +12602,69 @@ void from_json_Language(const Value& j, Language_t& p, std::string field) {
 }
 
 /*
+*   McmBasicContainer - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const McmBasicContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("generationDeltaTime", to_json((p.generationDeltaTime), allocator), allocator);
+    json.AddMember("stationType", to_json((p.stationType), allocator), allocator);
+    json.AddMember("referencePositionWithConfidence", to_json((p.referencePositionWithConfidence), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, McmBasicContainer& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["generationDeltaTime"], (p.generationDeltaTime), "generationDeltaTime");
+        from_json(j["stationType"], (p.stationType), "stationType");
+        from_json(j["referencePositionWithConfidence"], (p.referencePositionWithConfidence), "referencePositionWithConfidence");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   ReferencePositionWithConfidence - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const MCM_PDU_Descriptions_ReferencePositionWithConfidence_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("latitude", to_json(((p.latitude) == 900000001) ? (p.latitude) : (double)(p.latitude) / 10000000.0, allocator), allocator);
+    json.AddMember("longitude", to_json(((p.longitude) == 1800000001) ? (p.longitude) : (double)(p.longitude) / 10000000.0, allocator), allocator);
+    json.AddMember("positionConfidenceEllipse", to_json((p.positionConfidenceEllipse), allocator), allocator);
+    json.AddMember("altitude", to_json((p.altitude), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, MCM_PDU_Descriptions_ReferencePositionWithConfidence_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        double latitude; from_json(j["latitude"], (latitude), "latitude"); (p.latitude) = ((latitude) != 900000001) ? latitude * 10000000 : latitude;
+        double longitude; from_json(j["longitude"], (longitude), "longitude"); (p.longitude) = ((longitude) != 1800000001) ? longitude * 10000000 : longitude;
+        from_json(j["positionConfidenceEllipse"], (p.positionConfidenceEllipse), "positionConfidenceEllipse");
+        from_json(j["altitude"], (p.altitude), "altitude");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
 *   PositionConfidenceEllipse - Type SEQUENCE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
 
-Value to_json(const PositionConfidenceEllipse& p, Document::AllocatorType& allocator) {
+Value to_json(const MCM_PDU_Descriptions_PositionConfidenceEllipse_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("semiMajorAxisLength", to_json((p.semiMajorAxisLength), allocator), allocator);
     json.AddMember("semiMinorAxisLength", to_json((p.semiMinorAxisLength), allocator), allocator);
@@ -8276,7 +12673,7 @@ Value to_json(const PositionConfidenceEllipse& p, Document::AllocatorType& alloc
     return json;
 }
 
-void from_json(const Value& j, PositionConfidenceEllipse& p, std::string field) {
+void from_json(const Value& j, MCM_PDU_Descriptions_PositionConfidenceEllipse_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["semiMajorAxisLength"], (p.semiMajorAxisLength), "semiMajorAxisLength");
@@ -8373,17 +12770,17 @@ void from_json(const Value& j, ManouevreResponse_t& p, std::string field) {
     try {
         if (j.HasMember("offerAcceptation")) {
         p.present = ManouevreResponse_PR_offerAcceptation;
-        from_json(j["offerAcceptation"], p.choice.offerAcceptation, "offerAcceptation");
-    } else if (j.HasMember("offerDecline")) {
+            from_json(j["offerAcceptation"], p.choice.offerAcceptation, "offerAcceptation");
+        } else if (j.HasMember("offerDecline")) {
         p.present = ManouevreResponse_PR_offerDecline;
-        from_json(j["offerDecline"], p.choice.offerDecline, "offerDecline");
-    } else if (j.HasMember("requestAcceptation")) {
+            from_json(j["offerDecline"], p.choice.offerDecline, "offerDecline");
+        } else if (j.HasMember("requestAcceptation")) {
         p.present = ManouevreResponse_PR_requestAcceptation;
-        from_json(j["requestAcceptation"], p.choice.requestAcceptation, "requestAcceptation");
-    } else if (j.HasMember("requestDecline")) {
+            from_json(j["requestAcceptation"], p.choice.requestAcceptation, "requestAcceptation");
+        } else if (j.HasMember("requestDecline")) {
         p.present = ManouevreResponse_PR_requestDecline;
-        from_json(j["requestDecline"], p.choice.requestDecline, "requestDecline");
-    } else {
+            from_json(j["requestDecline"], p.choice.requestDecline, "requestDecline");
+        } else {
         p.present = ManouevreResponse_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -8511,6 +12908,34 @@ void from_json(const Value& j, IntermediatePointIntersection& p, std::string fie
 
 
 /*
+*   IntermediatePointOffroad - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const IntermediatePointOffroad& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("referencePosition", to_json((p.referencePosition), allocator), allocator);
+    json.AddMember("referenceHeading", to_json((p.referenceHeading), allocator), allocator);
+    json.AddMember("timeOfPos", to_json((p.timeOfPos), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, IntermediatePointOffroad& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["referencePosition"], (p.referencePosition), "referencePosition");
+        from_json(j["referenceHeading"], (p.referenceHeading), "referenceHeading");
+        from_json(j["timeOfPos"], (p.timeOfPos), "timeOfPos");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
 *   Lane - Type SEQUENCE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
@@ -8537,27 +12962,25 @@ void from_json(const Value& j, Lane& p, std::string field) {
 
 
 /*
-*   ReferencePosition - Type SEQUENCE
-*   From ITS-Container - File TS102894-2v131-CDD.asn
+*   AccelerationPolarWithZ - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
 */
 
-Value to_json(const ReferencePosition& p, Document::AllocatorType& allocator) {
+Value to_json(const AccelerationPolarWithZ_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("latitude", to_json(((p.latitude) == 900000001) ? (p.latitude) : (double)(p.latitude) / 10000000.0, allocator), allocator);
-    json.AddMember("longitude", to_json(((p.longitude) == 1800000001) ? (p.longitude) : (double)(p.longitude) / 10000000.0, allocator), allocator);
-    json.AddMember("positionConfidenceEllipse", to_json((p.positionConfidenceEllipse), allocator), allocator);
-    json.AddMember("altitude", to_json((p.altitude), allocator), allocator);
-    
+    json.AddMember("accelerationMagnitude", to_json((p.accelerationMagnitude), allocator), allocator);
+    json.AddMember("accelerationDirection", to_json((p.accelerationDirection), allocator), allocator);
+    if (p.zAcceleration != 0) json.AddMember("zAcceleration", to_json(*(p.zAcceleration), allocator), allocator);
     return json;
 }
 
-void from_json(const Value& j, ReferencePosition& p, std::string field) {
+void from_json(const Value& j, AccelerationPolarWithZ_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        double latitude; from_json(j["latitude"], (latitude), "latitude"); (p.latitude) = ((latitude) != 900000001) ? latitude * 10000000 : latitude;
-        double longitude; from_json(j["longitude"], (longitude), "longitude"); (p.longitude) = ((longitude) != 1800000001) ? longitude * 10000000 : longitude;
-        from_json(j["positionConfidenceEllipse"], (p.positionConfidenceEllipse), "positionConfidenceEllipse");
-        from_json(j["altitude"], (p.altitude), "altitude");
+        from_json(j["accelerationMagnitude"], (p.accelerationMagnitude), "accelerationMagnitude");
+        from_json(j["accelerationDirection"], (p.accelerationDirection), "accelerationDirection");
+        if (j.HasMember("zAcceleration")) { p.zAcceleration = vanetza::asn1::allocate<AccelerationComponent_t>(); from_json(j["zAcceleration"], *(p.zAcceleration), "zAcceleration"); }
+        else { p.zAcceleration=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -8567,23 +12990,25 @@ void from_json(const Value& j, ReferencePosition& p, std::string field) {
 
 
 /*
-*   PtActivation - Type SEQUENCE
-*   From ITS-Container - File TS102894-2v131-CDD.asn
+*   AccelerationCartesian - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
 */
 
-Value to_json(const PtActivation& p, Document::AllocatorType& allocator) {
+Value to_json(const AccelerationCartesian_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("ptActivationType", to_json((p.ptActivationType), allocator), allocator);
-    json.AddMember("ptActivationData", to_json((p.ptActivationData), allocator), allocator);
-    
+    json.AddMember("xAcceleration", to_json((p.xAcceleration), allocator), allocator);
+    json.AddMember("yAcceleration", to_json((p.yAcceleration), allocator), allocator);
+    if (p.zAcceleration != 0) json.AddMember("zAcceleration", to_json(*(p.zAcceleration), allocator), allocator);
     return json;
 }
 
-void from_json(const Value& j, PtActivation& p, std::string field) {
+void from_json(const Value& j, AccelerationCartesian_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["ptActivationType"], (p.ptActivationType), "ptActivationType");
-        from_json(j["ptActivationData"], (p.ptActivationData), "ptActivationData");
+        from_json(j["xAcceleration"], (p.xAcceleration), "xAcceleration");
+        from_json(j["yAcceleration"], (p.yAcceleration), "yAcceleration");
+        if (j.HasMember("zAcceleration")) { p.zAcceleration = vanetza::asn1::allocate<AccelerationComponent_t>(); from_json(j["zAcceleration"], *(p.zAcceleration), "zAcceleration"); }
+        else { p.zAcceleration=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -8593,28 +13018,23 @@ void from_json(const Value& j, PtActivation& p, std::string field) {
 
 
 /*
-*   ClosedLanes - Type SEQUENCE
-*   From ITS-Container - File TS102894-2v131-CDD.asn
+*   BasicContainer - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
 */
 
-Value to_json(const ClosedLanes& p, Document::AllocatorType& allocator) {
+Value to_json(const ETSI_ITS_CDD_BasicContainer_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
+    json.AddMember("stationType", to_json((p.stationType), allocator), allocator);
+    json.AddMember("referencePosition", to_json((p.referencePosition), allocator), allocator);
     
-    if (p.innerhardShoulderStatus != 0) json.AddMember("innerhardShoulderStatus", to_json(*(p.innerhardShoulderStatus), allocator), allocator);
-    if (p.outerhardShoulderStatus != 0) json.AddMember("outerhardShoulderStatus", to_json(*(p.outerhardShoulderStatus), allocator), allocator);
-    if (p.drivingLaneStatus != 0) json.AddMember("drivingLaneStatus", to_json_DrivingLaneStatus(*(p.drivingLaneStatus), allocator), allocator);
     return json;
 }
 
-void from_json(const Value& j, ClosedLanes& p, std::string field) {
+void from_json(const Value& j, ETSI_ITS_CDD_BasicContainer_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        if (j.HasMember("innerhardShoulderStatus")) { p.innerhardShoulderStatus = vanetza::asn1::allocate<HardShoulderStatus_t>(); from_json(j["innerhardShoulderStatus"], *(p.innerhardShoulderStatus), "innerhardShoulderStatus"); }
-        else { p.innerhardShoulderStatus=nullptr; }
-        if (j.HasMember("outerhardShoulderStatus")) { p.outerhardShoulderStatus = vanetza::asn1::allocate<HardShoulderStatus_t>(); from_json(j["outerhardShoulderStatus"], *(p.outerhardShoulderStatus), "outerhardShoulderStatus"); }
-        else { p.outerhardShoulderStatus=nullptr; }
-        if (j.HasMember("drivingLaneStatus")) { p.drivingLaneStatus = vanetza::asn1::allocate<DrivingLaneStatus_t>(); from_json_DrivingLaneStatus(j["drivingLaneStatus"],*(p.drivingLaneStatus), "drivingLaneStatus"); }
-        else { p.drivingLaneStatus=nullptr; }
+        from_json(j["stationType"], (p.stationType), "stationType");
+        from_json(j["referencePosition"], (p.referencePosition), "referencePosition");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -8624,58 +13044,26 @@ void from_json(const Value& j, ClosedLanes& p, std::string field) {
 
 
 /*
-*   ItineraryPath - Type SEQUENCE OF
-*   From ITS-Container - File TS102894-2v131-CDD.asn
+*   BasicLaneConfiguration - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
 */
 
-Value to_json(const ItineraryPath& p, Document::AllocatorType& allocator) {
+Value to_json(const BasicLaneConfiguration_t& p, Document::AllocatorType& allocator) {
     Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        const ReferencePosition_t po = *(p.list.array[i]);
+        const BasicLaneInformation_t po = *(p.list.array[i]);
         Value obj = to_json(po, allocator);
         json.PushBack(obj, allocator);
     }
     return json;
 }
 
-void from_json(const Value& j, ItineraryPath& p, std::string field) {
+void from_json(const Value& j, BasicLaneConfiguration_t& p, std::string field) {
     try {
-        ItineraryPath* p_tmp = vanetza::asn1::allocate<ItineraryPath>();
+        BasicLaneConfiguration_t* p_tmp = vanetza::asn1::allocate<BasicLaneConfiguration_t>();
         for (SizeType i = 0; i < j.Size(); i++) {
             const Value& item = j[i];
-            ReferencePosition_t *element = vanetza::asn1::allocate<ReferencePosition_t>();
-            from_json(item, *element, "index #" + std::to_string(i));
-            asn_set_add(&(p_tmp->list), element);
-        }
-        p = *p_tmp;
-        delete p_tmp;
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-/*
-*   EventHistory - Type SEQUENCE OF
-*   From ITS-Container - File TS102894-2v131-CDD.asn
-*/
-
-Value to_json(const EventHistory& p, Document::AllocatorType& allocator) {
-    Value json(kArrayType);
-    for(int i = 0; i < p.list.count; i++) {
-        const EventPoint_t po = *(p.list.array[i]);
-        Value obj = to_json(po, allocator);
-        json.PushBack(obj, allocator);
-    }
-    return json;
-}
-
-void from_json(const Value& j, EventHistory& p, std::string field) {
-    try {
-        EventHistory* p_tmp = vanetza::asn1::allocate<EventHistory>();
-        for (SizeType i = 0; i < j.Size(); i++) {
-            const Value& item = j[i];
-            EventPoint_t *element = vanetza::asn1::allocate<EventPoint_t>();
+            BasicLaneInformation_t *element = vanetza::asn1::allocate<BasicLaneInformation_t>();
             from_json(item, *element, "index #" + std::to_string(i));
             asn_set_add(&(p_tmp->list), element);
         }
@@ -8689,25 +13077,25 @@ void from_json(const Value& j, EventHistory& p, std::string field) {
 
 /*
 *   DigitalMap - Type SEQUENCE OF
-*   From ITS-Container - File TS102894-2v131-CDD.asn
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
 */
 
-Value to_json(const DigitalMap_t& p, Document::AllocatorType& allocator) {
+Value to_json(const ETSI_ITS_CDD_DigitalMap_t& p, Document::AllocatorType& allocator) {
     Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        const ReferencePosition_t po = *(p.list.array[i]);
+        const ETSI_ITS_CDD_ReferencePosition_t po = *(p.list.array[i]);
         Value obj = to_json(po, allocator);
         json.PushBack(obj, allocator);
     }
     return json;
 }
 
-void from_json(const Value& j, DigitalMap_t& p, std::string field) {
+void from_json(const Value& j, ETSI_ITS_CDD_DigitalMap_t& p, std::string field) {
     try {
-        DigitalMap_t* p_tmp = vanetza::asn1::allocate<DigitalMap_t>();
+        ETSI_ITS_CDD_DigitalMap_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_DigitalMap_t>();
         for (SizeType i = 0; i < j.Size(); i++) {
             const Value& item = j[i];
-            ReferencePosition_t *element = vanetza::asn1::allocate<ReferencePosition_t>();
+            ETSI_ITS_CDD_ReferencePosition_t *element = vanetza::asn1::allocate<ETSI_ITS_CDD_ReferencePosition_t>();
             from_json(item, *element, "index #" + std::to_string(i));
             asn_set_add(&(p_tmp->list), element);
         }
@@ -8718,6 +13106,863 @@ void from_json(const Value& j, DigitalMap_t& p, std::string field) {
         ex.rethrow();
     }
 }
+
+/*
+*   EventHistory - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_EventHistory_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const ETSI_ITS_CDD_EventPoint_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_EventHistory_t& p, std::string field) {
+    try {
+        ETSI_ITS_CDD_EventHistory_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_EventHistory_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            ETSI_ITS_CDD_EventPoint_t *element = vanetza::asn1::allocate<ETSI_ITS_CDD_EventPoint_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   InterferenceManagementInfoPerChannel - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_InterferenceManagementInfoPerChannel_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("interferenceManagementChannel", to_json((p.interferenceManagementChannel), allocator), allocator);
+    json.AddMember("interferenceManagementZoneType", to_json((p.interferenceManagementZoneType), allocator), allocator);
+    if (p.interferenceManagementMitigationType != 0) json.AddMember("interferenceManagementMitigationType", to_json(*(p.interferenceManagementMitigationType), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_InterferenceManagementInfoPerChannel_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["interferenceManagementChannel"], (p.interferenceManagementChannel), "interferenceManagementChannel");
+        from_json(j["interferenceManagementZoneType"], (p.interferenceManagementZoneType), "interferenceManagementZoneType");
+        if (j.HasMember("interferenceManagementMitigationType")) { p.interferenceManagementMitigationType = vanetza::asn1::allocate<ETSI_ITS_CDD_MitigationForTechnologies_t>(); from_json(j["interferenceManagementMitigationType"], *(p.interferenceManagementMitigationType), "interferenceManagementMitigationType"); }
+        else { p.interferenceManagementMitigationType=nullptr; }
+        p.expiryTime=nullptr;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   ItineraryPath - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ItineraryPath_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const ETSI_ITS_CDD_ReferencePosition_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_ItineraryPath_t& p, std::string field) {
+    try {
+        ETSI_ITS_CDD_ItineraryPath_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_ItineraryPath_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            ETSI_ITS_CDD_ReferencePosition_t *element = vanetza::asn1::allocate<ETSI_ITS_CDD_ReferencePosition_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   IvimReference - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const IvimReference_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("serviceProviderId", to_json((p.serviceProviderId), allocator), allocator);
+    json.AddMember("iviIdentificationNumber", to_json((p.iviIdentificationNumber), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, IvimReference_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["serviceProviderId"], (p.serviceProviderId), "serviceProviderId");
+        from_json(j["iviIdentificationNumber"], (p.iviIdentificationNumber), "iviIdentificationNumber");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   IvimReferences - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const IvimReferences_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const IvimReference_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, IvimReferences_t& p, std::string field) {
+    try {
+        IvimReferences_t* p_tmp = vanetza::asn1::allocate<IvimReferences_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            IvimReference_t *element = vanetza::asn1::allocate<IvimReference_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   LanePositionOptions - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const LanePositionOptions_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == LanePositionOptions_PR_simplelanePosition) {
+        json.AddMember("simplelanePosition", to_json(p.choice.simplelanePosition, allocator), allocator);
+    } else if (p.present == LanePositionOptions_PR_simpleLaneType) {
+        json.AddMember("simpleLaneType", to_json(p.choice.simpleLaneType, allocator), allocator);
+    } else if (p.present == LanePositionOptions_PR_detailedlanePosition) {
+        json.AddMember("detailedlanePosition", to_json(p.choice.detailedlanePosition, allocator), allocator);
+    } else if (p.present == LanePositionOptions_PR_lanePositionWithLateralDetails) {
+        json.AddMember("lanePositionWithLateralDetails", to_json(p.choice.lanePositionWithLateralDetails, allocator), allocator);
+    } else if (p.present == LanePositionOptions_PR_trafficIslandPosition) {
+        json.AddMember("trafficIslandPosition", to_json(p.choice.trafficIslandPosition, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, LanePositionOptions_t& p, std::string field) {
+    try {
+        if (j.HasMember("simplelanePosition")) {
+        p.present = LanePositionOptions_PR_simplelanePosition;
+            from_json(j["simplelanePosition"], p.choice.simplelanePosition, "simplelanePosition");
+        } else if (j.HasMember("simpleLaneType")) {
+        p.present = LanePositionOptions_PR_simpleLaneType;
+            from_json(j["simpleLaneType"], p.choice.simpleLaneType, "simpleLaneType");
+        } else if (j.HasMember("detailedlanePosition")) {
+        p.present = LanePositionOptions_PR_detailedlanePosition;
+            from_json(j["detailedlanePosition"], p.choice.detailedlanePosition, "detailedlanePosition");
+        } else if (j.HasMember("lanePositionWithLateralDetails")) {
+        p.present = LanePositionOptions_PR_lanePositionWithLateralDetails;
+            from_json(j["lanePositionWithLateralDetails"], p.choice.lanePositionWithLateralDetails, "lanePositionWithLateralDetails");
+        } else if (j.HasMember("trafficIslandPosition")) {
+        p.present = LanePositionOptions_PR_trafficIslandPosition;
+            from_json(j["trafficIslandPosition"], p.choice.trafficIslandPosition, "trafficIslandPosition");
+        } else {
+        p.present = LanePositionOptions_PR_NOTHING;
+        }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   LowerTriangularPositiveSemidefiniteMatrix - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const LowerTriangularPositiveSemidefiniteMatrix_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("componentsIncludedIntheMatrix", to_json_MatrixIncludedComponents((p.componentsIncludedIntheMatrix), allocator), allocator);
+    json.AddMember("matrix", to_json((p.matrix), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, LowerTriangularPositiveSemidefiniteMatrix_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json_MatrixIncludedComponents(j["componentsIncludedIntheMatrix"],(p.componentsIncludedIntheMatrix), "componentsIncludedIntheMatrix");
+        from_json(j["matrix"], (p.matrix), "matrix");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   MapemElementReference - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const MapemElementReference_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    if (p.mapReference != 0) json.AddMember("mapReference", to_json(*(p.mapReference), allocator), allocator);
+    if (p.laneIds != 0) json.AddMember("laneIds", to_json(*(p.laneIds), allocator), allocator);
+    if (p.connectionIds != 0) json.AddMember("connectionIds", to_json(*(p.connectionIds), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, MapemElementReference_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        if (j.HasMember("mapReference")) { p.mapReference = vanetza::asn1::allocate<ETSI_ITS_CDD_MapReference_t>(); from_json(j["mapReference"], *(p.mapReference), "mapReference"); }
+        else { p.mapReference=nullptr; }
+        if (j.HasMember("laneIds")) { p.laneIds = vanetza::asn1::allocate<MapemLaneList_t>(); from_json(j["laneIds"], *(p.laneIds), "laneIds"); }
+        else { p.laneIds=nullptr; }
+        if (j.HasMember("connectionIds")) { p.connectionIds = vanetza::asn1::allocate<MapemConnectionList_t>(); from_json(j["connectionIds"], *(p.connectionIds), "connectionIds"); }
+        else { p.connectionIds=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   MapPosition - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_MapPosition_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    
+    if (p.mapReference != 0) json.AddMember("mapReference", to_json(*(p.mapReference), allocator), allocator);
+    if (p.laneId != 0) json.AddMember("laneId", to_json(*(p.laneId), allocator), allocator);
+    if (p.connectionId != 0) json.AddMember("connectionId", to_json(*(p.connectionId), allocator), allocator);
+    if (p.longitudinalLanePosition != 0) json.AddMember("longitudinalLanePosition", to_json(*(p.longitudinalLanePosition), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_MapPosition_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        if (j.HasMember("mapReference")) { p.mapReference = vanetza::asn1::allocate<ETSI_ITS_CDD_MapReference_t>(); from_json(j["mapReference"], *(p.mapReference), "mapReference"); }
+        else { p.mapReference=nullptr; }
+        if (j.HasMember("laneId")) { p.laneId = vanetza::asn1::allocate<Identifier1B_t>(); from_json(j["laneId"], *(p.laneId), "laneId"); }
+        else { p.laneId=nullptr; }
+        if (j.HasMember("connectionId")) { p.connectionId = vanetza::asn1::allocate<Identifier1B_t>(); from_json(j["connectionId"], *(p.connectionId), "connectionId"); }
+        else { p.connectionId=nullptr; }
+        if (j.HasMember("longitudinalLanePosition")) { p.longitudinalLanePosition = vanetza::asn1::allocate<LongitudinalLanePosition_t>(); from_json(j["longitudinalLanePosition"], *(p.longitudinalLanePosition), "longitudinalLanePosition"); }
+        else { p.longitudinalLanePosition=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   MapReference - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_MapReference_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == ETSI_ITS_CDD_MapReference_PR_roadsegment) {
+        json.AddMember("roadsegment", to_json(p.choice.roadsegment, allocator), allocator);
+    } else if (p.present == ETSI_ITS_CDD_MapReference_PR_intersection) {
+        json.AddMember("intersection", to_json(p.choice.intersection, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_MapReference_t& p, std::string field) {
+    try {
+        if (j.HasMember("roadsegment")) {
+        p.present = ETSI_ITS_CDD_MapReference_PR_roadsegment;
+            from_json(j["roadsegment"], p.choice.roadsegment, "roadsegment");
+        } else if (j.HasMember("intersection")) {
+        p.present = ETSI_ITS_CDD_MapReference_PR_intersection;
+            from_json(j["intersection"], p.choice.intersection, "intersection");
+        } else {
+        p.present = ETSI_ITS_CDD_MapReference_PR_NOTHING;
+        }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   MapReferences - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const MapReferences_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const ETSI_ITS_CDD_MapReference_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, MapReferences_t& p, std::string field) {
+    try {
+        MapReferences_t* p_tmp = vanetza::asn1::allocate<MapReferences_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            ETSI_ITS_CDD_MapReference_t *element = vanetza::asn1::allocate<ETSI_ITS_CDD_MapReference_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   MitigationForTechnologies - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_MitigationForTechnologies_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const ETSI_ITS_CDD_MitigationPerTechnologyClass_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_MitigationForTechnologies_t& p, std::string field) {
+    try {
+        ETSI_ITS_CDD_MitigationForTechnologies_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_MitigationForTechnologies_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            ETSI_ITS_CDD_MitigationPerTechnologyClass_t *element = vanetza::asn1::allocate<ETSI_ITS_CDD_MitigationPerTechnologyClass_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   OccupiedLanesWithConfidence::OccupiedLanesWithConfidence__lanePositionBased - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const OccupiedLanesWithConfidence::OccupiedLanesWithConfidence__lanePositionBased& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const LanePositionOptions_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, OccupiedLanesWithConfidence::OccupiedLanesWithConfidence__lanePositionBased& p, std::string field) {
+    try {
+        OccupiedLanesWithConfidence::OccupiedLanesWithConfidence__lanePositionBased* p_tmp = vanetza::asn1::allocate<OccupiedLanesWithConfidence::OccupiedLanesWithConfidence__lanePositionBased>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            LanePositionOptions_t *element = vanetza::asn1::allocate<LanePositionOptions_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   OccupiedLanesWithConfidence::OccupiedLanesWithConfidence__mapBased - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const OccupiedLanesWithConfidence::OccupiedLanesWithConfidence__mapBased& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const ETSI_ITS_CDD_MapPosition_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, OccupiedLanesWithConfidence::OccupiedLanesWithConfidence__mapBased& p, std::string field) {
+    try {
+        OccupiedLanesWithConfidence::OccupiedLanesWithConfidence__mapBased* p_tmp = vanetza::asn1::allocate<OccupiedLanesWithConfidence::OccupiedLanesWithConfidence__mapBased>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            ETSI_ITS_CDD_MapPosition_t *element = vanetza::asn1::allocate<ETSI_ITS_CDD_MapPosition_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   OccupiedLanesWithConfidence - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const OccupiedLanesWithConfidence_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("lanePositionBased", to_json((p.lanePositionBased), allocator), allocator);
+    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
+    if (p.mapBased != 0) json.AddMember("mapBased", to_json(*(p.mapBased), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, OccupiedLanesWithConfidence_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["lanePositionBased"], (p.lanePositionBased), "lanePositionBased");
+        if (j.HasMember("mapBased")) { p.mapBased = vanetza::asn1::allocate<OccupiedLanesWithConfidence::OccupiedLanesWithConfidence__mapBased>(); from_json(j["mapBased"], *(p.mapBased), "mapBased"); }
+        else { p.mapBased=nullptr; }
+        from_json(j["confidence"], (p.confidence), "confidence");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   Path - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const Path_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const ETSI_ITS_CDD_PathPoint_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, Path_t& p, std::string field) {
+    try {
+        Path_t* p_tmp = vanetza::asn1::allocate<Path_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            ETSI_ITS_CDD_PathPoint_t *element = vanetza::asn1::allocate<ETSI_ITS_CDD_PathPoint_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   PathExtended - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const PathExtended_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("pointOfEventZone", to_json((p.pointOfEventZone), allocator), allocator);
+    json.AddMember("path", to_json((p.path), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, PathExtended_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["pointOfEventZone"], (p.pointOfEventZone), "pointOfEventZone");
+        from_json(j["path"], (p.path), "path");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   PathHistory - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_PathHistory_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const ETSI_ITS_CDD_PathPoint_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_PathHistory_t& p, std::string field) {
+    try {
+        ETSI_ITS_CDD_PathHistory_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_PathHistory_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            ETSI_ITS_CDD_PathPoint_t *element = vanetza::asn1::allocate<ETSI_ITS_CDD_PathPoint_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   PathPointPredicted - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const PathPointPredicted_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("deltaLatitude", to_json((p.deltaLatitude), allocator), allocator);
+    json.AddMember("deltaLongitude", to_json((p.deltaLongitude), allocator), allocator);
+    json.AddMember("deltaAltitude", to_json((p.deltaAltitude), allocator), allocator);
+    json.AddMember("altitudeConfidence", to_json((p.altitudeConfidence), allocator), allocator);
+    if (p.horizontalPositionConfidence != 0) json.AddMember("horizontalPositionConfidence", to_json(*(p.horizontalPositionConfidence), allocator), allocator);
+    if (p.pathDeltaTime != 0) json.AddMember("pathDeltaTime", to_json(*(p.pathDeltaTime), allocator), allocator);
+    if (p.symmetricAreaOffset != 0) json.AddMember("symmetricAreaOffset", to_json(*(p.symmetricAreaOffset), allocator), allocator);
+    if (p.asymmetricAreaOffset != 0) json.AddMember("asymmetricAreaOffset", to_json(*(p.asymmetricAreaOffset), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, PathPointPredicted_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["deltaLatitude"], (p.deltaLatitude), "deltaLatitude");
+        from_json(j["deltaLongitude"], (p.deltaLongitude), "deltaLongitude");
+        if (j.HasMember("horizontalPositionConfidence")) { p.horizontalPositionConfidence = vanetza::asn1::allocate<ETSI_ITS_CDD_PosConfidenceEllipse_t>(); from_json(j["horizontalPositionConfidence"], *(p.horizontalPositionConfidence), "horizontalPositionConfidence"); }
+        else { p.horizontalPositionConfidence=nullptr; }
+        from_json(j["deltaAltitude"], (p.deltaAltitude), "deltaAltitude");
+        from_json(j["altitudeConfidence"], (p.altitudeConfidence), "altitudeConfidence");
+        if (j.HasMember("pathDeltaTime")) { p.pathDeltaTime = vanetza::asn1::allocate<PathDeltaTimeChoice_t>(); from_json(j["pathDeltaTime"], *(p.pathDeltaTime), "pathDeltaTime"); }
+        else { p.pathDeltaTime=nullptr; }
+        if (j.HasMember("symmetricAreaOffset")) { p.symmetricAreaOffset = vanetza::asn1::allocate<StandardLength9b_t>(); from_json(j["symmetricAreaOffset"], *(p.symmetricAreaOffset), "symmetricAreaOffset"); }
+        else { p.symmetricAreaOffset=nullptr; }
+        if (j.HasMember("asymmetricAreaOffset")) { p.asymmetricAreaOffset = vanetza::asn1::allocate<StandardLength9b_t>(); from_json(j["asymmetricAreaOffset"], *(p.asymmetricAreaOffset), "asymmetricAreaOffset"); }
+        else { p.asymmetricAreaOffset=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   PolygonalShape - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const PolygonalShape_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("polygon", to_json((p.polygon), allocator), allocator);
+    if (p.shapeReferencePoint != 0) json.AddMember("shapeReferencePoint", to_json(*(p.shapeReferencePoint), allocator), allocator);
+    if (p.height != 0) json.AddMember("height", to_json(*(p.height), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, PolygonalShape_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        if (j.HasMember("shapeReferencePoint")) { p.shapeReferencePoint = vanetza::asn1::allocate<CartesianPosition3d_t>(); from_json(j["shapeReferencePoint"], *(p.shapeReferencePoint), "shapeReferencePoint"); }
+        else { p.shapeReferencePoint=nullptr; }
+        from_json(j["polygon"], (p.polygon), "polygon");
+        if (j.HasMember("height")) { p.height = vanetza::asn1::allocate<StandardLength12b_t>(); from_json(j["height"], *(p.height), "height"); }
+        else { p.height=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   RadialShapesList - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const RadialShapesList_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const RadialShapeDetails_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, RadialShapesList_t& p, std::string field) {
+    try {
+        RadialShapesList_t* p_tmp = vanetza::asn1::allocate<RadialShapesList_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            RadialShapeDetails_t *element = vanetza::asn1::allocate<RadialShapeDetails_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   SequenceOfTrajectoryInterceptionIndication - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_SequenceOfTrajectoryInterceptionIndication_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const ETSI_ITS_CDD_TrajectoryInterceptionIndication_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_SequenceOfTrajectoryInterceptionIndication_t& p, std::string field) {
+    try {
+        ETSI_ITS_CDD_SequenceOfTrajectoryInterceptionIndication_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_SequenceOfTrajectoryInterceptionIndication_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            ETSI_ITS_CDD_TrajectoryInterceptionIndication_t *element = vanetza::asn1::allocate<ETSI_ITS_CDD_TrajectoryInterceptionIndication_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   Traces - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_Traces_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const Path_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_Traces_t& p, std::string field) {
+    try {
+        ETSI_ITS_CDD_Traces_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_Traces_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            Path_t *element = vanetza::asn1::allocate<Path_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   TracesExtended - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const TracesExtended_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const PathExtended_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, TracesExtended_t& p, std::string field) {
+    try {
+        TracesExtended_t* p_tmp = vanetza::asn1::allocate<TracesExtended_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            PathExtended_t *element = vanetza::asn1::allocate<PathExtended_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   VarLengthNumber - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_VarLengthNumber_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == ETSI_ITS_CDD_VarLengthNumber_PR_content) {
+        json.AddMember("content", to_json(p.choice.content, allocator), allocator);
+    } else if (p.present == ETSI_ITS_CDD_VarLengthNumber_PR_extension) {
+        json.AddMember("extension", to_json(p.choice.extension, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_VarLengthNumber_t& p, std::string field) {
+    try {
+        if (j.HasMember("content")) {
+        p.present = ETSI_ITS_CDD_VarLengthNumber_PR_content;
+            from_json(j["content"], p.choice.content, "content");
+        } else if (j.HasMember("extension")) {
+        p.present = ETSI_ITS_CDD_VarLengthNumber_PR_extension;
+            from_json(j["extension"], p.choice.extension, "extension");
+        } else {
+        p.present = ETSI_ITS_CDD_VarLengthNumber_PR_NOTHING;
+        }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   Ext1 - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_Ext1_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == ETSI_ITS_CDD_Ext1_PR_content) {
+        json.AddMember("content", to_json(p.choice.content, allocator), allocator);
+    } else if (p.present == ETSI_ITS_CDD_Ext1_PR_extension) {
+        json.AddMember("extension", to_json(p.choice.extension, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_Ext1_t& p, std::string field) {
+    try {
+        if (j.HasMember("content")) {
+        p.present = ETSI_ITS_CDD_Ext1_PR_content;
+            from_json(j["content"], p.choice.content, "content");
+        } else if (j.HasMember("extension")) {
+        p.present = ETSI_ITS_CDD_Ext1_PR_extension;
+            from_json(j["extension"], p.choice.extension, "extension");
+        } else {
+        p.present = ETSI_ITS_CDD_Ext1_PR_NOTHING;
+        }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   VelocityCartesian - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const VelocityCartesian_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("xVelocity", to_json((p.xVelocity), allocator), allocator);
+    json.AddMember("yVelocity", to_json((p.yVelocity), allocator), allocator);
+    if (p.zVelocity != 0) json.AddMember("zVelocity", to_json(*(p.zVelocity), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, VelocityCartesian_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["xVelocity"], (p.xVelocity), "xVelocity");
+        from_json(j["yVelocity"], (p.yVelocity), "yVelocity");
+        if (j.HasMember("zVelocity")) { p.zVelocity = vanetza::asn1::allocate<VelocityComponent_t>(); from_json(j["zVelocity"], *(p.zVelocity), "zVelocity"); }
+        else { p.zVelocity=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
 
 /*
 *   IntersectionState-addGrpC - Type SEQUENCE
@@ -9040,29 +14285,29 @@ void from_json(const Value& j, LaneTypeAttributes& p, std::string field) {
     try {
         if (j.HasMember("vehicle")) {
         p.present = LaneTypeAttributes_PR_vehicle;
-        from_json_LaneAttributes_Vehicle(j["vehicle"], p.choice.vehicle, "vehicle");
-    } else if (j.HasMember("crosswalk")) {
+            from_json_LaneAttributes_Vehicle(j["vehicle"], p.choice.vehicle, "vehicle");
+        } else if (j.HasMember("crosswalk")) {
         p.present = LaneTypeAttributes_PR_crosswalk;
-        from_json_LaneAttributes_Crosswalk(j["crosswalk"], p.choice.crosswalk, "crosswalk");
-    } else if (j.HasMember("bikeLane")) {
+            from_json_LaneAttributes_Crosswalk(j["crosswalk"], p.choice.crosswalk, "crosswalk");
+        } else if (j.HasMember("bikeLane")) {
         p.present = LaneTypeAttributes_PR_bikeLane;
-        from_json_LaneAttributes_Bike(j["bikeLane"], p.choice.bikeLane, "bikeLane");
-    } else if (j.HasMember("sidewalk")) {
+            from_json_LaneAttributes_Bike(j["bikeLane"], p.choice.bikeLane, "bikeLane");
+        } else if (j.HasMember("sidewalk")) {
         p.present = LaneTypeAttributes_PR_sidewalk;
-        from_json_LaneAttributes_Sidewalk(j["sidewalk"], p.choice.sidewalk, "sidewalk");
-    } else if (j.HasMember("median")) {
+            from_json_LaneAttributes_Sidewalk(j["sidewalk"], p.choice.sidewalk, "sidewalk");
+        } else if (j.HasMember("median")) {
         p.present = LaneTypeAttributes_PR_median;
-        from_json_LaneAttributes_Barrier(j["median"], p.choice.median, "median");
-    } else if (j.HasMember("striping")) {
+            from_json_LaneAttributes_Barrier(j["median"], p.choice.median, "median");
+        } else if (j.HasMember("striping")) {
         p.present = LaneTypeAttributes_PR_striping;
-        from_json_LaneAttributes_Striping(j["striping"], p.choice.striping, "striping");
-    } else if (j.HasMember("trackedVehicle")) {
+            from_json_LaneAttributes_Striping(j["striping"], p.choice.striping, "striping");
+        } else if (j.HasMember("trackedVehicle")) {
         p.present = LaneTypeAttributes_PR_trackedVehicle;
-        from_json_LaneAttributes_TrackedVehicle(j["trackedVehicle"], p.choice.trackedVehicle, "trackedVehicle");
-    } else if (j.HasMember("parking")) {
+            from_json_LaneAttributes_TrackedVehicle(j["trackedVehicle"], p.choice.trackedVehicle, "trackedVehicle");
+        } else if (j.HasMember("parking")) {
         p.present = LaneTypeAttributes_PR_parking;
-        from_json_LaneAttributes_Parking(j["parking"], p.choice.parking, "parking");
-    } else {
+            from_json_LaneAttributes_Parking(j["parking"], p.choice.parking, "parking");
+        } else {
         p.present = LaneTypeAttributes_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -9479,7 +14724,7 @@ void from_json(const Value& j, SignalStatusPackage& p, std::string field) {
 
 Value to_json(const CS1& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("countryCode", to_json_CountryCode((p.countryCode), allocator), allocator);
+    json.AddMember("countryCode", to_json_AVIAEINumberingAndDataStructures_CountryCode((p.countryCode), allocator), allocator);
     json.AddMember("issuerIdentifier", to_json((p.issuerIdentifier), allocator), allocator);
     json.AddMember("serviceNumber", to_json_ServiceNumber((p.serviceNumber), allocator), allocator);
     
@@ -9489,7 +14734,7 @@ Value to_json(const CS1& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, CS1& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json_CountryCode(j["countryCode"],(p.countryCode), "countryCode");
+        from_json_AVIAEINumberingAndDataStructures_CountryCode(j["countryCode"],(p.countryCode), "countryCode");
         from_json(j["issuerIdentifier"], (p.issuerIdentifier), "issuerIdentifier");
         from_json_ServiceNumber(j["serviceNumber"],(p.serviceNumber), "serviceNumber");
     } catch(VanetzaJSONException& ex) {
@@ -9563,7 +14808,7 @@ void from_json(const Value& j, CS3& p, std::string field) {
 
 Value to_json(const CS4& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("countryCode", to_json_CountryCode((p.countryCode), allocator), allocator);
+    json.AddMember("countryCode", to_json_AVIAEINumberingAndDataStructures_CountryCode((p.countryCode), allocator), allocator);
     json.AddMember("alphabetIndicator", to_json((p.alphabetIndicator), allocator), allocator);
     json.AddMember("licPlateNumber", to_json((p.licPlateNumber), allocator), allocator);
     
@@ -9573,7 +14818,7 @@ Value to_json(const CS4& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, CS4& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json_CountryCode(j["countryCode"],(p.countryCode), "countryCode");
+        from_json_AVIAEINumberingAndDataStructures_CountryCode(j["countryCode"],(p.countryCode), "countryCode");
         from_json(j["alphabetIndicator"], (p.alphabetIndicator), "alphabetIndicator");
         from_json(j["licPlateNumber"], (p.licPlateNumber), "licPlateNumber");
     } catch(VanetzaJSONException& ex) {
@@ -9591,7 +14836,7 @@ void from_json(const Value& j, CS4& p, std::string field) {
 
 Value to_json(const CS8& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("countryCode", to_json_CountryCode((p.countryCode), allocator), allocator);
+    json.AddMember("countryCode", to_json_AVIAEINumberingAndDataStructures_CountryCode((p.countryCode), allocator), allocator);
     json.AddMember("taxCode", to_json((p.taxCode), allocator), allocator);
     
     return json;
@@ -9600,7 +14845,7 @@ Value to_json(const CS8& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, CS8& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json_CountryCode(j["countryCode"],(p.countryCode), "countryCode");
+        from_json_AVIAEINumberingAndDataStructures_CountryCode(j["countryCode"],(p.countryCode), "countryCode");
         from_json(j["taxCode"], (p.taxCode), "taxCode");
         
     } catch(VanetzaJSONException& ex) {
@@ -9888,34 +15133,6 @@ void from_json(const Value& j, ContractValidity_t& p, std::string field) {
 
 
 /*
-*   EFC-ContextMark - Type SEQUENCE
-*   From EfcDsrcApplication - File ISO14906-0-6.asn
-*/
-
-Value to_json(const EFC_ContextMark_t& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("contractProvider", to_json((p.contractProvider), allocator), allocator);
-    json.AddMember("typeOfContract", to_json((p.typeOfContract), allocator), allocator);
-    json.AddMember("contextVersion", to_json((p.contextVersion), allocator), allocator);
-    
-    return json;
-}
-
-void from_json(const Value& j, EFC_ContextMark_t& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["contractProvider"], (p.contractProvider), "contractProvider");
-        from_json(j["typeOfContract"], (p.typeOfContract), "typeOfContract");
-        from_json(j["contextVersion"], (p.contextVersion), "contextVersion");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
 *   PaymentFee - Type SEQUENCE
 *   From EfcDsrcApplication - File ISO14906-0-6.asn
 */
@@ -10110,30 +15327,30 @@ void from_json(const Value& j, EfcDsrcApplication_TrailerCharacteristics_t& p, s
 
 
 /*
-*   Ext1 - Type CHOICE
+*   VarLengthNumber - Type CHOICE
 *   From CITSapplMgmtIDs - File ISO17419.asn
 */
 
-Value to_json(const Ext1& p, Document::AllocatorType& allocator) {
+Value to_json(const CITSapplMgmtIDs_VarLengthNumber_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    if (p.present == Ext1_PR_content) {
+    if (p.present == CITSapplMgmtIDs_VarLengthNumber_PR_content) {
         json.AddMember("content", to_json(p.choice.content, allocator), allocator);
-    } else if (p.present == Ext1_PR_extension) {
+    } else if (p.present == CITSapplMgmtIDs_VarLengthNumber_PR_extension) {
         json.AddMember("extension", to_json(p.choice.extension, allocator), allocator);
     }
     return json;
 }
 
-void from_json(const Value& j, Ext1& p, std::string field) {
+void from_json(const Value& j, CITSapplMgmtIDs_VarLengthNumber_t& p, std::string field) {
     try {
         if (j.HasMember("content")) {
-        p.present = Ext1_PR_content;
-        from_json(j["content"], p.choice.content, "content");
-    } else if (j.HasMember("extension")) {
-        p.present = Ext1_PR_extension;
-        from_json(j["extension"], p.choice.extension, "extension");
-    } else {
-        p.present = Ext1_PR_NOTHING;
+        p.present = CITSapplMgmtIDs_VarLengthNumber_PR_content;
+            from_json(j["content"], p.choice.content, "content");
+        } else if (j.HasMember("extension")) {
+        p.present = CITSapplMgmtIDs_VarLengthNumber_PR_extension;
+            from_json(j["extension"], p.choice.extension, "extension");
+        } else {
+        p.present = CITSapplMgmtIDs_VarLengthNumber_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -10164,11 +15381,11 @@ void from_json(const Value& j, IviManagementContainer& p, std::string field) {
         p._asn_ctx.ptr = nullptr;
         from_json(j["serviceProviderId"], (p.serviceProviderId), "serviceProviderId");
         from_json(j["iviIdentificationNumber"], (p.iviIdentificationNumber), "iviIdentificationNumber");
-        if (j.HasMember("timeStamp")) { p.timeStamp = vanetza::asn1::allocate<TimestampIts_t>(); from_json(j["timeStamp"], *(p.timeStamp), "timeStamp"); }
+        if (j.HasMember("timeStamp")) { p.timeStamp = vanetza::asn1::allocate<ITS_Container_TimestampIts_t>(); from_json(j["timeStamp"], *(p.timeStamp), "timeStamp"); }
         else { p.timeStamp=nullptr; }
-        if (j.HasMember("validFrom")) { p.validFrom = vanetza::asn1::allocate<TimestampIts_t>(); from_json(j["validFrom"], *(p.validFrom), "validFrom"); }
+        if (j.HasMember("validFrom")) { p.validFrom = vanetza::asn1::allocate<ITS_Container_TimestampIts_t>(); from_json(j["validFrom"], *(p.validFrom), "validFrom"); }
         else { p.validFrom=nullptr; }
-        if (j.HasMember("validTo")) { p.validTo = vanetza::asn1::allocate<TimestampIts_t>(); from_json(j["validTo"], *(p.validTo), "validTo"); }
+        if (j.HasMember("validTo")) { p.validTo = vanetza::asn1::allocate<ITS_Container_TimestampIts_t>(); from_json(j["validTo"], *(p.validTo), "validTo"); }
         else { p.validTo=nullptr; }
         if (j.HasMember("connectedIviStructures")) { p.connectedIviStructures = vanetza::asn1::allocate<IviIdentificationNumbers_t>(); from_json(j["connectedIviStructures"], *(p.connectedIviStructures), "connectedIviStructures"); }
         else { p.connectedIviStructures=nullptr; }
@@ -10204,7 +15421,7 @@ void from_json(const Value& j, RscPart& p, std::string field) {
         if (j.HasMember("detectionZoneIds")) { p.detectionZoneIds = vanetza::asn1::allocate<ZoneIds_t>(); from_json(j["detectionZoneIds"], *(p.detectionZoneIds), "detectionZoneIds"); }
         else { p.detectionZoneIds=nullptr; }
         from_json(j["relevanceZoneIds"], (p.relevanceZoneIds), "relevanceZoneIds");
-        if (j.HasMember("direction")) { p.direction = vanetza::asn1::allocate<Direction_t>(); from_json(j["direction"], *(p.direction), "direction"); }
+        if (j.HasMember("direction")) { p.direction = vanetza::asn1::allocate<IVI_Direction_t>(); from_json(j["direction"], *(p.direction), "direction"); }
         else { p.direction=nullptr; }
         if (j.HasMember("roadSurfaceStaticCharacteristics")) { p.roadSurfaceStaticCharacteristics = vanetza::asn1::allocate<RoadSurfaceStaticCharacteristics_t>(); from_json(j["roadSurfaceStaticCharacteristics"], *(p.roadSurfaceStaticCharacteristics), "roadSurfaceStaticCharacteristics"); }
         else { p.roadSurfaceStaticCharacteristics=nullptr; }
@@ -10651,17 +15868,17 @@ void from_json(const Value& j, PolygonalLine& p, std::string field) {
     try {
         if (j.HasMember("deltaPositions")) {
         p.present = PolygonalLine_PR_deltaPositions;
-        from_json(j["deltaPositions"], p.choice.deltaPositions, "deltaPositions");
-    } else if (j.HasMember("deltaPositionsWithAltitude")) {
+            from_json(j["deltaPositions"], p.choice.deltaPositions, "deltaPositions");
+        } else if (j.HasMember("deltaPositionsWithAltitude")) {
         p.present = PolygonalLine_PR_deltaPositionsWithAltitude;
-        from_json(j["deltaPositionsWithAltitude"], p.choice.deltaPositionsWithAltitude, "deltaPositionsWithAltitude");
-    } else if (j.HasMember("absolutePositions")) {
+            from_json(j["deltaPositionsWithAltitude"], p.choice.deltaPositionsWithAltitude, "deltaPositionsWithAltitude");
+        } else if (j.HasMember("absolutePositions")) {
         p.present = PolygonalLine_PR_absolutePositions;
-        from_json(j["absolutePositions"], p.choice.absolutePositions, "absolutePositions");
-    } else if (j.HasMember("absolutePositionsWithAltitude")) {
+            from_json(j["absolutePositions"], p.choice.absolutePositions, "absolutePositions");
+        } else if (j.HasMember("absolutePositionsWithAltitude")) {
         p.present = PolygonalLine_PR_absolutePositionsWithAltitude;
-        from_json(j["absolutePositionsWithAltitude"], p.choice.absolutePositionsWithAltitude, "absolutePositionsWithAltitude");
-    } else {
+            from_json(j["absolutePositionsWithAltitude"], p.choice.absolutePositionsWithAltitude, "absolutePositionsWithAltitude");
+        } else {
         p.present = PolygonalLine_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -10815,14 +16032,14 @@ void from_json(const Value& j, Zone& p, std::string field) {
     try {
         if (j.HasMember("segment")) {
         p.present = Zone_PR_segment;
-        from_json(j["segment"], p.choice.segment, "segment");
-    } else if (j.HasMember("area")) {
+            from_json(j["segment"], p.choice.segment, "segment");
+        } else if (j.HasMember("area")) {
         p.present = Zone_PR_area;
-        from_json(j["area"], p.choice.area, "area");
-    } else if (j.HasMember("computedSegment")) {
+            from_json(j["area"], p.choice.area, "area");
+        } else if (j.HasMember("computedSegment")) {
         p.present = Zone_PR_computedSegment;
-        from_json(j["computedSegment"], p.choice.computedSegment, "computedSegment");
-    } else {
+            from_json(j["computedSegment"], p.choice.computedSegment, "computedSegment");
+        } else {
         p.present = Zone_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -10850,11 +16067,11 @@ void from_json(const Value& j, HighFrequencyContainer& p, std::string field) {
     try {
         if (j.HasMember("basicVehicleContainerHighFrequency")) {
         p.present = HighFrequencyContainer_PR_basicVehicleContainerHighFrequency;
-        from_json(j["basicVehicleContainerHighFrequency"], p.choice.basicVehicleContainerHighFrequency, "basicVehicleContainerHighFrequency");
-    } else if (j.HasMember("rsuContainerHighFrequency")) {
+            from_json(j["basicVehicleContainerHighFrequency"], p.choice.basicVehicleContainerHighFrequency, "basicVehicleContainerHighFrequency");
+        } else if (j.HasMember("rsuContainerHighFrequency")) {
         p.present = HighFrequencyContainer_PR_rsuContainerHighFrequency;
-        from_json(j["rsuContainerHighFrequency"], p.choice.rsuContainerHighFrequency, "rsuContainerHighFrequency");
-    } else {
+            from_json(j["rsuContainerHighFrequency"], p.choice.rsuContainerHighFrequency, "rsuContainerHighFrequency");
+        } else {
         p.present = HighFrequencyContainer_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -10880,8 +16097,8 @@ void from_json(const Value& j, LowFrequencyContainer& p, std::string field) {
     try {
         if (j.HasMember("basicVehicleContainerLowFrequency")) {
         p.present = LowFrequencyContainer_PR_basicVehicleContainerLowFrequency;
-        from_json(j["basicVehicleContainerLowFrequency"], p.choice.basicVehicleContainerLowFrequency, "basicVehicleContainerLowFrequency");
-    } else {
+            from_json(j["basicVehicleContainerLowFrequency"], p.choice.basicVehicleContainerLowFrequency, "basicVehicleContainerLowFrequency");
+        } else {
         p.present = LowFrequencyContainer_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -10891,162 +16108,61 @@ void from_json(const Value& j, LowFrequencyContainer& p, std::string field) {
 }
 
 /*
-*   BasicContainer - Type SEQUENCE
+*   SpecialVehicleContainer - Type CHOICE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-Value to_json(const BasicContainer& p, Document::AllocatorType& allocator) {
+Value to_json(const SpecialVehicleContainer& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("stationType", to_json((p.stationType), allocator), allocator);
-    json.AddMember("referencePosition", to_json((p.referencePosition), allocator), allocator);
-    
+    if (p.present == SpecialVehicleContainer_PR_publicTransportContainer) {
+        json.AddMember("publicTransportContainer", to_json(p.choice.publicTransportContainer, allocator), allocator);
+    } else if (p.present == SpecialVehicleContainer_PR_specialTransportContainer) {
+        json.AddMember("specialTransportContainer", to_json(p.choice.specialTransportContainer, allocator), allocator);
+    } else if (p.present == SpecialVehicleContainer_PR_dangerousGoodsContainer) {
+        json.AddMember("dangerousGoodsContainer", to_json(p.choice.dangerousGoodsContainer, allocator), allocator);
+    } else if (p.present == SpecialVehicleContainer_PR_roadWorksContainerBasic) {
+        json.AddMember("roadWorksContainerBasic", to_json(p.choice.roadWorksContainerBasic, allocator), allocator);
+    } else if (p.present == SpecialVehicleContainer_PR_rescueContainer) {
+        json.AddMember("rescueContainer", to_json(p.choice.rescueContainer, allocator), allocator);
+    } else if (p.present == SpecialVehicleContainer_PR_emergencyContainer) {
+        json.AddMember("emergencyContainer", to_json(p.choice.emergencyContainer, allocator), allocator);
+    } else if (p.present == SpecialVehicleContainer_PR_safetyCarContainer) {
+        json.AddMember("safetyCarContainer", to_json(p.choice.safetyCarContainer, allocator), allocator);
+    }
     return json;
 }
 
-void from_json(const Value& j, BasicContainer& p, std::string field) {
+void from_json(const Value& j, SpecialVehicleContainer& p, std::string field) {
     try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["stationType"], (p.stationType), "stationType");
-        from_json(j["referencePosition"], (p.referencePosition), "referencePosition");
+        if (j.HasMember("publicTransportContainer")) {
+        p.present = SpecialVehicleContainer_PR_publicTransportContainer;
+            from_json(j["publicTransportContainer"], p.choice.publicTransportContainer, "publicTransportContainer");
+        } else if (j.HasMember("specialTransportContainer")) {
+        p.present = SpecialVehicleContainer_PR_specialTransportContainer;
+            from_json(j["specialTransportContainer"], p.choice.specialTransportContainer, "specialTransportContainer");
+        } else if (j.HasMember("dangerousGoodsContainer")) {
+        p.present = SpecialVehicleContainer_PR_dangerousGoodsContainer;
+            from_json(j["dangerousGoodsContainer"], p.choice.dangerousGoodsContainer, "dangerousGoodsContainer");
+        } else if (j.HasMember("roadWorksContainerBasic")) {
+        p.present = SpecialVehicleContainer_PR_roadWorksContainerBasic;
+            from_json(j["roadWorksContainerBasic"], p.choice.roadWorksContainerBasic, "roadWorksContainerBasic");
+        } else if (j.HasMember("rescueContainer")) {
+        p.present = SpecialVehicleContainer_PR_rescueContainer;
+            from_json(j["rescueContainer"], p.choice.rescueContainer, "rescueContainer");
+        } else if (j.HasMember("emergencyContainer")) {
+        p.present = SpecialVehicleContainer_PR_emergencyContainer;
+            from_json(j["emergencyContainer"], p.choice.emergencyContainer, "emergencyContainer");
+        } else if (j.HasMember("safetyCarContainer")) {
+        p.present = SpecialVehicleContainer_PR_safetyCarContainer;
+            from_json(j["safetyCarContainer"], p.choice.safetyCarContainer, "safetyCarContainer");
+        } else {
+        p.present = SpecialVehicleContainer_PR_NOTHING;
+        }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
     }
 }
-
-
-
-/*
-*   PublicTransportContainer - Type SEQUENCE
-*   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
-*/
-
-Value to_json(const PublicTransportContainer& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("embarkationStatus", to_json((p.embarkationStatus), allocator), allocator);
-    if (p.ptActivation != 0) json.AddMember("ptActivation", to_json(*(p.ptActivation), allocator), allocator);
-    return json;
-}
-
-void from_json(const Value& j, PublicTransportContainer& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["embarkationStatus"], (p.embarkationStatus), "embarkationStatus");
-        if (j.HasMember("ptActivation")) { p.ptActivation = vanetza::asn1::allocate<PtActivation_t>(); from_json(j["ptActivation"], *(p.ptActivation), "ptActivation"); }
-        else { p.ptActivation=nullptr; }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   RoadWorksContainerBasic - Type SEQUENCE
-*   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
-*/
-
-Value to_json(const RoadWorksContainerBasic& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("lightBarSirenInUse", to_json_LightBarSirenInUse((p.lightBarSirenInUse), allocator), allocator);
-    if (p.roadworksSubCauseCode != 0) json.AddMember("roadworksSubCauseCode", to_json(*(p.roadworksSubCauseCode), allocator), allocator);
-    if (p.closedLanes != 0) json.AddMember("closedLanes", to_json(*(p.closedLanes), allocator), allocator);
-    return json;
-}
-
-void from_json(const Value& j, RoadWorksContainerBasic& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        if (j.HasMember("roadworksSubCauseCode")) { p.roadworksSubCauseCode = vanetza::asn1::allocate<RoadworksSubCauseCode_t>(); from_json(j["roadworksSubCauseCode"], *(p.roadworksSubCauseCode), "roadworksSubCauseCode"); }
-        else { p.roadworksSubCauseCode=nullptr; }
-        from_json_LightBarSirenInUse(j["lightBarSirenInUse"],(p.lightBarSirenInUse), "lightBarSirenInUse");
-        if (j.HasMember("closedLanes")) { p.closedLanes = vanetza::asn1::allocate<ClosedLanes_t>(); from_json(j["closedLanes"], *(p.closedLanes), "closedLanes"); }
-        else { p.closedLanes=nullptr; }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   ManagementContainer - Type SEQUENCE
-*   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
-*/
-
-Value to_json(const ManagementContainer& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("actionID", to_json((p.actionID), allocator), allocator);
-    json.AddMember("detectionTime", to_json((p.detectionTime), allocator), allocator);
-    json.AddMember("referenceTime", to_json((p.referenceTime), allocator), allocator);
-    json.AddMember("eventPosition", to_json((p.eventPosition), allocator), allocator);
-    json.AddMember("stationType", to_json((p.stationType), allocator), allocator);
-    if (p.termination != 0) json.AddMember("termination", to_json(*(p.termination), allocator), allocator);
-    if (p.relevanceDistance != 0) json.AddMember("relevanceDistance", to_json(*(p.relevanceDistance), allocator), allocator);
-    if (p.relevanceTrafficDirection != 0) json.AddMember("relevanceTrafficDirection", to_json(*(p.relevanceTrafficDirection), allocator), allocator);
-    if (p.validityDuration != 0) json.AddMember("validityDuration", to_json(*(p.validityDuration), allocator), allocator);
-    if (p.transmissionInterval != 0) json.AddMember("transmissionInterval", to_json(*(p.transmissionInterval), allocator), allocator);
-    return json;
-}
-
-void from_json(const Value& j, ManagementContainer& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["actionID"], (p.actionID), "actionID");
-        from_json(j["detectionTime"], (p.detectionTime), "detectionTime");
-        from_json(j["referenceTime"], (p.referenceTime), "referenceTime");
-        if (j.HasMember("termination")) { p.termination = vanetza::asn1::allocate<Termination_t>(); from_json(j["termination"], *(p.termination), "termination"); }
-        else { p.termination=nullptr; }
-        from_json(j["eventPosition"], (p.eventPosition), "eventPosition");
-        if (j.HasMember("relevanceDistance")) { p.relevanceDistance = vanetza::asn1::allocate<RelevanceDistance_t>(); from_json(j["relevanceDistance"], *(p.relevanceDistance), "relevanceDistance"); }
-        else { p.relevanceDistance=nullptr; }
-        if (j.HasMember("relevanceTrafficDirection")) { p.relevanceTrafficDirection = vanetza::asn1::allocate<RelevanceTrafficDirection_t>(); from_json(j["relevanceTrafficDirection"], *(p.relevanceTrafficDirection), "relevanceTrafficDirection"); }
-        else { p.relevanceTrafficDirection=nullptr; }
-        if (j.HasMember("validityDuration")) { p.validityDuration = vanetza::asn1::allocate<ValidityDuration_t>(); from_json(j["validityDuration"], *(p.validityDuration), "validityDuration"); }
-        else { p.validityDuration=nullptr; }
-        if (j.HasMember("transmissionInterval")) { p.transmissionInterval = vanetza::asn1::allocate<TransmissionInterval_t>(); from_json(j["transmissionInterval"], *(p.transmissionInterval), "transmissionInterval"); }
-        else { p.transmissionInterval=nullptr; }
-        from_json(j["stationType"], (p.stationType), "stationType");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   SituationContainer - Type SEQUENCE
-*   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
-*/
-
-Value to_json(const SituationContainer& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("informationQuality", to_json((p.informationQuality), allocator), allocator);
-    json.AddMember("eventType", to_json((p.eventType), allocator), allocator);
-    if (p.linkedCause != 0) json.AddMember("linkedCause", to_json(*(p.linkedCause), allocator), allocator);
-    if (p.eventHistory != 0) json.AddMember("eventHistory", to_json(*(p.eventHistory), allocator), allocator);
-    return json;
-}
-
-void from_json(const Value& j, SituationContainer& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["informationQuality"], (p.informationQuality), "informationQuality");
-        from_json(j["eventType"], (p.eventType), "eventType");
-        if (j.HasMember("linkedCause")) { p.linkedCause = vanetza::asn1::allocate<CauseCode_t>(); from_json(j["linkedCause"], *(p.linkedCause), "linkedCause"); }
-        else { p.linkedCause=nullptr; }
-        if (j.HasMember("eventHistory")) { p.eventHistory = vanetza::asn1::allocate<EventHistory_t>(); from_json(j["eventHistory"], *(p.eventHistory), "eventHistory"); }
-        else { p.eventHistory=nullptr; }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
 
 /*
 *   RoadWorksContainerExtended - Type SEQUENCE
@@ -11056,7 +16172,7 @@ void from_json(const Value& j, SituationContainer& p, std::string field) {
 Value to_json(const RoadWorksContainerExtended& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     
-    if (p.lightBarSirenInUse != 0) json.AddMember("lightBarSirenInUse", to_json_LightBarSirenInUse(*(p.lightBarSirenInUse), allocator), allocator);
+    if (p.lightBarSirenInUse != 0) json.AddMember("lightBarSirenInUse", to_json_ITS_Container_LightBarSirenInUse(*(p.lightBarSirenInUse), allocator), allocator);
     if (p.closedLanes != 0) json.AddMember("closedLanes", to_json(*(p.closedLanes), allocator), allocator);
     if (p.restriction != 0) json.AddMember("restriction", to_json(*(p.restriction), allocator), allocator);
     if (p.speedLimit != 0) json.AddMember("speedLimit", to_json(*(p.speedLimit), allocator), allocator);
@@ -11071,21 +16187,21 @@ Value to_json(const RoadWorksContainerExtended& p, Document::AllocatorType& allo
 void from_json(const Value& j, RoadWorksContainerExtended& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        if (j.HasMember("lightBarSirenInUse")) { p.lightBarSirenInUse = vanetza::asn1::allocate<LightBarSirenInUse_t>(); from_json_LightBarSirenInUse(j["lightBarSirenInUse"],*(p.lightBarSirenInUse), "lightBarSirenInUse"); }
+        if (j.HasMember("lightBarSirenInUse")) { p.lightBarSirenInUse = vanetza::asn1::allocate<ITS_Container_LightBarSirenInUse_t>(); from_json_ITS_Container_LightBarSirenInUse(j["lightBarSirenInUse"],*(p.lightBarSirenInUse), "lightBarSirenInUse"); }
         else { p.lightBarSirenInUse=nullptr; }
-        if (j.HasMember("closedLanes")) { p.closedLanes = vanetza::asn1::allocate<ClosedLanes_t>(); from_json(j["closedLanes"], *(p.closedLanes), "closedLanes"); }
+        if (j.HasMember("closedLanes")) { p.closedLanes = vanetza::asn1::allocate<ITS_Container_ClosedLanes_t>(); from_json(j["closedLanes"], *(p.closedLanes), "closedLanes"); }
         else { p.closedLanes=nullptr; }
-        if (j.HasMember("restriction")) { p.restriction = vanetza::asn1::allocate<RestrictedTypes_t>(); from_json(j["restriction"], *(p.restriction), "restriction"); }
+        if (j.HasMember("restriction")) { p.restriction = vanetza::asn1::allocate<ITS_Container_RestrictedTypes_t>(); from_json(j["restriction"], *(p.restriction), "restriction"); }
         else { p.restriction=nullptr; }
-        if (j.HasMember("speedLimit")) { p.speedLimit = vanetza::asn1::allocate<SpeedLimit_t>(); from_json(j["speedLimit"], *(p.speedLimit), "speedLimit"); }
+        if (j.HasMember("speedLimit")) { p.speedLimit = vanetza::asn1::allocate<ITS_Container_SpeedLimit_t>(); from_json(j["speedLimit"], *(p.speedLimit), "speedLimit"); }
         else { p.speedLimit=nullptr; }
-        if (j.HasMember("incidentIndication")) { p.incidentIndication = vanetza::asn1::allocate<CauseCode_t>(); from_json(j["incidentIndication"], *(p.incidentIndication), "incidentIndication"); }
+        if (j.HasMember("incidentIndication")) { p.incidentIndication = vanetza::asn1::allocate<ITS_Container_CauseCode_t>(); from_json(j["incidentIndication"], *(p.incidentIndication), "incidentIndication"); }
         else { p.incidentIndication=nullptr; }
-        if (j.HasMember("recommendedPath")) { p.recommendedPath = vanetza::asn1::allocate<ItineraryPath_t>(); from_json(j["recommendedPath"], *(p.recommendedPath), "recommendedPath"); }
+        if (j.HasMember("recommendedPath")) { p.recommendedPath = vanetza::asn1::allocate<ITS_Container_ItineraryPath_t>(); from_json(j["recommendedPath"], *(p.recommendedPath), "recommendedPath"); }
         else { p.recommendedPath=nullptr; }
-        if (j.HasMember("startingPointSpeedLimit")) { p.startingPointSpeedLimit = vanetza::asn1::allocate<DeltaReferencePosition_t>(); from_json(j["startingPointSpeedLimit"], *(p.startingPointSpeedLimit), "startingPointSpeedLimit"); }
+        if (j.HasMember("startingPointSpeedLimit")) { p.startingPointSpeedLimit = vanetza::asn1::allocate<ITS_Container_DeltaReferencePosition_t>(); from_json(j["startingPointSpeedLimit"], *(p.startingPointSpeedLimit), "startingPointSpeedLimit"); }
         else { p.startingPointSpeedLimit=nullptr; }
-        if (j.HasMember("trafficFlowRule")) { p.trafficFlowRule = vanetza::asn1::allocate<TrafficRule_t>(); from_json(j["trafficFlowRule"], *(p.trafficFlowRule), "trafficFlowRule"); }
+        if (j.HasMember("trafficFlowRule")) { p.trafficFlowRule = vanetza::asn1::allocate<ITS_Container_TrafficRule_t>(); from_json(j["trafficFlowRule"], *(p.trafficFlowRule), "trafficFlowRule"); }
         else { p.trafficFlowRule=nullptr; }
         if (j.HasMember("referenceDenms")) { p.referenceDenms = vanetza::asn1::allocate<ReferenceDenms_t>(); from_json(j["referenceDenms"], *(p.referenceDenms), "referenceDenms"); }
         else { p.referenceDenms=nullptr; }
@@ -11117,7 +16233,7 @@ Value to_json(const AlacarteContainer& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, AlacarteContainer& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        if (j.HasMember("lanePosition")) { p.lanePosition = vanetza::asn1::allocate<LanePosition_t>(); from_json(j["lanePosition"], *(p.lanePosition), "lanePosition"); }
+        if (j.HasMember("lanePosition")) { p.lanePosition = vanetza::asn1::allocate<ITS_Container_LanePosition_t>(); from_json(j["lanePosition"], *(p.lanePosition), "lanePosition"); }
         else { p.lanePosition=nullptr; }
         if (j.HasMember("impactReduction")) { p.impactReduction = vanetza::asn1::allocate<ImpactReductionContainer_t>(); from_json(j["impactReduction"], *(p.impactReduction), "impactReduction"); }
         else { p.impactReduction=nullptr; }
@@ -11125,7 +16241,7 @@ void from_json(const Value& j, AlacarteContainer& p, std::string field) {
         else { p.externalTemperature=nullptr; }
         if (j.HasMember("roadWorks")) { p.roadWorks = vanetza::asn1::allocate<RoadWorksContainerExtended_t>(); from_json(j["roadWorks"], *(p.roadWorks), "roadWorks"); }
         else { p.roadWorks=nullptr; }
-        if (j.HasMember("positioningSolution")) { p.positioningSolution = vanetza::asn1::allocate<PositioningSolutionType_t>(); from_json(j["positioningSolution"], *(p.positioningSolution), "positioningSolution"); }
+        if (j.HasMember("positioningSolution")) { p.positioningSolution = vanetza::asn1::allocate<ITS_Container_PositioningSolutionType_t>(); from_json(j["positioningSolution"], *(p.positioningSolution), "positioningSolution"); }
         else { p.positioningSolution=nullptr; }
         if (j.HasMember("stationaryVehicle")) { p.stationaryVehicle = vanetza::asn1::allocate<StationaryVehicleContainer_t>(); from_json(j["stationaryVehicle"], *(p.stationaryVehicle), "stationaryVehicle"); }
         else { p.stationaryVehicle=nullptr; }
@@ -11136,6 +16252,48 @@ void from_json(const Value& j, AlacarteContainer& p, std::string field) {
 }
 
 
+
+/*
+*   VruLanePosition - Type CHOICE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+Value to_json(const VruLanePosition& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == VruLanePosition_PR_offRoadLanePosition) {
+        json.AddMember("offRoadLanePosition", to_json(p.choice.offRoadLanePosition, allocator), allocator);
+    } else if (p.present == VruLanePosition_PR_vehicularLanePosition) {
+        json.AddMember("vehicularLanePosition", to_json(p.choice.vehicularLanePosition, allocator), allocator);
+    } else if (p.present == VruLanePosition_PR_trafficIslandPosition) {
+        json.AddMember("trafficIslandPosition", to_json(p.choice.trafficIslandPosition, allocator), allocator);
+    } else if (p.present == VruLanePosition_PR_mapPosition) {
+        json.AddMember("mapPosition", to_json(p.choice.mapPosition, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, VruLanePosition& p, std::string field) {
+    try {
+        if (j.HasMember("offRoadLanePosition")) {
+        p.present = VruLanePosition_PR_offRoadLanePosition;
+            from_json(j["offRoadLanePosition"], p.choice.offRoadLanePosition, "offRoadLanePosition");
+        } else if (j.HasMember("vehicularLanePosition")) {
+        p.present = VruLanePosition_PR_vehicularLanePosition;
+            from_json(j["vehicularLanePosition"], p.choice.vehicularLanePosition, "vehicularLanePosition");
+        } else if (j.HasMember("trafficIslandPosition")) {
+        p.present = VruLanePosition_PR_trafficIslandPosition;
+            from_json(j["trafficIslandPosition"], p.choice.trafficIslandPosition, "trafficIslandPosition");
+        } else if (j.HasMember("mapPosition")) {
+        p.present = VruLanePosition_PR_mapPosition;
+            from_json(j["mapPosition"], p.choice.mapPosition, "mapPosition");
+        } else {
+        p.present = VruLanePosition_PR_NOTHING;
+        }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
 
 /*
 *   NonIslandLanePosition - Type CHOICE
@@ -11158,14 +16316,14 @@ void from_json(const Value& j, NonIslandLanePosition& p, std::string field) {
     try {
         if (j.HasMember("offRoadLanePosition")) {
         p.present = NonIslandLanePosition_PR_offRoadLanePosition;
-        from_json(j["offRoadLanePosition"], p.choice.offRoadLanePosition, "offRoadLanePosition");
-    } else if (j.HasMember("vehicularLanePosition")) {
+            from_json(j["offRoadLanePosition"], p.choice.offRoadLanePosition, "offRoadLanePosition");
+        } else if (j.HasMember("vehicularLanePosition")) {
         p.present = NonIslandLanePosition_PR_vehicularLanePosition;
-        from_json(j["vehicularLanePosition"], p.choice.vehicularLanePosition, "vehicularLanePosition");
-    } else if (j.HasMember("mapPosition")) {
+            from_json(j["vehicularLanePosition"], p.choice.vehicularLanePosition, "vehicularLanePosition");
+        } else if (j.HasMember("mapPosition")) {
         p.present = NonIslandLanePosition_PR_mapPosition;
-        from_json(j["mapPosition"], p.choice.mapPosition, "mapPosition");
-    } else {
+            from_json(j["mapPosition"], p.choice.mapPosition, "mapPosition");
+        } else {
         p.present = NonIslandLanePosition_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -11175,90 +16333,36 @@ void from_json(const Value& j, NonIslandLanePosition& p, std::string field) {
 }
 
 /*
-*   VruExteriorLights - Type SEQUENCE
+*   SequenceOfVruPathPoint - Type SEQUENCE OF
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const VruExteriorLights& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("vruSpecific", to_json_VruSpecificExteriorLights((p.vruSpecific), allocator), allocator);
-    json.AddMember("vehicular", to_json_ExteriorLights((p.vehicular), allocator), allocator);
-    
+Value to_json(const SequenceOfVruPathPoint& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const VruPathPoint_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
     return json;
 }
 
-void from_json(const Value& j, VruExteriorLights& p, std::string field) {
+void from_json(const Value& j, SequenceOfVruPathPoint& p, std::string field) {
     try {
-        p._asn_ctx.ptr = nullptr;
-        from_json_VruSpecificExteriorLights(j["vruSpecific"],(p.vruSpecific), "vruSpecific");
-        from_json_ExteriorLights(j["vehicular"],(p.vehicular), "vehicular");
+        SequenceOfVruPathPoint* p_tmp = vanetza::asn1::allocate<SequenceOfVruPathPoint>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            VruPathPoint_t *element = vanetza::asn1::allocate<VruPathPoint_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
     }
 }
-
-
-
-/*
-*   VruClusterOperationContainer - Type SEQUENCE
-*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
-*/
-
-Value to_json(const VruClusterOperationContainer& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    
-    if (p.clusterJoinInfo != 0) json.AddMember("clusterJoinInfo", to_json(*(p.clusterJoinInfo), allocator), allocator);
-    if (p.clusterLeaveInfo != 0) json.AddMember("clusterLeaveInfo", to_json(*(p.clusterLeaveInfo), allocator), allocator);
-    if (p.clusterBreakupInfo != 0) json.AddMember("clusterBreakupInfo", to_json(*(p.clusterBreakupInfo), allocator), allocator);
-    if (p.clusterIdChangeTimeInfo != 0) json.AddMember("clusterIdChangeTimeInfo", to_json(*(p.clusterIdChangeTimeInfo), allocator), allocator);
-    return json;
-}
-
-void from_json(const Value& j, VruClusterOperationContainer& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        if (j.HasMember("clusterJoinInfo")) { p.clusterJoinInfo = vanetza::asn1::allocate<ClusterJoinInfo_t>(); from_json(j["clusterJoinInfo"], *(p.clusterJoinInfo), "clusterJoinInfo"); }
-        else { p.clusterJoinInfo=nullptr; }
-        if (j.HasMember("clusterLeaveInfo")) { p.clusterLeaveInfo = vanetza::asn1::allocate<ClusterLeaveInfo_t>(); from_json(j["clusterLeaveInfo"], *(p.clusterLeaveInfo), "clusterLeaveInfo"); }
-        else { p.clusterLeaveInfo=nullptr; }
-        if (j.HasMember("clusterBreakupInfo")) { p.clusterBreakupInfo = vanetza::asn1::allocate<ClusterBreakupInfo_t>(); from_json(j["clusterBreakupInfo"], *(p.clusterBreakupInfo), "clusterBreakupInfo"); }
-        else { p.clusterBreakupInfo=nullptr; }
-        if (j.HasMember("clusterIdChangeTimeInfo")) { p.clusterIdChangeTimeInfo = vanetza::asn1::allocate<VruClusterOpTimestamp_t>(); from_json(j["clusterIdChangeTimeInfo"], *(p.clusterIdChangeTimeInfo), "clusterIdChangeTimeInfo"); }
-        else { p.clusterIdChangeTimeInfo=nullptr; }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   VruPathPoint - Type SEQUENCE
-*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
-*/
-
-Value to_json(const VruPathPoint& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("pathPosition", to_json((p.pathPosition), allocator), allocator);
-    if (p.pathDeltaTime != 0) json.AddMember("pathDeltaTime", to_json(*(p.pathDeltaTime), allocator), allocator);
-    return json;
-}
-
-void from_json(const Value& j, VruPathPoint& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["pathPosition"], (p.pathPosition), "pathPosition");
-        if (j.HasMember("pathDeltaTime")) { p.pathDeltaTime = vanetza::asn1::allocate<PathDeltaTime_t>(); from_json(j["pathDeltaTime"], *(p.pathDeltaTime), "pathDeltaTime"); }
-        else { p.pathDeltaTime=nullptr; }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
 
 /*
 *   SequenceOfVruSafeDistanceIndication - Type SEQUENCE OF
@@ -11293,200 +16397,8 @@ void from_json(const Value& j, SequenceOfVruSafeDistanceIndication& p, std::stri
 }
 
 /*
-*   SequenceOfTrajectoryInterceptionIndication - Type SEQUENCE OF
-*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
-*/
-
-Value to_json(const SequenceOfTrajectoryInterceptionIndication& p, Document::AllocatorType& allocator) {
-    Value json(kArrayType);
-    for(int i = 0; i < p.list.count; i++) {
-        const TrajectoryInterceptionIndication_t po = *(p.list.array[i]);
-        Value obj = to_json(po, allocator);
-        json.PushBack(obj, allocator);
-    }
-    return json;
-}
-
-void from_json(const Value& j, SequenceOfTrajectoryInterceptionIndication& p, std::string field) {
-    try {
-        SequenceOfTrajectoryInterceptionIndication* p_tmp = vanetza::asn1::allocate<SequenceOfTrajectoryInterceptionIndication>();
-        for (SizeType i = 0; i < j.Size(); i++) {
-            const Value& item = j[i];
-            TrajectoryInterceptionIndication_t *element = vanetza::asn1::allocate<TrajectoryInterceptionIndication_t>();
-            from_json(item, *element, "index #" + std::to_string(i));
-            asn_set_add(&(p_tmp->list), element);
-        }
-        p = *p_tmp;
-        delete p_tmp;
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-/*
-*   CpmManagementContainer - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const CpmManagementContainer& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("stationType", to_json((p.stationType), allocator), allocator);
-    json.AddMember("referencePosition", to_json((p.referencePosition), allocator), allocator);
-    if (p.perceivedObjectContainerSegmentInfo != 0) json.AddMember("perceivedObjectContainerSegmentInfo", to_json(*(p.perceivedObjectContainerSegmentInfo), allocator), allocator);
-    return json;
-}
-
-void from_json(const Value& j, CpmManagementContainer& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["stationType"], (p.stationType), "stationType");
-        if (j.HasMember("perceivedObjectContainerSegmentInfo")) { p.perceivedObjectContainerSegmentInfo = vanetza::asn1::allocate<PerceivedObjectContainerSegmentInfo_t>(); from_json(j["perceivedObjectContainerSegmentInfo"], *(p.perceivedObjectContainerSegmentInfo), "perceivedObjectContainerSegmentInfo"); }
-        else { p.perceivedObjectContainerSegmentInfo=nullptr; }
-        from_json(j["referencePosition"], (p.referencePosition), "referencePosition");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   VehicleSensorPropertyList - Type SEQUENCE OF
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const VehicleSensorPropertyList& p, Document::AllocatorType& allocator) {
-    Value json(kArrayType);
-    for(int i = 0; i < p.list.count; i++) {
-        const VehicleSensorProperties_t po = *(p.list.array[i]);
-        Value obj = to_json(po, allocator);
-        json.PushBack(obj, allocator);
-    }
-    return json;
-}
-
-void from_json(const Value& j, VehicleSensorPropertyList& p, std::string field) {
-    try {
-        VehicleSensorPropertyList* p_tmp = vanetza::asn1::allocate<VehicleSensorPropertyList>();
-        for (SizeType i = 0; i < j.Size(); i++) {
-            const Value& item = j[i];
-            VehicleSensorProperties_t *element = vanetza::asn1::allocate<VehicleSensorProperties_t>();
-            from_json(item, *element, "index #" + std::to_string(i));
-            asn_set_add(&(p_tmp->list), element);
-        }
-        p = *p_tmp;
-        delete p_tmp;
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-/*
-*   TrailerDataContainer - Type SEQUENCE OF
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const TrailerDataContainer& p, Document::AllocatorType& allocator) {
-    Value json(kArrayType);
-    for(int i = 0; i < p.list.count; i++) {
-        const TrailerData_t po = *(p.list.array[i]);
-        Value obj = to_json(po, allocator);
-        json.PushBack(obj, allocator);
-    }
-    return json;
-}
-
-void from_json(const Value& j, TrailerDataContainer& p, std::string field) {
-    try {
-        TrailerDataContainer* p_tmp = vanetza::asn1::allocate<TrailerDataContainer>();
-        for (SizeType i = 0; i < j.Size(); i++) {
-            const Value& item = j[i];
-            TrailerData_t *element = vanetza::asn1::allocate<TrailerData_t>();
-            from_json(item, *element, "index #" + std::to_string(i));
-            asn_set_add(&(p_tmp->list), element);
-        }
-        p = *p_tmp;
-        delete p_tmp;
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-/*
-*   ObjectClass::ObjectClass__class - Type CHOICE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const ObjectClass::ObjectClass__class& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    if (p.present == ObjectClass__class_PR::ObjectClass__class_PR_vehicle) {
-        json.AddMember("vehicle", to_json(p.choice.vehicle, allocator), allocator);
-    } else if (p.present == ObjectClass__class_PR::ObjectClass__class_PR_person) {
-        json.AddMember("person", to_json(p.choice.person, allocator), allocator);
-    } else if (p.present == ObjectClass__class_PR::ObjectClass__class_PR_animal) {
-        json.AddMember("animal", to_json(p.choice.animal, allocator), allocator);
-    } else if (p.present == ObjectClass__class_PR::ObjectClass__class_PR_other) {
-        json.AddMember("other", to_json(p.choice.other, allocator), allocator);
-    }
-    return json;
-}
-
-void from_json(const Value& j, ObjectClass::ObjectClass__class& p, std::string field) {
-    try {
-        if (j.HasMember("vehicle")) {
-        p.present = ObjectClass__class_PR::ObjectClass__class_PR_vehicle;
-        from_json(j["vehicle"], p.choice.vehicle, "vehicle");
-    } else if (j.HasMember("person")) {
-        p.present = ObjectClass__class_PR::ObjectClass__class_PR_person;
-        from_json(j["person"], p.choice.person, "person");
-    } else if (j.HasMember("animal")) {
-        p.present = ObjectClass__class_PR::ObjectClass__class_PR_animal;
-        from_json(j["animal"], p.choice.animal, "animal");
-    } else if (j.HasMember("other")) {
-        p.present = ObjectClass__class_PR::ObjectClass__class_PR_other;
-        from_json(j["other"], p.choice.other, "other");
-    } else {
-        p.present = ObjectClass__class_PR::ObjectClass__class_PR_NOTHING;
-        }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-/*
-*   ObjectClass - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const ObjectClass_t& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
-    json.AddMember("class", to_json((p.Class), allocator), allocator);
-    
-    return json;
-}
-
-void from_json(const Value& j, ObjectClass_t& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["confidence"], (p.confidence), "confidence");
-        from_json(j["class"], (p.Class), "class");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
 *   OffsetPoint - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
 Value to_json(const OffsetPoint& p, Document::AllocatorType& allocator) {
@@ -11502,6 +16414,127 @@ void from_json(const Value& j, OffsetPoint& p, std::string field) {
         from_json(j["nodeOffsetPointxy"], (p.nodeOffsetPointxy), "nodeOffsetPointxy");
         if (j.HasMember("nodeOffsetPointZ")) { p.nodeOffsetPointZ = vanetza::asn1::allocate<NodeOffsetPointZ_t>(); from_json(j["nodeOffsetPointZ"], *(p.nodeOffsetPointZ), "nodeOffsetPointZ"); }
         else { p.nodeOffsetPointZ=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   CollectivePerceptionMessage - Type SEQUENCE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
+*/
+
+Value to_json(const CollectivePerceptionMessage& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("header", to_json((p.header), allocator), allocator);
+    json.AddMember("payload", to_json((p.payload), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, CollectivePerceptionMessage& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["header"], (p.header), "header");
+        from_json(j["payload"], (p.payload), "payload");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   ManagementContainer - Type SEQUENCE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
+*/
+
+Value to_json(const CPM_PDU_Descriptions_ManagementContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("referenceTime", to_json((p.referenceTime), allocator), allocator);
+    json.AddMember("referencePosition", to_json((p.referencePosition), allocator), allocator);
+    if (p.segmentationInfo != 0) json.AddMember("segmentationInfo", to_json(*(p.segmentationInfo), allocator), allocator);
+    if (p.messageRateRange != 0) json.AddMember("messageRateRange", to_json(*(p.messageRateRange), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, CPM_PDU_Descriptions_ManagementContainer& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["referenceTime"], (p.referenceTime), "referenceTime");
+        from_json(j["referencePosition"], (p.referencePosition), "referencePosition");
+        if (j.HasMember("segmentationInfo")) { p.segmentationInfo = vanetza::asn1::allocate<MessageSegmentationInfo_t>(); from_json(j["segmentationInfo"], *(p.segmentationInfo), "segmentationInfo"); }
+        else { p.segmentationInfo=nullptr; }
+        if (j.HasMember("messageRateRange")) { p.messageRateRange = vanetza::asn1::allocate<MessageRateRange_t>(); from_json(j["messageRateRange"], *(p.messageRateRange), "messageRateRange"); }
+        else { p.messageRateRange=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   Acceleration3dWithConfidence - Type CHOICE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
+*/
+
+Value to_json(const Acceleration3dWithConfidence_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == Acceleration3dWithConfidence_PR_polarAcceleration) {
+        json.AddMember("polarAcceleration", to_json(p.choice.polarAcceleration, allocator), allocator);
+    } else if (p.present == Acceleration3dWithConfidence_PR_cartesianAcceleration) {
+        json.AddMember("cartesianAcceleration", to_json(p.choice.cartesianAcceleration, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, Acceleration3dWithConfidence_t& p, std::string field) {
+    try {
+        if (j.HasMember("polarAcceleration")) {
+        p.present = Acceleration3dWithConfidence_PR_polarAcceleration;
+            from_json(j["polarAcceleration"], p.choice.polarAcceleration, "polarAcceleration");
+        } else if (j.HasMember("cartesianAcceleration")) {
+        p.present = Acceleration3dWithConfidence_PR_cartesianAcceleration;
+            from_json(j["cartesianAcceleration"], p.choice.cartesianAcceleration, "cartesianAcceleration");
+        } else {
+        p.present = Acceleration3dWithConfidence_PR_NOTHING;
+        }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   OriginatingVehicleContainer - Type SEQUENCE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
+*/
+
+Value to_json(const OriginatingVehicleContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("orientationAngle", to_json((p.orientationAngle), allocator), allocator);
+    if (p.pitchAngle != 0) json.AddMember("pitchAngle", to_json(*(p.pitchAngle), allocator), allocator);
+    if (p.rollAngle != 0) json.AddMember("rollAngle", to_json(*(p.rollAngle), allocator), allocator);
+    if (p.trailerDataSet != 0) json.AddMember("trailerDataSet", to_json(*(p.trailerDataSet), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, OriginatingVehicleContainer& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["orientationAngle"], (p.orientationAngle), "orientationAngle");
+        if (j.HasMember("pitchAngle")) { p.pitchAngle = vanetza::asn1::allocate<CartesianAngle_t>(); from_json(j["pitchAngle"], *(p.pitchAngle), "pitchAngle"); }
+        else { p.pitchAngle=nullptr; }
+        if (j.HasMember("rollAngle")) { p.rollAngle = vanetza::asn1::allocate<CartesianAngle_t>(); from_json(j["rollAngle"], *(p.rollAngle), "rollAngle"); }
+        else { p.rollAngle=nullptr; }
+        if (j.HasMember("trailerDataSet")) { p.trailerDataSet = vanetza::asn1::allocate<TrailerDataSet_t>(); from_json(j["trailerDataSet"], *(p.trailerDataSet), "trailerDataSet"); }
+        else { p.trailerDataSet=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -11802,31 +16835,63 @@ void from_json(const Value& j, UpdateResponseMessage& p, std::string field) {
 
 
 /*
-*   MitigationForTechnologies - Type SEQUENCE OF
+*   InterferenceManagementInfo - Type SEQUENCE OF
 *   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
 */
 
-Value to_json(const MitigationForTechnologies& p, Document::AllocatorType& allocator) {
+Value to_json(const IMZM_PDU_Descriptions_InterferenceManagementInfo_t& p, Document::AllocatorType& allocator) {
     Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        const MitigationPerTechnologyClass_t po = *(p.list.array[i]);
+        const IMZM_PDU_Descriptions_InterferenceManagementInfoPerChannel_t po = *(p.list.array[i]);
         Value obj = to_json(po, allocator);
         json.PushBack(obj, allocator);
     }
     return json;
 }
 
-void from_json(const Value& j, MitigationForTechnologies& p, std::string field) {
+void from_json(const Value& j, IMZM_PDU_Descriptions_InterferenceManagementInfo_t& p, std::string field) {
     try {
-        MitigationForTechnologies* p_tmp = vanetza::asn1::allocate<MitigationForTechnologies>();
+        IMZM_PDU_Descriptions_InterferenceManagementInfo_t* p_tmp = vanetza::asn1::allocate<IMZM_PDU_Descriptions_InterferenceManagementInfo_t>();
         for (SizeType i = 0; i < j.Size(); i++) {
             const Value& item = j[i];
-            MitigationPerTechnologyClass_t *element = vanetza::asn1::allocate<MitigationPerTechnologyClass_t>();
+            IMZM_PDU_Descriptions_InterferenceManagementInfoPerChannel_t *element = vanetza::asn1::allocate<IMZM_PDU_Descriptions_InterferenceManagementInfoPerChannel_t>();
             from_json(item, *element, "index #" + std::to_string(i));
             asn_set_add(&(p_tmp->list), element);
         }
         p = *p_tmp;
         delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   InterferenceManagementMitigationType - Type CHOICE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const InterferenceManagementMitigationType& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == InterferenceManagementMitigationType_PR_unavailable) {
+        json.AddMember("unavailable", to_json(p.choice.unavailable, allocator), allocator);
+    } else if (p.present == InterferenceManagementMitigationType_PR_mitigationForTechnologies) {
+        json.AddMember("mitigationForTechnologies", to_json(p.choice.mitigationForTechnologies, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, InterferenceManagementMitigationType& p, std::string field) {
+    try {
+        if (j.HasMember("unavailable")) {
+        p.present = InterferenceManagementMitigationType_PR_unavailable;
+            from_json(j["unavailable"], p.choice.unavailable, "unavailable");
+        } else if (j.HasMember("mitigationForTechnologies")) {
+        p.present = InterferenceManagementMitigationType_PR_mitigationForTechnologies;
+            from_json(j["mitigationForTechnologies"], p.choice.mitigationForTechnologies, "mitigationForTechnologies");
+        } else {
+        p.present = InterferenceManagementMitigationType_PR_NOTHING;
+        }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -11894,42 +16959,6 @@ void from_json(const Value& j, TisTpgDRM_Management& p, std::string field) {
 
 
 /*
-*   TisTpgDRM-Location - Type SEQUENCE
-*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
-*/
-
-Value to_json(const TisTpgDRM_Location& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("vehiclePosition", to_json((p.vehiclePosition), allocator), allocator);
-    json.AddMember("vehicleSpeed", to_json((p.vehicleSpeed), allocator), allocator);
-    json.AddMember("vehicleHeading", to_json((p.vehicleHeading), allocator), allocator);
-    if (p.requestedPosition != 0) json.AddMember("requestedPosition", to_json(*(p.requestedPosition), allocator), allocator);
-    if (p.searchRange != 0) json.AddMember("searchRange", to_json(*(p.searchRange), allocator), allocator);
-    if (p.searchCondition != 0) json.AddMember("searchCondition", to_json(*(p.searchCondition), allocator), allocator);
-    return json;
-}
-
-void from_json(const Value& j, TisTpgDRM_Location& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["vehiclePosition"], (p.vehiclePosition), "vehiclePosition");
-        from_json(j["vehicleSpeed"], (p.vehicleSpeed), "vehicleSpeed");
-        from_json(j["vehicleHeading"], (p.vehicleHeading), "vehicleHeading");
-        if (j.HasMember("requestedPosition")) { p.requestedPosition = vanetza::asn1::allocate<ReferencePosition_t>(); from_json(j["requestedPosition"], *(p.requestedPosition), "requestedPosition"); }
-        else { p.requestedPosition=nullptr; }
-        if (j.HasMember("searchRange")) { p.searchRange = vanetza::asn1::allocate<SearchRange_t>(); from_json(j["searchRange"], *(p.searchRange), "searchRange"); }
-        else { p.searchRange=nullptr; }
-        if (j.HasMember("searchCondition")) { p.searchCondition = vanetza::asn1::allocate<SearchCondition_t>(); from_json(j["searchCondition"], *(p.searchCondition), "searchCondition"); }
-        else { p.searchCondition=nullptr; }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
 *   TisTpgTRM-Management - Type SEQUENCE
 *   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
 */
@@ -11956,34 +16985,6 @@ void from_json(const Value& j, TisTpgTRM_Management& p, std::string field) {
         else { p.costumercontract=nullptr; }
         if (j.HasMember("reservationID")) { p.reservationID = vanetza::asn1::allocate<ReservationID_t>(); from_json(j["reservationID"], *(p.reservationID), "reservationID"); }
         else { p.reservationID=nullptr; }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   TisTpgTRM-Location - Type SEQUENCE
-*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
-*/
-
-Value to_json(const TisTpgTRM_Location& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("vehiclePosition", to_json((p.vehiclePosition), allocator), allocator);
-    json.AddMember("vehicleSpeed", to_json((p.vehicleSpeed), allocator), allocator);
-    json.AddMember("vehicleHeading", to_json((p.vehicleHeading), allocator), allocator);
-    
-    return json;
-}
-
-void from_json(const Value& j, TisTpgTRM_Location& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["vehiclePosition"], (p.vehiclePosition), "vehiclePosition");
-        from_json(j["vehicleSpeed"], (p.vehicleSpeed), "vehicleSpeed");
-        from_json(j["vehicleHeading"], (p.vehicleHeading), "vehicleHeading");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -12052,34 +17053,6 @@ void from_json(const Value& j, TisTpgTCM_Situation& p, std::string field) {
         from_json(j["reservationTimeLimit"], (p.reservationTimeLimit), "reservationTimeLimit");
         if (j.HasMember("cancellationCondition")) { p.cancellationCondition = vanetza::asn1::allocate<CancellationCondition_t>(); from_json(j["cancellationCondition"], *(p.cancellationCondition), "cancellationCondition"); }
         else { p.cancellationCondition=nullptr; }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   TisTpgTCM-Location - Type SEQUENCE
-*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
-*/
-
-Value to_json(const TisTpgTCM_Location& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    
-    if (p.tpgLocation != 0) json.AddMember("tpgLocation", to_json(*(p.tpgLocation), allocator), allocator);
-    if (p.address != 0) json.AddMember("address", to_json(*(p.address), allocator), allocator);
-    return json;
-}
-
-void from_json(const Value& j, TisTpgTCM_Location& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        if (j.HasMember("tpgLocation")) { p.tpgLocation = vanetza::asn1::allocate<ReferencePosition_t>(); from_json(j["tpgLocation"], *(p.tpgLocation), "tpgLocation"); }
-        else { p.tpgLocation=nullptr; }
-        if (j.HasMember("address")) { p.address = vanetza::asn1::allocate<UTF8String_t>(); from_json(j["address"], *(p.address), "address"); }
-        else { p.address=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -12234,11 +17207,11 @@ void from_json(const Value& j, TyreData::TyreData__tyreSidewallInformation& p, s
     try {
         if (j.HasMember("tyreSidewallInformationValue")) {
         p.present = TyreData__tyreSidewallInformation_PR::TyreData__tyreSidewallInformation_PR_tyreSidewallInformationValue;
-        from_json_TyreSidewallInformation(j["tyreSidewallInformationValue"], p.choice.tyreSidewallInformationValue, "tyreSidewallInformationValue");
-    } else if (j.HasMember("unavailable")) {
+            from_json_TyreSidewallInformation(j["tyreSidewallInformationValue"], p.choice.tyreSidewallInformationValue, "tyreSidewallInformationValue");
+        } else if (j.HasMember("unavailable")) {
         p.present = TyreData__tyreSidewallInformation_PR::TyreData__tyreSidewallInformation_PR_unavailable;
-        from_json(j["unavailable"], p.choice.unavailable, "unavailable");
-    } else {
+            from_json(j["unavailable"], p.choice.unavailable, "unavailable");
+        } else {
         p.present = TyreData__tyreSidewallInformation_PR::TyreData__tyreSidewallInformation_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -12266,11 +17239,11 @@ void from_json(const Value& j, TyreData::TyreData__tin& p, std::string field) {
     try {
         if (j.HasMember("tinValue")) {
         p.present = TyreData__tin_PR::TyreData__tin_PR_tinValue;
-        from_json_TIN(j["tinValue"], p.choice.tinValue, "tinValue");
-    } else if (j.HasMember("unavailable")) {
+            from_json_TIN(j["tinValue"], p.choice.tinValue, "tinValue");
+        } else if (j.HasMember("unavailable")) {
         p.present = TyreData__tin_PR::TyreData__tin_PR_unavailable;
-        from_json(j["unavailable"], p.choice.unavailable, "unavailable");
-    } else {
+            from_json(j["unavailable"], p.choice.unavailable, "unavailable");
+        } else {
         p.present = TyreData__tin_PR::TyreData__tin_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -12351,7 +17324,7 @@ void from_json(const Value& j, TpgStationData& p, std::string field) {
         from_json(j["accessibility"], (p.accessibility), "accessibility");
         if (j.HasMember("address")) { p.address = vanetza::asn1::allocate<UTF8String_t>(); from_json(j["address"], *(p.address), "address"); }
         else { p.address=nullptr; }
-        if (j.HasMember("digitalMap")) { p.digitalMap = vanetza::asn1::allocate<DigitalMap_t>(); from_json(j["digitalMap"], *(p.digitalMap), "digitalMap"); }
+        if (j.HasMember("digitalMap")) { p.digitalMap = vanetza::asn1::allocate<ITS_Container_DigitalMap_t>(); from_json(j["digitalMap"], *(p.digitalMap), "digitalMap"); }
         else { p.digitalMap=nullptr; }
         if (j.HasMember("bookingInfo")) { p.bookingInfo = vanetza::asn1::allocate<BookingInfo_t>(); from_json(j["bookingInfo"], *(p.bookingInfo), "bookingInfo"); }
         else { p.bookingInfo=nullptr; }
@@ -12402,36 +17375,6 @@ void from_json(const Value& j, TpgNotifContainer& p, std::string field) {
 }
 
 /*
-*   ReferencePositionWithConfidence - Type SEQUENCE
-*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
-*/
-
-Value to_json(const ReferencePositionWithConfidence& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("latitude", to_json(((p.latitude) == 900000001) ? (p.latitude) : (double)(p.latitude) / 10000000.0, allocator), allocator);
-    json.AddMember("longitude", to_json(((p.longitude) == 1800000001) ? (p.longitude) : (double)(p.longitude) / 10000000.0, allocator), allocator);
-    json.AddMember("positionConfidenceEllipse", to_json((p.positionConfidenceEllipse), allocator), allocator);
-    json.AddMember("altitude", to_json((p.altitude), allocator), allocator);
-    
-    return json;
-}
-
-void from_json(const Value& j, ReferencePositionWithConfidence& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        double latitude; from_json(j["latitude"], (latitude), "latitude"); (p.latitude) = ((latitude) != 900000001) ? latitude * 10000000 : latitude;
-        double longitude; from_json(j["longitude"], (longitude), "longitude"); (p.longitude) = ((longitude) != 1800000001) ? longitude * 10000000 : longitude;
-        from_json(j["positionConfidenceEllipse"], (p.positionConfidenceEllipse), "positionConfidenceEllipse");
-        from_json(j["altitude"], (p.altitude), "altitude");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
 *   ManoeuvreCoordinationRational - Type CHOICE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
@@ -12450,11 +17393,11 @@ void from_json(const Value& j, ManoeuvreCoordinationRational& p, std::string fie
     try {
         if (j.HasMember("manoeuvreGoal")) {
         p.present = ManoeuvreCoordinationRational_PR_manoeuvreGoal;
-        from_json(j["manoeuvreGoal"], p.choice.manoeuvreGoal, "manoeuvreGoal");
-    } else if (j.HasMember("manoeuvreCooperationCost")) {
+            from_json(j["manoeuvreGoal"], p.choice.manoeuvreGoal, "manoeuvreGoal");
+        } else if (j.HasMember("manoeuvreCooperationCost")) {
         p.present = ManoeuvreCoordinationRational_PR_manoeuvreCooperationCost;
-        from_json(j["manoeuvreCooperationCost"], p.choice.manoeuvreCooperationCost, "manoeuvreCooperationCost");
-    } else {
+            from_json(j["manoeuvreCooperationCost"], p.choice.manoeuvreCooperationCost, "manoeuvreCooperationCost");
+        } else {
         p.present = ManoeuvreCoordinationRational_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -12650,25 +17593,457 @@ void from_json(const Value& j, IntermediatePointLane& p, std::string field) {
 
 
 /*
-*   IntermediatePointOffroad - Type SEQUENCE
-*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*   GeneralizedLanePosition - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
 */
 
-Value to_json(const IntermediatePointOffroad& p, Document::AllocatorType& allocator) {
+Value to_json(const GeneralizedLanePosition_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("referencePosition", to_json((p.referencePosition), allocator), allocator);
-    json.AddMember("referenceHeading", to_json((p.referenceHeading), allocator), allocator);
-    json.AddMember("timeOfPos", to_json((p.timeOfPos), allocator), allocator);
+    json.AddMember("lanePositionBased", to_json((p.lanePositionBased), allocator), allocator);
+    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
+    if (p.mapBased != 0) json.AddMember("mapBased", to_json(*(p.mapBased), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, GeneralizedLanePosition_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["lanePositionBased"], (p.lanePositionBased), "lanePositionBased");
+        if (j.HasMember("mapBased")) { p.mapBased = vanetza::asn1::allocate<ETSI_ITS_CDD_MapPosition_t>(); from_json(j["mapBased"], *(p.mapBased), "mapBased"); }
+        else { p.mapBased=nullptr; }
+        from_json(j["confidence"], (p.confidence), "confidence");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   GeneralizedLanePositions - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const GeneralizedLanePositions_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const GeneralizedLanePosition_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, GeneralizedLanePositions_t& p, std::string field) {
+    try {
+        GeneralizedLanePositions_t* p_tmp = vanetza::asn1::allocate<GeneralizedLanePositions_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            GeneralizedLanePosition_t *element = vanetza::asn1::allocate<GeneralizedLanePosition_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   InterferenceManagementInfo - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_InterferenceManagementInfo_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const ETSI_ITS_CDD_InterferenceManagementInfoPerChannel_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_InterferenceManagementInfo_t& p, std::string field) {
+    try {
+        ETSI_ITS_CDD_InterferenceManagementInfo_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_InterferenceManagementInfo_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            ETSI_ITS_CDD_InterferenceManagementInfoPerChannel_t *element = vanetza::asn1::allocate<ETSI_ITS_CDD_InterferenceManagementInfoPerChannel_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   LowerTriangularPositiveSemidefiniteMatrices - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const LowerTriangularPositiveSemidefiniteMatrices_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const LowerTriangularPositiveSemidefiniteMatrix_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, LowerTriangularPositiveSemidefiniteMatrices_t& p, std::string field) {
+    try {
+        LowerTriangularPositiveSemidefiniteMatrices_t* p_tmp = vanetza::asn1::allocate<LowerTriangularPositiveSemidefiniteMatrices_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            LowerTriangularPositiveSemidefiniteMatrix_t *element = vanetza::asn1::allocate<LowerTriangularPositiveSemidefiniteMatrix_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   MapemConfiguration - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const MapemConfiguration_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const MapemElementReference_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, MapemConfiguration_t& p, std::string field) {
+    try {
+        MapemConfiguration_t* p_tmp = vanetza::asn1::allocate<MapemConfiguration_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            MapemElementReference_t *element = vanetza::asn1::allocate<MapemElementReference_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   PathPredicted - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const PathPredicted_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const PathPointPredicted_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, PathPredicted_t& p, std::string field) {
+    try {
+        PathPredicted_t* p_tmp = vanetza::asn1::allocate<PathPredicted_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            PathPointPredicted_t *element = vanetza::asn1::allocate<PathPointPredicted_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   PathPredicted2 - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const PathPredicted2_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("pathPredicted", to_json((p.pathPredicted), allocator), allocator);
+    json.AddMember("usageIndication", to_json((p.usageIndication), allocator), allocator);
+    json.AddMember("confidenceLevel", to_json((p.confidenceLevel), allocator), allocator);
     
     return json;
 }
 
-void from_json(const Value& j, IntermediatePointOffroad& p, std::string field) {
+void from_json(const Value& j, PathPredicted2_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["referencePosition"], (p.referencePosition), "referencePosition");
-        from_json(j["referenceHeading"], (p.referenceHeading), "referenceHeading");
-        from_json(j["timeOfPos"], (p.timeOfPos), "timeOfPos");
+        from_json(j["pathPredicted"], (p.pathPredicted), "pathPredicted");
+        from_json(j["usageIndication"], (p.usageIndication), "usageIndication");
+        from_json(j["confidenceLevel"], (p.confidenceLevel), "confidenceLevel");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   PathPredictedList - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const PathPredictedList_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const PathPredicted2_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, PathPredictedList_t& p, std::string field) {
+    try {
+        PathPredictedList_t* p_tmp = vanetza::asn1::allocate<PathPredictedList_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            PathPredicted2_t *element = vanetza::asn1::allocate<PathPredicted2_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   RadialShapes - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const RadialShapes_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("refPointId", to_json((p.refPointId), allocator), allocator);
+    json.AddMember("xCoordinate", to_json((p.xCoordinate), allocator), allocator);
+    json.AddMember("yCoordinate", to_json((p.yCoordinate), allocator), allocator);
+    json.AddMember("radialShapesList", to_json((p.radialShapesList), allocator), allocator);
+    if (p.zCoordinate != 0) json.AddMember("zCoordinate", to_json(*(p.zCoordinate), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, RadialShapes_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["refPointId"], (p.refPointId), "refPointId");
+        from_json(j["xCoordinate"], (p.xCoordinate), "xCoordinate");
+        from_json(j["yCoordinate"], (p.yCoordinate), "yCoordinate");
+        if (j.HasMember("zCoordinate")) { p.zCoordinate = vanetza::asn1::allocate<CartesianCoordinateSmall_t>(); from_json(j["zCoordinate"], *(p.zCoordinate), "zCoordinate"); }
+        else { p.zCoordinate=nullptr; }
+        from_json(j["radialShapesList"], (p.radialShapesList), "radialShapesList");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   RoadConfigurationSection - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const RoadConfigurationSection_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("roadSectionDefinition", to_json((p.roadSectionDefinition), allocator), allocator);
+    if (p.roadType != 0) json.AddMember("roadType", to_json(*(p.roadType), allocator), allocator);
+    if (p.laneConfiguration != 0) json.AddMember("laneConfiguration", to_json(*(p.laneConfiguration), allocator), allocator);
+    if (p.mapemConfiguration != 0) json.AddMember("mapemConfiguration", to_json(*(p.mapemConfiguration), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, RoadConfigurationSection_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["roadSectionDefinition"], (p.roadSectionDefinition), "roadSectionDefinition");
+        if (j.HasMember("roadType")) { p.roadType = vanetza::asn1::allocate<ETSI_ITS_CDD_RoadType_t>(); from_json(j["roadType"], *(p.roadType), "roadType"); }
+        else { p.roadType=nullptr; }
+        if (j.HasMember("laneConfiguration")) { p.laneConfiguration = vanetza::asn1::allocate<BasicLaneConfiguration_t>(); from_json(j["laneConfiguration"], *(p.laneConfiguration), "laneConfiguration"); }
+        else { p.laneConfiguration=nullptr; }
+        if (j.HasMember("mapemConfiguration")) { p.mapemConfiguration = vanetza::asn1::allocate<MapemConfiguration_t>(); from_json(j["mapemConfiguration"], *(p.mapemConfiguration), "mapemConfiguration"); }
+        else { p.mapemConfiguration=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   RoadConfigurationSectionList - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const RoadConfigurationSectionList_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const RoadConfigurationSection_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, RoadConfigurationSectionList_t& p, std::string field) {
+    try {
+        RoadConfigurationSectionList_t* p_tmp = vanetza::asn1::allocate<RoadConfigurationSectionList_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            RoadConfigurationSection_t *element = vanetza::asn1::allocate<RoadConfigurationSection_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   Shape - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const Shape_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == Shape_PR_rectangular) {
+        json.AddMember("rectangular", to_json(p.choice.rectangular, allocator), allocator);
+    } else if (p.present == Shape_PR_circular) {
+        json.AddMember("circular", to_json(p.choice.circular, allocator), allocator);
+    } else if (p.present == Shape_PR_polygonal) {
+        json.AddMember("polygonal", to_json(p.choice.polygonal, allocator), allocator);
+    } else if (p.present == Shape_PR_elliptical) {
+        json.AddMember("elliptical", to_json(p.choice.elliptical, allocator), allocator);
+    } else if (p.present == Shape_PR_radial) {
+        json.AddMember("radial", to_json(p.choice.radial, allocator), allocator);
+    } else if (p.present == Shape_PR_radialShapes) {
+        json.AddMember("radialShapes", to_json(p.choice.radialShapes, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, Shape_t& p, std::string field) {
+    try {
+        if (j.HasMember("rectangular")) {
+        p.present = Shape_PR_rectangular;
+            from_json(j["rectangular"], p.choice.rectangular, "rectangular");
+        } else if (j.HasMember("circular")) {
+        p.present = Shape_PR_circular;
+            from_json(j["circular"], p.choice.circular, "circular");
+        } else if (j.HasMember("polygonal")) {
+        p.present = Shape_PR_polygonal;
+            from_json(j["polygonal"], p.choice.polygonal, "polygonal");
+        } else if (j.HasMember("elliptical")) {
+        p.present = Shape_PR_elliptical;
+            from_json(j["elliptical"], p.choice.elliptical, "elliptical");
+        } else if (j.HasMember("radial")) {
+        p.present = Shape_PR_radial;
+            from_json(j["radial"], p.choice.radial, "radial");
+        } else if (j.HasMember("radialShapes")) {
+        p.present = Shape_PR_radialShapes;
+            from_json(j["radialShapes"], p.choice.radialShapes, "radialShapes");
+        } else {
+        p.present = Shape_PR_NOTHING;
+        }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   Velocity3dWithConfidence - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const Velocity3dWithConfidence_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == Velocity3dWithConfidence_PR_polarVelocity) {
+        json.AddMember("polarVelocity", to_json(p.choice.polarVelocity, allocator), allocator);
+    } else if (p.present == Velocity3dWithConfidence_PR_cartesianVelocity) {
+        json.AddMember("cartesianVelocity", to_json(p.choice.cartesianVelocity, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, Velocity3dWithConfidence_t& p, std::string field) {
+    try {
+        if (j.HasMember("polarVelocity")) {
+        p.present = Velocity3dWithConfidence_PR_polarVelocity;
+            from_json(j["polarVelocity"], p.choice.polarVelocity, "polarVelocity");
+        } else if (j.HasMember("cartesianVelocity")) {
+        p.present = Velocity3dWithConfidence_PR_cartesianVelocity;
+            from_json(j["cartesianVelocity"], p.choice.cartesianVelocity, "cartesianVelocity");
+        } else {
+        p.present = Velocity3dWithConfidence_PR_NOTHING;
+        }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   VruClusterInformation - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const VruClusterInformation_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("clusterCardinalitySize", to_json((p.clusterCardinalitySize), allocator), allocator);
+    if (p.clusterId != 0) json.AddMember("clusterId", to_json(*(p.clusterId), allocator), allocator);
+    if (p.clusterBoundingBoxShape != 0) json.AddMember("clusterBoundingBoxShape", to_json(*(p.clusterBoundingBoxShape), allocator), allocator);
+    if (p.clusterProfiles != 0) json.AddMember("clusterProfiles", to_json_VruClusterProfiles(*(p.clusterProfiles), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, VruClusterInformation_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        if (j.HasMember("clusterId")) { p.clusterId = vanetza::asn1::allocate<Identifier1B_t>(); from_json(j["clusterId"], *(p.clusterId), "clusterId"); }
+        else { p.clusterId=nullptr; }
+        if (j.HasMember("clusterBoundingBoxShape")) { p.clusterBoundingBoxShape = vanetza::asn1::allocate<Shape_t>(); from_json(j["clusterBoundingBoxShape"], *(p.clusterBoundingBoxShape), "clusterBoundingBoxShape"); }
+        else { p.clusterBoundingBoxShape=nullptr; }
+        from_json(j["clusterCardinalitySize"], (p.clusterCardinalitySize), "clusterCardinalitySize");
+        if (j.HasMember("clusterProfiles")) { p.clusterProfiles = vanetza::asn1::allocate<VruClusterProfiles_t>(); from_json_VruClusterProfiles(j["clusterProfiles"],*(p.clusterProfiles), "clusterProfiles"); }
+        else { p.clusterProfiles=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -12902,11 +18277,11 @@ void from_json(const Value& j, NodeListXY& p, std::string field) {
     try {
         if (j.HasMember("nodes")) {
         p.present = NodeListXY_PR_nodes;
-        from_json(j["nodes"], p.choice.nodes, "nodes");
-    } else if (j.HasMember("computed")) {
+            from_json(j["nodes"], p.choice.nodes, "nodes");
+        } else if (j.HasMember("computed")) {
         p.present = NodeListXY_PR_computed;
-        from_json(j["computed"], p.choice.computed, "computed");
-    } else {
+            from_json(j["computed"], p.choice.computed, "computed");
+        } else {
         p.present = NodeListXY_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -13077,38 +18452,6 @@ void from_json(const Value& j, DebitRq_t& p, std::string field) {
 
 
 /*
-*   VarLengthNumber - Type CHOICE
-*   From CITSapplMgmtIDs - File ISO17419.asn
-*/
-
-Value to_json(const VarLengthNumber& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    if (p.present == VarLengthNumber_PR_content) {
-        json.AddMember("content", to_json(p.choice.content, allocator), allocator);
-    } else if (p.present == VarLengthNumber_PR_extension) {
-        json.AddMember("extension", to_json(p.choice.extension, allocator), allocator);
-    }
-    return json;
-}
-
-void from_json(const Value& j, VarLengthNumber& p, std::string field) {
-    try {
-        if (j.HasMember("content")) {
-        p.present = VarLengthNumber_PR_content;
-        from_json(j["content"], p.choice.content, "content");
-    } else if (j.HasMember("extension")) {
-        p.present = VarLengthNumber_PR_extension;
-        from_json(j["extension"], p.choice.extension, "extension");
-    } else {
-        p.present = VarLengthNumber_PR_NOTHING;
-        }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-/*
 *   GlcPart - Type SEQUENCE
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -13127,11 +18470,11 @@ void from_json(const Value& j, GlcPart& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["zoneId"], (p.zoneId), "zoneId");
-        if (j.HasMember("laneNumber")) { p.laneNumber = vanetza::asn1::allocate<LanePosition_t>(); from_json(j["laneNumber"], *(p.laneNumber), "laneNumber"); }
+        if (j.HasMember("laneNumber")) { p.laneNumber = vanetza::asn1::allocate<ITS_Container_LanePosition_t>(); from_json(j["laneNumber"], *(p.laneNumber), "laneNumber"); }
         else { p.laneNumber=nullptr; }
         if (j.HasMember("zoneExtension")) { p.zoneExtension = vanetza::asn1::allocate<long>(); from_json(j["zoneExtension"], *(p.zoneExtension), "zoneExtension"); }
         else { p.zoneExtension=nullptr; }
-        double zoneHeading; if (j.HasMember("zoneHeading")) { p.zoneHeading = vanetza::asn1::allocate<HeadingValue_t>(); from_json(j["zoneHeading"], (zoneHeading), "zoneHeading"); *(p.zoneHeading) = ((zoneHeading) != 3601) ? zoneHeading * 10 : zoneHeading; }
+        double zoneHeading; if (j.HasMember("zoneHeading")) { p.zoneHeading = vanetza::asn1::allocate<ITS_Container_HeadingValue_t>(); from_json(j["zoneHeading"], (zoneHeading), "zoneHeading"); *(p.zoneHeading) = ((zoneHeading) != 3601) ? zoneHeading * 10 : zoneHeading; }
         else { p.zoneHeading=nullptr; }
         if (j.HasMember("zone")) { p.zone = vanetza::asn1::allocate<Zone_t>(); from_json(j["zone"], *(p.zone), "zone"); }
         else { p.zone=nullptr; }
@@ -13280,7 +18623,6 @@ Value to_json(const CompleteVehicleCharacteristics& p, Document::AllocatorType& 
     
     if (p.tractor != 0) json.AddMember("tractor", to_json(*(p.tractor), allocator), allocator);
     if (p.trailer != 0) json.AddMember("trailer", to_json(*(p.trailer), allocator), allocator);
-    if (p.train != 0) json.AddMember("train", to_json(*(p.train), allocator), allocator);
     return json;
 }
 
@@ -13291,8 +18633,7 @@ void from_json(const Value& j, CompleteVehicleCharacteristics& p, std::string fi
         else { p.tractor=nullptr; }
         if (j.HasMember("trailer")) { p.trailer = vanetza::asn1::allocate<TrailerCharacteristicsList_t>(); from_json(j["trailer"], *(p.trailer), "trailer"); }
         else { p.trailer=nullptr; }
-        if (j.HasMember("train")) { p.train = vanetza::asn1::allocate<TractorCharacteristics_t>(); from_json(j["train"], *(p.train), "train"); }
-        else { p.train=nullptr; }
+        p.train=nullptr;
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -13355,61 +18696,35 @@ void from_json(const Value& j, LaneInformation& p, std::string field) {
 
 
 /*
-*   SpecialVehicleContainer - Type CHOICE
+*   CamParameters - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-Value to_json(const SpecialVehicleContainer& p, Document::AllocatorType& allocator) {
+Value to_json(const CamParameters& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    if (p.present == SpecialVehicleContainer_PR_publicTransportContainer) {
-        json.AddMember("publicTransportContainer", to_json(p.choice.publicTransportContainer, allocator), allocator);
-    } else if (p.present == SpecialVehicleContainer_PR_specialTransportContainer) {
-        json.AddMember("specialTransportContainer", to_json(p.choice.specialTransportContainer, allocator), allocator);
-    } else if (p.present == SpecialVehicleContainer_PR_dangerousGoodsContainer) {
-        json.AddMember("dangerousGoodsContainer", to_json(p.choice.dangerousGoodsContainer, allocator), allocator);
-    } else if (p.present == SpecialVehicleContainer_PR_roadWorksContainerBasic) {
-        json.AddMember("roadWorksContainerBasic", to_json(p.choice.roadWorksContainerBasic, allocator), allocator);
-    } else if (p.present == SpecialVehicleContainer_PR_rescueContainer) {
-        json.AddMember("rescueContainer", to_json(p.choice.rescueContainer, allocator), allocator);
-    } else if (p.present == SpecialVehicleContainer_PR_emergencyContainer) {
-        json.AddMember("emergencyContainer", to_json(p.choice.emergencyContainer, allocator), allocator);
-    } else if (p.present == SpecialVehicleContainer_PR_safetyCarContainer) {
-        json.AddMember("safetyCarContainer", to_json(p.choice.safetyCarContainer, allocator), allocator);
-    }
+    json.AddMember("basicContainer", to_json((p.basicContainer), allocator), allocator);
+    json.AddMember("highFrequencyContainer", to_json((p.highFrequencyContainer), allocator), allocator);
+    if (p.lowFrequencyContainer != 0) json.AddMember("lowFrequencyContainer", to_json(*(p.lowFrequencyContainer), allocator), allocator);
+    if (p.specialVehicleContainer != 0) json.AddMember("specialVehicleContainer", to_json(*(p.specialVehicleContainer), allocator), allocator);
     return json;
 }
 
-void from_json(const Value& j, SpecialVehicleContainer& p, std::string field) {
+void from_json(const Value& j, CamParameters& p, std::string field) {
     try {
-        if (j.HasMember("publicTransportContainer")) {
-        p.present = SpecialVehicleContainer_PR_publicTransportContainer;
-        from_json(j["publicTransportContainer"], p.choice.publicTransportContainer, "publicTransportContainer");
-    } else if (j.HasMember("specialTransportContainer")) {
-        p.present = SpecialVehicleContainer_PR_specialTransportContainer;
-        from_json(j["specialTransportContainer"], p.choice.specialTransportContainer, "specialTransportContainer");
-    } else if (j.HasMember("dangerousGoodsContainer")) {
-        p.present = SpecialVehicleContainer_PR_dangerousGoodsContainer;
-        from_json(j["dangerousGoodsContainer"], p.choice.dangerousGoodsContainer, "dangerousGoodsContainer");
-    } else if (j.HasMember("roadWorksContainerBasic")) {
-        p.present = SpecialVehicleContainer_PR_roadWorksContainerBasic;
-        from_json(j["roadWorksContainerBasic"], p.choice.roadWorksContainerBasic, "roadWorksContainerBasic");
-    } else if (j.HasMember("rescueContainer")) {
-        p.present = SpecialVehicleContainer_PR_rescueContainer;
-        from_json(j["rescueContainer"], p.choice.rescueContainer, "rescueContainer");
-    } else if (j.HasMember("emergencyContainer")) {
-        p.present = SpecialVehicleContainer_PR_emergencyContainer;
-        from_json(j["emergencyContainer"], p.choice.emergencyContainer, "emergencyContainer");
-    } else if (j.HasMember("safetyCarContainer")) {
-        p.present = SpecialVehicleContainer_PR_safetyCarContainer;
-        from_json(j["safetyCarContainer"], p.choice.safetyCarContainer, "safetyCarContainer");
-    } else {
-        p.present = SpecialVehicleContainer_PR_NOTHING;
-        }
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["basicContainer"], (p.basicContainer), "basicContainer");
+        from_json(j["highFrequencyContainer"], (p.highFrequencyContainer), "highFrequencyContainer");
+        if (j.HasMember("lowFrequencyContainer")) { p.lowFrequencyContainer = vanetza::asn1::allocate<LowFrequencyContainer_t>(); from_json(j["lowFrequencyContainer"], *(p.lowFrequencyContainer), "lowFrequencyContainer"); }
+        else { p.lowFrequencyContainer=nullptr; }
+        if (j.HasMember("specialVehicleContainer")) { p.specialVehicleContainer = vanetza::asn1::allocate<SpecialVehicleContainer_t>(); from_json(j["specialVehicleContainer"], *(p.specialVehicleContainer), "specialVehicleContainer"); }
+        else { p.specialVehicleContainer=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
     }
 }
+
+
 
 /*
 *   DecentralizedEnvironmentalNotificationMessage - Type SEQUENCE
@@ -13444,11 +18759,71 @@ void from_json(const Value& j, DecentralizedEnvironmentalNotificationMessage& p,
 
 
 /*
+*   VruHighFrequencyContainer - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+Value to_json(const VruHighFrequencyContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("heading", to_json((p.heading), allocator), allocator);
+    json.AddMember("speed", to_json((p.speed), allocator), allocator);
+    json.AddMember("longitudinalAcceleration", to_json((p.longitudinalAcceleration), allocator), allocator);
+    if (p.curvature != 0) json.AddMember("curvature", to_json(*(p.curvature), allocator), allocator);
+    if (p.curvatureCalculationMode != 0) json.AddMember("curvatureCalculationMode", to_json(*(p.curvatureCalculationMode), allocator), allocator);
+    if (p.yawRate != 0) json.AddMember("yawRate", to_json(*(p.yawRate), allocator), allocator);
+    if (p.lateralAcceleration != 0) json.AddMember("lateralAcceleration", to_json(*(p.lateralAcceleration), allocator), allocator);
+    if (p.verticalAcceleration != 0) json.AddMember("verticalAcceleration", to_json(*(p.verticalAcceleration), allocator), allocator);
+    if (p.vruLanePosition != 0) json.AddMember("vruLanePosition", to_json(*(p.vruLanePosition), allocator), allocator);
+    if (p.environment != 0) json.AddMember("environment", to_json(*(p.environment), allocator), allocator);
+    if (p.movementControl != 0) json.AddMember("movementControl", to_json(*(p.movementControl), allocator), allocator);
+    if (p.orientation != 0) json.AddMember("orientation", to_json(*(p.orientation), allocator), allocator);
+    if (p.rollAngle != 0) json.AddMember("rollAngle", to_json(*(p.rollAngle), allocator), allocator);
+    if (p.deviceUsage != 0) json.AddMember("deviceUsage", to_json(*(p.deviceUsage), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, VruHighFrequencyContainer& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["heading"], (p.heading), "heading");
+        from_json(j["speed"], (p.speed), "speed");
+        from_json(j["longitudinalAcceleration"], (p.longitudinalAcceleration), "longitudinalAcceleration");
+        if (j.HasMember("curvature")) { p.curvature = vanetza::asn1::allocate<ITS_Container_Curvature_t>(); from_json(j["curvature"], *(p.curvature), "curvature"); }
+        else { p.curvature=nullptr; }
+        if (j.HasMember("curvatureCalculationMode")) { p.curvatureCalculationMode = vanetza::asn1::allocate<ITS_Container_CurvatureCalculationMode_t>(); from_json(j["curvatureCalculationMode"], *(p.curvatureCalculationMode), "curvatureCalculationMode"); }
+        else { p.curvatureCalculationMode=nullptr; }
+        if (j.HasMember("yawRate")) { p.yawRate = vanetza::asn1::allocate<ITS_Container_YawRate_t>(); from_json(j["yawRate"], *(p.yawRate), "yawRate"); }
+        else { p.yawRate=nullptr; }
+        if (j.HasMember("lateralAcceleration")) { p.lateralAcceleration = vanetza::asn1::allocate<ITS_Container_LateralAcceleration_t>(); from_json(j["lateralAcceleration"], *(p.lateralAcceleration), "lateralAcceleration"); }
+        else { p.lateralAcceleration=nullptr; }
+        if (j.HasMember("verticalAcceleration")) { p.verticalAcceleration = vanetza::asn1::allocate<ITS_Container_VerticalAcceleration_t>(); from_json(j["verticalAcceleration"], *(p.verticalAcceleration), "verticalAcceleration"); }
+        else { p.verticalAcceleration=nullptr; }
+        if (j.HasMember("vruLanePosition")) { p.vruLanePosition = vanetza::asn1::allocate<VruLanePosition_t>(); from_json(j["vruLanePosition"], *(p.vruLanePosition), "vruLanePosition"); }
+        else { p.vruLanePosition=nullptr; }
+        if (j.HasMember("environment")) { p.environment = vanetza::asn1::allocate<VAM_PDU_Descriptions_VruEnvironment_t>(); from_json(j["environment"], *(p.environment), "environment"); }
+        else { p.environment=nullptr; }
+        if (j.HasMember("movementControl")) { p.movementControl = vanetza::asn1::allocate<VAM_PDU_Descriptions_VruMovementControl_t>(); from_json(j["movementControl"], *(p.movementControl), "movementControl"); }
+        else { p.movementControl=nullptr; }
+        if (j.HasMember("orientation")) { p.orientation = vanetza::asn1::allocate<VruOrientation_t>(); from_json(j["orientation"], *(p.orientation), "orientation"); }
+        else { p.orientation=nullptr; }
+        if (j.HasMember("rollAngle")) { p.rollAngle = vanetza::asn1::allocate<VruRollAngle_t>(); from_json(j["rollAngle"], *(p.rollAngle), "rollAngle"); }
+        else { p.rollAngle=nullptr; }
+        if (j.HasMember("deviceUsage")) { p.deviceUsage = vanetza::asn1::allocate<VAM_PDU_Descriptions_VruDeviceUsage_t>(); from_json(j["deviceUsage"], *(p.deviceUsage), "deviceUsage"); }
+        else { p.deviceUsage=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
 *   TrafficIslandPosition - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const TrafficIslandPosition& p, Document::AllocatorType& allocator) {
+Value to_json(const VAM_PDU_Descriptions_TrafficIslandPosition_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("oneSide", to_json((p.oneSide), allocator), allocator);
     json.AddMember("otherSide", to_json((p.otherSide), allocator), allocator);
@@ -13456,7 +18831,7 @@ Value to_json(const TrafficIslandPosition& p, Document::AllocatorType& allocator
     return json;
 }
 
-void from_json(const Value& j, TrafficIslandPosition& p, std::string field) {
+void from_json(const Value& j, VAM_PDU_Descriptions_TrafficIslandPosition_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["oneSide"], (p.oneSide), "oneSide");
@@ -13470,152 +18845,40 @@ void from_json(const Value& j, TrafficIslandPosition& p, std::string field) {
 
 
 /*
-*   VruLowFrequencyContainer - Type SEQUENCE
+*   VruMotionPredictionContainer - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const VruLowFrequencyContainer& p, Document::AllocatorType& allocator) {
+Value to_json(const VruMotionPredictionContainer& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     
-    if (p.profileAndSubprofile != 0) json.AddMember("profileAndSubprofile", to_json(*(p.profileAndSubprofile), allocator), allocator);
-    if (p.exteriorLights != 0) json.AddMember("exteriorLights", to_json(*(p.exteriorLights), allocator), allocator);
-    if (p.sizeClass != 0) json.AddMember("sizeClass", to_json(*(p.sizeClass), allocator), allocator);
+    if (p.pathHistory != 0) json.AddMember("pathHistory", to_json(*(p.pathHistory), allocator), allocator);
+    if (p.pathPrediction != 0) json.AddMember("pathPrediction", to_json(*(p.pathPrediction), allocator), allocator);
+    if (p.safeDistance != 0) json.AddMember("safeDistance", to_json(*(p.safeDistance), allocator), allocator);
+    if (p.trajectoryInterceptionIndication != 0) json.AddMember("trajectoryInterceptionIndication", to_json(*(p.trajectoryInterceptionIndication), allocator), allocator);
+    if (p.accelerationChangeIndication != 0) json.AddMember("accelerationChangeIndication", to_json(*(p.accelerationChangeIndication), allocator), allocator);
+    if (p.headingChangeIndication != 0) json.AddMember("headingChangeIndication", to_json(*(p.headingChangeIndication), allocator), allocator);
+    if (p.stabilityChangeIndication != 0) json.AddMember("stabilityChangeIndication", to_json(*(p.stabilityChangeIndication), allocator), allocator);
     return json;
 }
 
-void from_json(const Value& j, VruLowFrequencyContainer& p, std::string field) {
+void from_json(const Value& j, VruMotionPredictionContainer& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        if (j.HasMember("profileAndSubprofile")) { p.profileAndSubprofile = vanetza::asn1::allocate<VruProfileAndSubprofile_t>(); from_json(j["profileAndSubprofile"], *(p.profileAndSubprofile), "profileAndSubprofile"); }
-        else { p.profileAndSubprofile=nullptr; }
-        if (j.HasMember("exteriorLights")) { p.exteriorLights = vanetza::asn1::allocate<VruExteriorLights_t>(); from_json(j["exteriorLights"], *(p.exteriorLights), "exteriorLights"); }
-        else { p.exteriorLights=nullptr; }
-        if (j.HasMember("sizeClass")) { p.sizeClass = vanetza::asn1::allocate<VruSizeClass_t>(); from_json(j["sizeClass"], *(p.sizeClass), "sizeClass"); }
-        else { p.sizeClass=nullptr; }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   SequenceOfVruPathPoint - Type SEQUENCE OF
-*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
-*/
-
-Value to_json(const SequenceOfVruPathPoint& p, Document::AllocatorType& allocator) {
-    Value json(kArrayType);
-    for(int i = 0; i < p.list.count; i++) {
-        const VruPathPoint_t po = *(p.list.array[i]);
-        Value obj = to_json(po, allocator);
-        json.PushBack(obj, allocator);
-    }
-    return json;
-}
-
-void from_json(const Value& j, SequenceOfVruPathPoint& p, std::string field) {
-    try {
-        SequenceOfVruPathPoint* p_tmp = vanetza::asn1::allocate<SequenceOfVruPathPoint>();
-        for (SizeType i = 0; i < j.Size(); i++) {
-            const Value& item = j[i];
-            VruPathPoint_t *element = vanetza::asn1::allocate<VruPathPoint_t>();
-            from_json(item, *element, "index #" + std::to_string(i));
-            asn_set_add(&(p_tmp->list), element);
-        }
-        p = *p_tmp;
-        delete p_tmp;
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-/*
-*   OriginatingVehicleContainer - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const OriginatingVehicleContainer& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("heading", to_json((p.heading), allocator), allocator);
-    json.AddMember("speed", to_json((p.speed), allocator), allocator);
-    json.AddMember("driveDirection", to_json((p.driveDirection), allocator), allocator);
-    if (p.vehicleOrientationAngle != 0) json.AddMember("vehicleOrientationAngle", to_json(*(p.vehicleOrientationAngle), allocator), allocator);
-    if (p.longitudinalAcceleration != 0) json.AddMember("longitudinalAcceleration", to_json(*(p.longitudinalAcceleration), allocator), allocator);
-    if (p.lateralAcceleration != 0) json.AddMember("lateralAcceleration", to_json(*(p.lateralAcceleration), allocator), allocator);
-    if (p.verticalAcceleration != 0) json.AddMember("verticalAcceleration", to_json(*(p.verticalAcceleration), allocator), allocator);
-    if (p.yawRate != 0) json.AddMember("yawRate", to_json(*(p.yawRate), allocator), allocator);
-    if (p.pitchAngle != 0) json.AddMember("pitchAngle", to_json(*(p.pitchAngle), allocator), allocator);
-    if (p.rollAngle != 0) json.AddMember("rollAngle", to_json(*(p.rollAngle), allocator), allocator);
-    if (p.vehicleLength != 0) json.AddMember("vehicleLength", to_json(*(p.vehicleLength), allocator), allocator);
-    if (p.vehicleWidth != 0) json.AddMember("vehicleWidth", to_json((*(p.vehicleWidth) != 61 && *(p.vehicleWidth) != 62) ? (double) *(p.vehicleWidth) / 10.0 : *(p.vehicleWidth), allocator), allocator);
-    if (p.vehicleHeight != 0) json.AddMember("vehicleHeight", to_json(*(p.vehicleHeight), allocator), allocator);
-    if (p.trailerDataContainer != 0) json.AddMember("trailerDataContainer", to_json(*(p.trailerDataContainer), allocator), allocator);
-    return json;
-}
-
-void from_json(const Value& j, OriginatingVehicleContainer& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["heading"], (p.heading), "heading");
-        from_json(j["speed"], (p.speed), "speed");
-        if (j.HasMember("vehicleOrientationAngle")) { p.vehicleOrientationAngle = vanetza::asn1::allocate<WGS84Angle_t>(); from_json(j["vehicleOrientationAngle"], *(p.vehicleOrientationAngle), "vehicleOrientationAngle"); }
-        else { p.vehicleOrientationAngle=nullptr; }
-        from_json(j["driveDirection"], (p.driveDirection), "driveDirection");
-        if (j.HasMember("longitudinalAcceleration")) { p.longitudinalAcceleration = vanetza::asn1::allocate<LongitudinalAcceleration_t>(); from_json(j["longitudinalAcceleration"], *(p.longitudinalAcceleration), "longitudinalAcceleration"); }
-        else { p.longitudinalAcceleration=nullptr; }
-        if (j.HasMember("lateralAcceleration")) { p.lateralAcceleration = vanetza::asn1::allocate<LateralAcceleration_t>(); from_json(j["lateralAcceleration"], *(p.lateralAcceleration), "lateralAcceleration"); }
-        else { p.lateralAcceleration=nullptr; }
-        if (j.HasMember("verticalAcceleration")) { p.verticalAcceleration = vanetza::asn1::allocate<VerticalAcceleration_t>(); from_json(j["verticalAcceleration"], *(p.verticalAcceleration), "verticalAcceleration"); }
-        else { p.verticalAcceleration=nullptr; }
-        if (j.HasMember("yawRate")) { p.yawRate = vanetza::asn1::allocate<YawRate_t>(); from_json(j["yawRate"], *(p.yawRate), "yawRate"); }
-        else { p.yawRate=nullptr; }
-        if (j.HasMember("pitchAngle")) { p.pitchAngle = vanetza::asn1::allocate<CartesianAngle_t>(); from_json(j["pitchAngle"], *(p.pitchAngle), "pitchAngle"); }
-        else { p.pitchAngle=nullptr; }
-        if (j.HasMember("rollAngle")) { p.rollAngle = vanetza::asn1::allocate<CartesianAngle_t>(); from_json(j["rollAngle"], *(p.rollAngle), "rollAngle"); }
-        else { p.rollAngle=nullptr; }
-        if (j.HasMember("vehicleLength")) { p.vehicleLength = vanetza::asn1::allocate<VehicleLength_t>(); from_json(j["vehicleLength"], *(p.vehicleLength), "vehicleLength"); }
-        else { p.vehicleLength=nullptr; }
-        double vehicleWidth; if (j.HasMember("vehicleWidth")) { p.vehicleWidth = vanetza::asn1::allocate<VehicleWidth_t>(); from_json(j["vehicleWidth"], (vehicleWidth), "vehicleWidth"); *(p.vehicleWidth) = ((vehicleWidth) != 61 && (vehicleWidth) != 62) ? vehicleWidth * 10 : vehicleWidth; }
-        else { p.vehicleWidth=nullptr; }
-        if (j.HasMember("vehicleHeight")) { p.vehicleHeight = vanetza::asn1::allocate<VehicleHeight_t>(); from_json(j["vehicleHeight"], *(p.vehicleHeight), "vehicleHeight"); }
-        else { p.vehicleHeight=nullptr; }
-        if (j.HasMember("trailerDataContainer")) { p.trailerDataContainer = vanetza::asn1::allocate<TrailerDataContainer_t>(); from_json(j["trailerDataContainer"], *(p.trailerDataContainer), "trailerDataContainer"); }
-        else { p.trailerDataContainer=nullptr; }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   VehicleSensor - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const VehicleSensor& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("refPointId", to_json((p.refPointId), allocator), allocator);
-    json.AddMember("xSensorOffset", to_json((p.xSensorOffset), allocator), allocator);
-    json.AddMember("ySensorOffset", to_json((p.ySensorOffset), allocator), allocator);
-    json.AddMember("vehicleSensorPropertyList", to_json((p.vehicleSensorPropertyList), allocator), allocator);
-    if (p.zSensorOffset != 0) json.AddMember("zSensorOffset", to_json(*(p.zSensorOffset), allocator), allocator);
-    return json;
-}
-
-void from_json(const Value& j, VehicleSensor& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["refPointId"], (p.refPointId), "refPointId");
-        from_json(j["xSensorOffset"], (p.xSensorOffset), "xSensorOffset");
-        from_json(j["ySensorOffset"], (p.ySensorOffset), "ySensorOffset");
-        if (j.HasMember("zSensorOffset")) { p.zSensorOffset = vanetza::asn1::allocate<ZSensorOffset_t>(); from_json(j["zSensorOffset"], *(p.zSensorOffset), "zSensorOffset"); }
-        else { p.zSensorOffset=nullptr; }
-        from_json(j["vehicleSensorPropertyList"], (p.vehicleSensorPropertyList), "vehicleSensorPropertyList");
+        if (j.HasMember("pathHistory")) { p.pathHistory = vanetza::asn1::allocate<ITS_Container_PathHistory_t>(); from_json(j["pathHistory"], *(p.pathHistory), "pathHistory"); }
+        else { p.pathHistory=nullptr; }
+        if (j.HasMember("pathPrediction")) { p.pathPrediction = vanetza::asn1::allocate<SequenceOfVruPathPoint_t>(); from_json(j["pathPrediction"], *(p.pathPrediction), "pathPrediction"); }
+        else { p.pathPrediction=nullptr; }
+        if (j.HasMember("safeDistance")) { p.safeDistance = vanetza::asn1::allocate<SequenceOfVruSafeDistanceIndication_t>(); from_json(j["safeDistance"], *(p.safeDistance), "safeDistance"); }
+        else { p.safeDistance=nullptr; }
+        if (j.HasMember("trajectoryInterceptionIndication")) { p.trajectoryInterceptionIndication = vanetza::asn1::allocate<VAM_PDU_Descriptions_SequenceOfTrajectoryInterceptionIndication_t>(); from_json(j["trajectoryInterceptionIndication"], *(p.trajectoryInterceptionIndication), "trajectoryInterceptionIndication"); }
+        else { p.trajectoryInterceptionIndication=nullptr; }
+        if (j.HasMember("accelerationChangeIndication")) { p.accelerationChangeIndication = vanetza::asn1::allocate<VAM_PDU_Descriptions_AccelerationChangeIndication_t>(); from_json(j["accelerationChangeIndication"], *(p.accelerationChangeIndication), "accelerationChangeIndication"); }
+        else { p.accelerationChangeIndication=nullptr; }
+        if (j.HasMember("headingChangeIndication")) { p.headingChangeIndication = vanetza::asn1::allocate<VAM_PDU_Descriptions_HeadingChangeIndication_t>(); from_json(j["headingChangeIndication"], *(p.headingChangeIndication), "headingChangeIndication"); }
+        else { p.headingChangeIndication=nullptr; }
+        if (j.HasMember("stabilityChangeIndication")) { p.stabilityChangeIndication = vanetza::asn1::allocate<VAM_PDU_Descriptions_StabilityChangeIndication_t>(); from_json(j["stabilityChangeIndication"], *(p.stabilityChangeIndication), "stabilityChangeIndication"); }
+        else { p.stabilityChangeIndication=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -13626,7 +18889,7 @@ void from_json(const Value& j, VehicleSensor& p, std::string field) {
 
 /*
 *   AreaCircular - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
 Value to_json(const AreaCircular& p, Document::AllocatorType& allocator) {
@@ -13651,41 +18914,8 @@ void from_json(const Value& j, AreaCircular& p, std::string field) {
 
 
 /*
-*   AreaEllipse - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const AreaEllipse& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("semiMinorRangeLength", to_json((double)(p.semiMinorRangeLength) / 10.0, allocator), allocator);
-    json.AddMember("semiMajorRangeLength", to_json((double)(p.semiMajorRangeLength) / 10.0, allocator), allocator);
-    json.AddMember("semiMajorRangeOrientation", to_json(((p.semiMajorRangeOrientation) == 3601) ? (p.semiMajorRangeOrientation) : (double)(p.semiMajorRangeOrientation) / 10.0, allocator), allocator);
-    if (p.nodeCenterPoint != 0) json.AddMember("nodeCenterPoint", to_json(*(p.nodeCenterPoint), allocator), allocator);
-    if (p.semiHeight != 0) json.AddMember("semiHeight", to_json((double) *(p.semiHeight) / 10.0, allocator), allocator);
-    return json;
-}
-
-void from_json(const Value& j, AreaEllipse& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        if (j.HasMember("nodeCenterPoint")) { p.nodeCenterPoint = vanetza::asn1::allocate<OffsetPoint_t>(); from_json(j["nodeCenterPoint"], *(p.nodeCenterPoint), "nodeCenterPoint"); }
-        else { p.nodeCenterPoint=nullptr; }
-        double semiMinorRangeLength; from_json(j["semiMinorRangeLength"], (semiMinorRangeLength), "semiMinorRangeLength"); (p.semiMinorRangeLength) =semiMinorRangeLength * 10;
-        double semiMajorRangeLength; from_json(j["semiMajorRangeLength"], (semiMajorRangeLength), "semiMajorRangeLength"); (p.semiMajorRangeLength) =semiMajorRangeLength * 10;
-        double semiMajorRangeOrientation; from_json(j["semiMajorRangeOrientation"], (semiMajorRangeOrientation), "semiMajorRangeOrientation"); (p.semiMajorRangeOrientation) = ((semiMajorRangeOrientation) != 3601) ? semiMajorRangeOrientation * 10 : semiMajorRangeOrientation;
-        double semiHeight; if (j.HasMember("semiHeight")) { p.semiHeight = vanetza::asn1::allocate<SemiRangeLength_t>(); from_json(j["semiHeight"], (semiHeight), "semiHeight"); *(p.semiHeight) =semiHeight * 10; }
-        else { p.semiHeight=nullptr; }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
 *   AreaRectangle - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
 Value to_json(const AreaRectangle& p, Document::AllocatorType& allocator) {
@@ -13718,7 +18948,7 @@ void from_json(const Value& j, AreaRectangle& p, std::string field) {
 
 /*
 *   PolyPointList - Type SEQUENCE OF
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
 Value to_json(const PolyPointList& p, Document::AllocatorType& allocator) {
@@ -13749,36 +18979,34 @@ void from_json(const Value& j, PolyPointList& p, std::string field) {
 }
 
 /*
-*   AreaRadial - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   PerceptionRegion - Type SEQUENCE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const AreaRadial& p, Document::AllocatorType& allocator) {
+Value to_json(const PerceptionRegion& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("range", to_json((p.range), allocator), allocator);
-    json.AddMember("stationaryHorizontalOpeningAngleStart", to_json(((p.stationaryHorizontalOpeningAngleStart) == 3601) ? (p.stationaryHorizontalOpeningAngleStart) : (double)(p.stationaryHorizontalOpeningAngleStart) / 10.0, allocator), allocator);
-    json.AddMember("stationaryHorizontalOpeningAngleEnd", to_json(((p.stationaryHorizontalOpeningAngleEnd) == 3601) ? (p.stationaryHorizontalOpeningAngleEnd) : (double)(p.stationaryHorizontalOpeningAngleEnd) / 10.0, allocator), allocator);
-    if (p.verticalOpeningAngleStart != 0) json.AddMember("verticalOpeningAngleStart", to_json((*(p.verticalOpeningAngleStart) != 3601) ? (double) *(p.verticalOpeningAngleStart) / 10.0 : *(p.verticalOpeningAngleStart), allocator), allocator);
-    if (p.verticalOpeningAngleEnd != 0) json.AddMember("verticalOpeningAngleEnd", to_json((*(p.verticalOpeningAngleEnd) != 3601) ? (double) *(p.verticalOpeningAngleEnd) / 10.0 : *(p.verticalOpeningAngleEnd), allocator), allocator);
-    if (p.sensorPositionOffset != 0) json.AddMember("sensorPositionOffset", to_json(*(p.sensorPositionOffset), allocator), allocator);
-    if (p.sensorHeight != 0) json.AddMember("sensorHeight", to_json((double) *(p.sensorHeight) / 100.0, allocator), allocator);
+    json.AddMember("measurementDeltaTime", to_json((p.measurementDeltaTime), allocator), allocator);
+    json.AddMember("perceptionRegionConfidence", to_json((p.perceptionRegionConfidence), allocator), allocator);
+    json.AddMember("perceptionRegionShape", to_json((p.perceptionRegionShape), allocator), allocator);
+    if (p.sensorIdList != 0) json.AddMember("sensorIdList", to_json(*(p.sensorIdList), allocator), allocator);
+    if (p.numberOfPerceivedObjects != 0) json.AddMember("numberOfPerceivedObjects", to_json(*(p.numberOfPerceivedObjects), allocator), allocator);
+    if (p.perceivedObjectIds != 0) json.AddMember("perceivedObjectIds", to_json(*(p.perceivedObjectIds), allocator), allocator);
     return json;
 }
 
-void from_json(const Value& j, AreaRadial& p, std::string field) {
+void from_json(const Value& j, PerceptionRegion& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["range"], (p.range), "range");
-        double stationaryHorizontalOpeningAngleStart; from_json(j["stationaryHorizontalOpeningAngleStart"], (stationaryHorizontalOpeningAngleStart), "stationaryHorizontalOpeningAngleStart"); (p.stationaryHorizontalOpeningAngleStart) = ((stationaryHorizontalOpeningAngleStart) != 3601) ? stationaryHorizontalOpeningAngleStart * 10 : stationaryHorizontalOpeningAngleStart;
-        double stationaryHorizontalOpeningAngleEnd; from_json(j["stationaryHorizontalOpeningAngleEnd"], (stationaryHorizontalOpeningAngleEnd), "stationaryHorizontalOpeningAngleEnd"); (p.stationaryHorizontalOpeningAngleEnd) = ((stationaryHorizontalOpeningAngleEnd) != 3601) ? stationaryHorizontalOpeningAngleEnd * 10 : stationaryHorizontalOpeningAngleEnd;
-        double verticalOpeningAngleStart; if (j.HasMember("verticalOpeningAngleStart")) { p.verticalOpeningAngleStart = vanetza::asn1::allocate<CartesianAngleValue_t>(); from_json(j["verticalOpeningAngleStart"], (verticalOpeningAngleStart), "verticalOpeningAngleStart"); *(p.verticalOpeningAngleStart) = ((verticalOpeningAngleStart) != 3601) ? verticalOpeningAngleStart * 10 : verticalOpeningAngleStart; }
-        else { p.verticalOpeningAngleStart=nullptr; }
-        double verticalOpeningAngleEnd; if (j.HasMember("verticalOpeningAngleEnd")) { p.verticalOpeningAngleEnd = vanetza::asn1::allocate<CartesianAngleValue_t>(); from_json(j["verticalOpeningAngleEnd"], (verticalOpeningAngleEnd), "verticalOpeningAngleEnd"); *(p.verticalOpeningAngleEnd) = ((verticalOpeningAngleEnd) != 3601) ? verticalOpeningAngleEnd * 10 : verticalOpeningAngleEnd; }
-        else { p.verticalOpeningAngleEnd=nullptr; }
-        if (j.HasMember("sensorPositionOffset")) { p.sensorPositionOffset = vanetza::asn1::allocate<OffsetPoint_t>(); from_json(j["sensorPositionOffset"], *(p.sensorPositionOffset), "sensorPositionOffset"); }
-        else { p.sensorPositionOffset=nullptr; }
-        double sensorHeight; if (j.HasMember("sensorHeight")) { p.sensorHeight = vanetza::asn1::allocate<SensorHeight_t>(); from_json(j["sensorHeight"], (sensorHeight), "sensorHeight"); *(p.sensorHeight) =sensorHeight * 100; }
-        else { p.sensorHeight=nullptr; }
+        from_json(j["measurementDeltaTime"], (p.measurementDeltaTime), "measurementDeltaTime");
+        from_json(j["perceptionRegionConfidence"], (p.perceptionRegionConfidence), "perceptionRegionConfidence");
+        from_json(j["perceptionRegionShape"], (p.perceptionRegionShape), "perceptionRegionShape");
+        if (j.HasMember("sensorIdList")) { p.sensorIdList = vanetza::asn1::allocate<SequenceOfIdentifier1B_t>(); from_json(j["sensorIdList"], *(p.sensorIdList), "sensorIdList"); }
+        else { p.sensorIdList=nullptr; }
+        if (j.HasMember("numberOfPerceivedObjects")) { p.numberOfPerceivedObjects = vanetza::asn1::allocate<CardinalNumber1B_t>(); from_json(j["numberOfPerceivedObjects"], *(p.numberOfPerceivedObjects), "numberOfPerceivedObjects"); }
+        else { p.numberOfPerceivedObjects=nullptr; }
+        if (j.HasMember("perceivedObjectIds")) { p.perceivedObjectIds = vanetza::asn1::allocate<PerceivedObjectIds_t>(); from_json(j["perceivedObjectIds"], *(p.perceivedObjectIds), "perceivedObjectIds"); }
+        else { p.perceivedObjectIds=nullptr; }
+        
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -13788,36 +19016,36 @@ void from_json(const Value& j, AreaRadial& p, std::string field) {
 
 
 /*
-*   ObjectClassDescription - Type SEQUENCE OF
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   SensorInformation - Type SEQUENCE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const ObjectClassDescription& p, Document::AllocatorType& allocator) {
-    Value json(kArrayType);
-    for(int i = 0; i < p.list.count; i++) {
-        const ObjectClass_t po = *(p.list.array[i]);
-        Value obj = to_json(po, allocator);
-        json.PushBack(obj, allocator);
-    }
+Value to_json(const SensorInformation& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("sensorId", to_json((p.sensorId), allocator), allocator);
+    json.AddMember("sensorType", to_json((p.sensorType), allocator), allocator);
+    if (p.perceptionRegionShape != 0) json.AddMember("perceptionRegionShape", to_json(*(p.perceptionRegionShape), allocator), allocator);
+    if (p.perceptionRegionConfidence != 0) json.AddMember("perceptionRegionConfidence", to_json(*(p.perceptionRegionConfidence), allocator), allocator);
     return json;
 }
 
-void from_json(const Value& j, ObjectClassDescription& p, std::string field) {
+void from_json(const Value& j, SensorInformation& p, std::string field) {
     try {
-        ObjectClassDescription* p_tmp = vanetza::asn1::allocate<ObjectClassDescription>();
-        for (SizeType i = 0; i < j.Size(); i++) {
-            const Value& item = j[i];
-            ObjectClass_t *element = vanetza::asn1::allocate<ObjectClass_t>();
-            from_json(item, *element, "index #" + std::to_string(i));
-            asn_set_add(&(p_tmp->list), element);
-        }
-        p = *p_tmp;
-        delete p_tmp;
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["sensorId"], (p.sensorId), "sensorId");
+        from_json(j["sensorType"], (p.sensorType), "sensorType");
+        if (j.HasMember("perceptionRegionShape")) { p.perceptionRegionShape = vanetza::asn1::allocate<Shape_t>(); from_json(j["perceptionRegionShape"], *(p.perceptionRegionShape), "perceptionRegionShape"); }
+        else { p.perceptionRegionShape=nullptr; }
+        if (j.HasMember("perceptionRegionConfidence")) { p.perceptionRegionConfidence = vanetza::asn1::allocate<ConfidenceLevel_t>(); from_json(j["perceptionRegionConfidence"], *(p.perceptionRegionConfidence), "perceptionRegionConfidence"); }
+        else { p.perceptionRegionConfidence=nullptr; }
+        
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
     }
 }
+
+
 
 /*
 *   ItsChargingSpotDataElements - Type SEQUENCE
@@ -13883,29 +19111,29 @@ void from_json(const Value& j, EV_RSR_MessageBody& p, std::string field) {
     try {
         if (j.HasMember("preReservationRequestMessage")) {
         p.present = EV_RSR_MessageBody_PR_preReservationRequestMessage;
-        from_json(j["preReservationRequestMessage"], p.choice.preReservationRequestMessage, "preReservationRequestMessage");
-    } else if (j.HasMember("preReservationResponseMessage")) {
+            from_json(j["preReservationRequestMessage"], p.choice.preReservationRequestMessage, "preReservationRequestMessage");
+        } else if (j.HasMember("preReservationResponseMessage")) {
         p.present = EV_RSR_MessageBody_PR_preReservationResponseMessage;
-        from_json(j["preReservationResponseMessage"], p.choice.preReservationResponseMessage, "preReservationResponseMessage");
-    } else if (j.HasMember("reservationRequestMessage")) {
+            from_json(j["preReservationResponseMessage"], p.choice.preReservationResponseMessage, "preReservationResponseMessage");
+        } else if (j.HasMember("reservationRequestMessage")) {
         p.present = EV_RSR_MessageBody_PR_reservationRequestMessage;
-        from_json(j["reservationRequestMessage"], p.choice.reservationRequestMessage, "reservationRequestMessage");
-    } else if (j.HasMember("reservationResponseMessage")) {
+            from_json(j["reservationRequestMessage"], p.choice.reservationRequestMessage, "reservationRequestMessage");
+        } else if (j.HasMember("reservationResponseMessage")) {
         p.present = EV_RSR_MessageBody_PR_reservationResponseMessage;
-        from_json(j["reservationResponseMessage"], p.choice.reservationResponseMessage, "reservationResponseMessage");
-    } else if (j.HasMember("cancellationRequestMessage")) {
+            from_json(j["reservationResponseMessage"], p.choice.reservationResponseMessage, "reservationResponseMessage");
+        } else if (j.HasMember("cancellationRequestMessage")) {
         p.present = EV_RSR_MessageBody_PR_cancellationRequestMessage;
-        from_json(j["cancellationRequestMessage"], p.choice.cancellationRequestMessage, "cancellationRequestMessage");
-    } else if (j.HasMember("cancellationResponseMessage")) {
+            from_json(j["cancellationRequestMessage"], p.choice.cancellationRequestMessage, "cancellationRequestMessage");
+        } else if (j.HasMember("cancellationResponseMessage")) {
         p.present = EV_RSR_MessageBody_PR_cancellationResponseMessage;
-        from_json(j["cancellationResponseMessage"], p.choice.cancellationResponseMessage, "cancellationResponseMessage");
-    } else if (j.HasMember("updateRequestMessage")) {
+            from_json(j["cancellationResponseMessage"], p.choice.cancellationResponseMessage, "cancellationResponseMessage");
+        } else if (j.HasMember("updateRequestMessage")) {
         p.present = EV_RSR_MessageBody_PR_updateRequestMessage;
-        from_json(j["updateRequestMessage"], p.choice.updateRequestMessage, "updateRequestMessage");
-    } else if (j.HasMember("updateResponseMessage")) {
+            from_json(j["updateRequestMessage"], p.choice.updateRequestMessage, "updateRequestMessage");
+        } else if (j.HasMember("updateResponseMessage")) {
         p.present = EV_RSR_MessageBody_PR_updateResponseMessage;
-        from_json(j["updateResponseMessage"], p.choice.updateResponseMessage, "updateResponseMessage");
-    } else {
+            from_json(j["updateResponseMessage"], p.choice.updateResponseMessage, "updateResponseMessage");
+        } else {
         p.present = EV_RSR_MessageBody_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -13915,36 +19143,33 @@ void from_json(const Value& j, EV_RSR_MessageBody& p, std::string field) {
 }
 
 /*
-*   InterferenceManagementMitigationType - Type CHOICE
+*   InterferenceManagementInfoPerChannel - Type SEQUENCE
 *   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
 */
 
-Value to_json(const InterferenceManagementMitigationType& p, Document::AllocatorType& allocator) {
+Value to_json(const IMZM_PDU_Descriptions_InterferenceManagementInfoPerChannel_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    if (p.present == InterferenceManagementMitigationType_PR_unavailable) {
-        json.AddMember("unavailable", to_json(p.choice.unavailable, allocator), allocator);
-    } else if (p.present == InterferenceManagementMitigationType_PR_mitigationForTechnologies) {
-        json.AddMember("mitigationForTechnologies", to_json(p.choice.mitigationForTechnologies, allocator), allocator);
-    }
+    json.AddMember("interferenceManagementChannel", to_json((p.interferenceManagementChannel), allocator), allocator);
+    json.AddMember("interferenceManagementZoneType", to_json((p.interferenceManagementZoneType), allocator), allocator);
+    if (p.interferenceManagementMitigationType != 0) json.AddMember("interferenceManagementMitigationType", to_json(*(p.interferenceManagementMitigationType), allocator), allocator);
     return json;
 }
 
-void from_json(const Value& j, InterferenceManagementMitigationType& p, std::string field) {
+void from_json(const Value& j, IMZM_PDU_Descriptions_InterferenceManagementInfoPerChannel_t& p, std::string field) {
     try {
-        if (j.HasMember("unavailable")) {
-        p.present = InterferenceManagementMitigationType_PR_unavailable;
-        from_json(j["unavailable"], p.choice.unavailable, "unavailable");
-    } else if (j.HasMember("mitigationForTechnologies")) {
-        p.present = InterferenceManagementMitigationType_PR_mitigationForTechnologies;
-        from_json(j["mitigationForTechnologies"], p.choice.mitigationForTechnologies, "mitigationForTechnologies");
-    } else {
-        p.present = InterferenceManagementMitigationType_PR_NOTHING;
-        }
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["interferenceManagementChannel"], (p.interferenceManagementChannel), "interferenceManagementChannel");
+        from_json(j["interferenceManagementZoneType"], (p.interferenceManagementZoneType), "interferenceManagementZoneType");
+        if (j.HasMember("interferenceManagementMitigationType")) { p.interferenceManagementMitigationType = vanetza::asn1::allocate<InterferenceManagementMitigationType_t>(); from_json(j["interferenceManagementMitigationType"], *(p.interferenceManagementMitigationType), "interferenceManagementMitigationType"); }
+        else { p.interferenceManagementMitigationType=nullptr; }
+        p.expiryTime=nullptr;
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
     }
 }
+
+
 
 /*
 *   TisTpgDRM - Type SEQUENCE
@@ -14199,34 +19424,6 @@ void from_json(const Value& j, RTCMEM& p, std::string field) {
 
 
 /*
-*   McmBasicContainer - Type SEQUENCE
-*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
-*/
-
-Value to_json(const McmBasicContainer& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("generationDeltaTime", to_json((p.generationDeltaTime), allocator), allocator);
-    json.AddMember("stationType", to_json((p.stationType), allocator), allocator);
-    json.AddMember("referencePositionWithConfidence", to_json((p.referencePositionWithConfidence), allocator), allocator);
-    
-    return json;
-}
-
-void from_json(const Value& j, McmBasicContainer& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["generationDeltaTime"], (p.generationDeltaTime), "generationDeltaTime");
-        from_json(j["stationType"], (p.stationType), "stationType");
-        from_json(j["referencePositionWithConfidence"], (p.referencePositionWithConfidence), "referencePositionWithConfidence");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
 *   IntermediatePoint - Type CHOICE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
@@ -14249,17 +19446,17 @@ void from_json(const Value& j, IntermediatePoint& p, std::string field) {
     try {
         if (j.HasMember("reference")) {
         p.present = IntermediatePoint_PR_reference;
-        from_json(j["reference"], p.choice.reference, "reference");
-    } else if (j.HasMember("lane")) {
+            from_json(j["reference"], p.choice.reference, "reference");
+        } else if (j.HasMember("lane")) {
         p.present = IntermediatePoint_PR_lane;
-        from_json(j["lane"], p.choice.lane, "lane");
-    } else if (j.HasMember("intersection")) {
+            from_json(j["lane"], p.choice.lane, "lane");
+        } else if (j.HasMember("intersection")) {
         p.present = IntermediatePoint_PR_intersection;
-        from_json(j["intersection"], p.choice.intersection, "intersection");
-    } else if (j.HasMember("offroad")) {
+            from_json(j["intersection"], p.choice.intersection, "intersection");
+        } else if (j.HasMember("offroad")) {
         p.present = IntermediatePoint_PR_offroad;
-        from_json(j["offroad"], p.choice.offroad, "offroad");
-    } else {
+            from_json(j["offroad"], p.choice.offroad, "offroad");
+        } else {
         p.present = IntermediatePoint_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -14267,6 +19464,105 @@ void from_json(const Value& j, IntermediatePoint& p, std::string field) {
         ex.rethrow();
     }
 }
+
+/*
+*   InterferenceManagementZoneDefinition - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const InterferenceManagementZoneDefinition_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("interferenceManagementZoneLatitude", to_json(((p.interferenceManagementZoneLatitude) == 900000001) ? (p.interferenceManagementZoneLatitude) : (double)(p.interferenceManagementZoneLatitude) / 10000000.0, allocator), allocator);
+    json.AddMember("interferenceManagementZoneLongitude", to_json(((p.interferenceManagementZoneLongitude) == 1800000001) ? (p.interferenceManagementZoneLongitude) : (double)(p.interferenceManagementZoneLongitude) / 10000000.0, allocator), allocator);
+    if (p.interferenceManagementZoneId != 0) json.AddMember("interferenceManagementZoneId", to_json(*(p.interferenceManagementZoneId), allocator), allocator);
+    if (p.interferenceManagementZoneShape != 0) json.AddMember("interferenceManagementZoneShape", to_json(*(p.interferenceManagementZoneShape), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, InterferenceManagementZoneDefinition_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        double interferenceManagementZoneLatitude; from_json(j["interferenceManagementZoneLatitude"], (interferenceManagementZoneLatitude), "interferenceManagementZoneLatitude"); (p.interferenceManagementZoneLatitude) = ((interferenceManagementZoneLatitude) != 900000001) ? interferenceManagementZoneLatitude * 10000000 : interferenceManagementZoneLatitude;
+        double interferenceManagementZoneLongitude; from_json(j["interferenceManagementZoneLongitude"], (interferenceManagementZoneLongitude), "interferenceManagementZoneLongitude"); (p.interferenceManagementZoneLongitude) = ((interferenceManagementZoneLongitude) != 1800000001) ? interferenceManagementZoneLongitude * 10000000 : interferenceManagementZoneLongitude;
+        if (j.HasMember("interferenceManagementZoneId")) { p.interferenceManagementZoneId = vanetza::asn1::allocate<ProtectedZoneId_t>(); from_json(j["interferenceManagementZoneId"], *(p.interferenceManagementZoneId), "interferenceManagementZoneId"); }
+        else { p.interferenceManagementZoneId=nullptr; }
+        if (j.HasMember("interferenceManagementZoneShape")) { p.interferenceManagementZoneShape = vanetza::asn1::allocate<Shape_t>(); from_json(j["interferenceManagementZoneShape"], *(p.interferenceManagementZoneShape), "interferenceManagementZoneShape"); }
+        else { p.interferenceManagementZoneShape=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   ObjectClass - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ObjectClass_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == ObjectClass_PR_vehicleSubClass) {
+        json.AddMember("vehicleSubClass", to_json(p.choice.vehicleSubClass, allocator), allocator);
+    } else if (p.present == ObjectClass_PR_vruSubClass) {
+        json.AddMember("vruSubClass", to_json(p.choice.vruSubClass, allocator), allocator);
+    } else if (p.present == ObjectClass_PR_groupSubClass) {
+        json.AddMember("groupSubClass", to_json(p.choice.groupSubClass, allocator), allocator);
+    } else if (p.present == ObjectClass_PR_otherSubClass) {
+        json.AddMember("otherSubClass", to_json(p.choice.otherSubClass, allocator), allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ObjectClass_t& p, std::string field) {
+    try {
+        if (j.HasMember("vehicleSubClass")) {
+        p.present = ObjectClass_PR_vehicleSubClass;
+            from_json(j["vehicleSubClass"], p.choice.vehicleSubClass, "vehicleSubClass");
+        } else if (j.HasMember("vruSubClass")) {
+        p.present = ObjectClass_PR_vruSubClass;
+            from_json(j["vruSubClass"], p.choice.vruSubClass, "vruSubClass");
+        } else if (j.HasMember("groupSubClass")) {
+        p.present = ObjectClass_PR_groupSubClass;
+            from_json(j["groupSubClass"], p.choice.groupSubClass, "groupSubClass");
+        } else if (j.HasMember("otherSubClass")) {
+        p.present = ObjectClass_PR_otherSubClass;
+            from_json(j["otherSubClass"], p.choice.otherSubClass, "otherSubClass");
+        } else {
+        p.present = ObjectClass_PR_NOTHING;
+        }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   ObjectClassWithConfidence - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ObjectClassWithConfidence_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("objectClass", to_json((p.objectClass), allocator), allocator);
+    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ObjectClassWithConfidence_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["objectClass"], (p.objectClass), "objectClass");
+        from_json(j["confidence"], (p.confidence), "confidence");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
 
 /*
 *   SignalRequestMessage - Type SEQUENCE
@@ -14508,7 +19804,7 @@ void from_json(const Value& j, RoadSegment& p, std::string field) {
         from_json(j["id"], (p.id), "id");
         from_json(j["revision"], (p.revision), "revision");
         from_json(j["refPoint"], (p.refPoint), "refPoint");
-        if (j.HasMember("laneWidth")) { p.laneWidth = vanetza::asn1::allocate<LaneWidth_t>(); from_json(j["laneWidth"], *(p.laneWidth), "laneWidth"); }
+        if (j.HasMember("laneWidth")) { p.laneWidth = vanetza::asn1::allocate<DSRC_LaneWidth_t>(); from_json(j["laneWidth"], *(p.laneWidth), "laneWidth"); }
         else { p.laneWidth=nullptr; }
         if (j.HasMember("speedLimits")) { p.speedLimits = vanetza::asn1::allocate<SpeedLimitList_t>(); from_json(j["speedLimits"], *(p.speedLimits), "speedLimits"); }
         else { p.speedLimits=nullptr; }
@@ -14803,29 +20099,29 @@ void from_json(const Value& j, ISO14823Attribute& p, std::string field) {
     try {
         if (j.HasMember("dtm")) {
         p.present = ISO14823Attribute_PR_dtm;
-        from_json(j["dtm"], p.choice.dtm, "dtm");
-    } else if (j.HasMember("edt")) {
+            from_json(j["dtm"], p.choice.dtm, "dtm");
+        } else if (j.HasMember("edt")) {
         p.present = ISO14823Attribute_PR_edt;
-        from_json(j["edt"], p.choice.edt, "edt");
-    } else if (j.HasMember("dfl")) {
+            from_json(j["edt"], p.choice.edt, "edt");
+        } else if (j.HasMember("dfl")) {
         p.present = ISO14823Attribute_PR_dfl;
-        from_json(j["dfl"], p.choice.dfl, "dfl");
-    } else if (j.HasMember("ved")) {
+            from_json(j["dfl"], p.choice.dfl, "dfl");
+        } else if (j.HasMember("ved")) {
         p.present = ISO14823Attribute_PR_ved;
-        from_json(j["ved"], p.choice.ved, "ved");
-    } else if (j.HasMember("spe")) {
+            from_json(j["ved"], p.choice.ved, "ved");
+        } else if (j.HasMember("spe")) {
         p.present = ISO14823Attribute_PR_spe;
-        from_json(j["spe"], p.choice.spe, "spe");
-    } else if (j.HasMember("roi")) {
+            from_json(j["spe"], p.choice.spe, "spe");
+        } else if (j.HasMember("roi")) {
         p.present = ISO14823Attribute_PR_roi;
-        from_json(j["roi"], p.choice.roi, "roi");
-    } else if (j.HasMember("dbv")) {
+            from_json(j["roi"], p.choice.roi, "roi");
+        } else if (j.HasMember("dbv")) {
         p.present = ISO14823Attribute_PR_dbv;
-        from_json(j["dbv"], p.choice.dbv, "dbv");
-    } else if (j.HasMember("ddd")) {
+            from_json(j["dbv"], p.choice.dbv, "dbv");
+        } else if (j.HasMember("ddd")) {
         p.present = ISO14823Attribute_PR_ddd;
-        from_json(j["ddd"], p.choice.ddd, "ddd");
-    } else {
+            from_json(j["ddd"], p.choice.ddd, "ddd");
+        } else {
         p.present = ISO14823Attribute_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -14835,28 +20131,23 @@ void from_json(const Value& j, ISO14823Attribute& p, std::string field) {
 }
 
 /*
-*   CamParameters - Type SEQUENCE
+*   CoopAwareness - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-Value to_json(const CamParameters& p, Document::AllocatorType& allocator) {
+Value to_json(const CoopAwareness& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("basicContainer", to_json((p.basicContainer), allocator), allocator);
-    json.AddMember("highFrequencyContainer", to_json((p.highFrequencyContainer), allocator), allocator);
-    if (p.lowFrequencyContainer != 0) json.AddMember("lowFrequencyContainer", to_json(*(p.lowFrequencyContainer), allocator), allocator);
-    if (p.specialVehicleContainer != 0) json.AddMember("specialVehicleContainer", to_json(*(p.specialVehicleContainer), allocator), allocator);
+    json.AddMember("generationDeltaTime", to_json((p.generationDeltaTime), allocator), allocator);
+    json.AddMember("camParameters", to_json((p.camParameters), allocator), allocator);
+    
     return json;
 }
 
-void from_json(const Value& j, CamParameters& p, std::string field) {
+void from_json(const Value& j, CoopAwareness& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["basicContainer"], (p.basicContainer), "basicContainer");
-        from_json(j["highFrequencyContainer"], (p.highFrequencyContainer), "highFrequencyContainer");
-        if (j.HasMember("lowFrequencyContainer")) { p.lowFrequencyContainer = vanetza::asn1::allocate<LowFrequencyContainer_t>(); from_json(j["lowFrequencyContainer"], *(p.lowFrequencyContainer), "lowFrequencyContainer"); }
-        else { p.lowFrequencyContainer=nullptr; }
-        if (j.HasMember("specialVehicleContainer")) { p.specialVehicleContainer = vanetza::asn1::allocate<SpecialVehicleContainer_t>(); from_json(j["specialVehicleContainer"], *(p.specialVehicleContainer), "specialVehicleContainer"); }
-        else { p.specialVehicleContainer=nullptr; }
+        from_json(j["generationDeltaTime"], (p.generationDeltaTime), "generationDeltaTime");
+        from_json(j["camParameters"], (p.camParameters), "camParameters");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -14892,204 +20183,8 @@ void from_json(const Value& j, DENM& p, std::string field) {
 
 
 /*
-*   VruLanePosition - Type CHOICE
-*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
-*/
-
-Value to_json(const VruLanePosition& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    if (p.present == VruLanePosition_PR_offRoadLanePosition) {
-        json.AddMember("offRoadLanePosition", to_json(p.choice.offRoadLanePosition, allocator), allocator);
-    } else if (p.present == VruLanePosition_PR_vehicularLanePosition) {
-        json.AddMember("vehicularLanePosition", to_json(p.choice.vehicularLanePosition, allocator), allocator);
-    } else if (p.present == VruLanePosition_PR_trafficIslandPosition) {
-        json.AddMember("trafficIslandPosition", to_json(p.choice.trafficIslandPosition, allocator), allocator);
-    } else if (p.present == VruLanePosition_PR_mapPosition) {
-        json.AddMember("mapPosition", to_json(p.choice.mapPosition, allocator), allocator);
-    }
-    return json;
-}
-
-void from_json(const Value& j, VruLanePosition& p, std::string field) {
-    try {
-        if (j.HasMember("offRoadLanePosition")) {
-        p.present = VruLanePosition_PR_offRoadLanePosition;
-        from_json(j["offRoadLanePosition"], p.choice.offRoadLanePosition, "offRoadLanePosition");
-    } else if (j.HasMember("vehicularLanePosition")) {
-        p.present = VruLanePosition_PR_vehicularLanePosition;
-        from_json(j["vehicularLanePosition"], p.choice.vehicularLanePosition, "vehicularLanePosition");
-    } else if (j.HasMember("trafficIslandPosition")) {
-        p.present = VruLanePosition_PR_trafficIslandPosition;
-        from_json(j["trafficIslandPosition"], p.choice.trafficIslandPosition, "trafficIslandPosition");
-    } else if (j.HasMember("mapPosition")) {
-        p.present = VruLanePosition_PR_mapPosition;
-        from_json(j["mapPosition"], p.choice.mapPosition, "mapPosition");
-    } else {
-        p.present = VruLanePosition_PR_NOTHING;
-        }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-/*
-*   VruMotionPredictionContainer - Type SEQUENCE
-*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
-*/
-
-Value to_json(const VruMotionPredictionContainer& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    
-    if (p.pathHistory != 0) json.AddMember("pathHistory", to_json(*(p.pathHistory), allocator), allocator);
-    if (p.pathPrediction != 0) json.AddMember("pathPrediction", to_json(*(p.pathPrediction), allocator), allocator);
-    if (p.safeDistance != 0) json.AddMember("safeDistance", to_json(*(p.safeDistance), allocator), allocator);
-    if (p.trajectoryInterceptionIndication != 0) json.AddMember("trajectoryInterceptionIndication", to_json(*(p.trajectoryInterceptionIndication), allocator), allocator);
-    if (p.accelerationChangeIndication != 0) json.AddMember("accelerationChangeIndication", to_json(*(p.accelerationChangeIndication), allocator), allocator);
-    if (p.headingChangeIndication != 0) json.AddMember("headingChangeIndication", to_json(*(p.headingChangeIndication), allocator), allocator);
-    if (p.stabilityChangeIndication != 0) json.AddMember("stabilityChangeIndication", to_json(*(p.stabilityChangeIndication), allocator), allocator);
-    return json;
-}
-
-void from_json(const Value& j, VruMotionPredictionContainer& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        if (j.HasMember("pathHistory")) { p.pathHistory = vanetza::asn1::allocate<PathHistory_t>(); from_json(j["pathHistory"], *(p.pathHistory), "pathHistory"); }
-        else { p.pathHistory=nullptr; }
-        if (j.HasMember("pathPrediction")) { p.pathPrediction = vanetza::asn1::allocate<SequenceOfVruPathPoint_t>(); from_json(j["pathPrediction"], *(p.pathPrediction), "pathPrediction"); }
-        else { p.pathPrediction=nullptr; }
-        if (j.HasMember("safeDistance")) { p.safeDistance = vanetza::asn1::allocate<SequenceOfVruSafeDistanceIndication_t>(); from_json(j["safeDistance"], *(p.safeDistance), "safeDistance"); }
-        else { p.safeDistance=nullptr; }
-        if (j.HasMember("trajectoryInterceptionIndication")) { p.trajectoryInterceptionIndication = vanetza::asn1::allocate<SequenceOfTrajectoryInterceptionIndication_t>(); from_json(j["trajectoryInterceptionIndication"], *(p.trajectoryInterceptionIndication), "trajectoryInterceptionIndication"); }
-        else { p.trajectoryInterceptionIndication=nullptr; }
-        if (j.HasMember("accelerationChangeIndication")) { p.accelerationChangeIndication = vanetza::asn1::allocate<AccelerationChangeIndication_t>(); from_json(j["accelerationChangeIndication"], *(p.accelerationChangeIndication), "accelerationChangeIndication"); }
-        else { p.accelerationChangeIndication=nullptr; }
-        if (j.HasMember("headingChangeIndication")) { p.headingChangeIndication = vanetza::asn1::allocate<HeadingChangeIndication_t>(); from_json(j["headingChangeIndication"], *(p.headingChangeIndication), "headingChangeIndication"); }
-        else { p.headingChangeIndication=nullptr; }
-        if (j.HasMember("stabilityChangeIndication")) { p.stabilityChangeIndication = vanetza::asn1::allocate<StabilityChangeIndication_t>(); from_json(j["stabilityChangeIndication"], *(p.stabilityChangeIndication), "stabilityChangeIndication"); }
-        else { p.stabilityChangeIndication=nullptr; }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   StationDataContainer - Type CHOICE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const StationDataContainer& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    if (p.present == StationDataContainer_PR_originatingVehicleContainer) {
-        json.AddMember("originatingVehicleContainer", to_json(p.choice.originatingVehicleContainer, allocator), allocator);
-    } else if (p.present == StationDataContainer_PR_originatingRSUContainer) {
-        json.AddMember("originatingRSUContainer", to_json(p.choice.originatingRSUContainer, allocator), allocator);
-    }
-    return json;
-}
-
-void from_json(const Value& j, StationDataContainer& p, std::string field) {
-    try {
-        if (j.HasMember("originatingVehicleContainer")) {
-        p.present = StationDataContainer_PR_originatingVehicleContainer;
-        from_json(j["originatingVehicleContainer"], p.choice.originatingVehicleContainer, "originatingVehicleContainer");
-    } else if (j.HasMember("originatingRSUContainer")) {
-        p.present = StationDataContainer_PR_originatingRSUContainer;
-        from_json(j["originatingRSUContainer"], p.choice.originatingRSUContainer, "originatingRSUContainer");
-    } else {
-        p.present = StationDataContainer_PR_NOTHING;
-        }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-/*
-*   PerceivedObject - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const PerceivedObject& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("objectID", to_json((p.objectID), allocator), allocator);
-    json.AddMember("timeOfMeasurement", to_json((p.timeOfMeasurement), allocator), allocator);
-    json.AddMember("objectConfidence", to_json((p.objectConfidence), allocator), allocator);
-    json.AddMember("xDistance", to_json((p.xDistance), allocator), allocator);
-    json.AddMember("yDistance", to_json((p.yDistance), allocator), allocator);
-    json.AddMember("xSpeed", to_json((p.xSpeed), allocator), allocator);
-    json.AddMember("ySpeed", to_json((p.ySpeed), allocator), allocator);
-    json.AddMember("objectRefPoint", to_json((p.objectRefPoint), allocator), allocator);
-    if (p.sensorIDList != 0) json.AddMember("sensorIDList", to_json(*(p.sensorIDList), allocator), allocator);
-    if (p.objectAge != 0) json.AddMember("objectAge", to_json(*(p.objectAge), allocator), allocator);
-    if (p.zDistance != 0) json.AddMember("zDistance", to_json(*(p.zDistance), allocator), allocator);
-    if (p.zSpeed != 0) json.AddMember("zSpeed", to_json(*(p.zSpeed), allocator), allocator);
-    if (p.xAcceleration != 0) json.AddMember("xAcceleration", to_json(*(p.xAcceleration), allocator), allocator);
-    if (p.yAcceleration != 0) json.AddMember("yAcceleration", to_json(*(p.yAcceleration), allocator), allocator);
-    if (p.zAcceleration != 0) json.AddMember("zAcceleration", to_json(*(p.zAcceleration), allocator), allocator);
-    if (p.yawAngle != 0) json.AddMember("yawAngle", to_json(*(p.yawAngle), allocator), allocator);
-    if (p.planarObjectDimension1 != 0) json.AddMember("planarObjectDimension1", to_json(*(p.planarObjectDimension1), allocator), allocator);
-    if (p.planarObjectDimension2 != 0) json.AddMember("planarObjectDimension2", to_json(*(p.planarObjectDimension2), allocator), allocator);
-    if (p.verticalObjectDimension != 0) json.AddMember("verticalObjectDimension", to_json(*(p.verticalObjectDimension), allocator), allocator);
-    if (p.dynamicStatus != 0) json.AddMember("dynamicStatus", to_json(*(p.dynamicStatus), allocator), allocator);
-    if (p.classification != 0) json.AddMember("classification", to_json(*(p.classification), allocator), allocator);
-    if (p.matchedPosition != 0) json.AddMember("matchedPosition", to_json(*(p.matchedPosition), allocator), allocator);
-    return json;
-}
-
-void from_json(const Value& j, PerceivedObject& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["objectID"], (p.objectID), "objectID");
-        if (j.HasMember("sensorIDList")) { p.sensorIDList = vanetza::asn1::allocate<SensorIdList_t>(); from_json(j["sensorIDList"], *(p.sensorIDList), "sensorIDList"); }
-        else { p.sensorIDList=nullptr; }
-        from_json(j["timeOfMeasurement"], (p.timeOfMeasurement), "timeOfMeasurement");
-        if (j.HasMember("objectAge")) { p.objectAge = vanetza::asn1::allocate<ObjectAge_t>(); from_json(j["objectAge"], *(p.objectAge), "objectAge"); }
-        else { p.objectAge=nullptr; }
-        from_json(j["objectConfidence"], (p.objectConfidence), "objectConfidence");
-        from_json(j["xDistance"], (p.xDistance), "xDistance");
-        from_json(j["yDistance"], (p.yDistance), "yDistance");
-        if (j.HasMember("zDistance")) { p.zDistance = vanetza::asn1::allocate<ObjectDistanceWithConfidence_t>(); from_json(j["zDistance"], *(p.zDistance), "zDistance"); }
-        else { p.zDistance=nullptr; }
-        from_json(j["xSpeed"], (p.xSpeed), "xSpeed");
-        from_json(j["ySpeed"], (p.ySpeed), "ySpeed");
-        if (j.HasMember("zSpeed")) { p.zSpeed = vanetza::asn1::allocate<SpeedExtended_t>(); from_json(j["zSpeed"], *(p.zSpeed), "zSpeed"); }
-        else { p.zSpeed=nullptr; }
-        if (j.HasMember("xAcceleration")) { p.xAcceleration = vanetza::asn1::allocate<LongitudinalAcceleration_t>(); from_json(j["xAcceleration"], *(p.xAcceleration), "xAcceleration"); }
-        else { p.xAcceleration=nullptr; }
-        if (j.HasMember("yAcceleration")) { p.yAcceleration = vanetza::asn1::allocate<LateralAcceleration_t>(); from_json(j["yAcceleration"], *(p.yAcceleration), "yAcceleration"); }
-        else { p.yAcceleration=nullptr; }
-        if (j.HasMember("zAcceleration")) { p.zAcceleration = vanetza::asn1::allocate<VerticalAcceleration_t>(); from_json(j["zAcceleration"], *(p.zAcceleration), "zAcceleration"); }
-        else { p.zAcceleration=nullptr; }
-        if (j.HasMember("yawAngle")) { p.yawAngle = vanetza::asn1::allocate<CartesianAngle_t>(); from_json(j["yawAngle"], *(p.yawAngle), "yawAngle"); }
-        else { p.yawAngle=nullptr; }
-        if (j.HasMember("planarObjectDimension1")) { p.planarObjectDimension1 = vanetza::asn1::allocate<ObjectDimension_t>(); from_json(j["planarObjectDimension1"], *(p.planarObjectDimension1), "planarObjectDimension1"); }
-        else { p.planarObjectDimension1=nullptr; }
-        if (j.HasMember("planarObjectDimension2")) { p.planarObjectDimension2 = vanetza::asn1::allocate<ObjectDimension_t>(); from_json(j["planarObjectDimension2"], *(p.planarObjectDimension2), "planarObjectDimension2"); }
-        else { p.planarObjectDimension2=nullptr; }
-        if (j.HasMember("verticalObjectDimension")) { p.verticalObjectDimension = vanetza::asn1::allocate<ObjectDimension_t>(); from_json(j["verticalObjectDimension"], *(p.verticalObjectDimension), "verticalObjectDimension"); }
-        else { p.verticalObjectDimension=nullptr; }
-        from_json(j["objectRefPoint"], (p.objectRefPoint), "objectRefPoint");
-        if (j.HasMember("dynamicStatus")) { p.dynamicStatus = vanetza::asn1::allocate<DynamicStatus_t>(); from_json(j["dynamicStatus"], *(p.dynamicStatus), "dynamicStatus"); }
-        else { p.dynamicStatus=nullptr; }
-        if (j.HasMember("classification")) { p.classification = vanetza::asn1::allocate<ObjectClassDescription_t>(); from_json(j["classification"], *(p.classification), "classification"); }
-        else { p.classification=nullptr; }
-        if (j.HasMember("matchedPosition")) { p.matchedPosition = vanetza::asn1::allocate<MatchedPosition_t>(); from_json(j["matchedPosition"], *(p.matchedPosition), "matchedPosition"); }
-        else { p.matchedPosition=nullptr; }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
 *   AreaPolygon - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
 Value to_json(const AreaPolygon& p, Document::AllocatorType& allocator) {
@@ -15112,41 +20207,63 @@ void from_json(const Value& j, AreaPolygon& p, std::string field) {
 
 
 /*
-*   FreeSpaceArea - Type CHOICE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   PerceptionRegionContainer - Type SEQUENCE OF
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const FreeSpaceArea& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    if (p.present == FreeSpaceArea_PR_freeSpacePolygon) {
-        json.AddMember("freeSpacePolygon", to_json(p.choice.freeSpacePolygon, allocator), allocator);
-    } else if (p.present == FreeSpaceArea_PR_freeSpaceCircular) {
-        json.AddMember("freeSpaceCircular", to_json(p.choice.freeSpaceCircular, allocator), allocator);
-    } else if (p.present == FreeSpaceArea_PR_freeSpaceEllipse) {
-        json.AddMember("freeSpaceEllipse", to_json(p.choice.freeSpaceEllipse, allocator), allocator);
-    } else if (p.present == FreeSpaceArea_PR_freeSpaceRectangle) {
-        json.AddMember("freeSpaceRectangle", to_json(p.choice.freeSpaceRectangle, allocator), allocator);
+Value to_json(const PerceptionRegionContainer& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const PerceptionRegion_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
     return json;
 }
 
-void from_json(const Value& j, FreeSpaceArea& p, std::string field) {
+void from_json(const Value& j, PerceptionRegionContainer& p, std::string field) {
     try {
-        if (j.HasMember("freeSpacePolygon")) {
-        p.present = FreeSpaceArea_PR_freeSpacePolygon;
-        from_json(j["freeSpacePolygon"], p.choice.freeSpacePolygon, "freeSpacePolygon");
-    } else if (j.HasMember("freeSpaceCircular")) {
-        p.present = FreeSpaceArea_PR_freeSpaceCircular;
-        from_json(j["freeSpaceCircular"], p.choice.freeSpaceCircular, "freeSpaceCircular");
-    } else if (j.HasMember("freeSpaceEllipse")) {
-        p.present = FreeSpaceArea_PR_freeSpaceEllipse;
-        from_json(j["freeSpaceEllipse"], p.choice.freeSpaceEllipse, "freeSpaceEllipse");
-    } else if (j.HasMember("freeSpaceRectangle")) {
-        p.present = FreeSpaceArea_PR_freeSpaceRectangle;
-        from_json(j["freeSpaceRectangle"], p.choice.freeSpaceRectangle, "freeSpaceRectangle");
-    } else {
-        p.present = FreeSpaceArea_PR_NOTHING;
+        PerceptionRegionContainer* p_tmp = vanetza::asn1::allocate<PerceptionRegionContainer>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            PerceptionRegion_t *element = vanetza::asn1::allocate<PerceptionRegion_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
         }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   SensorInformationContainer - Type SEQUENCE OF
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
+*/
+
+Value to_json(const SensorInformationContainer& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const SensorInformation_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, SensorInformationContainer& p, std::string field) {
+    try {
+        SensorInformationContainer* p_tmp = vanetza::asn1::allocate<SensorInformationContainer>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            SensorInformation_t *element = vanetza::asn1::allocate<SensorInformation_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -15238,35 +20355,6 @@ void from_json(const Value& j, EV_RSR& p, std::string field) {
 
 
 /*
-*   InterferenceManagementInfoPerChannel - Type SEQUENCE
-*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
-*/
-
-Value to_json(const InterferenceManagementInfoPerChannel& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("interferenceManagementChannel", to_json((p.interferenceManagementChannel), allocator), allocator);
-    json.AddMember("interferenceManagementZoneType", to_json((p.interferenceManagementZoneType), allocator), allocator);
-    if (p.interferenceManagementMitigationType != 0) json.AddMember("interferenceManagementMitigationType", to_json(*(p.interferenceManagementMitigationType), allocator), allocator);
-    return json;
-}
-
-void from_json(const Value& j, InterferenceManagementInfoPerChannel& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["interferenceManagementChannel"], (p.interferenceManagementChannel), "interferenceManagementChannel");
-        from_json(j["interferenceManagementZoneType"], (p.interferenceManagementZoneType), "interferenceManagementZoneType");
-        if (j.HasMember("interferenceManagementMitigationType")) { p.interferenceManagementMitigationType = vanetza::asn1::allocate<InterferenceManagementMitigationType_t>(); from_json(j["interferenceManagementMitigationType"], *(p.interferenceManagementMitigationType), "interferenceManagementMitigationType"); }
-        else { p.interferenceManagementMitigationType=nullptr; }
-        p.expiryTime=nullptr;
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
 *   InterferenceManagementZoneShape - Type CHOICE
 *   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
 */
@@ -15289,17 +20377,17 @@ void from_json(const Value& j, InterferenceManagementZoneShape& p, std::string f
     try {
         if (j.HasMember("rectangle")) {
         p.present = InterferenceManagementZoneShape_PR_rectangle;
-        from_json(j["rectangle"], p.choice.rectangle, "rectangle");
-    } else if (j.HasMember("circle")) {
+            from_json(j["rectangle"], p.choice.rectangle, "rectangle");
+        } else if (j.HasMember("circle")) {
         p.present = InterferenceManagementZoneShape_PR_circle;
-        from_json(j["circle"], p.choice.circle, "circle");
-    } else if (j.HasMember("polygon")) {
+            from_json(j["circle"], p.choice.circle, "circle");
+        } else if (j.HasMember("polygon")) {
         p.present = InterferenceManagementZoneShape_PR_polygon;
-        from_json(j["polygon"], p.choice.polygon, "polygon");
-    } else if (j.HasMember("ellipse")) {
+            from_json(j["polygon"], p.choice.polygon, "polygon");
+        } else if (j.HasMember("ellipse")) {
         p.present = InterferenceManagementZoneShape_PR_ellipse;
-        from_json(j["ellipse"], p.choice.ellipse, "ellipse");
-    } else {
+            from_json(j["ellipse"], p.choice.ellipse, "ellipse");
+        } else {
         p.present = InterferenceManagementZoneShape_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -15407,6 +20495,163 @@ void from_json(const Value& j, Trajectory& p, std::string field) {
 
 
 /*
+*   InterferenceManagementZone - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_InterferenceManagementZone_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("zoneDefinition", to_json((p.zoneDefinition), allocator), allocator);
+    json.AddMember("managementInfo", to_json((p.managementInfo), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_InterferenceManagementZone_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["zoneDefinition"], (p.zoneDefinition), "zoneDefinition");
+        from_json(j["managementInfo"], (p.managementInfo), "managementInfo");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   InterferenceManagementZones - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_InterferenceManagementZones_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const ETSI_ITS_CDD_InterferenceManagementZone_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ETSI_ITS_CDD_InterferenceManagementZones_t& p, std::string field) {
+    try {
+        ETSI_ITS_CDD_InterferenceManagementZones_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_InterferenceManagementZones_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            ETSI_ITS_CDD_InterferenceManagementZone_t *element = vanetza::asn1::allocate<ETSI_ITS_CDD_InterferenceManagementZone_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   ObjectClassDescription - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ObjectClassDescription_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const ObjectClassWithConfidence_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, ObjectClassDescription_t& p, std::string field) {
+    try {
+        ObjectClassDescription_t* p_tmp = vanetza::asn1::allocate<ObjectClassDescription_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            ObjectClassWithConfidence_t *element = vanetza::asn1::allocate<ObjectClassWithConfidence_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   PerceivedObject - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const PerceivedObject_t& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("measurementDeltaTime", to_json((p.measurementDeltaTime), allocator), allocator);
+    json.AddMember("position", to_json((p.position), allocator), allocator);
+    if (p.objectId != 0) json.AddMember("objectId", to_json(*(p.objectId), allocator), allocator);
+    if (p.velocity != 0) json.AddMember("velocity", to_json(*(p.velocity), allocator), allocator);
+    if (p.acceleration != 0) json.AddMember("acceleration", to_json(*(p.acceleration), allocator), allocator);
+    if (p.angles != 0) json.AddMember("angles", to_json(*(p.angles), allocator), allocator);
+    if (p.zAngularVelocity != 0) json.AddMember("zAngularVelocity", to_json(*(p.zAngularVelocity), allocator), allocator);
+    if (p.lowerTriangularCorrelationMatrices != 0) json.AddMember("lowerTriangularCorrelationMatrices", to_json(*(p.lowerTriangularCorrelationMatrices), allocator), allocator);
+    if (p.objectDimensionZ != 0) json.AddMember("objectDimensionZ", to_json(*(p.objectDimensionZ), allocator), allocator);
+    if (p.objectDimensionY != 0) json.AddMember("objectDimensionY", to_json(*(p.objectDimensionY), allocator), allocator);
+    if (p.objectDimensionX != 0) json.AddMember("objectDimensionX", to_json(*(p.objectDimensionX), allocator), allocator);
+    if (p.objectAge != 0) json.AddMember("objectAge", to_json(*(p.objectAge), allocator), allocator);
+    if (p.objectPerceptionQuality != 0) json.AddMember("objectPerceptionQuality", to_json(*(p.objectPerceptionQuality), allocator), allocator);
+    if (p.sensorIdList != 0) json.AddMember("sensorIdList", to_json(*(p.sensorIdList), allocator), allocator);
+    if (p.classification != 0) json.AddMember("classification", to_json(*(p.classification), allocator), allocator);
+    if (p.mapPosition != 0) json.AddMember("mapPosition", to_json(*(p.mapPosition), allocator), allocator);
+    return json;
+}
+
+void from_json(const Value& j, PerceivedObject_t& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        if (j.HasMember("objectId")) { p.objectId = vanetza::asn1::allocate<Identifier2B_t>(); from_json(j["objectId"], *(p.objectId), "objectId"); }
+        else { p.objectId=nullptr; }
+        from_json(j["measurementDeltaTime"], (p.measurementDeltaTime), "measurementDeltaTime");
+        from_json(j["position"], (p.position), "position");
+        if (j.HasMember("velocity")) { p.velocity = vanetza::asn1::allocate<Velocity3dWithConfidence_t>(); from_json(j["velocity"], *(p.velocity), "velocity"); }
+        else { p.velocity=nullptr; }
+        if (j.HasMember("acceleration")) { p.acceleration = vanetza::asn1::allocate<Acceleration3dWithConfidence_t>(); from_json(j["acceleration"], *(p.acceleration), "acceleration"); }
+        else { p.acceleration=nullptr; }
+        if (j.HasMember("angles")) { p.angles = vanetza::asn1::allocate<EulerAnglesWithConfidence_t>(); from_json(j["angles"], *(p.angles), "angles"); }
+        else { p.angles=nullptr; }
+        if (j.HasMember("zAngularVelocity")) { p.zAngularVelocity = vanetza::asn1::allocate<CartesianAngularVelocityComponent_t>(); from_json(j["zAngularVelocity"], *(p.zAngularVelocity), "zAngularVelocity"); }
+        else { p.zAngularVelocity=nullptr; }
+        if (j.HasMember("lowerTriangularCorrelationMatrices")) { p.lowerTriangularCorrelationMatrices = vanetza::asn1::allocate<LowerTriangularPositiveSemidefiniteMatrices_t>(); from_json(j["lowerTriangularCorrelationMatrices"], *(p.lowerTriangularCorrelationMatrices), "lowerTriangularCorrelationMatrices"); }
+        else { p.lowerTriangularCorrelationMatrices=nullptr; }
+        if (j.HasMember("objectDimensionZ")) { p.objectDimensionZ = vanetza::asn1::allocate<ObjectDimension_t>(); from_json(j["objectDimensionZ"], *(p.objectDimensionZ), "objectDimensionZ"); }
+        else { p.objectDimensionZ=nullptr; }
+        if (j.HasMember("objectDimensionY")) { p.objectDimensionY = vanetza::asn1::allocate<ObjectDimension_t>(); from_json(j["objectDimensionY"], *(p.objectDimensionY), "objectDimensionY"); }
+        else { p.objectDimensionY=nullptr; }
+        if (j.HasMember("objectDimensionX")) { p.objectDimensionX = vanetza::asn1::allocate<ObjectDimension_t>(); from_json(j["objectDimensionX"], *(p.objectDimensionX), "objectDimensionX"); }
+        else { p.objectDimensionX=nullptr; }
+        if (j.HasMember("objectAge")) { p.objectAge = vanetza::asn1::allocate<DeltaTimeMilliSecondSigned_t>(); from_json(j["objectAge"], *(p.objectAge), "objectAge"); }
+        else { p.objectAge=nullptr; }
+        if (j.HasMember("objectPerceptionQuality")) { p.objectPerceptionQuality = vanetza::asn1::allocate<ObjectPerceptionQuality_t>(); from_json(j["objectPerceptionQuality"], *(p.objectPerceptionQuality), "objectPerceptionQuality"); }
+        else { p.objectPerceptionQuality=nullptr; }
+        if (j.HasMember("sensorIdList")) { p.sensorIdList = vanetza::asn1::allocate<SequenceOfIdentifier1B_t>(); from_json(j["sensorIdList"], *(p.sensorIdList), "sensorIdList"); }
+        else { p.sensorIdList=nullptr; }
+        if (j.HasMember("classification")) { p.classification = vanetza::asn1::allocate<ObjectClassDescription_t>(); from_json(j["classification"], *(p.classification), "classification"); }
+        else { p.classification=nullptr; }
+        if (j.HasMember("mapPosition")) { p.mapPosition = vanetza::asn1::allocate<ETSI_ITS_CDD_MapPosition_t>(); from_json(j["mapPosition"], *(p.mapPosition), "mapPosition"); }
+        else { p.mapPosition=nullptr; }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
 *   SPAT - Type SEQUENCE
 *   From DSRC - File DSRC.asn
 */
@@ -15488,7 +20733,7 @@ void from_json(const Value& j, IntersectionGeometry& p, std::string field) {
         from_json(j["id"], (p.id), "id");
         from_json(j["revision"], (p.revision), "revision");
         from_json(j["refPoint"], (p.refPoint), "refPoint");
-        if (j.HasMember("laneWidth")) { p.laneWidth = vanetza::asn1::allocate<LaneWidth_t>(); from_json(j["laneWidth"], *(p.laneWidth), "laneWidth"); }
+        if (j.HasMember("laneWidth")) { p.laneWidth = vanetza::asn1::allocate<DSRC_LaneWidth_t>(); from_json(j["laneWidth"], *(p.laneWidth), "laneWidth"); }
         else { p.laneWidth=nullptr; }
         if (j.HasMember("speedLimits")) { p.speedLimits = vanetza::asn1::allocate<SpeedLimitList_t>(); from_json(j["speedLimits"], *(p.speedLimits), "speedLimits"); }
         else { p.speedLimits=nullptr; }
@@ -15571,35 +20816,35 @@ void from_json(const Value& j, GddAttribute& p, std::string field) {
     try {
         if (j.HasMember("dtm")) {
         p.present = GddAttribute_PR_dtm;
-        from_json(j["dtm"], p.choice.dtm, "dtm");
-    } else if (j.HasMember("edt")) {
+            from_json(j["dtm"], p.choice.dtm, "dtm");
+        } else if (j.HasMember("edt")) {
         p.present = GddAttribute_PR_edt;
-        from_json(j["edt"], p.choice.edt, "edt");
-    } else if (j.HasMember("dfl")) {
+            from_json(j["edt"], p.choice.edt, "edt");
+        } else if (j.HasMember("dfl")) {
         p.present = GddAttribute_PR_dfl;
-        from_json(j["dfl"], p.choice.dfl, "dfl");
-    } else if (j.HasMember("ved")) {
+            from_json(j["dfl"], p.choice.dfl, "dfl");
+        } else if (j.HasMember("ved")) {
         p.present = GddAttribute_PR_ved;
-        from_json(j["ved"], p.choice.ved, "ved");
-    } else if (j.HasMember("spe")) {
+            from_json(j["ved"], p.choice.ved, "ved");
+        } else if (j.HasMember("spe")) {
         p.present = GddAttribute_PR_spe;
-        from_json(j["spe"], p.choice.spe, "spe");
-    } else if (j.HasMember("roi")) {
+            from_json(j["spe"], p.choice.spe, "spe");
+        } else if (j.HasMember("roi")) {
         p.present = GddAttribute_PR_roi;
-        from_json(j["roi"], p.choice.roi, "roi");
-    } else if (j.HasMember("dbv")) {
+            from_json(j["roi"], p.choice.roi, "roi");
+        } else if (j.HasMember("dbv")) {
         p.present = GddAttribute_PR_dbv;
-        from_json(j["dbv"], p.choice.dbv, "dbv");
-    } else if (j.HasMember("ddd")) {
+            from_json(j["dbv"], p.choice.dbv, "dbv");
+        } else if (j.HasMember("ddd")) {
         p.present = GddAttribute_PR_ddd;
-        from_json(j["ddd"], *p.choice.ddd, "ddd");
-    } else if (j.HasMember("set")) {
+            from_json(j["ddd"], *p.choice.ddd, "ddd");
+        } else if (j.HasMember("set")) {
         p.present = GddAttribute_PR_set;
-        from_json(j["set"], p.choice.set, "set");
-    } else if (j.HasMember("nol")) {
+            from_json(j["set"], p.choice.set, "set");
+        } else if (j.HasMember("nol")) {
         p.present = GddAttribute_PR_nol;
-        from_json(j["nol"], p.choice.nol, "nol");
-    } else {
+            from_json(j["nol"], p.choice.nol, "nol");
+        } else {
         p.present = GddAttribute_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -15627,11 +20872,11 @@ void from_json(const Value& j, GeographicLocationContainer& p, std::string field
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["referencePosition"], (p.referencePosition), "referencePosition");
-        if (j.HasMember("referencePositionTime")) { p.referencePositionTime = vanetza::asn1::allocate<TimestampIts_t>(); from_json(j["referencePositionTime"], *(p.referencePositionTime), "referencePositionTime"); }
+        if (j.HasMember("referencePositionTime")) { p.referencePositionTime = vanetza::asn1::allocate<ITS_Container_TimestampIts_t>(); from_json(j["referencePositionTime"], *(p.referencePositionTime), "referencePositionTime"); }
         else { p.referencePositionTime=nullptr; }
-        if (j.HasMember("referencePositionHeading")) { p.referencePositionHeading = vanetza::asn1::allocate<Heading_t>(); from_json(j["referencePositionHeading"], *(p.referencePositionHeading), "referencePositionHeading"); }
+        if (j.HasMember("referencePositionHeading")) { p.referencePositionHeading = vanetza::asn1::allocate<ITS_Container_Heading_t>(); from_json(j["referencePositionHeading"], *(p.referencePositionHeading), "referencePositionHeading"); }
         else { p.referencePositionHeading=nullptr; }
-        if (j.HasMember("referencePositionSpeed")) { p.referencePositionSpeed = vanetza::asn1::allocate<Speed_t>(); from_json(j["referencePositionSpeed"], *(p.referencePositionSpeed), "referencePositionSpeed"); }
+        if (j.HasMember("referencePositionSpeed")) { p.referencePositionSpeed = vanetza::asn1::allocate<ITS_Container_Speed_t>(); from_json(j["referencePositionSpeed"], *(p.referencePositionSpeed), "referencePositionSpeed"); }
         else { p.referencePositionSpeed=nullptr; }
         from_json(j["parts"], (p.parts), "parts");
     } catch(VanetzaJSONException& ex) {
@@ -15699,7 +20944,7 @@ void from_json(const Value& j, TcPart& p, std::string field) {
         if (j.HasMember("detectionZoneIds")) { p.detectionZoneIds = vanetza::asn1::allocate<ZoneIds_t>(); from_json(j["detectionZoneIds"], *(p.detectionZoneIds), "detectionZoneIds"); }
         else { p.detectionZoneIds=nullptr; }
         from_json(j["relevanceZoneIds"], (p.relevanceZoneIds), "relevanceZoneIds");
-        if (j.HasMember("direction")) { p.direction = vanetza::asn1::allocate<Direction_t>(); from_json(j["direction"], *(p.direction), "direction"); }
+        if (j.HasMember("direction")) { p.direction = vanetza::asn1::allocate<IVI_Direction_t>(); from_json(j["direction"], *(p.direction), "direction"); }
         else { p.direction=nullptr; }
         if (j.HasMember("driverAwarenessZoneIds")) { p.driverAwarenessZoneIds = vanetza::asn1::allocate<ZoneIds_t>(); from_json(j["driverAwarenessZoneIds"], *(p.driverAwarenessZoneIds), "driverAwarenessZoneIds"); }
         else { p.driverAwarenessZoneIds=nullptr; }
@@ -15844,17 +21089,17 @@ void from_json(const Value& j, RSCode::RSCode__code& p, std::string field) {
     try {
         if (j.HasMember("viennaConvention")) {
         p.present = RSCode__code_PR::RSCode__code_PR_viennaConvention;
-        from_json(j["viennaConvention"], p.choice.viennaConvention, "viennaConvention");
-    } else if (j.HasMember("iso14823")) {
+            from_json(j["viennaConvention"], p.choice.viennaConvention, "viennaConvention");
+        } else if (j.HasMember("iso14823")) {
         p.present = RSCode__code_PR::RSCode__code_PR_iso14823;
-        from_json(j["iso14823"], p.choice.iso14823, "iso14823");
-    } else if (j.HasMember("itisCodes")) {
+            from_json(j["iso14823"], p.choice.iso14823, "iso14823");
+        } else if (j.HasMember("itisCodes")) {
         p.present = RSCode__code_PR::RSCode__code_PR_itisCodes;
-        from_json(j["itisCodes"], p.choice.itisCodes, "itisCodes");
-    } else if (j.HasMember("anyCatalogue")) {
+            from_json(j["itisCodes"], p.choice.itisCodes, "itisCodes");
+        } else if (j.HasMember("anyCatalogue")) {
         p.present = RSCode__code_PR::RSCode__code_PR_anyCatalogue;
-        from_json(j["anyCatalogue"], p.choice.anyCatalogue, "anyCatalogue");
-    } else {
+            from_json(j["anyCatalogue"], p.choice.anyCatalogue, "anyCatalogue");
+        } else {
         p.present = RSCode__code_PR::RSCode__code_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -15890,83 +21135,23 @@ void from_json(const Value& j, RSCode& p, std::string field) {
 
 
 /*
-*   CoopAwareness - Type SEQUENCE
+*   CAM - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-Value to_json(const CoopAwareness& p, Document::AllocatorType& allocator) {
+Value to_json(const CAM& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("generationDeltaTime", to_json((p.generationDeltaTime), allocator), allocator);
-    json.AddMember("camParameters", to_json((p.camParameters), allocator), allocator);
+    json.AddMember("header", to_json((p.header), allocator), allocator);
+    json.AddMember("cam", to_json((p.cam), allocator), allocator);
     
     return json;
 }
 
-void from_json(const Value& j, CoopAwareness& p, std::string field) {
+void from_json(const Value& j, CAM& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["generationDeltaTime"], (p.generationDeltaTime), "generationDeltaTime");
-        from_json(j["camParameters"], (p.camParameters), "camParameters");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   VruHighFrequencyContainer - Type SEQUENCE
-*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
-*/
-
-Value to_json(const VruHighFrequencyContainer& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("heading", to_json((p.heading), allocator), allocator);
-    json.AddMember("speed", to_json((p.speed), allocator), allocator);
-    json.AddMember("longitudinalAcceleration", to_json((p.longitudinalAcceleration), allocator), allocator);
-    if (p.curvature != 0) json.AddMember("curvature", to_json(*(p.curvature), allocator), allocator);
-    if (p.curvatureCalculationMode != 0) json.AddMember("curvatureCalculationMode", to_json(*(p.curvatureCalculationMode), allocator), allocator);
-    if (p.yawRate != 0) json.AddMember("yawRate", to_json(*(p.yawRate), allocator), allocator);
-    if (p.lateralAcceleration != 0) json.AddMember("lateralAcceleration", to_json(*(p.lateralAcceleration), allocator), allocator);
-    if (p.verticalAcceleration != 0) json.AddMember("verticalAcceleration", to_json(*(p.verticalAcceleration), allocator), allocator);
-    if (p.vruLanePosition != 0) json.AddMember("vruLanePosition", to_json(*(p.vruLanePosition), allocator), allocator);
-    if (p.environment != 0) json.AddMember("environment", to_json(*(p.environment), allocator), allocator);
-    if (p.movementControl != 0) json.AddMember("movementControl", to_json(*(p.movementControl), allocator), allocator);
-    if (p.orientation != 0) json.AddMember("orientation", to_json(*(p.orientation), allocator), allocator);
-    if (p.rollAngle != 0) json.AddMember("rollAngle", to_json(*(p.rollAngle), allocator), allocator);
-    if (p.deviceUsage != 0) json.AddMember("deviceUsage", to_json(*(p.deviceUsage), allocator), allocator);
-    return json;
-}
-
-void from_json(const Value& j, VruHighFrequencyContainer& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["heading"], (p.heading), "heading");
-        from_json(j["speed"], (p.speed), "speed");
-        from_json(j["longitudinalAcceleration"], (p.longitudinalAcceleration), "longitudinalAcceleration");
-        if (j.HasMember("curvature")) { p.curvature = vanetza::asn1::allocate<Curvature_t>(); from_json(j["curvature"], *(p.curvature), "curvature"); }
-        else { p.curvature=nullptr; }
-        if (j.HasMember("curvatureCalculationMode")) { p.curvatureCalculationMode = vanetza::asn1::allocate<CurvatureCalculationMode_t>(); from_json(j["curvatureCalculationMode"], *(p.curvatureCalculationMode), "curvatureCalculationMode"); }
-        else { p.curvatureCalculationMode=nullptr; }
-        if (j.HasMember("yawRate")) { p.yawRate = vanetza::asn1::allocate<YawRate_t>(); from_json(j["yawRate"], *(p.yawRate), "yawRate"); }
-        else { p.yawRate=nullptr; }
-        if (j.HasMember("lateralAcceleration")) { p.lateralAcceleration = vanetza::asn1::allocate<LateralAcceleration_t>(); from_json(j["lateralAcceleration"], *(p.lateralAcceleration), "lateralAcceleration"); }
-        else { p.lateralAcceleration=nullptr; }
-        if (j.HasMember("verticalAcceleration")) { p.verticalAcceleration = vanetza::asn1::allocate<VerticalAcceleration_t>(); from_json(j["verticalAcceleration"], *(p.verticalAcceleration), "verticalAcceleration"); }
-        else { p.verticalAcceleration=nullptr; }
-        if (j.HasMember("vruLanePosition")) { p.vruLanePosition = vanetza::asn1::allocate<VruLanePosition_t>(); from_json(j["vruLanePosition"], *(p.vruLanePosition), "vruLanePosition"); }
-        else { p.vruLanePosition=nullptr; }
-        if (j.HasMember("environment")) { p.environment = vanetza::asn1::allocate<VruEnvironment_t>(); from_json(j["environment"], *(p.environment), "environment"); }
-        else { p.environment=nullptr; }
-        if (j.HasMember("movementControl")) { p.movementControl = vanetza::asn1::allocate<VruMovementControl_t>(); from_json(j["movementControl"], *(p.movementControl), "movementControl"); }
-        else { p.movementControl=nullptr; }
-        if (j.HasMember("orientation")) { p.orientation = vanetza::asn1::allocate<VruOrientation_t>(); from_json(j["orientation"], *(p.orientation), "orientation"); }
-        else { p.orientation=nullptr; }
-        if (j.HasMember("rollAngle")) { p.rollAngle = vanetza::asn1::allocate<VruRollAngle_t>(); from_json(j["rollAngle"], *(p.rollAngle), "rollAngle"); }
-        else { p.rollAngle=nullptr; }
-        if (j.HasMember("deviceUsage")) { p.deviceUsage = vanetza::asn1::allocate<VruDeviceUsage_t>(); from_json(j["deviceUsage"], *(p.deviceUsage), "deviceUsage"); }
-        else { p.deviceUsage=nullptr; }
+        from_json(j["header"], (p.header), "header");
+        from_json(j["cam"], (p.cam), "cam");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -15996,14 +21181,14 @@ void from_json(const Value& j, ClusterBoundingBoxShape& p, std::string field) {
     try {
         if (j.HasMember("clusterRectangle")) {
         p.present = ClusterBoundingBoxShape_PR_clusterRectangle;
-        from_json(j["clusterRectangle"], p.choice.clusterRectangle, "clusterRectangle");
-    } else if (j.HasMember("clusterCircle")) {
+            from_json(j["clusterRectangle"], p.choice.clusterRectangle, "clusterRectangle");
+        } else if (j.HasMember("clusterCircle")) {
         p.present = ClusterBoundingBoxShape_PR_clusterCircle;
-        from_json(j["clusterCircle"], p.choice.clusterCircle, "clusterCircle");
-    } else if (j.HasMember("clusterPolygon")) {
+            from_json(j["clusterCircle"], p.choice.clusterCircle, "clusterCircle");
+        } else if (j.HasMember("clusterPolygon")) {
         p.present = ClusterBoundingBoxShape_PR_clusterPolygon;
-        from_json(j["clusterPolygon"], p.choice.clusterPolygon, "clusterPolygon");
-    } else {
+            from_json(j["clusterPolygon"], p.choice.clusterPolygon, "clusterPolygon");
+        } else {
         p.present = ClusterBoundingBoxShape_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -16013,11 +21198,11 @@ void from_json(const Value& j, ClusterBoundingBoxShape& p, std::string field) {
 }
 
 /*
-*   PerceivedObjectContainer - Type SEQUENCE OF
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   PerceivedObjects - Type SEQUENCE OF
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const PerceivedObjectContainer_t& p, Document::AllocatorType& allocator) {
+Value to_json(const PerceivedObjects& p, Document::AllocatorType& allocator) {
     Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
         const PerceivedObject_t po = *(p.list.array[i]);
@@ -16027,9 +21212,9 @@ Value to_json(const PerceivedObjectContainer_t& p, Document::AllocatorType& allo
     return json;
 }
 
-void from_json(const Value& j, PerceivedObjectContainer_t& p, std::string field) {
+void from_json(const Value& j, PerceivedObjects& p, std::string field) {
     try {
-        PerceivedObjectContainer_t* p_tmp = vanetza::asn1::allocate<PerceivedObjectContainer_t>();
+        PerceivedObjects* p_tmp = vanetza::asn1::allocate<PerceivedObjects>();
         for (SizeType i = 0; i < j.Size(); i++) {
             const Value& item = j[i];
             PerceivedObject_t *element = vanetza::asn1::allocate<PerceivedObject_t>();
@@ -16043,87 +21228,6 @@ void from_json(const Value& j, PerceivedObjectContainer_t& p, std::string field)
         ex.rethrow();
     }
 }
-
-/*
-*   DetectionArea - Type CHOICE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const DetectionArea& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    if (p.present == DetectionArea_PR_vehicleSensor) {
-        json.AddMember("vehicleSensor", to_json(p.choice.vehicleSensor, allocator), allocator);
-    } else if (p.present == DetectionArea_PR_stationarySensorRadial) {
-        json.AddMember("stationarySensorRadial", to_json(p.choice.stationarySensorRadial, allocator), allocator);
-    } else if (p.present == DetectionArea_PR_stationarySensorPolygon) {
-        json.AddMember("stationarySensorPolygon", to_json(p.choice.stationarySensorPolygon, allocator), allocator);
-    } else if (p.present == DetectionArea_PR_stationarySensorCircular) {
-        json.AddMember("stationarySensorCircular", to_json(p.choice.stationarySensorCircular, allocator), allocator);
-    } else if (p.present == DetectionArea_PR_stationarySensorEllipse) {
-        json.AddMember("stationarySensorEllipse", to_json(p.choice.stationarySensorEllipse, allocator), allocator);
-    } else if (p.present == DetectionArea_PR_stationarySensorRectangle) {
-        json.AddMember("stationarySensorRectangle", to_json(p.choice.stationarySensorRectangle, allocator), allocator);
-    }
-    return json;
-}
-
-void from_json(const Value& j, DetectionArea& p, std::string field) {
-    try {
-        if (j.HasMember("vehicleSensor")) {
-        p.present = DetectionArea_PR_vehicleSensor;
-        from_json(j["vehicleSensor"], p.choice.vehicleSensor, "vehicleSensor");
-    } else if (j.HasMember("stationarySensorRadial")) {
-        p.present = DetectionArea_PR_stationarySensorRadial;
-        from_json(j["stationarySensorRadial"], p.choice.stationarySensorRadial, "stationarySensorRadial");
-    } else if (j.HasMember("stationarySensorPolygon")) {
-        p.present = DetectionArea_PR_stationarySensorPolygon;
-        from_json(j["stationarySensorPolygon"], p.choice.stationarySensorPolygon, "stationarySensorPolygon");
-    } else if (j.HasMember("stationarySensorCircular")) {
-        p.present = DetectionArea_PR_stationarySensorCircular;
-        from_json(j["stationarySensorCircular"], p.choice.stationarySensorCircular, "stationarySensorCircular");
-    } else if (j.HasMember("stationarySensorEllipse")) {
-        p.present = DetectionArea_PR_stationarySensorEllipse;
-        from_json(j["stationarySensorEllipse"], p.choice.stationarySensorEllipse, "stationarySensorEllipse");
-    } else if (j.HasMember("stationarySensorRectangle")) {
-        p.present = DetectionArea_PR_stationarySensorRectangle;
-        from_json(j["stationarySensorRectangle"], p.choice.stationarySensorRectangle, "stationarySensorRectangle");
-    } else {
-        p.present = DetectionArea_PR_NOTHING;
-        }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-/*
-*   FreeSpaceAddendum - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const FreeSpaceAddendum& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("freeSpaceConfidence", to_json((p.freeSpaceConfidence), allocator), allocator);
-    json.AddMember("freeSpaceArea", to_json((p.freeSpaceArea), allocator), allocator);
-    if (p.sensorIDList != 0) json.AddMember("sensorIDList", to_json(*(p.sensorIDList), allocator), allocator);
-    return json;
-}
-
-void from_json(const Value& j, FreeSpaceAddendum& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["freeSpaceConfidence"], (p.freeSpaceConfidence), "freeSpaceConfidence");
-        from_json(j["freeSpaceArea"], (p.freeSpaceArea), "freeSpaceArea");
-        if (j.HasMember("sensorIDList")) { p.sensorIDList = vanetza::asn1::allocate<SensorIdList_t>(); from_json(j["sensorIDList"], *(p.sensorIDList), "sensorIDList"); }
-        else { p.sensorIDList=nullptr; }
-        
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
 
 /*
 *   SPATEM - Type SEQUENCE
@@ -16214,7 +21318,7 @@ void from_json(const Value& j, ItsChargingStationData& p, std::string field) {
         if (j.HasMember("phoneNumber")) { p.phoneNumber = vanetza::asn1::allocate<NumericString_t>(); from_json(j["phoneNumber"], *(p.phoneNumber), "phoneNumber"); }
         else { p.phoneNumber=nullptr; }
         from_json(j["accessibility"], (p.accessibility), "accessibility");
-        if (j.HasMember("digitalMap")) { p.digitalMap = vanetza::asn1::allocate<DigitalMap_t>(); from_json(j["digitalMap"], *(p.digitalMap), "digitalMap"); }
+        if (j.HasMember("digitalMap")) { p.digitalMap = vanetza::asn1::allocate<ITS_Container_DigitalMap_t>(); from_json(j["digitalMap"], *(p.digitalMap), "digitalMap"); }
         else { p.digitalMap=nullptr; }
         from_json(j["openingDaysHours"], (p.openingDaysHours), "openingDaysHours");
         from_json(j["pricing"], (p.pricing), "pricing");
@@ -16230,6 +21334,62 @@ void from_json(const Value& j, ItsChargingStationData& p, std::string field) {
 }
 
 
+
+/*
+*   ImzmContainer - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const ImzmContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("interferenceManagementZones", to_json((p.interferenceManagementZones), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ImzmContainer& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["interferenceManagementZones"], (p.interferenceManagementZones), "interferenceManagementZones");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   InterferenceManagementZones - Type SEQUENCE OF
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const IMZM_PDU_Descriptions_InterferenceManagementZones_t& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const IMZM_PDU_Descriptions_InterferenceManagementZone_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, IMZM_PDU_Descriptions_InterferenceManagementZones_t& p, std::string field) {
+    try {
+        IMZM_PDU_Descriptions_InterferenceManagementZones_t* p_tmp = vanetza::asn1::allocate<IMZM_PDU_Descriptions_InterferenceManagementZones_t>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            IMZM_PDU_Descriptions_InterferenceManagementZone_t *element = vanetza::asn1::allocate<IMZM_PDU_Descriptions_InterferenceManagementZone_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
+        }
+        p = *p_tmp;
+        delete p_tmp;
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
 
 /*
 *   ZoneDefinition - Type SEQUENCE
@@ -16251,7 +21411,7 @@ void from_json(const Value& j, ZoneDefinition& p, std::string field) {
         p._asn_ctx.ptr = nullptr;
         double interferenceManagementZoneLatitude; from_json(j["interferenceManagementZoneLatitude"], (interferenceManagementZoneLatitude), "interferenceManagementZoneLatitude"); (p.interferenceManagementZoneLatitude) = ((interferenceManagementZoneLatitude) != 900000001) ? interferenceManagementZoneLatitude * 10000000 : interferenceManagementZoneLatitude;
         double interferenceManagementZoneLongitude; from_json(j["interferenceManagementZoneLongitude"], (interferenceManagementZoneLongitude), "interferenceManagementZoneLongitude"); (p.interferenceManagementZoneLongitude) = ((interferenceManagementZoneLongitude) != 1800000001) ? interferenceManagementZoneLongitude * 10000000 : interferenceManagementZoneLongitude;
-        if (j.HasMember("interferenceManagementZoneRadius")) { p.interferenceManagementZoneRadius = vanetza::asn1::allocate<ProtectedZoneRadius_t>(); from_json(j["interferenceManagementZoneRadius"], *(p.interferenceManagementZoneRadius), "interferenceManagementZoneRadius"); }
+        if (j.HasMember("interferenceManagementZoneRadius")) { p.interferenceManagementZoneRadius = vanetza::asn1::allocate<ITS_Container_ProtectedZoneRadius_t>(); from_json(j["interferenceManagementZoneRadius"], *(p.interferenceManagementZoneRadius), "interferenceManagementZoneRadius"); }
         else { p.interferenceManagementZoneRadius=nullptr; }
         if (j.HasMember("interferenceManagementZoneID")) { p.interferenceManagementZoneID = vanetza::asn1::allocate<ProtectedZoneID_t>(); from_json(j["interferenceManagementZoneID"], *(p.interferenceManagementZoneID), "interferenceManagementZoneID"); }
         else { p.interferenceManagementZoneID=nullptr; }
@@ -16264,38 +21424,6 @@ void from_json(const Value& j, ZoneDefinition& p, std::string field) {
 }
 
 
-
-/*
-*   InterferenceManagementInfo - Type SEQUENCE OF
-*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
-*/
-
-Value to_json(const InterferenceManagementInfo& p, Document::AllocatorType& allocator) {
-    Value json(kArrayType);
-    for(int i = 0; i < p.list.count; i++) {
-        const InterferenceManagementInfoPerChannel_t po = *(p.list.array[i]);
-        Value obj = to_json(po, allocator);
-        json.PushBack(obj, allocator);
-    }
-    return json;
-}
-
-void from_json(const Value& j, InterferenceManagementInfo& p, std::string field) {
-    try {
-        InterferenceManagementInfo* p_tmp = vanetza::asn1::allocate<InterferenceManagementInfo>();
-        for (SizeType i = 0; i < j.Size(); i++) {
-            const Value& item = j[i];
-            InterferenceManagementInfoPerChannel_t *element = vanetza::asn1::allocate<InterferenceManagementInfoPerChannel_t>();
-            from_json(item, *element, "index #" + std::to_string(i));
-            asn_set_add(&(p_tmp->list), element);
-        }
-        p = *p_tmp;
-        delete p_tmp;
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
 
 /*
 *   PlacardTable - Type SEQUENCE OF
@@ -16564,11 +21692,11 @@ void from_json(const Value& j, AutomatedVehicleRule& p, std::string field) {
         else { p.minGapBetweenVehicles=nullptr; }
         if (j.HasMember("recGapBetweenVehicles")) { p.recGapBetweenVehicles = vanetza::asn1::allocate<GapBetweenVehicles_t>(); from_json(j["recGapBetweenVehicles"], *(p.recGapBetweenVehicles), "recGapBetweenVehicles"); }
         else { p.recGapBetweenVehicles=nullptr; }
-        double automatedVehicleMaxSpeedLimit; if (j.HasMember("automatedVehicleMaxSpeedLimit")) { p.automatedVehicleMaxSpeedLimit = vanetza::asn1::allocate<SpeedValue_t>(); from_json(j["automatedVehicleMaxSpeedLimit"], (automatedVehicleMaxSpeedLimit), "automatedVehicleMaxSpeedLimit"); *(p.automatedVehicleMaxSpeedLimit) = ((automatedVehicleMaxSpeedLimit) != 16383) ? automatedVehicleMaxSpeedLimit * 100 : automatedVehicleMaxSpeedLimit; }
+        double automatedVehicleMaxSpeedLimit; if (j.HasMember("automatedVehicleMaxSpeedLimit")) { p.automatedVehicleMaxSpeedLimit = vanetza::asn1::allocate<ITS_Container_SpeedValue_t>(); from_json(j["automatedVehicleMaxSpeedLimit"], (automatedVehicleMaxSpeedLimit), "automatedVehicleMaxSpeedLimit"); *(p.automatedVehicleMaxSpeedLimit) = ((automatedVehicleMaxSpeedLimit) != 16383) ? automatedVehicleMaxSpeedLimit * 100 : automatedVehicleMaxSpeedLimit; }
         else { p.automatedVehicleMaxSpeedLimit=nullptr; }
-        double automatedVehicleMinSpeedLimit; if (j.HasMember("automatedVehicleMinSpeedLimit")) { p.automatedVehicleMinSpeedLimit = vanetza::asn1::allocate<SpeedValue_t>(); from_json(j["automatedVehicleMinSpeedLimit"], (automatedVehicleMinSpeedLimit), "automatedVehicleMinSpeedLimit"); *(p.automatedVehicleMinSpeedLimit) = ((automatedVehicleMinSpeedLimit) != 16383) ? automatedVehicleMinSpeedLimit * 100 : automatedVehicleMinSpeedLimit; }
+        double automatedVehicleMinSpeedLimit; if (j.HasMember("automatedVehicleMinSpeedLimit")) { p.automatedVehicleMinSpeedLimit = vanetza::asn1::allocate<ITS_Container_SpeedValue_t>(); from_json(j["automatedVehicleMinSpeedLimit"], (automatedVehicleMinSpeedLimit), "automatedVehicleMinSpeedLimit"); *(p.automatedVehicleMinSpeedLimit) = ((automatedVehicleMinSpeedLimit) != 16383) ? automatedVehicleMinSpeedLimit * 100 : automatedVehicleMinSpeedLimit; }
         else { p.automatedVehicleMinSpeedLimit=nullptr; }
-        double automatedVehicleSpeedRecommendation; if (j.HasMember("automatedVehicleSpeedRecommendation")) { p.automatedVehicleSpeedRecommendation = vanetza::asn1::allocate<SpeedValue_t>(); from_json(j["automatedVehicleSpeedRecommendation"], (automatedVehicleSpeedRecommendation), "automatedVehicleSpeedRecommendation"); *(p.automatedVehicleSpeedRecommendation) = ((automatedVehicleSpeedRecommendation) != 16383) ? automatedVehicleSpeedRecommendation * 100 : automatedVehicleSpeedRecommendation; }
+        double automatedVehicleSpeedRecommendation; if (j.HasMember("automatedVehicleSpeedRecommendation")) { p.automatedVehicleSpeedRecommendation = vanetza::asn1::allocate<ITS_Container_SpeedValue_t>(); from_json(j["automatedVehicleSpeedRecommendation"], (automatedVehicleSpeedRecommendation), "automatedVehicleSpeedRecommendation"); *(p.automatedVehicleSpeedRecommendation) = ((automatedVehicleSpeedRecommendation) != 16383) ? automatedVehicleSpeedRecommendation * 100 : automatedVehicleSpeedRecommendation; }
         else { p.automatedVehicleSpeedRecommendation=nullptr; }
         if (j.HasMember("roadSignCodes")) { p.roadSignCodes = vanetza::asn1::allocate<RoadSignCodes_t>(); from_json(j["roadSignCodes"], *(p.roadSignCodes), "roadSignCodes"); }
         else { p.roadSignCodes=nullptr; }
@@ -16613,42 +21741,16 @@ void from_json(const Value& j, PlatooningRule& p, std::string field) {
         else { p.maxLenghtOfPlatoon=nullptr; }
         if (j.HasMember("minGapBetweenVehicles")) { p.minGapBetweenVehicles = vanetza::asn1::allocate<GapBetweenVehicles_t>(); from_json(j["minGapBetweenVehicles"], *(p.minGapBetweenVehicles), "minGapBetweenVehicles"); }
         else { p.minGapBetweenVehicles=nullptr; }
-        double platoonMaxSpeedLimit; if (j.HasMember("platoonMaxSpeedLimit")) { p.platoonMaxSpeedLimit = vanetza::asn1::allocate<SpeedValue_t>(); from_json(j["platoonMaxSpeedLimit"], (platoonMaxSpeedLimit), "platoonMaxSpeedLimit"); *(p.platoonMaxSpeedLimit) = ((platoonMaxSpeedLimit) != 16383) ? platoonMaxSpeedLimit * 100 : platoonMaxSpeedLimit; }
+        double platoonMaxSpeedLimit; if (j.HasMember("platoonMaxSpeedLimit")) { p.platoonMaxSpeedLimit = vanetza::asn1::allocate<ITS_Container_SpeedValue_t>(); from_json(j["platoonMaxSpeedLimit"], (platoonMaxSpeedLimit), "platoonMaxSpeedLimit"); *(p.platoonMaxSpeedLimit) = ((platoonMaxSpeedLimit) != 16383) ? platoonMaxSpeedLimit * 100 : platoonMaxSpeedLimit; }
         else { p.platoonMaxSpeedLimit=nullptr; }
-        double platoonMinSpeedLimit; if (j.HasMember("platoonMinSpeedLimit")) { p.platoonMinSpeedLimit = vanetza::asn1::allocate<SpeedValue_t>(); from_json(j["platoonMinSpeedLimit"], (platoonMinSpeedLimit), "platoonMinSpeedLimit"); *(p.platoonMinSpeedLimit) = ((platoonMinSpeedLimit) != 16383) ? platoonMinSpeedLimit * 100 : platoonMinSpeedLimit; }
+        double platoonMinSpeedLimit; if (j.HasMember("platoonMinSpeedLimit")) { p.platoonMinSpeedLimit = vanetza::asn1::allocate<ITS_Container_SpeedValue_t>(); from_json(j["platoonMinSpeedLimit"], (platoonMinSpeedLimit), "platoonMinSpeedLimit"); *(p.platoonMinSpeedLimit) = ((platoonMinSpeedLimit) != 16383) ? platoonMinSpeedLimit * 100 : platoonMinSpeedLimit; }
         else { p.platoonMinSpeedLimit=nullptr; }
-        double platoonSpeedRecommendation; if (j.HasMember("platoonSpeedRecommendation")) { p.platoonSpeedRecommendation = vanetza::asn1::allocate<SpeedValue_t>(); from_json(j["platoonSpeedRecommendation"], (platoonSpeedRecommendation), "platoonSpeedRecommendation"); *(p.platoonSpeedRecommendation) = ((platoonSpeedRecommendation) != 16383) ? platoonSpeedRecommendation * 100 : platoonSpeedRecommendation; }
+        double platoonSpeedRecommendation; if (j.HasMember("platoonSpeedRecommendation")) { p.platoonSpeedRecommendation = vanetza::asn1::allocate<ITS_Container_SpeedValue_t>(); from_json(j["platoonSpeedRecommendation"], (platoonSpeedRecommendation), "platoonSpeedRecommendation"); *(p.platoonSpeedRecommendation) = ((platoonSpeedRecommendation) != 16383) ? platoonSpeedRecommendation * 100 : platoonSpeedRecommendation; }
         else { p.platoonSpeedRecommendation=nullptr; }
         if (j.HasMember("roadSignCodes")) { p.roadSignCodes = vanetza::asn1::allocate<RoadSignCodes_t>(); from_json(j["roadSignCodes"], *(p.roadSignCodes), "roadSignCodes"); }
         else { p.roadSignCodes=nullptr; }
         if (j.HasMember("extraText")) { p.extraText = vanetza::asn1::allocate<ConstraintTextLines2_t>(); from_json(j["extraText"], *(p.extraText), "extraText"); }
         else { p.extraText=nullptr; }
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   CAM - Type SEQUENCE
-*   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
-*/
-
-Value to_json(const CAM& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("header", to_json((p.header), allocator), allocator);
-    json.AddMember("cam", to_json((p.cam), allocator), allocator);
-    
-    return json;
-}
-
-void from_json(const Value& j, CAM& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["header"], (p.header), "header");
-        from_json(j["cam"], (p.cam), "cam");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -16688,27 +21790,23 @@ void from_json(const Value& j, VruClusterInformationContainer& p, std::string fi
 
 
 /*
-*   SensorInformation - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   PerceivedObjectContainer - Type SEQUENCE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const SensorInformation& p, Document::AllocatorType& allocator) {
+Value to_json(const PerceivedObjectContainer_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("sensorID", to_json((p.sensorID), allocator), allocator);
-    json.AddMember("type", to_json((p.type), allocator), allocator);
-    json.AddMember("detectionArea", to_json((p.detectionArea), allocator), allocator);
-    if (p.freeSpaceConfidence != 0) json.AddMember("freeSpaceConfidence", to_json(*(p.freeSpaceConfidence), allocator), allocator);
+    json.AddMember("numberOfPerceivedObjects", to_json((p.numberOfPerceivedObjects), allocator), allocator);
+    json.AddMember("perceivedObjects", to_json((p.perceivedObjects), allocator), allocator);
+    
     return json;
 }
 
-void from_json(const Value& j, SensorInformation& p, std::string field) {
+void from_json(const Value& j, PerceivedObjectContainer_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["sensorID"], (p.sensorID), "sensorID");
-        from_json(j["type"], (p.type), "type");
-        from_json(j["detectionArea"], (p.detectionArea), "detectionArea");
-        if (j.HasMember("freeSpaceConfidence")) { p.freeSpaceConfidence = vanetza::asn1::allocate<FreeSpaceConfidence_t>(); from_json(j["freeSpaceConfidence"], *(p.freeSpaceConfidence), "freeSpaceConfidence"); }
-        else { p.freeSpaceConfidence=nullptr; }
+        from_json(j["numberOfPerceivedObjects"], (p.numberOfPerceivedObjects), "numberOfPerceivedObjects");
+        from_json(j["perceivedObjects"], (p.perceivedObjects), "perceivedObjects");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -16716,38 +21814,6 @@ void from_json(const Value& j, SensorInformation& p, std::string field) {
 }
 
 
-
-/*
-*   FreeSpaceAddendumContainer - Type SEQUENCE OF
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const FreeSpaceAddendumContainer& p, Document::AllocatorType& allocator) {
-    Value json(kArrayType);
-    for(int i = 0; i < p.list.count; i++) {
-        const FreeSpaceAddendum_t po = *(p.list.array[i]);
-        Value obj = to_json(po, allocator);
-        json.PushBack(obj, allocator);
-    }
-    return json;
-}
-
-void from_json(const Value& j, FreeSpaceAddendumContainer& p, std::string field) {
-    try {
-        FreeSpaceAddendumContainer* p_tmp = vanetza::asn1::allocate<FreeSpaceAddendumContainer>();
-        for (SizeType i = 0; i < j.Size(); i++) {
-            const Value& item = j[i];
-            FreeSpaceAddendum_t *element = vanetza::asn1::allocate<FreeSpaceAddendum_t>();
-            from_json(item, *element, "index #" + std::to_string(i));
-            asn_set_add(&(p_tmp->list), element);
-        }
-        p = *p_tmp;
-        delete p_tmp;
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
 
 /*
 *   MAPEM - Type SEQUENCE
@@ -16834,11 +21900,37 @@ void from_json(const Value& j, ItsEVCSNData& p, std::string field) {
 
 
 /*
+*   ImzmParameters - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const ImzmParameters& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("basicContainer", to_json((p.basicContainer), allocator), allocator);
+    json.AddMember("imzmContainer", to_json((p.imzmContainer), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, ImzmParameters& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["basicContainer"], (p.basicContainer), "basicContainer");
+        from_json(j["imzmContainer"], (p.imzmContainer), "imzmContainer");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
 *   InterferenceManagementZone - Type SEQUENCE
 *   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
 */
 
-Value to_json(const InterferenceManagementZone& p, Document::AllocatorType& allocator) {
+Value to_json(const IMZM_PDU_Descriptions_InterferenceManagementZone_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("zoneDefinition", to_json((p.zoneDefinition), allocator), allocator);
     json.AddMember("interferenceManagementInfo", to_json((p.interferenceManagementInfo), allocator), allocator);
@@ -16846,7 +21938,7 @@ Value to_json(const InterferenceManagementZone& p, Document::AllocatorType& allo
     return json;
 }
 
-void from_json(const Value& j, InterferenceManagementZone& p, std::string field) {
+void from_json(const Value& j, IMZM_PDU_Descriptions_InterferenceManagementZone_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["zoneDefinition"], (p.zoneDefinition), "zoneDefinition");
@@ -16972,11 +22064,11 @@ void from_json(const Value& j, GicPart& p, std::string field) {
         p._asn_ctx.ptr = nullptr;
         if (j.HasMember("detectionZoneIds")) { p.detectionZoneIds = vanetza::asn1::allocate<ZoneIds_t>(); from_json(j["detectionZoneIds"], *(p.detectionZoneIds), "detectionZoneIds"); }
         else { p.detectionZoneIds=nullptr; }
-        if (j.HasMember("its-Rrid")) { p.its_Rrid = vanetza::asn1::allocate<VarLengthNumber_t>(); from_json(j["its-Rrid"], *(p.its_Rrid), "its-Rrid"); }
+        if (j.HasMember("its-Rrid")) { p.its_Rrid = vanetza::asn1::allocate<CITSapplMgmtIDs_VarLengthNumber_t>(); from_json(j["its-Rrid"], *(p.its_Rrid), "its-Rrid"); }
         else { p.its_Rrid=nullptr; }
         if (j.HasMember("relevanceZoneIds")) { p.relevanceZoneIds = vanetza::asn1::allocate<ZoneIds_t>(); from_json(j["relevanceZoneIds"], *(p.relevanceZoneIds), "relevanceZoneIds"); }
         else { p.relevanceZoneIds=nullptr; }
-        if (j.HasMember("direction")) { p.direction = vanetza::asn1::allocate<Direction_t>(); from_json(j["direction"], *(p.direction), "direction"); }
+        if (j.HasMember("direction")) { p.direction = vanetza::asn1::allocate<IVI_Direction_t>(); from_json(j["direction"], *(p.direction), "direction"); }
         else { p.direction=nullptr; }
         if (j.HasMember("driverAwarenessZoneIds")) { p.driverAwarenessZoneIds = vanetza::asn1::allocate<ZoneIds_t>(); from_json(j["driverAwarenessZoneIds"], *(p.driverAwarenessZoneIds), "driverAwarenessZoneIds"); }
         else { p.driverAwarenessZoneIds=nullptr; }
@@ -17111,26 +22203,95 @@ void from_json(const Value& j, VamParameters& p, std::string field) {
 
 
 /*
-*   SensorInformationContainer - Type SEQUENCE OF
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   WrappedCpmContainer::WrappedCpmContainer__containerData - Type CHOICE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const SensorInformationContainer& p, Document::AllocatorType& allocator) {
+Value to_json(const WrappedCpmContainer::WrappedCpmContainer__containerData& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    if (p.present == WrappedCpmContainer__containerData_PR::WrappedCpmContainer__containerData_PR_OriginatingVehicleContainer) {
+        json = to_json(p.choice.OriginatingVehicleContainer, allocator);
+    } else if (p.present == WrappedCpmContainer__containerData_PR::WrappedCpmContainer__containerData_PR_OriginatingRsuContainer) {
+        json = to_json(p.choice.OriginatingRsuContainer, allocator);
+    } else if (p.present == WrappedCpmContainer__containerData_PR::WrappedCpmContainer__containerData_PR_SensorInformationContainer) {
+        json = to_json(p.choice.SensorInformationContainer, allocator);
+    } else if (p.present == WrappedCpmContainer__containerData_PR::WrappedCpmContainer__containerData_PR_PerceptionRegionContainer) {
+        json = to_json(p.choice.PerceptionRegionContainer, allocator);
+    } else if (p.present == WrappedCpmContainer__containerData_PR::WrappedCpmContainer__containerData_PR_PerceivedObjectContainer) {
+        json = to_json(p.choice.PerceivedObjectContainer, allocator);
+    }
+    return json;
+}
+
+void from_json(const Value& j, WrappedCpmContainer::WrappedCpmContainer__containerData& p, std::string field) {
+    try {
+        if (p.present == WrappedCpmContainer__containerData_PR::WrappedCpmContainer__containerData_PR_OriginatingVehicleContainer) {
+            from_json(j, p.choice.OriginatingVehicleContainer, "originatingVehicleContainer");
+        } else if (p.present == WrappedCpmContainer__containerData_PR::WrappedCpmContainer__containerData_PR_OriginatingRsuContainer) {
+            from_json(j, p.choice.OriginatingRsuContainer, "originatingRsuContainer");
+        } else if (p.present == WrappedCpmContainer__containerData_PR::WrappedCpmContainer__containerData_PR_SensorInformationContainer) {
+            from_json(j, p.choice.SensorInformationContainer, "sensorInformationContainer");
+        } else if (p.present == WrappedCpmContainer__containerData_PR::WrappedCpmContainer__containerData_PR_PerceptionRegionContainer) {
+            from_json(j, p.choice.PerceptionRegionContainer, "perceptionRegionContainer");
+        } else if (p.present == WrappedCpmContainer__containerData_PR::WrappedCpmContainer__containerData_PR_PerceivedObjectContainer) {
+            from_json(j, p.choice.PerceivedObjectContainer, "perceivedObjectContainer");
+        } else {
+        p.present = WrappedCpmContainer__containerData_PR::WrappedCpmContainer__containerData_PR_NOTHING;
+        }
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+/*
+*   WrappedCpmContainer - Type SEQUENCE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
+*/
+
+Value to_json(const WrappedCpmContainer& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("containerId", to_json((p.containerId), allocator), allocator);
+    json.AddMember("containerData", to_json((p.containerData), allocator), allocator);
+    
+    return json;
+}
+
+void from_json(const Value& j, WrappedCpmContainer& p, std::string field) {
+    try {
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["containerId"], (p.containerId), "containerId");
+        p.containerData.present = static_cast<WrappedCpmContainer__containerData_PR>(p.containerId);
+        from_json(j["containerData"], (p.containerData), "containerData");
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+
+
+/*
+*   WrappedCpmContainers - Type SEQUENCE OF
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
+*/
+
+Value to_json(const WrappedCpmContainers& p, Document::AllocatorType& allocator) {
     Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        const SensorInformation_t po = *(p.list.array[i]);
+        const WrappedCpmContainer_t po = *(p.list.array[i]);
         Value obj = to_json(po, allocator);
         json.PushBack(obj, allocator);
     }
     return json;
 }
 
-void from_json(const Value& j, SensorInformationContainer& p, std::string field) {
+void from_json(const Value& j, WrappedCpmContainers& p, std::string field) {
     try {
-        SensorInformationContainer* p_tmp = vanetza::asn1::allocate<SensorInformationContainer>();
+        WrappedCpmContainers* p_tmp = vanetza::asn1::allocate<WrappedCpmContainers>();
         for (SizeType i = 0; i < j.Size(); i++) {
             const Value& item = j[i];
-            SensorInformation_t *element = vanetza::asn1::allocate<SensorInformation_t>();
+            WrappedCpmContainer_t *element = vanetza::asn1::allocate<WrappedCpmContainer_t>();
             from_json(item, *element, "index #" + std::to_string(i));
             asn_set_add(&(p_tmp->list), element);
         }
@@ -17169,36 +22330,30 @@ void from_json(const Value& j, EVChargingSpotNotificationPOIMessage& p, std::str
 
 
 /*
-*   InterferenceManagementZones - Type SEQUENCE OF
+*   InterferenceManagementZoneMessage - Type SEQUENCE
 *   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
 */
 
-Value to_json(const InterferenceManagementZones& p, Document::AllocatorType& allocator) {
-    Value json(kArrayType);
-    for(int i = 0; i < p.list.count; i++) {
-        const InterferenceManagementZone_t po = *(p.list.array[i]);
-        Value obj = to_json(po, allocator);
-        json.PushBack(obj, allocator);
-    }
+Value to_json(const InterferenceManagementZoneMessage& p, Document::AllocatorType& allocator) {
+    Value json(kObjectType);
+    json.AddMember("generationDeltaTime", to_json((p.generationDeltaTime), allocator), allocator);
+    json.AddMember("imzmParameters", to_json((p.imzmParameters), allocator), allocator);
+    
     return json;
 }
 
-void from_json(const Value& j, InterferenceManagementZones& p, std::string field) {
+void from_json(const Value& j, InterferenceManagementZoneMessage& p, std::string field) {
     try {
-        InterferenceManagementZones* p_tmp = vanetza::asn1::allocate<InterferenceManagementZones>();
-        for (SizeType i = 0; i < j.Size(); i++) {
-            const Value& item = j[i];
-            InterferenceManagementZone_t *element = vanetza::asn1::allocate<InterferenceManagementZone_t>();
-            from_json(item, *element, "index #" + std::to_string(i));
-            asn_set_add(&(p_tmp->list), element);
-        }
-        p = *p_tmp;
-        delete p_tmp;
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["generationDeltaTime"], (p.generationDeltaTime), "generationDeltaTime");
+        from_json(j["imzmParameters"], (p.imzmParameters), "imzmParameters");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
     }
 }
+
+
 
 /*
 *   TisTpgTransaction - Type CHOICE
@@ -17229,26 +22384,26 @@ void from_json(const Value& j, TisTpgTransaction& p, std::string field) {
     try {
         if (j.HasMember("drm")) {
         p.present = TisTpgTransaction_PR_drm;
-        from_json(j["drm"], p.choice.drm, "drm");
-    } else if (j.HasMember("snm")) {
+            from_json(j["drm"], p.choice.drm, "drm");
+        } else if (j.HasMember("snm")) {
         p.present = TisTpgTransaction_PR_snm;
-        from_json(j["snm"], p.choice.snm, "snm");
-    } else if (j.HasMember("trm")) {
+            from_json(j["snm"], p.choice.snm, "snm");
+        } else if (j.HasMember("trm")) {
         p.present = TisTpgTransaction_PR_trm;
-        from_json(j["trm"], p.choice.trm, "trm");
-    } else if (j.HasMember("tcm")) {
+            from_json(j["trm"], p.choice.trm, "trm");
+        } else if (j.HasMember("tcm")) {
         p.present = TisTpgTransaction_PR_tcm;
-        from_json(j["tcm"], p.choice.tcm, "tcm");
-    } else if (j.HasMember("vdrm")) {
+            from_json(j["tcm"], p.choice.tcm, "tcm");
+        } else if (j.HasMember("vdrm")) {
         p.present = TisTpgTransaction_PR_vdrm;
-        from_json(j["vdrm"], p.choice.vdrm, "vdrm");
-    } else if (j.HasMember("vdpm")) {
+            from_json(j["vdrm"], p.choice.vdrm, "vdrm");
+        } else if (j.HasMember("vdpm")) {
         p.present = TisTpgTransaction_PR_vdpm;
-        from_json(j["vdpm"], p.choice.vdpm, "vdpm");
-    } else if (j.HasMember("eofm")) {
+            from_json(j["vdpm"], p.choice.vdpm, "vdpm");
+        } else if (j.HasMember("eofm")) {
         p.present = TisTpgTransaction_PR_eofm;
-        from_json(j["eofm"], p.choice.eofm, "eofm");
-    } else {
+            from_json(j["eofm"], p.choice.eofm, "eofm");
+        } else {
         p.present = TisTpgTransaction_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -17370,7 +22525,7 @@ void from_json(const Value& j, AvcPart& p, std::string field) {
         if (j.HasMember("detectionZoneIds")) { p.detectionZoneIds = vanetza::asn1::allocate<ZoneIds_t>(); from_json(j["detectionZoneIds"], *(p.detectionZoneIds), "detectionZoneIds"); }
         else { p.detectionZoneIds=nullptr; }
         from_json(j["relevanceZoneIds"], (p.relevanceZoneIds), "relevanceZoneIds");
-        if (j.HasMember("direction")) { p.direction = vanetza::asn1::allocate<Direction_t>(); from_json(j["direction"], *(p.direction), "direction"); }
+        if (j.HasMember("direction")) { p.direction = vanetza::asn1::allocate<IVI_Direction_t>(); from_json(j["direction"], *(p.direction), "direction"); }
         else { p.direction=nullptr; }
         if (j.HasMember("applicableLanes")) { p.applicableLanes = vanetza::asn1::allocate<LanePositions_t>(); from_json(j["applicableLanes"], *(p.applicableLanes), "applicableLanes"); }
         else { p.applicableLanes=nullptr; }
@@ -17415,43 +22570,6 @@ void from_json(const Value& j, VruAwareness& p, std::string field) {
 
 
 /*
-*   CpmParameters - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const CpmParameters& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("managementContainer", to_json((p.managementContainer), allocator), allocator);
-    json.AddMember("numberOfPerceivedObjects", to_json((p.numberOfPerceivedObjects), allocator), allocator);
-    if (p.stationDataContainer != 0) json.AddMember("stationDataContainer", to_json(*(p.stationDataContainer), allocator), allocator);
-    if (p.sensorInformationContainer != 0) json.AddMember("sensorInformationContainer", to_json(*(p.sensorInformationContainer), allocator), allocator);
-    if (p.perceivedObjectContainer != 0) json.AddMember("perceivedObjectContainer", to_json(*(p.perceivedObjectContainer), allocator), allocator);
-    if (p.freeSpaceAddendumContainer != 0) json.AddMember("freeSpaceAddendumContainer", to_json(*(p.freeSpaceAddendumContainer), allocator), allocator);
-    return json;
-}
-
-void from_json(const Value& j, CpmParameters& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["managementContainer"], (p.managementContainer), "managementContainer");
-        if (j.HasMember("stationDataContainer")) { p.stationDataContainer = vanetza::asn1::allocate<StationDataContainer_t>(); from_json(j["stationDataContainer"], *(p.stationDataContainer), "stationDataContainer"); }
-        else { p.stationDataContainer=nullptr; }
-        if (j.HasMember("sensorInformationContainer")) { p.sensorInformationContainer = vanetza::asn1::allocate<SensorInformationContainer_t>(); from_json(j["sensorInformationContainer"], *(p.sensorInformationContainer), "sensorInformationContainer"); }
-        else { p.sensorInformationContainer=nullptr; }
-        if (j.HasMember("perceivedObjectContainer")) { p.perceivedObjectContainer = vanetza::asn1::allocate<PerceivedObjectContainer_t>(); from_json(j["perceivedObjectContainer"], *(p.perceivedObjectContainer), "perceivedObjectContainer"); }
-        else { p.perceivedObjectContainer=nullptr; }
-        if (j.HasMember("freeSpaceAddendumContainer")) { p.freeSpaceAddendumContainer = vanetza::asn1::allocate<FreeSpaceAddendumContainer_t>(); from_json(j["freeSpaceAddendumContainer"], *(p.freeSpaceAddendumContainer), "freeSpaceAddendumContainer"); }
-        else { p.freeSpaceAddendumContainer=nullptr; }
-        from_json(j["numberOfPerceivedObjects"], (p.numberOfPerceivedObjects), "numberOfPerceivedObjects");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
 *   EvcsnPdu - Type SEQUENCE
 *   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
 */
@@ -17478,21 +22596,23 @@ void from_json(const Value& j, EvcsnPdu& p, std::string field) {
 
 
 /*
-*   ImzmContainer - Type SEQUENCE
+*   IMZM - Type SEQUENCE
 *   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
 */
 
-Value to_json(const ImzmContainer& p, Document::AllocatorType& allocator) {
+Value to_json(const IMZM& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("interferenceManagementZones", to_json((p.interferenceManagementZones), allocator), allocator);
+    json.AddMember("header", to_json((p.header), allocator), allocator);
+    json.AddMember("imzm", to_json((p.imzm), allocator), allocator);
     
     return json;
 }
 
-void from_json(const Value& j, ImzmContainer& p, std::string field) {
+void from_json(const Value& j, IMZM& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["interferenceManagementZones"], (p.interferenceManagementZones), "interferenceManagementZones");
+        from_json(j["header"], (p.header), "header");
+        from_json(j["imzm"], (p.imzm), "imzm");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -17589,20 +22709,20 @@ void from_json(const Value& j, IviContainer& p, std::string field) {
     try {
         if (j.HasMember("glc")) {
         p.present = IviContainer_PR_glc;
-        from_json(j["glc"], p.choice.glc, "glc");
-    } else if (j.HasMember("giv")) {
+            from_json(j["glc"], p.choice.glc, "glc");
+        } else if (j.HasMember("giv")) {
         p.present = IviContainer_PR_giv;
-        from_json(j["giv"], p.choice.giv, "giv");
-    } else if (j.HasMember("rcc")) {
+            from_json(j["giv"], p.choice.giv, "giv");
+        } else if (j.HasMember("rcc")) {
         p.present = IviContainer_PR_rcc;
-        from_json(j["rcc"], p.choice.rcc, "rcc");
-    } else if (j.HasMember("tc")) {
+            from_json(j["rcc"], p.choice.rcc, "rcc");
+        } else if (j.HasMember("tc")) {
         p.present = IviContainer_PR_tc;
-        from_json(j["tc"], p.choice.tc, "tc");
-    } else if (j.HasMember("lac")) {
+            from_json(j["tc"], p.choice.tc, "tc");
+        } else if (j.HasMember("lac")) {
         p.present = IviContainer_PR_lac;
-        from_json(j["lac"], p.choice.lac, "lac");
-    } else {
+            from_json(j["lac"], p.choice.lac, "lac");
+        } else {
         p.present = IviContainer_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -17670,58 +22790,6 @@ void from_json(const Value& j, VAM& p, std::string field) {
 
 
 /*
-*   CollectivePerceptionMessage - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const CollectivePerceptionMessage& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("generationDeltaTime", to_json((p.generationDeltaTime), allocator), allocator);
-    json.AddMember("cpmParameters", to_json((p.cpmParameters), allocator), allocator);
-    
-    return json;
-}
-
-void from_json(const Value& j, CollectivePerceptionMessage& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["generationDeltaTime"], (p.generationDeltaTime), "generationDeltaTime");
-        from_json(j["cpmParameters"], (p.cpmParameters), "cpmParameters");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   ImzmParameters - Type SEQUENCE
-*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
-*/
-
-Value to_json(const ImzmParameters& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("basicContainer", to_json((p.basicContainer), allocator), allocator);
-    json.AddMember("imzmContainer", to_json((p.imzmContainer), allocator), allocator);
-    
-    return json;
-}
-
-void from_json(const Value& j, ImzmParameters& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["basicContainer"], (p.basicContainer), "basicContainer");
-        from_json(j["imzmContainer"], (p.imzmContainer), "imzmContainer");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
 *   McmContainer - Type CHOICE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
@@ -17740,11 +22808,11 @@ void from_json(const Value& j, McmContainer& p, std::string field) {
     try {
         if (j.HasMember("vehicleManoeuvreContainer")) {
         p.present = McmContainer_PR_vehicleManoeuvreContainer;
-        from_json(j["vehicleManoeuvreContainer"], p.choice.vehicleManoeuvreContainer, "vehicleManoeuvreContainer");
-    } else if (j.HasMember("manoeuvreAdviceContainer")) {
+            from_json(j["vehicleManoeuvreContainer"], p.choice.vehicleManoeuvreContainer, "vehicleManoeuvreContainer");
+        } else if (j.HasMember("manoeuvreAdviceContainer")) {
         p.present = McmContainer_PR_manoeuvreAdviceContainer;
-        from_json(j["manoeuvreAdviceContainer"], p.choice.manoeuvreAdviceContainer, "manoeuvreAdviceContainer");
-    } else {
+            from_json(j["manoeuvreAdviceContainer"], p.choice.manoeuvreAdviceContainer, "manoeuvreAdviceContainer");
+        } else {
         p.present = McmContainer_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
@@ -17784,58 +22852,6 @@ void from_json(const Value& j, IviContainers& p, std::string field) {
         ex.rethrow();
     }
 }
-
-/*
-*   CPM - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const CPM& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("header", to_json((p.header), allocator), allocator);
-    json.AddMember("cpm", to_json((p.cpm), allocator), allocator);
-    
-    return json;
-}
-
-void from_json(const Value& j, CPM& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["header"], (p.header), "header");
-        from_json(j["cpm"], (p.cpm), "cpm");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   InterferenceManagementZoneMessage - Type SEQUENCE
-*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
-*/
-
-Value to_json(const InterferenceManagementZoneMessage& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("generationDeltaTime", to_json((p.generationDeltaTime), allocator), allocator);
-    json.AddMember("imzmParameters", to_json((p.imzmParameters), allocator), allocator);
-    
-    return json;
-}
-
-void from_json(const Value& j, InterferenceManagementZoneMessage& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["generationDeltaTime"], (p.generationDeltaTime), "generationDeltaTime");
-        from_json(j["imzmParameters"], (p.imzmParameters), "imzmParameters");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
 
 /*
 *   WrappedMcmInformationBlocks - Type SEQUENCE
@@ -17907,32 +22923,6 @@ void from_json(const Value& j, IVIM& p, std::string field) {
         p._asn_ctx.ptr = nullptr;
         from_json(j["header"], (p.header), "header");
         from_json(j["ivi"], (p.ivi), "ivi");
-    } catch(VanetzaJSONException& ex) {
-        ex.addContext(field);
-        ex.rethrow();
-    }
-}
-
-
-
-/*
-*   IMZM - Type SEQUENCE
-*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
-*/
-
-Value to_json(const IMZM& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    json.AddMember("header", to_json((p.header), allocator), allocator);
-    json.AddMember("imzm", to_json((p.imzm), allocator), allocator);
-    
-    return json;
-}
-
-void from_json(const Value& j, IMZM& p, std::string field) {
-    try {
-        p._asn_ctx.ptr = nullptr;
-        from_json(j["header"], (p.header), "header");
-        from_json(j["imzm"], (p.imzm), "imzm");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();

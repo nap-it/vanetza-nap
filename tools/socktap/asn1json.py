@@ -11,9 +11,9 @@ from math import pow
 ######
 
 base_dir = "../../asn1"
-asn1_files = ["TS102894-2v131-CDD.asn", "DSRC.asn", "ISO14816.asn", "ISO14823.asn", "ISO14906-0-6.asn", "ISO14906-1-7.asn", "ISO17419.asn", 
+asn1_files = ["CDD-Release2.asn", "TS102894-2v131-CDD.asn", "DSRC.asn", "ISO14816.asn", "ISO14823.asn", "ISO14906-0-6.asn", "ISO14906-1-7.asn", "ISO17419.asn", 
               "ISO24534-3.asn", "ISO19321IVIv2.asn", "EN302637-2v141-CAM.asn", "EN302637-3v131-DENM.asn", "TS103300-3v211-VAM.asn", 
-              "DSRC_REGION_noCircular.asn", "TR103562v211-CPM.asn", "TS103301v211-MAPEM.asn", "TS103301v211-SPATEM.asn", 
+              "DSRC_REGION_noCircular.asn", "CPM-PDU-Descriptions.asn", "TS103301v211-MAPEM.asn", "TS103301v211-SPATEM.asn", 
               "TS103301v211-IVIM.asn", "TS103301v211-SREM.asn", "TS103301v211-SSEM.asn", "EVCSN-PDU-Descriptions.asn", 
               "EV-RSR-PDU-Descriptions.asn", "IMZM-PDU-Descriptions.asn", "TIS-TPG-Transactions-Descriptions.asn",
               "TS103301v211-RTCMEM.asn", "MCM-PDU-Descriptions.asn"]
@@ -56,7 +56,7 @@ printed = ["PhoneNumber", "VehicleHeight", "PreemptPriorityList", "WMInumber", "
            "Attributes", "GetStampedRq", "GetStampedRs", "SetInstanceRq", "SetStampedRq", "AttributeList",
            "AttributeIdList", "NULL", "CustomerContract"]
 
-include = ["NodeXY", "VehicleID", "TransitVehicleStatus", "TransmissionAndSpeed", "DigitalMap",
+include = ["NodeXY", "VehicleID", "TransitVehicleStatus", "TransmissionAndSpeed", "ITS-Container_DigitalMap", "ETSI-ITS-CDD_DigitalMap",
            "Position3D", "IntersectionAccessPoint", "ComputedLane", "AdvisorySpeedList", "ConnectionManeuverAssist", 
            "DataParameters", "EnabledLaneList", "CS1", "CS2", "CS3", "CS4", "CS5", "CS7", "CS8", "ServiceNumber", 
            "GeoGraphicalLimit", "LicPlateNumber", "TaxCode", "AviEriDateTime", "ServiceApplicationLimit", 
@@ -75,6 +75,8 @@ add_t = ["ObjectClass", "VehicleID", "VehicleLength", "VerticalAcceleration", "D
          "ContractID", "ExternalIdentificationMeans", "Pairing-ID", "Reservation-ID", "Reservation-Password", 
          "StationDetails", "CustomerContract", "ManouevreResponse"]
 
+pr_capitalize = ["originatingVehicleContainer", "originatingRsuContainer", "sensorInformationContainer", "perceptionRegionContainer", "perceivedObjectContainer"]
+
 replace_types = {
     ("Temperature", "TS102894-2v131-CDD.asn"): "ITS_Container_Temperature",
     ("Temperature", "EN302637-3v131-DENM.asn"): "ITS_Container_Temperature",
@@ -85,7 +87,144 @@ replace_types = {
     ("BasicContainer", "MCM-PDU-Descriptions.asn"): "BasicContainerMCM"
 }
 
-ignore_member_names = ['regional', 'shadowingApplies', 'expiryTime', 'fill', 'ownerCode', 'language', 'sessionLocation', 'avc', 'mlc', 'rsc']
+disambiguate_types = {
+    ("DeltaReferencePosition", "ComputedSegment"): "ITS_Container_",
+    ("DeltaReferencePosition", "DeltaReferencePositions"): "ITS_Container_",
+    ("LanePosition", "LanePositions"): "ITS_Container_",
+    ("IviIdentificationNumber", "IviIdentificationNumbers"): "IVI_",
+    ("ActionID", "ConnectedDenms"): "ITS_Container_",
+    ("CountryCode", "Provider"): "AVIAEINumberingAndDataStructures_",
+    ("CountryCode", "CS1"): "AVIAEINumberingAndDataStructures_",
+    ("CountryCode", "CS4"): "AVIAEINumberingAndDataStructures_",
+    ("CountryCode", "CS8"): "AVIAEINumberingAndDataStructures_",
+    ("LaneWidth", "BasicLaneInformation"): "ETSI_ITS_CDD_",
+    ("LanePosition", "BasicLaneInformation"): "ETSI_ITS_CDD_",
+    ("ProtectedZoneId", "CenDsrcTollingZone"): "",
+    ("IA5String", "DangerousGoodsExtended"): "",
+    ("UTF8String", "DangerousGoodsExtended"): "",
+    ("ProtectedZoneId", "ProtectedCommunicationZone"): "",
+    ("VehicleWidth", "TrailerData"): "ETSI_ITS_CDD_",
+    ("StationId", "TrajectoryInterceptionIndication"): "",
+    ("ProtectedZoneID", "ProtectedCommunicationZone"): "",
+    ("VehicleHeight", "LaneAttributes-addGrpC"): "DSRC_",
+    ("VehicleMass", "LaneAttributes-addGrpC"): "ITS_Container_",
+    ("CountryCode", "LPN"): "AVIAEINumberingAndDataStructures_",
+    ("SpecialTransportType", "LoadType"): "ITS_Container_",
+    ("AccelerationControl", "BasicVehicleContainerHighFrequency"): "ITS_Container_",
+    ("LanePosition", "BasicVehicleContainerHighFrequency"): "ITS_Container_",
+    ("SteeringWheelAngle", "BasicVehicleContainerHighFrequency"): "ITS_Container_",
+    ("LateralAcceleration", "BasicVehicleContainerHighFrequency"): "ITS_Container_",
+    ("VerticalAcceleration", "BasicVehicleContainerHighFrequency"): "ITS_Container_",
+    ("PerformanceClass", "BasicVehicleContainerHighFrequency"): "ITS_Container_",
+    ("CenDsrcTollingZone", "BasicVehicleContainerHighFrequency"): "ITS_Container_",
+    ("ExteriorLights", "BasicVehicleContainerLowFrequency"): "ITS_Container_",
+    ("PtActivation", "PublicTransportContainer"): "ITS_Container_",
+    ("LightBarSirenInUse", "SpecialTransportContainer"): "ITS_Container_",
+    ("SpecialTransportType", "SpecialTransportContainer"): "ITS_Container_",
+    ("LightBarSirenInUse", "RoadWorksContainerBasic"): "ITS_Container_",
+    ("RoadworksSubCauseCode", "RoadWorksContainerBasic"): "ITS_Container_",
+    ("ClosedLanes", "RoadWorksContainerBasic"): "ITS_Container_",
+    ("LightBarSirenInUse", "RescueContainer"): "ITS_Container_",
+    ("LightBarSirenInUse", "EmergencyContainer"): "ITS_Container_",
+    ("EmergencyPriority", "EmergencyContainer"): "ITS_Container_",
+    ("CauseCode", "EmergencyContainer"): "ITS_Container_",
+    ("LightBarSirenInUse", "SafetyCarContainer"): "ITS_Container_",
+    ("CauseCode", "SafetyCarContainer"): "ITS_Container_",
+    ("TrafficRule", "SafetyCarContainer"): "ITS_Container_",
+    ("SpeedLimit", "SafetyCarContainer"): "ITS_Container_",
+    ("ProtectedCommunicationZonesRSU", "RSUContainerHighFrequency"): "ITS_Container_",
+    ("Termination", "ManagementContainer"): "",
+    ("RelevanceDistance", "ManagementContainer"): "ITS_Container_",
+    ("RelevanceTrafficDirection", "ManagementContainer"): "ITS_Container_",
+    ("ValidityDuration", "ManagementContainer"): "ITS_Container_",
+    ("TransmissionInterval", "ManagementContainer"): "ITS_Container_",
+    ("Speed", "LocationContainer"): "ITS_Container_",
+    ("Heading", "LocationContainer"): "ITS_Container_",
+    ("RoadType", "LocationContainer"): "ITS_Container_",
+    ("CauseCode", "SituationContainer"): "ITS_Container_",
+    ("EventHistory", "SituationContainer"): "ITS_Container_",
+    ("StationarySince", "StationaryVehicleContainer"): "ITS_Container_",
+    ("CauseCode", "StationaryVehicleContainer"): "ITS_Container_",
+    ("DangerousGoodsExtended", "StationaryVehicleContainer"): "ITS_Container_",
+    ("NumberOfOccupants", "StationaryVehicleContainer"): "ITS_Container_",
+    ("VehicleIdentification", "StationaryVehicleContainer"): "ITS_Container_",
+    ("EnergyStorageType", "StationaryVehicleContainer"): "ITS_Container_",
+    ("PositionOfOccupants", "ImpactReductionContainer"): "ITS_Container_",
+    ("ActionID", "ReferenceDenms"): "ITS_Container_",
+    ("VruProfileAndSubprofile", "VruLowFrequencyContainer"): "VAM_PDU_Descriptions_",
+    ("VruExteriorLights", "VruLowFrequencyContainer"): "VAM_PDU_Descriptions_", 
+    ("VruSizeClass", "VruLowFrequencyContainer"): "VAM_PDU_Descriptions_",
+    ("ExteriorLights", "VruExteriorLights"): "ITS_Container_",
+    ("ClusterJoinInfo", "VruClusterOperationContainer"): "VAM_PDU_Descriptions_",
+    ("ClusterLeaveInfo", "VruClusterOperationContainer"): "VAM_PDU_Descriptions_",
+    ("ClusterBreakupInfo", "VruClusterOperationContainer"): "VAM_PDU_Descriptions_",
+    ("PathDeltaTime", "VruPathPoint"): "ITS_Container_",
+    ("StationID", "VruSafeDistanceIndication"): "ITS_Container_",
+    ("StationID", "TrajectoryInterceptionIndication"): "ITS_Container_",
+    ("MapReference", "OriginatingRsuContainer"): "ETSI_ITS_CDD_",
+    ("ReferencePosition", "TisTpgDRM-Location"): "ITS_Container_",
+    ("ReferencePosition", "TisTpgTCM-Location"): "ITS_Container_",
+    ("MapReference", "MapemElementReference"): "ETSI_ITS_CDD_",
+    ("Identifier1B", "MapPosition"): "",
+    ("LongitudinalLanePosition", "MapPosition"): "",
+    ("MapReference", "MapReferences"): "ETSI_ITS_CDD_",
+    ("MapPosition", "OccupiedLanesWithConfidence::OccupiedLanesWithConfidence__mapBased"): "ETSI_ITS_CDD_",
+    ("PathPoint", "Path"): "ETSI_ITS_CDD_",
+    ("PosConfidenceEllipse", "PathPointPredicted"): "ETSI_ITS_CDD_",
+    ("Path", "Traces"): "",
+    ("TimestampIts", "IviManagementContainer"): "ITS_Container_",
+    ("Direction", "RscPart"): "IVI_",
+    ("LightBarSirenInUse", "RoadWorksContainerExtended"): "ITS_Container_",
+    ("ClosedLanes", "RoadWorksContainerExtended"): "ITS_Container_",
+    ("RestrictedTypes", "RoadWorksContainerExtended"): "ITS_Container_",
+    ("SpeedLimit", "RoadWorksContainerExtended"): "ITS_Container_",
+    ("CauseCode", "RoadWorksContainerExtended"): "ITS_Container_",
+    ("ItineraryPath", "RoadWorksContainerExtended"): "ITS_Container_",
+    ("DeltaReferencePosition", "RoadWorksContainerExtended"): "ITS_Container_",
+    ("TrafficRule", "RoadWorksContainerExtended"): "ITS_Container_",
+    ("LanePosition", "AlacarteContainer"): "ITS_Container_",
+    ("PositioningSolutionType", "AlacarteContainer"): "ITS_Container_",
+    ("MessageSegmentationInfo", "ManagementContainer"): "",
+    ("MessageRateRange", "ManagementContainer"): "",
+    ("DigitalMap", "TpgStationData"): "ITS_Container_",
+    ("MapPosition", "GeneralizedLanePosition"): "ETSI_ITS_CDD_",
+    ("RoadType", "RoadConfigurationSection"): "ETSI_ITS_CDD_",
+    ("Curvature", "VruHighFrequencyContainer"): "ITS_Container_",
+    ("CurvatureCalculationMode", "VruHighFrequencyContainer"): "ITS_Container_",
+    ("YawRate", "VruHighFrequencyContainer"): "ITS_Container_",
+    ("LateralAcceleration", "VruHighFrequencyContainer"): "ITS_Container_",
+    ("VerticalAcceleration", "VruHighFrequencyContainer"): "ITS_Container_",
+    ("VruEnvironment", "VruHighFrequencyContainer"): "VAM_PDU_Descriptions_",
+    ("VruMovementControl", "VruHighFrequencyContainer"): "VAM_PDU_Descriptions_",
+    ("VruDeviceUsage", "VruHighFrequencyContainer"): "VAM_PDU_Descriptions_",
+    ("PathHistory", "VruMotionPredictionContainer"): "ITS_Container_",
+    ("SequenceOfTrajectoryInterceptionIndication", "VruMotionPredictionContainer"): "VAM_PDU_Descriptions_",
+    ("AccelerationChangeIndication", "VruMotionPredictionContainer"): "VAM_PDU_Descriptions_",
+    ("HeadingChangeIndication", "VruMotionPredictionContainer"): "VAM_PDU_Descriptions_",
+    ("StabilityChangeIndication", "VruMotionPredictionContainer"): "VAM_PDU_Descriptions_",
+    ("InterferenceManagementMitigationType", "InterferenceManagementInfoPerChannel"): "",
+    ("LaneWidth", "RoadSegment"): "DSRC_",
+    ("MapPosition", "PerceivedObject"): "ETSI_ITS_CDD_",
+    ("LaneWidth", "IntersectionGeometry"): "DSRC_",
+    ("TimestampIts", "GeographicLocationContainer"): "ITS_Container_",
+    ("Heading", "GeographicLocationContainer"): "ITS_Container_",
+    ("Speed", "GeographicLocationContainer"): "ITS_Container_",
+    ("DigitalMap", "ItsChargingStationData"): "ITS_Container_",
+    ("Direction", "TcPart"): "IVI_",
+    ("ProtectedZoneRadius", "ZoneDefinition"): "ITS_Container_",
+    ("SpeedValue", "AutomatedVehicleRule"): "ITS_Container_",
+    ("SpeedValue", "PlatooningRule"): "ITS_Container_",
+    ("VarLengthNumber", "GicPart"): "CITSapplMgmtIDs_",
+    ("Direction", "GicPart"): "IVI_",
+    ("Direction", "AvcPart"): "IVI_",
+    ("LanePosition", "GlcPart"): "ITS_Container_",
+    ("HeadingValue", "GlcPart"): "ITS_Container_",
+    ("AltitudeValue", "GeoPosition"): "ETSI_ITS_CDD_",
+    ("LaneType", "LanePositionAndType"): "ETSI_ITS_CDD_",
+    ("Direction", "LanePositionAndType"): "ETSI_ITS_CDD_",
+}
+
+ignore_member_names = ['regional', 'shadowingApplies', 'expiryTime', 'fill', 'ownerCode', 'language', 'sessionLocation', 'avc', 'mlc', 'rsc', 'train']
 ignore_member_types = ["PhoneNumber", "OpeningDaysHours", "MessageFrame", "DescriptiveName", "RegionalExtension", "Iso3833VehicleType",
                        "REG-EXT-ID-AND-TYPE.&id", "REG-EXT-ID-AND-TYPE.&Type", 'MESSAGE-ID-AND-TYPE.&id', 'MESSAGE-ID-AND-TYPE.&Type', 
                        'PreemptPriorityList', "WMInumber", "VDS", "TemporaryID", "Attributes", "GetStampedRq", "GetStampedRs", 
@@ -114,6 +253,15 @@ def get_element_name(m, self, opt):
             ((m["ext"] + '->') if m["ext"] != None else '') + \
             (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_")
 
+def get_disambiguated_member_name(type, parent, root, print_name):
+    if (type, parent) in disambiguate_types:
+        return (disambiguate_types[(type, parent)] + type).replace("-", "_")
+    elif print_name != parent and type != "INTEGER":
+        return (root + "_" + type).replace("-", "_")
+    else:
+        return type.replace("-", "_")
+
+
 class ASN1Sequence:
     def __init__(self, name, definition, parent_name, parent_file):
         self.name = name
@@ -136,9 +284,12 @@ class ASN1Sequence:
             m for m in self.members if m["type"] not in default_types]
         self.parent_name = parent_name
         self.parent_file = parent_file
+        self.print_name = name
 
         for m in self.members:
             if m["name"] in treat_as_optional:
+                m["optional"] = True
+            if "default" in m and m["name"] == "altitude":
                 m["optional"] = True
 
     def header_str(self):
@@ -148,9 +299,9 @@ class ASN1Sequence:
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, Document::AllocatorType& allocator);
+Value to_json(const """ + (self.print_name.replace("-", "_") + "_t" if self.name in add_t else self.print_name.replace("-", "_")) + """& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, std::string field);
+void from_json(const Value& j, """ + (self.print_name.replace("-", "_") + "_t" if self.name in add_t else self.print_name.replace("-", "_")) + """& p, std::string field);
 """
 
     def __str__(self):
@@ -160,7 +311,7 @@ void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, Document::AllocatorType& allocator) {
+Value to_json(const """ + (self.print_name.replace("-", "_") + "_t" if self.name in add_t else self.print_name.replace("-", "_")) + """& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     """
         
@@ -169,7 +320,7 @@ Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in ad
             if "optional" in m and m["optional"]:
                 continue
             
-            member_str = ('json.AddMember("' + m["name"] + '", ' + ('to_json_' + m["type"].replace("-", "_") + '(' if m["type"] in bitstrings else 'to_json('))
+            member_str = ('json.AddMember("' + m["name"] + '", ' + ('to_json_' + get_disambiguated_member_name(m["type"], self.name, self.parent_name, self.print_name) + '(' if m["type"] in bitstrings else 'to_json('))
             
             if m["type"] in transformation:
                 condition_str = " || ".join([(get_element_name(m, self, True) + \
@@ -194,7 +345,7 @@ Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in ad
         for m in self.members:
             if "optional" in m and m["optional"]:
                 member_str = ('if ' + get_element_name(m, self, False) + ' != 0) ' + \
-                                'json.AddMember("' + m["name"] + '", ' + ('to_json_' + m["type"] + '(' if m["type"] in bitstrings else 'to_json('))
+                                'json.AddMember("' + m["name"] + '", ' + ('to_json_' + get_disambiguated_member_name(m["type"], self.name, self.parent_name, self.print_name) + '(' if m["type"] in bitstrings else 'to_json('))
                                 
                 if m["type"] in transformation:
                     condition_str = " && ".join([(get_element_name(m, self, True) + \
@@ -221,7 +372,7 @@ Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in ad
     return json;
 }
 
-void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, std::string field) {
+void from_json(const Value& j, """ + (self.print_name.replace("-", "_") + "_t" if self.name in add_t else self.print_name.replace("-", "_")) + """& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         """
@@ -238,13 +389,13 @@ void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self
                 #type_name = m["type"] if m["type"] not in replace_types else replace_types[m["type"]]
                 member_str += 'if (j.HasMember("' + m["name"] + '")) { ' + \
                                 get_element_name(m, self, False)[1:] + \
-                                ' = vanetza::asn1::allocate<' + m["type"].replace("-", "_").replace(" ", "_").replace("INTEGER", "long") +  \
+                                ' = vanetza::asn1::allocate<' + get_disambiguated_member_name(m["type"], self.name, self.parent_name, self.print_name).replace(" ", "_").replace("INTEGER", "long") +  \
                                     ('_t' if m["type"] not in ["INTEGER"] and "actual_type" not in m else '') + '>(); '
             
             if m["type"] not in bitstrings:
                 member_str += 'from_json(j["' + m["name"] + '"], '
             else:
-                member_str += 'from_json_' + m["type"].replace("-", "_") + '(j["' + m["name"] + '"],'
+                member_str += 'from_json_' + get_disambiguated_member_name(m["type"], self.name, self.parent_name, self.print_name) + '(j["' + m["name"] + '"],'
             
             if m["type"] not in transformation:
                 member_str += get_element_name(m, self, True) + '), "' + m["name"] + '");'
@@ -267,6 +418,10 @@ void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self
                                  get_element_name(m, self, False)[1:] + '=nullptr; }'
             
             member_strs.append(member_str)
+
+            if "Id" in m["name"] and "Wrapped" in self.name:
+                extra_str = "p." + self.members[1]['name'] + ".present = static_cast<" + self.members[1]['type'].split('::')[1] + "_PR>(p." + m['name'] + ");"
+                member_strs.append(extra_str)
 
         for m in self.ignored_members:
             member_str = ""
@@ -299,6 +454,7 @@ class ASN1Choice:
             m for m in self.members if m["type"] not in default_types]
         self.parent_name = parent_name
         self.parent_file = parent_file
+        self.print_name = name
 
         for m in self.members:
             if m['name'] in capitalize_first_letter:
@@ -311,9 +467,9 @@ class ASN1Choice:
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, Document::AllocatorType& allocator);
+Value to_json(const """ + (self.print_name.replace("-", "_") + "_t" if self.name in add_t else self.print_name.replace("-", "_")) + """& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, std::string field);
+void from_json(const Value& j, """ + (self.print_name.replace("-", "_") + "_t" if self.name in add_t else self.print_name.replace("-", "_")) + """& p, std::string field);
 """
 
     def __str__(self):
@@ -323,20 +479,27 @@ void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, Document::AllocatorType& allocator) {
+Value to_json(const """ + (self.print_name.replace("-", "_") + "_t" if self.name in add_t else self.print_name.replace("-", "_")) + """& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     if """
 
         member_strs = []
         for m in self.members:
-            member_str = '(p.present == ' + (self.actual_type.replace("-", "_") if self.actual_type is not None else self.name.replace("-", "_")) + \
-                        '_PR_' + m["name"].replace("-", "_") + ') {\n        json.AddMember("' + m["name"] + '", '
+            member_str = '(p.present == ' + (self.actual_type.replace("-", "_") if self.actual_type is not None else self.print_name.replace("-", "_")) + \
+                        '_PR_' + (m["name"].replace("-", "_") if m["name"] not in pr_capitalize else (m["name"][0].upper() + m["name"][1:]).replace("-", "_")) + ') {\n        '
             
-            if m["type"] not in bitstrings:
-                member_str += 'to_json(p.choice.' + m["name"].replace("-", "_") + ', allocator), allocator);'
+            if "Wrapped" not in self.name:
+                if m["type"] not in bitstrings:
+                    member_str += 'json.AddMember("' + m["name"] + '", to_json(p.choice.' + (m["name"].replace("-", "_") if m["name"] not in pr_capitalize else (m["name"][0].upper() + m["name"][1:]).replace("-", "_")) + ', allocator), allocator);'
+                else:
+                    member_str += 'json.AddMember("' + m["name"] + '", to_json_' + get_disambiguated_member_name(m["type"], self.name, self.parent_name, self.print_name) + '(' + ('*' if "optional" in m and m["optional"] else '') + 'p.choice.' + m["name"].replace("-", "_") + ', allocator), allocator);'
             else:
-                member_str += 'to_json_' + m["type"].replace("-", "_") + '(' + ('*' if "optional" in m and m["optional"] else '') + 'p.choice.' + m["name"].replace("-", "_") + ', allocator), allocator);'
-            
+                if m["type"] not in bitstrings:
+                    member_str += 'json = to_json(p.choice.' + (m["name"].replace("-", "_") if m["name"] not in pr_capitalize else (m["name"][0].upper() + m["name"][1:]).replace("-", "_")) + ', allocator);'
+                else:
+                    member_str += 'json = to_json_' + get_disambiguated_member_name(m["type"], self.name, self.parent_name, self.print_name) + '(' + ('*' if "optional" in m and m["optional"] else '') + 'p.choice.' + m["name"].replace("-", "_") + ', allocator);'
+
+
             member_strs.append(member_str)
 
         result += '\n    } else if '.join(member_strs)
@@ -345,28 +508,39 @@ Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in ad
     return json;
 }
 
-void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, std::string field) {
+void from_json(const Value& j, """ + (self.print_name.replace("-", "_") + "_t" if self.name in add_t else self.print_name.replace("-", "_")) + """& p, std::string field) {
     try {
         if """ 
 
         member_strs = []
         for m in self.members:
-            member_str = '(j.HasMember("' + m["name"] + '")) {\n        p.present = ' + \
-                        (self.actual_type.replace("-", "_") if self.actual_type is not None else self.name.replace("-", "_")) + \
-                        '_PR_' + m["name"].replace("-", "_") + ';\n        '
-            
-            if m["type"] not in bitstrings:
-                member_str += 'from_json(j["' + m["name"] + '"], '
+            if "Wrapped" not in self.name:
+                member_str = '(j.HasMember("' + m["name"] + '")) {\n        p.present = ' + \
+                        (self.actual_type.replace("-", "_") if self.actual_type is not None else self.print_name.replace("-", "_")) + \
+                        '_PR_' + (m["name"].replace("-", "_") if m["name"] not in pr_capitalize else (m["name"][0].upper() + m["name"][1:]).replace("-", "_")) + ';\n        '
             else:
-                member_str += 'from_json_' + m["type"].replace("-", "_") + '(j["' + m["name"] + '"], '
+                member_str = '(p.present == ' + (self.actual_type.replace("-", "_") if self.actual_type is not None else self.print_name.replace("-", "_")) + \
+                        '_PR_' + (m["name"].replace("-", "_") if m["name"] not in pr_capitalize else (m["name"][0].upper() + m["name"][1:]).replace("-", "_")) + ') {\n        '
 
-            member_str += ('*' if "optional" in m and m["optional"] else '') + 'p.choice.' + m["name"].replace("-", "_") + ', "' + m["name"] + '");'
+            if "Wrapped" not in self.name:
+                if m["type"] not in bitstrings:
+                    member_str += '    from_json(j["' + m["name"] + '"], '
+                else:
+                    member_str += '    from_json_' + get_disambiguated_member_name(m["type"], self.name, self.parent_name, self.print_name) + '(j["' + m["name"] + '"], '
+            else:
+                if m["type"] not in bitstrings:
+                    member_str += '    from_json(j, '
+                else:
+                    member_str += '    from_json_' + get_disambiguated_member_name(m["type"], self.name, self.parent_name, self.print_name) + '(j, '
+
+
+            member_str += ('*' if "optional" in m and m["optional"] else '') + 'p.choice.' + (m["name"].replace("-", "_") if m["name"] not in pr_capitalize else (m["name"][0].upper() + m["name"][1:]).replace("-", "_")) + ', "' + m["name"] + '");'
 
             member_strs.append(member_str)
 
-        result += '\n    } else if '.join(member_strs)
-        result += """\n    } else {
-        p.present = """ + (self.actual_type.replace("-", "_") if self.actual_type is not None else self.name.replace("-", "_")) + """_PR_NOTHING;
+        result += '\n        } else if '.join(member_strs)
+        result += """\n        } else {
+        p.present = """ + (self.actual_type.replace("-", "_") if self.actual_type is not None else self.print_name.replace("-", "_")) + """_PR_NOTHING;
         }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -386,6 +560,7 @@ class ASN1SequenceOf:
         self.dependencies = [self.element] if self.element not in default_types else []
         self.parent_name = parent_name
         self.parent_file = parent_file
+        self.print_name = name
 
     def header_str(self):
         return """
@@ -394,9 +569,9 @@ class ASN1SequenceOf:
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, Document::AllocatorType& allocator);
+Value to_json(const """ + (self.print_name.replace("-", "_") + "_t" if self.name in add_t else self.print_name.replace("-", "_")) + """& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, std::string field);
+void from_json(const Value& j, """ + (self.print_name.replace("-", "_") + "_t" if self.name in add_t else self.print_name.replace("-", "_")) + """& p, std::string field);
 """
 
     def __str__(self):
@@ -406,23 +581,23 @@ void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, Document::AllocatorType& allocator) {
+Value to_json(const """ + (self.print_name.replace("-", "_") + "_t" if self.name in add_t else self.print_name.replace("-", "_")) + """& p, Document::AllocatorType& allocator) {
     Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        const """ + self.element.replace("-", "_") + """_t po = *(p.list.array[i]);
+        const """ + get_disambiguated_member_name(self.element, self.name, self.parent_name, self.print_name) + """_t po = *(p.list.array[i]);
         """ + ('// ' if self.element in basic else '') + """Value obj = to_json(po, allocator);
         json.PushBack(""" + ('po' if self.element in basic else 'obj') + """, allocator);
     }
     return json;
 }
 
-void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, std::string field) {
+void from_json(const Value& j, """ + (self.print_name.replace("-", "_") + "_t" if self.name in add_t else self.print_name.replace("-", "_")) + """& p, std::string field) {
     try {
-        """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """* p_tmp = vanetza::asn1::allocate<""" + \
-          (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """>();
+        """ + (self.print_name.replace("-", "_") + "_t" if self.name in add_t else self.print_name.replace("-", "_")) + """* p_tmp = vanetza::asn1::allocate<""" + \
+          (self.print_name.replace("-", "_") + "_t" if self.name in add_t else self.print_name.replace("-", "_")) + """>();
         for (SizeType i = 0; i < j.Size(); i++) {
             const Value& item = j[i];
-            """ + self.element.replace("-", "_") + """_t *element = vanetza::asn1::allocate<""" + self.element.replace("-", "_") + """_t>();
+            """ + get_disambiguated_member_name(self.element, self.name, self.parent_name, self.print_name) + """_t *element = vanetza::asn1::allocate<""" + get_disambiguated_member_name(self.element, self.name, self.parent_name, self.print_name) + """_t>();
             from_json(item, *element, "index #" + std::to_string(i));
             asn_set_add(&(p_tmp->list), element);
         }
@@ -443,6 +618,7 @@ class ASN1BitString:
                         if m is not None] if "named-bits" in definition else []
         self.parent_name = parent_name
         self.parent_file = parent_file
+        self.print_name = name
 
     def header_str(self):
         return """
@@ -451,9 +627,9 @@ class ASN1BitString:
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-Value to_json_""" + self.name.replace("-", "_") + """(const """ + self.name.replace("-", "_") + """_t p, Document::AllocatorType& allocator);
+Value to_json_""" + self.print_name.replace("-", "_") + """(const """ + self.print_name.replace("-", "_") + """_t p, Document::AllocatorType& allocator);
 
-void from_json_""" + self.name.replace("-", "_") + """(const Value& j, """ + self.name.replace("-", "_") + """_t& p, std::string field);
+void from_json_""" + self.print_name.replace("-", "_") + """(const Value& j, """ + self.print_name.replace("-", "_") + """_t& p, std::string field);
 """
 
     def __str__(self):
@@ -463,16 +639,16 @@ void from_json_""" + self.name.replace("-", "_") + """(const Value& j, """ + sel
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-Value to_json_""" + self.name.replace("-", "_") + """(const """ + self.name.replace("-", "_") + """_t p, Document::AllocatorType& allocator) {
+Value to_json_""" + self.print_name.replace("-", "_") + """(const """ + self.print_name.replace("-", "_") + """_t p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     """ + '\n    '.join(['json.AddMember("' + m[0] + '", ' + '(bool) (*(p.buf + (sizeof(uint8_t) * (' + str(m[1]) + ' / 8))) & (1 << ((7 * ((' + str(int(m[1])) + ' / 8) + 1))-(' + \
                          str(m[1]) + ' % 8)))), allocator);' for m in self.members]) + """
     return json;
 }
 
-void from_json_""" + self.name.replace("-", "_") + """(const Value& j, """ + self.name.replace("-", "_") + """_t& p, std::string field) {
+void from_json_""" + self.print_name.replace("-", "_") + """(const Value& j, """ + self.print_name.replace("-", "_") + """_t& p, std::string field) {
     try {
-        """ + self.name.replace("-", "_") + """_t* p_tmp = vanetza::asn1::allocate<""" + self.name.replace("-", "_") + """_t>();
+        """ + self.print_name.replace("-", "_") + """_t* p_tmp = vanetza::asn1::allocate<""" + self.print_name.replace("-", "_") + """_t>();
         """ + '\n        '.join(["bool " + m[0].replace("-", "_") + ";" for m in self.members]) + """
         """ + '\n        '.join(['if (j.HasMember("' + m[0] + '")) from_json(j["' + m[0] + '"], ' + '(' + m[0].replace("-", "_") + '), "' + m[0] + '");' for m in self.members]) + """
         p_tmp->size = (""" + str(len(self.members)) + """ / 8) + 1;
@@ -495,6 +671,7 @@ class ASN1TODO:
         self.definition = definition
         self.parent_name = parent_name
         self.parent_file = parent_file
+        self.print_name = name
 
     def header_str(self):
         return """
@@ -503,9 +680,9 @@ class ASN1TODO:
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, Document::AllocatorType& allocator);
+Value to_json(const """ + (self.print_name.replace("-", "_") + "_t" if self.name in add_t else self.print_name.replace("-", "_")) + """& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, std::string field);
+void from_json(const Value& j, """ + (self.print_name.replace("-", "_") + "_t" if self.name in add_t else self.print_name.replace("-", "_")) + """& p, std::string field);
 """
 
     def __str__(self):
@@ -515,13 +692,13 @@ void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self
 *   From """ + self.parent_name + """ - File """ + self.parent_file + """
 */
 
-Value to_json(const """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, Document::AllocatorType& allocator) {
+Value to_json(const """ + (self.print_name.replace("-", "_") + "_t" if self.name in add_t else self.print_name.replace("-", "_")) + """& p, Document::AllocatorType& allocator) {
     Value json(kObjectType); 
     return json;
     // TODO
 }
 
-void from_json(const Value& j, """ + (self.name.replace("-", "_") + "_t" if self.name in add_t else self.name.replace("-", "_")) + """& p, std::string field) {
+void from_json(const Value& j, """ + (self.print_name.replace("-", "_") + "_t" if self.name in add_t else self.print_name.replace("-", "_")) + """& p, std::string field) {
     // TODO
 }"""
 
@@ -538,7 +715,17 @@ def parse_type(type_name, top_level_key, asn1_file, asn1_type):
                     m["optional"] = True 
 
     if "ISO14906" in asn1_file and "::" not in type_name:
-        include.append(type_name)
+        if type_name == "Provider":
+            include.append("ETSI-ITS-CDD_Provider")
+            include.append("EfcDsrcApplication_Provider")
+        else:
+            include.append(type_name)
+        add_t.append(type_name)
+    if "CDD-Release2" in asn1_file and "::" not in type_name:
+        if type_name in ["AccelerationChangeIndication", "AccelerationConfidence", "AccelerationControl", "AccessTechnologyClass", "AccidentSubCauseCode", "ActionID", "AdverseWeatherCondition-AdhesionSubCauseCode", "AdverseWeatherCondition-ExtremeWeatherConditionSubCauseCode", "AdverseWeatherCondition-PrecipitationSubCauseCode", "AdverseWeatherCondition-VisibilitySubCauseCode", "Altitude", "AltitudeConfidence", "AltitudeValue", "BasicContainer", "CauseCode", "CauseCodeType", "CenDsrcTollingZone", "CenDsrcTollingZoneID", "ClosedLanes", "ClusterBreakupInfo", "ClusterBreakupReason", "ClusterJoinInfo", "ClusterLeaveInfo", "ClusterLeaveReason", "CollisionRiskSubCauseCode", "CountryCode", "Curvature", "CurvatureCalculationMode", "CurvatureConfidence", "CurvatureValue", "DangerousEndOfQueueSubCauseCode", "DangerousGoodsBasic", "DangerousGoodsExtended", "DangerousSituationSubCauseCode", "DeltaAltitude", "DeltaLatitude", "DeltaLongitude", "DeltaReferencePosition", "DigitalMap", "Direction", "DriveDirection", "DrivingLaneStatus", "EmbarkationStatus", "EmergencyPriority", "EmergencyVehicleApproachingSubCauseCode", "EnergyStorageType", "EuVehicleCategoryCode", "EuVehicleCategoryL", "EuVehicleCategoryM", "EuVehicleCategoryN", "EuVehicleCategoryO", "EventHistory", "EventPoint", "Ext1", "Ext2", "Ext3", "ExteriorLights", "GenerationDeltaTime", "HardShoulderStatus", "HazardousLocation-AnimalOnTheRoadSubCauseCode", "HazardousLocation-DangerousCurveSubCauseCode", "HazardousLocation-ObstacleOnTheRoadSubCauseCode", "HazardousLocation-SurfaceConditionSubCauseCode", "Heading", "HeadingChangeIndication", "HeadingConfidence", "HeadingValue", "HeightLonCarr", "HumanPresenceOnTheRoadSubCauseCode", "HumanProblemSubCauseCode", "InformationQuality", "InterferenceManagementChannel", "InterferenceManagementInfo", "InterferenceManagementInfoPerChannel", "InterferenceManagementZone", "InterferenceManagementZones", "InterferenceManagementZoneType", "Iso3833VehicleType", "ItineraryPath", "ItsPduHeader", "IviIdentificationNumber", "LanePosition", "LaneType", "LaneWidth", "LateralAcceleration", "LateralAccelerationValue", "Latitude", "LightBarSirenInUse", "Longitude", "LongitudinalAcceleration", "LongitudinalAccelerationValue", "MapPosition", "MapReference", "MitigationForTechnologies", "MitigationPerTechnologyClass", "NumberOfOccupants", "OpeningDaysHours", "PathDeltaTime", "PathHistory", "PathPoint", "PerformanceClass", "PhoneNumber", "PosCentMass", "PosConfidenceEllipse", "PosFrontAx", "PositionConfidenceEllipse", "PositioningSolutionType", "PositionOfOccupants", "PositionOfPillars", "PosLonCarr", "PosPillar", "PostCrashSubCauseCode", "ProtectedCommunicationZone", "ProtectedCommunicationZonesRSU", "ProtectedZoneRadius", "ProtectedZoneType", "Provider", "PtActivation", "PtActivationData", "PtActivationType", "ReferencePosition", "ReferencePositionWithConfidence", "RelevanceDistance", "RelevanceTrafficDirection", "RequestResponseIndication", "RescueAndRecoveryWorkInProgressSubCauseCode", "RestrictedTypes", "RoadType", "RoadworksSubCauseCode", "SemiAxisLength", "SequenceNumber", "SequenceOfTrajectoryInterceptionIndication", "SignalViolationSubCauseCode", "SlowVehicleSubCauseCode", "SpecialTransportType", "Speed", "SpeedConfidence", "SpeedLimit", "SpeedValue", "StabilityChangeIndication", "StabilityLossProbability", "StationarySince", "StationaryVehicleSubCauseCode", "StationID", "StationType", "SteeringWheelAngle", "SteeringWheelAngleConfidence", "SteeringWheelAngleValue", "SubCauseCodeType", "Temperature", "TimestampIts", "Traces", "TrafficConditionSubCauseCode", "TrafficIslandPosition", "TrafficRule", "TrajectoryInterceptionConfidence", "TrajectoryInterceptionIndication", "TrajectoryInterceptionProbability", "TransmissionInterval", "TurningRadius", "ValidityDuration", "VarLengthNumber", "VDS", "VehicleBreakdownSubCauseCode", "VehicleHeight", "VehicleIdentification", "VehicleLength", "VehicleLengthConfidenceIndication", "VehicleLengthValue", "VehicleMass", "VehicleRole", "VehicleWidth", "VerticalAcceleration", "VerticalAccelerationValue", "VruDeviceUsage", "VruEnvironment", "VruExteriorLights", "VruMovementControl", "VruProfileAndSubprofile", "VruSizeClass", "VruSpecificExteriorLights", "VruSubProfileAnimal", "VruSubProfileBicyclist", "VruSubProfileMotorcyclist", "VruSubProfilePedestrian", "WheelBaseVehicle", "WMInumber", "WrongWayDrivingSubCauseCode", "YawRate", "YawRateConfidence", "YawRateValue"]:
+            include.append("ETSI-ITS-CDD_" + type_name)
+        else:
+            include.append(type_name)
         add_t.append(type_name)
     if asn1_type["type"] in ["SEQUENCE"]:
         for m in asn1_type["members"]:
@@ -594,13 +781,13 @@ intro = """/*
 #include "asn1json.hpp"
 #include <boost/optional.hpp>
 
-Value to_json(const TimestampIts_t& p, Document::AllocatorType& allocator) {
+Value to_json(const ITS_Container_TimestampIts_t& p, Document::AllocatorType& allocator) {
     long tmp;
     asn_INTEGER2long(&p, &tmp);
     return Value(tmp);
 }
 
-void from_json(const Value& j, TimestampIts_t& p, std::string field) {
+void from_json(const Value& j, ITS_Container_TimestampIts_t& p, std::string field) {
     try {
         p.buf = nullptr;
         asn_long2INTEGER(&p, j.IsDouble() ? static_cast<long>(j.GetDouble()) : j.GetInt64());
@@ -617,6 +804,19 @@ Value to_json(const long& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, long& p, std::string field) {
     try {  
         p = j.IsDouble() ? static_cast<long>(j.GetDouble()) : j.GetInt64();
+    } catch(VanetzaJSONException& ex) {
+        ex.addContext(field);
+        ex.rethrow();
+    }
+}
+
+Value to_json(const unsigned long* p, Document::AllocatorType& allocator) {
+    return Value(*p);
+}
+
+void from_json(const Value& j, long* p, std::string field) {
+    try {  
+        *p = j.IsDouble() ? static_cast<long>(j.GetDouble()) : j.GetInt64();
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -731,11 +931,15 @@ header_intro = """/*
 
 using namespace rapidjson;
 
-Value to_json(const TimestampIts_t& p, Document::AllocatorType& allocator);
-void from_json(const Value& j, TimestampIts_t& p, std::string field);
+Value to_json(const ETSI_ITS_CDD_TimestampIts_t& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, ETSI_ITS_CDD_TimestampIts_t& p, std::string field);
+Value to_json(const ITS_Container_TimestampIts_t& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, ITS_Container_TimestampIts_t& p, std::string field);
 Value to_json(const long& p, Document::AllocatorType& allocator);
 void from_json(const Value& j, long& p, std::string field);
 Value to_json(const unsigned long& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, long* p, std::string field);
+Value to_json(const unsigned long* p, Document::AllocatorType& allocator);
 void from_json(const Value& j, unsigned long& p, std::string field);
 Value to_json(const unsigned& p, Document::AllocatorType& allocator);
 void from_json(const Value& j, unsigned& p, std::string field);
@@ -749,6 +953,9 @@ Value to_json(const NULL_t& p, Document::AllocatorType& allocator);
 void from_json(const Value& j, NULL_t& p, std::string field);
 """
 
+name_counts = {}
+duplicate_printed = []
+
 if sys.argv[1] == "hpp":
     print(header_intro)
 else:
@@ -759,15 +966,25 @@ b = len(printed)
 # TODO: Replace with better algorithm when there's time
 # for i in range(10):
 #while len(printed) + initial_len != len(asn1_types) + b:
-while any([t.name not in printed for t in asn1_types]):
+for t in asn1_types:
+    if t.name in name_counts and t.name not in printed and t.parent_name not in ["DSRC-REGION-noCircular"] and t.name not in ["Acceleration3dWithConfidence"]:
+        name_counts[t.name] += 1
+    else:
+        name_counts[t.name] = 1
+for t in asn1_types:
+    if name_counts[t.name] > 1:
+        t.print_name = t.parent_name.replace("-", "_") + "_" + t.name
+while any([printed.count(t.name) < name_counts[t.name] for t in asn1_types]):
     for t in asn1_types:
-        if t.name not in printed and (t.definition["type"] in ["BIT STRING", "OCTET STRING", "NumericString", "UTF8String", "IA5String", 
+        if printed.count(t.name) < name_counts[t.name] and t.print_name not in duplicate_printed and (t.definition["type"] in ["BIT STRING", "OCTET STRING", "NumericString", "UTF8String", "IA5String", 
                                                                 "CLASS", "VisibleString"] 
             or all([d["type"] in printed + default_types for d in t.members])):
             if t.definition["type"] not in ["OCTET STRING", "UTF8String", "VisibleString"]:
                 #pass
                 print(t.header_str() if sys.argv[1] == "hpp" else t)
             printed.append(t.name)
+            if t.print_name != t.name:
+                duplicate_printed.append(t.print_name)
         #elif t.name not in printed:
             #print(t.name + " " + t.definition["type"])
             ##print(all([d["type"] in printed + default_types for d in t.members]))

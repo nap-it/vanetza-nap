@@ -38,15 +38,15 @@ void copy(const facilities::PathHistory& ph, BasicVehicleContainerLowFrequency& 
         auto delta_longitude = point.longitude - ref.longitude; // positive: point is east
 
         while (!delta_time.is_negative() && path_points < scMaxPathPoints) {
-            ::PathPoint* path_point = asn1::allocate<::PathPoint>();
-            path_point->pathDeltaTime = asn1::allocate<PathDeltaTime_t>();
+            ::ITS_Container_PathPoint* path_point = asn1::allocate<::ITS_Container_PathPoint>();
+            path_point->pathDeltaTime = asn1::allocate<ITS_Container_PathDeltaTime_t>();
             *(path_point->pathDeltaTime) = std::min(delta_time, scMaxDeltaTime).total_milliseconds() /
-                10 * PathDeltaTime::PathDeltaTime_tenMilliSecondsInPast;
+                10 * ITS_Container_PathDeltaTime::ITS_Container_PathDeltaTime_tenMilliSecondsInPast;
             path_point->pathPosition.deltaLatitude = (delta_latitude / scMicrodegree).value() *
-                DeltaLatitude::DeltaLatitude_oneMicrodegreeNorth;
+                ITS_Container_DeltaLatitude::ITS_Container_DeltaLatitude_oneMicrodegreeNorth;
             path_point->pathPosition.deltaLongitude = (delta_longitude / scMicrodegree).value() *
-                DeltaLongitude::DeltaLongitude_oneMicrodegreeEast;
-            path_point->pathPosition.deltaAltitude = DeltaAltitude::DeltaAltitude_unavailable;
+                ITS_Container_DeltaLongitude::ITS_Container_DeltaLongitude_oneMicrodegreeEast;
+            path_point->pathPosition.deltaAltitude = ITS_Container_DeltaAltitude::ITS_Container_DeltaAltitude_unavailable;
 
             ASN_SEQUENCE_ADD(&container.pathHistory, path_point);
 
@@ -56,10 +56,10 @@ void copy(const facilities::PathHistory& ph, BasicVehicleContainerLowFrequency& 
     }
 }
 
-bool similar_heading(const Heading& a, const Heading& b, Angle limit)
+bool similar_heading(const ITS_Container_Heading& a, const ITS_Container_Heading& b, Angle limit)
 {
     // HeadingValues are tenth of degree (900 equals 90 degree east)
-    static_assert(HeadingValue_wgs84East == 900, "HeadingValue interpretation fails");
+    static_assert(ITS_Container_HeadingValue_wgs84East == 900, "HeadingValue interpretation fails");
 
     bool result = false;
     if (is_available(a) && is_available(b)) {
@@ -72,7 +72,7 @@ bool similar_heading(const Heading& a, const Heading& b, Angle limit)
     return result;
 }
 
-bool similar_heading(const Heading& a, Angle b, Angle limit)
+bool similar_heading(const ITS_Container_Heading& a, Angle b, Angle limit)
 {
     bool result = false;
     if (is_available(a)) {
@@ -92,7 +92,7 @@ bool similar_heading(Angle a, Angle b, Angle limit)
     return abs_diff <= limit || abs_diff >= full_circle - limit;
 }
 
-units::Length distance(const ReferencePosition_t& a, const ReferencePosition_t& b)
+units::Length distance(const ITS_Container_ReferencePosition_t& a, const ITS_Container_ReferencePosition_t& b)
 {
     using geonet::GeodeticPosition;
     using units::GeoAngle;
@@ -100,19 +100,19 @@ units::Length distance(const ReferencePosition_t& a, const ReferencePosition_t& 
     auto length = units::Length::from_value(std::numeric_limits<double>::quiet_NaN());
     if (is_available(a) && is_available(b)) {
         GeodeticPosition geo_a {
-            GeoAngle { a.latitude / Latitude_oneMicrodegreeNorth * microdegree },
-            GeoAngle { a.longitude / Longitude_oneMicrodegreeEast * microdegree }
+            GeoAngle { a.latitude / ITS_Container_Latitude_oneMicrodegreeNorth * microdegree },
+            GeoAngle { a.longitude / ITS_Container_Longitude_oneMicrodegreeEast * microdegree }
         };
         GeodeticPosition geo_b {
-            GeoAngle { b.latitude / Latitude_oneMicrodegreeNorth * microdegree },
-            GeoAngle { b.longitude / Longitude_oneMicrodegreeEast * microdegree }
+            GeoAngle { b.latitude / ITS_Container_Latitude_oneMicrodegreeNorth * microdegree },
+            GeoAngle { b.longitude / ITS_Container_Longitude_oneMicrodegreeEast * microdegree }
         };
         length = geonet::distance(geo_a, geo_b);
     }
     return length;
 }
 
-units::Length distance(const ReferencePosition_t& a, units::GeoAngle lat, units::GeoAngle lon)
+units::Length distance(const ITS_Container_ReferencePosition_t& a, units::GeoAngle lat, units::GeoAngle lon)
 {
     using geonet::GeodeticPosition;
     using units::GeoAngle;
@@ -120,8 +120,8 @@ units::Length distance(const ReferencePosition_t& a, units::GeoAngle lat, units:
     auto length = units::Length::from_value(std::numeric_limits<double>::quiet_NaN());
     if (is_available(a)) {
         GeodeticPosition geo_a {
-            GeoAngle { a.latitude / Latitude_oneMicrodegreeNorth * microdegree },
-            GeoAngle { a.longitude / Longitude_oneMicrodegreeEast * microdegree }
+            GeoAngle { a.latitude / ITS_Container_Latitude_oneMicrodegreeNorth * microdegree },
+            GeoAngle { a.longitude / ITS_Container_Longitude_oneMicrodegreeEast * microdegree }
         };
         GeodeticPosition geo_b { lat, lon };
         length = geonet::distance(geo_a, geo_b);
@@ -129,14 +129,14 @@ units::Length distance(const ReferencePosition_t& a, units::GeoAngle lat, units:
     return length;
 }
 
-bool is_available(const Heading& hd)
+bool is_available(const ITS_Container_Heading& hd)
 {
-    return hd.headingValue != HeadingValue_unavailable;
+    return hd.headingValue != ITS_Container_HeadingValue_unavailable;
 }
 
-bool is_available(const ReferencePosition& pos)
+bool is_available(const ITS_Container_ReferencePosition& pos)
 {
-    return pos.latitude != Latitude_unavailable && pos.longitude != Longitude_unavailable;
+    return pos.latitude != ITS_Container_Latitude_unavailable && pos.longitude != ITS_Container_Longitude_unavailable;
 }
 
 
@@ -147,69 +147,69 @@ long round(const boost::units::quantity<T>& q, const U& u)
     return std::round(v.value());
 }
 
-void copy(const PositionFix& position, ReferencePosition& reference_position) {
-    reference_position.longitude = round(position.longitude, microdegree) * Longitude_oneMicrodegreeEast;
-    reference_position.latitude = round(position.latitude, microdegree) * Latitude_oneMicrodegreeNorth;
-    reference_position.positionConfidenceEllipse.semiMajorOrientation = HeadingValue_unavailable;
-    reference_position.positionConfidenceEllipse.semiMajorConfidence = SemiAxisLength_unavailable;
-    reference_position.positionConfidenceEllipse.semiMinorConfidence = SemiAxisLength_unavailable;
+void copy(const PositionFix& position, ITS_Container_ReferencePosition& reference_position) {
+    reference_position.longitude = round(position.longitude, microdegree) * ITS_Container_Longitude_oneMicrodegreeEast;
+    reference_position.latitude = round(position.latitude, microdegree) * ITS_Container_Latitude_oneMicrodegreeNorth;
+    reference_position.positionConfidenceEllipse.semiMajorOrientation = ITS_Container_HeadingValue_unavailable;
+    reference_position.positionConfidenceEllipse.semiMajorConfidence = ITS_Container_SemiAxisLength_unavailable;
+    reference_position.positionConfidenceEllipse.semiMinorConfidence = ITS_Container_SemiAxisLength_unavailable;
     if (position.altitude) {
         reference_position.altitude.altitudeValue = to_altitude_value(position.altitude->value());
         reference_position.altitude.altitudeConfidence = to_altitude_confidence(position.altitude->confidence());
     } else {
-        reference_position.altitude.altitudeValue = AltitudeValue_unavailable;
-        reference_position.altitude.altitudeConfidence = AltitudeConfidence_unavailable;
+        reference_position.altitude.altitudeValue = ITS_Container_AltitudeValue_unavailable;
+        reference_position.altitude.altitudeConfidence = ITS_Container_AltitudeConfidence_unavailable;
     }
 }
 
-AltitudeConfidence_t to_altitude_confidence(units::Length confidence)
+ITS_Container_AltitudeConfidence_t to_altitude_confidence(units::Length confidence)
 {
     const double alt_con = confidence / units::si::meter;
 
     if (alt_con < 0 || std::isnan(alt_con)) {
-        return AltitudeConfidence_unavailable;
+        return ITS_Container_AltitudeConfidence_unavailable;
     } else if (alt_con <= 0.01) {
-        return AltitudeConfidence_alt_000_01;
+        return ITS_Container_AltitudeConfidence_alt_000_01;
     } else if (alt_con <= 0.02) {
-        return AltitudeConfidence_alt_000_02;
+        return ITS_Container_AltitudeConfidence_alt_000_02;
     } else if (alt_con <= 0.05) {
-        return AltitudeConfidence_alt_000_05;
+        return ITS_Container_AltitudeConfidence_alt_000_05;
     } else if (alt_con <= 0.1) {
-        return AltitudeConfidence_alt_000_10;
+        return ITS_Container_AltitudeConfidence_alt_000_10;
     } else if (alt_con <= 0.2) {
-        return AltitudeConfidence_alt_000_20;
+        return ITS_Container_AltitudeConfidence_alt_000_20;
     } else if (alt_con <= 0.5) {
-        return AltitudeConfidence_alt_000_50;
+        return ITS_Container_AltitudeConfidence_alt_000_50;
     } else if (alt_con <= 1.0) {
-        return AltitudeConfidence_alt_001_00;
+        return ITS_Container_AltitudeConfidence_alt_001_00;
     } else if (alt_con <= 2.0) {
-        return AltitudeConfidence_alt_002_00;
+        return ITS_Container_AltitudeConfidence_alt_002_00;
     } else if (alt_con <= 5.0) {
-        return AltitudeConfidence_alt_005_00;
+        return ITS_Container_AltitudeConfidence_alt_005_00;
     } else if (alt_con <= 10.0) {
-        return AltitudeConfidence_alt_010_00;
+        return ITS_Container_AltitudeConfidence_alt_010_00;
     } else if (alt_con <= 20.0) {
-        return AltitudeConfidence_alt_020_00;
+        return ITS_Container_AltitudeConfidence_alt_020_00;
     } else if (alt_con <= 50.0) {
-        return AltitudeConfidence_alt_050_00;
+        return ITS_Container_AltitudeConfidence_alt_050_00;
     } else if (alt_con <= 100.0) {
-        return AltitudeConfidence_alt_100_00;
+        return ITS_Container_AltitudeConfidence_alt_100_00;
     } else if (alt_con <= 200.0) {
-        return AltitudeConfidence_alt_200_00;
+        return ITS_Container_AltitudeConfidence_alt_200_00;
     } else {
-        return AltitudeConfidence_outOfRange;
+        return ITS_Container_AltitudeConfidence_outOfRange;
     }
 }
 
-AltitudeValue_t to_altitude_value(units::Length alt)
+ITS_Container_AltitudeValue_t to_altitude_value(units::Length alt)
 {
     using boost::units::isnan;
 
     if (!isnan(alt)) {
         alt = boost::algorithm::clamp(alt, -1000.0 * units::si::meter, 8000.0 * units::si::meter);
-        return AltitudeValue_oneCentimeter * 100.0 * (alt / units::si::meter);
+        return ITS_Container_AltitudeValue_oneCentimeter * 100.0 * (alt / units::si::meter);
     } else {
-        return AltitudeValue_unavailable;
+        return ITS_Container_AltitudeValue_unavailable;
     }
 }
 
@@ -267,10 +267,10 @@ bool check_service_specific_permissions(const asn1::Cam& cam, security::CamPermi
             // testing bit strings from asn1c is such a mess...
             assert(emergency->emergencyPriority->buf);
             uint8_t bits = *emergency->emergencyPriority->buf;
-            if (bits & (1 << (7 - EmergencyPriority_requestForRightOfWay))) {
+            if (bits & (1 << (7 - ITS_Container_EmergencyPriority_requestForRightOfWay))) {
                 required_permissions.add(CamPermission::Request_For_Right_Of_Way);
             }
-            if (bits & (1 << (7 - EmergencyPriority_requestForFreeCrossingAtATrafficLight))) {
+            if (bits & (1 << (7 - ITS_Container_EmergencyPriority_requestForFreeCrossingAtATrafficLight))) {
                 required_permissions.add(CamPermission::Request_For_Free_Crossing_At_Traffic_Light);
             }
         }
@@ -281,10 +281,10 @@ bool check_service_specific_permissions(const asn1::Cam& cam, security::CamPermi
 
         if (safety && safety->trafficRule) {
             switch (*safety->trafficRule) {
-                case TrafficRule_noPassing:
+                case ITS_Container_TrafficRule_noPassing:
                     required_permissions.add(CamPermission::No_Passing);
                     break;
-                case TrafficRule_noPassingForTrucks:
+                case ITS_Container_TrafficRule_noPassingForTrucks:
                     required_permissions.add(CamPermission::No_Passing_For_Trucks);
                     break;
                 default:
@@ -310,7 +310,7 @@ void print_indented(std::ostream& os, const asn1::Cam& message, const std::strin
         return os;
     };
 
-    const ItsPduHeader_t& header = message->header;
+    const ITS_Container_ItsPduHeader_t& header = message->header;
     prefix("ITS PDU Header") << "\n";
     ++level;
     prefix("Protocol Version") << header.protocolVersion << "\n";
@@ -325,7 +325,7 @@ void print_indented(std::ostream& os, const asn1::Cam& message, const std::strin
 
     prefix("Basic Container") << "\n";
     ++level;
-    const BasicContainer_t& basic = cam.camParameters.basicContainer;
+    const CAM_PDU_Descriptions_BasicContainer_t& basic = cam.camParameters.basicContainer;
     prefix("Station Type") << basic.stationType << "\n";
     prefix("Reference Position") << "\n";
     ++level;

@@ -8,7 +8,7 @@
 #include "TpgLocation.h"
 
 /*
- * This type is implemented using ReferencePosition,
+ * This type is implemented using ITS_Container_ReferencePosition,
  * so here we adjust the DEF accordingly.
  */
 static const ber_tlv_tag_t asn_DEF_TpgLocation_tags_1[] = {
@@ -33,8 +33,8 @@ asn_TYPE_descriptor_t asn_DEF_TpgLocation = {
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
 		SEQUENCE_constraint
 	},
-	asn_MBR_ReferencePosition_1,
+	asn_MBR_ITS_Container_ReferencePosition_1,
 	4,	/* Elements count */
-	&asn_SPC_ReferencePosition_specs_1	/* Additional specs */
+	&asn_SPC_ITS_Container_ReferencePosition_specs_1	/* Additional specs */
 };
 

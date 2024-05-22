@@ -12,16 +12,16 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "HeightLonCarr.h"
-#include "PosLonCarr.h"
-#include "PositionOfPillars.h"
-#include "PosCentMass.h"
-#include "WheelBaseVehicle.h"
-#include "TurningRadius.h"
-#include "PosFrontAx.h"
-#include "PositionOfOccupants.h"
-#include "VehicleMass.h"
-#include "RequestResponseIndication.h"
+#include "ITS-Container_HeightLonCarr.h"
+#include "ITS-Container_PosLonCarr.h"
+#include "ITS-Container_PositionOfPillars.h"
+#include "ITS-Container_PosCentMass.h"
+#include "ITS-Container_WheelBaseVehicle.h"
+#include "ITS-Container_TurningRadius.h"
+#include "ITS-Container_PosFrontAx.h"
+#include "ITS-Container_PositionOfOccupants.h"
+#include "ITS-Container_VehicleMass.h"
+#include "ITS-Container_RequestResponseIndication.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -30,18 +30,18 @@ extern "C" {
 
 /* ImpactReductionContainer */
 typedef struct ImpactReductionContainer {
-	HeightLonCarr_t	 heightLonCarrLeft;
-	HeightLonCarr_t	 heightLonCarrRight;
-	PosLonCarr_t	 posLonCarrLeft;
-	PosLonCarr_t	 posLonCarrRight;
-	PositionOfPillars_t	 positionOfPillars;
-	PosCentMass_t	 posCentMass;
-	WheelBaseVehicle_t	 wheelBaseVehicle;
-	TurningRadius_t	 turningRadius;
-	PosFrontAx_t	 posFrontAx;
-	PositionOfOccupants_t	 positionOfOccupants;
-	VehicleMass_t	 vehicleMass;
-	RequestResponseIndication_t	 requestResponseIndication;
+	ITS_Container_HeightLonCarr_t	 heightLonCarrLeft;
+	ITS_Container_HeightLonCarr_t	 heightLonCarrRight;
+	ITS_Container_PosLonCarr_t	 posLonCarrLeft;
+	ITS_Container_PosLonCarr_t	 posLonCarrRight;
+	ITS_Container_PositionOfPillars_t	 positionOfPillars;
+	ITS_Container_PosCentMass_t	 posCentMass;
+	ITS_Container_WheelBaseVehicle_t	 wheelBaseVehicle;
+	ITS_Container_TurningRadius_t	 turningRadius;
+	ITS_Container_PosFrontAx_t	 posFrontAx;
+	ITS_Container_PositionOfOccupants_t	 positionOfOccupants;
+	ITS_Container_VehicleMass_t	 vehicleMass;
+	ITS_Container_RequestResponseIndication_t	 requestResponseIndication;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;

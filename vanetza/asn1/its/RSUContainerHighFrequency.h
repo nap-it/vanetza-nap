@@ -19,11 +19,11 @@ extern "C" {
 #endif
 
 /* Forward declarations */
-struct ProtectedCommunicationZonesRSU;
+struct ITS_Container_ProtectedCommunicationZonesRSU;
 
 /* RSUContainerHighFrequency */
 typedef struct RSUContainerHighFrequency {
-	struct ProtectedCommunicationZonesRSU	*protectedCommunicationZonesRSU;	/* OPTIONAL */
+	struct ITS_Container_ProtectedCommunicationZonesRSU	*protectedCommunicationZonesRSU;	/* OPTIONAL */
 	/*
 	 * This type is extensible,
 	 * possible extensions are below.
@@ -43,7 +43,7 @@ extern asn_TYPE_member_t asn_MBR_RSUContainerHighFrequency_1[1];
 #endif
 
 /* Referred external types */
-#include "ProtectedCommunicationZonesRSU.h"
+#include "ITS-Container_ProtectedCommunicationZonesRSU.h"
 
 #endif	/* _RSUContainerHighFrequency_H_ */
 #include "asn_internal.h"

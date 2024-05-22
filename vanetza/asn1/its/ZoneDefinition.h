@@ -12,9 +12,9 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "Latitude.h"
-#include "Longitude.h"
-#include "ProtectedZoneRadius.h"
+#include "ITS-Container_Latitude.h"
+#include "ITS-Container_Longitude.h"
+#include "ITS-Container_ProtectedZoneRadius.h"
 #include "ProtectedZoneID.h"
 #include "constr_SEQUENCE.h"
 
@@ -27,9 +27,9 @@ struct InterferenceManagementZoneShape;
 
 /* ZoneDefinition */
 typedef struct ZoneDefinition {
-	Latitude_t	 interferenceManagementZoneLatitude;
-	Longitude_t	 interferenceManagementZoneLongitude;
-	ProtectedZoneRadius_t	*interferenceManagementZoneRadius;	/* OPTIONAL */
+	ITS_Container_Latitude_t	 interferenceManagementZoneLatitude;
+	ITS_Container_Longitude_t	 interferenceManagementZoneLongitude;
+	ITS_Container_ProtectedZoneRadius_t	*interferenceManagementZoneRadius;	/* OPTIONAL */
 	ProtectedZoneID_t	*interferenceManagementZoneID;	/* OPTIONAL */
 	struct InterferenceManagementZoneShape	*interferenceManagementZoneShape;	/* OPTIONAL */
 	/*

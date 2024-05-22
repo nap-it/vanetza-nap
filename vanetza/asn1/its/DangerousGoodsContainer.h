@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "DangerousGoodsBasic.h"
+#include "ITS-Container_DangerousGoodsBasic.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -21,7 +21,7 @@ extern "C" {
 
 /* DangerousGoodsContainer */
 typedef struct DangerousGoodsContainer {
-	DangerousGoodsBasic_t	 dangerousGoodsBasic;
+	ITS_Container_DangerousGoodsBasic_t	 dangerousGoodsBasic;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;

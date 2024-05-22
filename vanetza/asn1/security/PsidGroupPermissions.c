@@ -51,39 +51,6 @@ static int asn_DFL_4_set_0(void **sptr) {
 	*st = 0;
 	return 0;
 }
-static int asn_DFL_5_cmp(const void *sptr) {
-	static const uint8_t defv[] = { 0x00 };
-	const EndEntityType_t *st = sptr;
-	
-	if(!st) {
-		return -1; /* No value is not a default value */
-	}
-	
-	if(st->size == (sizeof(defv))
-	&& memcmp(st->buf, &defv, sizeof(defv)) == 0)
-		return 0;
-	return 1;
-}
-static int asn_DFL_5_set(void **sptr) {
-	static const uint8_t defv[] = { 0x00 };
-	EndEntityType_t *st = *sptr;
-	uint8_t *nstr = MALLOC(sizeof(defv));
-	
-	if(!nstr) return -1;
-	memcpy(nstr, defv, sizeof(defv));
-	
-	if(st) {
-		FREEMEM(st->buf);
-	} else {
-		st = (*sptr = CALLOC(1, sizeof(*st)));
-		if(!st) { FREEMEM(nstr); return -1; }
-	}
-	st->buf = nstr;
-	st->size = sizeof(defv);
-	st->bits_unused = 0;
-	
-	return 0;
-}
 asn_TYPE_member_t asn_MBR_PsidGroupPermissions_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct PsidGroupPermissions, subjectPermissions),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
@@ -152,8 +119,7 @@ asn_TYPE_member_t asn_MBR_PsidGroupPermissions_1[] = {
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
 			0
 		},
-		&asn_DFL_5_cmp,	/* Compare DEFAULT "" */
-		&asn_DFL_5_set,	/* Set DEFAULT "" */
+		0, 0, /* No default value */
 		"eeType"
 		},
 };

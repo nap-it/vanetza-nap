@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_RSUContainerHighFrequency_1[] = {
 	{ ATF_POINTER, 1, offsetof(struct RSUContainerHighFrequency, protectedCommunicationZonesRSU),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtectedCommunicationZonesRSU,
+		&asn_DEF_ITS_Container_ProtectedCommunicationZonesRSU,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

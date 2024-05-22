@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "TimestampIts.h"
+#include "ITS-Container_TimestampIts.h"
 #include "FillingStatus.h"
 #include "TpgAutomation.h"
 #include "PairingID.h"
@@ -24,7 +24,7 @@ extern "C" {
 
 /* TisTpgVDRM-Management */
 typedef struct TisTpgVDRM_Management {
-	TimestampIts_t	 generationTime;
+	ITS_Container_TimestampIts_t	 generationTime;
 	FillingStatus_t	 fillingStatus;
 	TpgAutomation_t	 automationLevel;
 	PairingID_t	*pairingID;	/* OPTIONAL */

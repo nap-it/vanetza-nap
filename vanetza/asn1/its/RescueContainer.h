@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "LightBarSirenInUse.h"
+#include "ITS-Container_LightBarSirenInUse.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -21,7 +21,7 @@ extern "C" {
 
 /* RescueContainer */
 typedef struct RescueContainer {
-	LightBarSirenInUse_t	 lightBarSirenInUse;
+	ITS_Container_LightBarSirenInUse_t	 lightBarSirenInUse;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;

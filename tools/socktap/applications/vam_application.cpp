@@ -205,9 +205,9 @@ void VamApplication::schedule_timer()
 }
 
 Document VamApplication::buildJSON(VAM_t message, Document& vam_json_full, double time_reception, int rssi, int packet_size, double time_queue, channel channel_info) {
-    ItsPduHeader_t& header = message.header;
+    ITS_Container_ItsPduHeader_t& header = message.header;
     VruAwareness_t& vam = message.vam;
-    BasicContainer_t& basic = vam.vamParameters.basicContainer;
+    CAM_PDU_Descriptions_BasicContainer_t& basic = vam.vamParameters.basicContainer;
     VruHighFrequencyContainer* vhfc = vam.vamParameters.vruHighFrequencyContainer;
 
     Document document(kObjectType);
@@ -303,12 +303,19 @@ void VamApplication::on_message(string topic, string mqtt_message, const std::ve
 
         vanetza::asn1::Vam message;
 
-        ItsPduHeader_t& header = message->header;
+        ITS_Container_ItsPduHeader_t& header = message->header;
         header.protocolVersion = 1;
-        header.messageID = ItsPduHeader__messageID_vam;
+        header.messageID = MessageId_vam;
         header.stationID = config_s.station_id;
 
         message->vam = vam;
+
+        std::string error;
+        if (config_s.debug_enabled && !message.validate(error)) {
+            std::cout << "-- Vanetza UPER Encoding Error --\nCheck that the message format follows ETSI spec\nError message: " << error << std::endl;
+            std::cout << "Invalid payload: " << mqtt_message << std::endl;
+            return;
+        }
 
         packet->layer(OsiLayer::Application) = std::move(message);
     } else {

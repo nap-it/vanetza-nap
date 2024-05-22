@@ -20,15 +20,15 @@ extern "C" {
 #endif
 
 /* Forward declarations */
-struct ClusterJoinInfo;
-struct ClusterLeaveInfo;
-struct ClusterBreakupInfo;
+struct VAM_PDU_Descriptions_ClusterJoinInfo;
+struct VAM_PDU_Descriptions_ClusterLeaveInfo;
+struct VAM_PDU_Descriptions_ClusterBreakupInfo;
 
 /* VruClusterOperationContainer */
 typedef struct VruClusterOperationContainer {
-	struct ClusterJoinInfo	*clusterJoinInfo;	/* OPTIONAL */
-	struct ClusterLeaveInfo	*clusterLeaveInfo;	/* OPTIONAL */
-	struct ClusterBreakupInfo	*clusterBreakupInfo;	/* OPTIONAL */
+	struct VAM_PDU_Descriptions_ClusterJoinInfo	*clusterJoinInfo;	/* OPTIONAL */
+	struct VAM_PDU_Descriptions_ClusterLeaveInfo	*clusterLeaveInfo;	/* OPTIONAL */
+	struct VAM_PDU_Descriptions_ClusterBreakupInfo	*clusterBreakupInfo;	/* OPTIONAL */
 	VruClusterOpTimestamp_t	*clusterIdChangeTimeInfo;	/* OPTIONAL */
 	/*
 	 * This type is extensible,
@@ -49,9 +49,9 @@ extern asn_TYPE_member_t asn_MBR_VruClusterOperationContainer_1[4];
 #endif
 
 /* Referred external types */
-#include "ClusterJoinInfo.h"
-#include "ClusterLeaveInfo.h"
-#include "ClusterBreakupInfo.h"
+#include "VAM-PDU-Descriptions_ClusterJoinInfo.h"
+#include "VAM-PDU-Descriptions_ClusterLeaveInfo.h"
+#include "VAM-PDU-Descriptions_ClusterBreakupInfo.h"
 
 #endif	/* _VruClusterOperationContainer_H_ */
 #include "asn_internal.h"

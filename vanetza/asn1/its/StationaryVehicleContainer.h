@@ -12,9 +12,9 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "StationarySince.h"
-#include "NumberOfOccupants.h"
-#include "EnergyStorageType.h"
+#include "ITS-Container_StationarySince.h"
+#include "ITS-Container_NumberOfOccupants.h"
+#include "ITS-Container_EnergyStorageType.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -22,18 +22,18 @@ extern "C" {
 #endif
 
 /* Forward declarations */
-struct CauseCode;
-struct DangerousGoodsExtended;
-struct VehicleIdentification;
+struct ITS_Container_CauseCode;
+struct ITS_Container_DangerousGoodsExtended;
+struct ITS_Container_VehicleIdentification;
 
 /* StationaryVehicleContainer */
 typedef struct StationaryVehicleContainer {
-	StationarySince_t	*stationarySince;	/* OPTIONAL */
-	struct CauseCode	*stationaryCause;	/* OPTIONAL */
-	struct DangerousGoodsExtended	*carryingDangerousGoods;	/* OPTIONAL */
-	NumberOfOccupants_t	*numberOfOccupants;	/* OPTIONAL */
-	struct VehicleIdentification	*vehicleIdentification;	/* OPTIONAL */
-	EnergyStorageType_t	*energyStorageType;	/* OPTIONAL */
+	ITS_Container_StationarySince_t	*stationarySince;	/* OPTIONAL */
+	struct ITS_Container_CauseCode	*stationaryCause;	/* OPTIONAL */
+	struct ITS_Container_DangerousGoodsExtended	*carryingDangerousGoods;	/* OPTIONAL */
+	ITS_Container_NumberOfOccupants_t	*numberOfOccupants;	/* OPTIONAL */
+	struct ITS_Container_VehicleIdentification	*vehicleIdentification;	/* OPTIONAL */
+	ITS_Container_EnergyStorageType_t	*energyStorageType;	/* OPTIONAL */
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
@@ -49,9 +49,9 @@ extern asn_TYPE_member_t asn_MBR_StationaryVehicleContainer_1[6];
 #endif
 
 /* Referred external types */
-#include "CauseCode.h"
-#include "DangerousGoodsExtended.h"
-#include "VehicleIdentification.h"
+#include "ITS-Container_CauseCode.h"
+#include "ITS-Container_DangerousGoodsExtended.h"
+#include "ITS-Container_VehicleIdentification.h"
 
 #endif	/* _StationaryVehicleContainer_H_ */
 #include "asn_internal.h"

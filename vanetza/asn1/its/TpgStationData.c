@@ -55,7 +55,7 @@ asn_TYPE_member_t asn_MBR_TpgStationData_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct TpgStationData, tpgStationID),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_StationID,
+		&asn_DEF_ITS_Container_StationID,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -123,7 +123,7 @@ asn_TYPE_member_t asn_MBR_TpgStationData_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct TpgStationData, tpgLocation),
 		(ASN_TAG_CLASS_CONTEXT | (4 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ReferencePosition,
+		&asn_DEF_ITS_Container_ReferencePosition,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -174,7 +174,7 @@ asn_TYPE_member_t asn_MBR_TpgStationData_1[] = {
 	{ ATF_POINTER, 6, offsetof(struct TpgStationData, phoneNumber),
 		(ASN_TAG_CLASS_CONTEXT | (7 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_PhoneNumber,
+		&asn_DEF_ITS_Container_PhoneNumber,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -191,7 +191,7 @@ asn_TYPE_member_t asn_MBR_TpgStationData_1[] = {
 	{ ATF_POINTER, 5, offsetof(struct TpgStationData, digitalMap),
 		(ASN_TAG_CLASS_CONTEXT | (8 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_DigitalMap,
+		&asn_DEF_ITS_Container_DigitalMap,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -208,7 +208,7 @@ asn_TYPE_member_t asn_MBR_TpgStationData_1[] = {
 	{ ATF_POINTER, 4, offsetof(struct TpgStationData, openingDaysHours),
 		(ASN_TAG_CLASS_CONTEXT | (9 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_OpeningDaysHours,
+		&asn_DEF_ITS_Container_OpeningDaysHours,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

@@ -20,11 +20,11 @@ extern "C" {
 #endif
 
 /* Forward declarations */
-struct ActionID;
+struct ITS_Container_ActionID;
 
 /* ReferenceDenms */
 typedef struct ReferenceDenms {
-	A_SEQUENCE_OF(struct ActionID) list;
+	A_SEQUENCE_OF(struct ITS_Container_ActionID) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
@@ -41,7 +41,7 @@ extern asn_per_constraints_t asn_PER_type_ReferenceDenms_constr_1;
 #endif
 
 /* Referred external types */
-#include "ActionID.h"
+#include "ITS-Container_ActionID.h"
 
 #endif	/* _ReferenceDenms_H_ */
 #include "asn_internal.h"

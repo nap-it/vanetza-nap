@@ -10,6 +10,7 @@
 #include <exception>
 #include <functional>
 #include <iostream>
+#include <vanetza/asn1/asn1c_wrapper.hpp>
 
 using namespace vanetza;
 using namespace vanetza::facilities;
@@ -73,7 +74,7 @@ void CpmApplication::indicate(const DataIndication& indication, UpPacketPtr pack
         //std::cout << "\nInvalid sender: " << cp. << std::endl;
         return;
     }
-    CPM_t cpm_t = {(*cpm)->header, (*cpm)->cpm};
+    CollectivePerceptionMessage_t cpm_t = {(*cpm)->header, (*cpm)->payload};
 
     if(config_s.publish_encoded_payloads) {
         const std::vector<uint8_t> vec = std::vector<uint8_t>(cp[OsiLayer::Application].begin(), cp[OsiLayer::Application].end());
@@ -85,7 +86,7 @@ void CpmApplication::indicate(const DataIndication& indication, UpPacketPtr pack
             cp.rssi,
             true,
             cp.size(),
-            cpm_t.header.stationID,
+            cpm_t.header.stationId,
             config_s.station_id,
             config_s.station_type,
             cp.time_received,
@@ -102,15 +103,15 @@ void CpmApplication::schedule_timer()
     runtime_.schedule(cpm_interval_, std::bind(&CpmApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-Document CpmApplication::buildJSON(CPM_t message, double time_reception, int rssi, int packet_size, double time_queue, channel channel_info) {
-    ItsPduHeader_t& header = message.header;
+Document CpmApplication::buildJSON(CollectivePerceptionMessage_t message, double time_reception, int rssi, int packet_size, double time_queue, channel channel_info) {
+    ETSI_ITS_CDD_ItsPduHeader_t& header = message.header;
     Document document(kObjectType);
     Document::AllocatorType& allocator = document.GetAllocator();
     Value jsonTest(kObjectType);
 
     document.AddMember("timestamp", time_reception, allocator)
         .AddMember("rssi", rssi, allocator)
-        .AddMember("stationID", Value(static_cast<int64_t>(header.stationID)), allocator)
+        .AddMember("stationID", Value(static_cast<int64_t>(header.stationId)), allocator)
         .AddMember("receiverID", config_s.station_id, allocator)
         .AddMember("receiverType", config_s.station_type, allocator)
         .AddMember("packet_size", packet_size, allocator)
@@ -139,8 +140,8 @@ void CpmApplication::on_message(string topic, string mqtt_message, const std::ve
     Value payload;
 
     if (!is_encoded) {
-        CollectivePerceptionMessage_t cpm;
-    
+        CpmPayload_t cpm;
+
         try {
             document.Parse(mqtt_message.c_str());
             if(document.HasParseError() || !document.IsObject()) {
@@ -171,12 +172,19 @@ void CpmApplication::on_message(string topic, string mqtt_message, const std::ve
 
         vanetza::asn1::Cpm message;
 
-        ItsPduHeader_t& header = message->header;
+        ETSI_ITS_CDD_ItsPduHeader_t& header = message->header;
         header.protocolVersion = 1;
-        header.messageID = ItsPduHeader__messageID_cpm;
-        header.stationID = config_s.station_id;
+        header.messageId = MessageId_cpm;
+        header.stationId = config_s.station_id;
 
-        message->cpm = cpm;
+        message->payload = cpm;
+
+        std::string error;
+        if (config_s.debug_enabled && !message.validate(error)) {
+            std::cout << "-- Vanetza UPER Encoding Error --\nCheck that the message format follows ETSI spec\nError message: " << error << std::endl;
+            std::cout << "Invalid payload: " << mqtt_message << std::endl;
+            return;
+        }
 
         packet->layer(OsiLayer::Application) = std::move(message);
     } else {

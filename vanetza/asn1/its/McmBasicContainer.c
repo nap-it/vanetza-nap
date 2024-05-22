@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_McmBasicContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct McmBasicContainer, generationDeltaTime),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_TimestampIts,
+		&asn_DEF_ITS_Container_TimestampIts,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -28,7 +28,7 @@ asn_TYPE_member_t asn_MBR_McmBasicContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct McmBasicContainer, stationType),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_StationType,
+		&asn_DEF_ITS_Container_StationType,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -45,7 +45,7 @@ asn_TYPE_member_t asn_MBR_McmBasicContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct McmBasicContainer, referencePositionWithConfidence),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ReferencePositionWithConfidence,
+		&asn_DEF_MCM_PDU_Descriptions_ReferencePositionWithConfidence,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

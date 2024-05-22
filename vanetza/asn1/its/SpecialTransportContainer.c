@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_SpecialTransportContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct SpecialTransportContainer, specialTransportType),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_SpecialTransportType,
+		&asn_DEF_ITS_Container_SpecialTransportType,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -28,7 +28,7 @@ asn_TYPE_member_t asn_MBR_SpecialTransportContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct SpecialTransportContainer, lightBarSirenInUse),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_LightBarSirenInUse,
+		&asn_DEF_ITS_Container_LightBarSirenInUse,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_AlacarteContainer_1[] = {
 	{ ATF_POINTER, 6, offsetof(struct AlacarteContainer, lanePosition),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_LanePosition,
+		&asn_DEF_ITS_Container_LanePosition,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -79,7 +79,7 @@ asn_TYPE_member_t asn_MBR_AlacarteContainer_1[] = {
 	{ ATF_POINTER, 2, offsetof(struct AlacarteContainer, positioningSolution),
 		(ASN_TAG_CLASS_CONTEXT | (4 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_PositioningSolutionType,
+		&asn_DEF_ITS_Container_PositioningSolutionType,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

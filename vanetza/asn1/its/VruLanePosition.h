@@ -13,9 +13,9 @@
 
 /* Including external dependencies */
 #include "OffRoadLanePosition.h"
-#include "LanePosition.h"
-#include "TrafficIslandPosition.h"
-#include "MapPosition.h"
+#include "ITS-Container_LanePosition.h"
+#include "VAM-PDU-Descriptions_TrafficIslandPosition.h"
+#include "VAM-PDU-Descriptions_MapPosition.h"
 #include "constr_CHOICE.h"
 
 #ifdef __cplusplus
@@ -38,9 +38,9 @@ typedef struct VruLanePosition {
 	VruLanePosition_PR present;
 	union VruLanePosition_u {
 		OffRoadLanePosition_t	 offRoadLanePosition;
-		LanePosition_t	 vehicularLanePosition;
-		TrafficIslandPosition_t	 trafficIslandPosition;
-		MapPosition_t	 mapPosition;
+		ITS_Container_LanePosition_t	 vehicularLanePosition;
+		VAM_PDU_Descriptions_TrafficIslandPosition_t	 trafficIslandPosition;
+		VAM_PDU_Descriptions_MapPosition_t	 mapPosition;
 		/*
 		 * This type is extensible,
 		 * possible extensions are below.

@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_RoadWorksContainerExtended_1[] = {
 	{ ATF_POINTER, 9, offsetof(struct RoadWorksContainerExtended, lightBarSirenInUse),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_LightBarSirenInUse,
+		&asn_DEF_ITS_Container_LightBarSirenInUse,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -28,7 +28,7 @@ asn_TYPE_member_t asn_MBR_RoadWorksContainerExtended_1[] = {
 	{ ATF_POINTER, 8, offsetof(struct RoadWorksContainerExtended, closedLanes),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ClosedLanes,
+		&asn_DEF_ITS_Container_ClosedLanes,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -45,7 +45,7 @@ asn_TYPE_member_t asn_MBR_RoadWorksContainerExtended_1[] = {
 	{ ATF_POINTER, 7, offsetof(struct RoadWorksContainerExtended, restriction),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_RestrictedTypes,
+		&asn_DEF_ITS_Container_RestrictedTypes,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -62,7 +62,7 @@ asn_TYPE_member_t asn_MBR_RoadWorksContainerExtended_1[] = {
 	{ ATF_POINTER, 6, offsetof(struct RoadWorksContainerExtended, speedLimit),
 		(ASN_TAG_CLASS_CONTEXT | (3 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_SpeedLimit,
+		&asn_DEF_ITS_Container_SpeedLimit,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -79,7 +79,7 @@ asn_TYPE_member_t asn_MBR_RoadWorksContainerExtended_1[] = {
 	{ ATF_POINTER, 5, offsetof(struct RoadWorksContainerExtended, incidentIndication),
 		(ASN_TAG_CLASS_CONTEXT | (4 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_CauseCode,
+		&asn_DEF_ITS_Container_CauseCode,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -96,7 +96,7 @@ asn_TYPE_member_t asn_MBR_RoadWorksContainerExtended_1[] = {
 	{ ATF_POINTER, 4, offsetof(struct RoadWorksContainerExtended, recommendedPath),
 		(ASN_TAG_CLASS_CONTEXT | (5 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ItineraryPath,
+		&asn_DEF_ITS_Container_ItineraryPath,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -113,7 +113,7 @@ asn_TYPE_member_t asn_MBR_RoadWorksContainerExtended_1[] = {
 	{ ATF_POINTER, 3, offsetof(struct RoadWorksContainerExtended, startingPointSpeedLimit),
 		(ASN_TAG_CLASS_CONTEXT | (6 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_DeltaReferencePosition,
+		&asn_DEF_ITS_Container_DeltaReferencePosition,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -130,7 +130,7 @@ asn_TYPE_member_t asn_MBR_RoadWorksContainerExtended_1[] = {
 	{ ATF_POINTER, 2, offsetof(struct RoadWorksContainerExtended, trafficFlowRule),
 		(ASN_TAG_CLASS_CONTEXT | (7 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_TrafficRule,
+		&asn_DEF_ITS_Container_TrafficRule,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

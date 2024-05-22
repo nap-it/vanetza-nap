@@ -21,10 +21,14 @@ if(VANETZA_ASN1_WITH_ASN1C)
         ${PROJECT_SOURCE_DIR}/asn1/EN302637-3v131-DENM.asn
         ${PROJECT_SOURCE_DIR}/asn1/TS103300-3v211-VAM.asn
         ${PROJECT_SOURCE_DIR}/asn1/MCM-PDU-Descriptions.asn
+        ${PROJECT_SOURCE_DIR}/asn1/TIS-TPG-Transactions-Descriptions.asn
+        ${PROJECT_SOURCE_DIR}/asn1/IMZM-PDU-Descriptions.asn
+        ${PROJECT_SOURCE_DIR}/asn1/EV-RSR-PDU-Descriptions.asn
+        ${PROJECT_SOURCE_DIR}/asn1/EVCSN-PDU-Descriptions.asn
     )
 
     set(_its_asn1_files_depending_on_iso
-        ${PROJECT_SOURCE_DIR}/asn1/TR103562v211-CPM.asn
+        ${PROJECT_SOURCE_DIR}/asn1/CPM-PDU-Descriptions.asn
         ${PROJECT_SOURCE_DIR}/asn1/TS103301v211-MAPEM.asn
         ${PROJECT_SOURCE_DIR}/asn1/TS103301v211-RTCMEM.asn
         ${PROJECT_SOURCE_DIR}/asn1/TS103301v211-SPATEM.asn
@@ -33,10 +37,10 @@ if(VANETZA_ASN1_WITH_ASN1C)
         ${PROJECT_SOURCE_DIR}/asn1/TS103301v211-IVIM.asn
     )
 
-    option(VANETZA_ASN1_WITH_ISO "Fetch ISO ASN.1 files for a more complete ITS message set" OFF)
+    option(VANETZA_ASN1_WITH_ISO "Fetch ISO ASN.1 files for a more complete ITS message set" ON)
     if(VANETZA_ASN1_WITH_ISO)
-        set(_iso_asn1_files
-            ISO14816.asn ISO19091.asn ISO24534-3.asn ISO19321.asn
+        set(_iso_asn1_files 
+            CDD-Release2.asn ISO14816.asn ISO19091.asn ISO24534-3.asn ISO19321.asn
             ISO14906-0-6.asn ISO14906-1-7.asn ISO17419.asn ISO14823.asn)
         list(TRANSFORM _iso_asn1_files PREPEND ${PROJECT_BINARY_DIR}/iso/)
         add_custom_command(OUTPUT ${_iso_asn1_files}

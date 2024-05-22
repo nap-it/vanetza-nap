@@ -12,8 +12,8 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "InformationQuality.h"
-#include "CauseCode.h"
+#include "ITS-Container_InformationQuality.h"
+#include "ITS-Container_CauseCode.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -21,15 +21,15 @@ extern "C" {
 #endif
 
 /* Forward declarations */
-struct CauseCode;
-struct EventHistory;
+struct ITS_Container_CauseCode;
+struct ITS_Container_EventHistory;
 
 /* SituationContainer */
 typedef struct SituationContainer {
-	InformationQuality_t	 informationQuality;
-	CauseCode_t	 eventType;
-	struct CauseCode	*linkedCause;	/* OPTIONAL */
-	struct EventHistory	*eventHistory;	/* OPTIONAL */
+	ITS_Container_InformationQuality_t	 informationQuality;
+	ITS_Container_CauseCode_t	 eventType;
+	struct ITS_Container_CauseCode	*linkedCause;	/* OPTIONAL */
+	struct ITS_Container_EventHistory	*eventHistory;	/* OPTIONAL */
 	/*
 	 * This type is extensible,
 	 * possible extensions are below.
@@ -49,8 +49,8 @@ extern asn_TYPE_member_t asn_MBR_SituationContainer_1[4];
 #endif
 
 /* Referred external types */
-#include "CauseCode.h"
-#include "EventHistory.h"
+#include "ITS-Container_CauseCode.h"
+#include "ITS-Container_EventHistory.h"
 
 #endif	/* _SituationContainer_H_ */
 #include "asn_internal.h"

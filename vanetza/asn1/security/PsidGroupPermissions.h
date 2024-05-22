@@ -26,7 +26,7 @@ typedef struct PsidGroupPermissions {
 	SubjectPermissions_t	 subjectPermissions;
 	long	*minChainLength;	/* DEFAULT 1 */
 	long	 chainLengthRange;	/* DEFAULT 0 */
-	EndEntityType_t	*eeType;	/* DEFAULT '00'HH */
+	EndEntityType_t	*eeType;	/* DEFAULT {app} */
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;

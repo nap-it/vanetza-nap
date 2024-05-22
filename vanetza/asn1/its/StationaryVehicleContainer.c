@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_StationaryVehicleContainer_1[] = {
 	{ ATF_POINTER, 6, offsetof(struct StationaryVehicleContainer, stationarySince),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_StationarySince,
+		&asn_DEF_ITS_Container_StationarySince,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -28,7 +28,7 @@ asn_TYPE_member_t asn_MBR_StationaryVehicleContainer_1[] = {
 	{ ATF_POINTER, 5, offsetof(struct StationaryVehicleContainer, stationaryCause),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_CauseCode,
+		&asn_DEF_ITS_Container_CauseCode,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -45,7 +45,7 @@ asn_TYPE_member_t asn_MBR_StationaryVehicleContainer_1[] = {
 	{ ATF_POINTER, 4, offsetof(struct StationaryVehicleContainer, carryingDangerousGoods),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_DangerousGoodsExtended,
+		&asn_DEF_ITS_Container_DangerousGoodsExtended,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -62,7 +62,7 @@ asn_TYPE_member_t asn_MBR_StationaryVehicleContainer_1[] = {
 	{ ATF_POINTER, 3, offsetof(struct StationaryVehicleContainer, numberOfOccupants),
 		(ASN_TAG_CLASS_CONTEXT | (3 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_NumberOfOccupants,
+		&asn_DEF_ITS_Container_NumberOfOccupants,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -79,7 +79,7 @@ asn_TYPE_member_t asn_MBR_StationaryVehicleContainer_1[] = {
 	{ ATF_POINTER, 2, offsetof(struct StationaryVehicleContainer, vehicleIdentification),
 		(ASN_TAG_CLASS_CONTEXT | (4 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_VehicleIdentification,
+		&asn_DEF_ITS_Container_VehicleIdentification,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -96,7 +96,7 @@ asn_TYPE_member_t asn_MBR_StationaryVehicleContainer_1[] = {
 	{ ATF_POINTER, 1, offsetof(struct StationaryVehicleContainer, energyStorageType),
 		(ASN_TAG_CLASS_CONTEXT | (5 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_EnergyStorageType,
+		&asn_DEF_ITS_Container_EnergyStorageType,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

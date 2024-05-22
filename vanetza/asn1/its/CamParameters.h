@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "BasicContainer.h"
+#include "CAM-PDU-Descriptions_BasicContainer.h"
 #include "HighFrequencyContainer.h"
 #include "constr_SEQUENCE.h"
 
@@ -26,7 +26,7 @@ struct SpecialVehicleContainer;
 
 /* CamParameters */
 typedef struct CamParameters {
-	BasicContainer_t	 basicContainer;
+	CAM_PDU_Descriptions_BasicContainer_t	 basicContainer;
 	HighFrequencyContainer_t	 highFrequencyContainer;
 	struct LowFrequencyContainer	*lowFrequencyContainer;	/* OPTIONAL */
 	struct SpecialVehicleContainer	*specialVehicleContainer;	/* OPTIONAL */

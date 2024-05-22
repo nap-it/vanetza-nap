@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by RapidJSON
-*   Auto-generated from the asn1 directory by asn1json.py on 2024-03-20 04:52:43.945633
+*   Auto-generated from the asn1 directory by asn1json.py on 2024-05-22 12:52:40.387569
 */
 
 #ifndef ASN1_JSON_HPP
@@ -31,7 +31,8 @@
 #include <vanetza/asn1/its/VehicleID.h>
 #include <vanetza/asn1/its/TransitVehicleStatus.h>
 #include <vanetza/asn1/its/TransmissionAndSpeed.h>
-#include <vanetza/asn1/its/DigitalMap.h>
+#include <vanetza/asn1/its/ITS-Container_DigitalMap.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_DigitalMap.h>
 #include <vanetza/asn1/its/Position3D.h>
 #include <vanetza/asn1/its/IntersectionAccessPoint.h>
 #include <vanetza/asn1/its/ComputedLane.h>
@@ -83,6 +84,346 @@
 #include <vanetza/asn1/its/SignalHeadLocationList.h>
 #include <vanetza/asn1/its/CurrentVehicleConfiguration.h>
 #include <vanetza/asn1/its/ManouevreResponse.h>
+#include <vanetza/asn1/its/AccelerationChange.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_AccelerationConfidence.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_AccelerationControl.h>
+#include <vanetza/asn1/its/AccelerationMagnitudeValue.h>
+#include <vanetza/asn1/its/AccelerationValue.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_AccessTechnologyClass.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_AccidentSubCauseCode.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_AdverseWeatherCondition-AdhesionSubCauseCode.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_AdverseWeatherCondition-ExtremeWeatherConditionSubCauseCode.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_AdverseWeatherCondition-PrecipitationSubCauseCode.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_AdverseWeatherCondition-VisibilitySubCauseCode.h>
+#include <vanetza/asn1/its/AirHumidity.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_AltitudeConfidence.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_AltitudeValue.h>
+#include <vanetza/asn1/its/AngleConfidence.h>
+#include <vanetza/asn1/its/AngularSpeedConfidence.h>
+#include <vanetza/asn1/its/AngularAccelerationConfidence.h>
+#include <vanetza/asn1/its/AxlesCount.h>
+#include <vanetza/asn1/its/BarometricPressure.h>
+#include <vanetza/asn1/its/BogiesCount.h>
+#include <vanetza/asn1/its/CardinalNumber1B.h>
+#include <vanetza/asn1/its/CardinalNumber3b.h>
+#include <vanetza/asn1/its/CartesianAngleValue.h>
+#include <vanetza/asn1/its/CartesianAngularAccelerationComponentValue.h>
+#include <vanetza/asn1/its/CartesianAngularVelocityComponentValue.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_CauseCodeType.h>
+#include <vanetza/asn1/its/CartesianCoordinateSmall.h>
+#include <vanetza/asn1/its/CartesianCoordinate.h>
+#include <vanetza/asn1/its/CartesianCoordinateLarge.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_CenDsrcTollingZoneID.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_ClusterBreakupReason.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_ClusterLeaveReason.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_CollisionRiskSubCauseCode.h>
+#include <vanetza/asn1/its/ConfidenceLevel.h>
+#include <vanetza/asn1/its/CoordinateConfidence.h>
+#include <vanetza/asn1/its/CorrelationCellValue.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_CountryCode.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_CurvatureCalculationMode.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_CurvatureConfidence.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_CurvatureValue.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_DangerousEndOfQueueSubCauseCode.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_DangerousGoodsBasic.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_DangerousSituationSubCauseCode.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_DeltaAltitude.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_DeltaLatitude.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_DeltaLongitude.h>
+#include <vanetza/asn1/its/DeltaTimeMilliSecondPositive.h>
+#include <vanetza/asn1/its/DeltaTimeMilliSecondSigned.h>
+#include <vanetza/asn1/its/DeltaTimeQuarterSecond.h>
+#include <vanetza/asn1/its/DeltaTimeTenthOfSecond.h>
+#include <vanetza/asn1/its/DeltaTimeSecond.h>
+#include <vanetza/asn1/its/DeltaTimeTenSeconds.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_Direction.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_DriveDirection.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_DrivingLaneStatus.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_EmbarkationStatus.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_EmergencyPriority.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_EmergencyVehicleApproachingSubCauseCode.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_EnergyStorageType.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_EuVehicleCategoryL.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_EuVehicleCategoryM.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_EuVehicleCategoryN.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_EuVehicleCategoryO.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_ExteriorLights.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_GenerationDeltaTime.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_HardShoulderStatus.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_HazardousLocation-AnimalOnTheRoadSubCauseCode.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_HazardousLocation-DangerousCurveSubCauseCode.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_HazardousLocation-ObstacleOnTheRoadSubCauseCode.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_HazardousLocation-SurfaceConditionSubCauseCode.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_HeadingConfidence.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_HeadingValue.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_HeightLonCarr.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_HumanPresenceOnTheRoadSubCauseCode.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_HumanProblemSubCauseCode.h>
+#include <vanetza/asn1/its/Identifier1B.h>
+#include <vanetza/asn1/its/Identifier2B.h>
+#include <vanetza/asn1/its/ImpassabilitySubCauseCode.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_InformationQuality.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_InterferenceManagementZoneType.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_Iso3833VehicleType.h>
+#include <vanetza/asn1/its/IssuerIdentifier.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_IviIdentificationNumber.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_LanePosition.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_LaneType.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_LaneWidth.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_Latitude.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_LateralAccelerationValue.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_LightBarSirenInUse.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_Longitude.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_LongitudinalAccelerationValue.h>
+#include <vanetza/asn1/its/LongitudinalLanePositionValue.h>
+#include <vanetza/asn1/its/LongitudinalLanePositionConfidence.h>
+#include <vanetza/asn1/its/MatrixIncludedComponents.h>
+#include <vanetza/asn1/its/MessageId.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_NumberOfOccupants.h>
+#include <vanetza/asn1/its/ObjectPerceptionQuality.h>
+#include <vanetza/asn1/its/ObjectDimensionValue.h>
+#include <vanetza/asn1/its/ObjectDimensionConfidence.h>
+#include <vanetza/asn1/its/ObjectFace.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_OpeningDaysHours.h>
+#include <vanetza/asn1/its/OrdinalNumber1B.h>
+#include <vanetza/asn1/its/OrdinalNumber3b.h>
+#include <vanetza/asn1/its/OtherSubClass.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_PathDeltaTime.h>
+#include <vanetza/asn1/its/PathId.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_PerformanceClass.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_PhoneNumber.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_PosCentMass.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_PositioningSolutionType.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_PositionOfOccupants.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_PosFrontAx.h>
+#include <vanetza/asn1/its/Position1d.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_PosLonCarr.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_PosPillar.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_PostCrashSubCauseCode.h>
+#include <vanetza/asn1/its/PrecipitationIntensity.h>
+#include <vanetza/asn1/its/ProtectedZoneId.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_ProtectedZoneRadius.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_ProtectedZoneType.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_PtActivationData.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_PtActivationType.h>
+#include <vanetza/asn1/its/RailwayLevelCrossingSubCauseCode.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_RelevanceDistance.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_RelevanceTrafficDirection.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_RequestResponseIndication.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_RescueAndRecoveryWorkInProgressSubCauseCode.h>
+#include <vanetza/asn1/its/RoadSectionId.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_RoadType.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_RoadworksSubCauseCode.h>
+#include <vanetza/asn1/its/SafeDistanceIndicator.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_SemiAxisLength.h>
+#include <vanetza/asn1/its/SensorType.h>
+#include <vanetza/asn1/its/SensorTypes.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_SequenceNumber.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_SignalViolationSubCauseCode.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_SlowVehicleSubCauseCode.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_SpecialTransportType.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_SpeedConfidence.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_SpeedLimit.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_SpeedValue.h>
+#include <vanetza/asn1/its/StoredInformationType.h>
+#include <vanetza/asn1/its/VelocityComponentValue.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_StabilityLossProbability.h>
+#include <vanetza/asn1/its/StandardLength12b.h>
+#include <vanetza/asn1/its/StandardLength3b.h>
+#include <vanetza/asn1/its/StandardLength9b.h>
+#include <vanetza/asn1/its/StandardLength1B.h>
+#include <vanetza/asn1/its/StandardLength2B.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_StationarySince.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_StationaryVehicleSubCauseCode.h>
+#include <vanetza/asn1/its/StationId.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_StationID.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_StationType.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_SteeringWheelAngleConfidence.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_SteeringWheelAngleValue.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_SubCauseCodeType.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_Temperature.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_TimestampIts.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_TrafficConditionSubCauseCode.h>
+#include <vanetza/asn1/its/TrafficDirection.h>
+#include <vanetza/asn1/its/TrafficParticipantType.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_TrafficRule.h>
+#include <vanetza/asn1/its/TrailerPresenceInformation.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_TrajectoryInterceptionProbability.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_TrajectoryInterceptionConfidence.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_TransmissionInterval.h>
+#include <vanetza/asn1/its/TurningDirection.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_TurningRadius.h>
+#include <vanetza/asn1/its/UsageIndication.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_ValidityDuration.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VDS.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VehicleBreakdownSubCauseCode.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VehicleHeight.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VehicleLengthConfidenceIndication.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VehicleLengthValue.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VehicleMass.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VehicleRole.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VehicleWidth.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VerticalAccelerationValue.h>
+#include <vanetza/asn1/its/VruClusterProfiles.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VruDeviceUsage.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VruEnvironment.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VruMovementControl.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VruSubProfilePedestrian.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VruSubProfileBicyclist.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VruSubProfileMotorcyclist.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VruSubProfileAnimal.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VruSizeClass.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VruSpecificExteriorLights.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_WheelBaseVehicle.h>
+#include <vanetza/asn1/its/Wgs84AngleConfidence.h>
+#include <vanetza/asn1/its/Wgs84AngleValue.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_WMInumber.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_WrongWayDrivingSubCauseCode.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_YawRateConfidence.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_YawRateValue.h>
+#include <vanetza/asn1/its/Acceleration3dWithConfidence.h>
+#include <vanetza/asn1/its/AccelerationPolarWithZ.h>
+#include <vanetza/asn1/its/AccelerationCartesian.h>
+#include <vanetza/asn1/its/AccelerationComponent.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_AccelerationChangeIndication.h>
+#include <vanetza/asn1/its/AccelerationMagnitude.h>
+#include <vanetza/asn1/its/ActionId.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_ActionID.h>
+#include <vanetza/asn1/its/ActionIdList.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_Altitude.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_BasicContainer.h>
+#include <vanetza/asn1/its/BasicLaneConfiguration.h>
+#include <vanetza/asn1/its/BasicLaneInformation.h>
+#include <vanetza/asn1/its/CartesianAngle.h>
+#include <vanetza/asn1/its/CartesianAngularVelocityComponent.h>
+#include <vanetza/asn1/its/CartesianAngularAccelerationComponent.h>
+#include <vanetza/asn1/its/CartesianCoordinateWithConfidence.h>
+#include <vanetza/asn1/its/CartesianPosition3d.h>
+#include <vanetza/asn1/its/CartesianPosition3dWithConfidence.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_CauseCode.h>
+#include <vanetza/asn1/its/CauseCodeChoice.h>
+#include <vanetza/asn1/its/CauseCodeV2.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_CenDsrcTollingZone.h>
+#include <vanetza/asn1/its/CircularShape.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_ClosedLanes.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_ClusterBreakupInfo.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_ClusterJoinInfo.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_ClusterLeaveInfo.h>
+#include <vanetza/asn1/its/CorrelationColumn.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_Curvature.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_DangerousGoodsExtended.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_DeltaReferencePosition.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_DigitalMap.h>
+#include <vanetza/asn1/its/EllipticalShape.h>
+#include <vanetza/asn1/its/EulerAnglesWithConfidence.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_EuVehicleCategoryCode.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_EventHistory.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_EventPoint.h>
+#include <vanetza/asn1/its/EventZone.h>
+#include <vanetza/asn1/its/GeoPosition.h>
+#include <vanetza/asn1/its/GeneralizedLanePosition.h>
+#include <vanetza/asn1/its/GeneralizedLanePositions.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_Heading.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_HeadingChangeIndication.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_InterferenceManagementChannel.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_InterferenceManagementZone.h>
+#include <vanetza/asn1/its/InterferenceManagementZoneDefinition.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_InterferenceManagementInfo.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_InterferenceManagementInfoPerChannel.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_InterferenceManagementZones.h>
+#include <vanetza/asn1/its/IntersectionReferenceId.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_ItineraryPath.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_ItsPduHeader.h>
+#include <vanetza/asn1/its/IvimReference.h>
+#include <vanetza/asn1/its/IvimReferences.h>
+#include <vanetza/asn1/its/LanePositionAndType.h>
+#include <vanetza/asn1/its/LanePositionOptions.h>
+#include <vanetza/asn1/its/LanePositionWithLateralDetails.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_LateralAcceleration.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_LongitudinalAcceleration.h>
+#include <vanetza/asn1/its/LongitudinalLanePosition.h>
+#include <vanetza/asn1/its/LowerTriangularPositiveSemidefiniteMatrices.h>
+#include <vanetza/asn1/its/LowerTriangularPositiveSemidefiniteMatrix.h>
+#include <vanetza/asn1/its/LowerTriangularPositiveSemidefiniteMatrixColumns.h>
+#include <vanetza/asn1/its/MapemConfiguration.h>
+#include <vanetza/asn1/its/MapemElementReference.h>
+#include <vanetza/asn1/its/MapemLaneList.h>
+#include <vanetza/asn1/its/MapemConnectionList.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_MapPosition.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_MapReference.h>
+#include <vanetza/asn1/its/MapReferences.h>
+#include <vanetza/asn1/its/MessageRateHz.h>
+#include <vanetza/asn1/its/MessageSegmentationInfo.h>
+#include <vanetza/asn1/its/MetaInformation.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_MitigationForTechnologies.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_MitigationPerTechnologyClass.h>
+#include <vanetza/asn1/its/ObjectClass.h>
+#include <vanetza/asn1/its/ObjectClassDescription.h>
+#include <vanetza/asn1/its/ObjectClassWithConfidence.h>
+#include <vanetza/asn1/its/ObjectDimension.h>
+#include <vanetza/asn1/its/OccupiedLanesWithConfidence.h>
+#include <vanetza/asn1/its/Path.h>
+#include <vanetza/asn1/its/PathDeltaTimeChoice.h>
+#include <vanetza/asn1/its/PathExtended.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_PathHistory.h>
+#include <vanetza/asn1/its/PathPredicted.h>
+#include <vanetza/asn1/its/PathPredicted2.h>
+#include <vanetza/asn1/its/PathPredictedList.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_PathPoint.h>
+#include <vanetza/asn1/its/PathPointPredicted.h>
+#include <vanetza/asn1/its/PathReferences.h>
+#include <vanetza/asn1/its/PerceivedObject.h>
+#include <vanetza/asn1/its/PolygonalShape.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_PosConfidenceEllipse.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_PositionConfidenceEllipse.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_PositionOfPillars.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_ProtectedCommunicationZone.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_ProtectedCommunicationZonesRSU.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_Provider.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_PtActivation.h>
+#include <vanetza/asn1/its/RadialShape.h>
+#include <vanetza/asn1/its/RadialShapes.h>
+#include <vanetza/asn1/its/RadialShapesList.h>
+#include <vanetza/asn1/its/RadialShapeDetails.h>
+#include <vanetza/asn1/its/RectangularShape.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_ReferencePosition.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_ReferencePositionWithConfidence.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_RestrictedTypes.h>
+#include <vanetza/asn1/its/RoadConfigurationSection.h>
+#include <vanetza/asn1/its/RoadConfigurationSectionList.h>
+#include <vanetza/asn1/its/RoadSectionDefinition.h>
+#include <vanetza/asn1/its/RoadSegmentReferenceId.h>
+#include <vanetza/asn1/its/SafeDistanceIndication.h>
+#include <vanetza/asn1/its/SequenceOfCartesianPosition3d.h>
+#include <vanetza/asn1/its/SequenceOfIdentifier1B.h>
+#include <vanetza/asn1/its/SequenceOfSafeDistanceIndication.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_SequenceOfTrajectoryInterceptionIndication.h>
+#include <vanetza/asn1/its/Shape.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_Speed.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_StabilityChangeIndication.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_SteeringWheelAngle.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_Traces.h>
+#include <vanetza/asn1/its/TracesExtended.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_TrafficIslandPosition.h>
+#include <vanetza/asn1/its/TrailerData.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_TrajectoryInterceptionIndication.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VarLengthNumber.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_Ext1.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_Ext2.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_Ext3.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VerticalAcceleration.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VehicleIdentification.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VehicleLength.h>
+#include <vanetza/asn1/its/VehicleLengthV2.h>
+#include <vanetza/asn1/its/Velocity3dWithConfidence.h>
+#include <vanetza/asn1/its/VelocityCartesian.h>
+#include <vanetza/asn1/its/VelocityComponent.h>
+#include <vanetza/asn1/its/VelocityPolarWithZ.h>
+#include <vanetza/asn1/its/VruClusterInformation.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VruExteriorLights.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_VruProfileAndSubprofile.h>
+#include <vanetza/asn1/its/Wgs84Angle.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_YawRate.h>
 #include <vanetza/asn1/its/ActualNumberOfPassengers.h>
 #include <vanetza/asn1/its/AxleWeightLimits.h>
 #include <vanetza/asn1/its/AddRq.h>
@@ -135,7 +476,8 @@
 #include <vanetza/asn1/its/PaymentSecurityData.h>
 #include <vanetza/asn1/its/PayUnit.h>
 #include <vanetza/asn1/its/PersonalAccountNumber.h>
-#include <vanetza/asn1/its/Provider.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_Provider.h>
+#include <vanetza/asn1/its/EfcDsrcApplication_Provider.h>
 #include <vanetza/asn1/its/PurseBalance.h>
 #include <vanetza/asn1/its/ReceiptContract.h>
 #include <vanetza/asn1/its/ReceiptData1.h>
@@ -180,11 +522,15 @@
 
 using namespace rapidjson;
 
-Value to_json(const TimestampIts_t& p, Document::AllocatorType& allocator);
-void from_json(const Value& j, TimestampIts_t& p, std::string field);
+Value to_json(const ETSI_ITS_CDD_TimestampIts_t& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, ETSI_ITS_CDD_TimestampIts_t& p, std::string field);
+Value to_json(const ITS_Container_TimestampIts_t& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, ITS_Container_TimestampIts_t& p, std::string field);
 Value to_json(const long& p, Document::AllocatorType& allocator);
 void from_json(const Value& j, long& p, std::string field);
 Value to_json(const unsigned long& p, Document::AllocatorType& allocator);
+void from_json(const Value& j, long* p, std::string field);
+Value to_json(const unsigned long* p, Document::AllocatorType& allocator);
 void from_json(const Value& j, unsigned long& p, std::string field);
 Value to_json(const unsigned& p, Document::AllocatorType& allocator);
 void from_json(const Value& j, unsigned& p, std::string field);
@@ -199,13 +545,1053 @@ void from_json(const Value& j, NULL_t& p, std::string field);
 
 
 /*
+*   AccelerationControl - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_ETSI_ITS_CDD_AccelerationControl(const ETSI_ITS_CDD_AccelerationControl_t p, Document::AllocatorType& allocator);
+
+void from_json_ETSI_ITS_CDD_AccelerationControl(const Value& j, ETSI_ITS_CDD_AccelerationControl_t& p, std::string field);
+
+
+/*
+*   CountryCode - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_ETSI_ITS_CDD_CountryCode(const ETSI_ITS_CDD_CountryCode_t p, Document::AllocatorType& allocator);
+
+void from_json_ETSI_ITS_CDD_CountryCode(const Value& j, ETSI_ITS_CDD_CountryCode_t& p, std::string field);
+
+
+/*
+*   DrivingLaneStatus - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_ETSI_ITS_CDD_DrivingLaneStatus(const ETSI_ITS_CDD_DrivingLaneStatus_t p, Document::AllocatorType& allocator);
+
+void from_json_ETSI_ITS_CDD_DrivingLaneStatus(const Value& j, ETSI_ITS_CDD_DrivingLaneStatus_t& p, std::string field);
+
+
+/*
+*   EmergencyPriority - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_ETSI_ITS_CDD_EmergencyPriority(const ETSI_ITS_CDD_EmergencyPriority_t p, Document::AllocatorType& allocator);
+
+void from_json_ETSI_ITS_CDD_EmergencyPriority(const Value& j, ETSI_ITS_CDD_EmergencyPriority_t& p, std::string field);
+
+
+/*
+*   EnergyStorageType - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_ETSI_ITS_CDD_EnergyStorageType(const ETSI_ITS_CDD_EnergyStorageType_t p, Document::AllocatorType& allocator);
+
+void from_json_ETSI_ITS_CDD_EnergyStorageType(const Value& j, ETSI_ITS_CDD_EnergyStorageType_t& p, std::string field);
+
+
+/*
+*   ExteriorLights - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_ETSI_ITS_CDD_ExteriorLights(const ETSI_ITS_CDD_ExteriorLights_t p, Document::AllocatorType& allocator);
+
+void from_json_ETSI_ITS_CDD_ExteriorLights(const Value& j, ETSI_ITS_CDD_ExteriorLights_t& p, std::string field);
+
+
+/*
+*   LightBarSirenInUse - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_ETSI_ITS_CDD_LightBarSirenInUse(const ETSI_ITS_CDD_LightBarSirenInUse_t p, Document::AllocatorType& allocator);
+
+void from_json_ETSI_ITS_CDD_LightBarSirenInUse(const Value& j, ETSI_ITS_CDD_LightBarSirenInUse_t& p, std::string field);
+
+
+/*
+*   MatrixIncludedComponents - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_MatrixIncludedComponents(const MatrixIncludedComponents_t p, Document::AllocatorType& allocator);
+
+void from_json_MatrixIncludedComponents(const Value& j, MatrixIncludedComponents_t& p, std::string field);
+
+
+/*
+*   PositionOfOccupants - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_ETSI_ITS_CDD_PositionOfOccupants(const ETSI_ITS_CDD_PositionOfOccupants_t p, Document::AllocatorType& allocator);
+
+void from_json_ETSI_ITS_CDD_PositionOfOccupants(const Value& j, ETSI_ITS_CDD_PositionOfOccupants_t& p, std::string field);
+
+
+/*
+*   SensorTypes - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_SensorTypes(const SensorTypes_t p, Document::AllocatorType& allocator);
+
+void from_json_SensorTypes(const Value& j, SensorTypes_t& p, std::string field);
+
+
+/*
+*   SpecialTransportType - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_ETSI_ITS_CDD_SpecialTransportType(const ETSI_ITS_CDD_SpecialTransportType_t p, Document::AllocatorType& allocator);
+
+void from_json_ETSI_ITS_CDD_SpecialTransportType(const Value& j, ETSI_ITS_CDD_SpecialTransportType_t& p, std::string field);
+
+
+/*
+*   StoredInformationType - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_StoredInformationType(const StoredInformationType_t p, Document::AllocatorType& allocator);
+
+void from_json_StoredInformationType(const Value& j, StoredInformationType_t& p, std::string field);
+
+
+/*
+*   VruClusterProfiles - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_VruClusterProfiles(const VruClusterProfiles_t p, Document::AllocatorType& allocator);
+
+void from_json_VruClusterProfiles(const Value& j, VruClusterProfiles_t& p, std::string field);
+
+
+/*
+*   VruSpecificExteriorLights - Type BIT STRING
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json_ETSI_ITS_CDD_VruSpecificExteriorLights(const ETSI_ITS_CDD_VruSpecificExteriorLights_t p, Document::AllocatorType& allocator);
+
+void from_json_ETSI_ITS_CDD_VruSpecificExteriorLights(const Value& j, ETSI_ITS_CDD_VruSpecificExteriorLights_t& p, std::string field);
+
+
+/*
+*   AccelerationComponent - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const AccelerationComponent_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, AccelerationComponent_t& p, std::string field);
+
+
+/*
+*   AccelerationChangeIndication - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_AccelerationChangeIndication_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_AccelerationChangeIndication_t& p, std::string field);
+
+
+/*
+*   AccelerationMagnitude - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const AccelerationMagnitude_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, AccelerationMagnitude_t& p, std::string field);
+
+
+/*
+*   ActionId - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ActionId_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ActionId_t& p, std::string field);
+
+
+/*
+*   ActionID - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ActionID_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_ActionID_t& p, std::string field);
+
+
+/*
+*   ActionIdList - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ActionIdList_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ActionIdList_t& p, std::string field);
+
+
+/*
+*   Altitude - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_Altitude_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_Altitude_t& p, std::string field);
+
+
+/*
+*   BasicLaneInformation - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const BasicLaneInformation_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, BasicLaneInformation_t& p, std::string field);
+
+
+/*
+*   CartesianAngle - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const CartesianAngle_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, CartesianAngle_t& p, std::string field);
+
+
+/*
+*   CartesianAngularVelocityComponent - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const CartesianAngularVelocityComponent_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, CartesianAngularVelocityComponent_t& p, std::string field);
+
+
+/*
+*   CartesianAngularAccelerationComponent - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const CartesianAngularAccelerationComponent_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, CartesianAngularAccelerationComponent_t& p, std::string field);
+
+
+/*
+*   CartesianCoordinateWithConfidence - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const CartesianCoordinateWithConfidence_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, CartesianCoordinateWithConfidence_t& p, std::string field);
+
+
+/*
+*   CartesianPosition3d - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const CartesianPosition3d_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, CartesianPosition3d_t& p, std::string field);
+
+
+/*
+*   CartesianPosition3dWithConfidence - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const CartesianPosition3dWithConfidence_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, CartesianPosition3dWithConfidence_t& p, std::string field);
+
+
+/*
+*   CauseCode - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_CauseCode_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_CauseCode_t& p, std::string field);
+
+
+/*
+*   CauseCodeChoice - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const CauseCodeChoice_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, CauseCodeChoice_t& p, std::string field);
+
+
+/*
+*   CauseCodeV2 - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const CauseCodeV2_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, CauseCodeV2_t& p, std::string field);
+
+
+/*
+*   CenDsrcTollingZone - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_CenDsrcTollingZone_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_CenDsrcTollingZone_t& p, std::string field);
+
+
+/*
+*   CircularShape - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const CircularShape_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, CircularShape_t& p, std::string field);
+
+
+/*
+*   ClosedLanes - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ClosedLanes_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_ClosedLanes_t& p, std::string field);
+
+
+/*
+*   ClusterBreakupInfo - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ClusterBreakupInfo_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_ClusterBreakupInfo_t& p, std::string field);
+
+
+/*
+*   ClusterJoinInfo - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ClusterJoinInfo_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_ClusterJoinInfo_t& p, std::string field);
+
+
+/*
+*   ClusterLeaveInfo - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ClusterLeaveInfo_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_ClusterLeaveInfo_t& p, std::string field);
+
+
+/*
+*   CorrelationColumn - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const CorrelationColumn_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, CorrelationColumn_t& p, std::string field);
+
+
+/*
+*   Curvature - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_Curvature_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_Curvature_t& p, std::string field);
+
+
+/*
+*   DangerousGoodsExtended - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_DangerousGoodsExtended_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_DangerousGoodsExtended_t& p, std::string field);
+
+
+/*
+*   DeltaReferencePosition - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_DeltaReferencePosition_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_DeltaReferencePosition_t& p, std::string field);
+
+
+/*
+*   EllipticalShape - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const EllipticalShape_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, EllipticalShape_t& p, std::string field);
+
+
+/*
+*   EulerAnglesWithConfidence - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const EulerAnglesWithConfidence_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, EulerAnglesWithConfidence_t& p, std::string field);
+
+
+/*
+*   EuVehicleCategoryCode - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_EuVehicleCategoryCode_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_EuVehicleCategoryCode_t& p, std::string field);
+
+
+/*
+*   EventPoint - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_EventPoint_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_EventPoint_t& p, std::string field);
+
+
+/*
+*   GeoPosition - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const GeoPosition_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, GeoPosition_t& p, std::string field);
+
+
+/*
+*   Heading - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_Heading_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_Heading_t& p, std::string field);
+
+
+/*
+*   HeadingChangeIndication - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_HeadingChangeIndication_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_HeadingChangeIndication_t& p, std::string field);
+
+
+/*
+*   InterferenceManagementChannel - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_InterferenceManagementChannel_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_InterferenceManagementChannel_t& p, std::string field);
+
+
+/*
+*   IntersectionReferenceId - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const IntersectionReferenceId_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, IntersectionReferenceId_t& p, std::string field);
+
+
+/*
+*   ItsPduHeader - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ItsPduHeader_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_ItsPduHeader_t& p, std::string field);
+
+
+/*
+*   LanePositionAndType - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const LanePositionAndType_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, LanePositionAndType_t& p, std::string field);
+
+
+/*
+*   LanePositionWithLateralDetails - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const LanePositionWithLateralDetails_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, LanePositionWithLateralDetails_t& p, std::string field);
+
+
+/*
+*   LateralAcceleration - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_LateralAcceleration_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_LateralAcceleration_t& p, std::string field);
+
+
+/*
+*   LongitudinalAcceleration - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_LongitudinalAcceleration_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_LongitudinalAcceleration_t& p, std::string field);
+
+
+/*
+*   LongitudinalLanePosition - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const LongitudinalLanePosition_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, LongitudinalLanePosition_t& p, std::string field);
+
+
+/*
+*   LowerTriangularPositiveSemidefiniteMatrixColumns - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const LowerTriangularPositiveSemidefiniteMatrixColumns_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, LowerTriangularPositiveSemidefiniteMatrixColumns_t& p, std::string field);
+
+
+/*
+*   MapemLaneList - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const MapemLaneList_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, MapemLaneList_t& p, std::string field);
+
+
+/*
+*   MapemConnectionList - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const MapemConnectionList_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, MapemConnectionList_t& p, std::string field);
+
+
+/*
+*   MessageRateHz - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const MessageRateHz_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, MessageRateHz_t& p, std::string field);
+
+
+/*
+*   MessageSegmentationInfo - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const MessageSegmentationInfo_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, MessageSegmentationInfo_t& p, std::string field);
+
+
+/*
+*   MetaInformation - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const MetaInformation_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, MetaInformation_t& p, std::string field);
+
+
+/*
+*   MitigationPerTechnologyClass - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_MitigationPerTechnologyClass_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_MitigationPerTechnologyClass_t& p, std::string field);
+
+
+/*
+*   ObjectDimension - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ObjectDimension_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ObjectDimension_t& p, std::string field);
+
+
+/*
+*   PathDeltaTimeChoice - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const PathDeltaTimeChoice_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, PathDeltaTimeChoice_t& p, std::string field);
+
+
+/*
+*   PathPoint - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_PathPoint_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_PathPoint_t& p, std::string field);
+
+
+/*
+*   PathReferences - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const PathReferences_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, PathReferences_t& p, std::string field);
+
+
+/*
+*   PosConfidenceEllipse - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_PosConfidenceEllipse_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_PosConfidenceEllipse_t& p, std::string field);
+
+
+/*
+*   PositionConfidenceEllipse - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_PositionConfidenceEllipse_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_PositionConfidenceEllipse_t& p, std::string field);
+
+
+/*
+*   PositionOfPillars - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_PositionOfPillars_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_PositionOfPillars_t& p, std::string field);
+
+
+/*
+*   ProtectedCommunicationZone - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ProtectedCommunicationZone_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_ProtectedCommunicationZone_t& p, std::string field);
+
+
+/*
+*   ProtectedCommunicationZonesRSU - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ProtectedCommunicationZonesRSU_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_ProtectedCommunicationZonesRSU_t& p, std::string field);
+
+
+/*
+*   Provider - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_Provider_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_Provider_t& p, std::string field);
+
+
+/*
+*   PtActivation - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_PtActivation_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_PtActivation_t& p, std::string field);
+
+
+/*
+*   RadialShape - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const RadialShape_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, RadialShape_t& p, std::string field);
+
+
+/*
+*   RadialShapeDetails - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const RadialShapeDetails_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, RadialShapeDetails_t& p, std::string field);
+
+
+/*
+*   RectangularShape - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const RectangularShape_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, RectangularShape_t& p, std::string field);
+
+
+/*
+*   ReferencePosition - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ReferencePosition_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_ReferencePosition_t& p, std::string field);
+
+
+/*
+*   ReferencePositionWithConfidence - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ReferencePositionWithConfidence_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_ReferencePositionWithConfidence_t& p, std::string field);
+
+
+/*
+*   RestrictedTypes - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_RestrictedTypes_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_RestrictedTypes_t& p, std::string field);
+
+
+/*
+*   RoadSectionDefinition - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const RoadSectionDefinition_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, RoadSectionDefinition_t& p, std::string field);
+
+
+/*
+*   RoadSegmentReferenceId - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const RoadSegmentReferenceId_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, RoadSegmentReferenceId_t& p, std::string field);
+
+
+/*
+*   SafeDistanceIndication - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const SafeDistanceIndication_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, SafeDistanceIndication_t& p, std::string field);
+
+
+/*
+*   SequenceOfCartesianPosition3d - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const SequenceOfCartesianPosition3d_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, SequenceOfCartesianPosition3d_t& p, std::string field);
+
+
+/*
+*   SequenceOfIdentifier1B - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const SequenceOfIdentifier1B_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, SequenceOfIdentifier1B_t& p, std::string field);
+
+
+/*
+*   SequenceOfSafeDistanceIndication - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const SequenceOfSafeDistanceIndication_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, SequenceOfSafeDistanceIndication_t& p, std::string field);
+
+
+/*
+*   Speed - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_Speed_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_Speed_t& p, std::string field);
+
+
+/*
+*   StabilityChangeIndication - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_StabilityChangeIndication_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_StabilityChangeIndication_t& p, std::string field);
+
+
+/*
+*   SteeringWheelAngle - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_SteeringWheelAngle_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_SteeringWheelAngle_t& p, std::string field);
+
+
+/*
+*   TrafficIslandPosition - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_TrafficIslandPosition_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_TrafficIslandPosition_t& p, std::string field);
+
+
+/*
+*   TrailerData - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const TrailerData_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TrailerData_t& p, std::string field);
+
+
+/*
+*   TrajectoryInterceptionIndication - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_TrajectoryInterceptionIndication_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_TrajectoryInterceptionIndication_t& p, std::string field);
+
+
+/*
+*   Ext2 - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_Ext2_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_Ext2_t& p, std::string field);
+
+
+/*
+*   VerticalAcceleration - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_VerticalAcceleration_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_VerticalAcceleration_t& p, std::string field);
+
+
+/*
+*   VehicleIdentification - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_VehicleIdentification_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_VehicleIdentification_t& p, std::string field);
+
+
+/*
+*   VehicleLength - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_VehicleLength_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_VehicleLength_t& p, std::string field);
+
+
+/*
+*   VehicleLengthV2 - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const VehicleLengthV2_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, VehicleLengthV2_t& p, std::string field);
+
+
+/*
+*   VelocityComponent - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const VelocityComponent_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, VelocityComponent_t& p, std::string field);
+
+
+/*
+*   VelocityPolarWithZ - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const VelocityPolarWithZ_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, VelocityPolarWithZ_t& p, std::string field);
+
+
+/*
+*   VruExteriorLights - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_VruExteriorLights_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_VruExteriorLights_t& p, std::string field);
+
+
+/*
+*   VruProfileAndSubprofile - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_VruProfileAndSubprofile_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_VruProfileAndSubprofile_t& p, std::string field);
+
+
+/*
+*   Wgs84Angle - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const Wgs84Angle_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, Wgs84Angle_t& p, std::string field);
+
+
+/*
+*   YawRate - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_YawRate_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_YawRate_t& p, std::string field);
+
+
+/*
 *   ItsPduHeader - Type SEQUENCE
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const ItsPduHeader_t& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_ItsPduHeader_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, ItsPduHeader_t& p, std::string field);
+void from_json(const Value& j, ITS_Container_ItsPduHeader_t& p, std::string field);
+
+
+/*
+*   ReferencePosition - Type SEQUENCE
+*   From ITS-Container - File TS102894-2v131-CDD.asn
+*/
+
+Value to_json(const ITS_Container_ReferencePosition_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ITS_Container_ReferencePosition_t& p, std::string field);
 
 
 /*
@@ -213,9 +1599,9 @@ void from_json(const Value& j, ItsPduHeader_t& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const DeltaReferencePosition_t& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_DeltaReferencePosition_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, DeltaReferencePosition_t& p, std::string field);
+void from_json(const Value& j, ITS_Container_DeltaReferencePosition_t& p, std::string field);
 
 
 /*
@@ -223,9 +1609,9 @@ void from_json(const Value& j, DeltaReferencePosition_t& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const Altitude& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_Altitude_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, Altitude& p, std::string field);
+void from_json(const Value& j, ITS_Container_Altitude_t& p, std::string field);
 
 
 /*
@@ -233,9 +1619,9 @@ void from_json(const Value& j, Altitude& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const PosConfidenceEllipse& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_PosConfidenceEllipse_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, PosConfidenceEllipse& p, std::string field);
+void from_json(const Value& j, ITS_Container_PosConfidenceEllipse_t& p, std::string field);
 
 
 /*
@@ -243,9 +1629,19 @@ void from_json(const Value& j, PosConfidenceEllipse& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const PathPoint& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_PathPoint_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, PathPoint& p, std::string field);
+void from_json(const Value& j, ITS_Container_PathPoint_t& p, std::string field);
+
+
+/*
+*   PtActivation - Type SEQUENCE
+*   From ITS-Container - File TS102894-2v131-CDD.asn
+*/
+
+Value to_json(const ITS_Container_PtActivation_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ITS_Container_PtActivation_t& p, std::string field);
 
 
 /*
@@ -253,9 +1649,9 @@ void from_json(const Value& j, PathPoint& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json_AccelerationControl(const AccelerationControl_t p, Document::AllocatorType& allocator);
+Value to_json_ITS_Container_AccelerationControl(const ITS_Container_AccelerationControl_t p, Document::AllocatorType& allocator);
 
-void from_json_AccelerationControl(const Value& j, AccelerationControl_t& p, std::string field);
+void from_json_ITS_Container_AccelerationControl(const Value& j, ITS_Container_AccelerationControl_t& p, std::string field);
 
 
 /*
@@ -263,9 +1659,9 @@ void from_json_AccelerationControl(const Value& j, AccelerationControl_t& p, std
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const CauseCode& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_CauseCode_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, CauseCode& p, std::string field);
+void from_json(const Value& j, ITS_Container_CauseCode_t& p, std::string field);
 
 
 /*
@@ -273,9 +1669,9 @@ void from_json(const Value& j, CauseCode& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const Curvature& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_Curvature_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, Curvature& p, std::string field);
+void from_json(const Value& j, ITS_Container_Curvature_t& p, std::string field);
 
 
 /*
@@ -283,9 +1679,19 @@ void from_json(const Value& j, Curvature& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const Heading& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_Heading_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, Heading& p, std::string field);
+void from_json(const Value& j, ITS_Container_Heading_t& p, std::string field);
+
+
+/*
+*   ClosedLanes - Type SEQUENCE
+*   From ITS-Container - File TS102894-2v131-CDD.asn
+*/
+
+Value to_json(const ITS_Container_ClosedLanes_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ITS_Container_ClosedLanes_t& p, std::string field);
 
 
 /*
@@ -293,9 +1699,9 @@ void from_json(const Value& j, Heading& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json_DrivingLaneStatus(const DrivingLaneStatus_t p, Document::AllocatorType& allocator);
+Value to_json_ITS_Container_DrivingLaneStatus(const ITS_Container_DrivingLaneStatus_t p, Document::AllocatorType& allocator);
 
-void from_json_DrivingLaneStatus(const Value& j, DrivingLaneStatus_t& p, std::string field);
+void from_json_ITS_Container_DrivingLaneStatus(const Value& j, ITS_Container_DrivingLaneStatus_t& p, std::string field);
 
 
 /*
@@ -303,9 +1709,9 @@ void from_json_DrivingLaneStatus(const Value& j, DrivingLaneStatus_t& p, std::st
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const Speed& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_Speed_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, Speed& p, std::string field);
+void from_json(const Value& j, ITS_Container_Speed_t& p, std::string field);
 
 
 /*
@@ -313,9 +1719,9 @@ void from_json(const Value& j, Speed& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const LongitudinalAcceleration& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_LongitudinalAcceleration_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, LongitudinalAcceleration& p, std::string field);
+void from_json(const Value& j, ITS_Container_LongitudinalAcceleration_t& p, std::string field);
 
 
 /*
@@ -323,9 +1729,9 @@ void from_json(const Value& j, LongitudinalAcceleration& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const LateralAcceleration& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_LateralAcceleration_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, LateralAcceleration& p, std::string field);
+void from_json(const Value& j, ITS_Container_LateralAcceleration_t& p, std::string field);
 
 
 /*
@@ -333,9 +1739,9 @@ void from_json(const Value& j, LateralAcceleration& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const VerticalAcceleration_t& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_VerticalAcceleration_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, VerticalAcceleration_t& p, std::string field);
+void from_json(const Value& j, ITS_Container_VerticalAcceleration_t& p, std::string field);
 
 
 /*
@@ -343,9 +1749,9 @@ void from_json(const Value& j, VerticalAcceleration_t& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json_ExteriorLights(const ExteriorLights_t p, Document::AllocatorType& allocator);
+Value to_json_ITS_Container_ExteriorLights(const ITS_Container_ExteriorLights_t p, Document::AllocatorType& allocator);
 
-void from_json_ExteriorLights(const Value& j, ExteriorLights_t& p, std::string field);
+void from_json_ITS_Container_ExteriorLights(const Value& j, ITS_Container_ExteriorLights_t& p, std::string field);
 
 
 /*
@@ -353,9 +1759,9 @@ void from_json_ExteriorLights(const Value& j, ExteriorLights_t& p, std::string f
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const DangerousGoodsExtended& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_DangerousGoodsExtended_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, DangerousGoodsExtended& p, std::string field);
+void from_json(const Value& j, ITS_Container_DangerousGoodsExtended_t& p, std::string field);
 
 
 /*
@@ -363,9 +1769,9 @@ void from_json(const Value& j, DangerousGoodsExtended& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json_SpecialTransportType(const SpecialTransportType_t p, Document::AllocatorType& allocator);
+Value to_json_ITS_Container_SpecialTransportType(const ITS_Container_SpecialTransportType_t p, Document::AllocatorType& allocator);
 
-void from_json_SpecialTransportType(const Value& j, SpecialTransportType_t& p, std::string field);
+void from_json_ITS_Container_SpecialTransportType(const Value& j, ITS_Container_SpecialTransportType_t& p, std::string field);
 
 
 /*
@@ -373,9 +1779,9 @@ void from_json_SpecialTransportType(const Value& j, SpecialTransportType_t& p, s
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json_LightBarSirenInUse(const LightBarSirenInUse_t p, Document::AllocatorType& allocator);
+Value to_json_ITS_Container_LightBarSirenInUse(const ITS_Container_LightBarSirenInUse_t p, Document::AllocatorType& allocator);
 
-void from_json_LightBarSirenInUse(const Value& j, LightBarSirenInUse_t& p, std::string field);
+void from_json_ITS_Container_LightBarSirenInUse(const Value& j, ITS_Container_LightBarSirenInUse_t& p, std::string field);
 
 
 /*
@@ -383,9 +1789,9 @@ void from_json_LightBarSirenInUse(const Value& j, LightBarSirenInUse_t& p, std::
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json_PositionOfOccupants(const PositionOfOccupants_t p, Document::AllocatorType& allocator);
+Value to_json_ITS_Container_PositionOfOccupants(const ITS_Container_PositionOfOccupants_t p, Document::AllocatorType& allocator);
 
-void from_json_PositionOfOccupants(const Value& j, PositionOfOccupants_t& p, std::string field);
+void from_json_ITS_Container_PositionOfOccupants(const Value& j, ITS_Container_PositionOfOccupants_t& p, std::string field);
 
 
 /*
@@ -393,9 +1799,9 @@ void from_json_PositionOfOccupants(const Value& j, PositionOfOccupants_t& p, std
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const VehicleIdentification& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_VehicleIdentification_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, VehicleIdentification& p, std::string field);
+void from_json(const Value& j, ITS_Container_VehicleIdentification_t& p, std::string field);
 
 
 /*
@@ -403,9 +1809,9 @@ void from_json(const Value& j, VehicleIdentification& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json_EnergyStorageType(const EnergyStorageType_t p, Document::AllocatorType& allocator);
+Value to_json_ITS_Container_EnergyStorageType(const ITS_Container_EnergyStorageType_t p, Document::AllocatorType& allocator);
 
-void from_json_EnergyStorageType(const Value& j, EnergyStorageType_t& p, std::string field);
+void from_json_ITS_Container_EnergyStorageType(const Value& j, ITS_Container_EnergyStorageType_t& p, std::string field);
 
 
 /*
@@ -413,9 +1819,9 @@ void from_json_EnergyStorageType(const Value& j, EnergyStorageType_t& p, std::st
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const VehicleLength_t& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_VehicleLength_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, VehicleLength_t& p, std::string field);
+void from_json(const Value& j, ITS_Container_VehicleLength_t& p, std::string field);
 
 
 /*
@@ -423,9 +1829,9 @@ void from_json(const Value& j, VehicleLength_t& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const PathHistory& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_PathHistory_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, PathHistory& p, std::string field);
+void from_json(const Value& j, ITS_Container_PathHistory_t& p, std::string field);
 
 
 /*
@@ -433,9 +1839,9 @@ void from_json(const Value& j, PathHistory& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json_EmergencyPriority(const EmergencyPriority_t p, Document::AllocatorType& allocator);
+Value to_json_ITS_Container_EmergencyPriority(const ITS_Container_EmergencyPriority_t p, Document::AllocatorType& allocator);
 
-void from_json_EmergencyPriority(const Value& j, EmergencyPriority_t& p, std::string field);
+void from_json_ITS_Container_EmergencyPriority(const Value& j, ITS_Container_EmergencyPriority_t& p, std::string field);
 
 
 /*
@@ -443,9 +1849,9 @@ void from_json_EmergencyPriority(const Value& j, EmergencyPriority_t& p, std::st
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const SteeringWheelAngle& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_SteeringWheelAngle_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, SteeringWheelAngle& p, std::string field);
+void from_json(const Value& j, ITS_Container_SteeringWheelAngle_t& p, std::string field);
 
 
 /*
@@ -453,9 +1859,9 @@ void from_json(const Value& j, SteeringWheelAngle& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const YawRate& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_YawRate_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, YawRate& p, std::string field);
+void from_json(const Value& j, ITS_Container_YawRate_t& p, std::string field);
 
 
 /*
@@ -463,9 +1869,19 @@ void from_json(const Value& j, YawRate& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const ActionID& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_ActionID_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, ActionID& p, std::string field);
+void from_json(const Value& j, ITS_Container_ActionID_t& p, std::string field);
+
+
+/*
+*   ItineraryPath - Type SEQUENCE OF
+*   From ITS-Container - File TS102894-2v131-CDD.asn
+*/
+
+Value to_json(const ITS_Container_ItineraryPath_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ITS_Container_ItineraryPath_t& p, std::string field);
 
 
 /*
@@ -473,9 +1889,9 @@ void from_json(const Value& j, ActionID& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const ProtectedCommunicationZone& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_ProtectedCommunicationZone_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, ProtectedCommunicationZone& p, std::string field);
+void from_json(const Value& j, ITS_Container_ProtectedCommunicationZone_t& p, std::string field);
 
 
 /*
@@ -483,9 +1899,9 @@ void from_json(const Value& j, ProtectedCommunicationZone& p, std::string field)
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const Traces& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_Traces_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, Traces& p, std::string field);
+void from_json(const Value& j, ITS_Container_Traces_t& p, std::string field);
 
 
 /*
@@ -493,9 +1909,9 @@ void from_json(const Value& j, Traces& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const PositionOfPillars& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_PositionOfPillars_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, PositionOfPillars& p, std::string field);
+void from_json(const Value& j, ITS_Container_PositionOfPillars_t& p, std::string field);
 
 
 /*
@@ -503,9 +1919,19 @@ void from_json(const Value& j, PositionOfPillars& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const RestrictedTypes& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_RestrictedTypes_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, RestrictedTypes& p, std::string field);
+void from_json(const Value& j, ITS_Container_RestrictedTypes_t& p, std::string field);
+
+
+/*
+*   EventHistory - Type SEQUENCE OF
+*   From ITS-Container - File TS102894-2v131-CDD.asn
+*/
+
+Value to_json(const ITS_Container_EventHistory_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ITS_Container_EventHistory_t& p, std::string field);
 
 
 /*
@@ -513,9 +1939,9 @@ void from_json(const Value& j, RestrictedTypes& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const EventPoint& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_EventPoint_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, EventPoint& p, std::string field);
+void from_json(const Value& j, ITS_Container_EventPoint_t& p, std::string field);
 
 
 /*
@@ -523,9 +1949,9 @@ void from_json(const Value& j, EventPoint& p, std::string field);
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const ProtectedCommunicationZonesRSU& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_ProtectedCommunicationZonesRSU_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, ProtectedCommunicationZonesRSU& p, std::string field);
+void from_json(const Value& j, ITS_Container_ProtectedCommunicationZonesRSU_t& p, std::string field);
 
 
 /*
@@ -533,9 +1959,19 @@ void from_json(const Value& j, ProtectedCommunicationZonesRSU& p, std::string fi
 *   From ITS-Container - File TS102894-2v131-CDD.asn
 */
 
-Value to_json(const CenDsrcTollingZone& p, Document::AllocatorType& allocator);
+Value to_json(const ITS_Container_CenDsrcTollingZone_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, CenDsrcTollingZone& p, std::string field);
+void from_json(const Value& j, ITS_Container_CenDsrcTollingZone_t& p, std::string field);
+
+
+/*
+*   DigitalMap - Type SEQUENCE OF
+*   From ITS-Container - File TS102894-2v131-CDD.asn
+*/
+
+Value to_json(const ITS_Container_DigitalMap_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ITS_Container_DigitalMap_t& p, std::string field);
 
 
 /*
@@ -1203,9 +2639,9 @@ void from_json(const Value& j, FreightContainerData_t& p, std::string field);
 *   From AVIAEINumberingAndDataStructures - File ISO14816.asn
 */
 
-Value to_json_CountryCode(const CountryCode_t p, Document::AllocatorType& allocator);
+Value to_json_AVIAEINumberingAndDataStructures_CountryCode(const AVIAEINumberingAndDataStructures_CountryCode_t p, Document::AllocatorType& allocator);
 
-void from_json_CountryCode(const Value& j, CountryCode_t& p, std::string field);
+void from_json_AVIAEINumberingAndDataStructures_CountryCode(const Value& j, AVIAEINumberingAndDataStructures_CountryCode_t& p, std::string field);
 
 
 /*
@@ -1509,6 +2945,16 @@ void from_json(const Value& j, EfcDsrcApplication_DriverCharacteristics_t& p, st
 
 
 /*
+*   EFC-ContextMark - Type SEQUENCE
+*   From EfcDsrcApplication - File ISO14906-0-6.asn
+*/
+
+Value to_json(const EFC_ContextMark_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, EFC_ContextMark_t& p, std::string field);
+
+
+/*
 *   EnvironmentalCharacteristics - Type SEQUENCE
 *   From EfcDsrcApplication - File ISO14906-0-6.asn
 */
@@ -1583,9 +3029,9 @@ void from_json(const Value& j, SignedValue_t& p, std::string field);
 *   From EfcDsrcApplication - File ISO14906-0-6.asn
 */
 
-Value to_json(const Provider_t& p, Document::AllocatorType& allocator);
+Value to_json(const EfcDsrcApplication_Provider_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, Provider_t& p, std::string field);
+void from_json(const Value& j, EfcDsrcApplication_Provider_t& p, std::string field);
 
 
 /*
@@ -1739,13 +3185,23 @@ void from_json(const Value& j, VehicleWeightLimits_t& p, std::string field);
 
 
 /*
+*   Ext1 - Type CHOICE
+*   From CITSapplMgmtIDs - File ISO17419.asn
+*/
+
+Value to_json(const CITSapplMgmtIDs_Ext1_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, CITSapplMgmtIDs_Ext1_t& p, std::string field);
+
+
+/*
 *   Ext2 - Type CHOICE
 *   From CITSapplMgmtIDs - File ISO17419.asn
 */
 
-Value to_json(const Ext2& p, Document::AllocatorType& allocator);
+Value to_json(const CITSapplMgmtIDs_Ext2_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, Ext2& p, std::string field);
+void from_json(const Value& j, CITSapplMgmtIDs_Ext2_t& p, std::string field);
 
 
 /*
@@ -1753,9 +3209,9 @@ void from_json(const Value& j, Ext2& p, std::string field);
 *   From ElectronicRegistrationIdentificationVehicleDataModule - File ISO24534-3.asn
 */
 
-Value to_json(const EuVehicleCategoryCode& p, Document::AllocatorType& allocator);
+Value to_json(const ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, EuVehicleCategoryCode& p, std::string field);
+void from_json(const Value& j, ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_t& p, std::string field);
 
 
 /*
@@ -1933,9 +3389,9 @@ void from_json(const Value& j, LoadType& p, std::string field);
 *   From IVI - File ISO19321IVIv2.asn
 */
 
-Value to_json(const MapReference& p, Document::AllocatorType& allocator);
+Value to_json(const IVI_MapReference_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, MapReference& p, std::string field);
+void from_json(const Value& j, IVI_MapReference_t& p, std::string field);
 
 
 /*
@@ -1999,6 +3455,16 @@ void from_json(const Value& j, VehicleCharacteristicsRanges& p, std::string fiel
 
 
 /*
+*   BasicContainer - Type SEQUENCE
+*   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
+*/
+
+Value to_json(const CAM_PDU_Descriptions_BasicContainer_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, CAM_PDU_Descriptions_BasicContainer_t& p, std::string field);
+
+
+/*
 *   BasicVehicleContainerHighFrequency - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
@@ -2019,6 +3485,16 @@ void from_json(const Value& j, BasicVehicleContainerLowFrequency& p, std::string
 
 
 /*
+*   PublicTransportContainer - Type SEQUENCE
+*   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
+*/
+
+Value to_json(const PublicTransportContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, PublicTransportContainer& p, std::string field);
+
+
+/*
 *   SpecialTransportContainer - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
@@ -2036,6 +3512,16 @@ void from_json(const Value& j, SpecialTransportContainer& p, std::string field);
 Value to_json(const DangerousGoodsContainer& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, DangerousGoodsContainer& p, std::string field);
+
+
+/*
+*   RoadWorksContainerBasic - Type SEQUENCE
+*   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
+*/
+
+Value to_json(const RoadWorksContainerBasic& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, RoadWorksContainerBasic& p, std::string field);
 
 
 /*
@@ -2076,6 +3562,26 @@ void from_json(const Value& j, SafetyCarContainer& p, std::string field);
 Value to_json(const RSUContainerHighFrequency& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, RSUContainerHighFrequency& p, std::string field);
+
+
+/*
+*   ManagementContainer - Type SEQUENCE
+*   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
+*/
+
+Value to_json(const DENM_PDU_Descriptions_ManagementContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, DENM_PDU_Descriptions_ManagementContainer& p, std::string field);
+
+
+/*
+*   SituationContainer - Type SEQUENCE
+*   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
+*/
+
+Value to_json(const SituationContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, SituationContainer& p, std::string field);
 
 
 /*
@@ -2123,9 +3629,19 @@ void from_json(const Value& j, ReferenceDenms& p, std::string field);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const MapPosition& p, Document::AllocatorType& allocator);
+Value to_json(const VAM_PDU_Descriptions_MapPosition_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, MapPosition& p, std::string field);
+void from_json(const Value& j, VAM_PDU_Descriptions_MapPosition_t& p, std::string field);
+
+
+/*
+*   VruLowFrequencyContainer - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+Value to_json(const VruLowFrequencyContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, VruLowFrequencyContainer& p, std::string field);
 
 
 /*
@@ -2133,9 +3649,19 @@ void from_json(const Value& j, MapPosition& p, std::string field);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const VruProfileAndSubprofile& p, Document::AllocatorType& allocator);
+Value to_json(const VAM_PDU_Descriptions_VruProfileAndSubprofile_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, VruProfileAndSubprofile& p, std::string field);
+void from_json(const Value& j, VAM_PDU_Descriptions_VruProfileAndSubprofile_t& p, std::string field);
+
+
+/*
+*   VruExteriorLights - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+Value to_json(const VAM_PDU_Descriptions_VruExteriorLights_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, VAM_PDU_Descriptions_VruExteriorLights_t& p, std::string field);
 
 
 /*
@@ -2143,9 +3669,9 @@ void from_json(const Value& j, VruProfileAndSubprofile& p, std::string field);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json_VruSpecificExteriorLights(const VruSpecificExteriorLights_t p, Document::AllocatorType& allocator);
+Value to_json_VAM_PDU_Descriptions_VruSpecificExteriorLights(const VAM_PDU_Descriptions_VruSpecificExteriorLights_t p, Document::AllocatorType& allocator);
 
-void from_json_VruSpecificExteriorLights(const Value& j, VruSpecificExteriorLights_t& p, std::string field);
+void from_json_VAM_PDU_Descriptions_VruSpecificExteriorLights(const Value& j, VAM_PDU_Descriptions_VruSpecificExteriorLights_t& p, std::string field);
 
 
 /*
@@ -2159,13 +3685,23 @@ void from_json_ClusterProfiles(const Value& j, ClusterProfiles_t& p, std::string
 
 
 /*
+*   VruClusterOperationContainer - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+Value to_json(const VruClusterOperationContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, VruClusterOperationContainer& p, std::string field);
+
+
+/*
 *   ClusterJoinInfo - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const ClusterJoinInfo& p, Document::AllocatorType& allocator);
+Value to_json(const VAM_PDU_Descriptions_ClusterJoinInfo_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, ClusterJoinInfo& p, std::string field);
+void from_json(const Value& j, VAM_PDU_Descriptions_ClusterJoinInfo_t& p, std::string field);
 
 
 /*
@@ -2173,9 +3709,9 @@ void from_json(const Value& j, ClusterJoinInfo& p, std::string field);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const ClusterLeaveInfo& p, Document::AllocatorType& allocator);
+Value to_json(const VAM_PDU_Descriptions_ClusterLeaveInfo_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, ClusterLeaveInfo& p, std::string field);
+void from_json(const Value& j, VAM_PDU_Descriptions_ClusterLeaveInfo_t& p, std::string field);
 
 
 /*
@@ -2183,9 +3719,19 @@ void from_json(const Value& j, ClusterLeaveInfo& p, std::string field);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const ClusterBreakupInfo& p, Document::AllocatorType& allocator);
+Value to_json(const VAM_PDU_Descriptions_ClusterBreakupInfo_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, ClusterBreakupInfo& p, std::string field);
+void from_json(const Value& j, VAM_PDU_Descriptions_ClusterBreakupInfo_t& p, std::string field);
+
+
+/*
+*   VruPathPoint - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+Value to_json(const VruPathPoint& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, VruPathPoint& p, std::string field);
 
 
 /*
@@ -2199,13 +3745,23 @@ void from_json(const Value& j, VruSafeDistanceIndication& p, std::string field);
 
 
 /*
+*   SequenceOfTrajectoryInterceptionIndication - Type SEQUENCE OF
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+Value to_json(const VAM_PDU_Descriptions_SequenceOfTrajectoryInterceptionIndication_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, VAM_PDU_Descriptions_SequenceOfTrajectoryInterceptionIndication_t& p, std::string field);
+
+
+/*
 *   TrajectoryInterceptionIndication - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const TrajectoryInterceptionIndication& p, Document::AllocatorType& allocator);
+Value to_json(const VAM_PDU_Descriptions_TrajectoryInterceptionIndication_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, TrajectoryInterceptionIndication& p, std::string field);
+void from_json(const Value& j, VAM_PDU_Descriptions_TrajectoryInterceptionIndication_t& p, std::string field);
 
 
 /*
@@ -2213,9 +3769,9 @@ void from_json(const Value& j, TrajectoryInterceptionIndication& p, std::string 
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const HeadingChangeIndication& p, Document::AllocatorType& allocator);
+Value to_json(const VAM_PDU_Descriptions_HeadingChangeIndication_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, HeadingChangeIndication& p, std::string field);
+void from_json(const Value& j, VAM_PDU_Descriptions_HeadingChangeIndication_t& p, std::string field);
 
 
 /*
@@ -2223,9 +3779,9 @@ void from_json(const Value& j, HeadingChangeIndication& p, std::string field);
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const AccelerationChangeIndication& p, Document::AllocatorType& allocator);
+Value to_json(const VAM_PDU_Descriptions_AccelerationChangeIndication_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, AccelerationChangeIndication& p, std::string field);
+void from_json(const Value& j, VAM_PDU_Descriptions_AccelerationChangeIndication_t& p, std::string field);
 
 
 /*
@@ -2233,9 +3789,19 @@ void from_json(const Value& j, AccelerationChangeIndication& p, std::string fiel
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const StabilityChangeIndication& p, Document::AllocatorType& allocator);
+Value to_json(const VAM_PDU_Descriptions_StabilityChangeIndication_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, StabilityChangeIndication& p, std::string field);
+void from_json(const Value& j, VAM_PDU_Descriptions_StabilityChangeIndication_t& p, std::string field);
+
+
+/*
+*   NodeOffsetPointZ - Type CHOICE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+Value to_json(const NodeOffsetPointZ& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, NodeOffsetPointZ& p, std::string field);
 
 
 /*
@@ -2269,173 +3835,53 @@ void from_json(const Value& j, NodeAttributeSetXY_t& p, std::string field);
 
 
 /*
-*   OriginatingRSUContainer - Type CHOICE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   CpmPayload - Type SEQUENCE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const OriginatingRSUContainer& p, Document::AllocatorType& allocator);
+Value to_json(const CpmPayload& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, OriginatingRSUContainer& p, std::string field);
+void from_json(const Value& j, CpmPayload& p, std::string field);
 
 
 /*
-*   VehicleSensorProperties - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   MessageRateRange - Type SEQUENCE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const VehicleSensorProperties& p, Document::AllocatorType& allocator);
+Value to_json(const MessageRateRange& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, VehicleSensorProperties& p, std::string field);
+void from_json(const Value& j, MessageRateRange& p, std::string field);
 
 
 /*
-*   ObjectDistanceWithConfidence - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   OriginatingRsuContainer - Type SEQUENCE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const ObjectDistanceWithConfidence& p, Document::AllocatorType& allocator);
+Value to_json(const OriginatingRsuContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, ObjectDistanceWithConfidence& p, std::string field);
+void from_json(const Value& j, OriginatingRsuContainer& p, std::string field);
 
 
 /*
-*   ObjectDimension - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   TrailerDataSet - Type SEQUENCE OF
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const ObjectDimension& p, Document::AllocatorType& allocator);
+Value to_json(const TrailerDataSet& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, ObjectDimension& p, std::string field);
+void from_json(const Value& j, TrailerDataSet& p, std::string field);
 
 
 /*
-*   CartesianAngle - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   PerceivedObjectIds - Type SEQUENCE OF
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const CartesianAngle& p, Document::AllocatorType& allocator);
+Value to_json(const PerceivedObjectIds& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, CartesianAngle& p, std::string field);
-
-
-/*
-*   WGS84Angle - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const WGS84Angle& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, WGS84Angle& p, std::string field);
-
-
-/*
-*   SpeedExtended - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const SpeedExtended& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, SpeedExtended& p, std::string field);
-
-
-/*
-*   SensorIdList - Type SEQUENCE OF
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const SensorIdList& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, SensorIdList& p, std::string field);
-
-
-/*
-*   TrailerData - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const TrailerData& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, TrailerData& p, std::string field);
-
-
-/*
-*   LongitudinalLanePosition - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const LongitudinalLanePosition& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, LongitudinalLanePosition& p, std::string field);
-
-
-/*
-*   MatchedPosition - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const MatchedPosition& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, MatchedPosition& p, std::string field);
-
-
-/*
-*   PerceivedObjectContainerSegmentInfo - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const PerceivedObjectContainerSegmentInfo& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, PerceivedObjectContainerSegmentInfo& p, std::string field);
-
-
-/*
-*   VehicleSubclass - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const VehicleSubclass& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, VehicleSubclass& p, std::string field);
-
-
-/*
-*   PersonSubclass - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const PersonSubclass& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, PersonSubclass& p, std::string field);
-
-
-/*
-*   AnimalSubclass - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const AnimalSubclass& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, AnimalSubclass& p, std::string field);
-
-
-/*
-*   OtherSubclass - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const OtherSubclass& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, OtherSubclass& p, std::string field);
-
-
-/*
-*   NodeOffsetPointZ - Type CHOICE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const NodeOffsetPointZ& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, NodeOffsetPointZ& p, std::string field);
+void from_json(const Value& j, PerceivedObjectIds& p, std::string field);
 
 
 /*
@@ -2513,9 +3959,19 @@ void from_json_SupportedPaymentTypes(const Value& j, SupportedPaymentTypes_t& p,
 *   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
 */
 
-Value to_json(const InterferenceManagementChannel& p, Document::AllocatorType& allocator);
+Value to_json(const IMZM_PDU_Descriptions_InterferenceManagementChannel_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, InterferenceManagementChannel& p, std::string field);
+void from_json(const Value& j, IMZM_PDU_Descriptions_InterferenceManagementChannel_t& p, std::string field);
+
+
+/*
+*   MitigationForTechnologies - Type SEQUENCE OF
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const IMZM_PDU_Descriptions_MitigationForTechnologies_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, IMZM_PDU_Descriptions_MitigationForTechnologies_t& p, std::string field);
 
 
 /*
@@ -2523,9 +3979,9 @@ void from_json(const Value& j, InterferenceManagementChannel& p, std::string fie
 *   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
 */
 
-Value to_json(const MitigationPerTechnologyClass& p, Document::AllocatorType& allocator);
+Value to_json(const IMZM_PDU_Descriptions_MitigationPerTechnologyClass_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, MitigationPerTechnologyClass& p, std::string field);
+void from_json(const Value& j, IMZM_PDU_Descriptions_MitigationPerTechnologyClass_t& p, std::string field);
 
 
 /*
@@ -2536,6 +3992,16 @@ void from_json(const Value& j, MitigationPerTechnologyClass& p, std::string fiel
 Value to_json(const TisTpgDRM_Situation& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, TisTpgDRM_Situation& p, std::string field);
+
+
+/*
+*   TisTpgDRM-Location - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgDRM_Location& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgDRM_Location& p, std::string field);
 
 
 /*
@@ -2556,6 +4022,26 @@ void from_json(const Value& j, TisTpgSNM_Management& p, std::string field);
 Value to_json(const TisTpgTRM_Situation& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, TisTpgTRM_Situation& p, std::string field);
+
+
+/*
+*   TisTpgTRM-Location - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTRM_Location& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgTRM_Location& p, std::string field);
+
+
+/*
+*   TisTpgTCM-Location - Type SEQUENCE
+*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
+*/
+
+Value to_json(const TisTpgTCM_Location& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TisTpgTCM_Location& p, std::string field);
 
 
 /*
@@ -2689,13 +4175,33 @@ void from_json_Language(const Value& j, Language_t& p, std::string field);
 
 
 /*
+*   McmBasicContainer - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const McmBasicContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, McmBasicContainer& p, std::string field);
+
+
+/*
+*   ReferencePositionWithConfidence - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const MCM_PDU_Descriptions_ReferencePositionWithConfidence_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, MCM_PDU_Descriptions_ReferencePositionWithConfidence_t& p, std::string field);
+
+
+/*
 *   PositionConfidenceEllipse - Type SEQUENCE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
 
-Value to_json(const PositionConfidenceEllipse& p, Document::AllocatorType& allocator);
+Value to_json(const MCM_PDU_Descriptions_PositionConfidenceEllipse_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, PositionConfidenceEllipse& p, std::string field);
+void from_json(const Value& j, MCM_PDU_Descriptions_PositionConfidenceEllipse_t& p, std::string field);
 
 
 /*
@@ -2769,6 +4275,16 @@ void from_json(const Value& j, IntermediatePointIntersection& p, std::string fie
 
 
 /*
+*   IntermediatePointOffroad - Type SEQUENCE
+*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*/
+
+Value to_json(const IntermediatePointOffroad& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, IntermediatePointOffroad& p, std::string field);
+
+
+/*
 *   Lane - Type SEQUENCE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
@@ -2779,63 +4295,323 @@ void from_json(const Value& j, Lane& p, std::string field);
 
 
 /*
-*   ReferencePosition - Type SEQUENCE
-*   From ITS-Container - File TS102894-2v131-CDD.asn
+*   AccelerationPolarWithZ - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
 */
 
-Value to_json(const ReferencePosition& p, Document::AllocatorType& allocator);
+Value to_json(const AccelerationPolarWithZ_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, ReferencePosition& p, std::string field);
+void from_json(const Value& j, AccelerationPolarWithZ_t& p, std::string field);
 
 
 /*
-*   PtActivation - Type SEQUENCE
-*   From ITS-Container - File TS102894-2v131-CDD.asn
+*   AccelerationCartesian - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
 */
 
-Value to_json(const PtActivation& p, Document::AllocatorType& allocator);
+Value to_json(const AccelerationCartesian_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, PtActivation& p, std::string field);
+void from_json(const Value& j, AccelerationCartesian_t& p, std::string field);
 
 
 /*
-*   ClosedLanes - Type SEQUENCE
-*   From ITS-Container - File TS102894-2v131-CDD.asn
+*   BasicContainer - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
 */
 
-Value to_json(const ClosedLanes& p, Document::AllocatorType& allocator);
+Value to_json(const ETSI_ITS_CDD_BasicContainer_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, ClosedLanes& p, std::string field);
+void from_json(const Value& j, ETSI_ITS_CDD_BasicContainer_t& p, std::string field);
 
 
 /*
-*   ItineraryPath - Type SEQUENCE OF
-*   From ITS-Container - File TS102894-2v131-CDD.asn
+*   BasicLaneConfiguration - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
 */
 
-Value to_json(const ItineraryPath& p, Document::AllocatorType& allocator);
+Value to_json(const BasicLaneConfiguration_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, ItineraryPath& p, std::string field);
-
-
-/*
-*   EventHistory - Type SEQUENCE OF
-*   From ITS-Container - File TS102894-2v131-CDD.asn
-*/
-
-Value to_json(const EventHistory& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, EventHistory& p, std::string field);
+void from_json(const Value& j, BasicLaneConfiguration_t& p, std::string field);
 
 
 /*
 *   DigitalMap - Type SEQUENCE OF
-*   From ITS-Container - File TS102894-2v131-CDD.asn
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
 */
 
-Value to_json(const DigitalMap_t& p, Document::AllocatorType& allocator);
+Value to_json(const ETSI_ITS_CDD_DigitalMap_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, DigitalMap_t& p, std::string field);
+void from_json(const Value& j, ETSI_ITS_CDD_DigitalMap_t& p, std::string field);
+
+
+/*
+*   EventHistory - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_EventHistory_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_EventHistory_t& p, std::string field);
+
+
+/*
+*   InterferenceManagementInfoPerChannel - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_InterferenceManagementInfoPerChannel_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_InterferenceManagementInfoPerChannel_t& p, std::string field);
+
+
+/*
+*   ItineraryPath - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_ItineraryPath_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_ItineraryPath_t& p, std::string field);
+
+
+/*
+*   IvimReference - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const IvimReference_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, IvimReference_t& p, std::string field);
+
+
+/*
+*   IvimReferences - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const IvimReferences_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, IvimReferences_t& p, std::string field);
+
+
+/*
+*   LanePositionOptions - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const LanePositionOptions_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, LanePositionOptions_t& p, std::string field);
+
+
+/*
+*   LowerTriangularPositiveSemidefiniteMatrix - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const LowerTriangularPositiveSemidefiniteMatrix_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, LowerTriangularPositiveSemidefiniteMatrix_t& p, std::string field);
+
+
+/*
+*   MapemElementReference - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const MapemElementReference_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, MapemElementReference_t& p, std::string field);
+
+
+/*
+*   MapPosition - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_MapPosition_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_MapPosition_t& p, std::string field);
+
+
+/*
+*   MapReference - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_MapReference_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_MapReference_t& p, std::string field);
+
+
+/*
+*   MapReferences - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const MapReferences_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, MapReferences_t& p, std::string field);
+
+
+/*
+*   MitigationForTechnologies - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_MitigationForTechnologies_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_MitigationForTechnologies_t& p, std::string field);
+
+
+/*
+*   OccupiedLanesWithConfidence::OccupiedLanesWithConfidence__lanePositionBased - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const OccupiedLanesWithConfidence::OccupiedLanesWithConfidence__lanePositionBased& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, OccupiedLanesWithConfidence::OccupiedLanesWithConfidence__lanePositionBased& p, std::string field);
+
+
+/*
+*   OccupiedLanesWithConfidence::OccupiedLanesWithConfidence__mapBased - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const OccupiedLanesWithConfidence::OccupiedLanesWithConfidence__mapBased& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, OccupiedLanesWithConfidence::OccupiedLanesWithConfidence__mapBased& p, std::string field);
+
+
+/*
+*   OccupiedLanesWithConfidence - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const OccupiedLanesWithConfidence_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, OccupiedLanesWithConfidence_t& p, std::string field);
+
+
+/*
+*   Path - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const Path_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, Path_t& p, std::string field);
+
+
+/*
+*   PathExtended - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const PathExtended_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, PathExtended_t& p, std::string field);
+
+
+/*
+*   PathHistory - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_PathHistory_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_PathHistory_t& p, std::string field);
+
+
+/*
+*   PathPointPredicted - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const PathPointPredicted_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, PathPointPredicted_t& p, std::string field);
+
+
+/*
+*   PolygonalShape - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const PolygonalShape_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, PolygonalShape_t& p, std::string field);
+
+
+/*
+*   RadialShapesList - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const RadialShapesList_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, RadialShapesList_t& p, std::string field);
+
+
+/*
+*   SequenceOfTrajectoryInterceptionIndication - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_SequenceOfTrajectoryInterceptionIndication_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_SequenceOfTrajectoryInterceptionIndication_t& p, std::string field);
+
+
+/*
+*   Traces - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_Traces_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_Traces_t& p, std::string field);
+
+
+/*
+*   TracesExtended - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const TracesExtended_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, TracesExtended_t& p, std::string field);
+
+
+/*
+*   VarLengthNumber - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_VarLengthNumber_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_VarLengthNumber_t& p, std::string field);
+
+
+/*
+*   Ext1 - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_Ext1_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_Ext1_t& p, std::string field);
+
+
+/*
+*   VelocityCartesian - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const VelocityCartesian_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, VelocityCartesian_t& p, std::string field);
 
 
 /*
@@ -3209,16 +4985,6 @@ void from_json(const Value& j, ContractValidity_t& p, std::string field);
 
 
 /*
-*   EFC-ContextMark - Type SEQUENCE
-*   From EfcDsrcApplication - File ISO14906-0-6.asn
-*/
-
-Value to_json(const EFC_ContextMark_t& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, EFC_ContextMark_t& p, std::string field);
-
-
-/*
 *   PaymentFee - Type SEQUENCE
 *   From EfcDsrcApplication - File ISO14906-0-6.asn
 */
@@ -3279,13 +5045,13 @@ void from_json(const Value& j, EfcDsrcApplication_TrailerCharacteristics_t& p, s
 
 
 /*
-*   Ext1 - Type CHOICE
+*   VarLengthNumber - Type CHOICE
 *   From CITSapplMgmtIDs - File ISO17419.asn
 */
 
-Value to_json(const Ext1& p, Document::AllocatorType& allocator);
+Value to_json(const CITSapplMgmtIDs_VarLengthNumber_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, Ext1& p, std::string field);
+void from_json(const Value& j, CITSapplMgmtIDs_VarLengthNumber_t& p, std::string field);
 
 
 /*
@@ -3519,53 +5285,13 @@ void from_json(const Value& j, LowFrequencyContainer& p, std::string field);
 
 
 /*
-*   BasicContainer - Type SEQUENCE
+*   SpecialVehicleContainer - Type CHOICE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-Value to_json(const BasicContainer& p, Document::AllocatorType& allocator);
+Value to_json(const SpecialVehicleContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, BasicContainer& p, std::string field);
-
-
-/*
-*   PublicTransportContainer - Type SEQUENCE
-*   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
-*/
-
-Value to_json(const PublicTransportContainer& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, PublicTransportContainer& p, std::string field);
-
-
-/*
-*   RoadWorksContainerBasic - Type SEQUENCE
-*   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
-*/
-
-Value to_json(const RoadWorksContainerBasic& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, RoadWorksContainerBasic& p, std::string field);
-
-
-/*
-*   ManagementContainer - Type SEQUENCE
-*   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
-*/
-
-Value to_json(const ManagementContainer& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, ManagementContainer& p, std::string field);
-
-
-/*
-*   SituationContainer - Type SEQUENCE
-*   From DENM-PDU-Descriptions - File EN302637-3v131-DENM.asn
-*/
-
-Value to_json(const SituationContainer& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, SituationContainer& p, std::string field);
+void from_json(const Value& j, SpecialVehicleContainer& p, std::string field);
 
 
 /*
@@ -3589,6 +5315,16 @@ void from_json(const Value& j, AlacarteContainer& p, std::string field);
 
 
 /*
+*   VruLanePosition - Type CHOICE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+Value to_json(const VruLanePosition& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, VruLanePosition& p, std::string field);
+
+
+/*
 *   NonIslandLanePosition - Type CHOICE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
@@ -3599,33 +5335,13 @@ void from_json(const Value& j, NonIslandLanePosition& p, std::string field);
 
 
 /*
-*   VruExteriorLights - Type SEQUENCE
+*   SequenceOfVruPathPoint - Type SEQUENCE OF
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const VruExteriorLights& p, Document::AllocatorType& allocator);
+Value to_json(const SequenceOfVruPathPoint& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, VruExteriorLights& p, std::string field);
-
-
-/*
-*   VruClusterOperationContainer - Type SEQUENCE
-*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
-*/
-
-Value to_json(const VruClusterOperationContainer& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, VruClusterOperationContainer& p, std::string field);
-
-
-/*
-*   VruPathPoint - Type SEQUENCE
-*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
-*/
-
-Value to_json(const VruPathPoint& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, VruPathPoint& p, std::string field);
+void from_json(const Value& j, SequenceOfVruPathPoint& p, std::string field);
 
 
 /*
@@ -3639,73 +5355,53 @@ void from_json(const Value& j, SequenceOfVruSafeDistanceIndication& p, std::stri
 
 
 /*
-*   SequenceOfTrajectoryInterceptionIndication - Type SEQUENCE OF
-*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
-*/
-
-Value to_json(const SequenceOfTrajectoryInterceptionIndication& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, SequenceOfTrajectoryInterceptionIndication& p, std::string field);
-
-
-/*
-*   CpmManagementContainer - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const CpmManagementContainer& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, CpmManagementContainer& p, std::string field);
-
-
-/*
-*   VehicleSensorPropertyList - Type SEQUENCE OF
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const VehicleSensorPropertyList& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, VehicleSensorPropertyList& p, std::string field);
-
-
-/*
-*   TrailerDataContainer - Type SEQUENCE OF
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const TrailerDataContainer& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, TrailerDataContainer& p, std::string field);
-
-
-/*
-*   ObjectClass::ObjectClass__class - Type CHOICE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const ObjectClass::ObjectClass__class& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, ObjectClass::ObjectClass__class& p, std::string field);
-
-
-/*
-*   ObjectClass - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const ObjectClass_t& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, ObjectClass_t& p, std::string field);
-
-
-/*
 *   OffsetPoint - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
 Value to_json(const OffsetPoint& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, OffsetPoint& p, std::string field);
+
+
+/*
+*   CollectivePerceptionMessage - Type SEQUENCE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
+*/
+
+Value to_json(const CollectivePerceptionMessage& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, CollectivePerceptionMessage& p, std::string field);
+
+
+/*
+*   ManagementContainer - Type SEQUENCE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
+*/
+
+Value to_json(const CPM_PDU_Descriptions_ManagementContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, CPM_PDU_Descriptions_ManagementContainer& p, std::string field);
+
+
+/*
+*   Acceleration3dWithConfidence - Type CHOICE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
+*/
+
+Value to_json(const Acceleration3dWithConfidence_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, Acceleration3dWithConfidence_t& p, std::string field);
+
+
+/*
+*   OriginatingVehicleContainer - Type SEQUENCE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
+*/
+
+Value to_json(const OriginatingVehicleContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, OriginatingVehicleContainer& p, std::string field);
 
 
 /*
@@ -3799,13 +5495,23 @@ void from_json(const Value& j, UpdateResponseMessage& p, std::string field);
 
 
 /*
-*   MitigationForTechnologies - Type SEQUENCE OF
+*   InterferenceManagementInfo - Type SEQUENCE OF
 *   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
 */
 
-Value to_json(const MitigationForTechnologies& p, Document::AllocatorType& allocator);
+Value to_json(const IMZM_PDU_Descriptions_InterferenceManagementInfo_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, MitigationForTechnologies& p, std::string field);
+void from_json(const Value& j, IMZM_PDU_Descriptions_InterferenceManagementInfo_t& p, std::string field);
+
+
+/*
+*   InterferenceManagementMitigationType - Type CHOICE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const InterferenceManagementMitigationType& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, InterferenceManagementMitigationType& p, std::string field);
 
 
 /*
@@ -3829,16 +5535,6 @@ void from_json(const Value& j, TisTpgDRM_Management& p, std::string field);
 
 
 /*
-*   TisTpgDRM-Location - Type SEQUENCE
-*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
-*/
-
-Value to_json(const TisTpgDRM_Location& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, TisTpgDRM_Location& p, std::string field);
-
-
-/*
 *   TisTpgTRM-Management - Type SEQUENCE
 *   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
 */
@@ -3846,16 +5542,6 @@ void from_json(const Value& j, TisTpgDRM_Location& p, std::string field);
 Value to_json(const TisTpgTRM_Management& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, TisTpgTRM_Management& p, std::string field);
-
-
-/*
-*   TisTpgTRM-Location - Type SEQUENCE
-*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
-*/
-
-Value to_json(const TisTpgTRM_Location& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, TisTpgTRM_Location& p, std::string field);
 
 
 /*
@@ -3876,16 +5562,6 @@ void from_json(const Value& j, TisTpgTCM_Management& p, std::string field);
 Value to_json(const TisTpgTCM_Situation& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, TisTpgTCM_Situation& p, std::string field);
-
-
-/*
-*   TisTpgTCM-Location - Type SEQUENCE
-*   From TIS-TPG-Transactions-Descriptions - File TIS-TPG-Transactions-Descriptions.asn
-*/
-
-Value to_json(const TisTpgTCM_Location& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, TisTpgTCM_Location& p, std::string field);
 
 
 /*
@@ -3979,16 +5655,6 @@ void from_json(const Value& j, TpgNotifContainer& p, std::string field);
 
 
 /*
-*   ReferencePositionWithConfidence - Type SEQUENCE
-*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
-*/
-
-Value to_json(const ReferencePositionWithConfidence& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, ReferencePositionWithConfidence& p, std::string field);
-
-
-/*
 *   ManoeuvreCoordinationRational - Type CHOICE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
@@ -4059,13 +5725,143 @@ void from_json(const Value& j, IntermediatePointLane& p, std::string field);
 
 
 /*
-*   IntermediatePointOffroad - Type SEQUENCE
-*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
+*   GeneralizedLanePosition - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
 */
 
-Value to_json(const IntermediatePointOffroad& p, Document::AllocatorType& allocator);
+Value to_json(const GeneralizedLanePosition_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, IntermediatePointOffroad& p, std::string field);
+void from_json(const Value& j, GeneralizedLanePosition_t& p, std::string field);
+
+
+/*
+*   GeneralizedLanePositions - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const GeneralizedLanePositions_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, GeneralizedLanePositions_t& p, std::string field);
+
+
+/*
+*   InterferenceManagementInfo - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_InterferenceManagementInfo_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_InterferenceManagementInfo_t& p, std::string field);
+
+
+/*
+*   LowerTriangularPositiveSemidefiniteMatrices - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const LowerTriangularPositiveSemidefiniteMatrices_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, LowerTriangularPositiveSemidefiniteMatrices_t& p, std::string field);
+
+
+/*
+*   MapemConfiguration - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const MapemConfiguration_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, MapemConfiguration_t& p, std::string field);
+
+
+/*
+*   PathPredicted - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const PathPredicted_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, PathPredicted_t& p, std::string field);
+
+
+/*
+*   PathPredicted2 - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const PathPredicted2_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, PathPredicted2_t& p, std::string field);
+
+
+/*
+*   PathPredictedList - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const PathPredictedList_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, PathPredictedList_t& p, std::string field);
+
+
+/*
+*   RadialShapes - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const RadialShapes_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, RadialShapes_t& p, std::string field);
+
+
+/*
+*   RoadConfigurationSection - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const RoadConfigurationSection_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, RoadConfigurationSection_t& p, std::string field);
+
+
+/*
+*   RoadConfigurationSectionList - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const RoadConfigurationSectionList_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, RoadConfigurationSectionList_t& p, std::string field);
+
+
+/*
+*   Shape - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const Shape_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, Shape_t& p, std::string field);
+
+
+/*
+*   Velocity3dWithConfidence - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const Velocity3dWithConfidence_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, Velocity3dWithConfidence_t& p, std::string field);
+
+
+/*
+*   VruClusterInformation - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const VruClusterInformation_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, VruClusterInformation_t& p, std::string field);
 
 
 /*
@@ -4199,16 +5995,6 @@ void from_json(const Value& j, DebitRq_t& p, std::string field);
 
 
 /*
-*   VarLengthNumber - Type CHOICE
-*   From CITSapplMgmtIDs - File ISO17419.asn
-*/
-
-Value to_json(const VarLengthNumber& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, VarLengthNumber& p, std::string field);
-
-
-/*
 *   GlcPart - Type SEQUENCE
 *   From IVI - File ISO19321IVIv2.asn
 */
@@ -4279,13 +6065,13 @@ void from_json(const Value& j, LaneInformation& p, std::string field);
 
 
 /*
-*   SpecialVehicleContainer - Type CHOICE
+*   CamParameters - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-Value to_json(const SpecialVehicleContainer& p, Document::AllocatorType& allocator);
+Value to_json(const CamParameters& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, SpecialVehicleContainer& p, std::string field);
+void from_json(const Value& j, CamParameters& p, std::string field);
 
 
 /*
@@ -4299,58 +6085,38 @@ void from_json(const Value& j, DecentralizedEnvironmentalNotificationMessage& p,
 
 
 /*
+*   VruHighFrequencyContainer - Type SEQUENCE
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
+*/
+
+Value to_json(const VruHighFrequencyContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, VruHighFrequencyContainer& p, std::string field);
+
+
+/*
 *   TrafficIslandPosition - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const TrafficIslandPosition& p, Document::AllocatorType& allocator);
+Value to_json(const VAM_PDU_Descriptions_TrafficIslandPosition_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, TrafficIslandPosition& p, std::string field);
+void from_json(const Value& j, VAM_PDU_Descriptions_TrafficIslandPosition_t& p, std::string field);
 
 
 /*
-*   VruLowFrequencyContainer - Type SEQUENCE
+*   VruMotionPredictionContainer - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
-Value to_json(const VruLowFrequencyContainer& p, Document::AllocatorType& allocator);
+Value to_json(const VruMotionPredictionContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, VruLowFrequencyContainer& p, std::string field);
-
-
-/*
-*   SequenceOfVruPathPoint - Type SEQUENCE OF
-*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
-*/
-
-Value to_json(const SequenceOfVruPathPoint& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, SequenceOfVruPathPoint& p, std::string field);
-
-
-/*
-*   OriginatingVehicleContainer - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const OriginatingVehicleContainer& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, OriginatingVehicleContainer& p, std::string field);
-
-
-/*
-*   VehicleSensor - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const VehicleSensor& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, VehicleSensor& p, std::string field);
+void from_json(const Value& j, VruMotionPredictionContainer& p, std::string field);
 
 
 /*
 *   AreaCircular - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
 Value to_json(const AreaCircular& p, Document::AllocatorType& allocator);
@@ -4359,18 +6125,8 @@ void from_json(const Value& j, AreaCircular& p, std::string field);
 
 
 /*
-*   AreaEllipse - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const AreaEllipse& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, AreaEllipse& p, std::string field);
-
-
-/*
 *   AreaRectangle - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
 Value to_json(const AreaRectangle& p, Document::AllocatorType& allocator);
@@ -4380,7 +6136,7 @@ void from_json(const Value& j, AreaRectangle& p, std::string field);
 
 /*
 *   PolyPointList - Type SEQUENCE OF
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
 Value to_json(const PolyPointList& p, Document::AllocatorType& allocator);
@@ -4389,23 +6145,23 @@ void from_json(const Value& j, PolyPointList& p, std::string field);
 
 
 /*
-*   AreaRadial - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   PerceptionRegion - Type SEQUENCE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const AreaRadial& p, Document::AllocatorType& allocator);
+Value to_json(const PerceptionRegion& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, AreaRadial& p, std::string field);
+void from_json(const Value& j, PerceptionRegion& p, std::string field);
 
 
 /*
-*   ObjectClassDescription - Type SEQUENCE OF
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   SensorInformation - Type SEQUENCE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const ObjectClassDescription& p, Document::AllocatorType& allocator);
+Value to_json(const SensorInformation& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, ObjectClassDescription& p, std::string field);
+void from_json(const Value& j, SensorInformation& p, std::string field);
 
 
 /*
@@ -4429,13 +6185,13 @@ void from_json(const Value& j, EV_RSR_MessageBody& p, std::string field);
 
 
 /*
-*   InterferenceManagementMitigationType - Type CHOICE
+*   InterferenceManagementInfoPerChannel - Type SEQUENCE
 *   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
 */
 
-Value to_json(const InterferenceManagementMitigationType& p, Document::AllocatorType& allocator);
+Value to_json(const IMZM_PDU_Descriptions_InterferenceManagementInfoPerChannel_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, InterferenceManagementMitigationType& p, std::string field);
+void from_json(const Value& j, IMZM_PDU_Descriptions_InterferenceManagementInfoPerChannel_t& p, std::string field);
 
 
 /*
@@ -4529,16 +6285,6 @@ void from_json(const Value& j, RTCMEM& p, std::string field);
 
 
 /*
-*   McmBasicContainer - Type SEQUENCE
-*   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
-*/
-
-Value to_json(const McmBasicContainer& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, McmBasicContainer& p, std::string field);
-
-
-/*
 *   IntermediatePoint - Type CHOICE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
@@ -4546,6 +6292,36 @@ void from_json(const Value& j, McmBasicContainer& p, std::string field);
 Value to_json(const IntermediatePoint& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, IntermediatePoint& p, std::string field);
+
+
+/*
+*   InterferenceManagementZoneDefinition - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const InterferenceManagementZoneDefinition_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, InterferenceManagementZoneDefinition_t& p, std::string field);
+
+
+/*
+*   ObjectClass - Type CHOICE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ObjectClass_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ObjectClass_t& p, std::string field);
+
+
+/*
+*   ObjectClassWithConfidence - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ObjectClassWithConfidence_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ObjectClassWithConfidence_t& p, std::string field);
 
 
 /*
@@ -4709,13 +6485,13 @@ void from_json(const Value& j, ISO14823Attribute& p, std::string field);
 
 
 /*
-*   CamParameters - Type SEQUENCE
+*   CoopAwareness - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-Value to_json(const CamParameters& p, Document::AllocatorType& allocator);
+Value to_json(const CoopAwareness& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, CamParameters& p, std::string field);
+void from_json(const Value& j, CoopAwareness& p, std::string field);
 
 
 /*
@@ -4729,48 +6505,8 @@ void from_json(const Value& j, DENM& p, std::string field);
 
 
 /*
-*   VruLanePosition - Type CHOICE
-*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
-*/
-
-Value to_json(const VruLanePosition& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, VruLanePosition& p, std::string field);
-
-
-/*
-*   VruMotionPredictionContainer - Type SEQUENCE
-*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
-*/
-
-Value to_json(const VruMotionPredictionContainer& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, VruMotionPredictionContainer& p, std::string field);
-
-
-/*
-*   StationDataContainer - Type CHOICE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const StationDataContainer& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, StationDataContainer& p, std::string field);
-
-
-/*
-*   PerceivedObject - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const PerceivedObject& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, PerceivedObject& p, std::string field);
-
-
-/*
 *   AreaPolygon - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
 
 Value to_json(const AreaPolygon& p, Document::AllocatorType& allocator);
@@ -4779,13 +6515,23 @@ void from_json(const Value& j, AreaPolygon& p, std::string field);
 
 
 /*
-*   FreeSpaceArea - Type CHOICE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   PerceptionRegionContainer - Type SEQUENCE OF
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const FreeSpaceArea& p, Document::AllocatorType& allocator);
+Value to_json(const PerceptionRegionContainer& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, FreeSpaceArea& p, std::string field);
+void from_json(const Value& j, PerceptionRegionContainer& p, std::string field);
+
+
+/*
+*   SensorInformationContainer - Type SEQUENCE OF
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
+*/
+
+Value to_json(const SensorInformationContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, SensorInformationContainer& p, std::string field);
 
 
 /*
@@ -4816,16 +6562,6 @@ void from_json(const Value& j, ItsChargingSpots& p, std::string field);
 Value to_json(const EV_RSR& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, EV_RSR& p, std::string field);
-
-
-/*
-*   InterferenceManagementInfoPerChannel - Type SEQUENCE
-*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
-*/
-
-Value to_json(const InterferenceManagementInfoPerChannel& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, InterferenceManagementInfoPerChannel& p, std::string field);
 
 
 /*
@@ -4866,6 +6602,46 @@ void from_json(const Value& j, Trajectory::Trajectory__intermediatePoints& p, st
 Value to_json(const Trajectory& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, Trajectory& p, std::string field);
+
+
+/*
+*   InterferenceManagementZone - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_InterferenceManagementZone_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_InterferenceManagementZone_t& p, std::string field);
+
+
+/*
+*   InterferenceManagementZones - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ETSI_ITS_CDD_InterferenceManagementZones_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ETSI_ITS_CDD_InterferenceManagementZones_t& p, std::string field);
+
+
+/*
+*   ObjectClassDescription - Type SEQUENCE OF
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const ObjectClassDescription_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ObjectClassDescription_t& p, std::string field);
+
+
+/*
+*   PerceivedObject - Type SEQUENCE
+*   From ETSI-ITS-CDD - File CDD-Release2.asn
+*/
+
+Value to_json(const PerceivedObject_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, PerceivedObject_t& p, std::string field);
 
 
 /*
@@ -4999,23 +6775,13 @@ void from_json(const Value& j, RSCode& p, std::string field);
 
 
 /*
-*   CoopAwareness - Type SEQUENCE
+*   CAM - Type SEQUENCE
 *   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
 */
 
-Value to_json(const CoopAwareness& p, Document::AllocatorType& allocator);
+Value to_json(const CAM& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, CoopAwareness& p, std::string field);
-
-
-/*
-*   VruHighFrequencyContainer - Type SEQUENCE
-*   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
-*/
-
-Value to_json(const VruHighFrequencyContainer& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, VruHighFrequencyContainer& p, std::string field);
+void from_json(const Value& j, CAM& p, std::string field);
 
 
 /*
@@ -5029,33 +6795,13 @@ void from_json(const Value& j, ClusterBoundingBoxShape& p, std::string field);
 
 
 /*
-*   PerceivedObjectContainer - Type SEQUENCE OF
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   PerceivedObjects - Type SEQUENCE OF
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const PerceivedObjectContainer_t& p, Document::AllocatorType& allocator);
+Value to_json(const PerceivedObjects& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, PerceivedObjectContainer_t& p, std::string field);
-
-
-/*
-*   DetectionArea - Type CHOICE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const DetectionArea& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, DetectionArea& p, std::string field);
-
-
-/*
-*   FreeSpaceAddendum - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const FreeSpaceAddendum& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, FreeSpaceAddendum& p, std::string field);
+void from_json(const Value& j, PerceivedObjects& p, std::string field);
 
 
 /*
@@ -5089,6 +6835,26 @@ void from_json(const Value& j, ItsChargingStationData& p, std::string field);
 
 
 /*
+*   ImzmContainer - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const ImzmContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ImzmContainer& p, std::string field);
+
+
+/*
+*   InterferenceManagementZones - Type SEQUENCE OF
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const IMZM_PDU_Descriptions_InterferenceManagementZones_t& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, IMZM_PDU_Descriptions_InterferenceManagementZones_t& p, std::string field);
+
+
+/*
 *   ZoneDefinition - Type SEQUENCE
 *   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
 */
@@ -5096,16 +6862,6 @@ void from_json(const Value& j, ItsChargingStationData& p, std::string field);
 Value to_json(const ZoneDefinition& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, ZoneDefinition& p, std::string field);
-
-
-/*
-*   InterferenceManagementInfo - Type SEQUENCE OF
-*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
-*/
-
-Value to_json(const InterferenceManagementInfo& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, InterferenceManagementInfo& p, std::string field);
 
 
 /*
@@ -5199,16 +6955,6 @@ void from_json(const Value& j, PlatooningRule& p, std::string field);
 
 
 /*
-*   CAM - Type SEQUENCE
-*   From CAM-PDU-Descriptions - File EN302637-2v141-CAM.asn
-*/
-
-Value to_json(const CAM& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, CAM& p, std::string field);
-
-
-/*
 *   VruClusterInformationContainer - Type SEQUENCE
 *   From VAM-PDU-Descriptions - File TS103300-3v211-VAM.asn
 */
@@ -5219,23 +6965,13 @@ void from_json(const Value& j, VruClusterInformationContainer& p, std::string fi
 
 
 /*
-*   SensorInformation - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   PerceivedObjectContainer - Type SEQUENCE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const SensorInformation& p, Document::AllocatorType& allocator);
+Value to_json(const PerceivedObjectContainer_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, SensorInformation& p, std::string field);
-
-
-/*
-*   FreeSpaceAddendumContainer - Type SEQUENCE OF
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const FreeSpaceAddendumContainer& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, FreeSpaceAddendumContainer& p, std::string field);
+void from_json(const Value& j, PerceivedObjectContainer_t& p, std::string field);
 
 
 /*
@@ -5269,13 +7005,23 @@ void from_json(const Value& j, ItsEVCSNData& p, std::string field);
 
 
 /*
+*   ImzmParameters - Type SEQUENCE
+*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
+*/
+
+Value to_json(const ImzmParameters& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, ImzmParameters& p, std::string field);
+
+
+/*
 *   InterferenceManagementZone - Type SEQUENCE
 *   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
 */
 
-Value to_json(const InterferenceManagementZone& p, Document::AllocatorType& allocator);
+Value to_json(const IMZM_PDU_Descriptions_InterferenceManagementZone_t& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, InterferenceManagementZone& p, std::string field);
+void from_json(const Value& j, IMZM_PDU_Descriptions_InterferenceManagementZone_t& p, std::string field);
 
 
 /*
@@ -5349,13 +7095,33 @@ void from_json(const Value& j, VamParameters& p, std::string field);
 
 
 /*
-*   SensorInformationContainer - Type SEQUENCE OF
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
+*   WrappedCpmContainer::WrappedCpmContainer__containerData - Type CHOICE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
 */
 
-Value to_json(const SensorInformationContainer& p, Document::AllocatorType& allocator);
+Value to_json(const WrappedCpmContainer::WrappedCpmContainer__containerData& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, SensorInformationContainer& p, std::string field);
+void from_json(const Value& j, WrappedCpmContainer::WrappedCpmContainer__containerData& p, std::string field);
+
+
+/*
+*   WrappedCpmContainer - Type SEQUENCE
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
+*/
+
+Value to_json(const WrappedCpmContainer& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, WrappedCpmContainer& p, std::string field);
+
+
+/*
+*   WrappedCpmContainers - Type SEQUENCE OF
+*   From CPM-PDU-Descriptions - File CPM-PDU-Descriptions.asn
+*/
+
+Value to_json(const WrappedCpmContainers& p, Document::AllocatorType& allocator);
+
+void from_json(const Value& j, WrappedCpmContainers& p, std::string field);
 
 
 /*
@@ -5369,13 +7135,13 @@ void from_json(const Value& j, EVChargingSpotNotificationPOIMessage& p, std::str
 
 
 /*
-*   InterferenceManagementZones - Type SEQUENCE OF
+*   InterferenceManagementZoneMessage - Type SEQUENCE
 *   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
 */
 
-Value to_json(const InterferenceManagementZones& p, Document::AllocatorType& allocator);
+Value to_json(const InterferenceManagementZoneMessage& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, InterferenceManagementZones& p, std::string field);
+void from_json(const Value& j, InterferenceManagementZoneMessage& p, std::string field);
 
 
 /*
@@ -5439,16 +7205,6 @@ void from_json(const Value& j, VruAwareness& p, std::string field);
 
 
 /*
-*   CpmParameters - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const CpmParameters& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, CpmParameters& p, std::string field);
-
-
-/*
 *   EvcsnPdu - Type SEQUENCE
 *   From EVCSN-PDU-Descriptions - File EVCSN-PDU-Descriptions.asn
 */
@@ -5459,13 +7215,13 @@ void from_json(const Value& j, EvcsnPdu& p, std::string field);
 
 
 /*
-*   ImzmContainer - Type SEQUENCE
+*   IMZM - Type SEQUENCE
 *   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
 */
 
-Value to_json(const ImzmContainer& p, Document::AllocatorType& allocator);
+Value to_json(const IMZM& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, ImzmContainer& p, std::string field);
+void from_json(const Value& j, IMZM& p, std::string field);
 
 
 /*
@@ -5519,26 +7275,6 @@ void from_json(const Value& j, VAM& p, std::string field);
 
 
 /*
-*   CollectivePerceptionMessage - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const CollectivePerceptionMessage& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, CollectivePerceptionMessage& p, std::string field);
-
-
-/*
-*   ImzmParameters - Type SEQUENCE
-*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
-*/
-
-Value to_json(const ImzmParameters& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, ImzmParameters& p, std::string field);
-
-
-/*
 *   McmContainer - Type CHOICE
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
@@ -5556,26 +7292,6 @@ void from_json(const Value& j, McmContainer& p, std::string field);
 Value to_json(const IviContainers& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, IviContainers& p, std::string field);
-
-
-/*
-*   CPM - Type SEQUENCE
-*   From CPM-PDU-Descriptions - File TR103562v211-CPM.asn
-*/
-
-Value to_json(const CPM& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, CPM& p, std::string field);
-
-
-/*
-*   InterferenceManagementZoneMessage - Type SEQUENCE
-*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
-*/
-
-Value to_json(const InterferenceManagementZoneMessage& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, InterferenceManagementZoneMessage& p, std::string field);
 
 
 /*
@@ -5606,16 +7322,6 @@ void from_json(const Value& j, IviStructure& p, std::string field);
 Value to_json(const IVIM& p, Document::AllocatorType& allocator);
 
 void from_json(const Value& j, IVIM& p, std::string field);
-
-
-/*
-*   IMZM - Type SEQUENCE
-*   From IMZM-PDU-Descriptions - File IMZM-PDU-Descriptions.asn
-*/
-
-Value to_json(const IMZM& p, Document::AllocatorType& allocator);
-
-void from_json(const Value& j, IMZM& p, std::string field);
 
 
 /*

@@ -13,8 +13,8 @@
 
 /* Including external dependencies */
 #include "NativeInteger.h"
-#include "ReferencePositionWithConfidence.h"
-#include "Heading.h"
+#include "MCM-PDU-Descriptions_ReferencePositionWithConfidence.h"
+#include "ITS-Container_Heading.h"
 #include "TrajectoryType.h"
 #include "Trajectory.h"
 #include "constr_SEQUENCE.h"
@@ -27,8 +27,8 @@ extern "C" {
 typedef struct ManoeuvreAdvice {
 	long	 manoeuvreID;
 	long	 executantID;
-	ReferencePositionWithConfidence_t	 executantPosition;
-	Heading_t	 executantHeading;
+	MCM_PDU_Descriptions_ReferencePositionWithConfidence_t	 executantPosition;
+	ITS_Container_Heading_t	 executantHeading;
 	TrajectoryType_t	 trajectoryType;
 	Trajectory_t	 trajectory;
 	

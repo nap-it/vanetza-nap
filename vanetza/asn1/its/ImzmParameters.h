@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "BasicContainer.h"
+#include "CAM-PDU-Descriptions_BasicContainer.h"
 #include "ImzmContainer.h"
 #include "constr_SEQUENCE.h"
 
@@ -22,7 +22,7 @@ extern "C" {
 
 /* ImzmParameters */
 typedef struct ImzmParameters {
-	BasicContainer_t	 basicContainer;
+	CAM_PDU_Descriptions_BasicContainer_t	 basicContainer;
 	ImzmContainer_t	 imzmContainer;
 	/*
 	 * This type is extensible,
