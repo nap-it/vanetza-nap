@@ -23,7 +23,7 @@ extern "C" {
 typedef struct VehicleAutomationState {
 	BOOLEAN_t	 humanDrivingLongitudinalAutomated;
 	BOOLEAN_t	 humanDrivenLateralAutomated;
-	BOOLEAN_t	 automatedDriving;
+	BOOLEAN_t	 automatedDriving;	/* DEFAULT FALSE */
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;

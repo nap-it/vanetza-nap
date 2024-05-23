@@ -13,7 +13,7 @@
 
 /* Including external dependencies */
 #include "TrafficParticipantType.h"
-#include "ETSI-ITS-CDD_ReferencePositionWithConfidence.h"
+#include "ReferencePositionWithConfidence.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -23,7 +23,7 @@ extern "C" {
 /* ETSI-ITS-CDD_BasicContainer */
 typedef struct ETSI_ITS_CDD_BasicContainer {
 	TrafficParticipantType_t	 stationType;
-	ETSI_ITS_CDD_ReferencePositionWithConfidence_t	 referencePosition;
+	ReferencePositionWithConfidence_t	 referencePosition;
 	/*
 	 * This type is extensible,
 	 * possible extensions are below.

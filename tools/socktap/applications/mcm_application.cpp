@@ -85,7 +85,7 @@ void McmApplication::indicate(const DataIndication& indication, UpPacketPtr pack
             cp.rssi,
             true,
             cp.size(),
-            mcm_t.header.stationID,
+            mcm_t.header.stationId,
             config_s.station_id,
             config_s.station_type,
             cp.time_received,
@@ -104,14 +104,14 @@ void McmApplication::schedule_timer()
 }
 
 Document McmApplication::buildJSON(MCM_t message, double time_reception, int rssi, int packet_size, double time_queue, channel channel_info) {
-    ITS_Container_ItsPduHeader_t& header = message.header;
+    ETSI_ITS_CDD_ItsPduHeader_t& header = message.header;
     Document document(kObjectType);
     Document::AllocatorType& allocator = document.GetAllocator();
     Value jsonTest(kObjectType);
 
     document.AddMember("timestamp", time_reception, allocator)
         .AddMember("rssi", rssi, allocator)
-        .AddMember("stationID", Value(static_cast<int64_t>(header.stationID)), allocator)
+        .AddMember("stationID", Value(static_cast<int64_t>(header.stationId)), allocator)
         .AddMember("receiverID", config_s.station_id, allocator)
         .AddMember("receiverType", config_s.station_type, allocator)
         .AddMember("packet_size", packet_size, allocator)
@@ -173,10 +173,10 @@ void McmApplication::on_message(string topic, string mqtt_message, const std::ve
 
         vanetza::asn1::Mcm message;
 
-        ITS_Container_ItsPduHeader_t& header = message->header;
+        ETSI_ITS_CDD_ItsPduHeader_t& header = message->header;
         header.protocolVersion = 2;
-        header.messageID = MessageId_mcm;
-        header.stationID = config_s.station_id;
+        header.messageId = MessageId_mcm;
+        header.stationId = config_s.station_id;
 
         message->payload = mcm;
 

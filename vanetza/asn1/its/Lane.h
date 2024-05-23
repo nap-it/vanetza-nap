@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "ITS-Container_LanePosition.h"
+#include "ETSI-ITS-CDD_LanePosition.h"
 #include "LaneCount.h"
 #include "constr_SEQUENCE.h"
 
@@ -22,7 +22,7 @@ extern "C" {
 
 /* Lane */
 typedef struct Lane {
-	ITS_Container_LanePosition_t	 lanePosition;
+	ETSI_ITS_CDD_LanePosition_t	 lanePosition;
 	LaneCount_t	 laneCount;
 	
 	/* Context for parsing across buffer boundaries */

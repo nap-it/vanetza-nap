@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "ITS-Container_ItsPduHeader.h"
+#include "ETSI-ITS-CDD_ItsPduHeader.h"
 #include "WrappedMcmInformationBlocks.h"
 #include "constr_SEQUENCE.h"
 
@@ -22,7 +22,7 @@ extern "C" {
 
 /* MCM */
 typedef struct MCM {
-	ITS_Container_ItsPduHeader_t	 header;
+	ETSI_ITS_CDD_ItsPduHeader_t	 header;
 	WrappedMcmInformationBlocks_t	 payload;
 	
 	/* Context for parsing across buffer boundaries */

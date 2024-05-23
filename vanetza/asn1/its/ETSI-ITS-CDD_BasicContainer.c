@@ -28,7 +28,7 @@ static asn_TYPE_member_t asn_MBR_ETSI_ITS_CDD_BasicContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct ETSI_ITS_CDD_BasicContainer, referencePosition),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ETSI_ITS_CDD_ReferencePositionWithConfidence,
+		&asn_DEF_ReferencePositionWithConfidence,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

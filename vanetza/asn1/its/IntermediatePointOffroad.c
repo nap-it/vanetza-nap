@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_IntermediatePointOffroad_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct IntermediatePointOffroad, referencePosition),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_MCM_PDU_Descriptions_ReferencePositionWithConfidence,
+		&asn_DEF_ETSI_ITS_CDD_ReferencePosition,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -28,7 +28,7 @@ asn_TYPE_member_t asn_MBR_IntermediatePointOffroad_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct IntermediatePointOffroad, referenceHeading),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ITS_Container_Heading,
+		&asn_DEF_ETSI_ITS_CDD_Heading,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

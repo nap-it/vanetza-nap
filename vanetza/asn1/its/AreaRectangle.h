@@ -13,7 +13,7 @@
 
 /* Including external dependencies */
 #include "SemiRangeLength.h"
-#include "VAM-PDU-Descriptions_WGS84AngleValue.h"
+#include "WGS84AngleValue.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -28,7 +28,7 @@ typedef struct AreaRectangle {
 	struct OffsetPoint	*nodeCenterPoint;	/* OPTIONAL */
 	SemiRangeLength_t	 semiMajorRangeLength;
 	SemiRangeLength_t	 semiMinorRangeLength;
-	VAM_PDU_Descriptions_WGS84AngleValue_t	 semiMajorRangeOrientation;
+	WGS84AngleValue_t	 semiMajorRangeOrientation;
 	SemiRangeLength_t	*semiHeight;	/* OPTIONAL */
 	
 	/* Context for parsing across buffer boundaries */

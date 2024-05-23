@@ -12,9 +12,9 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "ITS-Container_Heading.h"
+#include "ETSI-ITS-CDD_Heading.h"
 #include "TimeOfPos.h"
-#include "ITS-Container_LanePosition.h"
+#include "ETSI-ITS-CDD_LanePosition.h"
 #include "LaneCount.h"
 #include "constr_SEQUENCE.h"
 
@@ -25,13 +25,13 @@ extern "C" {
 /* IntermediatePointIntersection */
 typedef struct IntermediatePointIntersection {
 	struct IntermediatePointIntersection__exitLane {
-		ITS_Container_LanePosition_t	 lanePosition;
+		ETSI_ITS_CDD_LanePosition_t	 lanePosition;
 		LaneCount_t	 laneCount;
 		
 		/* Context for parsing across buffer boundaries */
 		asn_struct_ctx_t _asn_ctx;
 	} exitLane;
-	ITS_Container_Heading_t	 exitHeading;
+	ETSI_ITS_CDD_Heading_t	 exitHeading;
 	TimeOfPos_t	 timeOfPosEntry;
 	TimeOfPos_t	 timeOfPosExit;
 	

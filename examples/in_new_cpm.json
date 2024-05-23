@@ -1,0 +1,174 @@
+{
+	"managementContainer": {
+		"referenceTime": 0,
+		"referencePosition": {
+			"altitude": {
+				"altitudeConfidence": 15,
+				"altitudeValue": 2.9
+			},
+			"latitude": 40.63481,
+			"longitude": -8.660463,
+			"positionConfidenceEllipse": {
+				"semiMajorConfidence": 4095,
+				"semiMajorOrientation": 0,
+				"semiMinorConfidence": 4095
+			}
+		}
+	},
+	"cpmContainers": [
+		{
+			"containerId": 1,
+			"containerData": {
+				"orientationAngle": {
+					"value": 0,
+					"confidence": 1
+				}
+			}
+		},
+		{
+			"containerId": 3,
+			"containerData": [
+				{
+					"sensorId": 1,
+					"sensorType": 1,
+					"perceptionRegionShape": {
+						"radial": {
+							"range": 100,
+							"horizontalOpeningAngleStart": 3601,
+							"horizontalOpeningAngleEnd": 3601
+						}
+					},
+					"shadowingApplies": false
+				},
+				{
+					"sensorId": 2,
+					"sensorType": 12,
+					"perceptionRegionShape": {
+						"radial": {
+							"range": 100,
+							"horizontalOpeningAngleStart": 3601,
+							"horizontalOpeningAngleEnd": 3601
+						}
+					},
+					"shadowingApplies": false
+				},
+				{
+					"sensorId": 3,
+					"sensorType": 10,
+					"perceptionRegionShape": {
+						"radial": {
+							"range": 100,
+							"horizontalOpeningAngleStart": 3601,
+							"horizontalOpeningAngleEnd": 3601
+						}
+					},
+					"shadowingApplies": false
+				},
+				{
+					"sensorId": 4,
+					"sensorType": 11,
+					"perceptionRegionShape": {
+						"radial": {
+							"range": 100,
+							"horizontalOpeningAngleStart": 3601,
+							"horizontalOpeningAngleEnd": 3601
+						}
+					},
+					"shadowingApplies": false
+				}
+			]
+		},
+		{
+			"containerId": 5,
+			"containerData": {
+				"numberOfPerceivedObjects": 2,
+				"perceivedObjects": [
+					{
+						"objectId": 1,
+						"measurementDeltaTime": 0,
+						"objectPerceptionQuality": 0,
+						"position": {
+							"xCoordinate": {
+								"value": 0,
+								"confidence": 1
+							},
+							"yCoordinate": {
+								"value": 0,
+								"confidence": 1
+							}
+						},
+						"xSpeed": {
+							"value": 11.273405440822678,
+							"confidence": 1
+						},
+						"ySpeed": {
+							"value": 7.9592920392978215,
+							"confidence": 1
+						},
+						"xAcceleration": {
+							"longitudinalAccelerationValue": -0.0011505823066771444,
+							"longitudinalAccelerationConfidence": 1
+						},
+						"yAcceleration": {
+							"lateralAccelerationValue": -0.000812338440426394,
+							"lateralAccelerationConfidence": 1
+						},
+						"sensorIdList": [
+							1
+						],
+						"classification": [
+							{
+								"confidence": 1,
+								"objectClass": {
+									"vehicleSubClass": 5
+								}
+							}
+						]
+					},
+					{
+						"objectId": 3,
+						"measurementDeltaTime": 0,
+						"objectPerceptionQuality": 0,
+						"position": {
+							"xCoordinate": {
+								"value": 0,
+								"confidence": 1
+							},
+							"yCoordinate": {
+								"value": 0,
+								"confidence": 1
+							}
+						},
+						"xSpeed": {
+							"value": 10.43868752795019,
+							"confidence": 1
+						},
+						"ySpeed": {
+							"value": 7.914783805879798,
+							"confidence": 1
+						},
+						"xAcceleration": {
+							"longitudinalAccelerationValue": 0.0009960579702242708,
+							"longitudinalAccelerationConfidence": 0
+						},
+						"yAcceleration": {
+							"lateralAccelerationValue": 0.0007552274623931226,
+							"lateralAccelerationConfidence": 0
+						},
+						"sensorIdList": [
+							1
+						],
+						"classification": [
+							{
+								"confidence": 1,
+								"objectClass": {
+									"vehicleSubClass": 5
+								}
+							}
+						]
+					}
+				]
+			}
+		}
+	]
+}

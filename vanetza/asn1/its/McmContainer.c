@@ -20,10 +20,10 @@ asn_per_constraints_t asn_PER_type_McmContainer_constr_1 CC_NOTUSED = {
 };
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
 asn_TYPE_member_t asn_MBR_McmContainer_1[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct McmContainer, choice.vehicleManoeuvreContainer),
+	{ ATF_NOFLAGS, 0, offsetof(struct McmContainer, choice.vehiclemaneuverContainer),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_VehicleManoeuvreContainer,
+		&asn_DEF_VehiclemaneuverContainer,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -35,12 +35,12 @@ asn_TYPE_member_t asn_MBR_McmContainer_1[] = {
 			0
 		},
 		0, 0, /* No default value */
-		"vehicleManoeuvreContainer"
+		"vehiclemaneuverContainer"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct McmContainer, choice.manoeuvreAdviceContainer),
+	{ ATF_NOFLAGS, 0, offsetof(struct McmContainer, choice.acknowledgmentContainer),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ManoeuvreAdviceContainer,
+		&asn_DEF_AcknowledgmentContainer,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -52,12 +52,12 @@ asn_TYPE_member_t asn_MBR_McmContainer_1[] = {
 			0
 		},
 		0, 0, /* No default value */
-		"manoeuvreAdviceContainer"
+		"acknowledgmentContainer"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_McmContainer_tag2el_1[] = {
-    { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* vehicleManoeuvreContainer */
-    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 } /* manoeuvreAdviceContainer */
+    { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* vehiclemaneuverContainer */
+    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 } /* acknowledgmentContainer */
 };
 asn_CHOICE_specifics_t asn_SPC_McmContainer_specs_1 = {
 	sizeof(struct McmContainer),

@@ -12,8 +12,8 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "VehicleManoeuvreContainer.h"
-#include "ManoeuvreAdviceContainer.h"
+#include "VehiclemaneuverContainer.h"
+#include "AcknowledgmentContainer.h"
 #include "constr_CHOICE.h"
 
 #ifdef __cplusplus
@@ -23,16 +23,16 @@ extern "C" {
 /* Dependencies */
 typedef enum McmContainer_PR {
 	McmContainer_PR_NOTHING,	/* No components present */
-	McmContainer_PR_vehicleManoeuvreContainer,
-	McmContainer_PR_manoeuvreAdviceContainer
+	McmContainer_PR_vehiclemaneuverContainer,
+	McmContainer_PR_acknowledgmentContainer
 } McmContainer_PR;
 
 /* McmContainer */
 typedef struct McmContainer {
 	McmContainer_PR present;
 	union McmContainer_u {
-		VehicleManoeuvreContainer_t	 vehicleManoeuvreContainer;
-		ManoeuvreAdviceContainer_t	 manoeuvreAdviceContainer;
+		VehiclemaneuverContainer_t	 vehiclemaneuverContainer;
+		AcknowledgmentContainer_t	 acknowledgmentContainer;
 	} choice;
 	
 	/* Context for parsing across buffer boundaries */

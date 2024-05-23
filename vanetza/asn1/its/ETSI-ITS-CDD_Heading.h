@@ -31,6 +31,8 @@ typedef struct ETSI_ITS_CDD_Heading {
 
 /* Implementation */
 extern asn_TYPE_descriptor_t asn_DEF_ETSI_ITS_CDD_Heading;
+extern asn_SEQUENCE_specifics_t asn_SPC_ETSI_ITS_CDD_Heading_specs_1;
+extern asn_TYPE_member_t asn_MBR_ETSI_ITS_CDD_Heading_1[2];
 
 #ifdef __cplusplus
 }

@@ -11,7 +11,7 @@ static asn_TYPE_member_t asn_MBR_exitLane_2[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct IntermediatePointIntersection__exitLane, lanePosition),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ITS_Container_LanePosition,
+		&asn_DEF_ETSI_ITS_CDD_LanePosition,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -105,7 +105,7 @@ asn_TYPE_member_t asn_MBR_IntermediatePointIntersection_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct IntermediatePointIntersection, exitHeading),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ITS_Container_Heading,
+		&asn_DEF_ETSI_ITS_CDD_Heading,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

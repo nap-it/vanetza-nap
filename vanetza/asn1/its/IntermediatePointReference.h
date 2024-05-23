@@ -12,8 +12,8 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "MCM-PDU-Descriptions_ReferencePositionWithConfidence.h"
-#include "ITS-Container_Heading.h"
+#include "ReferenceStartingPosition.h"
+#include "ETSI-ITS-CDD_Heading.h"
 #include "Lane.h"
 #include "TimeOfPos.h"
 #include "constr_SEQUENCE.h"
@@ -24,8 +24,8 @@ extern "C" {
 
 /* IntermediatePointReference */
 typedef struct IntermediatePointReference {
-	MCM_PDU_Descriptions_ReferencePositionWithConfidence_t	 referenceStartingPosition;
-	ITS_Container_Heading_t	 referenceHeading;
+	ReferenceStartingPosition_t	 referenceStartingPosition;
+	ETSI_ITS_CDD_Heading_t	 referenceHeading;
 	Lane_t	 lane;
 	TimeOfPos_t	 timeOfPos;
 	

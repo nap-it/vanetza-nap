@@ -20,7 +20,6 @@ if(VANETZA_ASN1_WITH_ASN1C)
         ${PROJECT_SOURCE_DIR}/asn1/EN302637-2v141-CAM.asn
         ${PROJECT_SOURCE_DIR}/asn1/EN302637-3v131-DENM.asn
         ${PROJECT_SOURCE_DIR}/asn1/TS103300-3v211-VAM.asn
-        ${PROJECT_SOURCE_DIR}/asn1/MCM-PDU-Descriptions.asn
         ${PROJECT_SOURCE_DIR}/asn1/TIS-TPG-Transactions-Descriptions.asn
         ${PROJECT_SOURCE_DIR}/asn1/IMZM-PDU-Descriptions.asn
         ${PROJECT_SOURCE_DIR}/asn1/EV-RSR-PDU-Descriptions.asn
@@ -28,6 +27,7 @@ if(VANETZA_ASN1_WITH_ASN1C)
     )
 
     set(_its_asn1_files_depending_on_iso
+        ${PROJECT_SOURCE_DIR}/asn1/MCM-PDU-Descriptions.asn
         ${PROJECT_SOURCE_DIR}/asn1/CPM-PDU-Descriptions.asn
         ${PROJECT_SOURCE_DIR}/asn1/TS103301v211-MAPEM.asn
         ${PROJECT_SOURCE_DIR}/asn1/TS103301v211-RTCMEM.asn

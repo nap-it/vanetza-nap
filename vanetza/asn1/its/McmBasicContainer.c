@@ -11,7 +11,7 @@ asn_TYPE_member_t asn_MBR_McmBasicContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct McmBasicContainer, generationDeltaTime),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ITS_Container_TimestampIts,
+		&asn_DEF_ETSI_ITS_CDD_TimestampIts,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -28,7 +28,7 @@ asn_TYPE_member_t asn_MBR_McmBasicContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct McmBasicContainer, stationType),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ITS_Container_StationType,
+		&asn_DEF_ETSI_ITS_CDD_StationType,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -42,10 +42,10 @@ asn_TYPE_member_t asn_MBR_McmBasicContainer_1[] = {
 		0, 0, /* No default value */
 		"stationType"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct McmBasicContainer, referencePositionWithConfidence),
+	{ ATF_NOFLAGS, 0, offsetof(struct McmBasicContainer, deltaReferencePosition),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_MCM_PDU_Descriptions_ReferencePositionWithConfidence,
+		&asn_DEF_ETSI_ITS_CDD_DeltaReferencePosition,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -57,7 +57,7 @@ asn_TYPE_member_t asn_MBR_McmBasicContainer_1[] = {
 			0
 		},
 		0, 0, /* No default value */
-		"referencePositionWithConfidence"
+		"deltaReferencePosition"
 		},
 };
 static const ber_tlv_tag_t asn_DEF_McmBasicContainer_tags_1[] = {
@@ -66,7 +66,7 @@ static const ber_tlv_tag_t asn_DEF_McmBasicContainer_tags_1[] = {
 static const asn_TYPE_tag2member_t asn_MAP_McmBasicContainer_tag2el_1[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* generationDeltaTime */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* stationType */
-    { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* referencePositionWithConfidence */
+    { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* deltaReferencePosition */
 };
 asn_SEQUENCE_specifics_t asn_SPC_McmBasicContainer_specs_1 = {
 	sizeof(struct McmBasicContainer),

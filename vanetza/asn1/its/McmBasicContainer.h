@@ -12,9 +12,9 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "ITS-Container_TimestampIts.h"
-#include "ITS-Container_StationType.h"
-#include "MCM-PDU-Descriptions_ReferencePositionWithConfidence.h"
+#include "ETSI-ITS-CDD_TimestampIts.h"
+#include "ETSI-ITS-CDD_StationType.h"
+#include "ETSI-ITS-CDD_DeltaReferencePosition.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -23,9 +23,9 @@ extern "C" {
 
 /* McmBasicContainer */
 typedef struct McmBasicContainer {
-	ITS_Container_TimestampIts_t	 generationDeltaTime;
-	ITS_Container_StationType_t	 stationType;
-	MCM_PDU_Descriptions_ReferencePositionWithConfidence_t	 referencePositionWithConfidence;
+	ETSI_ITS_CDD_TimestampIts_t	 generationDeltaTime;
+	ETSI_ITS_CDD_StationType_t	 stationType;
+	ETSI_ITS_CDD_DeltaReferencePosition_t	 deltaReferencePosition;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;

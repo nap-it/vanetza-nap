@@ -22,7 +22,6 @@ extern "C" {
 typedef long	 PolynomStartX_t;
 
 /* Implementation */
-extern asn_per_constraints_t asn_PER_type_PolynomStartX_constr_1;
 extern asn_TYPE_descriptor_t asn_DEF_PolynomStartX;
 asn_struct_free_f PolynomStartX_free;
 asn_struct_print_f PolynomStartX_print;

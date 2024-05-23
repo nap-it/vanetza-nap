@@ -7,51 +7,20 @@
 
 #include "MCM.h"
 
-static int
-memb_header_constraint_1(const asn_TYPE_descriptor_t *td, const void *sptr,
-			asn_app_constraint_failed_f *ctfailcb, void *app_key) {
-	
-	if(!sptr) {
-		ASN__CTFAIL(app_key, td, sptr,
-			"%s: value not given (%s:%d)",
-			td->name, __FILE__, __LINE__);
-		return -1;
-	}
-	
-	
-	if(1 /* No applicable constraints whatsoever */) {
-		/* Nothing is here. See below */
-	}
-	
-	return td->encoding_constraints.general_constraints(td, sptr, ctfailcb, app_key);
-}
-
-#if !defined(ASN_DISABLE_OER_SUPPORT)
-static asn_oer_constraints_t asn_OER_memb_header_constr_2 CC_NOTUSED = {
-	{ 0, 0 },
-	-1};
-#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
-#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-static asn_per_constraints_t asn_PER_memb_header_constr_2 CC_NOTUSED = {
-	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
-	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
-	0, 0	/* No PER value map */
-};
-#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
 static asn_TYPE_member_t asn_MBR_MCM_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct MCM, header),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ITS_Container_ItsPduHeader,
+		&asn_DEF_ETSI_ITS_CDD_ItsPduHeader,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
-			&asn_OER_memb_header_constr_2,
+			0,
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-			&asn_PER_memb_header_constr_2,
+			0,
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
-			memb_header_constraint_1
+			0
 		},
 		0, 0, /* No default value */
 		"header"

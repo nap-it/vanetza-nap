@@ -7,6 +7,28 @@
 
 #include "VehicleAutomationState.h"
 
+static int asn_DFL_4_cmp_0(const void *sptr) {
+	const BOOLEAN_t *st = sptr;
+	
+	if(!st) {
+		return -1; /* No value is not a default value */
+	}
+	
+	/* Test default value 0 */
+	return (*st != 0);
+}
+static int asn_DFL_4_set_0(void **sptr) {
+	BOOLEAN_t *st = *sptr;
+	
+	if(!st) {
+		st = (*sptr = CALLOC(1, sizeof(*st)));
+		if(!st) return -1;
+	}
+	
+	/* Install default value 0 */
+	*st = 0;
+	return 0;
+}
 asn_TYPE_member_t asn_MBR_VehicleAutomationState_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct VehicleAutomationState, humanDrivingLongitudinalAutomated),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
@@ -42,7 +64,7 @@ asn_TYPE_member_t asn_MBR_VehicleAutomationState_1[] = {
 		0, 0, /* No default value */
 		"humanDrivenLateralAutomated"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct VehicleAutomationState, automatedDriving),
+	{ ATF_NOFLAGS, 1, offsetof(struct VehicleAutomationState, automatedDriving),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
 		&asn_DEF_BOOLEAN,
@@ -56,10 +78,12 @@ asn_TYPE_member_t asn_MBR_VehicleAutomationState_1[] = {
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
 			0
 		},
-		0, 0, /* No default value */
+		&asn_DFL_4_cmp_0,	/* Compare DEFAULT 0 */
+		&asn_DFL_4_set_0,	/* Set DEFAULT 0 */
 		"automatedDriving"
 		},
 };
+static const int asn_MAP_VehicleAutomationState_oms_1[] = { 2 };
 static const ber_tlv_tag_t asn_DEF_VehicleAutomationState_tags_1[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
@@ -73,7 +97,8 @@ asn_SEQUENCE_specifics_t asn_SPC_VehicleAutomationState_specs_1 = {
 	offsetof(struct VehicleAutomationState, _asn_ctx),
 	asn_MAP_VehicleAutomationState_tag2el_1,
 	3,	/* Count of tags in the map */
-	0, 0, 0,	/* Optional elements (not needed) */
+	asn_MAP_VehicleAutomationState_oms_1,	/* Optional members */
+	1, 0,	/* Root/Additions */
 	-1,	/* First extension addition */
 };
 asn_TYPE_descriptor_t asn_DEF_VehicleAutomationState = {
