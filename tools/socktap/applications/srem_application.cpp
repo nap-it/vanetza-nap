@@ -141,6 +141,7 @@ void SremApplication::on_message(string topic, string mqtt_message, const std::v
 
     if (!is_encoded) {
         SignalRequestMessage_t srem;
+        fillPosition(mqtt_message, positioning_);
     
         try {
             document.Parse(mqtt_message.c_str());

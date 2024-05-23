@@ -141,6 +141,7 @@ void TistpgmApplication::on_message(string topic, string mqtt_message, const std
 
     if (!is_encoded) {
         TisTpgTransaction_t tistpgm;
+        fillPosition(mqtt_message, positioning_);
     
         try {
             document.Parse(mqtt_message.c_str());

@@ -17,7 +17,7 @@
 #include "fastdds/DDSSubscriber.hpp"
 #include "fastdds/DDSPublisher.hpp"
 
-#include "fastdds/MQTTMessagePubSubTypes.h"
+#include "fastdds/JSONMessagePubSubTypes.h"
 #include "fastdds/EncodedITSMessagePubSubTypes.h"
 
 using namespace std;

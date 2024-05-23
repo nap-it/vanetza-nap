@@ -24,8 +24,8 @@ public:
 
     void on_data_available(DataReader* reader) override {
         SampleInfo info;
-        if(reader->get_topicdescription()->get_type_name() == "MQTTMessage") {
-            MQTTMessage message;
+        if(reader->get_topicdescription()->get_type_name() == "JSONMessage") {
+            JSONMessage message;
             if (reader->take_next_sample(&message, &info) == ReturnCode_t::RETCODE_OK) {
                 if (info.valid_data) {
                     dds->on_message(reader->get_topicdescription()->get_name(), message.message());
@@ -48,16 +48,23 @@ public:
 SubListener* listener_;
 TypeSupport* typeSupport;
 TypeSupport* encodedTypeSupport;
-MQTTMessagePubSubType mqttMessagePubSubType;
+JSONMessagePubSubType jsonMessagePubSubType;
 EncodedITSMessagePubSubType encodedITSMessagePubSubType;
-std::map<std::string, std::unique_ptr<DDSPublisher<MQTTMessage, MQTTMessagePubSubType>>> json_dds_publishers;
+std::map<std::string, std::unique_ptr<DDSPublisher<JSONMessage, JSONMessagePubSubType>>> json_dds_publishers;
 std::map<std::string, std::unique_ptr<DDSPublisher<EncodedITSMessage, EncodedITSMessagePubSubType>>> encoded_dds_publishers;
 std::map<std::string, std::unique_ptr<DDSSubscriber>> dds_subscribers;
 
+void sig_handler(int sig) {
+    json_dds_publishers.clear();
+    encoded_dds_publishers.clear();
+    dds_subscribers.clear();
+}
+
 Dds::Dds(PubSub* pubsub_, config_t config) {
+    signal(SIGTERM, sig_handler);
     this->pubsub = pubsub_;
     listener_ = new SubListener(this);
-    typeSupport = new TypeSupport(&mqttMessagePubSubType);
+    typeSupport = new TypeSupport(&jsonMessagePubSubType);
     encodedTypeSupport = new TypeSupport(&encodedITSMessagePubSubType);
     std::thread dds_th(&Dds::from_dds_thread, this);
     dds_th.detach();
@@ -76,12 +83,12 @@ Dds::~Dds() {
 }
 
 void Dds::publish(string topic, string message) {
-    std::unique_ptr<MQTTMessage> mqttMessage = std::make_unique<MQTTMessage>();
-    mqttMessage->uuid(1);
-    mqttMessage->topic(topic);
-    mqttMessage->message(message);
-    mqttMessage->datetime(std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
-    json_dds_publishers[topic]->publish(std::move(mqttMessage));
+    std::unique_ptr<JSONMessage> jsonMessage = std::make_unique<JSONMessage>();
+    jsonMessage->uuid(1);
+    jsonMessage->topic(topic);
+    jsonMessage->message(message);
+    jsonMessage->datetime(std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
+    json_dds_publishers[topic]->publish(std::move(jsonMessage));
 }
 
 void Dds::publish(string topic, const std::vector<uint8_t>& payload, int16_t rssi, bool newInfo, int16_t packetSize, int32_t stationID, int32_t receiverID, int16_t receiverType, double timestamp, string test) {
@@ -102,7 +109,7 @@ void Dds::publish(string topic, const std::vector<uint8_t>& payload, int16_t rss
 void Dds::subscribe(string topic) {
     std::unique_ptr<DDSSubscriber> ptr = \
         std::make_unique<DDSSubscriber>(listener_, typeSupport);
-    ptr.get()->init(participantName, domain_id, topic, "MQTTMessage", TOPIC_QOS_DEFAULT);
+    ptr.get()->init(participantName, domain_id, topic, "JSONMessage", TOPIC_QOS_DEFAULT);
     std::unique_ptr<DDSSubscriber> ptr_enc = \
         std::make_unique<DDSSubscriber>(listener_, encodedTypeSupport);
     std::string enc_topic = topic + "_enc";
@@ -112,9 +119,9 @@ void Dds::subscribe(string topic) {
 }
 
 void Dds::provison_publisher(string topic) {
-    std::unique_ptr<DDSPublisher<MQTTMessage, MQTTMessagePubSubType>> ptr = \
-        std::make_unique<DDSPublisher<MQTTMessage, MQTTMessagePubSubType>>(typeSupport);
-    ptr.get()->init(participantName, domain_id, topic, "MQTTMessage", TOPIC_QOS_DEFAULT);
+    std::unique_ptr<DDSPublisher<JSONMessage, JSONMessagePubSubType>> ptr = \
+        std::make_unique<DDSPublisher<JSONMessage, JSONMessagePubSubType>>(typeSupport);
+    ptr.get()->init(participantName, domain_id, topic, "JSONMessage", TOPIC_QOS_DEFAULT);
     std::unique_ptr<DDSPublisher<EncodedITSMessage, EncodedITSMessagePubSubType>> ptr_enc = \
         std::make_unique<DDSPublisher<EncodedITSMessage, EncodedITSMessagePubSubType>>(encodedTypeSupport);
     std::string enc_topic = topic + "_enc";

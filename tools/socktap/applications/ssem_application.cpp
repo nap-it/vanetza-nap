@@ -141,6 +141,7 @@ void SsemApplication::on_message(string topic, string mqtt_message, const std::v
 
     if (!is_encoded) {
         SignalStatusMessage_t ssem;
+        fillPosition(mqtt_message, positioning_);
     
         try {
             document.Parse(mqtt_message.c_str());

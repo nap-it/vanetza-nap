@@ -138,6 +138,7 @@ void DenmApplication::on_message(string topic, string mqtt_message, const std::v
 
     if (!is_encoded) {
         DecentralizedEnvironmentalNotificationMessage_t denm;
+        fillPosition(mqtt_message, positioning_);
     
         try {
             document.Parse(mqtt_message.c_str());

@@ -141,6 +141,7 @@ void EvrsrmApplication::on_message(string topic, string mqtt_message, const std:
 
     if (!is_encoded) {
         EV_RSR_MessageBody_t evrsrm;
+        fillPosition(mqtt_message, positioning_);
     
         try {
             document.Parse(mqtt_message.c_str());

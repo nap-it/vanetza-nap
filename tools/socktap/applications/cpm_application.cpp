@@ -141,6 +141,7 @@ void CpmApplication::on_message(string topic, string mqtt_message, const std::ve
 
     if (!is_encoded) {
         CpmPayload_t cpm;
+        fillPosition(mqtt_message, positioning_);
 
         try {
             document.Parse(mqtt_message.c_str());

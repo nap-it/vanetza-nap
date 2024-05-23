@@ -426,6 +426,7 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
     
     if (!is_encoded) {
         CoopAwareness_t cam;
+        fillPosition(mqtt_message, positioning_);
 
         try {
             document.Parse(mqtt_message.c_str());

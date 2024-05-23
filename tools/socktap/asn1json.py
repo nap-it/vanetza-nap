@@ -515,7 +515,7 @@ void from_json(const Value& j, """ + (self.print_name.replace("-", "_") + "_t" i
         member_strs = []
         for m in self.members:
             if "Wrapped" not in self.name:
-                member_str = '(j.HasMember("' + m["name"] + '")) {\n        p.present = ' + \
+                member_str = '(j.HasMember("' + m["name"] + '")) {\n            p.present = ' + \
                         (self.actual_type.replace("-", "_") if self.actual_type is not None else self.print_name.replace("-", "_")) + \
                         '_PR_' + (m["name"].replace("-", "_") if m["name"] not in pr_capitalize else (m["name"][0].upper() + m["name"][1:]).replace("-", "_")) + ';\n        '
             else:

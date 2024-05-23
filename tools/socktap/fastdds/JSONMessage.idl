@@ -1,4 +1,4 @@
-struct MQTTMessage
+struct JSONMessage
 {
     unsigned long uuid;
     unsigned long datetime;

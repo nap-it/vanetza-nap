@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by RapidJSON
-*   Auto-generated from the asn1 directory by asn1json.py on 2024-05-22 16:46:21.165192
+*   Auto-generated from the asn1 directory by asn1json.py on 2024-05-23 09:24:57.543657
 */
 
 #include "asn1json.hpp"
@@ -1534,391 +1534,391 @@ Value to_json(const CauseCodeChoice_t& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, CauseCodeChoice_t& p, std::string field) {
     try {
         if (j.HasMember("reserved0")) {
-        p.present = CauseCodeChoice_PR_reserved0;
+            p.present = CauseCodeChoice_PR_reserved0;
             from_json(j["reserved0"], p.choice.reserved0, "reserved0");
         } else if (j.HasMember("trafficCondition1")) {
-        p.present = CauseCodeChoice_PR_trafficCondition1;
+            p.present = CauseCodeChoice_PR_trafficCondition1;
             from_json(j["trafficCondition1"], p.choice.trafficCondition1, "trafficCondition1");
         } else if (j.HasMember("accident2")) {
-        p.present = CauseCodeChoice_PR_accident2;
+            p.present = CauseCodeChoice_PR_accident2;
             from_json(j["accident2"], p.choice.accident2, "accident2");
         } else if (j.HasMember("roadworks3")) {
-        p.present = CauseCodeChoice_PR_roadworks3;
+            p.present = CauseCodeChoice_PR_roadworks3;
             from_json(j["roadworks3"], p.choice.roadworks3, "roadworks3");
         } else if (j.HasMember("reserved4")) {
-        p.present = CauseCodeChoice_PR_reserved4;
+            p.present = CauseCodeChoice_PR_reserved4;
             from_json(j["reserved4"], p.choice.reserved4, "reserved4");
         } else if (j.HasMember("impassability5")) {
-        p.present = CauseCodeChoice_PR_impassability5;
+            p.present = CauseCodeChoice_PR_impassability5;
             from_json(j["impassability5"], p.choice.impassability5, "impassability5");
         } else if (j.HasMember("adverseWeatherCondition-Adhesion6")) {
-        p.present = CauseCodeChoice_PR_adverseWeatherCondition_Adhesion6;
+            p.present = CauseCodeChoice_PR_adverseWeatherCondition_Adhesion6;
             from_json(j["adverseWeatherCondition-Adhesion6"], p.choice.adverseWeatherCondition_Adhesion6, "adverseWeatherCondition-Adhesion6");
         } else if (j.HasMember("aquaplaning7")) {
-        p.present = CauseCodeChoice_PR_aquaplaning7;
+            p.present = CauseCodeChoice_PR_aquaplaning7;
             from_json(j["aquaplaning7"], p.choice.aquaplaning7, "aquaplaning7");
         } else if (j.HasMember("reserved8")) {
-        p.present = CauseCodeChoice_PR_reserved8;
+            p.present = CauseCodeChoice_PR_reserved8;
             from_json(j["reserved8"], p.choice.reserved8, "reserved8");
         } else if (j.HasMember("hazardousLocation-SurfaceCondition9")) {
-        p.present = CauseCodeChoice_PR_hazardousLocation_SurfaceCondition9;
+            p.present = CauseCodeChoice_PR_hazardousLocation_SurfaceCondition9;
             from_json(j["hazardousLocation-SurfaceCondition9"], p.choice.hazardousLocation_SurfaceCondition9, "hazardousLocation-SurfaceCondition9");
         } else if (j.HasMember("hazardousLocation-ObstacleOnTheRoad10")) {
-        p.present = CauseCodeChoice_PR_hazardousLocation_ObstacleOnTheRoad10;
+            p.present = CauseCodeChoice_PR_hazardousLocation_ObstacleOnTheRoad10;
             from_json(j["hazardousLocation-ObstacleOnTheRoad10"], p.choice.hazardousLocation_ObstacleOnTheRoad10, "hazardousLocation-ObstacleOnTheRoad10");
         } else if (j.HasMember("hazardousLocation-AnimalOnTheRoad11")) {
-        p.present = CauseCodeChoice_PR_hazardousLocation_AnimalOnTheRoad11;
+            p.present = CauseCodeChoice_PR_hazardousLocation_AnimalOnTheRoad11;
             from_json(j["hazardousLocation-AnimalOnTheRoad11"], p.choice.hazardousLocation_AnimalOnTheRoad11, "hazardousLocation-AnimalOnTheRoad11");
         } else if (j.HasMember("humanPresenceOnTheRoad12")) {
-        p.present = CauseCodeChoice_PR_humanPresenceOnTheRoad12;
+            p.present = CauseCodeChoice_PR_humanPresenceOnTheRoad12;
             from_json(j["humanPresenceOnTheRoad12"], p.choice.humanPresenceOnTheRoad12, "humanPresenceOnTheRoad12");
         } else if (j.HasMember("reserved13")) {
-        p.present = CauseCodeChoice_PR_reserved13;
+            p.present = CauseCodeChoice_PR_reserved13;
             from_json(j["reserved13"], p.choice.reserved13, "reserved13");
         } else if (j.HasMember("wrongWayDriving14")) {
-        p.present = CauseCodeChoice_PR_wrongWayDriving14;
+            p.present = CauseCodeChoice_PR_wrongWayDriving14;
             from_json(j["wrongWayDriving14"], p.choice.wrongWayDriving14, "wrongWayDriving14");
         } else if (j.HasMember("rescueAndRecoveryWorkInProgress15")) {
-        p.present = CauseCodeChoice_PR_rescueAndRecoveryWorkInProgress15;
+            p.present = CauseCodeChoice_PR_rescueAndRecoveryWorkInProgress15;
             from_json(j["rescueAndRecoveryWorkInProgress15"], p.choice.rescueAndRecoveryWorkInProgress15, "rescueAndRecoveryWorkInProgress15");
         } else if (j.HasMember("reserved16")) {
-        p.present = CauseCodeChoice_PR_reserved16;
+            p.present = CauseCodeChoice_PR_reserved16;
             from_json(j["reserved16"], p.choice.reserved16, "reserved16");
         } else if (j.HasMember("adverseWeatherCondition-ExtremeWeatherCondition17")) {
-        p.present = CauseCodeChoice_PR_adverseWeatherCondition_ExtremeWeatherCondition17;
+            p.present = CauseCodeChoice_PR_adverseWeatherCondition_ExtremeWeatherCondition17;
             from_json(j["adverseWeatherCondition-ExtremeWeatherCondition17"], p.choice.adverseWeatherCondition_ExtremeWeatherCondition17, "adverseWeatherCondition-ExtremeWeatherCondition17");
         } else if (j.HasMember("adverseWeatherCondition-Visibility18")) {
-        p.present = CauseCodeChoice_PR_adverseWeatherCondition_Visibility18;
+            p.present = CauseCodeChoice_PR_adverseWeatherCondition_Visibility18;
             from_json(j["adverseWeatherCondition-Visibility18"], p.choice.adverseWeatherCondition_Visibility18, "adverseWeatherCondition-Visibility18");
         } else if (j.HasMember("adverseWeatherCondition-Precipitation19")) {
-        p.present = CauseCodeChoice_PR_adverseWeatherCondition_Precipitation19;
+            p.present = CauseCodeChoice_PR_adverseWeatherCondition_Precipitation19;
             from_json(j["adverseWeatherCondition-Precipitation19"], p.choice.adverseWeatherCondition_Precipitation19, "adverseWeatherCondition-Precipitation19");
         } else if (j.HasMember("violence20")) {
-        p.present = CauseCodeChoice_PR_violence20;
+            p.present = CauseCodeChoice_PR_violence20;
             from_json(j["violence20"], p.choice.violence20, "violence20");
         } else if (j.HasMember("reserved21")) {
-        p.present = CauseCodeChoice_PR_reserved21;
+            p.present = CauseCodeChoice_PR_reserved21;
             from_json(j["reserved21"], p.choice.reserved21, "reserved21");
         } else if (j.HasMember("reserved22")) {
-        p.present = CauseCodeChoice_PR_reserved22;
+            p.present = CauseCodeChoice_PR_reserved22;
             from_json(j["reserved22"], p.choice.reserved22, "reserved22");
         } else if (j.HasMember("reserved23")) {
-        p.present = CauseCodeChoice_PR_reserved23;
+            p.present = CauseCodeChoice_PR_reserved23;
             from_json(j["reserved23"], p.choice.reserved23, "reserved23");
         } else if (j.HasMember("reserved24")) {
-        p.present = CauseCodeChoice_PR_reserved24;
+            p.present = CauseCodeChoice_PR_reserved24;
             from_json(j["reserved24"], p.choice.reserved24, "reserved24");
         } else if (j.HasMember("reserved25")) {
-        p.present = CauseCodeChoice_PR_reserved25;
+            p.present = CauseCodeChoice_PR_reserved25;
             from_json(j["reserved25"], p.choice.reserved25, "reserved25");
         } else if (j.HasMember("slowVehicle26")) {
-        p.present = CauseCodeChoice_PR_slowVehicle26;
+            p.present = CauseCodeChoice_PR_slowVehicle26;
             from_json(j["slowVehicle26"], p.choice.slowVehicle26, "slowVehicle26");
         } else if (j.HasMember("dangerousEndOfQueue27")) {
-        p.present = CauseCodeChoice_PR_dangerousEndOfQueue27;
+            p.present = CauseCodeChoice_PR_dangerousEndOfQueue27;
             from_json(j["dangerousEndOfQueue27"], p.choice.dangerousEndOfQueue27, "dangerousEndOfQueue27");
         } else if (j.HasMember("publicTransportVehicleApproaching28")) {
-        p.present = CauseCodeChoice_PR_publicTransportVehicleApproaching28;
+            p.present = CauseCodeChoice_PR_publicTransportVehicleApproaching28;
             from_json(j["publicTransportVehicleApproaching28"], p.choice.publicTransportVehicleApproaching28, "publicTransportVehicleApproaching28");
         } else if (j.HasMember("reserved29")) {
-        p.present = CauseCodeChoice_PR_reserved29;
+            p.present = CauseCodeChoice_PR_reserved29;
             from_json(j["reserved29"], p.choice.reserved29, "reserved29");
         } else if (j.HasMember("reserved30")) {
-        p.present = CauseCodeChoice_PR_reserved30;
+            p.present = CauseCodeChoice_PR_reserved30;
             from_json(j["reserved30"], p.choice.reserved30, "reserved30");
         } else if (j.HasMember("reserved31")) {
-        p.present = CauseCodeChoice_PR_reserved31;
+            p.present = CauseCodeChoice_PR_reserved31;
             from_json(j["reserved31"], p.choice.reserved31, "reserved31");
         } else if (j.HasMember("reserved32")) {
-        p.present = CauseCodeChoice_PR_reserved32;
+            p.present = CauseCodeChoice_PR_reserved32;
             from_json(j["reserved32"], p.choice.reserved32, "reserved32");
         } else if (j.HasMember("reserved33")) {
-        p.present = CauseCodeChoice_PR_reserved33;
+            p.present = CauseCodeChoice_PR_reserved33;
             from_json(j["reserved33"], p.choice.reserved33, "reserved33");
         } else if (j.HasMember("reserved34")) {
-        p.present = CauseCodeChoice_PR_reserved34;
+            p.present = CauseCodeChoice_PR_reserved34;
             from_json(j["reserved34"], p.choice.reserved34, "reserved34");
         } else if (j.HasMember("reserved35")) {
-        p.present = CauseCodeChoice_PR_reserved35;
+            p.present = CauseCodeChoice_PR_reserved35;
             from_json(j["reserved35"], p.choice.reserved35, "reserved35");
         } else if (j.HasMember("reserved36")) {
-        p.present = CauseCodeChoice_PR_reserved36;
+            p.present = CauseCodeChoice_PR_reserved36;
             from_json(j["reserved36"], p.choice.reserved36, "reserved36");
         } else if (j.HasMember("reserved37")) {
-        p.present = CauseCodeChoice_PR_reserved37;
+            p.present = CauseCodeChoice_PR_reserved37;
             from_json(j["reserved37"], p.choice.reserved37, "reserved37");
         } else if (j.HasMember("reserved38")) {
-        p.present = CauseCodeChoice_PR_reserved38;
+            p.present = CauseCodeChoice_PR_reserved38;
             from_json(j["reserved38"], p.choice.reserved38, "reserved38");
         } else if (j.HasMember("reserved39")) {
-        p.present = CauseCodeChoice_PR_reserved39;
+            p.present = CauseCodeChoice_PR_reserved39;
             from_json(j["reserved39"], p.choice.reserved39, "reserved39");
         } else if (j.HasMember("reserved40")) {
-        p.present = CauseCodeChoice_PR_reserved40;
+            p.present = CauseCodeChoice_PR_reserved40;
             from_json(j["reserved40"], p.choice.reserved40, "reserved40");
         } else if (j.HasMember("reserved41")) {
-        p.present = CauseCodeChoice_PR_reserved41;
+            p.present = CauseCodeChoice_PR_reserved41;
             from_json(j["reserved41"], p.choice.reserved41, "reserved41");
         } else if (j.HasMember("reserved42")) {
-        p.present = CauseCodeChoice_PR_reserved42;
+            p.present = CauseCodeChoice_PR_reserved42;
             from_json(j["reserved42"], p.choice.reserved42, "reserved42");
         } else if (j.HasMember("reserved43")) {
-        p.present = CauseCodeChoice_PR_reserved43;
+            p.present = CauseCodeChoice_PR_reserved43;
             from_json(j["reserved43"], p.choice.reserved43, "reserved43");
         } else if (j.HasMember("reserved44")) {
-        p.present = CauseCodeChoice_PR_reserved44;
+            p.present = CauseCodeChoice_PR_reserved44;
             from_json(j["reserved44"], p.choice.reserved44, "reserved44");
         } else if (j.HasMember("reserved45")) {
-        p.present = CauseCodeChoice_PR_reserved45;
+            p.present = CauseCodeChoice_PR_reserved45;
             from_json(j["reserved45"], p.choice.reserved45, "reserved45");
         } else if (j.HasMember("reserved46")) {
-        p.present = CauseCodeChoice_PR_reserved46;
+            p.present = CauseCodeChoice_PR_reserved46;
             from_json(j["reserved46"], p.choice.reserved46, "reserved46");
         } else if (j.HasMember("reserved47")) {
-        p.present = CauseCodeChoice_PR_reserved47;
+            p.present = CauseCodeChoice_PR_reserved47;
             from_json(j["reserved47"], p.choice.reserved47, "reserved47");
         } else if (j.HasMember("reserved48")) {
-        p.present = CauseCodeChoice_PR_reserved48;
+            p.present = CauseCodeChoice_PR_reserved48;
             from_json(j["reserved48"], p.choice.reserved48, "reserved48");
         } else if (j.HasMember("reserved49")) {
-        p.present = CauseCodeChoice_PR_reserved49;
+            p.present = CauseCodeChoice_PR_reserved49;
             from_json(j["reserved49"], p.choice.reserved49, "reserved49");
         } else if (j.HasMember("reserved50")) {
-        p.present = CauseCodeChoice_PR_reserved50;
+            p.present = CauseCodeChoice_PR_reserved50;
             from_json(j["reserved50"], p.choice.reserved50, "reserved50");
         } else if (j.HasMember("reserved51")) {
-        p.present = CauseCodeChoice_PR_reserved51;
+            p.present = CauseCodeChoice_PR_reserved51;
             from_json(j["reserved51"], p.choice.reserved51, "reserved51");
         } else if (j.HasMember("reserved52")) {
-        p.present = CauseCodeChoice_PR_reserved52;
+            p.present = CauseCodeChoice_PR_reserved52;
             from_json(j["reserved52"], p.choice.reserved52, "reserved52");
         } else if (j.HasMember("reserved53")) {
-        p.present = CauseCodeChoice_PR_reserved53;
+            p.present = CauseCodeChoice_PR_reserved53;
             from_json(j["reserved53"], p.choice.reserved53, "reserved53");
         } else if (j.HasMember("reserved54")) {
-        p.present = CauseCodeChoice_PR_reserved54;
+            p.present = CauseCodeChoice_PR_reserved54;
             from_json(j["reserved54"], p.choice.reserved54, "reserved54");
         } else if (j.HasMember("reserved55")) {
-        p.present = CauseCodeChoice_PR_reserved55;
+            p.present = CauseCodeChoice_PR_reserved55;
             from_json(j["reserved55"], p.choice.reserved55, "reserved55");
         } else if (j.HasMember("reserved56")) {
-        p.present = CauseCodeChoice_PR_reserved56;
+            p.present = CauseCodeChoice_PR_reserved56;
             from_json(j["reserved56"], p.choice.reserved56, "reserved56");
         } else if (j.HasMember("reserved57")) {
-        p.present = CauseCodeChoice_PR_reserved57;
+            p.present = CauseCodeChoice_PR_reserved57;
             from_json(j["reserved57"], p.choice.reserved57, "reserved57");
         } else if (j.HasMember("reserved58")) {
-        p.present = CauseCodeChoice_PR_reserved58;
+            p.present = CauseCodeChoice_PR_reserved58;
             from_json(j["reserved58"], p.choice.reserved58, "reserved58");
         } else if (j.HasMember("reserved59")) {
-        p.present = CauseCodeChoice_PR_reserved59;
+            p.present = CauseCodeChoice_PR_reserved59;
             from_json(j["reserved59"], p.choice.reserved59, "reserved59");
         } else if (j.HasMember("reserved60")) {
-        p.present = CauseCodeChoice_PR_reserved60;
+            p.present = CauseCodeChoice_PR_reserved60;
             from_json(j["reserved60"], p.choice.reserved60, "reserved60");
         } else if (j.HasMember("reserved61")) {
-        p.present = CauseCodeChoice_PR_reserved61;
+            p.present = CauseCodeChoice_PR_reserved61;
             from_json(j["reserved61"], p.choice.reserved61, "reserved61");
         } else if (j.HasMember("reserved62")) {
-        p.present = CauseCodeChoice_PR_reserved62;
+            p.present = CauseCodeChoice_PR_reserved62;
             from_json(j["reserved62"], p.choice.reserved62, "reserved62");
         } else if (j.HasMember("reserved63")) {
-        p.present = CauseCodeChoice_PR_reserved63;
+            p.present = CauseCodeChoice_PR_reserved63;
             from_json(j["reserved63"], p.choice.reserved63, "reserved63");
         } else if (j.HasMember("reserved64")) {
-        p.present = CauseCodeChoice_PR_reserved64;
+            p.present = CauseCodeChoice_PR_reserved64;
             from_json(j["reserved64"], p.choice.reserved64, "reserved64");
         } else if (j.HasMember("reserved65")) {
-        p.present = CauseCodeChoice_PR_reserved65;
+            p.present = CauseCodeChoice_PR_reserved65;
             from_json(j["reserved65"], p.choice.reserved65, "reserved65");
         } else if (j.HasMember("reserved66")) {
-        p.present = CauseCodeChoice_PR_reserved66;
+            p.present = CauseCodeChoice_PR_reserved66;
             from_json(j["reserved66"], p.choice.reserved66, "reserved66");
         } else if (j.HasMember("reserved67")) {
-        p.present = CauseCodeChoice_PR_reserved67;
+            p.present = CauseCodeChoice_PR_reserved67;
             from_json(j["reserved67"], p.choice.reserved67, "reserved67");
         } else if (j.HasMember("reserved68")) {
-        p.present = CauseCodeChoice_PR_reserved68;
+            p.present = CauseCodeChoice_PR_reserved68;
             from_json(j["reserved68"], p.choice.reserved68, "reserved68");
         } else if (j.HasMember("reserved69")) {
-        p.present = CauseCodeChoice_PR_reserved69;
+            p.present = CauseCodeChoice_PR_reserved69;
             from_json(j["reserved69"], p.choice.reserved69, "reserved69");
         } else if (j.HasMember("reserved70")) {
-        p.present = CauseCodeChoice_PR_reserved70;
+            p.present = CauseCodeChoice_PR_reserved70;
             from_json(j["reserved70"], p.choice.reserved70, "reserved70");
         } else if (j.HasMember("reserved71")) {
-        p.present = CauseCodeChoice_PR_reserved71;
+            p.present = CauseCodeChoice_PR_reserved71;
             from_json(j["reserved71"], p.choice.reserved71, "reserved71");
         } else if (j.HasMember("reserved72")) {
-        p.present = CauseCodeChoice_PR_reserved72;
+            p.present = CauseCodeChoice_PR_reserved72;
             from_json(j["reserved72"], p.choice.reserved72, "reserved72");
         } else if (j.HasMember("reserved73")) {
-        p.present = CauseCodeChoice_PR_reserved73;
+            p.present = CauseCodeChoice_PR_reserved73;
             from_json(j["reserved73"], p.choice.reserved73, "reserved73");
         } else if (j.HasMember("reserved74")) {
-        p.present = CauseCodeChoice_PR_reserved74;
+            p.present = CauseCodeChoice_PR_reserved74;
             from_json(j["reserved74"], p.choice.reserved74, "reserved74");
         } else if (j.HasMember("reserved75")) {
-        p.present = CauseCodeChoice_PR_reserved75;
+            p.present = CauseCodeChoice_PR_reserved75;
             from_json(j["reserved75"], p.choice.reserved75, "reserved75");
         } else if (j.HasMember("reserved76")) {
-        p.present = CauseCodeChoice_PR_reserved76;
+            p.present = CauseCodeChoice_PR_reserved76;
             from_json(j["reserved76"], p.choice.reserved76, "reserved76");
         } else if (j.HasMember("reserved77")) {
-        p.present = CauseCodeChoice_PR_reserved77;
+            p.present = CauseCodeChoice_PR_reserved77;
             from_json(j["reserved77"], p.choice.reserved77, "reserved77");
         } else if (j.HasMember("reserved78")) {
-        p.present = CauseCodeChoice_PR_reserved78;
+            p.present = CauseCodeChoice_PR_reserved78;
             from_json(j["reserved78"], p.choice.reserved78, "reserved78");
         } else if (j.HasMember("reserved79")) {
-        p.present = CauseCodeChoice_PR_reserved79;
+            p.present = CauseCodeChoice_PR_reserved79;
             from_json(j["reserved79"], p.choice.reserved79, "reserved79");
         } else if (j.HasMember("reserved80")) {
-        p.present = CauseCodeChoice_PR_reserved80;
+            p.present = CauseCodeChoice_PR_reserved80;
             from_json(j["reserved80"], p.choice.reserved80, "reserved80");
         } else if (j.HasMember("reserved81")) {
-        p.present = CauseCodeChoice_PR_reserved81;
+            p.present = CauseCodeChoice_PR_reserved81;
             from_json(j["reserved81"], p.choice.reserved81, "reserved81");
         } else if (j.HasMember("reserved82")) {
-        p.present = CauseCodeChoice_PR_reserved82;
+            p.present = CauseCodeChoice_PR_reserved82;
             from_json(j["reserved82"], p.choice.reserved82, "reserved82");
         } else if (j.HasMember("reserved83")) {
-        p.present = CauseCodeChoice_PR_reserved83;
+            p.present = CauseCodeChoice_PR_reserved83;
             from_json(j["reserved83"], p.choice.reserved83, "reserved83");
         } else if (j.HasMember("reserved84")) {
-        p.present = CauseCodeChoice_PR_reserved84;
+            p.present = CauseCodeChoice_PR_reserved84;
             from_json(j["reserved84"], p.choice.reserved84, "reserved84");
         } else if (j.HasMember("reserved85")) {
-        p.present = CauseCodeChoice_PR_reserved85;
+            p.present = CauseCodeChoice_PR_reserved85;
             from_json(j["reserved85"], p.choice.reserved85, "reserved85");
         } else if (j.HasMember("reserved86")) {
-        p.present = CauseCodeChoice_PR_reserved86;
+            p.present = CauseCodeChoice_PR_reserved86;
             from_json(j["reserved86"], p.choice.reserved86, "reserved86");
         } else if (j.HasMember("reserved87")) {
-        p.present = CauseCodeChoice_PR_reserved87;
+            p.present = CauseCodeChoice_PR_reserved87;
             from_json(j["reserved87"], p.choice.reserved87, "reserved87");
         } else if (j.HasMember("reserved88")) {
-        p.present = CauseCodeChoice_PR_reserved88;
+            p.present = CauseCodeChoice_PR_reserved88;
             from_json(j["reserved88"], p.choice.reserved88, "reserved88");
         } else if (j.HasMember("reserved89")) {
-        p.present = CauseCodeChoice_PR_reserved89;
+            p.present = CauseCodeChoice_PR_reserved89;
             from_json(j["reserved89"], p.choice.reserved89, "reserved89");
         } else if (j.HasMember("reserved90")) {
-        p.present = CauseCodeChoice_PR_reserved90;
+            p.present = CauseCodeChoice_PR_reserved90;
             from_json(j["reserved90"], p.choice.reserved90, "reserved90");
         } else if (j.HasMember("vehicleBreakdown91")) {
-        p.present = CauseCodeChoice_PR_vehicleBreakdown91;
+            p.present = CauseCodeChoice_PR_vehicleBreakdown91;
             from_json(j["vehicleBreakdown91"], p.choice.vehicleBreakdown91, "vehicleBreakdown91");
         } else if (j.HasMember("postCrash92")) {
-        p.present = CauseCodeChoice_PR_postCrash92;
+            p.present = CauseCodeChoice_PR_postCrash92;
             from_json(j["postCrash92"], p.choice.postCrash92, "postCrash92");
         } else if (j.HasMember("humanProblem93")) {
-        p.present = CauseCodeChoice_PR_humanProblem93;
+            p.present = CauseCodeChoice_PR_humanProblem93;
             from_json(j["humanProblem93"], p.choice.humanProblem93, "humanProblem93");
         } else if (j.HasMember("stationaryVehicle94")) {
-        p.present = CauseCodeChoice_PR_stationaryVehicle94;
+            p.present = CauseCodeChoice_PR_stationaryVehicle94;
             from_json(j["stationaryVehicle94"], p.choice.stationaryVehicle94, "stationaryVehicle94");
         } else if (j.HasMember("emergencyVehicleApproaching95")) {
-        p.present = CauseCodeChoice_PR_emergencyVehicleApproaching95;
+            p.present = CauseCodeChoice_PR_emergencyVehicleApproaching95;
             from_json(j["emergencyVehicleApproaching95"], p.choice.emergencyVehicleApproaching95, "emergencyVehicleApproaching95");
         } else if (j.HasMember("hazardousLocation-DangerousCurve96")) {
-        p.present = CauseCodeChoice_PR_hazardousLocation_DangerousCurve96;
+            p.present = CauseCodeChoice_PR_hazardousLocation_DangerousCurve96;
             from_json(j["hazardousLocation-DangerousCurve96"], p.choice.hazardousLocation_DangerousCurve96, "hazardousLocation-DangerousCurve96");
         } else if (j.HasMember("collisionRisk97")) {
-        p.present = CauseCodeChoice_PR_collisionRisk97;
+            p.present = CauseCodeChoice_PR_collisionRisk97;
             from_json(j["collisionRisk97"], p.choice.collisionRisk97, "collisionRisk97");
         } else if (j.HasMember("signalViolation98")) {
-        p.present = CauseCodeChoice_PR_signalViolation98;
+            p.present = CauseCodeChoice_PR_signalViolation98;
             from_json(j["signalViolation98"], p.choice.signalViolation98, "signalViolation98");
         } else if (j.HasMember("dangerousSituation99")) {
-        p.present = CauseCodeChoice_PR_dangerousSituation99;
+            p.present = CauseCodeChoice_PR_dangerousSituation99;
             from_json(j["dangerousSituation99"], p.choice.dangerousSituation99, "dangerousSituation99");
         } else if (j.HasMember("railwayLevelCrossing100")) {
-        p.present = CauseCodeChoice_PR_railwayLevelCrossing100;
+            p.present = CauseCodeChoice_PR_railwayLevelCrossing100;
             from_json(j["railwayLevelCrossing100"], p.choice.railwayLevelCrossing100, "railwayLevelCrossing100");
         } else if (j.HasMember("reserved101")) {
-        p.present = CauseCodeChoice_PR_reserved101;
+            p.present = CauseCodeChoice_PR_reserved101;
             from_json(j["reserved101"], p.choice.reserved101, "reserved101");
         } else if (j.HasMember("reserved102")) {
-        p.present = CauseCodeChoice_PR_reserved102;
+            p.present = CauseCodeChoice_PR_reserved102;
             from_json(j["reserved102"], p.choice.reserved102, "reserved102");
         } else if (j.HasMember("reserved103")) {
-        p.present = CauseCodeChoice_PR_reserved103;
+            p.present = CauseCodeChoice_PR_reserved103;
             from_json(j["reserved103"], p.choice.reserved103, "reserved103");
         } else if (j.HasMember("reserved104")) {
-        p.present = CauseCodeChoice_PR_reserved104;
+            p.present = CauseCodeChoice_PR_reserved104;
             from_json(j["reserved104"], p.choice.reserved104, "reserved104");
         } else if (j.HasMember("reserved105")) {
-        p.present = CauseCodeChoice_PR_reserved105;
+            p.present = CauseCodeChoice_PR_reserved105;
             from_json(j["reserved105"], p.choice.reserved105, "reserved105");
         } else if (j.HasMember("reserved106")) {
-        p.present = CauseCodeChoice_PR_reserved106;
+            p.present = CauseCodeChoice_PR_reserved106;
             from_json(j["reserved106"], p.choice.reserved106, "reserved106");
         } else if (j.HasMember("reserved107")) {
-        p.present = CauseCodeChoice_PR_reserved107;
+            p.present = CauseCodeChoice_PR_reserved107;
             from_json(j["reserved107"], p.choice.reserved107, "reserved107");
         } else if (j.HasMember("reserved108")) {
-        p.present = CauseCodeChoice_PR_reserved108;
+            p.present = CauseCodeChoice_PR_reserved108;
             from_json(j["reserved108"], p.choice.reserved108, "reserved108");
         } else if (j.HasMember("reserved109")) {
-        p.present = CauseCodeChoice_PR_reserved109;
+            p.present = CauseCodeChoice_PR_reserved109;
             from_json(j["reserved109"], p.choice.reserved109, "reserved109");
         } else if (j.HasMember("reserved110")) {
-        p.present = CauseCodeChoice_PR_reserved110;
+            p.present = CauseCodeChoice_PR_reserved110;
             from_json(j["reserved110"], p.choice.reserved110, "reserved110");
         } else if (j.HasMember("reserved111")) {
-        p.present = CauseCodeChoice_PR_reserved111;
+            p.present = CauseCodeChoice_PR_reserved111;
             from_json(j["reserved111"], p.choice.reserved111, "reserved111");
         } else if (j.HasMember("reserved112")) {
-        p.present = CauseCodeChoice_PR_reserved112;
+            p.present = CauseCodeChoice_PR_reserved112;
             from_json(j["reserved112"], p.choice.reserved112, "reserved112");
         } else if (j.HasMember("reserved113")) {
-        p.present = CauseCodeChoice_PR_reserved113;
+            p.present = CauseCodeChoice_PR_reserved113;
             from_json(j["reserved113"], p.choice.reserved113, "reserved113");
         } else if (j.HasMember("reserved114")) {
-        p.present = CauseCodeChoice_PR_reserved114;
+            p.present = CauseCodeChoice_PR_reserved114;
             from_json(j["reserved114"], p.choice.reserved114, "reserved114");
         } else if (j.HasMember("reserved115")) {
-        p.present = CauseCodeChoice_PR_reserved115;
+            p.present = CauseCodeChoice_PR_reserved115;
             from_json(j["reserved115"], p.choice.reserved115, "reserved115");
         } else if (j.HasMember("reserved116")) {
-        p.present = CauseCodeChoice_PR_reserved116;
+            p.present = CauseCodeChoice_PR_reserved116;
             from_json(j["reserved116"], p.choice.reserved116, "reserved116");
         } else if (j.HasMember("reserved117")) {
-        p.present = CauseCodeChoice_PR_reserved117;
+            p.present = CauseCodeChoice_PR_reserved117;
             from_json(j["reserved117"], p.choice.reserved117, "reserved117");
         } else if (j.HasMember("reserved118")) {
-        p.present = CauseCodeChoice_PR_reserved118;
+            p.present = CauseCodeChoice_PR_reserved118;
             from_json(j["reserved118"], p.choice.reserved118, "reserved118");
         } else if (j.HasMember("reserved119")) {
-        p.present = CauseCodeChoice_PR_reserved119;
+            p.present = CauseCodeChoice_PR_reserved119;
             from_json(j["reserved119"], p.choice.reserved119, "reserved119");
         } else if (j.HasMember("reserved120")) {
-        p.present = CauseCodeChoice_PR_reserved120;
+            p.present = CauseCodeChoice_PR_reserved120;
             from_json(j["reserved120"], p.choice.reserved120, "reserved120");
         } else if (j.HasMember("reserved121")) {
-        p.present = CauseCodeChoice_PR_reserved121;
+            p.present = CauseCodeChoice_PR_reserved121;
             from_json(j["reserved121"], p.choice.reserved121, "reserved121");
         } else if (j.HasMember("reserved122")) {
-        p.present = CauseCodeChoice_PR_reserved122;
+            p.present = CauseCodeChoice_PR_reserved122;
             from_json(j["reserved122"], p.choice.reserved122, "reserved122");
         } else if (j.HasMember("reserved123")) {
-        p.present = CauseCodeChoice_PR_reserved123;
+            p.present = CauseCodeChoice_PR_reserved123;
             from_json(j["reserved123"], p.choice.reserved123, "reserved123");
         } else if (j.HasMember("reserved124")) {
-        p.present = CauseCodeChoice_PR_reserved124;
+            p.present = CauseCodeChoice_PR_reserved124;
             from_json(j["reserved124"], p.choice.reserved124, "reserved124");
         } else if (j.HasMember("reserved125")) {
-        p.present = CauseCodeChoice_PR_reserved125;
+            p.present = CauseCodeChoice_PR_reserved125;
             from_json(j["reserved125"], p.choice.reserved125, "reserved125");
         } else if (j.HasMember("reserved126")) {
-        p.present = CauseCodeChoice_PR_reserved126;
+            p.present = CauseCodeChoice_PR_reserved126;
             from_json(j["reserved126"], p.choice.reserved126, "reserved126");
         } else if (j.HasMember("reserved127")) {
-        p.present = CauseCodeChoice_PR_reserved127;
+            p.present = CauseCodeChoice_PR_reserved127;
             from_json(j["reserved127"], p.choice.reserved127, "reserved127");
         } else if (j.HasMember("reserved128")) {
-        p.present = CauseCodeChoice_PR_reserved128;
+            p.present = CauseCodeChoice_PR_reserved128;
             from_json(j["reserved128"], p.choice.reserved128, "reserved128");
         } else {
         p.present = CauseCodeChoice_PR_NOTHING;
@@ -2332,22 +2332,22 @@ Value to_json(const ETSI_ITS_CDD_EuVehicleCategoryCode_t& p, Document::Allocator
 void from_json(const Value& j, ETSI_ITS_CDD_EuVehicleCategoryCode_t& p, std::string field) {
     try {
         if (j.HasMember("euVehicleCategoryL")) {
-        p.present = ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryL;
+            p.present = ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryL;
             from_json(j["euVehicleCategoryL"], p.choice.euVehicleCategoryL, "euVehicleCategoryL");
         } else if (j.HasMember("euVehicleCategoryM")) {
-        p.present = ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryM;
+            p.present = ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryM;
             from_json(j["euVehicleCategoryM"], p.choice.euVehicleCategoryM, "euVehicleCategoryM");
         } else if (j.HasMember("euVehicleCategoryN")) {
-        p.present = ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryN;
+            p.present = ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryN;
             from_json(j["euVehicleCategoryN"], p.choice.euVehicleCategoryN, "euVehicleCategoryN");
         } else if (j.HasMember("euVehicleCategoryO")) {
-        p.present = ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryO;
+            p.present = ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryO;
             from_json(j["euVehicleCategoryO"], p.choice.euVehicleCategoryO, "euVehicleCategoryO");
         } else if (j.HasMember("euVehicleCategoryT")) {
-        p.present = ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryT;
+            p.present = ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryT;
             from_json(j["euVehicleCategoryT"], p.choice.euVehicleCategoryT, "euVehicleCategoryT");
         } else if (j.HasMember("euVehicleCategoryG")) {
-        p.present = ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryG;
+            p.present = ETSI_ITS_CDD_EuVehicleCategoryCode_PR_euVehicleCategoryG;
             from_json(j["euVehicleCategoryG"], p.choice.euVehicleCategoryG, "euVehicleCategoryG");
         } else {
         p.present = ETSI_ITS_CDD_EuVehicleCategoryCode_PR_NOTHING;
@@ -2941,10 +2941,10 @@ Value to_json(const PathDeltaTimeChoice_t& p, Document::AllocatorType& allocator
 void from_json(const Value& j, PathDeltaTimeChoice_t& p, std::string field) {
     try {
         if (j.HasMember("deltaTimeHighPrecision")) {
-        p.present = PathDeltaTimeChoice_PR_deltaTimeHighPrecision;
+            p.present = PathDeltaTimeChoice_PR_deltaTimeHighPrecision;
             from_json(j["deltaTimeHighPrecision"], p.choice.deltaTimeHighPrecision, "deltaTimeHighPrecision");
         } else if (j.HasMember("deltaTimeBigRange")) {
-        p.present = PathDeltaTimeChoice_PR_deltaTimeBigRange;
+            p.present = PathDeltaTimeChoice_PR_deltaTimeBigRange;
             from_json(j["deltaTimeBigRange"], p.choice.deltaTimeBigRange, "deltaTimeBigRange");
         } else {
         p.present = PathDeltaTimeChoice_PR_NOTHING;
@@ -3789,10 +3789,10 @@ Value to_json(const ETSI_ITS_CDD_Ext2_t& p, Document::AllocatorType& allocator) 
 void from_json(const Value& j, ETSI_ITS_CDD_Ext2_t& p, std::string field) {
     try {
         if (j.HasMember("content")) {
-        p.present = ETSI_ITS_CDD_Ext2_PR_content;
+            p.present = ETSI_ITS_CDD_Ext2_PR_content;
             from_json(j["content"], p.choice.content, "content");
         } else if (j.HasMember("extension")) {
-        p.present = ETSI_ITS_CDD_Ext2_PR_extension;
+            p.present = ETSI_ITS_CDD_Ext2_PR_extension;
             from_json(j["extension"], p.choice.extension, "extension");
         } else {
         p.present = ETSI_ITS_CDD_Ext2_PR_NOTHING;
@@ -4008,16 +4008,16 @@ Value to_json(const ETSI_ITS_CDD_VruProfileAndSubprofile_t& p, Document::Allocat
 void from_json(const Value& j, ETSI_ITS_CDD_VruProfileAndSubprofile_t& p, std::string field) {
     try {
         if (j.HasMember("pedestrian")) {
-        p.present = ETSI_ITS_CDD_VruProfileAndSubprofile_PR_pedestrian;
+            p.present = ETSI_ITS_CDD_VruProfileAndSubprofile_PR_pedestrian;
             from_json(j["pedestrian"], p.choice.pedestrian, "pedestrian");
         } else if (j.HasMember("bicyclistAndLightVruVehicle")) {
-        p.present = ETSI_ITS_CDD_VruProfileAndSubprofile_PR_bicyclistAndLightVruVehicle;
+            p.present = ETSI_ITS_CDD_VruProfileAndSubprofile_PR_bicyclistAndLightVruVehicle;
             from_json(j["bicyclistAndLightVruVehicle"], p.choice.bicyclistAndLightVruVehicle, "bicyclistAndLightVruVehicle");
         } else if (j.HasMember("motorcyclist")) {
-        p.present = ETSI_ITS_CDD_VruProfileAndSubprofile_PR_motorcyclist;
+            p.present = ETSI_ITS_CDD_VruProfileAndSubprofile_PR_motorcyclist;
             from_json(j["motorcyclist"], p.choice.motorcyclist, "motorcyclist");
         } else if (j.HasMember("animal")) {
-        p.present = ETSI_ITS_CDD_VruProfileAndSubprofile_PR_animal;
+            p.present = ETSI_ITS_CDD_VruProfileAndSubprofile_PR_animal;
             from_json(j["animal"], p.choice.animal, "animal");
         } else {
         p.present = ETSI_ITS_CDD_VruProfileAndSubprofile_PR_NOTHING;
@@ -5804,10 +5804,10 @@ Value to_json(const ComputedLane::ComputedLane__offsetXaxis& p, Document::Alloca
 void from_json(const Value& j, ComputedLane::ComputedLane__offsetXaxis& p, std::string field) {
     try {
         if (j.HasMember("small")) {
-        p.present = ComputedLane__offsetXaxis_PR::ComputedLane__offsetXaxis_PR_small;
+            p.present = ComputedLane__offsetXaxis_PR::ComputedLane__offsetXaxis_PR_small;
             from_json(j["small"], p.choice.small, "small");
         } else if (j.HasMember("large")) {
-        p.present = ComputedLane__offsetXaxis_PR::ComputedLane__offsetXaxis_PR_large;
+            p.present = ComputedLane__offsetXaxis_PR::ComputedLane__offsetXaxis_PR_large;
             from_json(j["large"], p.choice.large, "large");
         } else {
         p.present = ComputedLane__offsetXaxis_PR::ComputedLane__offsetXaxis_PR_NOTHING;
@@ -5836,10 +5836,10 @@ Value to_json(const ComputedLane::ComputedLane__offsetYaxis& p, Document::Alloca
 void from_json(const Value& j, ComputedLane::ComputedLane__offsetYaxis& p, std::string field) {
     try {
         if (j.HasMember("small")) {
-        p.present = ComputedLane__offsetYaxis_PR::ComputedLane__offsetYaxis_PR_small;
+            p.present = ComputedLane__offsetYaxis_PR::ComputedLane__offsetYaxis_PR_small;
             from_json(j["small"], p.choice.small, "small");
         } else if (j.HasMember("large")) {
-        p.present = ComputedLane__offsetYaxis_PR::ComputedLane__offsetYaxis_PR_large;
+            p.present = ComputedLane__offsetYaxis_PR::ComputedLane__offsetYaxis_PR_large;
             from_json(j["large"], p.choice.large, "large");
         } else {
         p.present = ComputedLane__offsetYaxis_PR::ComputedLane__offsetYaxis_PR_NOTHING;
@@ -6052,13 +6052,13 @@ Value to_json(const IntersectionAccessPoint_t& p, Document::AllocatorType& alloc
 void from_json(const Value& j, IntersectionAccessPoint_t& p, std::string field) {
     try {
         if (j.HasMember("lane")) {
-        p.present = IntersectionAccessPoint_PR_lane;
+            p.present = IntersectionAccessPoint_PR_lane;
             from_json(j["lane"], p.choice.lane, "lane");
         } else if (j.HasMember("approach")) {
-        p.present = IntersectionAccessPoint_PR_approach;
+            p.present = IntersectionAccessPoint_PR_approach;
             from_json(j["approach"], p.choice.approach, "approach");
         } else if (j.HasMember("connection")) {
-        p.present = IntersectionAccessPoint_PR_connection;
+            p.present = IntersectionAccessPoint_PR_connection;
             from_json(j["connection"], p.choice.connection, "connection");
         } else {
         p.present = IntersectionAccessPoint_PR_NOTHING;
@@ -6435,25 +6435,25 @@ Value to_json(const NodeOffsetPointXY& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, NodeOffsetPointXY& p, std::string field) {
     try {
         if (j.HasMember("node-XY1")) {
-        p.present = NodeOffsetPointXY_PR_node_XY1;
+            p.present = NodeOffsetPointXY_PR_node_XY1;
             from_json(j["node-XY1"], p.choice.node_XY1, "node-XY1");
         } else if (j.HasMember("node-XY2")) {
-        p.present = NodeOffsetPointXY_PR_node_XY2;
+            p.present = NodeOffsetPointXY_PR_node_XY2;
             from_json(j["node-XY2"], p.choice.node_XY2, "node-XY2");
         } else if (j.HasMember("node-XY3")) {
-        p.present = NodeOffsetPointXY_PR_node_XY3;
+            p.present = NodeOffsetPointXY_PR_node_XY3;
             from_json(j["node-XY3"], p.choice.node_XY3, "node-XY3");
         } else if (j.HasMember("node-XY4")) {
-        p.present = NodeOffsetPointXY_PR_node_XY4;
+            p.present = NodeOffsetPointXY_PR_node_XY4;
             from_json(j["node-XY4"], p.choice.node_XY4, "node-XY4");
         } else if (j.HasMember("node-XY5")) {
-        p.present = NodeOffsetPointXY_PR_node_XY5;
+            p.present = NodeOffsetPointXY_PR_node_XY5;
             from_json(j["node-XY5"], p.choice.node_XY5, "node-XY5");
         } else if (j.HasMember("node-XY6")) {
-        p.present = NodeOffsetPointXY_PR_node_XY6;
+            p.present = NodeOffsetPointXY_PR_node_XY6;
             from_json(j["node-XY6"], p.choice.node_XY6, "node-XY6");
         } else if (j.HasMember("node-LatLon")) {
-        p.present = NodeOffsetPointXY_PR_node_LatLon;
+            p.present = NodeOffsetPointXY_PR_node_LatLon;
             from_json(j["node-LatLon"], p.choice.node_LatLon, "node-LatLon");
         } else {
         p.present = NodeOffsetPointXY_PR_NOTHING;
@@ -6655,7 +6655,7 @@ Value to_json(const RestrictionUserType& p, Document::AllocatorType& allocator) 
 void from_json(const Value& j, RestrictionUserType& p, std::string field) {
     try {
         if (j.HasMember("basicType")) {
-        p.present = RestrictionUserType_PR_basicType;
+            p.present = RestrictionUserType_PR_basicType;
             from_json(j["basicType"], p.choice.basicType, "basicType");
         } else {
         p.present = RestrictionUserType_PR_NOTHING;
@@ -6986,7 +6986,7 @@ Value to_json(const VehicleID_t& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, VehicleID_t& p, std::string field) {
     try {
         if (j.HasMember("stationID")) {
-        p.present = VehicleID_PR_stationID;
+            p.present = VehicleID_PR_stationID;
             from_json(j["stationID"], p.choice.stationID, "stationID");
         } else {
         p.present = VehicleID_PR_NOTHING;
@@ -7979,13 +7979,13 @@ Value to_json(const GddStructure::GddStructure__pictogramCode::GddStructure__pic
 void from_json(const Value& j, GddStructure::GddStructure__pictogramCode::GddStructure__pictogramCode__serviceCategoryCode& p, std::string field) {
     try {
         if (j.HasMember("trafficSignPictogram")) {
-        p.present = GddStructure__pictogramCode__serviceCategoryCode_PR::GddStructure__pictogramCode__serviceCategoryCode_PR_trafficSignPictogram;
+            p.present = GddStructure__pictogramCode__serviceCategoryCode_PR::GddStructure__pictogramCode__serviceCategoryCode_PR_trafficSignPictogram;
             from_json(j["trafficSignPictogram"], p.choice.trafficSignPictogram, "trafficSignPictogram");
         } else if (j.HasMember("publicFacilitiesPictogram")) {
-        p.present = GddStructure__pictogramCode__serviceCategoryCode_PR::GddStructure__pictogramCode__serviceCategoryCode_PR_publicFacilitiesPictogram;
+            p.present = GddStructure__pictogramCode__serviceCategoryCode_PR::GddStructure__pictogramCode__serviceCategoryCode_PR_publicFacilitiesPictogram;
             from_json(j["publicFacilitiesPictogram"], p.choice.publicFacilitiesPictogram, "publicFacilitiesPictogram");
         } else if (j.HasMember("ambientOrRoadConditionPictogram")) {
-        p.present = GddStructure__pictogramCode__serviceCategoryCode_PR::GddStructure__pictogramCode__serviceCategoryCode_PR_ambientOrRoadConditionPictogram;
+            p.present = GddStructure__pictogramCode__serviceCategoryCode_PR::GddStructure__pictogramCode__serviceCategoryCode_PR_ambientOrRoadConditionPictogram;
             from_json(j["ambientOrRoadConditionPictogram"], p.choice.ambientOrRoadConditionPictogram, "ambientOrRoadConditionPictogram");
         } else {
         p.present = GddStructure__pictogramCode__serviceCategoryCode_PR::GddStructure__pictogramCode__serviceCategoryCode_PR_NOTHING;
@@ -8966,10 +8966,10 @@ Value to_json(const SignedValue_t& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, SignedValue_t& p, std::string field) {
     try {
         if (j.HasMember("positive")) {
-        p.present = SignedValue_PR_positive;
+            p.present = SignedValue_PR_positive;
             from_json(j["positive"], p.choice.positive, "positive");
         } else if (j.HasMember("negative")) {
-        p.present = SignedValue_PR_negative;
+            p.present = SignedValue_PR_negative;
             from_json(j["negative"], p.choice.negative, "negative");
         } else {
         p.present = SignedValue_PR_NOTHING;
@@ -9426,10 +9426,10 @@ Value to_json(const CITSapplMgmtIDs_Ext1_t& p, Document::AllocatorType& allocato
 void from_json(const Value& j, CITSapplMgmtIDs_Ext1_t& p, std::string field) {
     try {
         if (j.HasMember("content")) {
-        p.present = CITSapplMgmtIDs_Ext1_PR_content;
+            p.present = CITSapplMgmtIDs_Ext1_PR_content;
             from_json(j["content"], p.choice.content, "content");
         } else if (j.HasMember("extension")) {
-        p.present = CITSapplMgmtIDs_Ext1_PR_extension;
+            p.present = CITSapplMgmtIDs_Ext1_PR_extension;
             from_json(j["extension"], p.choice.extension, "extension");
         } else {
         p.present = CITSapplMgmtIDs_Ext1_PR_NOTHING;
@@ -9458,10 +9458,10 @@ Value to_json(const CITSapplMgmtIDs_Ext2_t& p, Document::AllocatorType& allocato
 void from_json(const Value& j, CITSapplMgmtIDs_Ext2_t& p, std::string field) {
     try {
         if (j.HasMember("content")) {
-        p.present = CITSapplMgmtIDs_Ext2_PR_content;
+            p.present = CITSapplMgmtIDs_Ext2_PR_content;
             from_json(j["content"], p.choice.content, "content");
         } else if (j.HasMember("extension")) {
-        p.present = CITSapplMgmtIDs_Ext2_PR_extension;
+            p.present = CITSapplMgmtIDs_Ext2_PR_extension;
             from_json(j["extension"], p.choice.extension, "extension");
         } else {
         p.present = CITSapplMgmtIDs_Ext2_PR_NOTHING;
@@ -9494,16 +9494,16 @@ Value to_json(const ElectronicRegistrationIdentificationVehicleDataModule_EuVehi
 void from_json(const Value& j, ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_t& p, std::string field) {
     try {
         if (j.HasMember("euVehicleCategoryL")) {
-        p.present = ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_PR_euVehicleCategoryL;
+            p.present = ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_PR_euVehicleCategoryL;
             from_json(j["euVehicleCategoryL"], p.choice.euVehicleCategoryL, "euVehicleCategoryL");
         } else if (j.HasMember("euVehicleCategoryM")) {
-        p.present = ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_PR_euVehicleCategoryM;
+            p.present = ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_PR_euVehicleCategoryM;
             from_json(j["euVehicleCategoryM"], p.choice.euVehicleCategoryM, "euVehicleCategoryM");
         } else if (j.HasMember("euVehicleCategoryN")) {
-        p.present = ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_PR_euVehicleCategoryN;
+            p.present = ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_PR_euVehicleCategoryN;
             from_json(j["euVehicleCategoryN"], p.choice.euVehicleCategoryN, "euVehicleCategoryN");
         } else if (j.HasMember("euVehicleCategoryO")) {
-        p.present = ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_PR_euVehicleCategoryO;
+            p.present = ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_PR_euVehicleCategoryO;
             from_json(j["euVehicleCategoryO"], p.choice.euVehicleCategoryO, "euVehicleCategoryO");
         } else {
         p.present = ElectronicRegistrationIdentificationVehicleDataModule_EuVehicleCategoryCode_PR_NOTHING;
@@ -9871,13 +9871,13 @@ Value to_json(const ISO14823Code::ISO14823Code__pictogramCode::ISO14823Code__pic
 void from_json(const Value& j, ISO14823Code::ISO14823Code__pictogramCode::ISO14823Code__pictogramCode__serviceCategoryCode& p, std::string field) {
     try {
         if (j.HasMember("trafficSignPictogram")) {
-        p.present = ISO14823Code__pictogramCode__serviceCategoryCode_PR::ISO14823Code__pictogramCode__serviceCategoryCode_PR_trafficSignPictogram;
+            p.present = ISO14823Code__pictogramCode__serviceCategoryCode_PR::ISO14823Code__pictogramCode__serviceCategoryCode_PR_trafficSignPictogram;
             from_json(j["trafficSignPictogram"], p.choice.trafficSignPictogram, "trafficSignPictogram");
         } else if (j.HasMember("publicFacilitiesPictogram")) {
-        p.present = ISO14823Code__pictogramCode__serviceCategoryCode_PR::ISO14823Code__pictogramCode__serviceCategoryCode_PR_publicFacilitiesPictogram;
+            p.present = ISO14823Code__pictogramCode__serviceCategoryCode_PR::ISO14823Code__pictogramCode__serviceCategoryCode_PR_publicFacilitiesPictogram;
             from_json(j["publicFacilitiesPictogram"], p.choice.publicFacilitiesPictogram, "publicFacilitiesPictogram");
         } else if (j.HasMember("ambientOrRoadConditionPictogram")) {
-        p.present = ISO14823Code__pictogramCode__serviceCategoryCode_PR::ISO14823Code__pictogramCode__serviceCategoryCode_PR_ambientOrRoadConditionPictogram;
+            p.present = ISO14823Code__pictogramCode__serviceCategoryCode_PR::ISO14823Code__pictogramCode__serviceCategoryCode_PR_ambientOrRoadConditionPictogram;
             from_json(j["ambientOrRoadConditionPictogram"], p.choice.ambientOrRoadConditionPictogram, "ambientOrRoadConditionPictogram");
         } else {
         p.present = ISO14823Code__pictogramCode__serviceCategoryCode_PR::ISO14823Code__pictogramCode__serviceCategoryCode_PR_NOTHING;
@@ -10056,10 +10056,10 @@ Value to_json(const IVI_MapReference_t& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, IVI_MapReference_t& p, std::string field) {
     try {
         if (j.HasMember("roadsegment")) {
-        p.present = IVI_MapReference_PR_roadsegment;
+            p.present = IVI_MapReference_PR_roadsegment;
             from_json(j["roadsegment"], p.choice.roadsegment, "roadsegment");
         } else if (j.HasMember("intersection")) {
-        p.present = IVI_MapReference_PR_intersection;
+            p.present = IVI_MapReference_PR_intersection;
             from_json(j["intersection"], p.choice.intersection, "intersection");
         } else {
         p.present = IVI_MapReference_PR_NOTHING;
@@ -10183,22 +10183,22 @@ Value to_json(const VehicleCharacteristicsFixValues& p, Document::AllocatorType&
 void from_json(const Value& j, VehicleCharacteristicsFixValues& p, std::string field) {
     try {
         if (j.HasMember("simpleVehicleType")) {
-        p.present = VehicleCharacteristicsFixValues_PR_simpleVehicleType;
+            p.present = VehicleCharacteristicsFixValues_PR_simpleVehicleType;
             from_json(j["simpleVehicleType"], p.choice.simpleVehicleType, "simpleVehicleType");
         } else if (j.HasMember("euVehicleCategoryCode")) {
-        p.present = VehicleCharacteristicsFixValues_PR_euVehicleCategoryCode;
+            p.present = VehicleCharacteristicsFixValues_PR_euVehicleCategoryCode;
             from_json(j["euVehicleCategoryCode"], p.choice.euVehicleCategoryCode, "euVehicleCategoryCode");
         } else if (j.HasMember("euroAndCo2value")) {
-        p.present = VehicleCharacteristicsFixValues_PR_euroAndCo2value;
+            p.present = VehicleCharacteristicsFixValues_PR_euroAndCo2value;
             from_json(j["euroAndCo2value"], p.choice.euroAndCo2value, "euroAndCo2value");
         } else if (j.HasMember("engineCharacteristics")) {
-        p.present = VehicleCharacteristicsFixValues_PR_engineCharacteristics;
+            p.present = VehicleCharacteristicsFixValues_PR_engineCharacteristics;
             from_json(j["engineCharacteristics"], p.choice.engineCharacteristics, "engineCharacteristics");
         } else if (j.HasMember("loadType")) {
-        p.present = VehicleCharacteristicsFixValues_PR_loadType;
+            p.present = VehicleCharacteristicsFixValues_PR_loadType;
             from_json(j["loadType"], p.choice.loadType, "loadType");
         } else if (j.HasMember("usage")) {
-        p.present = VehicleCharacteristicsFixValues_PR_usage;
+            p.present = VehicleCharacteristicsFixValues_PR_usage;
             from_json(j["usage"], p.choice.usage, "usage");
         } else {
         p.present = VehicleCharacteristicsFixValues_PR_NOTHING;
@@ -10239,28 +10239,28 @@ Value to_json(const VehicleCharacteristicsRanges::VehicleCharacteristicsRanges__
 void from_json(const Value& j, VehicleCharacteristicsRanges::VehicleCharacteristicsRanges__limits& p, std::string field) {
     try {
         if (j.HasMember("numberOfAxles")) {
-        p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_numberOfAxles;
+            p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_numberOfAxles;
             from_json(j["numberOfAxles"], p.choice.numberOfAxles, "numberOfAxles");
         } else if (j.HasMember("vehicleDimensions")) {
-        p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_vehicleDimensions;
+            p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_vehicleDimensions;
             from_json(j["vehicleDimensions"], p.choice.vehicleDimensions, "vehicleDimensions");
         } else if (j.HasMember("vehicleWeightLimits")) {
-        p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_vehicleWeightLimits;
+            p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_vehicleWeightLimits;
             from_json(j["vehicleWeightLimits"], p.choice.vehicleWeightLimits, "vehicleWeightLimits");
         } else if (j.HasMember("axleWeightLimits")) {
-        p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_axleWeightLimits;
+            p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_axleWeightLimits;
             from_json(j["axleWeightLimits"], p.choice.axleWeightLimits, "axleWeightLimits");
         } else if (j.HasMember("passengerCapacity")) {
-        p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_passengerCapacity;
+            p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_passengerCapacity;
             from_json(j["passengerCapacity"], p.choice.passengerCapacity, "passengerCapacity");
         } else if (j.HasMember("exhaustEmissionValues")) {
-        p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_exhaustEmissionValues;
+            p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_exhaustEmissionValues;
             from_json(j["exhaustEmissionValues"], p.choice.exhaustEmissionValues, "exhaustEmissionValues");
         } else if (j.HasMember("dieselEmissionValues")) {
-        p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_dieselEmissionValues;
+            p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_dieselEmissionValues;
             from_json(j["dieselEmissionValues"], p.choice.dieselEmissionValues, "dieselEmissionValues");
         } else if (j.HasMember("soundLevel")) {
-        p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_soundLevel;
+            p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_soundLevel;
             from_json(j["soundLevel"], p.choice.soundLevel, "soundLevel");
         } else {
         p.present = VehicleCharacteristicsRanges__limits_PR::VehicleCharacteristicsRanges__limits_PR_NOTHING;
@@ -10932,16 +10932,16 @@ Value to_json(const VAM_PDU_Descriptions_VruProfileAndSubprofile_t& p, Document:
 void from_json(const Value& j, VAM_PDU_Descriptions_VruProfileAndSubprofile_t& p, std::string field) {
     try {
         if (j.HasMember("pedestrian")) {
-        p.present = VAM_PDU_Descriptions_VruProfileAndSubprofile_PR_pedestrian;
+            p.present = VAM_PDU_Descriptions_VruProfileAndSubprofile_PR_pedestrian;
             from_json(j["pedestrian"], p.choice.pedestrian, "pedestrian");
         } else if (j.HasMember("bicyclist")) {
-        p.present = VAM_PDU_Descriptions_VruProfileAndSubprofile_PR_bicyclist;
+            p.present = VAM_PDU_Descriptions_VruProfileAndSubprofile_PR_bicyclist;
             from_json(j["bicyclist"], p.choice.bicyclist, "bicyclist");
         } else if (j.HasMember("motorcylist")) {
-        p.present = VAM_PDU_Descriptions_VruProfileAndSubprofile_PR_motorcylist;
+            p.present = VAM_PDU_Descriptions_VruProfileAndSubprofile_PR_motorcylist;
             from_json(j["motorcylist"], p.choice.motorcylist, "motorcylist");
         } else if (j.HasMember("animal")) {
-        p.present = VAM_PDU_Descriptions_VruProfileAndSubprofile_PR_animal;
+            p.present = VAM_PDU_Descriptions_VruProfileAndSubprofile_PR_animal;
             from_json(j["animal"], p.choice.animal, "animal");
         } else {
         p.present = VAM_PDU_Descriptions_VruProfileAndSubprofile_PR_NOTHING;
@@ -11400,22 +11400,22 @@ Value to_json(const NodeOffsetPointZ& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, NodeOffsetPointZ& p, std::string field) {
     try {
         if (j.HasMember("node-Z1")) {
-        p.present = NodeOffsetPointZ_PR_node_Z1;
+            p.present = NodeOffsetPointZ_PR_node_Z1;
             from_json(j["node-Z1"], p.choice.node_Z1, "node-Z1");
         } else if (j.HasMember("node-Z2")) {
-        p.present = NodeOffsetPointZ_PR_node_Z2;
+            p.present = NodeOffsetPointZ_PR_node_Z2;
             from_json(j["node-Z2"], p.choice.node_Z2, "node-Z2");
         } else if (j.HasMember("node-Z3")) {
-        p.present = NodeOffsetPointZ_PR_node_Z3;
+            p.present = NodeOffsetPointZ_PR_node_Z3;
             from_json(j["node-Z3"], p.choice.node_Z3, "node-Z3");
         } else if (j.HasMember("node-Z4")) {
-        p.present = NodeOffsetPointZ_PR_node_Z4;
+            p.present = NodeOffsetPointZ_PR_node_Z4;
             from_json(j["node-Z4"], p.choice.node_Z4, "node-Z4");
         } else if (j.HasMember("node-Z5")) {
-        p.present = NodeOffsetPointZ_PR_node_Z5;
+            p.present = NodeOffsetPointZ_PR_node_Z5;
             from_json(j["node-Z5"], p.choice.node_Z5, "node-Z5");
         } else if (j.HasMember("node-Z6")) {
-        p.present = NodeOffsetPointZ_PR_node_Z6;
+            p.present = NodeOffsetPointZ_PR_node_Z6;
             from_json(j["node-Z6"], p.choice.node_Z6, "node-Z6");
         } else {
         p.present = NodeOffsetPointZ_PR_NOTHING;
@@ -11452,22 +11452,22 @@ Value to_json(const LaneDataAttribute& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, LaneDataAttribute& p, std::string field) {
     try {
         if (j.HasMember("pathEndPointAngle")) {
-        p.present = LaneDataAttribute_PR_pathEndPointAngle;
+            p.present = LaneDataAttribute_PR_pathEndPointAngle;
             from_json(j["pathEndPointAngle"], p.choice.pathEndPointAngle, "pathEndPointAngle");
         } else if (j.HasMember("laneCrownPointCenter")) {
-        p.present = LaneDataAttribute_PR_laneCrownPointCenter;
+            p.present = LaneDataAttribute_PR_laneCrownPointCenter;
             from_json(j["laneCrownPointCenter"], p.choice.laneCrownPointCenter, "laneCrownPointCenter");
         } else if (j.HasMember("laneCrownPointLeft")) {
-        p.present = LaneDataAttribute_PR_laneCrownPointLeft;
+            p.present = LaneDataAttribute_PR_laneCrownPointLeft;
             from_json(j["laneCrownPointLeft"], p.choice.laneCrownPointLeft, "laneCrownPointLeft");
         } else if (j.HasMember("laneCrownPointRight")) {
-        p.present = LaneDataAttribute_PR_laneCrownPointRight;
+            p.present = LaneDataAttribute_PR_laneCrownPointRight;
             from_json(j["laneCrownPointRight"], p.choice.laneCrownPointRight, "laneCrownPointRight");
         } else if (j.HasMember("laneAngle")) {
-        p.present = LaneDataAttribute_PR_laneAngle;
+            p.present = LaneDataAttribute_PR_laneAngle;
             from_json(j["laneAngle"], p.choice.laneAngle, "laneAngle");
         } else if (j.HasMember("speedLimits")) {
-        p.present = LaneDataAttribute_PR_speedLimits;
+            p.present = LaneDataAttribute_PR_speedLimits;
             from_json(j["speedLimits"], p.choice.speedLimits, "speedLimits");
         } else {
         p.present = LaneDataAttribute_PR_NOTHING;
@@ -11846,10 +11846,10 @@ Value to_json(const Payment_ID& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, Payment_ID& p, std::string field) {
     try {
         if (j.HasMember("contractID")) {
-        p.present = Payment_ID_PR_contractID;
+            p.present = Payment_ID_PR_contractID;
             from_json(j["contractID"], p.choice.contractID, "contractID");
         } else if (j.HasMember("externalIdentificationMeans")) {
-        p.present = Payment_ID_PR_externalIdentificationMeans;
+            p.present = Payment_ID_PR_externalIdentificationMeans;
             from_json(j["externalIdentificationMeans"], p.choice.externalIdentificationMeans, "externalIdentificationMeans");
         } else {
         p.present = Payment_ID_PR_NOTHING;
@@ -12200,10 +12200,10 @@ Value to_json(const TyreData::TyreData__currentTyrePressure& p, Document::Alloca
 void from_json(const Value& j, TyreData::TyreData__currentTyrePressure& p, std::string field) {
     try {
         if (j.HasMember("tyrePressureValue")) {
-        p.present = TyreData__currentTyrePressure_PR::TyreData__currentTyrePressure_PR_tyrePressureValue;
+            p.present = TyreData__currentTyrePressure_PR::TyreData__currentTyrePressure_PR_tyrePressureValue;
             from_json(j["tyrePressureValue"], p.choice.tyrePressureValue, "tyrePressureValue");
         } else if (j.HasMember("unavailable")) {
-        p.present = TyreData__currentTyrePressure_PR::TyreData__currentTyrePressure_PR_unavailable;
+            p.present = TyreData__currentTyrePressure_PR::TyreData__currentTyrePressure_PR_unavailable;
             from_json(j["unavailable"], p.choice.unavailable, "unavailable");
         } else {
         p.present = TyreData__currentTyrePressure_PR::TyreData__currentTyrePressure_PR_NOTHING;
@@ -12232,10 +12232,10 @@ Value to_json(const TyreData::TyreData__currentInsideAirTemperature& p, Document
 void from_json(const Value& j, TyreData::TyreData__currentInsideAirTemperature& p, std::string field) {
     try {
         if (j.HasMember("tyreAirTemperatureValue")) {
-        p.present = TyreData__currentInsideAirTemperature_PR::TyreData__currentInsideAirTemperature_PR_tyreAirTemperatureValue;
+            p.present = TyreData__currentInsideAirTemperature_PR::TyreData__currentInsideAirTemperature_PR_tyreAirTemperatureValue;
             from_json(j["tyreAirTemperatureValue"], p.choice.tyreAirTemperatureValue, "tyreAirTemperatureValue");
         } else if (j.HasMember("unavailable")) {
-        p.present = TyreData__currentInsideAirTemperature_PR::TyreData__currentInsideAirTemperature_PR_unavailable;
+            p.present = TyreData__currentInsideAirTemperature_PR::TyreData__currentInsideAirTemperature_PR_unavailable;
             from_json(j["unavailable"], p.choice.unavailable, "unavailable");
         } else {
         p.present = TyreData__currentInsideAirTemperature_PR::TyreData__currentInsideAirTemperature_PR_NOTHING;
@@ -12264,10 +12264,10 @@ Value to_json(const TyreData::TyreData__recommendedTyrePressure& p, Document::Al
 void from_json(const Value& j, TyreData::TyreData__recommendedTyrePressure& p, std::string field) {
     try {
         if (j.HasMember("axlePlacardPressureValue")) {
-        p.present = TyreData__recommendedTyrePressure_PR::TyreData__recommendedTyrePressure_PR_axlePlacardPressureValue;
+            p.present = TyreData__recommendedTyrePressure_PR::TyreData__recommendedTyrePressure_PR_axlePlacardPressureValue;
             from_json(j["axlePlacardPressureValue"], p.choice.axlePlacardPressureValue, "axlePlacardPressureValue");
         } else if (j.HasMember("unavailable")) {
-        p.present = TyreData__recommendedTyrePressure_PR::TyreData__recommendedTyrePressure_PR_unavailable;
+            p.present = TyreData__recommendedTyrePressure_PR::TyreData__recommendedTyrePressure_PR_unavailable;
             from_json(j["unavailable"], p.choice.unavailable, "unavailable");
         } else {
         p.present = TyreData__recommendedTyrePressure_PR::TyreData__recommendedTyrePressure_PR_NOTHING;
@@ -12296,10 +12296,10 @@ Value to_json(const TyreData::TyreData__sensorState& p, Document::AllocatorType&
 void from_json(const Value& j, TyreData::TyreData__sensorState& p, std::string field) {
     try {
         if (j.HasMember("sensorStateValue")) {
-        p.present = TyreData__sensorState_PR::TyreData__sensorState_PR_sensorStateValue;
+            p.present = TyreData__sensorState_PR::TyreData__sensorState_PR_sensorStateValue;
             from_json(j["sensorStateValue"], p.choice.sensorStateValue, "sensorStateValue");
         } else if (j.HasMember("unavailable")) {
-        p.present = TyreData__sensorState_PR::TyreData__sensorState_PR_unavailable;
+            p.present = TyreData__sensorState_PR::TyreData__sensorState_PR_unavailable;
             from_json(j["unavailable"], p.choice.unavailable, "unavailable");
         } else {
         p.present = TyreData__sensorState_PR::TyreData__sensorState_PR_NOTHING;
@@ -12328,10 +12328,10 @@ Value to_json(const AppliedTyrePressure& p, Document::AllocatorType& allocator) 
 void from_json(const Value& j, AppliedTyrePressure& p, std::string field) {
     try {
         if (j.HasMember("tyrePressureValue")) {
-        p.present = AppliedTyrePressure_PR_tyrePressureValue;
+            p.present = AppliedTyrePressure_PR_tyrePressureValue;
             from_json(j["tyrePressureValue"], p.choice.tyrePressureValue, "tyrePressureValue");
         } else if (j.HasMember("unavailable")) {
-        p.present = AppliedTyrePressure_PR_unavailable;
+            p.present = AppliedTyrePressure_PR_unavailable;
             from_json(j["unavailable"], p.choice.unavailable, "unavailable");
         } else {
         p.present = AppliedTyrePressure_PR_NOTHING;
@@ -12769,16 +12769,16 @@ Value to_json(const ManouevreResponse_t& p, Document::AllocatorType& allocator) 
 void from_json(const Value& j, ManouevreResponse_t& p, std::string field) {
     try {
         if (j.HasMember("offerAcceptation")) {
-        p.present = ManouevreResponse_PR_offerAcceptation;
+            p.present = ManouevreResponse_PR_offerAcceptation;
             from_json(j["offerAcceptation"], p.choice.offerAcceptation, "offerAcceptation");
         } else if (j.HasMember("offerDecline")) {
-        p.present = ManouevreResponse_PR_offerDecline;
+            p.present = ManouevreResponse_PR_offerDecline;
             from_json(j["offerDecline"], p.choice.offerDecline, "offerDecline");
         } else if (j.HasMember("requestAcceptation")) {
-        p.present = ManouevreResponse_PR_requestAcceptation;
+            p.present = ManouevreResponse_PR_requestAcceptation;
             from_json(j["requestAcceptation"], p.choice.requestAcceptation, "requestAcceptation");
         } else if (j.HasMember("requestDecline")) {
-        p.present = ManouevreResponse_PR_requestDecline;
+            p.present = ManouevreResponse_PR_requestDecline;
             from_json(j["requestDecline"], p.choice.requestDecline, "requestDecline");
         } else {
         p.present = ManouevreResponse_PR_NOTHING;
@@ -13282,19 +13282,19 @@ Value to_json(const LanePositionOptions_t& p, Document::AllocatorType& allocator
 void from_json(const Value& j, LanePositionOptions_t& p, std::string field) {
     try {
         if (j.HasMember("simplelanePosition")) {
-        p.present = LanePositionOptions_PR_simplelanePosition;
+            p.present = LanePositionOptions_PR_simplelanePosition;
             from_json(j["simplelanePosition"], p.choice.simplelanePosition, "simplelanePosition");
         } else if (j.HasMember("simpleLaneType")) {
-        p.present = LanePositionOptions_PR_simpleLaneType;
+            p.present = LanePositionOptions_PR_simpleLaneType;
             from_json(j["simpleLaneType"], p.choice.simpleLaneType, "simpleLaneType");
         } else if (j.HasMember("detailedlanePosition")) {
-        p.present = LanePositionOptions_PR_detailedlanePosition;
+            p.present = LanePositionOptions_PR_detailedlanePosition;
             from_json(j["detailedlanePosition"], p.choice.detailedlanePosition, "detailedlanePosition");
         } else if (j.HasMember("lanePositionWithLateralDetails")) {
-        p.present = LanePositionOptions_PR_lanePositionWithLateralDetails;
+            p.present = LanePositionOptions_PR_lanePositionWithLateralDetails;
             from_json(j["lanePositionWithLateralDetails"], p.choice.lanePositionWithLateralDetails, "lanePositionWithLateralDetails");
         } else if (j.HasMember("trafficIslandPosition")) {
-        p.present = LanePositionOptions_PR_trafficIslandPosition;
+            p.present = LanePositionOptions_PR_trafficIslandPosition;
             from_json(j["trafficIslandPosition"], p.choice.trafficIslandPosition, "trafficIslandPosition");
         } else {
         p.present = LanePositionOptions_PR_NOTHING;
@@ -13414,10 +13414,10 @@ Value to_json(const ETSI_ITS_CDD_MapReference_t& p, Document::AllocatorType& all
 void from_json(const Value& j, ETSI_ITS_CDD_MapReference_t& p, std::string field) {
     try {
         if (j.HasMember("roadsegment")) {
-        p.present = ETSI_ITS_CDD_MapReference_PR_roadsegment;
+            p.present = ETSI_ITS_CDD_MapReference_PR_roadsegment;
             from_json(j["roadsegment"], p.choice.roadsegment, "roadsegment");
         } else if (j.HasMember("intersection")) {
-        p.present = ETSI_ITS_CDD_MapReference_PR_intersection;
+            p.present = ETSI_ITS_CDD_MapReference_PR_intersection;
             from_json(j["intersection"], p.choice.intersection, "intersection");
         } else {
         p.present = ETSI_ITS_CDD_MapReference_PR_NOTHING;
@@ -13890,10 +13890,10 @@ Value to_json(const ETSI_ITS_CDD_VarLengthNumber_t& p, Document::AllocatorType& 
 void from_json(const Value& j, ETSI_ITS_CDD_VarLengthNumber_t& p, std::string field) {
     try {
         if (j.HasMember("content")) {
-        p.present = ETSI_ITS_CDD_VarLengthNumber_PR_content;
+            p.present = ETSI_ITS_CDD_VarLengthNumber_PR_content;
             from_json(j["content"], p.choice.content, "content");
         } else if (j.HasMember("extension")) {
-        p.present = ETSI_ITS_CDD_VarLengthNumber_PR_extension;
+            p.present = ETSI_ITS_CDD_VarLengthNumber_PR_extension;
             from_json(j["extension"], p.choice.extension, "extension");
         } else {
         p.present = ETSI_ITS_CDD_VarLengthNumber_PR_NOTHING;
@@ -13922,10 +13922,10 @@ Value to_json(const ETSI_ITS_CDD_Ext1_t& p, Document::AllocatorType& allocator) 
 void from_json(const Value& j, ETSI_ITS_CDD_Ext1_t& p, std::string field) {
     try {
         if (j.HasMember("content")) {
-        p.present = ETSI_ITS_CDD_Ext1_PR_content;
+            p.present = ETSI_ITS_CDD_Ext1_PR_content;
             from_json(j["content"], p.choice.content, "content");
         } else if (j.HasMember("extension")) {
-        p.present = ETSI_ITS_CDD_Ext1_PR_extension;
+            p.present = ETSI_ITS_CDD_Ext1_PR_extension;
             from_json(j["extension"], p.choice.extension, "extension");
         } else {
         p.present = ETSI_ITS_CDD_Ext1_PR_NOTHING;
@@ -14284,28 +14284,28 @@ Value to_json(const LaneTypeAttributes& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, LaneTypeAttributes& p, std::string field) {
     try {
         if (j.HasMember("vehicle")) {
-        p.present = LaneTypeAttributes_PR_vehicle;
+            p.present = LaneTypeAttributes_PR_vehicle;
             from_json_LaneAttributes_Vehicle(j["vehicle"], p.choice.vehicle, "vehicle");
         } else if (j.HasMember("crosswalk")) {
-        p.present = LaneTypeAttributes_PR_crosswalk;
+            p.present = LaneTypeAttributes_PR_crosswalk;
             from_json_LaneAttributes_Crosswalk(j["crosswalk"], p.choice.crosswalk, "crosswalk");
         } else if (j.HasMember("bikeLane")) {
-        p.present = LaneTypeAttributes_PR_bikeLane;
+            p.present = LaneTypeAttributes_PR_bikeLane;
             from_json_LaneAttributes_Bike(j["bikeLane"], p.choice.bikeLane, "bikeLane");
         } else if (j.HasMember("sidewalk")) {
-        p.present = LaneTypeAttributes_PR_sidewalk;
+            p.present = LaneTypeAttributes_PR_sidewalk;
             from_json_LaneAttributes_Sidewalk(j["sidewalk"], p.choice.sidewalk, "sidewalk");
         } else if (j.HasMember("median")) {
-        p.present = LaneTypeAttributes_PR_median;
+            p.present = LaneTypeAttributes_PR_median;
             from_json_LaneAttributes_Barrier(j["median"], p.choice.median, "median");
         } else if (j.HasMember("striping")) {
-        p.present = LaneTypeAttributes_PR_striping;
+            p.present = LaneTypeAttributes_PR_striping;
             from_json_LaneAttributes_Striping(j["striping"], p.choice.striping, "striping");
         } else if (j.HasMember("trackedVehicle")) {
-        p.present = LaneTypeAttributes_PR_trackedVehicle;
+            p.present = LaneTypeAttributes_PR_trackedVehicle;
             from_json_LaneAttributes_TrackedVehicle(j["trackedVehicle"], p.choice.trackedVehicle, "trackedVehicle");
         } else if (j.HasMember("parking")) {
-        p.present = LaneTypeAttributes_PR_parking;
+            p.present = LaneTypeAttributes_PR_parking;
             from_json_LaneAttributes_Parking(j["parking"], p.choice.parking, "parking");
         } else {
         p.present = LaneTypeAttributes_PR_NOTHING;
@@ -15344,10 +15344,10 @@ Value to_json(const CITSapplMgmtIDs_VarLengthNumber_t& p, Document::AllocatorTyp
 void from_json(const Value& j, CITSapplMgmtIDs_VarLengthNumber_t& p, std::string field) {
     try {
         if (j.HasMember("content")) {
-        p.present = CITSapplMgmtIDs_VarLengthNumber_PR_content;
+            p.present = CITSapplMgmtIDs_VarLengthNumber_PR_content;
             from_json(j["content"], p.choice.content, "content");
         } else if (j.HasMember("extension")) {
-        p.present = CITSapplMgmtIDs_VarLengthNumber_PR_extension;
+            p.present = CITSapplMgmtIDs_VarLengthNumber_PR_extension;
             from_json(j["extension"], p.choice.extension, "extension");
         } else {
         p.present = CITSapplMgmtIDs_VarLengthNumber_PR_NOTHING;
@@ -15867,16 +15867,16 @@ Value to_json(const PolygonalLine& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, PolygonalLine& p, std::string field) {
     try {
         if (j.HasMember("deltaPositions")) {
-        p.present = PolygonalLine_PR_deltaPositions;
+            p.present = PolygonalLine_PR_deltaPositions;
             from_json(j["deltaPositions"], p.choice.deltaPositions, "deltaPositions");
         } else if (j.HasMember("deltaPositionsWithAltitude")) {
-        p.present = PolygonalLine_PR_deltaPositionsWithAltitude;
+            p.present = PolygonalLine_PR_deltaPositionsWithAltitude;
             from_json(j["deltaPositionsWithAltitude"], p.choice.deltaPositionsWithAltitude, "deltaPositionsWithAltitude");
         } else if (j.HasMember("absolutePositions")) {
-        p.present = PolygonalLine_PR_absolutePositions;
+            p.present = PolygonalLine_PR_absolutePositions;
             from_json(j["absolutePositions"], p.choice.absolutePositions, "absolutePositions");
         } else if (j.HasMember("absolutePositionsWithAltitude")) {
-        p.present = PolygonalLine_PR_absolutePositionsWithAltitude;
+            p.present = PolygonalLine_PR_absolutePositionsWithAltitude;
             from_json(j["absolutePositionsWithAltitude"], p.choice.absolutePositionsWithAltitude, "absolutePositionsWithAltitude");
         } else {
         p.present = PolygonalLine_PR_NOTHING;
@@ -16031,13 +16031,13 @@ Value to_json(const Zone& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, Zone& p, std::string field) {
     try {
         if (j.HasMember("segment")) {
-        p.present = Zone_PR_segment;
+            p.present = Zone_PR_segment;
             from_json(j["segment"], p.choice.segment, "segment");
         } else if (j.HasMember("area")) {
-        p.present = Zone_PR_area;
+            p.present = Zone_PR_area;
             from_json(j["area"], p.choice.area, "area");
         } else if (j.HasMember("computedSegment")) {
-        p.present = Zone_PR_computedSegment;
+            p.present = Zone_PR_computedSegment;
             from_json(j["computedSegment"], p.choice.computedSegment, "computedSegment");
         } else {
         p.present = Zone_PR_NOTHING;
@@ -16066,10 +16066,10 @@ Value to_json(const HighFrequencyContainer& p, Document::AllocatorType& allocato
 void from_json(const Value& j, HighFrequencyContainer& p, std::string field) {
     try {
         if (j.HasMember("basicVehicleContainerHighFrequency")) {
-        p.present = HighFrequencyContainer_PR_basicVehicleContainerHighFrequency;
+            p.present = HighFrequencyContainer_PR_basicVehicleContainerHighFrequency;
             from_json(j["basicVehicleContainerHighFrequency"], p.choice.basicVehicleContainerHighFrequency, "basicVehicleContainerHighFrequency");
         } else if (j.HasMember("rsuContainerHighFrequency")) {
-        p.present = HighFrequencyContainer_PR_rsuContainerHighFrequency;
+            p.present = HighFrequencyContainer_PR_rsuContainerHighFrequency;
             from_json(j["rsuContainerHighFrequency"], p.choice.rsuContainerHighFrequency, "rsuContainerHighFrequency");
         } else {
         p.present = HighFrequencyContainer_PR_NOTHING;
@@ -16096,7 +16096,7 @@ Value to_json(const LowFrequencyContainer& p, Document::AllocatorType& allocator
 void from_json(const Value& j, LowFrequencyContainer& p, std::string field) {
     try {
         if (j.HasMember("basicVehicleContainerLowFrequency")) {
-        p.present = LowFrequencyContainer_PR_basicVehicleContainerLowFrequency;
+            p.present = LowFrequencyContainer_PR_basicVehicleContainerLowFrequency;
             from_json(j["basicVehicleContainerLowFrequency"], p.choice.basicVehicleContainerLowFrequency, "basicVehicleContainerLowFrequency");
         } else {
         p.present = LowFrequencyContainer_PR_NOTHING;
@@ -16135,25 +16135,25 @@ Value to_json(const SpecialVehicleContainer& p, Document::AllocatorType& allocat
 void from_json(const Value& j, SpecialVehicleContainer& p, std::string field) {
     try {
         if (j.HasMember("publicTransportContainer")) {
-        p.present = SpecialVehicleContainer_PR_publicTransportContainer;
+            p.present = SpecialVehicleContainer_PR_publicTransportContainer;
             from_json(j["publicTransportContainer"], p.choice.publicTransportContainer, "publicTransportContainer");
         } else if (j.HasMember("specialTransportContainer")) {
-        p.present = SpecialVehicleContainer_PR_specialTransportContainer;
+            p.present = SpecialVehicleContainer_PR_specialTransportContainer;
             from_json(j["specialTransportContainer"], p.choice.specialTransportContainer, "specialTransportContainer");
         } else if (j.HasMember("dangerousGoodsContainer")) {
-        p.present = SpecialVehicleContainer_PR_dangerousGoodsContainer;
+            p.present = SpecialVehicleContainer_PR_dangerousGoodsContainer;
             from_json(j["dangerousGoodsContainer"], p.choice.dangerousGoodsContainer, "dangerousGoodsContainer");
         } else if (j.HasMember("roadWorksContainerBasic")) {
-        p.present = SpecialVehicleContainer_PR_roadWorksContainerBasic;
+            p.present = SpecialVehicleContainer_PR_roadWorksContainerBasic;
             from_json(j["roadWorksContainerBasic"], p.choice.roadWorksContainerBasic, "roadWorksContainerBasic");
         } else if (j.HasMember("rescueContainer")) {
-        p.present = SpecialVehicleContainer_PR_rescueContainer;
+            p.present = SpecialVehicleContainer_PR_rescueContainer;
             from_json(j["rescueContainer"], p.choice.rescueContainer, "rescueContainer");
         } else if (j.HasMember("emergencyContainer")) {
-        p.present = SpecialVehicleContainer_PR_emergencyContainer;
+            p.present = SpecialVehicleContainer_PR_emergencyContainer;
             from_json(j["emergencyContainer"], p.choice.emergencyContainer, "emergencyContainer");
         } else if (j.HasMember("safetyCarContainer")) {
-        p.present = SpecialVehicleContainer_PR_safetyCarContainer;
+            p.present = SpecialVehicleContainer_PR_safetyCarContainer;
             from_json(j["safetyCarContainer"], p.choice.safetyCarContainer, "safetyCarContainer");
         } else {
         p.present = SpecialVehicleContainer_PR_NOTHING;
@@ -16275,16 +16275,16 @@ Value to_json(const VruLanePosition& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, VruLanePosition& p, std::string field) {
     try {
         if (j.HasMember("offRoadLanePosition")) {
-        p.present = VruLanePosition_PR_offRoadLanePosition;
+            p.present = VruLanePosition_PR_offRoadLanePosition;
             from_json(j["offRoadLanePosition"], p.choice.offRoadLanePosition, "offRoadLanePosition");
         } else if (j.HasMember("vehicularLanePosition")) {
-        p.present = VruLanePosition_PR_vehicularLanePosition;
+            p.present = VruLanePosition_PR_vehicularLanePosition;
             from_json(j["vehicularLanePosition"], p.choice.vehicularLanePosition, "vehicularLanePosition");
         } else if (j.HasMember("trafficIslandPosition")) {
-        p.present = VruLanePosition_PR_trafficIslandPosition;
+            p.present = VruLanePosition_PR_trafficIslandPosition;
             from_json(j["trafficIslandPosition"], p.choice.trafficIslandPosition, "trafficIslandPosition");
         } else if (j.HasMember("mapPosition")) {
-        p.present = VruLanePosition_PR_mapPosition;
+            p.present = VruLanePosition_PR_mapPosition;
             from_json(j["mapPosition"], p.choice.mapPosition, "mapPosition");
         } else {
         p.present = VruLanePosition_PR_NOTHING;
@@ -16315,13 +16315,13 @@ Value to_json(const NonIslandLanePosition& p, Document::AllocatorType& allocator
 void from_json(const Value& j, NonIslandLanePosition& p, std::string field) {
     try {
         if (j.HasMember("offRoadLanePosition")) {
-        p.present = NonIslandLanePosition_PR_offRoadLanePosition;
+            p.present = NonIslandLanePosition_PR_offRoadLanePosition;
             from_json(j["offRoadLanePosition"], p.choice.offRoadLanePosition, "offRoadLanePosition");
         } else if (j.HasMember("vehicularLanePosition")) {
-        p.present = NonIslandLanePosition_PR_vehicularLanePosition;
+            p.present = NonIslandLanePosition_PR_vehicularLanePosition;
             from_json(j["vehicularLanePosition"], p.choice.vehicularLanePosition, "vehicularLanePosition");
         } else if (j.HasMember("mapPosition")) {
-        p.present = NonIslandLanePosition_PR_mapPosition;
+            p.present = NonIslandLanePosition_PR_mapPosition;
             from_json(j["mapPosition"], p.choice.mapPosition, "mapPosition");
         } else {
         p.present = NonIslandLanePosition_PR_NOTHING;
@@ -16497,10 +16497,10 @@ Value to_json(const Acceleration3dWithConfidence_t& p, Document::AllocatorType& 
 void from_json(const Value& j, Acceleration3dWithConfidence_t& p, std::string field) {
     try {
         if (j.HasMember("polarAcceleration")) {
-        p.present = Acceleration3dWithConfidence_PR_polarAcceleration;
+            p.present = Acceleration3dWithConfidence_PR_polarAcceleration;
             from_json(j["polarAcceleration"], p.choice.polarAcceleration, "polarAcceleration");
         } else if (j.HasMember("cartesianAcceleration")) {
-        p.present = Acceleration3dWithConfidence_PR_cartesianAcceleration;
+            p.present = Acceleration3dWithConfidence_PR_cartesianAcceleration;
             from_json(j["cartesianAcceleration"], p.choice.cartesianAcceleration, "cartesianAcceleration");
         } else {
         p.present = Acceleration3dWithConfidence_PR_NOTHING;
@@ -16884,10 +16884,10 @@ Value to_json(const InterferenceManagementMitigationType& p, Document::Allocator
 void from_json(const Value& j, InterferenceManagementMitigationType& p, std::string field) {
     try {
         if (j.HasMember("unavailable")) {
-        p.present = InterferenceManagementMitigationType_PR_unavailable;
+            p.present = InterferenceManagementMitigationType_PR_unavailable;
             from_json(j["unavailable"], p.choice.unavailable, "unavailable");
         } else if (j.HasMember("mitigationForTechnologies")) {
-        p.present = InterferenceManagementMitigationType_PR_mitigationForTechnologies;
+            p.present = InterferenceManagementMitigationType_PR_mitigationForTechnologies;
             from_json(j["mitigationForTechnologies"], p.choice.mitigationForTechnologies, "mitigationForTechnologies");
         } else {
         p.present = InterferenceManagementMitigationType_PR_NOTHING;
@@ -17206,10 +17206,10 @@ Value to_json(const TyreData::TyreData__tyreSidewallInformation& p, Document::Al
 void from_json(const Value& j, TyreData::TyreData__tyreSidewallInformation& p, std::string field) {
     try {
         if (j.HasMember("tyreSidewallInformationValue")) {
-        p.present = TyreData__tyreSidewallInformation_PR::TyreData__tyreSidewallInformation_PR_tyreSidewallInformationValue;
+            p.present = TyreData__tyreSidewallInformation_PR::TyreData__tyreSidewallInformation_PR_tyreSidewallInformationValue;
             from_json_TyreSidewallInformation(j["tyreSidewallInformationValue"], p.choice.tyreSidewallInformationValue, "tyreSidewallInformationValue");
         } else if (j.HasMember("unavailable")) {
-        p.present = TyreData__tyreSidewallInformation_PR::TyreData__tyreSidewallInformation_PR_unavailable;
+            p.present = TyreData__tyreSidewallInformation_PR::TyreData__tyreSidewallInformation_PR_unavailable;
             from_json(j["unavailable"], p.choice.unavailable, "unavailable");
         } else {
         p.present = TyreData__tyreSidewallInformation_PR::TyreData__tyreSidewallInformation_PR_NOTHING;
@@ -17238,10 +17238,10 @@ Value to_json(const TyreData::TyreData__tin& p, Document::AllocatorType& allocat
 void from_json(const Value& j, TyreData::TyreData__tin& p, std::string field) {
     try {
         if (j.HasMember("tinValue")) {
-        p.present = TyreData__tin_PR::TyreData__tin_PR_tinValue;
+            p.present = TyreData__tin_PR::TyreData__tin_PR_tinValue;
             from_json_TIN(j["tinValue"], p.choice.tinValue, "tinValue");
         } else if (j.HasMember("unavailable")) {
-        p.present = TyreData__tin_PR::TyreData__tin_PR_unavailable;
+            p.present = TyreData__tin_PR::TyreData__tin_PR_unavailable;
             from_json(j["unavailable"], p.choice.unavailable, "unavailable");
         } else {
         p.present = TyreData__tin_PR::TyreData__tin_PR_NOTHING;
@@ -17392,10 +17392,10 @@ Value to_json(const ManoeuvreCoordinationRational& p, Document::AllocatorType& a
 void from_json(const Value& j, ManoeuvreCoordinationRational& p, std::string field) {
     try {
         if (j.HasMember("manoeuvreGoal")) {
-        p.present = ManoeuvreCoordinationRational_PR_manoeuvreGoal;
+            p.present = ManoeuvreCoordinationRational_PR_manoeuvreGoal;
             from_json(j["manoeuvreGoal"], p.choice.manoeuvreGoal, "manoeuvreGoal");
         } else if (j.HasMember("manoeuvreCooperationCost")) {
-        p.present = ManoeuvreCoordinationRational_PR_manoeuvreCooperationCost;
+            p.present = ManoeuvreCoordinationRational_PR_manoeuvreCooperationCost;
             from_json(j["manoeuvreCooperationCost"], p.choice.manoeuvreCooperationCost, "manoeuvreCooperationCost");
         } else {
         p.present = ManoeuvreCoordinationRational_PR_NOTHING;
@@ -17962,22 +17962,22 @@ Value to_json(const Shape_t& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, Shape_t& p, std::string field) {
     try {
         if (j.HasMember("rectangular")) {
-        p.present = Shape_PR_rectangular;
+            p.present = Shape_PR_rectangular;
             from_json(j["rectangular"], p.choice.rectangular, "rectangular");
         } else if (j.HasMember("circular")) {
-        p.present = Shape_PR_circular;
+            p.present = Shape_PR_circular;
             from_json(j["circular"], p.choice.circular, "circular");
         } else if (j.HasMember("polygonal")) {
-        p.present = Shape_PR_polygonal;
+            p.present = Shape_PR_polygonal;
             from_json(j["polygonal"], p.choice.polygonal, "polygonal");
         } else if (j.HasMember("elliptical")) {
-        p.present = Shape_PR_elliptical;
+            p.present = Shape_PR_elliptical;
             from_json(j["elliptical"], p.choice.elliptical, "elliptical");
         } else if (j.HasMember("radial")) {
-        p.present = Shape_PR_radial;
+            p.present = Shape_PR_radial;
             from_json(j["radial"], p.choice.radial, "radial");
         } else if (j.HasMember("radialShapes")) {
-        p.present = Shape_PR_radialShapes;
+            p.present = Shape_PR_radialShapes;
             from_json(j["radialShapes"], p.choice.radialShapes, "radialShapes");
         } else {
         p.present = Shape_PR_NOTHING;
@@ -18006,10 +18006,10 @@ Value to_json(const Velocity3dWithConfidence_t& p, Document::AllocatorType& allo
 void from_json(const Value& j, Velocity3dWithConfidence_t& p, std::string field) {
     try {
         if (j.HasMember("polarVelocity")) {
-        p.present = Velocity3dWithConfidence_PR_polarVelocity;
+            p.present = Velocity3dWithConfidence_PR_polarVelocity;
             from_json(j["polarVelocity"], p.choice.polarVelocity, "polarVelocity");
         } else if (j.HasMember("cartesianVelocity")) {
-        p.present = Velocity3dWithConfidence_PR_cartesianVelocity;
+            p.present = Velocity3dWithConfidence_PR_cartesianVelocity;
             from_json(j["cartesianVelocity"], p.choice.cartesianVelocity, "cartesianVelocity");
         } else {
         p.present = Velocity3dWithConfidence_PR_NOTHING;
@@ -18276,10 +18276,10 @@ Value to_json(const NodeListXY& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, NodeListXY& p, std::string field) {
     try {
         if (j.HasMember("nodes")) {
-        p.present = NodeListXY_PR_nodes;
+            p.present = NodeListXY_PR_nodes;
             from_json(j["nodes"], p.choice.nodes, "nodes");
         } else if (j.HasMember("computed")) {
-        p.present = NodeListXY_PR_computed;
+            p.present = NodeListXY_PR_computed;
             from_json(j["computed"], p.choice.computed, "computed");
         } else {
         p.present = NodeListXY_PR_NOTHING;
@@ -19110,28 +19110,28 @@ Value to_json(const EV_RSR_MessageBody& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, EV_RSR_MessageBody& p, std::string field) {
     try {
         if (j.HasMember("preReservationRequestMessage")) {
-        p.present = EV_RSR_MessageBody_PR_preReservationRequestMessage;
+            p.present = EV_RSR_MessageBody_PR_preReservationRequestMessage;
             from_json(j["preReservationRequestMessage"], p.choice.preReservationRequestMessage, "preReservationRequestMessage");
         } else if (j.HasMember("preReservationResponseMessage")) {
-        p.present = EV_RSR_MessageBody_PR_preReservationResponseMessage;
+            p.present = EV_RSR_MessageBody_PR_preReservationResponseMessage;
             from_json(j["preReservationResponseMessage"], p.choice.preReservationResponseMessage, "preReservationResponseMessage");
         } else if (j.HasMember("reservationRequestMessage")) {
-        p.present = EV_RSR_MessageBody_PR_reservationRequestMessage;
+            p.present = EV_RSR_MessageBody_PR_reservationRequestMessage;
             from_json(j["reservationRequestMessage"], p.choice.reservationRequestMessage, "reservationRequestMessage");
         } else if (j.HasMember("reservationResponseMessage")) {
-        p.present = EV_RSR_MessageBody_PR_reservationResponseMessage;
+            p.present = EV_RSR_MessageBody_PR_reservationResponseMessage;
             from_json(j["reservationResponseMessage"], p.choice.reservationResponseMessage, "reservationResponseMessage");
         } else if (j.HasMember("cancellationRequestMessage")) {
-        p.present = EV_RSR_MessageBody_PR_cancellationRequestMessage;
+            p.present = EV_RSR_MessageBody_PR_cancellationRequestMessage;
             from_json(j["cancellationRequestMessage"], p.choice.cancellationRequestMessage, "cancellationRequestMessage");
         } else if (j.HasMember("cancellationResponseMessage")) {
-        p.present = EV_RSR_MessageBody_PR_cancellationResponseMessage;
+            p.present = EV_RSR_MessageBody_PR_cancellationResponseMessage;
             from_json(j["cancellationResponseMessage"], p.choice.cancellationResponseMessage, "cancellationResponseMessage");
         } else if (j.HasMember("updateRequestMessage")) {
-        p.present = EV_RSR_MessageBody_PR_updateRequestMessage;
+            p.present = EV_RSR_MessageBody_PR_updateRequestMessage;
             from_json(j["updateRequestMessage"], p.choice.updateRequestMessage, "updateRequestMessage");
         } else if (j.HasMember("updateResponseMessage")) {
-        p.present = EV_RSR_MessageBody_PR_updateResponseMessage;
+            p.present = EV_RSR_MessageBody_PR_updateResponseMessage;
             from_json(j["updateResponseMessage"], p.choice.updateResponseMessage, "updateResponseMessage");
         } else {
         p.present = EV_RSR_MessageBody_PR_NOTHING;
@@ -19445,16 +19445,16 @@ Value to_json(const IntermediatePoint& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, IntermediatePoint& p, std::string field) {
     try {
         if (j.HasMember("reference")) {
-        p.present = IntermediatePoint_PR_reference;
+            p.present = IntermediatePoint_PR_reference;
             from_json(j["reference"], p.choice.reference, "reference");
         } else if (j.HasMember("lane")) {
-        p.present = IntermediatePoint_PR_lane;
+            p.present = IntermediatePoint_PR_lane;
             from_json(j["lane"], p.choice.lane, "lane");
         } else if (j.HasMember("intersection")) {
-        p.present = IntermediatePoint_PR_intersection;
+            p.present = IntermediatePoint_PR_intersection;
             from_json(j["intersection"], p.choice.intersection, "intersection");
         } else if (j.HasMember("offroad")) {
-        p.present = IntermediatePoint_PR_offroad;
+            p.present = IntermediatePoint_PR_offroad;
             from_json(j["offroad"], p.choice.offroad, "offroad");
         } else {
         p.present = IntermediatePoint_PR_NOTHING;
@@ -19518,16 +19518,16 @@ Value to_json(const ObjectClass_t& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, ObjectClass_t& p, std::string field) {
     try {
         if (j.HasMember("vehicleSubClass")) {
-        p.present = ObjectClass_PR_vehicleSubClass;
+            p.present = ObjectClass_PR_vehicleSubClass;
             from_json(j["vehicleSubClass"], p.choice.vehicleSubClass, "vehicleSubClass");
         } else if (j.HasMember("vruSubClass")) {
-        p.present = ObjectClass_PR_vruSubClass;
+            p.present = ObjectClass_PR_vruSubClass;
             from_json(j["vruSubClass"], p.choice.vruSubClass, "vruSubClass");
         } else if (j.HasMember("groupSubClass")) {
-        p.present = ObjectClass_PR_groupSubClass;
+            p.present = ObjectClass_PR_groupSubClass;
             from_json(j["groupSubClass"], p.choice.groupSubClass, "groupSubClass");
         } else if (j.HasMember("otherSubClass")) {
-        p.present = ObjectClass_PR_otherSubClass;
+            p.present = ObjectClass_PR_otherSubClass;
             from_json(j["otherSubClass"], p.choice.otherSubClass, "otherSubClass");
         } else {
         p.present = ObjectClass_PR_NOTHING;
@@ -20098,28 +20098,28 @@ Value to_json(const ISO14823Attribute& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, ISO14823Attribute& p, std::string field) {
     try {
         if (j.HasMember("dtm")) {
-        p.present = ISO14823Attribute_PR_dtm;
+            p.present = ISO14823Attribute_PR_dtm;
             from_json(j["dtm"], p.choice.dtm, "dtm");
         } else if (j.HasMember("edt")) {
-        p.present = ISO14823Attribute_PR_edt;
+            p.present = ISO14823Attribute_PR_edt;
             from_json(j["edt"], p.choice.edt, "edt");
         } else if (j.HasMember("dfl")) {
-        p.present = ISO14823Attribute_PR_dfl;
+            p.present = ISO14823Attribute_PR_dfl;
             from_json(j["dfl"], p.choice.dfl, "dfl");
         } else if (j.HasMember("ved")) {
-        p.present = ISO14823Attribute_PR_ved;
+            p.present = ISO14823Attribute_PR_ved;
             from_json(j["ved"], p.choice.ved, "ved");
         } else if (j.HasMember("spe")) {
-        p.present = ISO14823Attribute_PR_spe;
+            p.present = ISO14823Attribute_PR_spe;
             from_json(j["spe"], p.choice.spe, "spe");
         } else if (j.HasMember("roi")) {
-        p.present = ISO14823Attribute_PR_roi;
+            p.present = ISO14823Attribute_PR_roi;
             from_json(j["roi"], p.choice.roi, "roi");
         } else if (j.HasMember("dbv")) {
-        p.present = ISO14823Attribute_PR_dbv;
+            p.present = ISO14823Attribute_PR_dbv;
             from_json(j["dbv"], p.choice.dbv, "dbv");
         } else if (j.HasMember("ddd")) {
-        p.present = ISO14823Attribute_PR_ddd;
+            p.present = ISO14823Attribute_PR_ddd;
             from_json(j["ddd"], p.choice.ddd, "ddd");
         } else {
         p.present = ISO14823Attribute_PR_NOTHING;
@@ -20376,16 +20376,16 @@ Value to_json(const InterferenceManagementZoneShape& p, Document::AllocatorType&
 void from_json(const Value& j, InterferenceManagementZoneShape& p, std::string field) {
     try {
         if (j.HasMember("rectangle")) {
-        p.present = InterferenceManagementZoneShape_PR_rectangle;
+            p.present = InterferenceManagementZoneShape_PR_rectangle;
             from_json(j["rectangle"], p.choice.rectangle, "rectangle");
         } else if (j.HasMember("circle")) {
-        p.present = InterferenceManagementZoneShape_PR_circle;
+            p.present = InterferenceManagementZoneShape_PR_circle;
             from_json(j["circle"], p.choice.circle, "circle");
         } else if (j.HasMember("polygon")) {
-        p.present = InterferenceManagementZoneShape_PR_polygon;
+            p.present = InterferenceManagementZoneShape_PR_polygon;
             from_json(j["polygon"], p.choice.polygon, "polygon");
         } else if (j.HasMember("ellipse")) {
-        p.present = InterferenceManagementZoneShape_PR_ellipse;
+            p.present = InterferenceManagementZoneShape_PR_ellipse;
             from_json(j["ellipse"], p.choice.ellipse, "ellipse");
         } else {
         p.present = InterferenceManagementZoneShape_PR_NOTHING;
@@ -20815,34 +20815,34 @@ Value to_json(const GddAttribute& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, GddAttribute& p, std::string field) {
     try {
         if (j.HasMember("dtm")) {
-        p.present = GddAttribute_PR_dtm;
+            p.present = GddAttribute_PR_dtm;
             from_json(j["dtm"], p.choice.dtm, "dtm");
         } else if (j.HasMember("edt")) {
-        p.present = GddAttribute_PR_edt;
+            p.present = GddAttribute_PR_edt;
             from_json(j["edt"], p.choice.edt, "edt");
         } else if (j.HasMember("dfl")) {
-        p.present = GddAttribute_PR_dfl;
+            p.present = GddAttribute_PR_dfl;
             from_json(j["dfl"], p.choice.dfl, "dfl");
         } else if (j.HasMember("ved")) {
-        p.present = GddAttribute_PR_ved;
+            p.present = GddAttribute_PR_ved;
             from_json(j["ved"], p.choice.ved, "ved");
         } else if (j.HasMember("spe")) {
-        p.present = GddAttribute_PR_spe;
+            p.present = GddAttribute_PR_spe;
             from_json(j["spe"], p.choice.spe, "spe");
         } else if (j.HasMember("roi")) {
-        p.present = GddAttribute_PR_roi;
+            p.present = GddAttribute_PR_roi;
             from_json(j["roi"], p.choice.roi, "roi");
         } else if (j.HasMember("dbv")) {
-        p.present = GddAttribute_PR_dbv;
+            p.present = GddAttribute_PR_dbv;
             from_json(j["dbv"], p.choice.dbv, "dbv");
         } else if (j.HasMember("ddd")) {
-        p.present = GddAttribute_PR_ddd;
+            p.present = GddAttribute_PR_ddd;
             from_json(j["ddd"], *p.choice.ddd, "ddd");
         } else if (j.HasMember("set")) {
-        p.present = GddAttribute_PR_set;
+            p.present = GddAttribute_PR_set;
             from_json(j["set"], p.choice.set, "set");
         } else if (j.HasMember("nol")) {
-        p.present = GddAttribute_PR_nol;
+            p.present = GddAttribute_PR_nol;
             from_json(j["nol"], p.choice.nol, "nol");
         } else {
         p.present = GddAttribute_PR_NOTHING;
@@ -21088,16 +21088,16 @@ Value to_json(const RSCode::RSCode__code& p, Document::AllocatorType& allocator)
 void from_json(const Value& j, RSCode::RSCode__code& p, std::string field) {
     try {
         if (j.HasMember("viennaConvention")) {
-        p.present = RSCode__code_PR::RSCode__code_PR_viennaConvention;
+            p.present = RSCode__code_PR::RSCode__code_PR_viennaConvention;
             from_json(j["viennaConvention"], p.choice.viennaConvention, "viennaConvention");
         } else if (j.HasMember("iso14823")) {
-        p.present = RSCode__code_PR::RSCode__code_PR_iso14823;
+            p.present = RSCode__code_PR::RSCode__code_PR_iso14823;
             from_json(j["iso14823"], p.choice.iso14823, "iso14823");
         } else if (j.HasMember("itisCodes")) {
-        p.present = RSCode__code_PR::RSCode__code_PR_itisCodes;
+            p.present = RSCode__code_PR::RSCode__code_PR_itisCodes;
             from_json(j["itisCodes"], p.choice.itisCodes, "itisCodes");
         } else if (j.HasMember("anyCatalogue")) {
-        p.present = RSCode__code_PR::RSCode__code_PR_anyCatalogue;
+            p.present = RSCode__code_PR::RSCode__code_PR_anyCatalogue;
             from_json(j["anyCatalogue"], p.choice.anyCatalogue, "anyCatalogue");
         } else {
         p.present = RSCode__code_PR::RSCode__code_PR_NOTHING;
@@ -21180,13 +21180,13 @@ Value to_json(const ClusterBoundingBoxShape& p, Document::AllocatorType& allocat
 void from_json(const Value& j, ClusterBoundingBoxShape& p, std::string field) {
     try {
         if (j.HasMember("clusterRectangle")) {
-        p.present = ClusterBoundingBoxShape_PR_clusterRectangle;
+            p.present = ClusterBoundingBoxShape_PR_clusterRectangle;
             from_json(j["clusterRectangle"], p.choice.clusterRectangle, "clusterRectangle");
         } else if (j.HasMember("clusterCircle")) {
-        p.present = ClusterBoundingBoxShape_PR_clusterCircle;
+            p.present = ClusterBoundingBoxShape_PR_clusterCircle;
             from_json(j["clusterCircle"], p.choice.clusterCircle, "clusterCircle");
         } else if (j.HasMember("clusterPolygon")) {
-        p.present = ClusterBoundingBoxShape_PR_clusterPolygon;
+            p.present = ClusterBoundingBoxShape_PR_clusterPolygon;
             from_json(j["clusterPolygon"], p.choice.clusterPolygon, "clusterPolygon");
         } else {
         p.present = ClusterBoundingBoxShape_PR_NOTHING;
@@ -22383,25 +22383,25 @@ Value to_json(const TisTpgTransaction& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, TisTpgTransaction& p, std::string field) {
     try {
         if (j.HasMember("drm")) {
-        p.present = TisTpgTransaction_PR_drm;
+            p.present = TisTpgTransaction_PR_drm;
             from_json(j["drm"], p.choice.drm, "drm");
         } else if (j.HasMember("snm")) {
-        p.present = TisTpgTransaction_PR_snm;
+            p.present = TisTpgTransaction_PR_snm;
             from_json(j["snm"], p.choice.snm, "snm");
         } else if (j.HasMember("trm")) {
-        p.present = TisTpgTransaction_PR_trm;
+            p.present = TisTpgTransaction_PR_trm;
             from_json(j["trm"], p.choice.trm, "trm");
         } else if (j.HasMember("tcm")) {
-        p.present = TisTpgTransaction_PR_tcm;
+            p.present = TisTpgTransaction_PR_tcm;
             from_json(j["tcm"], p.choice.tcm, "tcm");
         } else if (j.HasMember("vdrm")) {
-        p.present = TisTpgTransaction_PR_vdrm;
+            p.present = TisTpgTransaction_PR_vdrm;
             from_json(j["vdrm"], p.choice.vdrm, "vdrm");
         } else if (j.HasMember("vdpm")) {
-        p.present = TisTpgTransaction_PR_vdpm;
+            p.present = TisTpgTransaction_PR_vdpm;
             from_json(j["vdpm"], p.choice.vdpm, "vdpm");
         } else if (j.HasMember("eofm")) {
-        p.present = TisTpgTransaction_PR_eofm;
+            p.present = TisTpgTransaction_PR_eofm;
             from_json(j["eofm"], p.choice.eofm, "eofm");
         } else {
         p.present = TisTpgTransaction_PR_NOTHING;
@@ -22708,19 +22708,19 @@ Value to_json(const IviContainer& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, IviContainer& p, std::string field) {
     try {
         if (j.HasMember("glc")) {
-        p.present = IviContainer_PR_glc;
+            p.present = IviContainer_PR_glc;
             from_json(j["glc"], p.choice.glc, "glc");
         } else if (j.HasMember("giv")) {
-        p.present = IviContainer_PR_giv;
+            p.present = IviContainer_PR_giv;
             from_json(j["giv"], p.choice.giv, "giv");
         } else if (j.HasMember("rcc")) {
-        p.present = IviContainer_PR_rcc;
+            p.present = IviContainer_PR_rcc;
             from_json(j["rcc"], p.choice.rcc, "rcc");
         } else if (j.HasMember("tc")) {
-        p.present = IviContainer_PR_tc;
+            p.present = IviContainer_PR_tc;
             from_json(j["tc"], p.choice.tc, "tc");
         } else if (j.HasMember("lac")) {
-        p.present = IviContainer_PR_lac;
+            p.present = IviContainer_PR_lac;
             from_json(j["lac"], p.choice.lac, "lac");
         } else {
         p.present = IviContainer_PR_NOTHING;
@@ -22807,10 +22807,10 @@ Value to_json(const McmContainer& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, McmContainer& p, std::string field) {
     try {
         if (j.HasMember("vehicleManoeuvreContainer")) {
-        p.present = McmContainer_PR_vehicleManoeuvreContainer;
+            p.present = McmContainer_PR_vehicleManoeuvreContainer;
             from_json(j["vehicleManoeuvreContainer"], p.choice.vehicleManoeuvreContainer, "vehicleManoeuvreContainer");
         } else if (j.HasMember("manoeuvreAdviceContainer")) {
-        p.present = McmContainer_PR_manoeuvreAdviceContainer;
+            p.present = McmContainer_PR_manoeuvreAdviceContainer;
             from_json(j["manoeuvreAdviceContainer"], p.choice.manoeuvreAdviceContainer, "manoeuvreAdviceContainer");
         } else {
         p.present = McmContainer_PR_NOTHING;

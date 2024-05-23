@@ -51,6 +51,7 @@ public:
     virtual PortType port() = 0;
     virtual PromiscuousHook* promiscuous_hook();
     void on_message(string);
+    void fillPosition(std::string& str, vanetza::PositionProvider& position);
     int priority;
 
 protected:

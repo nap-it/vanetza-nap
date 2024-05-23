@@ -141,6 +141,7 @@ void EvcsnmApplication::on_message(string topic, string mqtt_message, const std:
 
     if (!is_encoded) {
         EVChargingSpotNotificationPOIMessage_t evcsnm;
+        fillPosition(mqtt_message, positioning_);
     
         try {
             document.Parse(mqtt_message.c_str());
