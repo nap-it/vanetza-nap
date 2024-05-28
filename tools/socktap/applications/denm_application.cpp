@@ -121,6 +121,9 @@ Document DenmApplication::buildJSON(DENM_t message, double time_reception, int r
         jsonTest.AddMember("channel_busy_time", channel_info.chan_busy_time, allocator);
         jsonTest.AddMember("channel_rx_time", channel_info.chan_rx_time, allocator);
         jsonTest.AddMember("channel_tx_time", channel_info.chan_tx_time, allocator);
+        jsonTest.AddMember("channel_info_time", channel_info.timestamp, fullAllocator);
+        jsonTest.AddMember("channel_active_time", channel_info.chan_active_time, fullAllocator);
+
     }
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     jsonTest.AddMember("json_timestamp", time_now, allocator);
