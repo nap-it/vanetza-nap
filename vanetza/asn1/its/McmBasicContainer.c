@@ -25,8 +25,25 @@ asn_TYPE_member_t asn_MBR_McmBasicContainer_1[] = {
 		0, 0, /* No default value */
 		"generationDeltaTime"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct McmBasicContainer, stationType),
+	{ ATF_NOFLAGS, 0, offsetof(struct McmBasicContainer, stationID),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
+		-1,	/* IMPLICIT tag at current level */
+		&asn_DEF_ETSI_ITS_CDD_StationID,
+		0,
+		{
+#if !defined(ASN_DISABLE_OER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+			0
+		},
+		0, 0, /* No default value */
+		"stationID"
+		},
+	{ ATF_NOFLAGS, 0, offsetof(struct McmBasicContainer, stationType),
+		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
 		&asn_DEF_ETSI_ITS_CDD_StationType,
 		0,
@@ -43,7 +60,7 @@ asn_TYPE_member_t asn_MBR_McmBasicContainer_1[] = {
 		"stationType"
 		},
 	{ ATF_NOFLAGS, 0, offsetof(struct McmBasicContainer, deltaReferencePosition),
-		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
+		(ASN_TAG_CLASS_CONTEXT | (3 << 2)),
 		-1,	/* IMPLICIT tag at current level */
 		&asn_DEF_ETSI_ITS_CDD_DeltaReferencePosition,
 		0,
@@ -65,14 +82,15 @@ static const ber_tlv_tag_t asn_DEF_McmBasicContainer_tags_1[] = {
 };
 static const asn_TYPE_tag2member_t asn_MAP_McmBasicContainer_tag2el_1[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* generationDeltaTime */
-    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* stationType */
-    { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* deltaReferencePosition */
+    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* stationID */
+    { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 }, /* stationType */
+    { (ASN_TAG_CLASS_CONTEXT | (3 << 2)), 3, 0, 0 } /* deltaReferencePosition */
 };
 asn_SEQUENCE_specifics_t asn_SPC_McmBasicContainer_specs_1 = {
 	sizeof(struct McmBasicContainer),
 	offsetof(struct McmBasicContainer, _asn_ctx),
 	asn_MAP_McmBasicContainer_tag2el_1,
-	3,	/* Count of tags in the map */
+	4,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
@@ -96,7 +114,7 @@ asn_TYPE_descriptor_t asn_DEF_McmBasicContainer = {
 		SEQUENCE_constraint
 	},
 	asn_MBR_McmBasicContainer_1,
-	3,	/* Elements count */
+	4,	/* Elements count */
 	&asn_SPC_McmBasicContainer_specs_1	/* Additional specs */
 };
 

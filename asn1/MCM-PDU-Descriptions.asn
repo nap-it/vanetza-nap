@@ -46,6 +46,7 @@ WrappedMcmInformationBlocks ::= SEQUENCE {
 
 McmBasicContainer::= SEQUENCE {
 	generationDeltaTime TimestampIts, -- Generation TimestampIts represent an integer value in milliseconds since 2004-01-01T00-00-00-00Z as defined in ETSI TS 102 894-2
+	stationID StationID,
 	stationType StationType,
 	deltaReferencePosition DeltaReferencePosition
 }
@@ -60,17 +61,17 @@ VehiclemaneuverContainer::= SEQUENCE {
 	mcmType McmType,
 	maneuverId ManeuverId,
 	maneuverCoordinationConcept ManeuverCoordinationConcept,
-	maneuverCoordinationRational ManeuverCoordinationRational,
-	maneuverExecutionStatus ManeuverExecutionStatus,
+	maneuverCoordinationRational ManeuverCoordinationRational, -- 0: denied, 1: accepted
 	vehicleCurrentState VehicleCurrentState,
+	maneuverExecutionStatus ManeuverExecutionStatus OPTIONAL,
 	trajectoryId TrajectoryId,
 	vehicleTrajectory CHOICE {
 		--frenetTrajectory FrenetTrajectory,
 		wgs84Trajectory Wgs84Trajectory
 	},
-	maneuverAdviceContainer ManeuverAdviceContainer OPTIONAL
+	maneuverAdviceContainer ManeuverAdviceContainer OPTIONAL,
+	maneuverResponse ManeuverResponse OPTIONAL
 }
-
 
 McmType::= ENUMERATED {intent (0), request (1), response (2), reservation (3), termination (4), cancellationRequest (5), emergencymaneuverReservation (6), executionStatus (7),offer (8), ack(9)
 }
@@ -228,11 +229,11 @@ Maneuvers ::= SEQUENCE SIZE (1..16) OF Maneuver
 Maneuver::= SEQUENCE {
 	itsId ItsId,
 	currentStateAdvisedChange CurrentStateAdvisedChange,
-	numberOfSubmaneuvers INTEGER (0..16),
+	numberOfSubmaneuvers INTEGER (0..10),
 	submaneuver Submaneuvers
 }
 
-Submaneuvers ::= SEQUENCE SIZE (1..16) OF Submaneuver
+Submaneuvers ::= SEQUENCE SIZE (1..10) OF Submaneuver
 
 ItsId ::= INTEGER
 
@@ -243,8 +244,10 @@ AcknowledgmentContainer ::= SEQUENCE {
 
 Submaneuver::= SEQUENCE {
 	submaneuverId INTEGER (0..16),
-	referenceCoordinateSystem ReferenceCoordinatesSystem,
-	advisedTrajectory BOOLEAN
+	trajectoryPoint CHOICE {
+		wgs84TrajectoryPoint Wgs84TrajectoryPoint
+	}
+	-- advisedTrajectory BOOLEAN
 	--advisedTRR TRR OPTIONAL,
 	--temporalCharacteristics TemporalCharacteristics OPTIONAL,
 	--kinematicsCharacteristics KinematicsCharacteristics OPTIONAL
@@ -252,13 +255,13 @@ Submaneuver::= SEQUENCE {
 
 CurrentStateAdvisedChange ::= INTEGER (0..11) -- 0: NO CHANGE, 1: TRANSIT TO HUMAN DRIVING MODE, 2: TRANSIT TO AUTOMATED DRIVING MODE, 3: FOLLOW ME, 4: JOIN GROUP, 5: LEAVE GROUP, 6: EMERGENCY BRAKE TRIGGERING, 7: STAY IN LANE, 8: RESET STOP, 9: RESET STAY IN LANE, 10: STAY AWAY OF VEHICLE WITH STATION ID, 11: RESET STAY AWAY
 
-ManeuverResponse ::= CHOICE {
-    offerAcceptation NULL,
-    offerDecline NULL,
-    requestAcceptation NULL,
-    requestDecline RequestDecline
+ManeuverResponse ::= SEQUENCE {
+    response Response, -- 0: denied, 1: accepted
+    declineReason DeclineReason OPTIONAL
 }
 
-RequestDecline ::= ENUMERATED {agreementSeekingUnknown(0), agreementSeekingUnwanted (2), allUnableToConform (1), allUnableToUnderstand (3), allErroneousBehaviourDetected (4), allMissbehaviourDetected(5)}
+Response ::= ENUMERATED {denied(0), accepted(1)}
+
+DeclineReason ::= ENUMERATED {unknown(0), unableToConform (1), unwanted (2), unableToUnderstand (3), erroneousBehaviourDetected (4), missbehaviourAttackDetected(5),manoeuvreCancellationRequestIssued(6)}
 
 END

@@ -21,7 +21,7 @@ memb_numberOfSubmaneuvers_constraint_1(const asn_TYPE_descriptor_t *td, const vo
 	
 	value = *(const long *)sptr;
 	
-	if((value >= 0L && value <= 16L)) {
+	if((value >= 0L && value <= 10L)) {
 		/* Constraint check succeeded */
 		return 0;
 	} else {
@@ -34,12 +34,12 @@ memb_numberOfSubmaneuvers_constraint_1(const asn_TYPE_descriptor_t *td, const vo
 
 #if !defined(ASN_DISABLE_OER_SUPPORT)
 static asn_oer_constraints_t asn_OER_memb_numberOfSubmaneuvers_constr_4 CC_NOTUSED = {
-	{ 1, 1 }	/* (0..16) */,
+	{ 1, 1 }	/* (0..10) */,
 	-1};
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
 static asn_per_constraints_t asn_PER_memb_numberOfSubmaneuvers_constr_4 CC_NOTUSED = {
-	{ APC_CONSTRAINED,	 5,  5,  0,  16 }	/* (0..16) */,
+	{ APC_CONSTRAINED,	 4,  4,  0,  10 }	/* (0..10) */,
 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
 	0, 0	/* No PER value map */
 };

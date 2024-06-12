@@ -12,32 +12,18 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "NULL.h"
-#include "RequestDecline.h"
-#include "constr_CHOICE.h"
+#include "Response.h"
+#include "DeclineReason.h"
+#include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/* Dependencies */
-typedef enum ManeuverResponse_PR {
-	ManeuverResponse_PR_NOTHING,	/* No components present */
-	ManeuverResponse_PR_offerAcceptation,
-	ManeuverResponse_PR_offerDecline,
-	ManeuverResponse_PR_requestAcceptation,
-	ManeuverResponse_PR_requestDecline
-} ManeuverResponse_PR;
-
 /* ManeuverResponse */
 typedef struct ManeuverResponse {
-	ManeuverResponse_PR present;
-	union ManeuverResponse_u {
-		NULL_t	 offerAcceptation;
-		NULL_t	 offerDecline;
-		NULL_t	 requestAcceptation;
-		RequestDecline_t	 requestDecline;
-	} choice;
+	Response_t	 response;
+	DeclineReason_t	*declineReason;	/* OPTIONAL */
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
@@ -45,6 +31,8 @@ typedef struct ManeuverResponse {
 
 /* Implementation */
 extern asn_TYPE_descriptor_t asn_DEF_ManeuverResponse;
+extern asn_SEQUENCE_specifics_t asn_SPC_ManeuverResponse_specs_1;
+extern asn_TYPE_member_t asn_MBR_ManeuverResponse_1[2];
 
 #ifdef __cplusplus
 }

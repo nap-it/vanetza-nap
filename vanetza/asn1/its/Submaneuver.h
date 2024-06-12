@@ -13,19 +13,32 @@
 
 /* Including external dependencies */
 #include "NativeInteger.h"
-#include "ReferenceCoordinatesSystem.h"
-#include "BOOLEAN.h"
+#include "Wgs84TrajectoryPoint.h"
+#include "constr_CHOICE.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+/* Dependencies */
+typedef enum Submaneuver__trajectoryPoint_PR {
+	Submaneuver__trajectoryPoint_PR_NOTHING,	/* No components present */
+	Submaneuver__trajectoryPoint_PR_wgs84TrajectoryPoint
+} Submaneuver__trajectoryPoint_PR;
+
 /* Submaneuver */
 typedef struct Submaneuver {
 	long	 submaneuverId;
-	ReferenceCoordinatesSystem_t	 referenceCoordinateSystem;
-	BOOLEAN_t	 advisedTrajectory;
+	struct Submaneuver__trajectoryPoint {
+		Submaneuver__trajectoryPoint_PR present;
+		union Submaneuver__trajectoryPoint_u {
+			Wgs84TrajectoryPoint_t	 wgs84TrajectoryPoint;
+		} choice;
+		
+		/* Context for parsing across buffer boundaries */
+		asn_struct_ctx_t _asn_ctx;
+	} trajectoryPoint;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
@@ -34,7 +47,7 @@ typedef struct Submaneuver {
 /* Implementation */
 extern asn_TYPE_descriptor_t asn_DEF_Submaneuver;
 extern asn_SEQUENCE_specifics_t asn_SPC_Submaneuver_specs_1;
-extern asn_TYPE_member_t asn_MBR_Submaneuver_1[3];
+extern asn_TYPE_member_t asn_MBR_Submaneuver_1[2];
 
 #ifdef __cplusplus
 }

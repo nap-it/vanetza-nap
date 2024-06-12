@@ -33,6 +33,18 @@ memb_submaneuverId_constraint_1(const asn_TYPE_descriptor_t *td, const void *spt
 }
 
 #if !defined(ASN_DISABLE_OER_SUPPORT)
+static asn_oer_constraints_t asn_OER_type_trajectoryPoint_constr_3 CC_NOTUSED = {
+	{ 0, 0 },
+	-1};
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+static asn_per_constraints_t asn_PER_type_trajectoryPoint_constr_3 CC_NOTUSED = {
+	{ APC_CONSTRAINED,	 0,  0,  0,  0 }	/* (0..0) */,
+	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
+	0, 0	/* No PER value map */
+};
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+#if !defined(ASN_DISABLE_OER_SUPPORT)
 static asn_oer_constraints_t asn_OER_memb_submaneuverId_constr_2 CC_NOTUSED = {
 	{ 1, 1 }	/* (0..16) */,
 	-1};
@@ -44,6 +56,61 @@ static asn_per_constraints_t asn_PER_memb_submaneuverId_constr_2 CC_NOTUSED = {
 	0, 0	/* No PER value map */
 };
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+static asn_TYPE_member_t asn_MBR_trajectoryPoint_3[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct Submaneuver__trajectoryPoint, choice.wgs84TrajectoryPoint),
+		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
+		-1,	/* IMPLICIT tag at current level */
+		&asn_DEF_Wgs84TrajectoryPoint,
+		0,
+		{
+#if !defined(ASN_DISABLE_OER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+			0
+		},
+		0, 0, /* No default value */
+		"wgs84TrajectoryPoint"
+		},
+};
+static const asn_TYPE_tag2member_t asn_MAP_trajectoryPoint_tag2el_3[] = {
+    { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 } /* wgs84TrajectoryPoint */
+};
+static asn_CHOICE_specifics_t asn_SPC_trajectoryPoint_specs_3 = {
+	sizeof(struct Submaneuver__trajectoryPoint),
+	offsetof(struct Submaneuver__trajectoryPoint, _asn_ctx),
+	offsetof(struct Submaneuver__trajectoryPoint, present),
+	sizeof(((struct Submaneuver__trajectoryPoint *)0)->present),
+	asn_MAP_trajectoryPoint_tag2el_3,
+	1,	/* Count of tags in the map */
+	0, 0,
+	-1	/* Extensions start */
+};
+static /* Use -fall-defs-global to expose */
+asn_TYPE_descriptor_t asn_DEF_trajectoryPoint_3 = {
+	"trajectoryPoint",
+	"trajectoryPoint",
+	&asn_OP_CHOICE,
+	0,	/* No effective tags (pointer) */
+	0,	/* No effective tags (count) */
+	0,	/* No tags (pointer) */
+	0,	/* No tags (count) */
+	{
+#if !defined(ASN_DISABLE_OER_SUPPORT)
+		&asn_OER_type_trajectoryPoint_constr_3,
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+		&asn_PER_type_trajectoryPoint_constr_3,
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+		CHOICE_constraint
+	},
+	asn_MBR_trajectoryPoint_3,
+	1,	/* Elements count */
+	&asn_SPC_trajectoryPoint_specs_3	/* Additional specs */
+};
+
 asn_TYPE_member_t asn_MBR_Submaneuver_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct Submaneuver, submaneuverId),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
@@ -62,10 +129,10 @@ asn_TYPE_member_t asn_MBR_Submaneuver_1[] = {
 		0, 0, /* No default value */
 		"submaneuverId"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct Submaneuver, referenceCoordinateSystem),
+	{ ATF_NOFLAGS, 0, offsetof(struct Submaneuver, trajectoryPoint),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
-		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ReferenceCoordinatesSystem,
+		+1,	/* EXPLICIT tag at current level */
+		&asn_DEF_trajectoryPoint_3,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -77,24 +144,7 @@ asn_TYPE_member_t asn_MBR_Submaneuver_1[] = {
 			0
 		},
 		0, 0, /* No default value */
-		"referenceCoordinateSystem"
-		},
-	{ ATF_NOFLAGS, 0, offsetof(struct Submaneuver, advisedTrajectory),
-		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
-		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_BOOLEAN,
-		0,
-		{
-#if !defined(ASN_DISABLE_OER_SUPPORT)
-			0,
-#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
-#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-			0,
-#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
-			0
-		},
-		0, 0, /* No default value */
-		"advisedTrajectory"
+		"trajectoryPoint"
 		},
 };
 static const ber_tlv_tag_t asn_DEF_Submaneuver_tags_1[] = {
@@ -102,14 +152,13 @@ static const ber_tlv_tag_t asn_DEF_Submaneuver_tags_1[] = {
 };
 static const asn_TYPE_tag2member_t asn_MAP_Submaneuver_tag2el_1[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* submaneuverId */
-    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* referenceCoordinateSystem */
-    { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* advisedTrajectory */
+    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 } /* trajectoryPoint */
 };
 asn_SEQUENCE_specifics_t asn_SPC_Submaneuver_specs_1 = {
 	sizeof(struct Submaneuver),
 	offsetof(struct Submaneuver, _asn_ctx),
 	asn_MAP_Submaneuver_tag2el_1,
-	3,	/* Count of tags in the map */
+	2,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
@@ -133,7 +182,7 @@ asn_TYPE_descriptor_t asn_DEF_Submaneuver = {
 		SEQUENCE_constraint
 	},
 	asn_MBR_Submaneuver_1,
-	3,	/* Elements count */
+	2,	/* Elements count */
 	&asn_SPC_Submaneuver_specs_1	/* Additional specs */
 };
 

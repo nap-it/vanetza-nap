@@ -143,25 +143,8 @@ asn_TYPE_member_t asn_MBR_VehiclemaneuverContainer_1[] = {
 		0, 0, /* No default value */
 		"maneuverCoordinationRational"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct VehiclemaneuverContainer, maneuverExecutionStatus),
-		(ASN_TAG_CLASS_CONTEXT | (4 << 2)),
-		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ManeuverExecutionStatus,
-		0,
-		{
-#if !defined(ASN_DISABLE_OER_SUPPORT)
-			0,
-#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
-#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-			0,
-#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
-			0
-		},
-		0, 0, /* No default value */
-		"maneuverExecutionStatus"
-		},
 	{ ATF_NOFLAGS, 0, offsetof(struct VehiclemaneuverContainer, vehicleCurrentState),
-		(ASN_TAG_CLASS_CONTEXT | (5 << 2)),
+		(ASN_TAG_CLASS_CONTEXT | (4 << 2)),
 		-1,	/* IMPLICIT tag at current level */
 		&asn_DEF_VehicleCurrentState,
 		0,
@@ -176,6 +159,23 @@ asn_TYPE_member_t asn_MBR_VehiclemaneuverContainer_1[] = {
 		},
 		0, 0, /* No default value */
 		"vehicleCurrentState"
+		},
+	{ ATF_POINTER, 1, offsetof(struct VehiclemaneuverContainer, maneuverExecutionStatus),
+		(ASN_TAG_CLASS_CONTEXT | (5 << 2)),
+		-1,	/* IMPLICIT tag at current level */
+		&asn_DEF_ManeuverExecutionStatus,
+		0,
+		{
+#if !defined(ASN_DISABLE_OER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+			0
+		},
+		0, 0, /* No default value */
+		"maneuverExecutionStatus"
 		},
 	{ ATF_NOFLAGS, 0, offsetof(struct VehiclemaneuverContainer, trajectoryId),
 		(ASN_TAG_CLASS_CONTEXT | (6 << 2)),
@@ -211,7 +211,7 @@ asn_TYPE_member_t asn_MBR_VehiclemaneuverContainer_1[] = {
 		0, 0, /* No default value */
 		"vehicleTrajectory"
 		},
-	{ ATF_POINTER, 1, offsetof(struct VehiclemaneuverContainer, maneuverAdviceContainer),
+	{ ATF_POINTER, 2, offsetof(struct VehiclemaneuverContainer, maneuverAdviceContainer),
 		(ASN_TAG_CLASS_CONTEXT | (8 << 2)),
 		-1,	/* IMPLICIT tag at current level */
 		&asn_DEF_ManeuverAdviceContainer,
@@ -228,8 +228,25 @@ asn_TYPE_member_t asn_MBR_VehiclemaneuverContainer_1[] = {
 		0, 0, /* No default value */
 		"maneuverAdviceContainer"
 		},
+	{ ATF_POINTER, 1, offsetof(struct VehiclemaneuverContainer, maneuverResponse),
+		(ASN_TAG_CLASS_CONTEXT | (9 << 2)),
+		-1,	/* IMPLICIT tag at current level */
+		&asn_DEF_ManeuverResponse,
+		0,
+		{
+#if !defined(ASN_DISABLE_OER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+			0
+		},
+		0, 0, /* No default value */
+		"maneuverResponse"
+		},
 };
-static const int asn_MAP_VehiclemaneuverContainer_oms_1[] = { 8 };
+static const int asn_MAP_VehiclemaneuverContainer_oms_1[] = { 5, 8, 9 };
 static const ber_tlv_tag_t asn_DEF_VehiclemaneuverContainer_tags_1[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
@@ -238,19 +255,20 @@ static const asn_TYPE_tag2member_t asn_MAP_VehiclemaneuverContainer_tag2el_1[] =
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* maneuverId */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 }, /* maneuverCoordinationConcept */
     { (ASN_TAG_CLASS_CONTEXT | (3 << 2)), 3, 0, 0 }, /* maneuverCoordinationRational */
-    { (ASN_TAG_CLASS_CONTEXT | (4 << 2)), 4, 0, 0 }, /* maneuverExecutionStatus */
-    { (ASN_TAG_CLASS_CONTEXT | (5 << 2)), 5, 0, 0 }, /* vehicleCurrentState */
+    { (ASN_TAG_CLASS_CONTEXT | (4 << 2)), 4, 0, 0 }, /* vehicleCurrentState */
+    { (ASN_TAG_CLASS_CONTEXT | (5 << 2)), 5, 0, 0 }, /* maneuverExecutionStatus */
     { (ASN_TAG_CLASS_CONTEXT | (6 << 2)), 6, 0, 0 }, /* trajectoryId */
     { (ASN_TAG_CLASS_CONTEXT | (7 << 2)), 7, 0, 0 }, /* vehicleTrajectory */
-    { (ASN_TAG_CLASS_CONTEXT | (8 << 2)), 8, 0, 0 } /* maneuverAdviceContainer */
+    { (ASN_TAG_CLASS_CONTEXT | (8 << 2)), 8, 0, 0 }, /* maneuverAdviceContainer */
+    { (ASN_TAG_CLASS_CONTEXT | (9 << 2)), 9, 0, 0 } /* maneuverResponse */
 };
 asn_SEQUENCE_specifics_t asn_SPC_VehiclemaneuverContainer_specs_1 = {
 	sizeof(struct VehiclemaneuverContainer),
 	offsetof(struct VehiclemaneuverContainer, _asn_ctx),
 	asn_MAP_VehiclemaneuverContainer_tag2el_1,
-	9,	/* Count of tags in the map */
+	10,	/* Count of tags in the map */
 	asn_MAP_VehiclemaneuverContainer_oms_1,	/* Optional members */
-	1, 0,	/* Root/Additions */
+	3, 0,	/* Root/Additions */
 	-1,	/* First extension addition */
 };
 asn_TYPE_descriptor_t asn_DEF_VehiclemaneuverContainer = {
@@ -273,7 +291,7 @@ asn_TYPE_descriptor_t asn_DEF_VehiclemaneuverContainer = {
 		SEQUENCE_constraint
 	},
 	asn_MBR_VehiclemaneuverContainer_1,
-	9,	/* Elements count */
+	10,	/* Elements count */
 	&asn_SPC_VehiclemaneuverContainer_specs_1	/* Additional specs */
 };
 

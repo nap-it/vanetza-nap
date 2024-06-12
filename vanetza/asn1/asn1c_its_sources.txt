@@ -170,6 +170,7 @@ its/DayOfWeek.c
 its/DebitRq.c
 its/DebitRs.c
 its/DecentralizedEnvironmentalNotificationMessage.c
+its/DeclineReason.c
 its/DefinitionAccuracy.c
 its/DeltaAngle.c
 its/DeltaPosition.c
@@ -915,7 +916,6 @@ its/RegionalExtension.c
 its/RegulatorySpeedLimit.c
 its/RejectedReason.c
 its/RepeatingPeriodDayTypes.c
-its/RequestDecline.c
 its/RequestID.c
 its/RequestImportanceLevel.c
 its/RequestSubRole.c
@@ -931,6 +931,7 @@ its/ReservationRequestMessage.c
 its/ReservationResponseCode.c
 its/ReservationResponseMessage.c
 its/ReservationStatus.c
+its/Response.c
 its/RestrictionAppliesTo.c
 its/RestrictionClassAssignment.c
 its/RestrictionClassID.c

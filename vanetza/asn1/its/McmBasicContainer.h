@@ -13,6 +13,7 @@
 
 /* Including external dependencies */
 #include "ETSI-ITS-CDD_TimestampIts.h"
+#include "ETSI-ITS-CDD_StationID.h"
 #include "ETSI-ITS-CDD_StationType.h"
 #include "ETSI-ITS-CDD_DeltaReferencePosition.h"
 #include "constr_SEQUENCE.h"
@@ -24,6 +25,7 @@ extern "C" {
 /* McmBasicContainer */
 typedef struct McmBasicContainer {
 	ETSI_ITS_CDD_TimestampIts_t	 generationDeltaTime;
+	ETSI_ITS_CDD_StationID_t	 stationID;
 	ETSI_ITS_CDD_StationType_t	 stationType;
 	ETSI_ITS_CDD_DeltaReferencePosition_t	 deltaReferencePosition;
 	
@@ -34,7 +36,7 @@ typedef struct McmBasicContainer {
 /* Implementation */
 extern asn_TYPE_descriptor_t asn_DEF_McmBasicContainer;
 extern asn_SEQUENCE_specifics_t asn_SPC_McmBasicContainer_specs_1;
-extern asn_TYPE_member_t asn_MBR_McmBasicContainer_1[3];
+extern asn_TYPE_member_t asn_MBR_McmBasicContainer_1[4];
 
 #ifdef __cplusplus
 }

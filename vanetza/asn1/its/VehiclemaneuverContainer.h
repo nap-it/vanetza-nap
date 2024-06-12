@@ -16,8 +16,8 @@
 #include "ManeuverId.h"
 #include "ManeuverCoordinationConcept.h"
 #include "ManeuverCoordinationRational.h"
-#include "ManeuverExecutionStatus.h"
 #include "VehicleCurrentState.h"
+#include "ManeuverExecutionStatus.h"
 #include "TrajectoryId.h"
 #include "Wgs84Trajectory.h"
 #include "constr_CHOICE.h"
@@ -35,6 +35,7 @@ typedef enum VehiclemaneuverContainer__vehicleTrajectory_PR {
 
 /* Forward declarations */
 struct ManeuverAdviceContainer;
+struct ManeuverResponse;
 
 /* VehiclemaneuverContainer */
 typedef struct VehiclemaneuverContainer {
@@ -42,8 +43,8 @@ typedef struct VehiclemaneuverContainer {
 	ManeuverId_t	 maneuverId;
 	ManeuverCoordinationConcept_t	 maneuverCoordinationConcept;
 	ManeuverCoordinationRational_t	 maneuverCoordinationRational;
-	ManeuverExecutionStatus_t	 maneuverExecutionStatus;
 	VehicleCurrentState_t	 vehicleCurrentState;
+	ManeuverExecutionStatus_t	*maneuverExecutionStatus;	/* OPTIONAL */
 	TrajectoryId_t	 trajectoryId;
 	struct VehiclemaneuverContainer__vehicleTrajectory {
 		VehiclemaneuverContainer__vehicleTrajectory_PR present;
@@ -55,6 +56,7 @@ typedef struct VehiclemaneuverContainer {
 		asn_struct_ctx_t _asn_ctx;
 	} vehicleTrajectory;
 	struct ManeuverAdviceContainer	*maneuverAdviceContainer;	/* OPTIONAL */
+	struct ManeuverResponse	*maneuverResponse;	/* OPTIONAL */
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
@@ -63,7 +65,7 @@ typedef struct VehiclemaneuverContainer {
 /* Implementation */
 extern asn_TYPE_descriptor_t asn_DEF_VehiclemaneuverContainer;
 extern asn_SEQUENCE_specifics_t asn_SPC_VehiclemaneuverContainer_specs_1;
-extern asn_TYPE_member_t asn_MBR_VehiclemaneuverContainer_1[9];
+extern asn_TYPE_member_t asn_MBR_VehiclemaneuverContainer_1[10];
 
 #ifdef __cplusplus
 }
@@ -71,6 +73,7 @@ extern asn_TYPE_member_t asn_MBR_VehiclemaneuverContainer_1[9];
 
 /* Referred external types */
 #include "ManeuverAdviceContainer.h"
+#include "ManeuverResponse.h"
 
 #endif	/* _VehiclemaneuverContainer_H_ */
 #include "asn_internal.h"
