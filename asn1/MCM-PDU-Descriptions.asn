@@ -242,11 +242,11 @@ AcknowledgmentContainer ::= SEQUENCE {
 	generationDeltaTime TimestampIts
 }
 
-trajectoryList ::= SEQUENCE SIZE (1..10) OF Wgs84TrajectoryPoint
+TrajectoryList ::= SEQUENCE SIZE (1..10) OF Wgs84TrajectoryPoint
 
 Submaneuver::= SEQUENCE {
 	submaneuverId INTEGER (0..16),
-	trajectoryPoint trajectoryList
+	trajectoryPoint TrajectoryList
 	--advisedTrajectory BOOLEAN
 	--advisedTRR TRR OPTIONAL,
 	--temporalCharacteristics TemporalCharacteristics OPTIONAL,

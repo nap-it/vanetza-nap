@@ -13,32 +13,17 @@
 
 /* Including external dependencies */
 #include "NativeInteger.h"
-#include "Wgs84TrajectoryPoint.h"
-#include "constr_CHOICE.h"
+#include "TrajectoryList.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/* Dependencies */
-typedef enum Submaneuver__trajectoryPoint_PR {
-	Submaneuver__trajectoryPoint_PR_NOTHING,	/* No components present */
-	Submaneuver__trajectoryPoint_PR_wgs84TrajectoryPoint
-} Submaneuver__trajectoryPoint_PR;
-
 /* Submaneuver */
 typedef struct Submaneuver {
 	long	 submaneuverId;
-	struct Submaneuver__trajectoryPoint {
-		Submaneuver__trajectoryPoint_PR present;
-		union Submaneuver__trajectoryPoint_u {
-			Wgs84TrajectoryPoint_t	 wgs84TrajectoryPoint;
-		} choice;
-		
-		/* Context for parsing across buffer boundaries */
-		asn_struct_ctx_t _asn_ctx;
-	} trajectoryPoint;
+	TrajectoryList_t	 trajectoryPoint;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;

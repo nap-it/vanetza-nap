@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by RapidJSON
-*   Auto-generated from the asn1 directory by asn1json.py on 2024-06-12 16:03:11.774586
+*   Auto-generated from the asn1 directory by asn1json.py on 2024-06-20 15:49:12.960167
 */
 
 #include "asn1json.hpp"
@@ -19355,26 +19355,31 @@ void from_json(const Value& j, Wgs84TrajectoryPoint& p, std::string field) {
 
 
 /*
-*   Submaneuver::Submaneuver__trajectoryPoint - Type CHOICE
+*   TrajectoryList - Type SEQUENCE OF
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
 
-Value to_json(const Submaneuver::Submaneuver__trajectoryPoint& p, Document::AllocatorType& allocator) {
-    Value json(kObjectType);
-    if (p.present == Submaneuver__trajectoryPoint_PR::Submaneuver__trajectoryPoint_PR_wgs84TrajectoryPoint) {
-        json.AddMember("wgs84TrajectoryPoint", to_json(p.choice.wgs84TrajectoryPoint, allocator), allocator);
+Value to_json(const TrajectoryList& p, Document::AllocatorType& allocator) {
+    Value json(kArrayType);
+    for(int i = 0; i < p.list.count; i++) {
+        const Wgs84TrajectoryPoint_t po = *(p.list.array[i]);
+        Value obj = to_json(po, allocator);
+        json.PushBack(obj, allocator);
     }
     return json;
 }
 
-void from_json(const Value& j, Submaneuver::Submaneuver__trajectoryPoint& p, std::string field) {
+void from_json(const Value& j, TrajectoryList& p, std::string field) {
     try {
-        if (j.HasMember("wgs84TrajectoryPoint")) {
-            p.present = Submaneuver__trajectoryPoint_PR::Submaneuver__trajectoryPoint_PR_wgs84TrajectoryPoint;
-            from_json(j["wgs84TrajectoryPoint"], p.choice.wgs84TrajectoryPoint, "wgs84TrajectoryPoint");
-        } else {
-        p.present = Submaneuver__trajectoryPoint_PR::Submaneuver__trajectoryPoint_PR_NOTHING;
+        TrajectoryList* p_tmp = vanetza::asn1::allocate<TrajectoryList>();
+        for (SizeType i = 0; i < j.Size(); i++) {
+            const Value& item = j[i];
+            Wgs84TrajectoryPoint_t *element = vanetza::asn1::allocate<Wgs84TrajectoryPoint_t>();
+            from_json(item, *element, "index #" + std::to_string(i));
+            asn_set_add(&(p_tmp->list), element);
         }
+        p = *p_tmp;
+        delete p_tmp;
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();

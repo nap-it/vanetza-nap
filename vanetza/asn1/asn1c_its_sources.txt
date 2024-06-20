@@ -1104,6 +1104,7 @@ its/TrailerLicencePlateNumber.c
 its/TrailerPresenceInformation.c
 its/TrainCharacteristics.c
 its/TrajectoryId.c
+its/TrajectoryList.c
 its/TransitVehicleOccupancy.c
 its/TransitVehicleStatus.c
 its/TransmissionAndSpeed.c

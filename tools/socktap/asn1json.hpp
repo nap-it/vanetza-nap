@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by RapidJSON
-*   Auto-generated from the asn1 directory by asn1json.py on 2024-06-12 16:03:03.696518
+*   Auto-generated from the asn1 directory by asn1json.py on 2024-06-20 15:49:19.745352
 */
 
 #ifndef ASN1_JSON_HPP
@@ -6265,13 +6265,13 @@ void from_json(const Value& j, Wgs84TrajectoryPoint& p, std::string field);
 
 
 /*
-*   Submaneuver::Submaneuver__trajectoryPoint - Type CHOICE
+*   TrajectoryList - Type SEQUENCE OF
 *   From MCM-PDU-Descriptions - File MCM-PDU-Descriptions.asn
 */
 
-Value to_json(const Submaneuver::Submaneuver__trajectoryPoint& p, Document::AllocatorType& allocator);
+Value to_json(const TrajectoryList& p, Document::AllocatorType& allocator);
 
-void from_json(const Value& j, Submaneuver::Submaneuver__trajectoryPoint& p, std::string field);
+void from_json(const Value& j, TrajectoryList& p, std::string field);
 
 
 /*
