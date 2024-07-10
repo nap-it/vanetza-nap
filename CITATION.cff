@@ -1,0 +1,23 @@
+cff-version: 1.0.0
+message: "If you use this code please cite it as below."
+authors:
+- family-names: "Rosmaninho"
+  given-names: "Rodrigo"
+- family-names: "Figueiredo"
+  given-names: "Andreia"
+  orcid: "https://orcid.org/0000-0002-9232-6758"
+- family-names: "Almeida"
+  given-names: "Pedro"
+- family-names: "Rito"
+  given-names: "Pedro"
+  orcid: "https://orcid.org/0000-0002-1151-9268"
+- family-names: "Raposo"
+  given-names: "Duarte"
+  orcid: "https://orcid.org/0000-0001-5621-7194"
+- family-names: "Sargento"
+  given-names: "Susana"
+  orcid: "https://orcid.org/0000-0001-8761-8281"
+
+title: "Vanetza-NAP: Vehicular Communications and Services in MicroServices Architectures"
+date-released: 2024
+url: ""
