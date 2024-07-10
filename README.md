@@ -13,7 +13,7 @@ If you find this code useful in your research, please consider citing :
         number={},
         pages={297-304},
         keywords={Runtime;Protocols;Microservice architectures;Computer architecture;Data processing;Delays;Vehicle-to-everything;ITS-G5;V2X;Vehicular Edge Computing;C-ITS;Data Distribution Service;Multi-access Edge Computing},
-  doi={10.1109/VNC61989.2024.10575959}
+        doi={10.1109/VNC61989.2024.10575959}
     }
 
 ### Introduction and Containerized Usage Guide
