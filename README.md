@@ -1,9 +1,24 @@
-# NAP-Vanetza
+# Vanetza-NAP
+
+Vanetza-NAP is an extended version of [Vanetza](https://github.com/riebl/vanetza) is an open-source C++ implementation of the ETSI C-ITS protocol suite designed to operate on ITS-G5 channels in a Vehicular Ad Hoc Network (VANET) using IEEE 802.11p (WAVE).
+
+If you find this code useful in your research, please consider citing :
+
+    @INPROCEEDINGS{Rosmaninho2024,
+        author={Rosmaninho, Rodrigo and Figueiredo, Andreia and Almeida, Pedro and Rito, Pedro and Raposo, Duarte and Sargento, Susana},
+        booktitle={2024 IEEE Vehicular Networking Conference (VNC)}, 
+        title={Vanetza-NAP: Vehicular Communications and Services in MicroServices Architectures}, 
+        year={2024},
+        volume={},
+        number={},
+        pages={297-304},
+        keywords={Runtime;Protocols;Microservice architectures;Computer architecture;Data processing;Delays;Vehicle-to-everything;ITS-G5;V2X;Vehicular Edge Computing;C-ITS;Data Distribution Service;Multi-access Edge Computing},
+  doi={10.1109/VNC61989.2024.10575959}
+    }
+
 ### Introduction and Containerized Usage Guide
 
-[Vanetza](https://github.com/riebl/vanetza) is an open-source C++ implementation of the ETSI C-ITS protocol suite designed to operate on ITS-G5 channels in a Vehicular Ad Hoc Network (VANET) using IEEE 802.11p (WAVE).
-
-NAP-Vanetza extends the base Vanetza project to integrate MQTT and JSON capabilities, as well as additional types of ETSI C-ITS messages.
+Vanetza-NAP extends the base Vanetza project to integrate MQTT and JSON capabilities, as well as additional types of ETSI C-ITS messages.
 
 The following message types are supported:
 * Cooperative Awareness Messages (CAM)
