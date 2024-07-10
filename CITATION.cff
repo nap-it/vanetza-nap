@@ -3,6 +3,7 @@ message: If you use this software, please cite both the article from preferred-c
 authors:
   - family-names: Rosmaninho
     given-names: Rodrigo
+    orcid: "https://orcid.org/0009-0004-6974-091X"
   - family-names: Figueiredo
     given-names: Andreia
     orcid: "https://orcid.org/0000-0002-9232-6758"
