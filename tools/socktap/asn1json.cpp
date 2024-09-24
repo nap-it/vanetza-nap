@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by RapidJSON
-*   Auto-generated from the asn1 directory by asn1json.py on 2024-06-20 15:49:12.960167
+*   Auto-generated from the asn1 directory by asn1json.py on 2024-09-13 03:15:00.223650
 */
 
 #include "asn1json.hpp"
@@ -861,7 +861,7 @@ void from_json_ETSI_ITS_CDD_VruSpecificExteriorLights(const Value& j, ETSI_ITS_C
 
 Value to_json(const AccelerationComponent_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("value", to_json((p.value), allocator), allocator);
+    json.AddMember("value", to_json(((p.value) == 161) ? (p.value) : (double)(p.value) / 10.0, allocator), allocator);
     json.AddMember("confidence", to_json(((p.confidence) == 102) ? (p.confidence) : (double)(p.confidence) / 10.0, allocator), allocator);
     
     return json;
@@ -870,7 +870,7 @@ Value to_json(const AccelerationComponent_t& p, Document::AllocatorType& allocat
 void from_json(const Value& j, AccelerationComponent_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["value"], (p.value), "value");
+        double value; from_json(j["value"], (value), "value"); (p.value) = ((value) != 161) ? value * 10 : value;
         double confidence; from_json(j["confidence"], (confidence), "confidence"); (p.confidence) = ((confidence) != 102) ? confidence * 10 : confidence;
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -1161,7 +1161,7 @@ void from_json(const Value& j, CartesianAngularAccelerationComponent_t& p, std::
 
 Value to_json(const CartesianCoordinateWithConfidence_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("value", to_json((p.value), allocator), allocator);
+    json.AddMember("value", to_json((double)(p.value) / 100.0, allocator), allocator);
     json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
     
     return json;
@@ -1170,7 +1170,7 @@ Value to_json(const CartesianCoordinateWithConfidence_t& p, Document::AllocatorT
 void from_json(const Value& j, CartesianCoordinateWithConfidence_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["value"], (p.value), "value");
+        double value; from_json(j["value"], (value), "value"); (p.value) =value * 100;
         from_json(j["confidence"], (p.confidence), "confidence");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -3913,7 +3913,7 @@ void from_json(const Value& j, VehicleLengthV2_t& p, std::string field) {
 
 Value to_json(const VelocityComponent_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("value", to_json((p.value), allocator), allocator);
+    json.AddMember("value", to_json(((p.value) == 16383) ? (p.value) : (double)(p.value) / 100.0, allocator), allocator);
     json.AddMember("confidence", to_json(((p.confidence) == 126 || (p.confidence) == 127) ? (p.confidence) : (double)(p.confidence) / 100.0, allocator), allocator);
     
     return json;
@@ -3922,7 +3922,7 @@ Value to_json(const VelocityComponent_t& p, Document::AllocatorType& allocator) 
 void from_json(const Value& j, VelocityComponent_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["value"], (p.value), "value");
+        double value; from_json(j["value"], (value), "value"); (p.value) = ((value) != 16383) ? value * 100 : value;
         double confidence; from_json(j["confidence"], (confidence), "confidence"); (p.confidence) = ((confidence) != 126 && (confidence) != 127) ? confidence * 100 : confidence;
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
