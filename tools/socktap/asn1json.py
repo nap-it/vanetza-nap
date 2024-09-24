@@ -51,7 +51,10 @@ transformation = {
     "CartesianAngleValue": (pow(10,1),[3601]),
     "SensorHeight": (pow(10,2),[]),
     "SemiRangeLength": (pow(10,1),[]),
-    "Radius": (pow(10,1),[])
+    "Radius": (pow(10,1),[]),
+    "CoordinateConfidence": (pow(10,2), [4096]),
+    "AngleConfidence": (pow(10,1), [127])
+
 }
 
 printed = ["PhoneNumber", "VehicleHeight", "PreemptPriorityList", "WMInumber", "VDS",

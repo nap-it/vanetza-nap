@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by RapidJSON
-*   Auto-generated from the asn1 directory by asn1json.py on 2024-09-13 03:15:00.223650
+*   Auto-generated from the asn1 directory by asn1json.py on 2024-09-24 17:59:16.807523
 */
 
 #include "asn1json.hpp"
@@ -1084,7 +1084,7 @@ void from_json(const Value& j, BasicLaneInformation_t& p, std::string field) {
 Value to_json(const CartesianAngle_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("value", to_json(((p.value) == 3601) ? (p.value) : (double)(p.value) / 10.0, allocator), allocator);
-    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
+    json.AddMember("confidence", to_json(((p.confidence) == 127) ? (p.confidence) : (double)(p.confidence) / 10.0, allocator), allocator);
     
     return json;
 }
@@ -1093,7 +1093,7 @@ void from_json(const Value& j, CartesianAngle_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         double value; from_json(j["value"], (value), "value"); (p.value) = ((value) != 3601) ? value * 10 : value;
-        from_json(j["confidence"], (p.confidence), "confidence");
+        double confidence; from_json(j["confidence"], (confidence), "confidence"); (p.confidence) = ((confidence) != 127) ? confidence * 10 : confidence;
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -1162,7 +1162,7 @@ void from_json(const Value& j, CartesianAngularAccelerationComponent_t& p, std::
 Value to_json(const CartesianCoordinateWithConfidence_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("value", to_json((double)(p.value) / 100.0, allocator), allocator);
-    json.AddMember("confidence", to_json((p.confidence), allocator), allocator);
+    json.AddMember("confidence", to_json(((p.confidence) == 4096) ? (p.confidence) : (double)(p.confidence) / 100.0, allocator), allocator);
     
     return json;
 }
@@ -1171,7 +1171,7 @@ void from_json(const Value& j, CartesianCoordinateWithConfidence_t& p, std::stri
     try {
         p._asn_ctx.ptr = nullptr;
         double value; from_json(j["value"], (value), "value"); (p.value) =value * 100;
-        from_json(j["confidence"], (p.confidence), "confidence");
+        double confidence; from_json(j["confidence"], (confidence), "confidence"); (p.confidence) = ((confidence) != 4096) ? confidence * 100 : confidence;
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
