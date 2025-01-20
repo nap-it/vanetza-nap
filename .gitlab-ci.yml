@@ -1,0 +1,10 @@
+
+stages:
+  - build
+
+build-job:
+  stage: build
+  script:
+    - echo "Running on an ARM64 runner!"
+  tags:
+    - arm64
