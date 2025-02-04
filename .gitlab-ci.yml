@@ -6,6 +6,10 @@ variables:
   REGISTRY: "code.nap.av.it.pt:5050"
   DOCKER_HOST: "unix:///runner/services/docker/docker.sock"
 
+before_script:
+  - echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin code.nap.av.it.pt:5050
+  - DOCKER_TAG=$([[ "$CI_COMMIT_REF_NAME" == "master" ]] && echo "latest" || echo "$CI_COMMIT_REF_NAME")
+
 build_amd64:
   stage: build
   image: docker:latest
@@ -13,9 +17,9 @@ build_amd64:
     - amd64
   services:
     - name: docker:dind
+  variables:
+    DOCKER_HOST: "unix:///runner/services/docker/docker.sock"
   script:
-    - echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin $REGISTRY
-    - DOCKER_TAG=$([[ "$CI_COMMIT_REF_NAME" == "master" ]] && echo "latest" || echo "$CI_COMMIT_REF_NAME")
     - docker build -t $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-amd64 .
     - docker push $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-amd64
 
@@ -24,11 +28,9 @@ build_arm64:
   image: docker:latest
   tags:
     - arm64
+  variables:
+    DOCKER_HOST: "unix:///var/run/docker.sock"
   script:
-    - tail -f /dev/null
-    - sleep 10
-    - echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin code.nap.av.it.pt:5050
-    - DOCKER_TAG=$([[ "$CI_COMMIT_REF_NAME" == "master" ]] && echo "latest" || echo "$CI_COMMIT_REF_NAME")
     - docker build -t $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-arm64 .
     - docker push $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-arm64
 
@@ -39,9 +41,9 @@ create_manifest:
     - amd64
   services:
     - name: docker:dind
+  variables:
+    DOCKER_HOST: "unix:///runner/services/docker/docker.sock"
   script:
-    - echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin code.nap.av.it.pt:5050
-    - DOCKER_TAG=$([[ "$CI_COMMIT_REF_NAME" == "master" ]] && echo "latest" || echo "$CI_COMMIT_REF_NAME")
     - docker manifest create $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG \
         $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-amd64 \
         $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-arm64
