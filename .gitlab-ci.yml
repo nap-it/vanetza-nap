@@ -18,9 +18,7 @@ build_amd64:
   services:
     - name: docker:dind
   script:
-    - docker build -t $DOCKER_IMAGE:amd64 .
-    - docker tag $DOCKER_IMAGE:amd64 $DOCKER_IMAGE:$DOCKER_TAG-amd64
-    - docker push $DOCKER_IMAGE:amd64
+    - docker build -t $DOCKER_IMAGE:$DOCKER_TAG-amd64 .
     - docker push $DOCKER_IMAGE:$DOCKER_TAG-amd64
 
 build_arm64:
@@ -34,9 +32,7 @@ build_arm64:
   services:
     - name: docker:dind
   script:
-    - docker build -t $DOCKER_IMAGE:arm64 .
-    - docker tag $DOCKER_IMAGE:arm64 $DOCKER_IMAGE:$DOCKER_TAG-arm64
-    - docker push $DOCKER_IMAGE:arm64
+    - docker build -t $DOCKER_IMAGE:$DOCKER_TAG-arm64 .
     - docker push $DOCKER_IMAGE:$DOCKER_TAG-arm64
 
 create_manifest:
@@ -48,10 +44,10 @@ create_manifest:
     - name: docker:dind
   script:
     - docker manifest create $DOCKER_IMAGE:$DOCKER_TAG \
-        $DOCKER_IMAGE:amd64 \
-        $DOCKER_IMAGE:arm64
-    - docker manifest annotate $DOCKER_IMAGE:$DOCKER_TAG $DOCKER_IMAGE:amd64 --arch amd64
-    - docker manifest annotate $DOCKER_IMAGE:$DOCKER_TAG $DOCKER_IMAGE:arm64 --arch arm64
+        $DOCKER_IMAGE:$DOCKER_TAG-amd64 \
+        $DOCKER_IMAGE:$DOCKER_TAG-arm64
+    - docker manifest annotate $DOCKER_IMAGE:$DOCKER_TAG $DOCKER_IMAGE:$DOCKER_TAG-amd64 --arch amd64
+    - docker manifest annotate $DOCKER_IMAGE:$DOCKER_TAG $DOCKER_IMAGE:$DOCKER_TAG-arm64 --arch arm64
     - docker manifest push $DOCKER_IMAGE:$DOCKER_TAG
   dependencies:
     - build_amd64
