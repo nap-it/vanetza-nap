@@ -25,7 +25,9 @@ build_amd64:
 
 build_arm64:
   stage: build
-  image: docker:latest
+  image: 
+    name: docker:latest
+    entrypoint: ["tail", "-f", "/dev/null"]
   variables:
     DOCKER_HOST: tcp://docker:2375
   tags:
