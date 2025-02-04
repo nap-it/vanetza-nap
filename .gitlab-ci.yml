@@ -14,6 +14,8 @@ build_amd64:
   image: docker:latest
   tags:
     - amd64
+  services:
+    - docker:dind
   script:
     - docker build -t $DOCKER_IMAGE:amd64 .
     - docker tag $DOCKER_IMAGE:amd64 $DOCKER_IMAGE:$DOCKER_TAG-amd64
@@ -25,6 +27,8 @@ build_arm64:
   image: docker:latest
   tags:
     - arm64
+  services:
+    - docker:dind
   script:
     - docker build -t $DOCKER_IMAGE:arm64 .
     - docker tag $DOCKER_IMAGE:arm64 $DOCKER_IMAGE:$DOCKER_TAG-arm64
@@ -36,6 +40,8 @@ create_manifest:
   image: docker:latest
   tags:
     - amd64
+  services:
+    - docker:dind
   script:
     - docker manifest create $DOCKER_IMAGE:$DOCKER_TAG \
         $DOCKER_IMAGE:amd64 \
