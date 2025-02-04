@@ -5,6 +5,8 @@ stages:
 variables:
   DOCKER_IMAGE: code.nap.av.it.pt:5050/mobility-networks/vanetza
   DOCKER_TAG: $([[ "$CI_COMMIT_BRANCH" == "master" ]] && echo "latest" || echo "$CI_COMMIT_BRANCH")
+  DOCKER_HOST: tcp://localhost:2375
+  DOCKER_TLS_CERTDIR: ""
 
 before_script:
   - echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin code.nap.av.it.pt:5050
