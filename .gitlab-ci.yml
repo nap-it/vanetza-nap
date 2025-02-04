@@ -1,10 +1,45 @@
-
 stages:
   - build
+  - manifest
 
-build-job:
+variables:
+  DOCKER_IMAGE: code.nap.av.it.pt:5050/mobility-networks/vanetza
+  DOCKER_TAG: $([[ "$CI_COMMIT_BRANCH" == "master" ]] && echo "latest" || echo "$CI_COMMIT_BRANCH")
+
+before_script:
+  - echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin code.nap.av.it.pt:5050
+
+build_amd64:
   stage: build
+  tags:
+    - amd64
   script:
-    - echo "Running on an ARM64 runner!"
+    - docker build -t $DOCKER_IMAGE:amd64 .
+    - docker tag $DOCKER_IMAGE:amd64 $DOCKER_IMAGE:$DOCKER_TAG-amd64
+    - docker push $DOCKER_IMAGE:amd64
+    - docker push $DOCKER_IMAGE:$DOCKER_TAG-amd64
+
+build_arm64:
+  stage: build
   tags:
     - arm64
+  script:
+    - docker build -t $DOCKER_IMAGE:arm64 .
+    - docker tag $DOCKER_IMAGE:arm64 $DOCKER_IMAGE:$DOCKER_TAG-arm64
+    - docker push $DOCKER_IMAGE:arm64
+    - docker push $DOCKER_IMAGE:$DOCKER_TAG-arm64
+
+create_manifest:
+  stage: manifest
+  tags:
+    - amd64
+  script:
+    - docker manifest create $DOCKER_IMAGE:$DOCKER_TAG \
+        $DOCKER_IMAGE:amd64 \
+        $DOCKER_IMAGE:arm64
+    - docker manifest annotate $DOCKER_IMAGE:$DOCKER_TAG $DOCKER_IMAGE:amd64 --arch amd64
+    - docker manifest annotate $DOCKER_IMAGE:$DOCKER_TAG $DOCKER_IMAGE:arm64 --arch arm64
+    - docker manifest push $DOCKER_IMAGE:$DOCKER_TAG
+  dependencies:
+    - build_amd64
+    - build_arm64
