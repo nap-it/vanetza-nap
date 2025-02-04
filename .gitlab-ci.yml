@@ -8,7 +8,7 @@ variables:
 
 before_script:
   - echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin code.nap.av.it.pt:5050
-  - DOCKER_TAG=$([[ "$CI_COMMIT_REF_NAME" == "master" ]] && echo "latest" || echo "$CI_COMMIT_REF_NAME"
+  - DOCKER_TAG=$([[ "$CI_COMMIT_REF_NAME" == "master" ]] && echo "latest" || echo "$CI_COMMIT_REF_NAME")
 
 build_amd64:
   stage: build
