@@ -11,6 +11,7 @@ before_script:
 
 build_amd64:
   stage: build
+  image: docker:latest
   tags:
     - amd64
   script:
@@ -21,6 +22,7 @@ build_amd64:
 
 build_arm64:
   stage: build
+  image: docker:latest
   tags:
     - arm64
   script:
@@ -31,6 +33,7 @@ build_arm64:
 
 create_manifest:
   stage: manifest
+  image: docker:latest
   tags:
     - amd64
   script:
