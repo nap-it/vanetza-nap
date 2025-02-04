@@ -3,6 +3,7 @@ stages:
   - manifest
 
 variables:
+  REGISTRY: "code.nap.av.it.pt:5050"
   DOCKER_HOST: "unix:///runner/services/docker/docker.sock"
 
 build_amd64:
@@ -13,29 +14,23 @@ build_amd64:
   services:
     - name: docker:dind
   script:
-    - echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin code.nap.av.it.pt:5050
+    - echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin $REGISTRY
     - DOCKER_TAG=$([[ "$CI_COMMIT_REF_NAME" == "master" ]] && echo "latest" || echo "$CI_COMMIT_REF_NAME")
-    - echo $DOCKER_ENV_DOCKER_IMAGE:$DOCKER_TAG-amd64
-    - docker build -t $DOCKER_ENV_DOCKER_IMAGE:$DOCKER_TAG-amd64 .
-    - docker push $DOCKER_ENV_DOCKER_IMAGE:$DOCKER_TAG-amd64
+    - docker build -t $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-amd64 .
+    - docker push $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-amd64
 
 build_arm64:
   stage: build
   image: docker:latest
-  variables:
-    DOCKER_HOST: tcp://docker:2375
   tags:
     - arm64
-  services:
-    - name: docker:dind
-      command: ["--tls=false", "--tlsverify=false", "--host=tcp://0.0.0.0:2375"]
   script:
     - tail -f /dev/null
     - sleep 10
     - echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin code.nap.av.it.pt:5050
     - DOCKER_TAG=$([[ "$CI_COMMIT_REF_NAME" == "master" ]] && echo "latest" || echo "$CI_COMMIT_REF_NAME")
-    - docker build -t $DOCKER_ENV_DOCKER_IMAGE:$DOCKER_TAG-arm64 .
-    - docker push $DOCKER_ENV_DOCKER_IMAGE:$DOCKER_TAG-arm64
+    - docker build -t $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-arm64 .
+    - docker push $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-arm64
 
 create_manifest:
   stage: manifest
@@ -47,12 +42,12 @@ create_manifest:
   script:
     - echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin code.nap.av.it.pt:5050
     - DOCKER_TAG=$([[ "$CI_COMMIT_REF_NAME" == "master" ]] && echo "latest" || echo "$CI_COMMIT_REF_NAME")
-    - docker manifest create $DOCKER_ENV_DOCKER_IMAGE:$DOCKER_TAG \
-        $DOCKER_ENV_DOCKER_IMAGE:$DOCKER_TAG-amd64 \
-        $DOCKER_ENV_DOCKER_IMAGE:$DOCKER_TAG-arm64
-    - docker manifest annotate $DOCKER_ENV_DOCKER_IMAGE:$DOCKER_TAG $DOCKER_ENV_DOCKER_IMAGE:$DOCKER_TAG-amd64 --arch amd64
-    - docker manifest annotate $DOCKER_ENV_DOCKER_IMAGE:$DOCKER_TAG $DOCKER_ENV_DOCKER_IMAGE:$DOCKER_TAG-arm64 --arch arm64
-    - docker manifest push $DOCKER_ENV_DOCKER_IMAGE:$DOCKER_TAG
+    - docker manifest create $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG \
+        $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-amd64 \
+        $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-arm64
+    - docker manifest annotate $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-amd64 --arch amd64
+    - docker manifest annotate $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-arm64 --arch arm64
+    - docker manifest push $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG
   dependencies:
     - build_amd64
     - build_arm64
