@@ -15,7 +15,8 @@ build_amd64:
   tags:
     - amd64
   services:
-    - docker:dind
+    - name: docker:dind
+      privileged: true
   script:
     - docker build -t $DOCKER_IMAGE:amd64 .
     - docker tag $DOCKER_IMAGE:amd64 $DOCKER_IMAGE:$DOCKER_TAG-amd64
@@ -28,7 +29,8 @@ build_arm64:
   tags:
     - arm64
   services:
-    - docker:dind
+    - name: docker:dind
+      privileged: true
   script:
     - docker build -t $DOCKER_IMAGE:arm64 .
     - docker tag $DOCKER_IMAGE:arm64 $DOCKER_IMAGE:$DOCKER_TAG-arm64
@@ -41,7 +43,8 @@ create_manifest:
   tags:
     - amd64
   services:
-    - docker:dind
+    - name: docker:dind
+      privileged: true
   script:
     - docker manifest create $DOCKER_IMAGE:$DOCKER_TAG \
         $DOCKER_IMAGE:amd64 \
