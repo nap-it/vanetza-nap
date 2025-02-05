@@ -64,7 +64,7 @@ cleanup_arch_images:
     - curl --fail-with-body --location "https://github.com/regclient/regclient/releases/download/v0.6.1/regctl-linux-amd64" > /usr/bin/regctl
     - chmod 755 /usr/bin/regctl
     - regctl registry login ${REGISTRY} -u ${CI_USER} -p ${CI_TOKEN}
-    - regctl tag rm $CI_PROJECT_PATH:$DOCKER_TAG-amd64
-    - regctl tag rm $CI_PROJECT_PATH:$DOCKER_TAG-arm64
+    - regctl tag rm ${REGISTRY}/$CI_PROJECT_PATH:$DOCKER_TAG-amd64
+    - regctl tag rm ${REGISTRY}/$CI_PROJECT_PATH:$DOCKER_TAG-arm64
   dependencies:
     - create_manifest
