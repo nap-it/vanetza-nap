@@ -54,7 +54,7 @@ create_manifest:
     - build_arm64
 
 cleanup_arch_images:
-  stage: cleanup
+  stage: manifest
   image: alpine:latest
   script:
     - apk update
