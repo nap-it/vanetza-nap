@@ -54,8 +54,10 @@ create_manifest:
     - build_arm64
 
 cleanup_arch_images:
-  stage: manifest
+  stage: .post
   image: alpine:latest
+  tags:
+    - amd64
   script:
     - apk update
     - apk add curl
