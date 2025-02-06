@@ -27,6 +27,7 @@ transformation = {
     "Latitude": (pow(10,7),[900000001]),
     "Longitude": (pow(10,7),[1800000001]),
     "CartesianCoordinateLarge": (pow(10,2),[]),
+    "SteeringWheelAngleValue": ((2/3),[]),
     "AltitudeValue": (pow(10,2),[800001]),
 #    "AltitudeConfidence": (pow(10,2),[14,15]),
     "HeadingValue": (pow(10,1),[3601]),
@@ -411,16 +412,16 @@ void from_json(const Value& j, """ + (self.print_name.replace("-", "_") + "_t" i
             else:
                 member_str += '(' + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + '), "' + m["name"] + '"); ' + \
                                 get_element_name(m, self, True) + \
-                                ') ='
+                                ') = '
                 if len(transformation[m["type"]][1]) > 0:
-                    member_str += ' (' + ' && '.join([('(' + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + \
+                    member_str += '(' + ' && '.join([('(' + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + \
                                     ') != ' + str(n)) for n in transformation[m["type"]][1]]) + ') ? ' + \
                                     (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + \
                                     ' * ' + str(int(transformation[m["type"]][0])) + ' : ' + \
                                     (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + ';'
                 else:
                     member_str += (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + \
-                                    ' * ' + str(int(transformation[m["type"]][0])) + ';'
+                                    ' * ' + str(int(transformation[m["type"]][0]) if (transformation[m["type"]][0]).is_integer() else float(transformation[m["type"]][0])) + ';'
                                     
             if needs_closing:
                 member_str += ' }\n        else { ' + \

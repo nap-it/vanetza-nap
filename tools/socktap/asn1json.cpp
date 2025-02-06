@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by RapidJSON
-*   Auto-generated from the asn1 directory by asn1json.py on 2024-09-24 17:59:16.807523
+*   Auto-generated from the asn1 directory by asn1json.py on 2025-02-06 11:22:43.607684
 */
 
 #include "asn1json.hpp"
@@ -1170,7 +1170,7 @@ Value to_json(const CartesianCoordinateWithConfidence_t& p, Document::AllocatorT
 void from_json(const Value& j, CartesianCoordinateWithConfidence_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        double value; from_json(j["value"], (value), "value"); (p.value) =value * 100;
+        double value; from_json(j["value"], (value), "value"); (p.value) = value * 100;
         double confidence; from_json(j["confidence"], (confidence), "confidence"); (p.confidence) = ((confidence) != 4096) ? confidence * 100 : confidence;
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -2913,7 +2913,7 @@ Value to_json(const ObjectDimension_t& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, ObjectDimension_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        double value; from_json(j["value"], (value), "value"); (p.value) =value * 10;
+        double value; from_json(j["value"], (value), "value"); (p.value) = value * 10;
         from_json(j["confidence"], (p.confidence), "confidence");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -3661,7 +3661,7 @@ void from_json(const Value& j, ETSI_ITS_CDD_StabilityChangeIndication_t& p, std:
 
 Value to_json(const ETSI_ITS_CDD_SteeringWheelAngle_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("steeringWheelAngleValue", to_json((p.steeringWheelAngleValue), allocator), allocator);
+    json.AddMember("steeringWheelAngleValue", to_json((double)(p.steeringWheelAngleValue) / 0.6666666666666666, allocator), allocator);
     json.AddMember("steeringWheelAngleConfidence", to_json((p.steeringWheelAngleConfidence), allocator), allocator);
     
     return json;
@@ -3670,7 +3670,7 @@ Value to_json(const ETSI_ITS_CDD_SteeringWheelAngle_t& p, Document::AllocatorTyp
 void from_json(const Value& j, ETSI_ITS_CDD_SteeringWheelAngle_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["steeringWheelAngleValue"], (p.steeringWheelAngleValue), "steeringWheelAngleValue");
+        double steeringWheelAngleValue; from_json(j["steeringWheelAngleValue"], (steeringWheelAngleValue), "steeringWheelAngleValue"); (p.steeringWheelAngleValue) = steeringWheelAngleValue * 0.6666666666666666;
         from_json(j["steeringWheelAngleConfidence"], (p.steeringWheelAngleConfidence), "steeringWheelAngleConfidence");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -5020,7 +5020,7 @@ void from_json_ITS_Container_EmergencyPriority(const Value& j, ITS_Container_Eme
 
 Value to_json(const ITS_Container_SteeringWheelAngle_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("steeringWheelAngleValue", to_json((p.steeringWheelAngleValue), allocator), allocator);
+    json.AddMember("steeringWheelAngleValue", to_json((double)(p.steeringWheelAngleValue) / 0.6666666666666666, allocator), allocator);
     json.AddMember("steeringWheelAngleConfidence", to_json((p.steeringWheelAngleConfidence), allocator), allocator);
     
     return json;
@@ -5029,7 +5029,7 @@ Value to_json(const ITS_Container_SteeringWheelAngle_t& p, Document::AllocatorTy
 void from_json(const Value& j, ITS_Container_SteeringWheelAngle_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["steeringWheelAngleValue"], (p.steeringWheelAngleValue), "steeringWheelAngleValue");
+        double steeringWheelAngleValue; from_json(j["steeringWheelAngleValue"], (steeringWheelAngleValue), "steeringWheelAngleValue"); (p.steeringWheelAngleValue) = steeringWheelAngleValue * 0.6666666666666666;
         from_json(j["steeringWheelAngleConfidence"], (p.steeringWheelAngleConfidence), "steeringWheelAngleConfidence");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -16865,8 +16865,8 @@ void from_json(const Value& j, IMZMAreaEllipse& p, std::string field) {
         p._asn_ctx.ptr = nullptr;
         if (j.HasMember("nodeCenterPoint")) { p.nodeCenterPoint = vanetza::asn1::allocate<OffsetPoint_t>(); from_json(j["nodeCenterPoint"], *(p.nodeCenterPoint), "nodeCenterPoint"); }
         else { p.nodeCenterPoint=nullptr; }
-        double semiMajorRangeLength; from_json(j["semiMajorRangeLength"], (semiMajorRangeLength), "semiMajorRangeLength"); (p.semiMajorRangeLength) =semiMajorRangeLength * 10;
-        double semiMinorRangeLength; from_json(j["semiMinorRangeLength"], (semiMinorRangeLength), "semiMinorRangeLength"); (p.semiMinorRangeLength) =semiMinorRangeLength * 10;
+        double semiMajorRangeLength; from_json(j["semiMajorRangeLength"], (semiMajorRangeLength), "semiMajorRangeLength"); (p.semiMajorRangeLength) = semiMajorRangeLength * 10;
+        double semiMinorRangeLength; from_json(j["semiMinorRangeLength"], (semiMinorRangeLength), "semiMinorRangeLength"); (p.semiMinorRangeLength) = semiMinorRangeLength * 10;
         double semiMajorRangeOrientation; from_json(j["semiMajorRangeOrientation"], (semiMajorRangeOrientation), "semiMajorRangeOrientation"); (p.semiMajorRangeOrientation) = ((semiMajorRangeOrientation) != 3601) ? semiMajorRangeOrientation * 10 : semiMajorRangeOrientation;
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -18758,7 +18758,7 @@ void from_json(const Value& j, AreaCircular& p, std::string field) {
         p._asn_ctx.ptr = nullptr;
         if (j.HasMember("nodeCenterPoint")) { p.nodeCenterPoint = vanetza::asn1::allocate<OffsetPoint_t>(); from_json(j["nodeCenterPoint"], *(p.nodeCenterPoint), "nodeCenterPoint"); }
         else { p.nodeCenterPoint=nullptr; }
-        double radius; from_json(j["radius"], (radius), "radius"); (p.radius) =radius * 10;
+        double radius; from_json(j["radius"], (radius), "radius"); (p.radius) = radius * 10;
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -18787,10 +18787,10 @@ void from_json(const Value& j, AreaRectangle& p, std::string field) {
         p._asn_ctx.ptr = nullptr;
         if (j.HasMember("nodeCenterPoint")) { p.nodeCenterPoint = vanetza::asn1::allocate<OffsetPoint_t>(); from_json(j["nodeCenterPoint"], *(p.nodeCenterPoint), "nodeCenterPoint"); }
         else { p.nodeCenterPoint=nullptr; }
-        double semiMajorRangeLength; from_json(j["semiMajorRangeLength"], (semiMajorRangeLength), "semiMajorRangeLength"); (p.semiMajorRangeLength) =semiMajorRangeLength * 10;
-        double semiMinorRangeLength; from_json(j["semiMinorRangeLength"], (semiMinorRangeLength), "semiMinorRangeLength"); (p.semiMinorRangeLength) =semiMinorRangeLength * 10;
+        double semiMajorRangeLength; from_json(j["semiMajorRangeLength"], (semiMajorRangeLength), "semiMajorRangeLength"); (p.semiMajorRangeLength) = semiMajorRangeLength * 10;
+        double semiMinorRangeLength; from_json(j["semiMinorRangeLength"], (semiMinorRangeLength), "semiMinorRangeLength"); (p.semiMinorRangeLength) = semiMinorRangeLength * 10;
         double semiMajorRangeOrientation; from_json(j["semiMajorRangeOrientation"], (semiMajorRangeOrientation), "semiMajorRangeOrientation"); (p.semiMajorRangeOrientation) = ((semiMajorRangeOrientation) != 3601) ? semiMajorRangeOrientation * 10 : semiMajorRangeOrientation;
-        double semiHeight; if (j.HasMember("semiHeight")) { p.semiHeight = vanetza::asn1::allocate<SemiRangeLength_t>(); from_json(j["semiHeight"], (semiHeight), "semiHeight"); *(p.semiHeight) =semiHeight * 10; }
+        double semiHeight; if (j.HasMember("semiHeight")) { p.semiHeight = vanetza::asn1::allocate<SemiRangeLength_t>(); from_json(j["semiHeight"], (semiHeight), "semiHeight"); *(p.semiHeight) = semiHeight * 10; }
         else { p.semiHeight=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);

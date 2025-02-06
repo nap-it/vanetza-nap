@@ -1,0 +1,70 @@
+stages:
+  - build
+  - manifest
+
+variables:
+  REGISTRY: "code.nap.av.it.pt:5050"
+
+before_script:
+  - DOCKER_TAG=$([[ "$CI_COMMIT_REF_NAME" == "master" ]] && echo "latest" || echo "$CI_COMMIT_REF_NAME")
+
+build_amd64:
+  stage: build
+  image: docker:latest
+  tags:
+    - amd64
+  services:
+    - name: docker:dind
+  variables:
+    DOCKER_HOST: "unix:///runner/services/docker/docker.sock"
+  script:
+    - echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin $REGISTRY
+    - docker build -t $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-amd64 .
+    - docker push $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-amd64
+
+build_arm64:
+  stage: build
+  image: docker:latest
+  tags:
+    - arm64
+  variables:
+    DOCKER_HOST: "unix:///var/run/docker.sock"
+  script:
+    - echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin $REGISTRY
+    - docker build -t $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-arm64 .
+    - docker push $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-arm64
+
+create_manifest:
+  stage: manifest
+  image: docker:latest
+  tags:
+    - amd64
+  services:
+    - name: docker:dind
+  variables:
+    DOCKER_HOST: "unix:///runner/services/docker/docker.sock"
+  script:
+    - echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin $REGISTRY
+    - docker manifest create $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-amd64 $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-arm64
+    - docker manifest annotate $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-amd64 --arch amd64
+    - docker manifest annotate $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG-arm64 --arch arm64
+    - docker manifest push $REGISTRY/$CI_PROJECT_PATH:$DOCKER_TAG
+  dependencies:
+    - build_amd64
+    - build_arm64
+
+cleanup_arch_images:
+  stage: .post
+  image: alpine:latest
+  tags:
+    - amd64
+  script:
+    - apk update
+    - apk add curl
+    - curl --fail-with-body --location "https://github.com/regclient/regclient/releases/download/v0.6.1/regctl-linux-amd64" > /usr/bin/regctl
+    - chmod 755 /usr/bin/regctl
+    - regctl registry login ${REGISTRY} -u ${CI_USER} -p ${CI_TOKEN}
+    - regctl tag rm ${REGISTRY}/$CI_PROJECT_PATH:$DOCKER_TAG-amd64
+    - regctl tag rm ${REGISTRY}/$CI_PROJECT_PATH:$DOCKER_TAG-arm64
+  dependencies:
+    - create_manifest
