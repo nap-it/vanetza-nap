@@ -132,9 +132,9 @@ TcPart ::= SEQUENCE {
 	text					TextLines OPTIONAL,
 	data					OCTET STRING,
 	...,
-	iviType					IviType, 
+[[	iviType					IviType, 
 	laneStatus				LaneStatus OPTIONAL,	
-	vehicleCharacteristics	VehicleCharacteristicsList OPTIONAL
+	vehicleCharacteristics	VehicleCharacteristicsList OPTIONAL ]]
 	}
 
 LayoutContainer ::= SEQUENCE{
@@ -316,11 +316,11 @@ LaneInformation ::= SEQUENCE{
 	laneStatus			LaneStatus, 	 
 	laneWidth       	IviLaneWidth OPTIONAL,       
 	...,
-	detectionZoneIds					ZoneIds OPTIONAL,
+[[	detectionZoneIds					ZoneIds OPTIONAL,
 	relevanceZoneIds					ZoneIds OPTIONAL,
 	laneCharacteristics					LaneCharacteristics	 OPTIONAL, 
 	laneSurfaceStaticCharacteristics	RoadSurfaceStaticCharacteristics OPTIONAL,
-	laneSurfaceDynamicCharacteristics	RoadSurfaceDynamicCharacteristics OPTIONAL
+	laneSurfaceDynamicCharacteristics	RoadSurfaceDynamicCharacteristics OPTIONAL ]]
 	}
 
 LaneCharacteristics ::= SEQUENCE{

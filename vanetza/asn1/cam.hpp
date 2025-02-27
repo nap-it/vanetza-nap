@@ -3,18 +3,18 @@
 
 #include <vanetza/asn1/asn1c_conversion.hpp>
 #include <vanetza/asn1/asn1c_wrapper.hpp>
-#include <vanetza/asn1/its/CAM.h>
+#include <vanetza/asn1/its/CAM-PDU-Description_CAM.h>
 
 namespace vanetza
 {
 namespace asn1
 {
 
-class Cam : public asn1c_per_wrapper<CAM_t>
+class Cam : public asn1c_per_wrapper<CAM_PDU_Description_CAM_t>
 {
 public:
-    using wrapper = asn1c_per_wrapper<CAM_t>;
-    Cam() : wrapper(asn_DEF_CAM) {}
+    using wrapper = asn1c_per_wrapper<CAM_PDU_Description_CAM_t>;
+    Cam() : wrapper(asn_DEF_CAM_PDU_Description_CAM) {}
 };
 
 } // namespace asn1

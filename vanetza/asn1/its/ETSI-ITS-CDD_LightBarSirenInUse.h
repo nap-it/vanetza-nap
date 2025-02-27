@@ -28,6 +28,7 @@ typedef enum ETSI_ITS_CDD_LightBarSirenInUse {
 typedef BIT_STRING_t	 ETSI_ITS_CDD_LightBarSirenInUse_t;
 
 /* Implementation */
+extern asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_LightBarSirenInUse_constr_1;
 extern asn_TYPE_descriptor_t asn_DEF_ETSI_ITS_CDD_LightBarSirenInUse;
 asn_struct_free_f ETSI_ITS_CDD_LightBarSirenInUse_free;
 asn_struct_print_f ETSI_ITS_CDD_LightBarSirenInUse_print;

@@ -54,10 +54,28 @@ asn_TYPE_member_t asn_MBR_PathDeltaTimeChoice_1[] = {
 		0, 0, /* No default value */
 		"deltaTimeBigRange"
 		},
+	{ ATF_NOFLAGS, 0, offsetof(struct PathDeltaTimeChoice, choice.deltaTimeMidRange),
+		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
+		-1,	/* IMPLICIT tag at current level */
+		&asn_DEF_DeltaTimeSecond,
+		0,
+		{
+#if !defined(ASN_DISABLE_OER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+			0
+		},
+		0, 0, /* No default value */
+		"deltaTimeMidRange"
+		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_PathDeltaTimeChoice_tag2el_1[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* deltaTimeHighPrecision */
-    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 } /* deltaTimeBigRange */
+    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* deltaTimeBigRange */
+    { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* deltaTimeMidRange */
 };
 asn_CHOICE_specifics_t asn_SPC_PathDeltaTimeChoice_specs_1 = {
 	sizeof(struct PathDeltaTimeChoice),
@@ -65,7 +83,7 @@ asn_CHOICE_specifics_t asn_SPC_PathDeltaTimeChoice_specs_1 = {
 	offsetof(struct PathDeltaTimeChoice, present),
 	sizeof(((struct PathDeltaTimeChoice *)0)->present),
 	asn_MAP_PathDeltaTimeChoice_tag2el_1,
-	2,	/* Count of tags in the map */
+	3,	/* Count of tags in the map */
 	0, 0,
 	2	/* Extensions start */
 };
@@ -87,7 +105,7 @@ asn_TYPE_descriptor_t asn_DEF_PathDeltaTimeChoice = {
 		CHOICE_constraint
 	},
 	asn_MBR_PathDeltaTimeChoice_1,
-	2,	/* Elements count */
+	3,	/* Elements count */
 	&asn_SPC_PathDeltaTimeChoice_specs_1	/* Additional specs */
 };
 

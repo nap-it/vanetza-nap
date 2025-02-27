@@ -34,7 +34,9 @@ typedef enum ETSI_ITS_CDD_TrafficRule {
 typedef long	 ETSI_ITS_CDD_TrafficRule_t;
 
 /* Implementation */
+extern asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_TrafficRule_constr_1;
 extern asn_TYPE_descriptor_t asn_DEF_ETSI_ITS_CDD_TrafficRule;
+extern const asn_INTEGER_specifics_t asn_SPC_ETSI_ITS_CDD_TrafficRule_specs_1;
 asn_struct_free_f ETSI_ITS_CDD_TrafficRule_free;
 asn_struct_print_f ETSI_ITS_CDD_TrafficRule_print;
 asn_constr_check_f ETSI_ITS_CDD_TrafficRule_constraint;

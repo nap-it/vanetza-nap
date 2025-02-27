@@ -90,7 +90,7 @@ typedef enum CauseCodeChoice_PR {
 	CauseCodeChoice_PR_reserved39,
 	CauseCodeChoice_PR_reserved40,
 	CauseCodeChoice_PR_reserved41,
-	CauseCodeChoice_PR_reserved42,
+	CauseCodeChoice_PR_dontPanic42,
 	CauseCodeChoice_PR_reserved43,
 	CauseCodeChoice_PR_reserved44,
 	CauseCodeChoice_PR_reserved45,
@@ -225,7 +225,7 @@ typedef struct CauseCodeChoice {
 		ETSI_ITS_CDD_SubCauseCodeType_t	 reserved39;
 		ETSI_ITS_CDD_SubCauseCodeType_t	 reserved40;
 		ETSI_ITS_CDD_SubCauseCodeType_t	 reserved41;
-		ETSI_ITS_CDD_SubCauseCodeType_t	 reserved42;
+		ETSI_ITS_CDD_SubCauseCodeType_t	 dontPanic42;
 		ETSI_ITS_CDD_SubCauseCodeType_t	 reserved43;
 		ETSI_ITS_CDD_SubCauseCodeType_t	 reserved44;
 		ETSI_ITS_CDD_SubCauseCodeType_t	 reserved45;

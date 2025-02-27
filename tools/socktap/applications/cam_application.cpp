@@ -98,7 +98,7 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
         //std::cout << "\nInvalid sender: " << cp. << std::endl;
         return;
     }
-    CAM_t cam_t = {(*cam)->header, (*cam)->cam};
+    CAM_PDU_Description_CAM_t cam_t = {(*cam)->header, (*cam)->cam};
 
     if(config_s.publish_encoded_payloads) {
         const std::vector<uint8_t> vec = std::vector<uint8_t>(cp[OsiLayer::Application].begin(), cp[OsiLayer::Application].end());
@@ -110,7 +110,7 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
             cp.rssi,
             true,
             cp.size(),
-            cam_t.header.stationID,
+            cam_t.header.stationId,
             config_s.station_id,
             config_s.station_type,
             cp.time_received,
@@ -281,22 +281,22 @@ void CamApplication::schedule_timer()
     runtime_.schedule(cam_interval_, std::bind(&CamApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, double time_reception, double time_queue, int rssi, int packet_size, channel channel_info, bool include_fields, bool rx, bool full) {
-    ITS_Container_ItsPduHeader_t& header = message.header;
-    CoopAwareness_t& cam = message.cam;
-    CAM_PDU_Descriptions_BasicContainer_t& basic = cam.camParameters.basicContainer;
-    HighFrequencyContainer& high = cam.camParameters.highFrequencyContainer;
-    BasicVehicleContainerHighFrequency& bvc = cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency;
-    ITS_Container_AccelerationControl_t* acc = cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.accelerationControl;
+Document CamApplication::buildJSON(CAM_PDU_Description_CAM_t message, Document& cam_json_full, double time_reception, double time_queue, int rssi, int packet_size, channel channel_info, bool include_fields, bool rx, bool full) {
+    ETSI_ITS_CDD_ItsPduHeader_t& header = message.header;
+    CamPayload_t& cam = message.cam;
+    ETSI_ITS_CDD_BasicContainer_t& basic = cam.camParameters.basicContainer;
+    CAM_PDU_Description_HighFrequencyContainer& high = cam.camParameters.highFrequencyContainer;
+    CAM_PDU_Description_BasicVehicleContainerHighFrequency& bvc = cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency;
+    ETSI_ITS_CDD_AccelerationControl_t* acc = cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.accelerationControl;
 
-    bool has_vehicle = cam.camParameters.highFrequencyContainer.present == HighFrequencyContainer_PR_basicVehicleContainerHighFrequency;
+    bool has_vehicle = cam.camParameters.highFrequencyContainer.present == CAM_PDU_Description_HighFrequencyContainer_PR_basicVehicleContainerHighFrequency;
     
     long latitude = (long) basic.referencePosition.latitude;
     long longitude = (long) basic.referencePosition.longitude;
     long speed = (double) bvc.speed.speedValue;
     long heading = (long) bvc.heading.headingValue;
 
-    bool new_info = isNewInfo(header.stationID, latitude, longitude, speed, heading, time_reception);
+    bool new_info = isNewInfo(header.stationId, latitude, longitude, speed, heading, time_reception);
 
     Document::AllocatorType& fullAllocator = cam_json_full.GetAllocator();
 
@@ -329,7 +329,7 @@ Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, doubl
             cam_json_full.AddMember("timestamp", time_reception, fullAllocator)
                     .AddMember("newInfo", new_info, fullAllocator)
                     .AddMember("rssi", rssi, fullAllocator)
-                    .AddMember("stationID", Value(static_cast<int64_t>(header.stationID)), fullAllocator)
+                    .AddMember("stationID", Value(static_cast<int64_t>(header.stationId)), fullAllocator)
                     .AddMember("receiverID", config_s.station_id, fullAllocator)
                     .AddMember("receiverType", config_s.station_type, fullAllocator)
                     .AddMember("packet_size", packet_size, fullAllocator);
@@ -338,7 +338,7 @@ Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, doubl
         simpleDocument.AddMember("timestamp", time_reception, simpleAllocator)
                     .AddMember("newInfo", new_info, simpleAllocator)
                     .AddMember("rssi", rssi, simpleAllocator)
-                    .AddMember("stationID", Value(static_cast<int64_t>(header.stationID)), simpleAllocator)
+                    .AddMember("stationID", Value(static_cast<int64_t>(header.stationId)), simpleAllocator)
                     .AddMember("receiverID", config_s.station_id, simpleAllocator)
                     .AddMember("receiverType", config_s.station_type, simpleAllocator)
                     .AddMember("packet_size", packet_size, simpleAllocator);
@@ -348,9 +348,9 @@ Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, doubl
                 .AddMember("stationType", static_cast<int64_t>(basic.stationType), simpleAllocator)
                 .AddMember("latitude", (latitude == 900000001) ? latitude : static_cast<double>(latitude) / pow(10, 7), simpleAllocator)
                 .AddMember("longitude", (longitude == 1800000001) ? longitude : static_cast<double>(longitude) / pow(10, 7), simpleAllocator)
-                .AddMember("semiMajorConf", static_cast<int64_t>(basic.referencePosition.positionConfidenceEllipse.semiMajorConfidence), simpleAllocator)
-                .AddMember("semiMinorConf", static_cast<int64_t>(basic.referencePosition.positionConfidenceEllipse.semiMinorConfidence), simpleAllocator)
-                .AddMember("semiMajorOrient", static_cast<int64_t>(basic.referencePosition.positionConfidenceEllipse.semiMajorOrientation), simpleAllocator)
+                .AddMember("semiMajorConf", static_cast<int64_t>(basic.referencePosition.positionConfidenceEllipse.semiMajorAxisLength), simpleAllocator)
+                .AddMember("semiMinorConf", static_cast<int64_t>(basic.referencePosition.positionConfidenceEllipse.semiMinorAxisLength), simpleAllocator)
+                .AddMember("semiMajorOrient", static_cast<int64_t>(basic.referencePosition.positionConfidenceEllipse.semiMajorAxisOrientation), simpleAllocator)
                 .AddMember("altitude", (basic.referencePosition.altitude.altitudeValue == 800001) ? static_cast<int64_t>(basic.referencePosition.altitude.altitudeValue) : static_cast<double>(basic.referencePosition.altitude.altitudeValue) / pow(10, 2), simpleAllocator)
                 .AddMember("altitudeConf", static_cast<int64_t>(basic.referencePosition.altitude.altitudeConfidence), simpleAllocator)
                 .AddMember("heading", !has_vehicle ? 3601 : ((heading == 3601) ? heading : static_cast<double>(heading) / pow(10, 1)), simpleAllocator)
@@ -359,7 +359,7 @@ Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, doubl
                 .AddMember("speedConf", !has_vehicle ? 126 : (((bvc.speed.speedConfidence == 126) || (bvc.speed.speedConfidence == 127)) ? bvc.speed.speedConfidence : static_cast<double>(bvc.speed.speedConfidence) / pow(10, 2)), simpleAllocator)
                 .AddMember("length", !has_vehicle ? 1023 : ((bvc.vehicleLength.vehicleLengthValue == 1023) ? bvc.vehicleLength.vehicleLengthValue : static_cast<double>(bvc.vehicleLength.vehicleLengthValue) / pow(10, 1)), simpleAllocator)
                 .AddMember("width", !has_vehicle ? 62 : (((bvc.vehicleWidth == 61) || (bvc.vehicleWidth == 62)) ? bvc.vehicleWidth : static_cast<double>(bvc.vehicleWidth) / pow(10, 1)), simpleAllocator)
-                .AddMember("acceleration", !has_vehicle ? 161 : ((bvc.longitudinalAcceleration.longitudinalAccelerationValue == 161) ? bvc.longitudinalAcceleration.longitudinalAccelerationValue : static_cast<double>(bvc.longitudinalAcceleration.longitudinalAccelerationValue) / pow(10, 1)), simpleAllocator)
+                .AddMember("acceleration", !has_vehicle ? 161 : ((bvc.longitudinalAcceleration.value == 161) ? bvc.longitudinalAcceleration.value : static_cast<double>(bvc.longitudinalAcceleration.value) / pow(10, 1)), simpleAllocator)
                 .AddMember("curvature", static_cast<int64_t>(bvc.curvature.curvatureValue), simpleAllocator)
                 .AddMember("yawRate", !has_vehicle ? 32767 : ((bvc.yawRate.yawRateValue == 32767) ? bvc.yawRate.yawRateValue : static_cast<double>(bvc.yawRate.yawRateValue) / pow(10, 2)), simpleAllocator)
                 .AddMember("brakePedal", !has_vehicle ? false : (static_cast<bool>(bvc.accelerationControl != nullptr ? (*(bvc.accelerationControl->buf) & (1 << (7 - 0))) : false)), simpleAllocator)
@@ -378,7 +378,7 @@ Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, doubl
     
     if(new_info) {
         cam_persistence_mtx.lock();
-        persistence[header.stationID] = {{"lat", (double) latitude}, {"lng", (double) longitude}, {"speed", (double) speed}, {"heading", (long) heading}, {"time", time_reception}};
+        persistence[header.stationId] = {{"lat", (double) latitude}, {"lng", (double) longitude}, {"speed", (double) speed}, {"heading", (long) heading}, {"time", time_reception}};
         cam_persistence_mtx.unlock();
     }
 
@@ -416,16 +416,16 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
     Document document;
     Value payload;
 
-    CoopAwareness_t* cam_ptr = vanetza::asn1::allocate<CoopAwareness_t>();
-    ITS_Container_AccelerationControl_t* p_tmp = vanetza::asn1::allocate<ITS_Container_AccelerationControl_t>();
+    CamPayload_t* cam_ptr = vanetza::asn1::allocate<CamPayload_t>();
+    ETSI_ITS_CDD_AccelerationControl_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_AccelerationControl_t>();
 
     vanetza::asn1::Cam message;
-    ITS_Container_ItsPduHeader_t& header = message->header;
+    ETSI_ITS_CDD_ItsPduHeader_t& header = message->header;
     header.protocolVersion = 2;  
-    header.messageID = MessageId_cam;
+    header.messageId = MessageId_cam;
     
     if (!is_encoded) {
-        CoopAwareness_t cam;
+        CamPayload_t cam;
         fillPosition(mqtt_message, positioning_);
 
         try {
@@ -454,25 +454,25 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
                 std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
                 return;
             }
-            header.stationID = config_s.station_id;
+            header.stationId = config_s.station_id;
             message->cam = cam;
         }
         else if(topic == config_s.cam.topic_in) {
             try {
-                header.stationID = payload["stationID"].GetUint64();
+                header.stationId = payload["stationID"].GetUint64();
                 const auto time_now = duration_cast<milliseconds>(runtime_.now().time_since_epoch());
                 uint16_t gen_delta_time = time_now.count();
                 cam_ptr->generationDeltaTime = gen_delta_time * CAM_PDU_Descriptions_GenerationDeltaTime_oneMilliSec;
                 cam_ptr->camParameters.basicContainer.referencePosition.latitude = (payload["latitude"].GetDouble() == 900000001) ? (long) payload["latitude"].GetDouble() : (long) ((double) payload["latitude"].GetDouble() * pow(10, 7));
                 cam_ptr->camParameters.basicContainer.referencePosition.longitude = (payload["longitude"].GetDouble() == 1800000001) ? (long) payload["longitude"].GetDouble() : (long) ((double) payload["longitude"].GetDouble() * pow(10, 7));
-                cam_ptr->camParameters.basicContainer.referencePosition.positionConfidenceEllipse.semiMajorConfidence = payload["semiMajorConf"].GetInt64();
-                cam_ptr->camParameters.basicContainer.referencePosition.positionConfidenceEllipse.semiMinorConfidence = payload["semiMinorConf"].GetInt64();
-                cam_ptr->camParameters.basicContainer.referencePosition.positionConfidenceEllipse.semiMajorOrientation = payload["semiMajorOrient"].GetInt64();
+                cam_ptr->camParameters.basicContainer.referencePosition.positionConfidenceEllipse.semiMajorAxisLength = payload["semiMajorConf"].GetInt64();
+                cam_ptr->camParameters.basicContainer.referencePosition.positionConfidenceEllipse.semiMinorAxisLength = payload["semiMinorConf"].GetInt64();
+                cam_ptr->camParameters.basicContainer.referencePosition.positionConfidenceEllipse.semiMajorAxisOrientation = payload["semiMajorOrient"].GetInt64();
                 cam_ptr->camParameters.basicContainer.referencePosition.altitude.altitudeValue = (payload["altitude"].GetDouble() == 800001) ? (long) payload["altitude"].GetDouble() : (long) ((double) payload["altitude"].GetDouble() * pow(10, 2));
                 cam_ptr->camParameters.basicContainer.referencePosition.altitude.altitudeConfidence = payload["altitudeConf"].GetInt64();
                 cam_ptr->camParameters.basicContainer.stationType = payload["stationType"].GetInt64();
                 cam_ptr->camParameters.highFrequencyContainer.choice.rsuContainerHighFrequency.protectedCommunicationZonesRSU = nullptr;
-                cam_ptr->camParameters.highFrequencyContainer.present = HighFrequencyContainer_PR_basicVehicleContainerHighFrequency;
+                cam_ptr->camParameters.highFrequencyContainer.present = CAM_PDU_Description_HighFrequencyContainer_PR_basicVehicleContainerHighFrequency;
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.heading.headingValue = (payload["heading"].GetDouble() == 3601) ? ((long) payload["heading"].GetDouble()) : (long) ((double) payload["heading"].GetDouble() * pow(10, 1));
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.heading.headingConfidence = (payload["headingConf"].GetInt64() == 126 || payload["headingConf"].GetInt64() == 127) ? (long) payload["headingConf"].GetInt64() : (long) ((double) payload["headingConf"].GetInt64() * pow(10, 1));
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.speed.speedValue = (payload["speed"].GetDouble() == 16383) ? (long) payload["speed"].GetDouble() : (long) ((double) payload["speed"].GetDouble() * pow(10, 2));
@@ -482,7 +482,7 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
                 else cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.driveDirection = ITS_Container_DriveDirection_unavailable;
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.vehicleLength.vehicleLengthValue = (payload["length"].GetDouble() == 1023) ? (long) payload["length"].GetDouble() : (long) ((double) payload["length"].GetDouble() * pow(10, 1));
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.vehicleWidth = (payload["width"].GetDouble() == 61 || payload["width"].GetDouble() == 62) ? (long) payload["width"].GetDouble() : (long) ((double) payload["width"].GetDouble() * pow(10,1));
-                cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.longitudinalAcceleration.longitudinalAccelerationValue = (payload["acceleration"].GetDouble() == 161) ? (long) payload["acceleration"].GetDouble() : (long) ((double) payload["acceleration"].GetDouble() * pow(10,1));
+                cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.longitudinalAcceleration.value = (payload["acceleration"].GetDouble() == 161) ? (long) payload["acceleration"].GetDouble() : (long) ((double) payload["acceleration"].GetDouble() * pow(10,1));
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.curvature.curvatureValue = payload["curvature"].GetInt64();
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.yawRate.yawRateValue = (payload["yawRate"].GetInt64() == 32767) ? (long) payload["yawRate"].GetInt64() : (long) ((double) payload["yawRate"].GetInt64() * pow(10,2));
                 bool brakePedalEngaged = payload["brakePedal"].GetBool();
@@ -510,7 +510,7 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.verticalAcceleration = nullptr;
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.performanceClass = nullptr;
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.cenDsrcTollingZone = nullptr;
-                cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.longitudinalAcceleration.longitudinalAccelerationConfidence = ITS_Container_AccelerationConfidence_unavailable;
+                cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.longitudinalAcceleration.confidence = ITS_Container_AccelerationConfidence_unavailable;
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.yawRate.yawRateConfidence = ITS_Container_YawRateConfidence_unavailable;
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.heading.headingConfidence = ITS_Container_HeadingConfidence_unavailable;
                 cam_ptr->camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency.speed.speedConfidence = ITS_Container_SpeedConfidence_unavailable;
@@ -520,7 +520,7 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
                 cam_ptr->camParameters.lowFrequencyContainer = nullptr;
                 cam_ptr->camParameters.specialVehicleContainer = nullptr;
                 if (payload.HasMember("specialVehicle")) {
-                    cam_ptr->camParameters.specialVehicleContainer = vanetza::asn1::allocate<SpecialVehicleContainer_t>();
+                    cam_ptr->camParameters.specialVehicleContainer = vanetza::asn1::allocate<CAM_PDU_Description_SpecialVehicleContainer_t>();
                     try {
                         from_json(payload["specialVehicle"], *(cam_ptr->camParameters.specialVehicleContainer), "specialVehicle");
                     } catch (VanetzaJSONException& e) {
@@ -624,15 +624,15 @@ void CamApplication::on_timer(Clock::time_point)
 
     const double time_now_mqtt = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
-    ITS_Container_ItsPduHeader_t& header = message->header;
+    ETSI_ITS_CDD_ItsPduHeader_t& header = message->header;
     header.protocolVersion = 2;
-    header.messageID = MessageId_cam;
-    header.stationID = config_s.station_id;
+    header.messageId = MessageId_cam;
+    header.stationId = config_s.station_id;
 
     const auto time_now = duration_cast<milliseconds>(runtime_.now().time_since_epoch());
     uint16_t gen_delta_time = time_now.count();
 
-    CoopAwareness_t& cam = message->cam;
+    CamPayload_t& cam = message->cam;
     cam.generationDeltaTime = gen_delta_time * CAM_PDU_Descriptions_GenerationDeltaTime_oneMilliSec;
 
     auto position = positioning_.position_fix();
@@ -663,17 +663,17 @@ void CamApplication::on_timer(Clock::time_point)
     }
     last_heading = heading;
 
-    CAM_PDU_Descriptions_BasicContainer_t& basic = cam.camParameters.basicContainer;
+    ETSI_ITS_CDD_BasicContainer_t& basic = cam.camParameters.basicContainer;
     basic.stationType = config_s.station_type;
     copy(position, basic.referencePosition);
 
 
     if (config_s.station_type == 15) {
-        cam.camParameters.highFrequencyContainer.present = HighFrequencyContainer_PR_rsuContainerHighFrequency;
+        cam.camParameters.highFrequencyContainer.present = CAM_PDU_Description_HighFrequencyContainer_PR_rsuContainerHighFrequency;
         cam.camParameters.highFrequencyContainer.choice.rsuContainerHighFrequency.protectedCommunicationZonesRSU = nullptr;
     } else {
-        cam.camParameters.highFrequencyContainer.present = HighFrequencyContainer_PR_basicVehicleContainerHighFrequency;
-        BasicVehicleContainerHighFrequency& bvc = cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency;
+        cam.camParameters.highFrequencyContainer.present = CAM_PDU_Description_HighFrequencyContainer_PR_basicVehicleContainerHighFrequency;
+        CAM_PDU_Description_BasicVehicleContainerHighFrequency& bvc = cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency;
         bvc.heading.headingValue = heading;
         bvc.heading.headingConfidence = ITS_Container_HeadingConfidence_unavailable;
         if (position.course.confidence().value() > 0 && position.course.confidence().value() <= 125) bvc.heading.headingConfidence = position.course.confidence().value();
@@ -683,7 +683,7 @@ void CamApplication::on_timer(Clock::time_point)
         if (position.speed.confidence().value() > 0 && position.speed.confidence().value() <= 125) bvc.speed.speedConfidence = position.speed.confidence().value();
 
         bvc.driveDirection = ITS_Container_DriveDirection_forward;
-        bvc.longitudinalAcceleration.longitudinalAccelerationValue = acceleration;
+        bvc.longitudinalAcceleration.value = acceleration;
 
         bvc.vehicleLength.vehicleLengthValue = config_s.length * 10;
         bvc.vehicleLength.vehicleLengthConfidenceIndication = ITS_Container_VehicleLengthConfidenceIndication_noTrailerPresent;
@@ -695,7 +695,7 @@ void CamApplication::on_timer(Clock::time_point)
 
         bvc.yawRate.yawRateValue = yaw_rate;
 
-        bvc.accelerationControl = vanetza::asn1::allocate<ITS_Container_AccelerationControl_t>();
+        bvc.accelerationControl = vanetza::asn1::allocate<ETSI_ITS_CDD_AccelerationControl_t>();
         bvc.accelerationControl->buf = (uint8_t *) calloc(1, sizeof(uint8_t));
         bvc.accelerationControl->size = 1;
         bvc.accelerationControl->bits_unused = 1;
@@ -708,7 +708,7 @@ void CamApplication::on_timer(Clock::time_point)
         return;
     }
 
-    CAM_t cam_t = {message->header, message->cam};
+    CAM_PDU_Description_CAM_t cam_t = {message->header, message->cam};
     
     Document cam_json_full(kObjectType);
     Document::AllocatorType& fullAllocator = cam_json_full.GetAllocator();

@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "PolygonalLine.h"
+#include "IVI_PolygonalLine.h"
 #include "IviLaneWidth.h"
 #include "constr_SEQUENCE.h"
 
@@ -22,7 +22,7 @@ extern "C" {
 
 /* Segment */
 typedef struct Segment {
-	PolygonalLine_t	 line;
+	IVI_PolygonalLine_t	 line;
 	IviLaneWidth_t	*laneWidth;	/* OPTIONAL */
 	
 	/* Context for parsing across buffer boundaries */

@@ -31,7 +31,7 @@ struct LowerTriangularPositiveSemidefiniteMatrices;
 struct ObjectDimension;
 struct SequenceOfIdentifier1B;
 struct ObjectClassDescription;
-struct MapPosition;
+struct ETSI_ITS_CDD_MapPosition;
 
 /* PerceivedObject */
 typedef struct PerceivedObject {

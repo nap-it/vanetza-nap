@@ -14,7 +14,7 @@
 /* Including external dependencies */
 #include "ITS-Container_ActionID.h"
 #include "ITS-Container_TimestampIts.h"
-#include "Termination.h"
+#include "DENM-PDU-Descriptions_Termination.h"
 #include "ITS-Container_ReferencePosition.h"
 #include "ITS-Container_RelevanceDistance.h"
 #include "ITS-Container_RelevanceTrafficDirection.h"
@@ -32,7 +32,7 @@ typedef struct DENM_PDU_Descriptions_ManagementContainer {
 	ITS_Container_ActionID_t	 actionID;
 	ITS_Container_TimestampIts_t	 detectionTime;
 	ITS_Container_TimestampIts_t	 referenceTime;
-	Termination_t	*termination;	/* OPTIONAL */
+	DENM_PDU_Descriptions_Termination_t	*termination;	/* OPTIONAL */
 	ITS_Container_ReferencePosition_t	 eventPosition;
 	ITS_Container_RelevanceDistance_t	*relevanceDistance;	/* OPTIONAL */
 	ITS_Container_RelevanceTrafficDirection_t	*relevanceTrafficDirection;	/* OPTIONAL */

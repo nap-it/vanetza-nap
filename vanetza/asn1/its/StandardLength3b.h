@@ -34,7 +34,9 @@ typedef enum StandardLength3b {
 typedef long	 StandardLength3b_t;
 
 /* Implementation */
+extern asn_per_constraints_t asn_PER_type_StandardLength3b_constr_1;
 extern asn_TYPE_descriptor_t asn_DEF_StandardLength3b;
+extern const asn_INTEGER_specifics_t asn_SPC_StandardLength3b_specs_1;
 asn_struct_free_f StandardLength3b_free;
 asn_struct_print_f StandardLength3b_print;
 asn_constr_check_f StandardLength3b_constraint;

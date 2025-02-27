@@ -45,6 +45,8 @@ typedef struct ETSI_ITS_CDD_DangerousGoodsExtended {
 
 /* Implementation */
 extern asn_TYPE_descriptor_t asn_DEF_ETSI_ITS_CDD_DangerousGoodsExtended;
+extern asn_SEQUENCE_specifics_t asn_SPC_ETSI_ITS_CDD_DangerousGoodsExtended_specs_1;
+extern asn_TYPE_member_t asn_MBR_ETSI_ITS_CDD_DangerousGoodsExtended_1[8];
 
 #ifdef __cplusplus
 }

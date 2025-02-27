@@ -24,7 +24,8 @@ typedef enum RailwayLevelCrossingSubCauseCode {
 	RailwayLevelCrossingSubCauseCode_doNotCrossAbnormalSituation	= 1,
 	RailwayLevelCrossingSubCauseCode_closed	= 2,
 	RailwayLevelCrossingSubCauseCode_unguarded	= 3,
-	RailwayLevelCrossingSubCauseCode_nominal	= 4
+	RailwayLevelCrossingSubCauseCode_nominal	= 4,
+	RailwayLevelCrossingSubCauseCode_trainApproaching	= 5
 } e_RailwayLevelCrossingSubCauseCode;
 
 /* RailwayLevelCrossingSubCauseCode */

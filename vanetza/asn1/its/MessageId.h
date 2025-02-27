@@ -37,10 +37,9 @@ typedef enum MessageId {
 	MessageId_imzm	= 15,
 	MessageId_vam	= 16,
 	MessageId_dsm	= 17,
-	MessageId_pcim	= 18,
-	MessageId_pcvm	= 19,
-	MessageId_mcm	= 20,
-	MessageId_pam	= 21
+	MessageId_mim	= 18,
+	MessageId_mvm	= 19,
+	MessageId_mcm	= 20
 } e_MessageId;
 
 /* MessageId */

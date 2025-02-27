@@ -7,7 +7,7 @@
 
 #include "ETSI-ITS-CDD_ClosedLanes.h"
 
-static asn_TYPE_member_t asn_MBR_ETSI_ITS_CDD_ClosedLanes_1[] = {
+asn_TYPE_member_t asn_MBR_ETSI_ITS_CDD_ClosedLanes_1[] = {
 	{ ATF_POINTER, 3, offsetof(struct ETSI_ITS_CDD_ClosedLanes, innerhardShoulderStatus),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
@@ -69,7 +69,7 @@ static const asn_TYPE_tag2member_t asn_MAP_ETSI_ITS_CDD_ClosedLanes_tag2el_1[] =
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* outerhardShoulderStatus */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* drivingLaneStatus */
 };
-static asn_SEQUENCE_specifics_t asn_SPC_ETSI_ITS_CDD_ClosedLanes_specs_1 = {
+asn_SEQUENCE_specifics_t asn_SPC_ETSI_ITS_CDD_ClosedLanes_specs_1 = {
 	sizeof(struct ETSI_ITS_CDD_ClosedLanes),
 	offsetof(struct ETSI_ITS_CDD_ClosedLanes, _asn_ctx),
 	asn_MAP_ETSI_ITS_CDD_ClosedLanes_tag2el_1,

@@ -734,7 +734,7 @@ asn_TYPE_member_t asn_MBR_CauseCodeChoice_1[] = {
 		0, 0, /* No default value */
 		"reserved41"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct CauseCodeChoice, choice.reserved42),
+	{ ATF_NOFLAGS, 0, offsetof(struct CauseCodeChoice, choice.dontPanic42),
 		(ASN_TAG_CLASS_CONTEXT | (42 << 2)),
 		-1,	/* IMPLICIT tag at current level */
 		&asn_DEF_ETSI_ITS_CDD_SubCauseCodeType,
@@ -749,7 +749,7 @@ asn_TYPE_member_t asn_MBR_CauseCodeChoice_1[] = {
 			0
 		},
 		0, 0, /* No default value */
-		"reserved42"
+		"dontPanic42"
 		},
 	{ ATF_NOFLAGS, 0, offsetof(struct CauseCodeChoice, choice.reserved43),
 		(ASN_TAG_CLASS_CONTEXT | (43 << 2)),
@@ -2257,7 +2257,7 @@ static const asn_TYPE_tag2member_t asn_MAP_CauseCodeChoice_tag2el_1[] = {
     { (ASN_TAG_CLASS_CONTEXT | (39 << 2)), 39, 0, 0 }, /* reserved39 */
     { (ASN_TAG_CLASS_CONTEXT | (40 << 2)), 40, 0, 0 }, /* reserved40 */
     { (ASN_TAG_CLASS_CONTEXT | (41 << 2)), 41, 0, 0 }, /* reserved41 */
-    { (ASN_TAG_CLASS_CONTEXT | (42 << 2)), 42, 0, 0 }, /* reserved42 */
+    { (ASN_TAG_CLASS_CONTEXT | (42 << 2)), 42, 0, 0 }, /* dontPanic42 */
     { (ASN_TAG_CLASS_CONTEXT | (43 << 2)), 43, 0, 0 }, /* reserved43 */
     { (ASN_TAG_CLASS_CONTEXT | (44 << 2)), 44, 0, 0 }, /* reserved44 */
     { (ASN_TAG_CLASS_CONTEXT | (45 << 2)), 45, 0, 0 }, /* reserved45 */

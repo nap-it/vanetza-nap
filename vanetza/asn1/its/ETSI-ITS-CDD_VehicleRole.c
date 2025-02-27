@@ -17,7 +17,7 @@ static asn_oer_constraints_t asn_OER_type_ETSI_ITS_CDD_VehicleRole_constr_1 CC_N
 	-1};
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-static asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_VehicleRole_constr_1 CC_NOTUSED = {
+asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_VehicleRole_constr_1 CC_NOTUSED = {
 	{ APC_CONSTRAINED,	 4,  4,  0,  15 }	/* (0..15) */,
 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
 	0, 0	/* No PER value map */
@@ -59,7 +59,7 @@ static const unsigned int asn_MAP_ETSI_ITS_CDD_VehicleRole_enum2value_1[] = {
 	12,	/* taxi(12) */
 	13	/* uvar(13) */
 };
-static const asn_INTEGER_specifics_t asn_SPC_ETSI_ITS_CDD_VehicleRole_specs_1 = {
+const asn_INTEGER_specifics_t asn_SPC_ETSI_ITS_CDD_VehicleRole_specs_1 = {
 	asn_MAP_ETSI_ITS_CDD_VehicleRole_value2enum_1,	/* "tag" => N; sorted by tag */
 	asn_MAP_ETSI_ITS_CDD_VehicleRole_enum2value_1,	/* N => "tag"; sorted by N */
 	16,	/* Number of elements in the maps */

@@ -16,7 +16,7 @@ asn1_files = ["CDD-Release2.asn", "TS102894-2v131-CDD.asn", "DSRC.asn", "ISO1481
               "DSRC_REGION_noCircular.asn", "CPM-PDU-Descriptions.asn", "TS103301v211-MAPEM.asn", "TS103301v211-SPATEM.asn", 
               "TS103301v211-IVIM.asn", "TS103301v211-SREM.asn", "TS103301v211-SSEM.asn", "EVCSN-PDU-Descriptions.asn", 
               "EV-RSR-PDU-Descriptions.asn", "IMZM-PDU-Descriptions.asn", "TIS-TPG-Transactions-Descriptions.asn",
-              "TS103301v211-RTCMEM.asn", "MCM-PDU-Descriptions.asn"]
+              "TS103301v211-RTCMEM.asn", "MCM-PDU-Descriptions.asn", "CAM-PDU-Descriptions.asn", "DENM-PDU-Descriptions.asn"]
 
 default_types = ["INTEGER", "BOOLEAN", "ENUMERATED", "BIT STRING", "IA5String",
                  "SEQUENCE", "OCTET STRING", "SEQUENCE OF", "UTF8String", "NumericString", "CHOICE", "VisibleString"]
@@ -72,7 +72,22 @@ include = ["NodeXY", "VehicleID", "TransitVehicleStatus", "TransmissionAndSpeed"
            "PayUnit", "PersonalAccountNumber", "PurseBalance", "ReceiptOBUId", "ReceiptAuthenticator", "ReceiptText",
            "ResultFin", "SessionClass", "ReceiptContract", "SessionLocation", "DateAndTime", "ItsStationPosition", 
            "SignalHeadLocation", "ItsStationPositionList", "SignalHeadLocationList", "CurrentVehicleConfiguration",
-           "ManeuverResponse"]
+           "ManeuverResponse", "ITS-Container_AccelerationControl", "ITS-Container_PtActivation", "ITS-Container_ClosedLanes",
+           "ITS-Container_DrivingLaneStatus", "ITS-Container_DangerousGoodsExtended", "ITS-Container_LightBarSirenInUse", 
+           "ITS-Container_PositionOfOccupants", "ITS-Container_VehicleIdentification", "ITS-Container_EnergyStorageType",
+           "ITS-Container_VehicleLength", "ITS-Container_EmergencyPriority", "ITS-Container_SteeringWheelAngle", 
+           "ITS-Container_ItineraryPath", "ITS-Container_ProtectedCommunicationZone", "ITS-Container_Traces", 
+           "ITS-Container_PositionOfPillars", "ITS-Container_RestrictedTypes", "ITS-Container_EventHistory", "ITS-Container_EventPoint", 
+           "ITS-Container_ProtectedCommunicationZonesRSU", "ITS-Container_CenDsrcTollingZone", 
+           "CAM-PDU-Descriptions_BasicVehicleContainerHighFrequency", "CAM-PDU-Descriptions_BasicVehicleContainerLowFrequency", 
+           "CAM-PDU-Descriptions_PublicTransportContainer", "CAM-PDU-Descriptions_SpecialTransportContainer", 
+           "CAM-PDU-Descriptions_DangerousGoodsContainer", "CAM-PDU-Descriptions_RoadWorksContainerBasic", 
+           "CAM-PDU-Descriptions_RescueContainer", "CAM-PDU-Descriptions_EmergencyContainer", "CAM-PDU-Descriptions_SafetyCarContainer", 
+           "CAM-PDU-Descriptions_RSUContainerHighFrequency", "CAM-PDU-Descriptions_CamParameters", 
+           "CAM-PDU-Descriptions_HighFrequencyContainer", "CAM-PDU-Descriptions_LowFrequencyContainer", 
+           "CAM-PDU-Descriptions_SpecialVehicleContainer", "CAM-PDU-Descriptions_CAM", "DENM-PDU-Descriptions_RoadWorksContainerExtended", 
+           "DENM-PDU-Descriptions_AlacarteContainer", "DENM-PDU-Descriptions_ManagementContainer", 
+           "DENM-PDU-Descriptions_SituationContainer", "DENM-PDU-Descriptions_LocationContainer", "DENM-PDU-Descriptions_DENM"]
 
 add_t = ["ObjectClass", "VehicleID", "VehicleLength", "VerticalAcceleration", "DeltaReferencePosition", "ItsPduHeader", 
          "PtActivationData", "MapData","NodeAttributeSetXY", "NodeXY", "DigitalMap", "TransmissionAndSpeed", "Position3D",
@@ -97,7 +112,8 @@ replace_types = {
 
 disambiguate_types = {
     ("DeltaReferencePosition", "ComputedSegment"): "ITS_Container_",
-    ("DeltaReferencePosition", "DeltaReferencePositions"): "ITS_Container_",
+    ("DeltaReferencePosition", "DeltaReferencePositions", "IVI"): "ITS_Container_",
+    ("DeltaReferencePosition", "DeltaReferencePositions"): "ETSI_ITS_CDD_",
     ("LanePosition", "LanePositions"): "ITS_Container_",
     ("IviIdentificationNumber", "IviIdentificationNumbers"): "IVI_",
     ("ActionID", "ConnectedDenms"): "ITS_Container_",
@@ -120,7 +136,12 @@ disambiguate_types = {
     ("SpecialTransportType", "LoadType"): "ITS_Container_",
     ("AccelerationControl", "BasicVehicleContainerHighFrequency"): "ITS_Container_",
     ("LanePosition", "BasicVehicleContainerHighFrequency"): "ITS_Container_",
-    ("SteeringWheelAngle", "BasicVehicleContainerHighFrequency"): "ITS_Container_",
+    ("SteeringWheelAngle", "BasicVehicleContainerHighFrequency", "CAM-PDU-Descriptions"): "ITS_Container_",
+    ("SteeringWheelAngle", "BasicVehicleContainerHighFrequency", "CAM-PDU-Description"): "ETSI_ITS_CDD_",
+    ("AccelerationComponent", "BasicVehicleContainerHighFrequency"): "",
+    ("CenDsrcTollingZone", "BasicVehicleContainerHighFrequency", "CAM-PDU-Description"): "ETSI_ITS_CDD_",
+    ("PtActivation", "PublicTransportContainer", "CAM-PDU-Description"): "ETSI_ITS_CDD_",
+    ("ClosedLanes", "RoadWorksContainerBasic", "CAM-PDU-Description"): "ETSI_ITS_CDD_",
     ("LateralAcceleration", "BasicVehicleContainerHighFrequency"): "ITS_Container_",
     ("VerticalAcceleration", "BasicVehicleContainerHighFrequency"): "ITS_Container_",
     ("PerformanceClass", "BasicVehicleContainerHighFrequency"): "ITS_Container_",
@@ -232,13 +253,67 @@ disambiguate_types = {
     ("Direction", "LanePositionAndType"): "ETSI_ITS_CDD_",
     ("Heading", "Wgs84TrajectoryPoint"): "ETSI_ITS_CDD_",
     ("Altitude", "Wgs84TrajectoryPoint"): "ETSI_ITS_CDD_",
+    ("SaeAutomationLevel", "SaeAutomationLevels"): "ETSI_ITS_CDD_",
+    ("SaeAutomationLevel", "VehicleMovementControl"): "ETSI_ITS_CDD_",
+    ("AccelerationControl", "VehicleMovementControl"): "ETSI_ITS_CDD_",
+    ("Termination", "ManagementContainer"): "DENM_PDU_Descriptions_",
+    ("CauseCodeV2", "EmergencyContainer", "CAM-PDU-Description"): "",
+    ("CauseCodeV2", "SafetyCarContainer", "CAM-PDU-Description"): "",
+    ("EmergencyPriority", "EmergencyContainer", "CAM-PDU-Description"): "ETSI_ITS_CDD_",
+    ("ProtectedCommunicationZonesRSU", "RSUContainerHighFrequency", "CAM-PDU-Description"): "ETSI_ITS_CDD_",
+    ("EmergencyPriority", "EmergencyContainer", "CAM-PDU-Description"): "ETSI_ITS_CDD_",
+    ("VruSubProfileBicyclist", "CyclistTypeSpecificInformation", "CAM-PDU-Description"): "ETSI_ITS_CDD_",
+    ("VruMovementControl", "CyclistTypeSpecificInformation", "CAM-PDU-Description"): "ETSI_ITS_CDD_",
+    ("StandardLength3b", "ManagementContainer", "DENM-PDU-Description"): "",
+    ("TrafficDirection", "ManagementContainer", "DENM-PDU-Description"): "",
+    ("DeltaTimeSecond", "ManagementContainer", "DENM-PDU-Description"): "",
+    ("DeltaTimeMilliSecondPositive", "ManagementContainer", "DENM-PDU-Description"): "",
+    ("CauseCodeV2", "SituationContainer", "DENM-PDU-Description"): "",
+    ("EventZone", "SituationContainer", "DENM-PDU-Description"): "",
+    ("ActionIdList", "SituationContainer", "DENM-PDU-Description"): "",
+    ("Position1d", "SituationContainer", "DENM-PDU-Description"): "",
+    ("ClosedLanes", "RoadWorksContainerExtended", "DENM-PDU-Description"): "ETSI_ITS_CDD_",
+    ("RestrictedTypes", "RoadWorksContainerExtended", "DENM-PDU-Description"): "ETSI_ITS_CDD_",
+    ("CauseCodeV2", "RoadWorksContainerExtended", "DENM-PDU-Description"): "",
+    ("ItineraryPath", "RoadWorksContainerExtended", "DENM-PDU-Description"): "ETSI_ITS_CDD_",
+    ("DeltaReferencePosition", "RoadWorksContainerExtended", "DENM-PDU-Description"): "ETSI_ITS_CDD_",
+    ("ActionIdList", "RoadWorksContainerExtended", "DENM-PDU-Description"): "",
+    ("CauseCodeV2", "StationaryVehicleContainer", "DENM-PDU-Description"): "",
+    ("DangerousGoodsExtended", "StationaryVehicleContainer", "DENM-PDU-Description"): "ETSI_ITS_CDD_",
+    ("VehicleIdentification", "StationaryVehicleContainer", "DENM-PDU-Description"): "ETSI_ITS_CDD_",
+    ("DeltaReferencePosition", "ParkingSpaceBasic", "ETSI-ITS-CDD"): "ETSI_ITS_CDD_",
+    ("DeltaReferencePosition", "ParkingSpaceDetailed", "ETSI-ITS-CDD"): "ETSI_ITS_CDD_",
+    ("DeltaPositions", "ParkingSpaceDetailed", "ETSI-ITS-CDD"): "ETSI_ITS_CDD_",
+    ("ReferenceDenms", "RoadWorksContainerExtended", "DENM-PDU-Descriptions"): "",
+    ("ITS_Container_Temperature", "AlacarteContainer", "DENM-PDU-Descriptions"): "",
+    ("SituationContainer", "DenmPayload", "DENM-PDU-Description"): "DENM_PDU_Description_",
+    ("LocationContainer", "DenmPayload", "DENM-PDU-Description"): "DENM_PDU_Description_",
+    ("AlacarteContainer", "DenmPayload", "DENM-PDU-Description"): "DENM_PDU_Description_",
+    ("SituationContainer", "DecentralizedEnvironmentalNotificationMessage", "DENM-PDU-Descriptions"): "DENM_PDU_Descriptions_",
+    ("LocationContainer", "DecentralizedEnvironmentalNotificationMessage", "DENM-PDU-Descriptions"): "DENM_PDU_Descriptions_",
+    ("AlacarteContainer", "DecentralizedEnvironmentalNotificationMessage", "DENM-PDU-Descriptions"): "DENM_PDU_Descriptions_",
+    ("StabilityChangeIndication", "TwoWheelerContainer", "CAM-PDU-Description"): "ETSI_ITS_CDD_",
+    ("Speed", "LocationContainer", "DENM-PDU-Description"): "ETSI_ITS_CDD_",
+    ("Wgs84Angle", "LocationContainer", "DENM-PDU-Description"): "",
+    ("GeneralizedLanePositions", "LocationContainer", "DENM-PDU-Description"): "",
+    ("OccupiedLanesWithConfidence", "LocationContainer", "DENM-PDU-Description"): "",
+    ("IvimReferences", "LocationContainer", "DENM-PDU-Description"): "",
+    ("MapReferences", "LocationContainer", "DENM-PDU-Description"): "",
+    ("TracesExtended", "LocationContainer", "DENM-PDU-Description"): "",
+    ("PathPredictedList", "LocationContainer", "DENM-PDU-Description"): "",
+    ("Temperature", "AlacarteContainer", "DENM-PDU-Description"): "ETSI_ITS_CDD_",
+    ("PreCrashContainer", "AlacarteContainer", "DENM-PDU-Description"): "",
+    ("RccPart", "RoadConfigurationContainer", "IVI"): "",
+    ("WrappedExtensionContainers", "CamParameters", "CAM-PDU-Description"): "",
+    ("EventPoint", "EventZone", "ETSI-ITS-CDD"): "ETSI_ITS_CDD_",
+    
 }
 
 ignore_member_names = ['regional', 'shadowingApplies', 'expiryTime', 'fill', 'ownerCode', 'language', 'sessionLocation', 'avc', 'mlc', 'rsc', 'train']
 ignore_member_types = ["PhoneNumber", "OpeningDaysHours", "MessageFrame", "DescriptiveName", "RegionalExtension", "Iso3833VehicleType",
                        "REG-EXT-ID-AND-TYPE.&id", "REG-EXT-ID-AND-TYPE.&Type", 'MESSAGE-ID-AND-TYPE.&id', 'MESSAGE-ID-AND-TYPE.&Type', 
                        'PreemptPriorityList', "WMInumber", "VDS", "TemporaryID", "Attributes", "GetStampedRq", "GetStampedRs", 
-                       "SetInstanceRq", "SetStampedRq", "AttributeList", "AttributeIdList"]
+                       "SetInstanceRq", "SetStampedRq", "AttributeList", "AttributeIdList", "EventZone"]
 
 treat_as_optional = ["validityDuration"]
 
@@ -264,7 +339,9 @@ def get_element_name(m, self, opt):
             (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_")
 
 def get_disambiguated_member_name(type, parent, root, print_name):
-    if (type, parent) in disambiguate_types:
+    if (type, parent, root) in disambiguate_types:
+        return (disambiguate_types[(type, parent, root)] + type).replace("-", "_")
+    elif (type, parent) in disambiguate_types:
         return (disambiguate_types[(type, parent)] + type).replace("-", "_")
     elif print_name != parent and type != "INTEGER":
         return (root + "_" + type).replace("-", "_")
@@ -285,7 +362,7 @@ class ASN1Sequence:
                 if i != len(definition["members"]) - 2:
                     ext += 1
             elif m["type"] not in ignore_member_types and m['name'] not in ignore_member_names:
-                m["ext"] = "ext" + str(ext) if ext > 0 else None
+                m["ext"] = "ext" + str(ext) if ext > 0 else (m["ext"] if "ext" in m else None)
                 self.members.append(m)
             else:
                 m["ext"] = "ext" + str(ext) if ext > 0 else None
@@ -354,7 +431,8 @@ Value to_json(const """ + (self.print_name.replace("-", "_") + "_t" if self.name
         member_strs = []
         for m in self.members:
             if "optional" in m and m["optional"]:
-                member_str = ('if ' + get_element_name(m, self, False) + ' != 0) ' + \
+                extendee= "ext" in m and m["ext"] != None
+                member_str = ('if ' + ('(p.' + m["ext"] + ' != 0 && ' if extendee else '') + get_element_name(m, self, False) + ' != 0' + (')' if extendee else '') + ') ' + \
                                 'json.AddMember("' + m["name"] + '", ' + ('to_json_' + get_disambiguated_member_name(m["type"], self.name, self.parent_name, self.print_name) + '(' if m["type"] in bitstrings else 'to_json('))
                                 
                 if m["type"] in transformation:
@@ -718,11 +796,21 @@ def parse_type(type_name, top_level_key, asn1_file, asn1_type):
     if "element" in asn1_type:
         asn1_type["element"]["type"] = asn1_type["element"]["type"] if (asn1_type["element"]["type"], asn1_file) not in replace_types else replace_types[(asn1_type["element"]["type"], asn1_file)]
     if "members" in asn1_type:
+        members = []
         for m in asn1_type["members"]:
+            if m is not None:
+                if isinstance(m, list):
+                    for n in m:
+                        n["ext"] = "ext1"
+                    members.extend(m)
+                else:
+                    members.append(m)
+        for m in members:
             if m is not None:
                 m["type"] = m["type"] if (m["type"], asn1_file) not in replace_types else replace_types[(m["type"], asn1_file)]
                 if (type_name, m["name"]) in add_pointer:
-                    m["optional"] = True 
+                    m["optional"] = True
+        asn1_type["members"] = members
 
     if "ISO14906" in asn1_file and "::" not in type_name:
         if type_name == "Provider":
@@ -732,11 +820,17 @@ def parse_type(type_name, top_level_key, asn1_file, asn1_type):
             include.append(type_name)
         add_t.append(type_name)
     if "CDD-Release2" in asn1_file and "::" not in type_name:
-        if type_name in ["AccelerationChangeIndication", "AccelerationConfidence", "AccelerationControl", "AccessTechnologyClass", "AccidentSubCauseCode", "ActionID", "AdverseWeatherCondition-AdhesionSubCauseCode", "AdverseWeatherCondition-ExtremeWeatherConditionSubCauseCode", "AdverseWeatherCondition-PrecipitationSubCauseCode", "AdverseWeatherCondition-VisibilitySubCauseCode", "Altitude", "AltitudeConfidence", "AltitudeValue", "BasicContainer", "CauseCode", "CauseCodeType", "CenDsrcTollingZone", "CenDsrcTollingZoneID", "ClosedLanes", "ClusterBreakupInfo", "ClusterBreakupReason", "ClusterJoinInfo", "ClusterLeaveInfo", "ClusterLeaveReason", "CollisionRiskSubCauseCode", "CountryCode", "Curvature", "CurvatureCalculationMode", "CurvatureConfidence", "CurvatureValue", "DangerousEndOfQueueSubCauseCode", "DangerousGoodsBasic", "DangerousGoodsExtended", "DangerousSituationSubCauseCode", "DeltaAltitude", "DeltaLatitude", "DeltaLongitude", "DeltaReferencePosition", "DigitalMap", "Direction", "DriveDirection", "DrivingLaneStatus", "EmbarkationStatus", "EmergencyPriority", "EmergencyVehicleApproachingSubCauseCode", "EnergyStorageType", "EuVehicleCategoryCode", "EuVehicleCategoryL", "EuVehicleCategoryM", "EuVehicleCategoryN", "EuVehicleCategoryO", "EventHistory", "EventPoint", "Ext1", "Ext2", "Ext3", "ExteriorLights", "GenerationDeltaTime", "HardShoulderStatus", "HazardousLocation-AnimalOnTheRoadSubCauseCode", "HazardousLocation-DangerousCurveSubCauseCode", "HazardousLocation-ObstacleOnTheRoadSubCauseCode", "HazardousLocation-SurfaceConditionSubCauseCode", "Heading", "HeadingChangeIndication", "HeadingConfidence", "HeadingValue", "HeightLonCarr", "HumanPresenceOnTheRoadSubCauseCode", "HumanProblemSubCauseCode", "InformationQuality", "InterferenceManagementChannel", "InterferenceManagementInfo", "InterferenceManagementInfoPerChannel", "InterferenceManagementZone", "InterferenceManagementZones", "InterferenceManagementZoneType", "Iso3833VehicleType", "ItineraryPath", "ItsPduHeader", "IviIdentificationNumber", "LanePosition", "LaneType", "LaneWidth", "LateralAcceleration", "LateralAccelerationValue", "Latitude", "LightBarSirenInUse", "Longitude", "LongitudinalAcceleration", "LongitudinalAccelerationValue", "MapPosition", "MapReference", "MitigationForTechnologies", "MitigationPerTechnologyClass", "NumberOfOccupants", "OpeningDaysHours", "PathDeltaTime", "PathHistory", "PathPoint", "PerformanceClass", "PhoneNumber", "PosCentMass", "PosConfidenceEllipse", "PosFrontAx", "PositioningSolutionType", "PositionOfOccupants", "PositionOfPillars", "PosLonCarr", "PosPillar", "PostCrashSubCauseCode", "ProtectedCommunicationZone", "ProtectedCommunicationZonesRSU", "ProtectedZoneRadius", "ProtectedZoneType", "Provider", "PtActivation", "PtActivationData", "PtActivationType", "ReferencePosition", "RelevanceDistance", "RelevanceTrafficDirection", "RequestResponseIndication", "RescueAndRecoveryWorkInProgressSubCauseCode", "RestrictedTypes", "RoadType", "RoadworksSubCauseCode", "SemiAxisLength", "SequenceNumber", "SequenceOfTrajectoryInterceptionIndication", "SignalViolationSubCauseCode", "SlowVehicleSubCauseCode", "SpecialTransportType", "Speed", "SpeedConfidence", "SpeedLimit", "SpeedValue", "StabilityChangeIndication", "StabilityLossProbability", "StationarySince", "StationaryVehicleSubCauseCode", "StationID", "StationType", "SteeringWheelAngle", "SteeringWheelAngleConfidence", "SteeringWheelAngleValue", "SubCauseCodeType", "Temperature", "TimestampIts", "Traces", "TrafficConditionSubCauseCode", "TrafficIslandPosition", "TrafficRule", "TrajectoryInterceptionConfidence", "TrajectoryInterceptionIndication", "TrajectoryInterceptionProbability", "TransmissionInterval", "TurningRadius", "ValidityDuration", "VarLengthNumber", "VDS", "VehicleBreakdownSubCauseCode", "VehicleHeight", "VehicleIdentification", "VehicleLength", "VehicleLengthConfidenceIndication", "VehicleLengthValue", "VehicleMass", "VehicleRole", "VehicleWidth", "VerticalAcceleration", "VerticalAccelerationValue", "VruDeviceUsage", "VruEnvironment", "VruExteriorLights", "VruMovementControl", "VruProfileAndSubprofile", "VruSizeClass", "VruSpecificExteriorLights", "VruSubProfileAnimal", "VruSubProfileBicyclist", "VruSubProfileMotorcyclist", "VruSubProfilePedestrian", "WheelBaseVehicle", "WMInumber", "WrongWayDrivingSubCauseCode", "YawRate", "YawRateConfidence", "YawRateValue"]:
+        if type_name in ["AccelerationChangeIndication", "AccelerationConfidence", "AccelerationControl", "AccessTechnologyClass", "AccidentSubCauseCode", "ActionID", "AdverseWeatherCondition-AdhesionSubCauseCode", "AdverseWeatherCondition-ExtremeWeatherConditionSubCauseCode", "AdverseWeatherCondition-PrecipitationSubCauseCode", "AdverseWeatherCondition-VisibilitySubCauseCode", "Altitude", "AltitudeConfidence", "AltitudeValue", "BasicContainer", "CauseCode", "CauseCodeType", "CenDsrcTollingZone", "CenDsrcTollingZoneID", "ClosedLanes", "ClusterBreakupInfo", "ClusterBreakupReason", "ClusterJoinInfo", "ClusterLeaveInfo", "ClusterLeaveReason", "CollisionRiskSubCauseCode", "CountryCode", "Curvature", "CurvatureCalculationMode", "CurvatureConfidence", "CurvatureValue", "DangerousEndOfQueueSubCauseCode", "DangerousGoodsBasic", "DangerousGoodsExtended", "DangerousSituationSubCauseCode", "DeltaAltitude", "DeltaLatitude", "DeltaLongitude", "DeltaReferencePosition", "DigitalMap", "Direction", "DriveDirection", "DrivingLaneStatus", "EmbarkationStatus", "EmergencyPriority", "EmergencyVehicleApproachingSubCauseCode", "EnergyStorageType", "EuVehicleCategoryCode", "EuVehicleCategoryL", "EuVehicleCategoryM", "EuVehicleCategoryN", "EuVehicleCategoryO", "EventHistory", "EventPoint", "Ext1", "Ext2", "Ext3", "ExteriorLights", "GenerationDeltaTime", "HardShoulderStatus", "HazardousLocation-AnimalOnTheRoadSubCauseCode", "HazardousLocation-DangerousCurveSubCauseCode", "HazardousLocation-ObstacleOnTheRoadSubCauseCode", "HazardousLocation-SurfaceConditionSubCauseCode", "Heading", "HeadingChangeIndication", "HeadingConfidence", "HeadingValue", "HeightLonCarr", "HumanPresenceOnTheRoadSubCauseCode", "HumanProblemSubCauseCode", "InformationQuality", "InterferenceManagementChannel", "InterferenceManagementInfo", "InterferenceManagementInfoPerChannel", "InterferenceManagementZone", "InterferenceManagementZones", "InterferenceManagementZoneType", "Iso3833VehicleType", "ItineraryPath", "ItsPduHeader", "IviIdentificationNumber", "LanePosition", "LaneType", "LaneWidth", "LateralAcceleration", "LateralAccelerationValue", "Latitude", "LightBarSirenInUse", "Longitude", "LongitudinalAcceleration", "LongitudinalAccelerationValue", "MapPosition", "MapReference", "MitigationForTechnologies", "MitigationPerTechnologyClass", "NumberOfOccupants", "OpeningDaysHours", "PathDeltaTime", "PathHistory", "PathPoint", "PerformanceClass", "PhoneNumber", "PosCentMass", "PosConfidenceEllipse", "PosFrontAx", "PositioningSolutionType", "PositionOfOccupants", "PositionOfPillars", "PosLonCarr", "PosPillar", "PostCrashSubCauseCode", "ProtectedCommunicationZone", "ProtectedCommunicationZonesRSU", "ProtectedZoneRadius", "ProtectedZoneType", "Provider", "PtActivation", "PtActivationData", "PtActivationType", "ReferencePosition", "RelevanceDistance", "RelevanceTrafficDirection", "RequestResponseIndication", "RescueAndRecoveryWorkInProgressSubCauseCode", "RestrictedTypes", "RoadType", "RoadworksSubCauseCode", "SemiAxisLength", "SequenceNumber", "SequenceOfTrajectoryInterceptionIndication", "SignalViolationSubCauseCode", "SlowVehicleSubCauseCode", "SpecialTransportType", "Speed", "SpeedConfidence", "SpeedLimit", "SpeedValue", "StabilityChangeIndication", "StabilityLossProbability", "StationarySince", "StationaryVehicleSubCauseCode", "StationID", "StationType", "SteeringWheelAngle", "SteeringWheelAngleConfidence", "SteeringWheelAngleValue", "SubCauseCodeType", "Temperature", "TimestampIts", "Traces", "TrafficConditionSubCauseCode", "TrafficIslandPosition", "TrafficRule", "TrajectoryInterceptionConfidence", "TrajectoryInterceptionIndication", "TrajectoryInterceptionProbability", "TransmissionInterval", "TurningRadius", "ValidityDuration", "VarLengthNumber", "VDS", "VehicleBreakdownSubCauseCode", "VehicleHeight", "VehicleIdentification", "VehicleLength", "VehicleLengthConfidenceIndication", "VehicleLengthValue", "VehicleMass", "VehicleRole", "VehicleWidth", "VerticalAcceleration", "VerticalAccelerationValue", "VruDeviceUsage", "VruEnvironment", "VruExteriorLights", "VruMovementControl", "VruProfileAndSubprofile", "VruSizeClass", "VruSpecificExteriorLights", "VruSubProfileAnimal", "VruSubProfileBicyclist", "VruSubProfileMotorcyclist", "VruSubProfilePedestrian", "WheelBaseVehicle", "WMInumber", "WrongWayDrivingSubCauseCode", "YawRate", "YawRateConfidence", "YawRateValue", "SaeAutomationLevel", "DeltaPosition", "DeltaPositions", "DeltaReferencePositions", "PolygonalLine"]:
             include.append("ETSI-ITS-CDD_" + type_name)
         else:
             include.append(type_name)
         add_t.append(type_name)
+#    if "CAM-PDU" in asn1_file and "::" not in type_name:
+#        if type_name in ['CAM', 'CamParameters', 'HighFrequencyContainer', 'LowFrequencyContainer', 'SpecialVehicleContainer', 'BasicVehicleContainerHighFrequency', 'BasicVehicleContainerLowFrequency', 'PublicTransportContainer', 'SpecialTransportContainer', 'DangerousGoodsContainer', 'RoadWorksContainerBasic', 'RescueContainer', 'EmergencyContainer', 'SafetyCarContainer', 'RSUContainerHighFrequency']:
+#            include.append("CAM_PDU_Descriptions_" + type_name)
+#        else:
+#            include.append(type_name)
+#        add_t.append(type_name)
     if asn1_type["type"] in ["SEQUENCE"]:
         for m in asn1_type["members"]:
             if m is not None and m['name'] not in ignore_member_names and m['type'] in ["SEQUENCE", "CHOICE", "SEQUENCE OF"]:
@@ -983,6 +1077,8 @@ for t in asn1_types:
         name_counts[t.name] = 1
 for t in asn1_types:
     if name_counts[t.name] > 1:
+        if "Steering" in t.name:
+            pass
         t.print_name = t.parent_name.replace("-", "_") + "_" + t.name
 while any([printed.count(t.name) < name_counts[t.name] for t in asn1_types]):
     for t in asn1_types:
@@ -995,11 +1091,12 @@ while any([printed.count(t.name) < name_counts[t.name] for t in asn1_types]):
             printed.append(t.name)
             if t.print_name != t.name:
                 duplicate_printed.append(t.print_name)
-        #elif t.name not in printed:
+        #elif printed.count(t.name) < name_counts[t.name]:
             #print(t.name + " " + t.definition["type"])
             ##print(all([d["type"] in printed + default_types for d in t.members]))
             #print([d["type"] for d in t.members if d["type"] not in printed + default_types])
     #print('\n\n\n\n')
+    ##print([(t.name, printed.count(t.name), name_counts[t.name]) for t in asn1_types if printed.count(t.name) < name_counts[t.name]])
     #time.sleep(1)
 
 if sys.argv[1] == "hpp":

@@ -17,7 +17,7 @@ static asn_oer_constraints_t asn_OER_type_StandardLength3b_constr_1 CC_NOTUSED =
 	-1};
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-static asn_per_constraints_t asn_PER_type_StandardLength3b_constr_1 CC_NOTUSED = {
+asn_per_constraints_t asn_PER_type_StandardLength3b_constr_1 CC_NOTUSED = {
 	{ APC_CONSTRAINED,	 3,  3,  0,  7 }	/* (0..7) */,
 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
 	0, 0	/* No PER value map */
@@ -43,7 +43,7 @@ static const unsigned int asn_MAP_StandardLength3b_enum2value_1[] = {
 	5,	/* lessThan5km(5) */
 	7	/* over10km(7) */
 };
-static const asn_INTEGER_specifics_t asn_SPC_StandardLength3b_specs_1 = {
+const asn_INTEGER_specifics_t asn_SPC_StandardLength3b_specs_1 = {
 	asn_MAP_StandardLength3b_value2enum_1,	/* "tag" => N; sorted by tag */
 	asn_MAP_StandardLength3b_enum2value_1,	/* N => "tag"; sorted by N */
 	8,	/* Number of elements in the maps */

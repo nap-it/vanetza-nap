@@ -17,7 +17,7 @@ static asn_oer_constraints_t asn_OER_type_ETSI_ITS_CDD_StationarySince_constr_1 
 	-1};
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-static asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_StationarySince_constr_1 CC_NOTUSED = {
+asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_StationarySince_constr_1 CC_NOTUSED = {
 	{ APC_CONSTRAINED,	 2,  2,  0,  3 }	/* (0..3) */,
 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
 	0, 0	/* No PER value map */
@@ -35,7 +35,7 @@ static const unsigned int asn_MAP_ETSI_ITS_CDD_StationarySince_enum2value_1[] = 
 	0,	/* lessThan1Minute(0) */
 	1	/* lessThan2Minutes(1) */
 };
-static const asn_INTEGER_specifics_t asn_SPC_ETSI_ITS_CDD_StationarySince_specs_1 = {
+const asn_INTEGER_specifics_t asn_SPC_ETSI_ITS_CDD_StationarySince_specs_1 = {
 	asn_MAP_ETSI_ITS_CDD_StationarySince_value2enum_1,	/* "tag" => N; sorted by tag */
 	asn_MAP_ETSI_ITS_CDD_StationarySince_enum2value_1,	/* N => "tag"; sorted by N */
 	4,	/* Number of elements in the maps */

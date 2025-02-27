@@ -28,7 +28,7 @@ asn_TYPE_member_t asn_MBR_DecentralizedEnvironmentalNotificationMessage_1[] = {
 	{ ATF_POINTER, 3, offsetof(struct DecentralizedEnvironmentalNotificationMessage, situation),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_SituationContainer,
+		&asn_DEF_DENM_PDU_Descriptions_SituationContainer,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -45,7 +45,7 @@ asn_TYPE_member_t asn_MBR_DecentralizedEnvironmentalNotificationMessage_1[] = {
 	{ ATF_POINTER, 2, offsetof(struct DecentralizedEnvironmentalNotificationMessage, location),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_LocationContainer,
+		&asn_DEF_DENM_PDU_Descriptions_LocationContainer,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -62,7 +62,7 @@ asn_TYPE_member_t asn_MBR_DecentralizedEnvironmentalNotificationMessage_1[] = {
 	{ ATF_POINTER, 1, offsetof(struct DecentralizedEnvironmentalNotificationMessage, alacarte),
 		(ASN_TAG_CLASS_CONTEXT | (3 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_AlacarteContainer,
+		&asn_DEF_DENM_PDU_Descriptions_AlacarteContainer,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

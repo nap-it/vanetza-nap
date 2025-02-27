@@ -27,6 +27,7 @@ typedef enum ETSI_ITS_CDD_GenerationDeltaTime {
 typedef long	 ETSI_ITS_CDD_GenerationDeltaTime_t;
 
 /* Implementation */
+extern asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_GenerationDeltaTime_constr_1;
 extern asn_TYPE_descriptor_t asn_DEF_ETSI_ITS_CDD_GenerationDeltaTime;
 asn_struct_free_f ETSI_ITS_CDD_GenerationDeltaTime_free;
 asn_struct_print_f ETSI_ITS_CDD_GenerationDeltaTime_print;

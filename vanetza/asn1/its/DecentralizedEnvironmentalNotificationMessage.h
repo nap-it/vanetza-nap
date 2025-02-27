@@ -20,16 +20,16 @@ extern "C" {
 #endif
 
 /* Forward declarations */
-struct SituationContainer;
-struct LocationContainer;
-struct AlacarteContainer;
+struct DENM_PDU_Descriptions_SituationContainer;
+struct DENM_PDU_Descriptions_LocationContainer;
+struct DENM_PDU_Descriptions_AlacarteContainer;
 
 /* DecentralizedEnvironmentalNotificationMessage */
 typedef struct DecentralizedEnvironmentalNotificationMessage {
 	DENM_PDU_Descriptions_ManagementContainer_t	 management;
-	struct SituationContainer	*situation;	/* OPTIONAL */
-	struct LocationContainer	*location;	/* OPTIONAL */
-	struct AlacarteContainer	*alacarte;	/* OPTIONAL */
+	struct DENM_PDU_Descriptions_SituationContainer	*situation;	/* OPTIONAL */
+	struct DENM_PDU_Descriptions_LocationContainer	*location;	/* OPTIONAL */
+	struct DENM_PDU_Descriptions_AlacarteContainer	*alacarte;	/* OPTIONAL */
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
@@ -45,9 +45,9 @@ extern asn_TYPE_member_t asn_MBR_DecentralizedEnvironmentalNotificationMessage_1
 #endif
 
 /* Referred external types */
-#include "SituationContainer.h"
-#include "LocationContainer.h"
-#include "AlacarteContainer.h"
+#include "DENM-PDU-Descriptions_SituationContainer.h"
+#include "DENM-PDU-Descriptions_LocationContainer.h"
+#include "DENM-PDU-Descriptions_AlacarteContainer.h"
 
 #endif	/* _DecentralizedEnvironmentalNotificationMessage_H_ */
 #include "asn_internal.h"

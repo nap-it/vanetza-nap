@@ -30,7 +30,9 @@ typedef enum TrafficDirection {
 typedef long	 TrafficDirection_t;
 
 /* Implementation */
+extern asn_per_constraints_t asn_PER_type_TrafficDirection_constr_1;
 extern asn_TYPE_descriptor_t asn_DEF_TrafficDirection;
+extern const asn_INTEGER_specifics_t asn_SPC_TrafficDirection_specs_1;
 asn_struct_free_f TrafficDirection_free;
 asn_struct_print_f TrafficDirection_print;
 asn_constr_check_f TrafficDirection_constraint;

@@ -48,7 +48,7 @@ static asn_oer_constraints_t asn_OER_type_ETSI_ITS_CDD_LightBarSirenInUse_constr
 	2	/* (SIZE(2..2)) */};
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-static asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_LightBarSirenInUse_constr_1 CC_NOTUSED = {
+asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_LightBarSirenInUse_constr_1 CC_NOTUSED = {
 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
 	{ APC_CONSTRAINED,	 0,  0,  2,  2 }	/* (SIZE(2..2)) */,
 	0, 0	/* No PER value map */

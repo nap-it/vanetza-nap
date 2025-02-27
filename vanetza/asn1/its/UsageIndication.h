@@ -22,10 +22,15 @@ extern "C" {
 typedef enum UsageIndication {
 	UsageIndication_noIndication	= 0,
 	UsageIndication_specialUse	= 1,
-	UsageIndication_rescueOperation	= 2
+	UsageIndication_rescueOperation	= 2,
 	/*
 	 * Enumeration is extensible
 	 */
+	UsageIndication_railroad	= 3,
+	UsageIndication_fixedRoute	= 4,
+	UsageIndication_restrictedRoute	= 5,
+	UsageIndication_adasAd	= 6,
+	UsageIndication_navigation	= 7
 } e_UsageIndication;
 
 /* UsageIndication */

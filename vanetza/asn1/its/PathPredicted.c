@@ -15,7 +15,7 @@ static asn_oer_constraints_t asn_OER_type_PathPredicted_constr_1 CC_NOTUSED = {
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
 asn_per_constraints_t asn_PER_type_PathPredicted_constr_1 CC_NOTUSED = {
 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
-	{ APC_CONSTRAINED | APC_EXTENSIBLE,  4,  4,  1,  16 }	/* (SIZE(1..16,...)) */,
+	{ APC_CONSTRAINED | APC_EXTENSIBLE,  6,  6,  1,  40 }	/* (SIZE(1..40,...)) */,
 	0, 0	/* No PER value map */
 };
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */

@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include "time_trigger.hpp"
+#include <map>  
 
 #define TAG "mqtt.cpp: "
 

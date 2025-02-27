@@ -152,7 +152,7 @@ asn_TYPE_member_t asn_MBR_IviContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct IviContainer, choice.rcc),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_RoadConfigurationContainer,
+		&asn_DEF_IVI_RoadConfigurationContainer,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

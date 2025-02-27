@@ -26,7 +26,10 @@ typedef enum ETSI_ITS_CDD_RoadworksSubCauseCode {
 	ETSI_ITS_CDD_RoadworksSubCauseCode_slowMovingRoadMaintenance	= 3,
 	ETSI_ITS_CDD_RoadworksSubCauseCode_shortTermStationaryRoadworks	= 4,
 	ETSI_ITS_CDD_RoadworksSubCauseCode_streetCleaning	= 5,
-	ETSI_ITS_CDD_RoadworksSubCauseCode_winterService	= 6
+	ETSI_ITS_CDD_RoadworksSubCauseCode_winterService	= 6,
+	ETSI_ITS_CDD_RoadworksSubCauseCode_setupPhase	= 7,
+	ETSI_ITS_CDD_RoadworksSubCauseCode_remodellingPhase	= 8,
+	ETSI_ITS_CDD_RoadworksSubCauseCode_dismantlingPhase	= 9
 } e_ETSI_ITS_CDD_RoadworksSubCauseCode;
 
 /* ETSI-ITS-CDD_RoadworksSubCauseCode */

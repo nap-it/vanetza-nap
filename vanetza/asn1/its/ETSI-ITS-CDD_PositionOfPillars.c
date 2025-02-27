@@ -13,13 +13,13 @@ static asn_oer_constraints_t asn_OER_type_ETSI_ITS_CDD_PositionOfPillars_constr_
 	-1	/* (SIZE(0..MAX)) */};
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-static asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_PositionOfPillars_constr_1 CC_NOTUSED = {
+asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_PositionOfPillars_constr_1 CC_NOTUSED = {
 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
 	{ APC_CONSTRAINED | APC_EXTENSIBLE,  2,  2,  1,  3 }	/* (SIZE(1..3,...)) */,
 	0, 0	/* No PER value map */
 };
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
-static asn_TYPE_member_t asn_MBR_ETSI_ITS_CDD_PositionOfPillars_1[] = {
+asn_TYPE_member_t asn_MBR_ETSI_ITS_CDD_PositionOfPillars_1[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (2 << 2)),
 		0,
@@ -41,7 +41,7 @@ static asn_TYPE_member_t asn_MBR_ETSI_ITS_CDD_PositionOfPillars_1[] = {
 static const ber_tlv_tag_t asn_DEF_ETSI_ITS_CDD_PositionOfPillars_tags_1[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static asn_SET_OF_specifics_t asn_SPC_ETSI_ITS_CDD_PositionOfPillars_specs_1 = {
+asn_SET_OF_specifics_t asn_SPC_ETSI_ITS_CDD_PositionOfPillars_specs_1 = {
 	sizeof(struct ETSI_ITS_CDD_PositionOfPillars),
 	offsetof(struct ETSI_ITS_CDD_PositionOfPillars, _asn_ctx),
 	0,	/* XER encoding is XMLDelimitedItemList */

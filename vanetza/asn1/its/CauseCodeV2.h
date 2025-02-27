@@ -33,6 +33,8 @@ typedef struct CauseCodeV2 {
 
 /* Implementation */
 extern asn_TYPE_descriptor_t asn_DEF_CauseCodeV2;
+extern asn_SEQUENCE_specifics_t asn_SPC_CauseCodeV2_specs_1;
+extern asn_TYPE_member_t asn_MBR_CauseCodeV2_1[1];
 
 #ifdef __cplusplus
 }

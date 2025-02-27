@@ -36,7 +36,9 @@ typedef enum ETSI_ITS_CDD_PositioningSolutionType {
 typedef long	 ETSI_ITS_CDD_PositioningSolutionType_t;
 
 /* Implementation */
+extern asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_PositioningSolutionType_constr_1;
 extern asn_TYPE_descriptor_t asn_DEF_ETSI_ITS_CDD_PositioningSolutionType;
+extern const asn_INTEGER_specifics_t asn_SPC_ETSI_ITS_CDD_PositioningSolutionType_specs_1;
 asn_struct_free_f ETSI_ITS_CDD_PositioningSolutionType_free;
 asn_struct_print_f ETSI_ITS_CDD_PositioningSolutionType_print;
 asn_constr_check_f ETSI_ITS_CDD_PositioningSolutionType_constraint;

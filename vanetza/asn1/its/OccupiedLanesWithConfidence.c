@@ -213,7 +213,7 @@ asn_TYPE_descriptor_t asn_DEF_mapBased_4 = {
 	&asn_SPC_mapBased_specs_4	/* Additional specs */
 };
 
-static asn_TYPE_member_t asn_MBR_OccupiedLanesWithConfidence_1[] = {
+asn_TYPE_member_t asn_MBR_OccupiedLanesWithConfidence_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct OccupiedLanesWithConfidence, lanePositionBased),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		0,
@@ -275,7 +275,7 @@ static const asn_TYPE_tag2member_t asn_MAP_OccupiedLanesWithConfidence_tag2el_1[
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* mapBased */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* confidence */
 };
-static asn_SEQUENCE_specifics_t asn_SPC_OccupiedLanesWithConfidence_specs_1 = {
+asn_SEQUENCE_specifics_t asn_SPC_OccupiedLanesWithConfidence_specs_1 = {
 	sizeof(struct OccupiedLanesWithConfidence),
 	offsetof(struct OccupiedLanesWithConfidence, _asn_ctx),
 	asn_MAP_OccupiedLanesWithConfidence_tag2el_1,

@@ -84,7 +84,7 @@ asn_TYPE_member_t asn_MBR_DENM_PDU_Descriptions_ManagementContainer_1[] = {
 	{ ATF_POINTER, 1, offsetof(struct DENM_PDU_Descriptions_ManagementContainer, termination),
 		(ASN_TAG_CLASS_CONTEXT | (3 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Termination,
+		&asn_DEF_DENM_PDU_Descriptions_Termination,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

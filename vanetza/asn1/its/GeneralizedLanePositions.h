@@ -32,6 +32,9 @@ typedef struct GeneralizedLanePositions {
 
 /* Implementation */
 extern asn_TYPE_descriptor_t asn_DEF_GeneralizedLanePositions;
+extern asn_SET_OF_specifics_t asn_SPC_GeneralizedLanePositions_specs_1;
+extern asn_TYPE_member_t asn_MBR_GeneralizedLanePositions_1[1];
+extern asn_per_constraints_t asn_PER_type_GeneralizedLanePositions_constr_1;
 
 #ifdef __cplusplus
 }

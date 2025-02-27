@@ -30,7 +30,8 @@ typedef enum ETSI_ITS_CDD_HazardousLocation_SurfaceConditionSubCauseCode {
 	ETSI_ITS_CDD_HazardousLocation_SurfaceConditionSubCauseCode_burstPipe	= 7,
 	ETSI_ITS_CDD_HazardousLocation_SurfaceConditionSubCauseCode_volcanoEruption	= 8,
 	ETSI_ITS_CDD_HazardousLocation_SurfaceConditionSubCauseCode_fallingIce	= 9,
-	ETSI_ITS_CDD_HazardousLocation_SurfaceConditionSubCauseCode_fire	= 10
+	ETSI_ITS_CDD_HazardousLocation_SurfaceConditionSubCauseCode_fire	= 10,
+	ETSI_ITS_CDD_HazardousLocation_SurfaceConditionSubCauseCode_flooding	= 11
 } e_ETSI_ITS_CDD_HazardousLocation_SurfaceConditionSubCauseCode;
 
 /* ETSI-ITS-CDD_HazardousLocation-SurfaceConditionSubCauseCode */

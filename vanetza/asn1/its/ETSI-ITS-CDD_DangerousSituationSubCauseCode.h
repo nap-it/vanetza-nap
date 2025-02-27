@@ -25,7 +25,7 @@ typedef enum ETSI_ITS_CDD_DangerousSituationSubCauseCode {
 	ETSI_ITS_CDD_DangerousSituationSubCauseCode_preCrashSystemEngaged	= 2,
 	ETSI_ITS_CDD_DangerousSituationSubCauseCode_espEngaged	= 3,
 	ETSI_ITS_CDD_DangerousSituationSubCauseCode_absEngaged	= 4,
-	ETSI_ITS_CDD_DangerousSituationSubCauseCode_ebEngaged	= 5,
+	ETSI_ITS_CDD_DangerousSituationSubCauseCode_aebEngaged	= 5,
 	ETSI_ITS_CDD_DangerousSituationSubCauseCode_brakeWarningEngaged	= 6,
 	ETSI_ITS_CDD_DangerousSituationSubCauseCode_collisionRiskWarningEngaged	= 7
 } e_ETSI_ITS_CDD_DangerousSituationSubCauseCode;

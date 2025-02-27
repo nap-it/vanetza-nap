@@ -13,7 +13,7 @@
 
 /* Including external dependencies */
 #include "Segment.h"
-#include "PolygonalLine.h"
+#include "IVI_PolygonalLine.h"
 #include "ComputedSegment.h"
 #include "constr_CHOICE.h"
 
@@ -36,7 +36,7 @@ typedef struct Zone {
 	Zone_PR present;
 	union Zone_u {
 		Segment_t	 segment;
-		PolygonalLine_t	 area;
+		IVI_PolygonalLine_t	 area;
 		ComputedSegment_t	 computedSegment;
 		/*
 		 * This type is extensible,

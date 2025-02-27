@@ -32,6 +32,9 @@ typedef struct TracesExtended {
 
 /* Implementation */
 extern asn_TYPE_descriptor_t asn_DEF_TracesExtended;
+extern asn_SET_OF_specifics_t asn_SPC_TracesExtended_specs_1;
+extern asn_TYPE_member_t asn_MBR_TracesExtended_1[1];
+extern asn_per_constraints_t asn_PER_type_TracesExtended_constr_1;
 
 #ifdef __cplusplus
 }

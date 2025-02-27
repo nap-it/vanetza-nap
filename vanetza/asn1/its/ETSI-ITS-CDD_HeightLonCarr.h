@@ -28,6 +28,7 @@ typedef enum ETSI_ITS_CDD_HeightLonCarr {
 typedef long	 ETSI_ITS_CDD_HeightLonCarr_t;
 
 /* Implementation */
+extern asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_HeightLonCarr_constr_1;
 extern asn_TYPE_descriptor_t asn_DEF_ETSI_ITS_CDD_HeightLonCarr;
 asn_struct_free_f ETSI_ITS_CDD_HeightLonCarr_free;
 asn_struct_print_f ETSI_ITS_CDD_HeightLonCarr_print;

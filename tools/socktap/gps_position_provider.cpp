@@ -22,7 +22,7 @@ constexpr int gpsd_status(const gps_data_t& data)
     return data.fix.status;
 }
 
-constexpr int cStatusFix = STATUS_FIX;
+//constexpr int cStatusFix = STATUS_FIX;
 
 constexpr bool gpsd_has_useful_fix(const gps_data_t& data)
 {

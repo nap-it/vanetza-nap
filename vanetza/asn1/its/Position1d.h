@@ -28,6 +28,7 @@ typedef enum Position1d {
 typedef long	 Position1d_t;
 
 /* Implementation */
+extern asn_per_constraints_t asn_PER_type_Position1d_constr_1;
 extern asn_TYPE_descriptor_t asn_DEF_Position1d;
 asn_struct_free_f Position1d_free;
 asn_struct_print_f Position1d_print;

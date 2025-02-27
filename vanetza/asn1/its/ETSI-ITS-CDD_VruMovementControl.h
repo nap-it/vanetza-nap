@@ -33,6 +33,7 @@ typedef enum ETSI_ITS_CDD_VruMovementControl {
 typedef long	 ETSI_ITS_CDD_VruMovementControl_t;
 
 /* Implementation */
+extern asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_VruMovementControl_constr_1;
 extern asn_TYPE_descriptor_t asn_DEF_ETSI_ITS_CDD_VruMovementControl;
 asn_struct_free_f ETSI_ITS_CDD_VruMovementControl_free;
 asn_struct_print_f ETSI_ITS_CDD_VruMovementControl_print;

@@ -140,7 +140,7 @@ static asn_per_constraints_t asn_PER_memb_companyName_constr_9 CC_NOTUSED = {
 	0, 0	/* No PER value map */
 };
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
-static asn_TYPE_member_t asn_MBR_ETSI_ITS_CDD_DangerousGoodsExtended_1[] = {
+asn_TYPE_member_t asn_MBR_ETSI_ITS_CDD_DangerousGoodsExtended_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct ETSI_ITS_CDD_DangerousGoodsExtended, dangerousGoodsType),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
@@ -292,7 +292,7 @@ static const asn_TYPE_tag2member_t asn_MAP_ETSI_ITS_CDD_DangerousGoodsExtended_t
     { (ASN_TAG_CLASS_CONTEXT | (6 << 2)), 6, 0, 0 }, /* phoneNumber */
     { (ASN_TAG_CLASS_CONTEXT | (7 << 2)), 7, 0, 0 } /* companyName */
 };
-static asn_SEQUENCE_specifics_t asn_SPC_ETSI_ITS_CDD_DangerousGoodsExtended_specs_1 = {
+asn_SEQUENCE_specifics_t asn_SPC_ETSI_ITS_CDD_DangerousGoodsExtended_specs_1 = {
 	sizeof(struct ETSI_ITS_CDD_DangerousGoodsExtended),
 	offsetof(struct ETSI_ITS_CDD_DangerousGoodsExtended, _asn_ctx),
 	asn_MAP_ETSI_ITS_CDD_DangerousGoodsExtended_tag2el_1,

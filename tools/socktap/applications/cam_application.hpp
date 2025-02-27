@@ -31,7 +31,7 @@ private:
     metrics_t metrics_s;
     vanetza::geonet::Router* timer_router;
 
-    Document buildJSON(CAM_t cam, Document& cam_json_full, double time_reception, double time_queue, int rssi, int packet_size, channel channel_info, bool include_fields, bool rx, bool full);
+    Document buildJSON(CAM_PDU_Description_CAM_t cam, Document& cam_json_full, double time_reception, double time_queue, int rssi, int packet_size, channel channel_info, bool include_fields, bool rx, bool full);
 
     bool isNewInfo(long stationID, long latitude, long longitude, double speed, long heading, double time_reception);
     long double calcDistance(long double lat1, long double long1, long double lat2, long double long2);

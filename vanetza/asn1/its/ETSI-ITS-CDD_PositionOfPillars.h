@@ -30,6 +30,9 @@ typedef struct ETSI_ITS_CDD_PositionOfPillars {
 
 /* Implementation */
 extern asn_TYPE_descriptor_t asn_DEF_ETSI_ITS_CDD_PositionOfPillars;
+extern asn_SET_OF_specifics_t asn_SPC_ETSI_ITS_CDD_PositionOfPillars_specs_1;
+extern asn_TYPE_member_t asn_MBR_ETSI_ITS_CDD_PositionOfPillars_1[1];
+extern asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_PositionOfPillars_constr_1;
 
 #ifdef __cplusplus
 }

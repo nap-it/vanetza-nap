@@ -32,7 +32,9 @@ typedef enum ObjectFace {
 typedef long	 ObjectFace_t;
 
 /* Implementation */
+extern asn_per_constraints_t asn_PER_type_ObjectFace_constr_1;
 extern asn_TYPE_descriptor_t asn_DEF_ObjectFace;
+extern const asn_INTEGER_specifics_t asn_SPC_ObjectFace_specs_1;
 asn_struct_free_f ObjectFace_free;
 asn_struct_print_f ObjectFace_print;
 asn_constr_check_f ObjectFace_constraint;

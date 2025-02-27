@@ -42,7 +42,7 @@ static asn_oer_constraints_t asn_OER_type_ETSI_ITS_CDD_SpeedLimit_constr_1 CC_NO
 	-1};
 #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
 #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
-static asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_SpeedLimit_constr_1 CC_NOTUSED = {
+asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_SpeedLimit_constr_1 CC_NOTUSED = {
 	{ APC_CONSTRAINED,	 8,  8,  1,  255 }	/* (1..255) */,
 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
 	0, 0	/* No PER value map */

@@ -14,7 +14,7 @@
 /* Including external dependencies */
 #include "GeographicLocationContainer.h"
 #include "GeneralIviContainer.h"
-#include "RoadConfigurationContainer.h"
+#include "IVI_RoadConfigurationContainer.h"
 #include "TextContainer.h"
 #include "LayoutContainer.h"
 #include "AutomatedVehicleContainer.h"
@@ -45,7 +45,7 @@ typedef struct IviContainer {
 	union IviContainer_u {
 		GeographicLocationContainer_t	 glc;
 		GeneralIviContainer_t	 giv;
-		RoadConfigurationContainer_t	 rcc;
+		IVI_RoadConfigurationContainer_t	 rcc;
 		TextContainer_t	 tc;
 		LayoutContainer_t	 lac;
 		/*

@@ -1,6 +1,4 @@
---! @options: no-fields-header
-
-ETSI-ITS-CDD {itu-t (0) identified-organization (4) etsi (0) itsDomain (5) wg1 (1) 102894 cdd (2) major-version-3 (3) minor-version-1 (1)}
+ETSI-ITS-CDD {itu-t (0) identified-organization (4) etsi (0) itsDomain (5) wg1 (1) 102894 cdd (2) major-version-4 (4) minor-version-2 (2)}
 
 DEFINITIONS AUTOMATIC TAGS ::=
 
@@ -54,11 +52,9 @@ AccelerationConfidence ::= INTEGER {
 } (0..102)
 
 /**
- * This DE indicates the current controlling mechanism for longitudinal movement of the vehicle.
+ * This DE indicates the status of the controlling mechanisms for longitudinal movement of the vehicle.
  * The data may be provided via the in-vehicle network. It indicates whether a specific in-vehicle
- * acceleration control system is engaged or not. Currently, this DE includes the information of the
- * vehicle brake pedal, gas pedal, emergency brake system, collision warning system, adaptive cruise
- * control system, cruise control system and speed limiter system.
+ * acceleration control system is engaged or not. 
  *
  * The corresponding bit shall be set to 1 under the following conditions:
  * - 0 - `brakePedalEngaged`      - Driver is stepping on the brake pedal,
@@ -74,7 +70,7 @@ AccelerationConfidence ::= INTEGER {
  *
  * @note: The system engagement condition is OEM specific and therefore out of scope of the present document.
  * @category: Vehicle information
- * @revision: V1.3.1
+ * @revision: V1.3.1, description revised in V2.3.1
  */
 AccelerationControl ::= BIT STRING {
     brakePedalEngaged       (0),
@@ -85,6 +81,27 @@ AccelerationControl ::= BIT STRING {
     cruiseControlEngaged    (5),
     speedLimiterEngaged     (6)
 } (SIZE(7))
+
+/**
+ * This DE represents the extension of DE AccelerationControl and should only be used together with DE AccelerationControl.
+ *
+ * The corresponding bit shall be set to 1 under the following conditions:
+ * - 0  - `rearCrossTrafficAlertEngaged`       - rear cross traffic alert system is engaged
+ * - 1  - `emergencyBrakeRearEngaged`          - emergency brake system for rear driving is engaged
+ * - 2  - `assistedParkingLongitudinalEngaged` - assisted parking system (longitudinal control) is engaged
+ *
+ * Otherwise (for example when the corresponding system is not available due to non-equipped system 
+ * or information is unavailable), the corresponding bit shall be set to 0. 
+ *
+ * @category: Vehicle information
+ * @revision: Created in V2.3.1
+ */
+AccelerationControlExtension::= BIT STRING {    
+	rearCrossTrafficAlertEngaged (0),
+	emergencyBrakeRearEngaged (1),
+	assistedParkingLongitudinalEngaged (2)
+} (SIZE(3,...))
+
 
 /** 
  * This DE represents the magnitude of the acceleration vector in a defined coordinate system.
@@ -455,6 +472,34 @@ AngularAccelerationConfidence ::= ENUMERATED {
 }
 
 /**
+ * This DE indicates the status of the controlling mechanisms for the lateral and combined lateral and longitudinal movements of the vehicle.
+ * The data may be provided via the in-vehicle network. It indicates whether a specific in-vehicle
+ * acceleration control system combined with steering of the direction of the vehicle is engaged or not. 
+ *
+ * The corresponding bit shall be set to 1 under the following conditions:
+ * - 0  - `emergencySteeringSystemEngaged`       - emergency steering system is engaged,
+ * - 1  - `autonomousEmergencySteeringEngaged`   - autonomous emergency steering system is engaged,
+ * - 2  - `automaticLaneChangeEngaged`           - automatic lane change system is engaged,
+ * - 3  - `laneKeepingAssistEngaged`             - lane keeping assist is engaged,
+ * - 4  - `assistedParkingLateralEngaged`        - assisted parking system (lateral  control) is engaged,
+ * - 5  - `emergencyAssistEngaged`               - emergency assist (lateral and longitudinal control) is engaged.
+ *
+ * Otherwise (for example when the corresponding system is not available due to non-equipped system or information is unavailable), 
+ * the corresponding bit shall be set to 0. 
+ *
+ * @category: Vehicle information
+ * @revision: Created in V2.3.1
+*/
+AutomationControl::= BIT STRING {    
+	emergencySteeringSystemEngaged     (0),
+	autonomousEmergencySteeringEngaged (1),
+	automaticLaneChangeEngaged         (2),
+	laneKeepingAssistEngaged           (3),
+	assistedParkingLateralEngaged      (4),
+	emergencyAssistEngaged             (5)
+}(SIZE(6,...))
+
+/**
  * This DE indicates the number of axles of a passing train.
  *
  * The value shall be set to:
@@ -508,6 +553,26 @@ BogiesCount ::= INTEGER{
 	outOfRange   (100),
 	unavailable  (101)
 } (2..101)
+
+/**
+ * This DE indicates the status of the vehicle´s brake control system during an externally defined period of time. 
+ *
+ * The corresponding bit shall be set to 1 under the following conditions:
+ * - 0 `abs`        - the anti-lock braking system is engaged or has been engaged,
+ * - 1 `tcs`        - the traction control system is engaged or has been engaged,
+ * - 2 `esc`        - the electronic stability control system is engaged or has been engaged.
+ *
+ * Otherwise (for example when the corresponding system is not available due to non equipped system
+ * or information is unavailable), the corresponding bit shall be set to 0.
+ *
+ * @category: Vehicle information 
+ * @revision: created in V2.3.1
+ */
+BrakeControl::= BIT STRING {
+   abs   (0),
+   tcs   (1),
+   esc   (2)
+} (SIZE(3, ...))
 
 /**
  * The DE represents a cardinal number that counts the size of a set. 
@@ -1037,7 +1102,7 @@ DangerousSituationSubCauseCode ::= INTEGER {
     preCrashSystemEngaged           (2), 
     espEngaged                      (3), 
     absEngaged                      (4), 
-    ebEngaged                       (5), 
+    aebEngaged                      (5), 
     brakeWarningEngaged             (6), 
     collisionRiskWarningEngaged     (7)
 } (0..255)
@@ -1512,11 +1577,12 @@ The value shall be set to:
  * - 7  - `burstPipe`       - in case road surface is damaged due to pipe burst,
  * - 8  - `volcanoEruption` - in case road surface is damaged due to volcano eruption,
  * - 9  - `fallingIce`      - in case road surface damage is due to falling ice,
- * - 10 - `fire`            - in case there is fire on or near to the road surface.
- * - 11-255                 - are reserved for future usage.
+ * - 10 - `fire`            - in case there is fire on or near to the road surface,
+ * - 11 - `flooding`        - in case the road surface is flooded.
+ * - 12-255                 - are reserved for future usage.
  *
  * @category: Traffic information
- * @revision: V1.3.1
+ * @revision: V1.3.1, value 11 added in V2.3.1
  */
 HazardousLocation-SurfaceConditionSubCauseCode ::= INTEGER {
     unavailable      (0), 
@@ -1529,7 +1595,8 @@ HazardousLocation-SurfaceConditionSubCauseCode ::= INTEGER {
     burstPipe        (7), 
     volcanoEruption  (8), 
     fallingIce       (9), 
-    fire             (10)
+    fire             (10),
+    flooding         (11)   
 } (0..255)
 
 /**
@@ -2188,7 +2255,7 @@ MatrixIncludedComponents::= BIT STRING{
  *  The value shall be set to:
  *	- 1  - `denm`              - for Decentralized Environmental Notification Message (DENM) as specified in ETSI EN 302 637-3 [2],
  *  - 2  - `cam`               - for Cooperative Awareness Message (CAM) as specified in ETSI EN 302 637-2 [1],
- *  - 3  - `poim`              - for Point of Interest message as specified in ETSI TS 103 916 [9],
+ *  - 3  - `poim`              - for Point of Interest Message as specified in ETSI TS 103 916 [9],
  *  - 4  - `spatem`            - for Signal Phase And Timing Extended Message (SPATEM) as specified in ETSI TS 103 301 [15],
  *  - 5  - `mapem`             - for MAP Extended Message (MAPEM) as specified in ETSI TS 103 301 [15],
  *  - 6  - `ivim`              - for in Vehicle Information Message (IVIM) as specified in ETSI TS 103 301 [15],
@@ -2199,18 +2266,17 @@ MatrixIncludedComponents::= BIT STRING{
  *  - 11 - `evcsn`             - for Electrical Vehicle Charging Spot Notification message as specified in ETSI TS 101 556-1 [9],
  *  - 12 - `saem`              - for Services Announcement Extended Message as specified in ETSI EN 302 890-1 [17],
  *  - 13 - `rtcmem`            - for Radio Technical Commission for Maritime Services Extended Message (RTCMEM) as specified in ETSI TS 103 301 [15],
- *  - 14 - `cpm`               - reserved for Collective Perception Message (CPM), 
+ *  - 14 - `cpm`               - for Collective Perception Message (CPM) as specified in ETSI TS 103 324 [10], 
  *  - 15 - `imzm`              - for Interference Management Zone Message (IMZM) as specified in ETSI TS 103 724 [13],
  *  - 16 - `vam`               - for Vulnerable Road User Awareness Message as specified in ETSI TS 130 300-3 [12], 
  *  - 17 - `dsm`               - reserved for Diagnosis, logging and Status Message,
- *  - 18 - `pcim`              - reserved for Parking Control Infrastructure Message,
- *  - 19 - `pcvm`              - reserved for Parking Control Vehicle Message,
+ *  - 18 - `mim`               - for Marshalling Infrastructure Message as specified in ETSI TS TS 103 882 [11],
+ *  - 19 - `mvm`               - for Marshalling Vehicle Message as specified in ETSI TS TS 103 882 [11],
  *  - 20 - `mcm`               - reserved for Manoeuvre Coordination Message,
- *  - 21 - `pam`               - reserved for Parking Availability Message,
- *  - 22-255                   - reserved for future usage.
+ *  - 21-255                   - reserved for future usage.
  *
  * @category: Communication information
- * @revision: Created in V2.1.1 from @ref ItsPduHeader. Value 3 re-assigned to poim and value 7 and 8 reserved in V2.2.1
+ * @revision: Created in V2.1.1 from @ref ItsPduHeader. Value 3 re-assigned to poim and value 7 and 8 reserved in V2.2.1, values 18 and 19 assigned in V2.3.1
  */
 MessageId::= INTEGER { 
     denm              (1),  
@@ -2230,10 +2296,9 @@ MessageId::= INTEGER {
     imzm              (15),
     vam               (16),
     dsm               (17), 
-    pcim              (18),
-    pcvm              (19),
-    mcm               (20),
-    pam               (21)
+    mim               (18),
+    mvm               (19),
+    mcm               (20)
 } (0..255)
 
 /**
@@ -2372,6 +2437,70 @@ OtherSubClass ::= INTEGER {
     bulkMaterial    (3)
 } (0..255)
 
+/** 
+ * This DE indicates the arrangement of parking space in a parking area.
+ *
+ * The value shall be set to:
+ * - `0` to indicate that the parking spaces are arranged in a line and parallel to a road or curb,
+ * - `1` to indicate that the parking spaces are arranged side-by-side and diagonally to a curb,
+ * - `2` to indicate that the parking spaces are arranged side-by-side and perpendicularly to a curb,
+ * - `3` to indicate that the parking spaces are arranged so that vehicles form a queue,
+ * - `4` to indicate that the parking spaces are arranged in a mixed fashion, 
+ * - 5-7 - reserved for future usage. 
+ *
+ * @category: Road topology information
+ * @revision: Created in V2.3.1
+*/ 
+ParkingAreaArrangementType ::= INTEGER { 
+   parallelParkingSpace      (0), 
+   diagonalParkingSpace      (1), 
+   perpendicularParkingSpace (2),
+   queueParking              (3),
+   mixed                     (4),
+   unknown                   (7)   
+} (0..7)
+
+/** 
+ * This DE indicates the type of a reservation of a parking space/area.
+ *
+ * The value shall be set to:
+ * - `0` to indicate that it is reserved to disabled persons,
+ * - `1` to indicate that it is reserved to pregnant women,
+ * - `2` to indicate that it is reserved to women,
+ * - `3` to indicate that it is reserved to parents with small children,
+ * - `4` to indicate that it is reserved for loading and unloading of goods,
+ * - `5` to indicate that it is reserved for manual charging of electric vehicles,
+ * - `6` to indicate that it is reserved for automated charging of electric vehicles,
+ * - `7` to indicate that it is reserved for vehicles carrying out refrigerated transport of goods,
+ * - `8` to indicate that it is reserved for VIPs,
+ * - `9` to indicate that it is reserved for pre-booked reservations only,
+ * - `10` to indicate that it is not reserved and can still be reserved,
+ * - `11` to indicate that it cannot be reserved,
+ * - `12` to indicate that it reserved for drop-off and pick-up of vehicles for automated valet parking,
+ * - `13` to indicate that it is reserved for vehicles with a permit,
+ * - 14-31  - reserved for future usage. 
+ *
+ * @category: Road topology information
+ * @revision: Created in V2.3.1
+*/
+ParkingReservationType ::= INTEGER { 
+   disabled                         (0), 
+   pregnant                         (1), 
+   womenOnly                        (2), 
+   parentAndChild                   (3), 
+   loadAndOffloadGoods              (4), 
+   manualElectricVehicleCharging    (5), 
+   automatedElectricVehicleCharging (6), 
+   refriferatedTransport            (7),
+   vip                              (8),
+   preBooking                       (9), 
+   freeToBeReserved                 (10),
+   reservationNotPossible           (11),
+   automatedValetparking            (12), 
+   permit                           (13)
+}(0..31)
+
+
 /**
  * This DE represents the recorded or estimated travel time between a position and a predefined reference position. 
  *
@@ -2411,17 +2540,31 @@ PathId ::= INTEGER {
 } (0..14)
 
 /**
- * This DE denotes the ability of an ITS-S to provide up-to-date information.
- * A performance class value is used to describe age of data. The exact values are out of scope of the present document.
+ * This DE represents the position of a vehicle pedal (e.g. brake or accelerator pedal).
+ *
+ * @unit: 10%
+ * @category: Vehicle information
+ * @revision: Created in V2.3.1
+*/
+PedalPositionValue::= INTEGER {
+    notPressed       (0),
+    fullyPressed     (10),
+    unavailable      (11) 
+} (0..11)
+
+/**
+ * This DE denotes the ability of an ITS-S to provide information fullfilling additional requirements.
+ * A performance class value is used to describe characteristics of data. The semantic defintion of the values are out of scope of the present document 
+ * and should be subject to profiling.
  * 
  *  The value shall be set to:
  * - `0` if  the performance class is unknown,
- * - `1` for performance class A as defined in ETSI TS 101 539-1 [5],
- * - `2` for performance class B as defined in ETSI TS 101 539-1 [5],
+ * - `1` for performance class A,
+ * - `2` for performance class B,
  * -  3-7 reserved for future use.
  *
  * @category: Vehicle information
- * @revision: Editorial update in V2.1.1
+ * @revision: Editorial update in V2.1.1, description changed in V2.3.1
  */
 PerformanceClass ::= INTEGER {
     unavailable       (0), 
@@ -2718,20 +2861,22 @@ PtActivationType ::= INTEGER {
  * - 0 `unavailable`                   - in case no further detailed information on the railway level crossing status is available,
  * - 1 `doNotCrossAbnormalSituation`   - in case when something wrong is detected by equation or sensors of the railway level crossing, 
                                          including level crossing is closed for too long (e.g. more than 10 minutes long ; default value),
- * - 2 `closed`                        - in case the crossing is closed (barriers down),
+ * - 2 `closed`                        - in case the crossing is closed or closing (barriers down),
  * - 3 `unguarded`                     - in case the level crossing is unguarded (i.e a Saint Andrew cross level crossing without detection of train),
- * - 4 `nominal`                       - in case the barriers are up and lights are off.
- * - 5-255: reserved for future usage.
+ * - 4 `nominal`                       - in case the barriers are up and/or the warning systems are off,
+ * - 5 `trainApproaching`              - in case a train is approaching and the railway level crossing is without barriers.
+ * - 6-255: reserved for future usage.
  *
  * @category: Traffic information
- * @revision: V1.3.1
+ * @revision: V1.3.1, description of value 2 and 4 changed and value 5 added in V2.3.1
  */
 RailwayLevelCrossingSubCauseCode ::= INTEGER {
     unavailable                 (0), 
     doNotCrossAbnormalSituation (1), 
     closed                      (2), 
     unguarded                   (3), 
-    nominal                     (4)
+    nominal                     (4),
+    trainApproaching            (5)
 } (0..255)
 
 /**
@@ -2844,7 +2989,7 @@ RescueAndRecoveryWorkInProgressSubCauseCode ::= INTEGER {
  *
  * @category: Road topology information
  * @revision: Created in V2.2.1
-*/
+ */
 
 RoadSectionId::= INTEGER (0..8, ...)
 
@@ -2877,11 +3022,14 @@ The value shall be set to:
  * - 3 `slowMovingRoadMaintenance`   - in case slow moving road maintenance work is ongoing,
  * - 4 `shortTermStationaryRoadworks`- in case a short term stationary roadwork is ongoing,
  * - 5 `streetCleaning`              - in case a vehicle street cleaning work is ongoing,
- * - 6 `winterService`               - in case winter service work is ongoing.
- * - 7-255                           - are reserved for future usage.
+ * - 6 `winterService`               - in case winter service work is ongoing,
+ * - 7 `setupPhase`                  - in case the work zone is being setup,
+ * - 8 `remodellingPhase`            - in case the work zone is being changed, 
+ * - 9 `dismantlingPhase`            - in case the work zone is being dismantled after finished work.
+ * - 10-255                          - are reserved for future usage.
  *
  * @category: Traffic information
- * @revision: V1.3.1
+ * @revision: V1.3.1, values 7-9 added in V2.3.1
  */
 RoadworksSubCauseCode ::= INTEGER {
     unavailable                  (0), 
@@ -2889,9 +3037,20 @@ RoadworksSubCauseCode ::= INTEGER {
     roadMarkingWork              (2), 
     slowMovingRoadMaintenance    (3), 
     shortTermStationaryRoadworks (4), 
-   streetCleaning                (5), 
-   winterService                 (6)
+    streetCleaning               (5), 
+    winterService                (6),
+    setupPhase                   (7),
+    remodellingPhase             (8),
+    dismantlingPhase             (9)
 } (0..255)
+
+/**
+ * This DE indicates the driving automation level as defined in SAE J3016 [26].
+ *
+ * @category: Vehicle information
+ * @revision: created in V2.3.1
+*/
+SaeAutomationLevel::= INTEGER (0..5)
 
 /**
  * This DE indicates if a distance is safe. 
@@ -2904,7 +3063,7 @@ RoadworksSubCauseCode ::= INTEGER {
  * and their respective  thresholds, Minimum  Safe  Lateral  Distance (MSLaD), Minimum  Safe  Longitudinal Distance  (MSLoD),  and  Minimum  Safe Vertical Distance (MSVD).
  *
  * @category: Traffic information, Kinematic information
- * @revision: created in V2.1.1
+ * @revision: Created in V2.1.1
 */
 SafeDistanceIndicator::= BOOLEAN
 
@@ -2943,12 +3102,12 @@ SemiAxisLength ::= INTEGER{
  * This DE indicates the type of sensor.
  * 
  * The value shall be set to:
- * - 0  `undefined`         - in case the sensor type is undefined. 
+ * - 0  `undefined`         - in case the sensor type is undefined, 
  * - 1  `radar`             - in case the sensor is a radar,
  * - 2  `lidar`             - in case the sensor is a lidar,
  * - 3  `monovideo`         - in case the sensor is mono video,
  * - 4  `stereovision`      - in case the sensor is stereo vision,
- * - 5  `nightvision`       - in case the sensor is night vision,
+ * - 5  `nightvision`       - in case the sensor supports night vision, using e.g. infrared illumination or thermal imaging,
  * - 6  `ultrasonic`        - in case the sensor is ultrasonic,
  * - 7  `pmd`               - in case the sensor is photonic mixing device,
  * - 8  `inductionLoop`     - in case the sensor is an induction loop,
@@ -2956,11 +3115,12 @@ SemiAxisLength ::= INTEGER{
  * - 10 `uwb`               - in case the sensor is ultra wide band,
  * - 11 `acoustic`          - in case the sensor is acoustic,
  * - 12 `localAggregation`  - in case the information is provided by a system that aggregates information from different local sensors. Aggregation may include fusion,
- * - 13 `itsAggregation`    - in case the information is provided by a system that aggregates information from other received ITS messages.
- * - 14-31                  - are reserved for future usage.
+ * - 13 `itsAggregation`    - in case the information is provided by a system that aggregates information from other received ITS messages,
+ * - 14 `rfid`              - in case the sensor is radio frequency identification using a passive or active (e.g. Bluetooth, W-LAN) technology. 
+ * - 15-31                  - are reserved for future usage.
  *
  * @category: Sensing Information
- * @revision: created in V2.1.1
+ * @revision: created in V2.1.1, description of value 5 changed and value 14 added in V2.3.1
 */
 SensorType ::= INTEGER {
     undefined         (0),
@@ -2976,7 +3136,8 @@ SensorType ::= INTEGER {
     uwb               (10),
     acoustic          (11),
     localAggregation  (12),
-    itsAggregation    (13)
+    itsAggregation    (13),
+    rfid              (14)
 } (0..31)
 
 /** 
@@ -2988,7 +3149,7 @@ SensorType ::= INTEGER {
  * - 2  `lidar`             - in case the sensor is a lidar,
  * - 3  `monovideo`         - in case the sensor is mono video,
  * - 4  `stereovision`      - in case the sensor is stereo vision,
- * - 5  `nightvision`       - in case the sensor is night vision,
+ * - 5  `nightvision`       - in case the sensor supports night vision, using e.g. infrared illumination or thermal imaging,
  * - 6  `ultrasonic`        - in case the sensor is ultrasonic,
  * - 7  `pmd`               - in case the sensor is photonic mixing device,
  * - 8  `inductionLoop`     - in case the sensor is an induction loop,
@@ -2996,13 +3157,14 @@ SensorType ::= INTEGER {
  * - 10 `uwb`               - in case the sensor is ultra wide band,
  * - 11 `acoustic`          - in case the sensor is acoustic,
  * - 12 `localAggregation`  - in case the information is provided by a system that aggregates information from different local sensors. Aggregation may include fusion,
- * - 13 `itsAggregation`    - in case the information is provided by a system that aggregates information from other received ITS messages.
- * - 14-15                  - are reserved for future usage.
+ * - 13 `itsAggregation`    - in case the information is provided by a system that aggregates information from other received ITS messages,
+ * - 14 `rfid`              - in case the sensor is radio frequency identification using a passive or active (e.g. Bluetooth, W-LAN) technology. 
+ * - 15                     - reserved for future usage.
  * 
  * @note: If all bits are set to 0, then no sensor type is used
  *
  * @category: Sensing Information
- * @revision: created in V2.2.1
+ * @revision: created in V2.2.1, description of value 5 changed and value 14 added in V2.3.1
 */
 SensorTypes ::= BIT STRING {
     undefined         (0),
@@ -3018,7 +3180,8 @@ SensorTypes ::= BIT STRING {
     uwb               (10),
     acoustic          (11),
     localAggregation  (12),
-    itsAggregation    (13)
+    itsAggregation    (13),
+    rfid              (14)
 } (SIZE (16,... ))
 
 /**
@@ -3716,21 +3879,31 @@ TurningRadius ::= INTEGER {
 } (1..255)
 
 /**
- * This DE represents indication of how a certain path or area will be used. 
+ * This DE represents an indication of how a certain path or area will be used. 
  * 
  * The value shall be set to:
  * - 0  - ` noIndication `     - in case it will remain free to be used,
  * - 1  - ` specialUse `       - in case it will be physically blocked by special use,
  * - 2  - ` rescueOperation`   - in case it is intended to be used for rescue operations,
+ * - 3  - ` railroad `         - in case it is intended to be used for rail traffic,
+ * - 4  - ` fixedRoute `       - in case it is intended to be used for fixed route traffic (e.g. bus line in service, delivery services, garbage truck in service etc.),
+ * - 5  - ` restrictedRoute `  - in case it is intended to be used for driving on restricted routes (e.g dedicated lanes/routes for heavy trucks or buses),
+ * - 6  - ` adasAd `           - in case it is intended to be used for driving with an active ADAS or AD system (see DE AccelerationControl or AutomationControl),
+ * - 7  - ` navigation `       - in case it is intended to be used for driving with an active navigation system.
  *
  * @category: Basic information
- * @revision: Created in V2.2.1
+ * @revision: Created in V2.2.1, extension 3-7 added in V2.3.1
  */
 UsageIndication ::= ENUMERATED { 
     noIndication(0),
     specialUse (1),
     rescueOperation (2),
-    ...
+    ...,
+    railroad (3),
+    fixedRoute (4),
+    restrictedRoute (5),
+    adasAd (6),
+    navigation (7)
 }
 
 /** 
@@ -3806,6 +3979,25 @@ VehicleHeight ::= INTEGER {
     outOfRange  (126),  
     unavailable (127)
 }(1..128)
+
+/** 
+ * This DE represents the height of the vehicle, measured from the ground to the highest point, excluding any antennas.
+ * In case vehicles are equipped with adjustable ride heights, camper shells, and any other
+ * equipment which may result in varying height, the largest possible height shall be used.
+
+ * The value shall be set to:
+ * - `n` (`n > 0` and `n < 61`) indicates the applicable value is equal to or less than n x 0,1 metre, and greater than (n-1) x 0,1 metre,
+ * - `61` indicates that the vehicle height is greater than 6,0 metres,
+ * - `62` indicates that the information in unavailable.
+ * 
+ * @unit: 0,1 metre
+ * @category: Vehicle information 
+ * @revision: created in V2.3.1 based on VehicleHeight but better aligned in unit and range with VehicleWidth.
+ */
+VehicleHeight2 ::= INTEGER {
+    outOfRange  (61),  
+    unavailable (62)
+} (1..62)
 
 /**
  * This DE provides information about the presence of a trailer. 
@@ -4087,7 +4279,7 @@ VruSubProfilePedestrian ::= INTEGER {
  * - 7 `pedelec`               - to indicate a pedelec and rider to which no more-specific profile applies,
  * - 8 `speed-pedelec`         - to indicate a speed-pedelec and rider.
  * - 9 `roadbike`              - to indicate a road bicycle (or road pedelec) and rider,
- * - 10 `childrensbike`        - to indicate a children�s bicycle (or children�s pedelec) and rider,
+ * - 10 `childrensbike`        - to indicate a childrenï¿½s bicycle (or childrenï¿½s pedelec) and rider,
  * - 11 to 15                  - are reserved for future usage. 
  *
  * @category: VRU information
@@ -4251,6 +4443,29 @@ Wgs84AngleValue ::= INTEGER {
     doNotUse    (3600),
     unavailable (3601)
 } (0..3601)
+
+/**
+ * This DE indicates the actual status of the front wipers of the vehicle. 
+ *
+ * The value shall be set to:
+ * - 0 `unavailable`   - to indicate that the information is unavailable,
+ * - 1 `off`           - to indicate that the wipers are switched off,
+ * - 2 `intermittent`  - to indicate that the wipers are moving intermittently,
+ * - 3 `low`           - to indicate that the wipers are moving at low speed,
+ * - 4 `high`          - to indicate that the wipers are moving at high speed,
+ * - values 5 to 7      - are reserved for future usage. 
+ *
+ * @note:  the status can be either set manually by the driver or automatically by e.g. a rain sensor. The way the status is set does not affect the status itself. 
+ * @category: Vehicle information 
+ * @revision: created in V2.3.1
+ */
+WiperStatus ::= INTEGER {
+   unavailable         (0), 
+   off                 (1),  
+   intermittent        (2), 
+   low                 (3),
+   high                (4)
+} (0..7)
 
 /**
  * This DE represents the World Manufacturer Identifier (WMI). The values are assigned according to ISO 3779 [6].
@@ -4804,7 +5019,7 @@ CauseCodeChoice::= CHOICE {
     reserved39                                         SubCauseCodeType,
     reserved40                                         SubCauseCodeType,
     reserved41                                         SubCauseCodeType,
-    reserved42                                         SubCauseCodeType,
+    dontPanic42                                        SubCauseCodeType,
     reserved43                                         SubCauseCodeType,
     reserved44                                         SubCauseCodeType,
     reserved45                                         SubCauseCodeType,
@@ -5036,6 +5251,14 @@ ClusterLeaveInfo ::= SEQUENCE {
 }
 
 /**
+* This DF shall contain a list of @ref ConfidenceLevel.
+*
+* @category: Basic information
+* @revision: created in V2.3.1 
+*/
+ConfidenceLevels ::= SEQUENCE (SIZE (1..32,...)) OF ConfidenceLevel
+
+/**
  * This DF represents a column of a lower triangular positive semi-definite matrix and consists of a list of correlation cell values ordered by rows.
  * Given a matrix "A" of size n x n, the number of columns to be included in the lower triangular matrix is k=n-1.
  * Each column "i" of the lower triangular matrix then contains k-(i-1) values (ordered by rows from 1 to n-1), where "i" refers to the column number count
@@ -5108,6 +5331,31 @@ DangerousGoodsExtended ::= SEQUENCE {
 }
 
 /**
+* This DF defines a geographical point position as a 2 dimensional offset position to a geographical reference point.
+*
+* It shall include the following components: 
+*
+* @field deltaLatitude: A delta latitude offset with regards to the latitude value of the reference position.
+*
+* @field deltaLongitude: A delta longitude offset with regards to the longitude value of the reference position.
+*
+* @category: GeoReference information
+* @revision: created in V2.3.1 based on ISO TS 19321
+*/
+DeltaPosition ::= SEQUENCE{
+   deltaLatitude   DeltaLatitude,
+   deltaLongitude  DeltaLongitude
+}
+
+/**
+* This DF shall contain a list of @ref DeltaPosition.
+*
+* @category: GeoReference information
+* @revision: created in V2.3.1 based on ISO TS 19321 (DF DeltaPosition)
+*/
+DeltaPositions ::= SEQUENCE (SIZE (1..32,...,33..100)) OF DeltaPosition
+
+/**
  * This DF defines a geographical point position as a 3 dimensional offset position to a geographical reference point.
  *
  * It shall include the following components: 
@@ -5126,6 +5374,14 @@ DeltaReferencePosition ::= SEQUENCE {
     deltaLongitude    DeltaLongitude,
     deltaAltitude     DeltaAltitude
 }
+
+/**
+* This DF shall contain a list of @ref DeltaReferencePosition.
+*
+* @category: GeoReference information
+* @revision: created in V2.3.1 based on ISO TS 19321 (DF DeltaReferencePositions)
+*/
+DeltaReferencePositions ::= SEQUENCE (SIZE (1..32,...,33..100)) OF DeltaReferencePosition
 
 /**
  * This DF represents a portion of digital map. It shall contain a list of waypoints @ref ReferencePosition.
@@ -5287,6 +5543,59 @@ GeoPosition::= SEQUENCE{
 	longitude  Longitude,
     altitude   AltitudeValue DEFAULT unavailable
 }
+
+/**
+* This DE indicates a geographical position with altitude.
+*
+* It shall include the following components: 
+*
+* @field latitude: the latitude of the geographical position.
+*
+* @field longitude: the longitude of the geographical position.
+*
+* @field altitude: the altitude of the geographical position.
+*
+* @category: GeoReference information
+* @revision: created in V2.3.1 based on ISO TS 19321 (DF AbsolutePositionWAltitude)
+*/
+GeoPositionWAltitude ::= SEQUENCE{
+   latitude Latitude,
+   longitude Longitude,
+   altitude Altitude
+}
+
+/**
+* This DF shall contain a list of @ref AbsolutePositionWAltitude.
+*
+* @category: GeoReference information
+* @revision: created in V2.3.1 based on ISO TS 19321 (DF AbsolutePositionsWAltitude)
+*/
+GeoPositionsWAltitude ::= SEQUENCE (SIZE (1..8,...)) OF GeoPositionWAltitude
+
+/**
+* This DF indicates a geographical position without altitude.
+*
+* It shall include the following components: 
+*
+* @field latitude: the latitude of the geographical position.
+*
+* @field longitude: the longitude of the geographical position.
+*
+* @category: GeoReference information
+* @revision: created in V2.3.1 based on ISO TS 19321 (DF AbsolutePosition)
+*/
+GeoPositionWoAltitude ::= SEQUENCE{
+   latitude Latitude,
+   longitude Longitude
+}
+
+/**
+* This DF shall contain a list of @ref GeoPositionWoAltitude.
+*
+* @category: GeoReference information
+* @revision: created in V2.3.1 based on ISO TS 19321 (AbsolutePositions)
+*/
+GeoPositionsWoAltitude ::= SEQUENCE (SIZE (1..8,...)) OF GeoPositionWoAltitude
 
 /**
  * This DF represents the top-level DF to represent a lane position. A lane position is a transversal position on the carriageway at a specific longitudinal position, in resolution of lanes of the carriageway.
@@ -5609,6 +5918,7 @@ LanePositionOptions ::= CHOICE {
  * @revision: Created in V2.2.1
  */
 LanePositionWithLateralDetails ::= SEQUENCE {
+    /*COMPONENTS OF               LanePositionAndType,*/
     transversalPosition    LanePosition,
     laneType               LaneType DEFAULT traffic,
     direction              Direction DEFAULT sameDirection,
@@ -5751,7 +6061,7 @@ MapemLaneList ::=  SEQUENCE (SIZE(1..8,...)) OF Identifier1B
 
 /** 
  * This DF provides references to MAPEM connections using a list of @ref Identifier1B.
- * Note: connections are  allowed �maneuvers� (e.g. an ingress / egress relation) on an intersection.
+ * Note: connections are  allowed ï¿½maneuversï¿½ (e.g. an ingress / egress relation) on an intersection.
  *
  * @category: Road topology information
  * @revision: Created in V2.2.1
@@ -6010,6 +6320,142 @@ OccupiedLanesWithConfidence::= SEQUENCE {
     ... 
 }
 
+/** 
+ * This DF indicates the allowed type of occupancy of a parking space/area in terms of time and/or usage.
+ *
+ * The following options are available:
+ * 
+ * @field unknown: indicates that the allowed type of occupancy is unknown.
+ *
+ * @field unlimitedOccupancy: indicates that it can be occupied without limits.
+ *
+ * @field onlyWhileCharging: indicates that it can be occupied only while charging an electric vehicle.
+ *
+ * @field limitedDuration: indicates that it can be occupied for a limited and indicated duration in minutes.
+ *
+ * @field onlyWhileChargingLimitedDuration: indicates that it can be occupied only while charging an electric vehicle and only for a limited and indicated duration in minutes.
+ *
+ * @field parkingAllowedUntil: indicates that it can be occupied only until an indicated moment in time.
+ *
+ * @field forcedParkingUntil: indicates that it can be occupied and departure is possible only after an indicated moment in time.
+ *
+ * @category: Road Topology information
+ * @revision: Created in V2.3.1 
+*/
+ParkingOccupancyInfo::= CHOICE { 
+   unknown                              NULL, 
+   unlimitedOccupancy                   NULL,
+   onlyWhileCharging                    NULL,  
+   limitedDuration                      INTEGER,  
+   onlyWhileChargingLimitedDuration     INTEGER, 
+   parkingAllowedUntil                  TimestampIts,
+   forcedParkingUntil                   TimestampIts,
+   ...
+}
+
+/**
+ * This DF provides basic information about the parking capabilities and availabilities of a single parking space. 
+ *
+ * It shall include the following components: 
+ *
+ * @field id: the unqiue identifier of the parking space within the parking area.
+ *
+ * @field location: the optional location of the geometrical center of the parking space w.r.t. the location of the parking area.
+ *
+ * @field status: the actual status of the parking space.
+ *
+ * @category: Road Topology information
+ * @revision: Created in V2.3.1 
+*/
+ParkingSpaceBasic ::= SEQUENCE{
+   id         Identifier2B,
+   location   DeltaReferencePosition OPTIONAL, 
+   status     ParkingSpaceStatus
+}
+
+/**
+ * This DF provides detailed information about the parking capabilities and availabilities of a single parking space. 
+ * 
+ * It is an extension of @ref ParkingSpaceBasic and it shall additionally include the following additional components: 
+ *
+ * @field arrangementType: the optional arrangement of the parking space w.r.t. other spaces.
+ * This is component, if present, overrides the common arrangementType defined in the @ref ParkingArea.
+ *
+ * @field boundary: the optional physical boundary of the parking space as a polygon w.r.t. the location of the parking space.
+ *
+ * @field orientation: the optional orientation of the parking space.
+ * This is component, if present, overrides the common orientation defined in the @ref ParkingArea.
+ *
+ * @field occupancyRule: the occupancy rule applicable to the parking space.
+ *
+ * @field chargingStationId: the optional identitfier of a charging station that serves the parking space.
+ *
+ * @field accessViaLane: the optional identifier of a lane that provides access to the parking space.
+ *
+ * @field accessViaParkingSpaces: the optional identifier(s) of a parking spaces that provide access to the parking space.
+ * 
+ * @field reservationType: the optional parking reservation type(s) associated to the parking space.
+ * This is component, if present, overrides the common reservationType defined in the @ref ParkingArea.
+ *
+ * @category: Road Topology information
+ * @revision: Created in V2.3.1 
+*/
+ParkingSpaceDetailed ::= SEQUENCE{
+   /*COMPONENTS OF            ParkingSpaceBasic,*/
+   id         Identifier2B,
+   location   DeltaReferencePosition OPTIONAL, 
+   status     ParkingSpaceStatus,
+   arrangementType          ParkingAreaArrangementType OPTIONAL,
+   boundary                 DeltaPositions OPTIONAL,
+   orientation              Wgs84Angle OPTIONAL,
+   occupancyRule            ParkingOccupancyInfo, 
+   chargingStationId        Identifier2B OPTIONAL,
+   accessViaLane            Identifier2B OPTIONAL,
+   accessViaParkingSpaces   SEQUENCE (SIZE(0..7)) OF Identifier2B OPTIONAL,	
+   reservationType          SEQUENCE (SIZE(1..4,...)) OF ParkingReservationType OPTIONAL,			
+   ...
+}
+
+/** 
+ * This DF indicates the status of parking space.
+ *
+ * The following options are available:
+ * 
+ * @field unknown: indicates that the status is unknown.
+ *
+ * @field free: indicates that the parking space is free and hence available to be used.
+ *
+ * @field freeUntil: indicates that the parking space is free to be used until an indicated moment in time.
+ *
+ * @field fullyOccupied: indicates that the parking space is interely occupied.
+ *
+ * @field partiallyOccupied: indicates that the parking space that allows parking of multiple vehicles is occupied by an indicated percentage.
+ *
+ * @field occupiedUntil: indicates that the parking space is entirely occupied until an indicated moment in time.
+ *
+ * @field reservedUntil: indicates that the parking space is reserved (but not necessarily occupied) until an indicated moment in time.
+ *
+ * @field accessBlocked: indicates that the parking space cannot accessed, e.g. due to obstructing vehicles.
+ *
+ * @field retrictedUsage: indicates that the parking space is available but that it is not an official parking space and that there are some phyiscal restrictions applicable, 
+ * such as parking behind or in front of other vehicles that, depending on the situation, may then have problems entering or leaving their respective parking spaces.
+ *
+ * @category: Road Topology information
+ * @revision: Created in V2.3.1 
+*/ 
+ParkingSpaceStatus::= CHOICE { 
+   unknown             NULL, 
+   free                NULL,  
+   freeUntil           TimestampIts, 
+   fullyOccupied       NULL,
+   partiallyOccupied   INTEGER(0..100), 
+   occupiedUntil       TimestampIts,
+   reservedUntil       TimestampIts, 
+   accessBlocked       NULL,
+   retrictedUsage      NULL,
+   ...
+} 
+
 /**
  * This DF represents a path with a set of path points.
  * It shall contain up to `40` @ref PathPoint. 
@@ -6031,13 +6477,16 @@ Path::= SEQUENCE (SIZE(0..40)) OF PathPoint
  *
  * @field deltaTimeBigRange: delta time with precision of 10 s.
  *
+ * @field deltaTimeMidRange: delta time with precision of 1 s.
+ *
  * @category: Basic information
- * @revision: Created in V2.2.1
+ * @revision: Created in V2.2.1, added deltaTimeMidRange extension in V2.3.1
  */
 PathDeltaTimeChoice::= CHOICE {
     deltaTimeHighPrecision	DeltaTimeTenthOfSecond,
     deltaTimeBigRange	    DeltaTimeTenSeconds,
-    ...
+    ...,
+    deltaTimeMidRange       DeltaTimeSecond
 }
 
 /** 
@@ -6079,9 +6528,9 @@ PathHistory::= SEQUENCE (SIZE(0..40)) OF PathPoint
  * Each other PathPoint presents an offset delta position and optionally an offset travel time with regards to the previous PathPoint. 
  *
  * @category: GeoReference information
- * @revision: created in V2.1.1 , size constraint changed to SIZE(1..16, ...) in V2.2.1
+ * @revision: created in V2.1.1 , size constraint changed to SIZE(1..16, ...) in V2.2.1, size extended in V2.3.1
  */
-PathPredicted::= SEQUENCE (SIZE(1..16,...)) OF PathPointPredicted
+PathPredicted::= SEQUENCE (SIZE(1..16,..., 17..40)) OF PathPointPredicted
 
 /** 
  * This DF represents a predicted path, predicted trajectory or predicted path zone together with usage information and a prediction confidence.
@@ -6095,7 +6544,7 @@ PathPredicted::= SEQUENCE (SIZE(1..16,...)) OF PathPointPredicted
  * @field confidenceLevel: the confidence that the path/trajectory in pathPredicted will occur as predicted.
  *
  * @category: GeoReference information
- * @revision: created in V2.2.1
+ * @revision: created in V2.2.1 
  */
 PathPredicted2::= SEQUENCE{
     pathPredicted     PathPredicted
@@ -6181,6 +6630,21 @@ PathPointPredicted::= SEQUENCE {
 */
 PathReferences ::= SEQUENCE (SIZE(1..14)) OF PathId
 
+/**
+ * This DE contains information about the status of a vehicle pedal.
+ *
+ * It shall include the following components: 
+ *
+ * @field pedalPositionValue: information about the pedal position. 
+ *
+ * @category: vehicle information
+ * @revision: created in V2.3.1
+ */
+PedalStatus::= SEQUENCE { 
+    pedalPositionValue   PedalPositionValue,
+    ...
+}
+
 /** 
  * This DF contains information about a perceived object including its kinematic state and attitude vector in a pre-defined coordinate system and with respect to a reference time.
  * 
@@ -6245,6 +6709,33 @@ PerceivedObject ::= SEQUENCE {
     classification                                    ObjectClassDescription OPTIONAL,
     mapPosition                                       MapPosition OPTIONAL,
     ...
+}
+
+/**
+* The data frame PolygonalLine shall contain the definition of a polygonal line (also known as polygonal chain) w.r.t. an externally defined reference position.
+*
+* The following options are available:
+* 
+* @field deltaPositions: an ordered sequence of delta geographical positions with respect to the previous position, with latitude and longitude,
+* with the first instance referring to the reference position and with the order implicitly defining a direction associated with the polygonal line.
+*
+* @field deltaPositionsWithAltitude:  an ordered sequence of delta geographical positions with respect to the previous position, with latitude, longitude and altitude,
+* with the first instance referring to the reference position and with the order implicitly defining a direction associated with the polygonal line.
+*
+* @field absolutePositions: a sequence of absolute geographical positions, with latitude and longitude.
+*
+* @field absolutePositionsWithAltitude: a sequence of absolute geographical positions, with latitude, longitude and altitude.
+*
+* @category: GeoReference information
+* @revision: created in V2.3.1 based on ISO TS 19321
+*/
+PolygonalLine ::= CHOICE {
+   deltaPositions                  DeltaPositions,
+   deltaPositionsWithAltitude      DeltaReferencePositions,
+   absolutePositions               GeoPositionsWoAltitude,
+   absolutePositionsWithAltitude   GeoPositionsWAltitude,
+
+   ...
 }
 
 /** 
@@ -6678,15 +7169,15 @@ RoadConfigurationSectionList::=  SEQUENCE (SIZE(1..8,...))  OF RoadConfiguration
  * @field lengthOfSection: the optional length of the section along the road profile (i.e. including curves).
  * 
  * @field endingPointSection: the optional position of the ending point of the section. 
- * If this component is absent, the ending position is implicitly defined by other means, e.g. the starting point of the next RoadConfigurationSection, or the section�s length.
+ * If this component is absent, the ending position is implicitly defined by other means, e.g. the starting point of the next RoadConfigurationSection, or the sectionï¿½s length.
  *
- * @field connectedPaths: the identifier(s) of the path(s) having one or an ordered subset of waypoints located upstream of the RoadConfigurationSection� starting point. 
+ * @field connectedPaths: the identifier(s) of the path(s) having one or an ordered subset of waypoints located upstream of the RoadConfigurationSectionï¿½ starting point. 
  * 
  * @field includedPaths: the identifier(s) of the path(s) that covers (either with all its length or with a part of it) a RoadConfigurationSection. 
  *
  * @field isEventZoneIncluded: indicates, if set to TRUE, that the @ref EventZone incl. its reference position covers a RoadConfigurationSection (either with all its length or with a part of it). 
  * 
- * @field isEventZoneConnected: indicates, if set to TRUE, that the @ref EventZone incl. its reference position has one or an ordered subset of waypoints located upstream of the RoadConfigurationSection� starting point.
+ * @field isEventZoneConnected: indicates, if set to TRUE, that the @ref EventZone incl. its reference position has one or an ordered subset of waypoints located upstream of the RoadConfigurationSectionï¿½ starting point.
  *
  * @category: Road topology information
  * @revision: Created in V2.2.1
@@ -7051,6 +7542,36 @@ VehicleLengthV2 ::= SEQUENCE {
 }
 
 /**
+ * This DF provides information about the status of the vehicle´s movement control mechanisms. 
+ *
+ * It shall include the following components: 
+ *
+ * @field accelerationPedalStatus: information about the status of the acceleration pedal. 
+ * 
+ * @field brakePedalPostionStatus information about the status of the brake pedal. 
+ *
+ * @field saeAutomationLevel: optional information about the level of driving automation. 
+ *
+ * @field automationControl: optional information about the controlling mechanism for lateral, or combined lateral and longitudinal movement.
+ *
+ * @field accelerationControl: optional information about the controlling mechanism for longitudinal movement. 
+ *
+ * @field accelerationControlExtension: optional extended information about the controlling mechanism for longitudinal movement. 
+ *
+ * @category: Vehicle information
+ * @revision: created in V2.3.1
+ */
+VehicleMovementControl::= SEQUENCE {    
+	accelerationPedalStatus          PedalStatus,
+	brakePedalStatus                 PedalStatus,
+	saeAutomationLevel               SaeAutomationLevel OPTIONAL,
+	automationControl                AutomationControl OPTIONAL,
+	accelerationControl              AccelerationControl OPTIONAL,
+	accelerationControlExtension     AccelerationControlExtension OPTIONAL,
+	...
+}
+
+/**
  * This DF represents a velocity vector with associated confidence value.
  *
  * The following options are available:
@@ -7239,9 +7760,9 @@ YawRate::= SEQUENCE {
  * 6.   ISO 3779 (2011-07): "Road vehicles - Vehicle identification number (VIN) Content and structure".
  * 7.   VDV recommendation 420 (1992): "Technical Requirements for Automatic Vehicle Location / Control Systems - Radio Data Transmission (BON Version) with Supplement 1 and Supplement 2".
  * 8.   ISO 1176:1990: "Road vehicles - Masses - Vocabulary and codes".
- * 9.   ETSI TS 103 916 Intelligent Transport Systems (ITS); Parking Availability Service Specification; Release 2
- * 10.  void
- * 11.  void
+ * 9.   ETSI TS 103 916 "Intelligent Transport Systems (ITS); Parking Availability Service Specification; Release 2"
+ * 10.  ETSI TS 103 324 "Intelligent Transport System (ITS); Vehicular Communications; Basic Set of Applications; Collective Perception Service; Release 2"
+ * 11.  ETSI TS 103 882 "Intelligent Transport Systems (ITS); Automated Vehicle Marshalling (AVM); Release 2" 
  * 12.  ETSI TS 103 300-3: "Intelligent Transport Systems (ITS);  Vulnerable Road Users (VRU) awareness;  Part 3: Specification of VRU awareness basic service; Release 2"
  * 13.  ETSI TS 103 724: "Intelligent Transport Systems (ITS); Facilities layer  function; Interference Management Zone Message (IMZM); Release 2"
  * 14.	ETSI TS 102 792: "Intelligent Transport Systems (ITS); Mitigation techniques to avoid interference between European CEN Dedicated Short Range Communication (CEN DSRC) equipment and Intelligent Transport Systems (ITS) operating in the 5 GHz frequency range".
@@ -7253,9 +7774,10 @@ YawRate::= SEQUENCE {
  * 20.	ETSI EN 302 571: "Intelligent Transport Systems (ITS); Radiocommunications equipment operating in the 5 855 MHz to 5 925 MHz frequency  band; Harmonised Standard  covering  the essential  requirements of article 3.2 of  Directive 2014/53/EU"
  * 21.	ISO 8855: "Road vehicles - Vehicle dynamics and road-holding ability - Vocabulary".
  * 22.  ISO 3833: "Road vehicles - Types - Terms and definitions".
- * 23.  ISO 14816:2015 + Amd1:2019: " Road transport and traffic telematics � Automatic vehicle and equipment identification � Numbering and data structure"
- * 24.  ISO 17573-3: "Electronic fee collection � System architecture for vehicle-related tolling � Part 3: Data dictionary"
- * 25.  ISO 3166-1: "Codes for the representation of names of countries and their subdivisions � Part 1: Country code" 
+ * 23.  ISO 14816:2015 + Amd1:2019: " Road transport and traffic telematics ï¿½ Automatic vehicle and equipment identification ï¿½ Numbering and data structure"
+ * 24.  ISO 17573-3: "Electronic fee collection ï¿½ System architecture for vehicle-related tolling ï¿½ Part 3: Data dictionary"
+ * 25.  ISO 3166-1: "Codes for the representation of names of countries and their subdivisions ï¿½ Part 1: Country code" 
+ * 26.  SAE J3016: "Taxonomy and Definitions for Terms Related to Driving Automation Systems for On-Road Motor Vehicles"
 */
 
 END

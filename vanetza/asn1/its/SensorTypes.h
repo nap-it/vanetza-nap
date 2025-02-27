@@ -33,7 +33,8 @@ typedef enum SensorTypes {
 	SensorTypes_uwb	= 10,
 	SensorTypes_acoustic	= 11,
 	SensorTypes_localAggregation	= 12,
-	SensorTypes_itsAggregation	= 13
+	SensorTypes_itsAggregation	= 13,
+	SensorTypes_rfid	= 14
 } e_SensorTypes;
 
 /* SensorTypes */

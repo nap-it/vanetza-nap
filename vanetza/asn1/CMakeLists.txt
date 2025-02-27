@@ -27,6 +27,8 @@ if(VANETZA_ASN1_WITH_ASN1C)
     )
 
     set(_its_asn1_files_depending_on_iso
+        ${PROJECT_SOURCE_DIR}/asn1/CAM-PDU-Descriptions.asn
+        ${PROJECT_SOURCE_DIR}/asn1/DENM-PDU-Descriptions.asn
         ${PROJECT_SOURCE_DIR}/asn1/MCM-PDU-Descriptions.asn
         ${PROJECT_SOURCE_DIR}/asn1/CPM-PDU-Descriptions.asn
         ${PROJECT_SOURCE_DIR}/asn1/TS103301v211-MAPEM.asn

@@ -1,16 +1,21 @@
 #ifndef CAM_FUNCTIONS_HPP_PUFKBEM8
 #define CAM_FUNCTIONS_HPP_PUFKBEM8
 
-#include <vanetza/asn1/its/ITS-Container_AltitudeConfidence.h>
-#include <vanetza/asn1/its/ITS-Container_Heading.h>
-#include <vanetza/asn1/its/ITS-Container_ReferencePosition.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_AltitudeConfidence.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_Heading.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_ReferencePosition.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_DeltaAltitude.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_PathPoint.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_EmergencyPriority.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_TrafficRule.h>
+#include <vanetza/asn1/its/ETSI-ITS-CDD_ItsPduHeader.h>
 #include <vanetza/common/position_fix.hpp>
 #include <vanetza/security/cam_ssp.hpp>
 #include <vanetza/units/angle.hpp>
 #include <vanetza/units/length.hpp>
 
 // forward declaration of asn1c generated struct
-struct BasicVehicleContainerLowFrequency;
+struct CAM_PDU_Descriptions_BasicVehicleContainerHighFrequency;
 
 namespace vanetza
 {
@@ -28,7 +33,7 @@ class PathHistory;
  * \param Facilities' path history object (source)
  * \param ASN.1 CAM container (destination)
  */
-void copy(const PathHistory&, BasicVehicleContainerLowFrequency&);
+void copy(const PathHistory&, CAM_PDU_Descriptions_BasicVehicleContainerHighFrequency&);
 
 /**
  * Check if difference of two given heading values is within a limit
@@ -37,8 +42,8 @@ void copy(const PathHistory&, BasicVehicleContainerLowFrequency&);
  * \param limit maximum difference (positive)
  * \return true if similar enough
  */
-bool similar_heading(const ITS_Container_Heading& a, const ITS_Container_Heading& b, units::Angle limit);
-bool similar_heading(const ITS_Container_Heading& a, units::Angle b, units::Angle limit);
+bool similar_heading(const ETSI_ITS_CDD_Heading& a, const ETSI_ITS_CDD_Heading& b, units::Angle limit);
+bool similar_heading(const ETSI_ITS_CDD_Heading& a, units::Angle b, units::Angle limit);
 bool similar_heading(units::Angle a, units::Angle b, units::Angle limit);
 
 /**
@@ -47,30 +52,30 @@ bool similar_heading(units::Angle a, units::Angle b, units::Angle limit);
  * \param b another position
  * \return distance between given positions (or NaN if some position is unavailable)
  */
-units::Length distance(const ITS_Container_ReferencePosition_t& a, const ITS_Container_ReferencePosition_t& b);
-units::Length distance(const ITS_Container_ReferencePosition_t& a, units::GeoAngle lat, units::GeoAngle lon);
+units::Length distance(const ETSI_ITS_CDD_ReferencePosition_t& a, const ETSI_ITS_CDD_ReferencePosition_t& b);
+units::Length distance(const ETSI_ITS_CDD_ReferencePosition_t& a, units::GeoAngle lat, units::GeoAngle lon);
 
 /**
  * Check if ASN.1 data element indicates unavailable value
  * \return true if value is available
  */
-bool is_available(const ITS_Container_Heading&);
-bool is_available(const ITS_Container_ReferencePosition_t&);
+bool is_available(const ETSI_ITS_CDD_Heading&);
+bool is_available(const ETSI_ITS_CDD_ReferencePosition_t&);
 
 /**
  * Copy position information into a ReferencePosition structure from CDD
  */
-void copy(const PositionFix&, ITS_Container_ReferencePosition&);
+void copy(const PositionFix&, ReferencePositionWithConfidence&);
 
 /**
  * Convert altitude to AltitudeValue from CDD
  */
-ITS_Container_AltitudeValue_t to_altitude_value(units::Length);
+ETSI_ITS_CDD_AltitudeValue_t to_altitude_value(units::Length);
 
 /**
  * Convert altitude confidence to AltitudeConfidence from CDD
  */
-ITS_Container_AltitudeConfidence_t to_altitude_confidence(units::Length);
+ETSI_ITS_CDD_AltitudeConfidence_t to_altitude_confidence(units::Length);
 
 /**
  * Check if a CAM contains only allowed data elements

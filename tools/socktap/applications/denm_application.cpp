@@ -71,7 +71,7 @@ void DenmApplication::indicate(const DataIndication& indication, UpPacketPtr pac
         //std::cout << "\nInvalid sender: " << cp. << std::endl;
         return;
     }
-    DENM_t denm_t = {(*denm)->header, (*denm)->denm};
+    DENM_PDU_Description_DENM_t denm_t = {(*denm)->header, (*denm)->denm};
 
     if(config_s.publish_encoded_payloads) {
         const std::vector<uint8_t> vec = std::vector<uint8_t>(cp[OsiLayer::Application].begin(), cp[OsiLayer::Application].end());
@@ -83,7 +83,7 @@ void DenmApplication::indicate(const DataIndication& indication, UpPacketPtr pac
             cp.rssi,
             true,
             cp.size(),
-            denm_t.header.stationID,
+            denm_t.header.stationId,
             config_s.station_id,
             config_s.station_type,
             cp.time_received,
@@ -100,15 +100,15 @@ void DenmApplication::schedule_timer()
     runtime_.schedule(denm_interval_, std::bind(&DenmApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-Document DenmApplication::buildJSON(DENM_t message, double time_reception, int rssi, int packet_size, double time_queue, channel channel_info) {
-    ITS_Container_ItsPduHeader_t& header = message.header;
+Document DenmApplication::buildJSON(DENM_PDU_Description_DENM_t message, double time_reception, int rssi, int packet_size, double time_queue, channel channel_info) {
+    ETSI_ITS_CDD_ItsPduHeader_t& header = message.header;
     Document document(kObjectType);
     Document::AllocatorType& allocator = document.GetAllocator();
     Value jsonTest(kObjectType);
 
     document.AddMember("timestamp", time_reception, allocator)
         .AddMember("rssi", rssi, allocator)
-        .AddMember("stationID", Value(static_cast<int64_t>(header.stationID)), allocator)
+        .AddMember("stationID", Value(static_cast<int64_t>(header.stationId)), allocator)
         .AddMember("receiverID", config_s.station_id, allocator)
         .AddMember("receiverType", config_s.station_type, allocator)
         .AddMember("packet_size", packet_size, allocator)
@@ -137,7 +137,7 @@ void DenmApplication::on_message(string topic, string mqtt_message, const std::v
     Value payload;
 
     if (!is_encoded) {
-        DecentralizedEnvironmentalNotificationMessage_t denm;
+        DenmPayload_t denm;
         fillPosition(mqtt_message, positioning_);
     
         try {
@@ -170,10 +170,10 @@ void DenmApplication::on_message(string topic, string mqtt_message, const std::v
 
         vanetza::asn1::Denm message;
 
-        ITS_Container_ItsPduHeader_t& header = message->header;
+        ETSI_ITS_CDD_ItsPduHeader_t& header = message->header;
         header.protocolVersion = 2;
-        header.messageID = MessageId_denm;
-        header.stationID = config_s.station_id;
+        header.messageId = MessageId_denm;
+        header.stationId = config_s.station_id;
 
         message->denm = denm;
 

@@ -22,7 +22,7 @@ using vanetza::units::Angle;
 static const auto microdegree = units::degree * units::si::micro;
 
 // TODO:  C2C-CC BSP allows up to 500m history for CAMs, we provide just minimal required history
-void copy(const facilities::PathHistory& ph, BasicVehicleContainerLowFrequency& container)
+void copy(const facilities::PathHistory& ph, CAM_PDU_Description_BasicVehicleContainerHighFrequency& container)
 {
     static const std::size_t scMaxPathPoints = 23;
     static const boost::posix_time::time_duration scMaxDeltaTime = boost::posix_time::millisec(655350);
@@ -38,17 +38,17 @@ void copy(const facilities::PathHistory& ph, BasicVehicleContainerLowFrequency& 
         auto delta_longitude = point.longitude - ref.longitude; // positive: point is east
 
         while (!delta_time.is_negative() && path_points < scMaxPathPoints) {
-            ::ITS_Container_PathPoint* path_point = asn1::allocate<::ITS_Container_PathPoint>();
-            path_point->pathDeltaTime = asn1::allocate<ITS_Container_PathDeltaTime_t>();
+            ::ETSI_ITS_CDD_PathPoint* path_point = asn1::allocate<::ETSI_ITS_CDD_PathPoint>();
+            path_point->pathDeltaTime = asn1::allocate<ETSI_ITS_CDD_PathDeltaTime_t>();
             *(path_point->pathDeltaTime) = std::min(delta_time, scMaxDeltaTime).total_milliseconds() /
-                10 * ITS_Container_PathDeltaTime::ITS_Container_PathDeltaTime_tenMilliSecondsInPast;
+                10;
             path_point->pathPosition.deltaLatitude = (delta_latitude / scMicrodegree).value() *
-                ITS_Container_DeltaLatitude::ITS_Container_DeltaLatitude_oneMicrodegreeNorth;
+                10;
             path_point->pathPosition.deltaLongitude = (delta_longitude / scMicrodegree).value() *
-                ITS_Container_DeltaLongitude::ITS_Container_DeltaLongitude_oneMicrodegreeEast;
-            path_point->pathPosition.deltaAltitude = ITS_Container_DeltaAltitude::ITS_Container_DeltaAltitude_unavailable;
+                10;
+            path_point->pathPosition.deltaAltitude = ETSI_ITS_CDD_DeltaAltitude::ETSI_ITS_CDD_DeltaAltitude_unavailable;
 
-            ASN_SEQUENCE_ADD(&container.pathHistory, path_point);
+            //ASN_SEQUENCE_ADD(&container.pathHistory, path_point);
 
             delta_time -= scMaxDeltaTime;
             ++path_points;
@@ -56,10 +56,10 @@ void copy(const facilities::PathHistory& ph, BasicVehicleContainerLowFrequency& 
     }
 }
 
-bool similar_heading(const ITS_Container_Heading& a, const ITS_Container_Heading& b, Angle limit)
+bool similar_heading(const ETSI_ITS_CDD_Heading& a, const ETSI_ITS_CDD_Heading& b, Angle limit)
 {
     // HeadingValues are tenth of degree (900 equals 90 degree east)
-    static_assert(ITS_Container_HeadingValue_wgs84East == 900, "HeadingValue interpretation fails");
+    static_assert(ETSI_ITS_CDD_HeadingValue_wgs84East == 900, "HeadingValue interpretation fails");
 
     bool result = false;
     if (is_available(a) && is_available(b)) {
@@ -72,7 +72,7 @@ bool similar_heading(const ITS_Container_Heading& a, const ITS_Container_Heading
     return result;
 }
 
-bool similar_heading(const ITS_Container_Heading& a, Angle b, Angle limit)
+bool similar_heading(const ETSI_ITS_CDD_Heading& a, Angle b, Angle limit)
 {
     bool result = false;
     if (is_available(a)) {
@@ -92,7 +92,7 @@ bool similar_heading(Angle a, Angle b, Angle limit)
     return abs_diff <= limit || abs_diff >= full_circle - limit;
 }
 
-units::Length distance(const ITS_Container_ReferencePosition_t& a, const ITS_Container_ReferencePosition_t& b)
+units::Length distance(const ETSI_ITS_CDD_ReferencePosition_t& a, const ETSI_ITS_CDD_ReferencePosition_t& b)
 {
     using geonet::GeodeticPosition;
     using units::GeoAngle;
@@ -100,19 +100,19 @@ units::Length distance(const ITS_Container_ReferencePosition_t& a, const ITS_Con
     auto length = units::Length::from_value(std::numeric_limits<double>::quiet_NaN());
     if (is_available(a) && is_available(b)) {
         GeodeticPosition geo_a {
-            GeoAngle { a.latitude / ITS_Container_Latitude_oneMicrodegreeNorth * microdegree },
-            GeoAngle { a.longitude / ITS_Container_Longitude_oneMicrodegreeEast * microdegree }
+            GeoAngle { a.latitude / 10 * microdegree },
+            GeoAngle { a.longitude / 10 * microdegree }
         };
         GeodeticPosition geo_b {
-            GeoAngle { b.latitude / ITS_Container_Latitude_oneMicrodegreeNorth * microdegree },
-            GeoAngle { b.longitude / ITS_Container_Longitude_oneMicrodegreeEast * microdegree }
+            GeoAngle { b.latitude / 10 * microdegree },
+            GeoAngle { b.longitude / 10 * microdegree }
         };
         length = geonet::distance(geo_a, geo_b);
     }
     return length;
 }
 
-units::Length distance(const ITS_Container_ReferencePosition_t& a, units::GeoAngle lat, units::GeoAngle lon)
+units::Length distance(const ETSI_ITS_CDD_ReferencePosition_t& a, units::GeoAngle lat, units::GeoAngle lon)
 {
     using geonet::GeodeticPosition;
     using units::GeoAngle;
@@ -120,8 +120,8 @@ units::Length distance(const ITS_Container_ReferencePosition_t& a, units::GeoAng
     auto length = units::Length::from_value(std::numeric_limits<double>::quiet_NaN());
     if (is_available(a)) {
         GeodeticPosition geo_a {
-            GeoAngle { a.latitude / ITS_Container_Latitude_oneMicrodegreeNorth * microdegree },
-            GeoAngle { a.longitude / ITS_Container_Longitude_oneMicrodegreeEast * microdegree }
+            GeoAngle { a.latitude / 10 * microdegree },
+            GeoAngle { a.longitude / 10 * microdegree }
         };
         GeodeticPosition geo_b { lat, lon };
         length = geonet::distance(geo_a, geo_b);
@@ -129,14 +129,14 @@ units::Length distance(const ITS_Container_ReferencePosition_t& a, units::GeoAng
     return length;
 }
 
-bool is_available(const ITS_Container_Heading& hd)
+bool is_available(const ETSI_ITS_CDD_Heading& hd)
 {
-    return hd.headingValue != ITS_Container_HeadingValue_unavailable;
+    return hd.headingValue != ETSI_ITS_CDD_HeadingValue_unavailable;
 }
 
-bool is_available(const ITS_Container_ReferencePosition& pos)
+bool is_available(const ETSI_ITS_CDD_ReferencePosition& pos)
 {
-    return pos.latitude != ITS_Container_Latitude_unavailable && pos.longitude != ITS_Container_Longitude_unavailable;
+    return pos.latitude != ETSI_ITS_CDD_Latitude_unavailable && pos.longitude != ETSI_ITS_CDD_Longitude_unavailable;
 }
 
 
@@ -147,69 +147,69 @@ long round(const boost::units::quantity<T>& q, const U& u)
     return std::round(v.value());
 }
 
-void copy(const PositionFix& position, ITS_Container_ReferencePosition& reference_position) {
-    reference_position.longitude = round(position.longitude, microdegree) * ITS_Container_Longitude_oneMicrodegreeEast;
-    reference_position.latitude = round(position.latitude, microdegree) * ITS_Container_Latitude_oneMicrodegreeNorth;
-    reference_position.positionConfidenceEllipse.semiMajorOrientation = ITS_Container_HeadingValue_unavailable;
-    reference_position.positionConfidenceEllipse.semiMajorConfidence = ITS_Container_SemiAxisLength_unavailable;
-    reference_position.positionConfidenceEllipse.semiMinorConfidence = ITS_Container_SemiAxisLength_unavailable;
+void copy(const PositionFix& position, ReferencePositionWithConfidence& reference_position) {
+    reference_position.longitude = round(position.longitude, microdegree) * 10;
+    reference_position.latitude = round(position.latitude, microdegree) * 10;
+    reference_position.positionConfidenceEllipse.semiMajorAxisOrientation = ETSI_ITS_CDD_HeadingValue_unavailable;
+    reference_position.positionConfidenceEllipse.semiMajorAxisLength = ETSI_ITS_CDD_SemiAxisLength_unavailable;
+    reference_position.positionConfidenceEllipse.semiMinorAxisLength = ETSI_ITS_CDD_SemiAxisLength_unavailable;
     if (position.altitude) {
         reference_position.altitude.altitudeValue = to_altitude_value(position.altitude->value());
         reference_position.altitude.altitudeConfidence = to_altitude_confidence(position.altitude->confidence());
     } else {
-        reference_position.altitude.altitudeValue = ITS_Container_AltitudeValue_unavailable;
-        reference_position.altitude.altitudeConfidence = ITS_Container_AltitudeConfidence_unavailable;
+        reference_position.altitude.altitudeValue = ETSI_ITS_CDD_AltitudeValue_unavailable;
+        reference_position.altitude.altitudeConfidence = ETSI_ITS_CDD_AltitudeConfidence_unavailable;
     }
 }
 
-ITS_Container_AltitudeConfidence_t to_altitude_confidence(units::Length confidence)
+ETSI_ITS_CDD_AltitudeConfidence_t to_altitude_confidence(units::Length confidence)
 {
     const double alt_con = confidence / units::si::meter;
 
     if (alt_con < 0 || std::isnan(alt_con)) {
-        return ITS_Container_AltitudeConfidence_unavailable;
+        return ETSI_ITS_CDD_AltitudeConfidence_unavailable;
     } else if (alt_con <= 0.01) {
-        return ITS_Container_AltitudeConfidence_alt_000_01;
+        return ETSI_ITS_CDD_AltitudeConfidence_alt_000_01;
     } else if (alt_con <= 0.02) {
-        return ITS_Container_AltitudeConfidence_alt_000_02;
+        return ETSI_ITS_CDD_AltitudeConfidence_alt_000_02;
     } else if (alt_con <= 0.05) {
-        return ITS_Container_AltitudeConfidence_alt_000_05;
+        return ETSI_ITS_CDD_AltitudeConfidence_alt_000_05;
     } else if (alt_con <= 0.1) {
-        return ITS_Container_AltitudeConfidence_alt_000_10;
+        return ETSI_ITS_CDD_AltitudeConfidence_alt_000_10;
     } else if (alt_con <= 0.2) {
-        return ITS_Container_AltitudeConfidence_alt_000_20;
+        return ETSI_ITS_CDD_AltitudeConfidence_alt_000_20;
     } else if (alt_con <= 0.5) {
-        return ITS_Container_AltitudeConfidence_alt_000_50;
+        return ETSI_ITS_CDD_AltitudeConfidence_alt_000_50;
     } else if (alt_con <= 1.0) {
-        return ITS_Container_AltitudeConfidence_alt_001_00;
+        return ETSI_ITS_CDD_AltitudeConfidence_alt_001_00;
     } else if (alt_con <= 2.0) {
-        return ITS_Container_AltitudeConfidence_alt_002_00;
+        return ETSI_ITS_CDD_AltitudeConfidence_alt_002_00;
     } else if (alt_con <= 5.0) {
-        return ITS_Container_AltitudeConfidence_alt_005_00;
+        return ETSI_ITS_CDD_AltitudeConfidence_alt_005_00;
     } else if (alt_con <= 10.0) {
-        return ITS_Container_AltitudeConfidence_alt_010_00;
+        return ETSI_ITS_CDD_AltitudeConfidence_alt_010_00;
     } else if (alt_con <= 20.0) {
-        return ITS_Container_AltitudeConfidence_alt_020_00;
+        return ETSI_ITS_CDD_AltitudeConfidence_alt_020_00;
     } else if (alt_con <= 50.0) {
-        return ITS_Container_AltitudeConfidence_alt_050_00;
+        return ETSI_ITS_CDD_AltitudeConfidence_alt_050_00;
     } else if (alt_con <= 100.0) {
-        return ITS_Container_AltitudeConfidence_alt_100_00;
+        return ETSI_ITS_CDD_AltitudeConfidence_alt_100_00;
     } else if (alt_con <= 200.0) {
-        return ITS_Container_AltitudeConfidence_alt_200_00;
+        return ETSI_ITS_CDD_AltitudeConfidence_alt_200_00;
     } else {
-        return ITS_Container_AltitudeConfidence_outOfRange;
+        return ETSI_ITS_CDD_AltitudeConfidence_outOfRange;
     }
 }
 
-ITS_Container_AltitudeValue_t to_altitude_value(units::Length alt)
+ETSI_ITS_CDD_AltitudeValue_t to_altitude_value(units::Length alt)
 {
     using boost::units::isnan;
 
     if (!isnan(alt)) {
         alt = boost::algorithm::clamp(alt, -1000.0 * units::si::meter, 8000.0 * units::si::meter);
-        return ITS_Container_AltitudeValue_oneCentimeter * 100.0 * (alt / units::si::meter);
+        return 1 * 100.0 * (alt / units::si::meter);
     } else {
-        return ITS_Container_AltitudeValue_unavailable;
+        return ETSI_ITS_CDD_AltitudeValue_unavailable;
     }
 }
 
@@ -219,46 +219,46 @@ bool check_service_specific_permissions(const asn1::Cam& cam, security::CamPermi
     using security::CamPermissions;
 
     CamPermissions required_permissions;
-    const CamParameters_t& params = cam->cam.camParameters;
+    const CAM_PDU_Description_CamParameters_t& params = cam->cam.camParameters;
 
-    if (params.highFrequencyContainer.present == HighFrequencyContainer_PR_rsuContainerHighFrequency) {
-        const RSUContainerHighFrequency_t& rsu = params.highFrequencyContainer.choice.rsuContainerHighFrequency;
+    if (params.highFrequencyContainer.present == CAM_PDU_Description_HighFrequencyContainer_PR_rsuContainerHighFrequency) {
+        const CAM_PDU_Description_RSUContainerHighFrequency_t& rsu = params.highFrequencyContainer.choice.rsuContainerHighFrequency;
         if (rsu.protectedCommunicationZonesRSU) {
             required_permissions.add(CamPermission::CEN_DSRC_Tolling_Zone);
         }
     }
 
-    if (const SpecialVehicleContainer_t* special = params.specialVehicleContainer) {
-        const EmergencyContainer_t* emergency = nullptr;
-        const SafetyCarContainer_t* safety = nullptr;
-        const RoadWorksContainerBasic_t* roadworks = nullptr;
+    if (const CAM_PDU_Description_SpecialVehicleContainer_t* special = params.specialVehicleContainer) {
+        const CAM_PDU_Description_EmergencyContainer_t* emergency = nullptr;
+        const CAM_PDU_Description_SafetyCarContainer_t* safety = nullptr;
+        const CAM_PDU_Description_RoadWorksContainerBasic_t* roadworks = nullptr;
 
         switch (special->present) {
-            case SpecialVehicleContainer_PR_publicTransportContainer:
+            case CAM_PDU_Description_SpecialVehicleContainer_PR_publicTransportContainer:
                 required_permissions.add(CamPermission::Public_Transport);
                 break;
-            case SpecialVehicleContainer_PR_specialTransportContainer:
+            case CAM_PDU_Description_SpecialVehicleContainer_PR_specialTransportContainer:
                 required_permissions.add(CamPermission::Special_Transport);
                 break;
-            case SpecialVehicleContainer_PR_dangerousGoodsContainer:
+            case CAM_PDU_Description_SpecialVehicleContainer_PR_dangerousGoodsContainer:
                 required_permissions.add(CamPermission::Dangerous_Goods);
                 break;
-            case SpecialVehicleContainer_PR_roadWorksContainerBasic:
+            case CAM_PDU_Description_SpecialVehicleContainer_PR_roadWorksContainerBasic:
                 required_permissions.add(CamPermission::Roadwork);
                 roadworks = &special->choice.roadWorksContainerBasic;
                 break;
-            case SpecialVehicleContainer_PR_rescueContainer:
+            case CAM_PDU_Description_SpecialVehicleContainer_PR_rescueContainer:
                 required_permissions.add(CamPermission::Rescue);
                 break;
-            case SpecialVehicleContainer_PR_emergencyContainer:
+            case CAM_PDU_Description_SpecialVehicleContainer_PR_emergencyContainer:
                 required_permissions.add(CamPermission::Emergency);
                 emergency = &special->choice.emergencyContainer;
                 break;
-            case SpecialVehicleContainer_PR_safetyCarContainer:
+            case CAM_PDU_Description_SpecialVehicleContainer_PR_safetyCarContainer:
                 required_permissions.add(CamPermission::Safety_Car);
                 safety = &special->choice.safetyCarContainer;
                 break;
-            case SpecialVehicleContainer_PR_NOTHING:
+            case CAM_PDU_Description_SpecialVehicleContainer_PR_NOTHING:
             default:
                 break;
         }
@@ -267,10 +267,10 @@ bool check_service_specific_permissions(const asn1::Cam& cam, security::CamPermi
             // testing bit strings from asn1c is such a mess...
             assert(emergency->emergencyPriority->buf);
             uint8_t bits = *emergency->emergencyPriority->buf;
-            if (bits & (1 << (7 - ITS_Container_EmergencyPriority_requestForRightOfWay))) {
+            if (bits & (1 << (7 - ETSI_ITS_CDD_EmergencyPriority_requestForRightOfWay))) {
                 required_permissions.add(CamPermission::Request_For_Right_Of_Way);
             }
-            if (bits & (1 << (7 - ITS_Container_EmergencyPriority_requestForFreeCrossingAtATrafficLight))) {
+            if (bits & (1 << (7 - ETSI_ITS_CDD_EmergencyPriority_requestForFreeCrossingAtATrafficLight))) {
                 required_permissions.add(CamPermission::Request_For_Free_Crossing_At_Traffic_Light);
             }
         }
@@ -281,10 +281,10 @@ bool check_service_specific_permissions(const asn1::Cam& cam, security::CamPermi
 
         if (safety && safety->trafficRule) {
             switch (*safety->trafficRule) {
-                case ITS_Container_TrafficRule_noPassing:
+                case ETSI_ITS_CDD_TrafficRule_noPassing:
                     required_permissions.add(CamPermission::No_Passing);
                     break;
-                case ITS_Container_TrafficRule_noPassingForTrucks:
+                case ETSI_ITS_CDD_TrafficRule_noPassingForTrucks:
                     required_permissions.add(CamPermission::No_Passing_For_Trucks);
                     break;
                 default:
@@ -310,47 +310,47 @@ void print_indented(std::ostream& os, const asn1::Cam& message, const std::strin
         return os;
     };
 
-    const ITS_Container_ItsPduHeader_t& header = message->header;
+    const ETSI_ITS_CDD_ItsPduHeader_t& header = message->header;
     prefix("ITS PDU Header") << "\n";
     ++level;
     prefix("Protocol Version") << header.protocolVersion << "\n";
-    prefix("Message ID") << header.messageID << "\n";
-    prefix("Station ID") << header.stationID << "\n";
+    prefix("Message ID") << header.messageId << "\n";
+    prefix("Station ID") << header.stationId << "\n";
     --level;
 
-    const CoopAwareness_t& cam = message->cam;
+    const CamPayload_t& cam = message->cam;
     prefix("CoopAwarensess") << "\n";
     ++level;
     prefix("Generation Delta Time") << cam.generationDeltaTime << "\n";
 
     prefix("Basic Container") << "\n";
     ++level;
-    const CAM_PDU_Descriptions_BasicContainer_t& basic = cam.camParameters.basicContainer;
+    const ETSI_ITS_CDD_BasicContainer_t& basic = cam.camParameters.basicContainer;
     prefix("Station Type") << basic.stationType << "\n";
     prefix("Reference Position") << "\n";
     ++level;
     prefix("Longitude") << basic.referencePosition.longitude << "\n";
     prefix("Latitude") << basic.referencePosition.latitude << "\n";
-    prefix("Semi Major Orientation") << basic.referencePosition.positionConfidenceEllipse.semiMajorOrientation << "\n";
-    prefix("Semi Major Confidence") << basic.referencePosition.positionConfidenceEllipse.semiMajorConfidence << "\n";
-    prefix("Semi Minor Confidence") << basic.referencePosition.positionConfidenceEllipse.semiMinorConfidence << "\n";
+    prefix("Semi Major Orientation") << basic.referencePosition.positionConfidenceEllipse.semiMajorAxisOrientation << "\n";
+    prefix("Semi Major Confidence") << basic.referencePosition.positionConfidenceEllipse.semiMajorAxisLength << "\n";
+    prefix("Semi Minor Confidence") << basic.referencePosition.positionConfidenceEllipse.semiMinorAxisLength << "\n";
     prefix("Altitude [Confidence]") << basic.referencePosition.altitude.altitudeValue
         << " [" << basic.referencePosition.altitude.altitudeConfidence << "]\n";
     --level;
     --level;
 
-    if (cam.camParameters.highFrequencyContainer.present == HighFrequencyContainer_PR_basicVehicleContainerHighFrequency) {
+    if (cam.camParameters.highFrequencyContainer.present == CAM_PDU_Description_HighFrequencyContainer_PR_basicVehicleContainerHighFrequency) {
         prefix("High Frequency Container [Basic Vehicle]") << "\n";
         ++level;
-        const BasicVehicleContainerHighFrequency& bvc =
+        const CAM_PDU_Description_BasicVehicleContainerHighFrequency& bvc =
             cam.camParameters.highFrequencyContainer.choice.basicVehicleContainerHighFrequency;
         prefix("Heading [Confidence]") << bvc.heading.headingValue
             << " [" << bvc.heading.headingConfidence << "]\n";
         prefix("Speed [Confidence]") << bvc.speed.speedValue
             << " [" << bvc.speed.speedConfidence << "]\n";
         prefix("Drive Direction") << bvc.driveDirection << "\n";
-        prefix("Longitudinal Acceleration [Confidence]") << bvc.longitudinalAcceleration.longitudinalAccelerationValue
-            << " [" << bvc.longitudinalAcceleration.longitudinalAccelerationConfidence << "]\n";
+        prefix("Longitudinal Acceleration [Confidence]") << bvc.longitudinalAcceleration.value
+            << " [" << bvc.longitudinalAcceleration.confidence << "]\n";
         prefix("Vehicle Length [Confidence Indication]") << bvc.vehicleLength.vehicleLengthValue
             << " [" << bvc.vehicleLength.vehicleLengthConfidenceIndication << "]\n";
         prefix("Vehicle Width") << bvc.vehicleWidth << "\n";
@@ -360,9 +360,9 @@ void print_indented(std::ostream& os, const asn1::Cam& message, const std::strin
         prefix("Yaw Rate [Confidence]") << bvc.yawRate.yawRateValue
             << " [" << bvc.yawRate.yawRateConfidence << "]\n";
         --level;
-    } else if (cam.camParameters.highFrequencyContainer.present == HighFrequencyContainer_PR_rsuContainerHighFrequency) {
+    } else if (cam.camParameters.highFrequencyContainer.present == CAM_PDU_Description_HighFrequencyContainer_PR_rsuContainerHighFrequency) {
         prefix("High Frequency Container [RSU]") << "\n";
-        const RSUContainerHighFrequency_t& rsu = cam.camParameters.highFrequencyContainer.choice.rsuContainerHighFrequency;
+        const CAM_PDU_Description_RSUContainerHighFrequency_t& rsu = cam.camParameters.highFrequencyContainer.choice.rsuContainerHighFrequency;
         if (nullptr != rsu.protectedCommunicationZonesRSU && nullptr != rsu.protectedCommunicationZonesRSU->list.array) {
             ++level;
             int size = rsu.protectedCommunicationZonesRSU->list.count;
@@ -380,7 +380,7 @@ void print_indented(std::ostream& os, const asn1::Cam& message, const std::strin
                 if (nullptr != rsu.protectedCommunicationZonesRSU->list.array[i]->protectedZoneRadius)
                     prefix("Radius") << *(rsu.protectedCommunicationZonesRSU->list.array[i]->protectedZoneRadius) << "\n";
                 if (nullptr != rsu.protectedCommunicationZonesRSU->list.array[i]->protectedZoneRadius)
-                    prefix("ID") << *(rsu.protectedCommunicationZonesRSU->list.array[i]->protectedZoneID) << "\n";
+                    prefix("ID") << *(rsu.protectedCommunicationZonesRSU->list.array[i]->protectedZoneId) << "\n";
                 --level;
             }
             --level;
@@ -390,9 +390,9 @@ void print_indented(std::ostream& os, const asn1::Cam& message, const std::strin
     }
 
     if (nullptr != cam.camParameters.lowFrequencyContainer) {
-        if (cam.camParameters.lowFrequencyContainer->present == LowFrequencyContainer_PR_basicVehicleContainerLowFrequency) {
+        if (cam.camParameters.lowFrequencyContainer->present == CAM_PDU_Description_LowFrequencyContainer_PR_basicVehicleContainerLowFrequency) {
             prefix("Low Frequency Container") << "\n";
-            const BasicVehicleContainerLowFrequency_t& lfc =
+            const CAM_PDU_Description_BasicVehicleContainerLowFrequency_t& lfc =
                 cam.camParameters.lowFrequencyContainer->choice.basicVehicleContainerLowFrequency;
             ++level;
             prefix("Vehicle Role") << (lfc.vehicleRole) << "\n";
@@ -422,9 +422,9 @@ void print_indented(std::ostream& os, const asn1::Cam& message, const std::strin
         prefix("Low Frequency Container") << "not present" << "\n";
 
     if (nullptr != cam.camParameters.specialVehicleContainer) {
-        if (cam.camParameters.specialVehicleContainer->present == SpecialVehicleContainer_PR_publicTransportContainer) {
+        if (cam.camParameters.specialVehicleContainer->present == CAM_PDU_Description_SpecialVehicleContainer_PR_publicTransportContainer) {
             prefix("Special Vehicle Container [Public Transport]") << "\n";
-            PublicTransportContainer_t& ptc = cam.camParameters.specialVehicleContainer->choice.publicTransportContainer;
+            CAM_PDU_Description_PublicTransportContainer_t& ptc = cam.camParameters.specialVehicleContainer->choice.publicTransportContainer;
             ++level;
             prefix("Embarkation Status") << ptc.embarkationStatus << "\n";
             if (ptc.ptActivation) {
@@ -436,24 +436,24 @@ void print_indented(std::ostream& os, const asn1::Cam& message, const std::strin
                 }
             }
             --level;
-        } else if (cam.camParameters.specialVehicleContainer->present == SpecialVehicleContainer_PR_specialTransportContainer) {
+        } else if (cam.camParameters.specialVehicleContainer->present == CAM_PDU_Description_SpecialVehicleContainer_PR_specialTransportContainer) {
             prefix("Special Vehicle Container [Special Transport]") << "\n";
-            SpecialTransportContainer_t& stc = cam.camParameters.specialVehicleContainer->choice.specialTransportContainer;
+            CAM_PDU_Description_SpecialTransportContainer_t& stc = cam.camParameters.specialVehicleContainer->choice.specialTransportContainer;
             ++level;
             if (nullptr != stc.specialTransportType.buf && stc.specialTransportType.size > 0)
                 prefix("Type") << (unsigned) stc.specialTransportType.buf[0] << "\n";
             if (nullptr != stc.lightBarSirenInUse.buf && stc.lightBarSirenInUse.size > 0)
                 prefix("Light Bar Siren in Use") << (unsigned) stc.lightBarSirenInUse.buf[0] << "\n";
             --level;
-        } else if (cam.camParameters.specialVehicleContainer->present == SpecialVehicleContainer_PR_dangerousGoodsContainer) {
+        } else if (cam.camParameters.specialVehicleContainer->present == CAM_PDU_Description_SpecialVehicleContainer_PR_dangerousGoodsContainer) {
             prefix("Special Vehicle Container [Dangerous Goods]") << "\n";
-            DangerousGoodsContainer_t& dgc = cam.camParameters.specialVehicleContainer->choice.dangerousGoodsContainer;
+            CAM_PDU_Description_DangerousGoodsContainer_t& dgc = cam.camParameters.specialVehicleContainer->choice.dangerousGoodsContainer;
             ++level;
             prefix("Dangerous Goods Basic Type") << (unsigned)dgc.dangerousGoodsBasic << "\n";
             --level;
-        } else if (cam.camParameters.specialVehicleContainer->present == SpecialVehicleContainer_PR_roadWorksContainerBasic) {
+        } else if (cam.camParameters.specialVehicleContainer->present == CAM_PDU_Description_SpecialVehicleContainer_PR_roadWorksContainerBasic) {
             prefix("Special Vehicle Container [Road Works]") << "\n";
-            RoadWorksContainerBasic_t& rwc = cam.camParameters.specialVehicleContainer->choice.roadWorksContainerBasic;
+            CAM_PDU_Description_RoadWorksContainerBasic_t& rwc = cam.camParameters.specialVehicleContainer->choice.roadWorksContainerBasic;
             ++level;
             if (nullptr != rwc.roadworksSubCauseCode)
                 prefix("Sub Cause Code") << *(rwc.roadworksSubCauseCode) << "\n";
@@ -469,38 +469,38 @@ void print_indented(std::ostream& os, const asn1::Cam& message, const std::strin
                     prefix("Driving Lane Status") << (unsigned) rwc.closedLanes->drivingLaneStatus->buf[0] << "\n";
             }
             --level;
-        } else if (cam.camParameters.specialVehicleContainer->present == SpecialVehicleContainer_PR_rescueContainer) {
+        } else if (cam.camParameters.specialVehicleContainer->present == CAM_PDU_Description_SpecialVehicleContainer_PR_rescueContainer) {
             prefix("Special Vehicle Container [Rescue]") << "\n";
-            RescueContainer_t& rc = cam.camParameters.specialVehicleContainer->choice.rescueContainer;
+            CAM_PDU_Description_RescueContainer_t& rc = cam.camParameters.specialVehicleContainer->choice.rescueContainer;
             ++level;
             if (nullptr != rc.lightBarSirenInUse.buf && rc.lightBarSirenInUse.size > 0)
                 prefix("Light Bar Siren in Use") << (unsigned) rc.lightBarSirenInUse.buf[0] << "\n";
             --level;
-        } else if (cam.camParameters.specialVehicleContainer->present == SpecialVehicleContainer_PR_emergencyContainer) {
+        } else if (cam.camParameters.specialVehicleContainer->present == CAM_PDU_Description_SpecialVehicleContainer_PR_emergencyContainer) {
             prefix("Special Vehicle Container [Emergency]") << "\n";
-            EmergencyContainer_t& ec = cam.camParameters.specialVehicleContainer->choice.emergencyContainer;
+            CAM_PDU_Description_EmergencyContainer_t& ec = cam.camParameters.specialVehicleContainer->choice.emergencyContainer;
             ++level;
             if (nullptr != ec.lightBarSirenInUse.buf && ec.lightBarSirenInUse.size > 0)
                 prefix("Light Bar Siren in Use") << (unsigned) ec.lightBarSirenInUse.buf[0] << "\n";
-            if (nullptr != ec.incidentIndication) {
+            /*if (nullptr != ec.incidentIndication) {
                 prefix("Incident Indication Cause Code") << ec.incidentIndication->causeCode << "\n";
                 prefix("Incident Indication Sub Cause Code") << ec.incidentIndication->subCauseCode << "\n";
-            }
+            }*/
             if (nullptr != ec.emergencyPriority && nullptr != ec.emergencyPriority->buf
                 && ec.emergencyPriority->size > 0) {
                 prefix("Emergency Priority") << (unsigned) ec.emergencyPriority->buf[0] << "\n";
             }
             --level;
-        } else if (cam.camParameters.specialVehicleContainer->present == SpecialVehicleContainer_PR_safetyCarContainer) {
+        } else if (cam.camParameters.specialVehicleContainer->present == CAM_PDU_Description_SpecialVehicleContainer_PR_safetyCarContainer) {
             prefix("Special Vehicle Container [Safety Car]") << "\n";
-            SafetyCarContainer_t& sc = cam.camParameters.specialVehicleContainer->choice.safetyCarContainer;
+            CAM_PDU_Description_SafetyCarContainer_t& sc = cam.camParameters.specialVehicleContainer->choice.safetyCarContainer;
             ++level;
             if (nullptr != sc.lightBarSirenInUse.buf && sc.lightBarSirenInUse.size > 0)
                 prefix("Light Bar Siren in Use") << (unsigned) sc.lightBarSirenInUse.buf[0] << "\n";
-            if (nullptr != sc.incidentIndication) {
+            /*if (nullptr != sc.incidentIndication) {
                 prefix("Incident Indication Cause Code") << sc.incidentIndication->causeCode << "\n";
                 prefix("Incident Indication Sub Cause Code") << sc.incidentIndication->subCauseCode << "\n";
-            }
+            }*/
             if (nullptr != sc.trafficRule) {
                 prefix("Traffic Rule") << *(sc.trafficRule) << "\n";
             }

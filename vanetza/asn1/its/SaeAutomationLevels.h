@@ -12,7 +12,7 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "SaeAutomationLevel.h"
+#include "IVI_SaeAutomationLevel.h"
 #include "asn_SEQUENCE_OF.h"
 #include "constr_SEQUENCE_OF.h"
 
@@ -22,7 +22,7 @@ extern "C" {
 
 /* SaeAutomationLevels */
 typedef struct SaeAutomationLevels {
-	A_SEQUENCE_OF(SaeAutomationLevel_t) list;
+	A_SEQUENCE_OF(IVI_SaeAutomationLevel_t) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;

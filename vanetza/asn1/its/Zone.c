@@ -40,7 +40,7 @@ asn_TYPE_member_t asn_MBR_Zone_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct Zone, choice.area),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		+1,	/* EXPLICIT tag at current level */
-		&asn_DEF_PolygonalLine,
+		&asn_DEF_IVI_PolygonalLine,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)

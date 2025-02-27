@@ -3,18 +3,18 @@
 
 #include <vanetza/asn1/asn1c_conversion.hpp>
 #include <vanetza/asn1/asn1c_wrapper.hpp>
-#include <vanetza/asn1/its/DENM.h>
+#include <vanetza/asn1/its/DENM-PDU-Description_DENM.h>
 
 namespace vanetza
 {
 namespace asn1
 {
 
-class Denm : public asn1c_per_wrapper<DENM_t>
+class Denm : public asn1c_per_wrapper<DENM_PDU_Description_DENM_t>
 {
 public:
-    using wrapper = asn1c_per_wrapper<DENM_t>;
-    Denm() : wrapper(asn_DEF_DENM) {}
+    using wrapper = asn1c_per_wrapper<DENM_PDU_Description_DENM_t>;
+    Denm() : wrapper(asn_DEF_DENM_PDU_Description_DENM) {}
 };
 
 } // namespace asn1
