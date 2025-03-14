@@ -174,7 +174,7 @@ void CpmApplication::on_message(string topic, string mqtt_message, const std::ve
         vanetza::asn1::Cpm message;
 
         ETSI_ITS_CDD_ItsPduHeader_t& header = message->header;
-        header.protocolVersion = 1;
+        header.protocolVersion = 2;
         header.messageId = MessageId_cpm;
         header.stationId = config_s.station_id;
 
