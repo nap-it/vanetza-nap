@@ -29,7 +29,7 @@ CohesivePacket::CohesivePacket(ByteBuffer&& buffer, OsiLayer layer) :
 CohesivePacket::CohesivePacket(const CohesivePacket& other) :
     m_buffer(other.m_buffer), rssi(other.rssi), time_received(other.time_received), 
     time_queue(other.time_queue), frequency(other.frequency), noise(other.noise), chan_busy_time(other.chan_busy_time), 
-    chan_rx_time(other.chan_rx_time), chan_tx_time(other.chan_tx_time)
+    chan_rx_time(other.chan_rx_time), chan_tx_time(other.chan_tx_time), source(other.source)
 {
     mcs = other.mcs;
     rebuild_iterators(other);

@@ -73,7 +73,7 @@ void RtcmemApplication::indicate(const DataIndication& indication, UpPacketPtr p
     if(config_s.publish_encoded_payloads) {
         const std::vector<uint8_t> vec = std::vector<uint8_t>(cp[OsiLayer::Application].begin(), cp[OsiLayer::Application].end());
         double time_pre_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-        string test = "{\"encoded_timestamp\": " + to_string(time_pre_encoded) + "}";
+        string test = "{\"encoded_timestamp\": " + to_string(time_pre_encoded) + ", \"stationAddr\": " + cp.source + "}";
         pubsub->publish_encoded(
             config_s.rtcmem,
             vec, 
@@ -88,7 +88,7 @@ void RtcmemApplication::indicate(const DataIndication& indication, UpPacketPtr p
     }
     const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
-    Document rtcmem_json = buildJSON(rtcmem_t, cp.time_received, cp.rssi, cp.size(), cp.time_queue, parse_channel_info(cp));
+    Document rtcmem_json = buildJSON(rtcmem_t, cp.time_received, cp.rssi, cp.size(), cp.time_queue, parse_channel_info(cp), cp.source);
     pubsub->publish(config_s.rtcmem, rtcmem_json, &rtcmem_udp_socket, &rtcmem_remote_endpoint, &rtcmem_err, rtcmem_rx_counter, rtcmem_rx_latency, cp.time_received, time_encoded, cp.time_queue, time_queue2, "RTCMEM");
 
 }
@@ -98,7 +98,7 @@ void RtcmemApplication::schedule_timer()
     runtime_.schedule(rtcmem_interval_, std::bind(&RtcmemApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-Document RtcmemApplication::buildJSON(RTCMEM_t message, double time_reception, int rssi, int packet_size, double time_queue, channel channel_info) {
+Document RtcmemApplication::buildJSON(RTCMEM_t message, double time_reception, int rssi, int packet_size, double time_queue, channel channel_info, string source) {
     ITS_Container_ItsPduHeader_t& header = message.header;
     Document document(kObjectType);
     Document::AllocatorType& allocator = document.GetAllocator();
@@ -107,6 +107,7 @@ Document RtcmemApplication::buildJSON(RTCMEM_t message, double time_reception, i
     document.AddMember("timestamp", time_reception, allocator)
         .AddMember("rssi", rssi, allocator)
         .AddMember("stationID", Value(static_cast<int64_t>(header.stationID)), allocator)
+        .AddMember("stationAddr", source, allocator)
         .AddMember("receiverID", config_s.station_id, allocator)
         .AddMember("receiverType", config_s.station_type, allocator)
         .AddMember("packet_size", packet_size, allocator)
@@ -217,6 +218,7 @@ void RtcmemApplication::on_message(string topic, string mqtt_message, const std:
 
         timePayload.AddMember("timestamp", time_reception, allocator)
             .AddMember("stationID", config_s.station_id, allocator)
+            .AddMember("stationAddr", config_s.mac_address, allocator)
             .AddMember("receiverID", config_s.station_id, allocator)
             .AddMember("receiverType", config_s.station_type, allocator);
         if(!is_encoded) timePayload.AddMember("fields", Value(kObjectType).AddMember("rtcmem", payload, allocator), allocator);

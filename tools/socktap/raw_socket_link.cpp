@@ -116,6 +116,7 @@ void RawSocketLink::on_read(const boost::system::error_code& ec, std::size_t rea
                 packet.chan_busy_time = s.chan_busy_time;
                 packet.chan_rx_time = s.chan_rx_time;
                 packet.chan_tx_time = s.chan_tx_time;
+                packet.source = source_mac;
             }
             packet.time_received = time_reception;
             if (callback_ && eth) {

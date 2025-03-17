@@ -103,7 +103,7 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     if(config_s.publish_encoded_payloads) {
         const std::vector<uint8_t> vec = std::vector<uint8_t>(cp[OsiLayer::Application].begin(), cp[OsiLayer::Application].end());
         double time_pre_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-        string test = "{\"encoded_timestamp\": " + to_string(time_pre_encoded) + "}";
+        string test = "{\"encoded_timestamp\": " + to_string(time_pre_encoded) + ", \"stationAddr\": " + cp.source + "}";
         pubsub->publish_encoded(
             config_s.cam,
             vec, 
@@ -119,7 +119,7 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
     Document cam_json_full(kObjectType);
-    Document cam_json = buildJSON(cam_t, cam_json_full, cp.time_received, cp.time_queue, cp.rssi, cp.size(), parse_channel_info(cp), true, true, true);
+    Document cam_json = buildJSON(cam_t, cam_json_full, cp.time_received, cp.time_queue, cp.rssi, cp.size(), parse_channel_info(cp), true, true, true, cp.source);
 
     StringBuffer simpleBuffer;
     Writer<StringBuffer> simpleWriter(simpleBuffer);
@@ -281,7 +281,7 @@ void CamApplication::schedule_timer()
     runtime_.schedule(cam_interval_, std::bind(&CamApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, double time_reception, double time_queue, int rssi, int packet_size, channel channel_info, bool include_fields, bool rx, bool full) {
+Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, double time_reception, double time_queue, int rssi, int packet_size, channel channel_info, bool include_fields, bool rx, bool full, string source) {
     ITS_Container_ItsPduHeader_t& header = message.header;
     CoopAwareness_t& cam = message.cam;
     CAM_PDU_Descriptions_BasicContainer_t& basic = cam.camParameters.basicContainer;
@@ -330,6 +330,7 @@ Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, doubl
                     .AddMember("newInfo", new_info, fullAllocator)
                     .AddMember("rssi", rssi, fullAllocator)
                     .AddMember("stationID", Value(static_cast<int64_t>(header.stationID)), fullAllocator)
+                    .AddMember("stationAddr", source, fullAllocator)
                     .AddMember("receiverID", config_s.station_id, fullAllocator)
                     .AddMember("receiverType", config_s.station_type, fullAllocator)
                     .AddMember("packet_size", packet_size, fullAllocator);
@@ -339,6 +340,7 @@ Document CamApplication::buildJSON(CAM_t message, Document& cam_json_full, doubl
                     .AddMember("newInfo", new_info, simpleAllocator)
                     .AddMember("rssi", rssi, simpleAllocator)
                     .AddMember("stationID", Value(static_cast<int64_t>(header.stationID)), simpleAllocator)
+                    .AddMember("stationAddr", source, simpleAllocator)
                     .AddMember("receiverID", config_s.station_id, simpleAllocator)
                     .AddMember("receiverType", config_s.station_type, simpleAllocator)
                     .AddMember("packet_size", packet_size, simpleAllocator);
@@ -587,6 +589,7 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
 
         simplePayload.AddMember("timestamp", time_reception, simpleAllocator)
                     .AddMember("stationID", config_s.station_id, simpleAllocator)
+                    .AddMember("stationAddr", config_s.mac_address, simpleAllocator)
                     .AddMember("receiverID", config_s.station_id, simpleAllocator)
                     .AddMember("receiverType", config_s.station_type, simpleAllocator);
         if(!is_encoded) simplePayload.AddMember("fields", Value(kObjectType).AddMember("cam", payload, simpleAllocator), simpleAllocator);
@@ -712,7 +715,7 @@ void CamApplication::on_timer(Clock::time_point)
     
     Document cam_json_full(kObjectType);
     Document::AllocatorType& fullAllocator = cam_json_full.GetAllocator();
-    Document cam_json = buildJSON(cam_t, cam_json_full, time_now_mqtt, 0, -255, 0, channel{-1,-1,-1,-1,-1}, true, false, true);
+    Document cam_json = buildJSON(cam_t, cam_json_full, time_now_mqtt, 0, -255, 0, channel{-1,-1,-1,-1,-1}, true, false, true, config_s.mac_address);
     Document::AllocatorType& simpleAllocator = cam_json.GetAllocator();
 
     DownPacketPtr packet { new DownPacket() };

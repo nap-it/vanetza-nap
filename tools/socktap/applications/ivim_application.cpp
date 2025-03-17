@@ -78,7 +78,7 @@ void IvimApplication::indicate(const DataIndication& indication, UpPacketPtr pac
     if(config_s.publish_encoded_payloads) {
         const std::vector<uint8_t> vec = std::vector<uint8_t>(cp[OsiLayer::Application].begin(), cp[OsiLayer::Application].end());
         double time_pre_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-        string test = "{\"encoded_timestamp\": " + to_string(time_pre_encoded) + "}";
+        string test = "{\"encoded_timestamp\": " + to_string(time_pre_encoded) + ", \"stationAddr\": " + cp.source + "}";
         pubsub->publish_encoded(
             config_s.ivim,
             vec, 
@@ -93,7 +93,7 @@ void IvimApplication::indicate(const DataIndication& indication, UpPacketPtr pac
     }
     const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
-    Document ivim_json = buildJSON(ivim_t, cp.time_received, cp.rssi, cp.size(), cp.time_queue, parse_channel_info(cp));
+    Document ivim_json = buildJSON(ivim_t, cp.time_received, cp.rssi, cp.size(), cp.time_queue, parse_channel_info(cp), cp.source);
     pubsub->publish(config_s.ivim, ivim_json, &ivim_udp_socket, &ivim_remote_endpoint, &ivim_err, ivim_rx_counter, ivim_rx_latency, cp.time_received, time_encoded, cp.time_queue, time_queue2, "IVIM");
 
 }
@@ -103,7 +103,7 @@ void IvimApplication::schedule_timer()
     runtime_.schedule(ivim_interval_, std::bind(&IvimApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-Document IvimApplication::buildJSON(IVIM_t message, double time_reception, int rssi, int packet_size, double time_queue, channel channel_info) {
+Document IvimApplication::buildJSON(IVIM_t message, double time_reception, int rssi, int packet_size, double time_queue, channel channel_info, string source) {
     ITS_Container_ItsPduHeader_t& header = message.header;
     Document document(kObjectType);
     Document::AllocatorType& allocator = document.GetAllocator();
@@ -112,6 +112,7 @@ Document IvimApplication::buildJSON(IVIM_t message, double time_reception, int r
     document.AddMember("timestamp", time_reception, allocator)
         .AddMember("rssi", rssi, allocator)
         .AddMember("stationID", Value(static_cast<int64_t>(header.stationID)), allocator)
+        .AddMember("stationAddr", source, allocator)
         .AddMember("receiverID", config_s.station_id, allocator)
         .AddMember("receiverType", config_s.station_type, allocator)
         .AddMember("packet_size", packet_size, allocator)
@@ -222,6 +223,7 @@ void IvimApplication::on_message(string topic, string mqtt_message, const std::v
 
         timePayload.AddMember("timestamp", time_reception, allocator)
             .AddMember("stationID", config_s.station_id, allocator)
+            .AddMember("stationAddr", config_s.mac_address, allocator)
             .AddMember("receiverID", config_s.station_id, allocator)
             .AddMember("receiverType", config_s.station_type, allocator);
         if(!is_encoded) timePayload.AddMember("fields", Value(kObjectType).AddMember("ivim", payload, allocator), allocator);
