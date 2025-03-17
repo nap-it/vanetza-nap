@@ -30,15 +30,15 @@ static const asn_INTEGER_enum_map_t asn_MAP_McmType_value2enum_1[] = {
 	{ 3,	11,	"reservation" },
 	{ 4,	11,	"termination" },
 	{ 5,	19,	"cancellationRequest" },
-	{ 6,	28,	"emergencymaneuverReservation" },
+	{ 6,	29,	"emergencyManoeuvreReservation" },
 	{ 7,	15,	"executionStatus" },
 	{ 8,	5,	"offer" },
-	{ 9,	3,	"ack" }
+	{ 9,	14,	"acknowledgment" }
 };
 static const unsigned int asn_MAP_McmType_enum2value_1[] = {
-	9,	/* ack(9) */
+	9,	/* acknowledgment(9) */
 	5,	/* cancellationRequest(5) */
-	6,	/* emergencymaneuverReservation(6) */
+	6,	/* emergencyManoeuvreReservation(6) */
 	7,	/* executionStatus(7) */
 	0,	/* intent(0) */
 	8,	/* offer(8) */

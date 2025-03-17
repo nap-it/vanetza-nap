@@ -24,22 +24,22 @@ asn_per_constraints_t asn_PER_type_DeclineReason_constr_1 CC_NOTUSED = {
 };
 #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
 static const asn_INTEGER_enum_map_t asn_MAP_DeclineReason_value2enum_1[] = {
-	{ 0,	7,	"unknown" },
-	{ 1,	15,	"unableToConform" },
-	{ 2,	8,	"unwanted" },
-	{ 3,	18,	"unableToUnderstand" },
-	{ 4,	26,	"erroneousBehaviourDetected" },
-	{ 5,	27,	"missbehaviourAttackDetected" },
-	{ 6,	34,	"manoeuvreCancellationRequestIssued" }
+	{ 0,	23,	"agreementSeekingUnknown" },
+	{ 1,	18,	"allUnableToConform" },
+	{ 2,	24,	"agreementSeekingUnwanted" },
+	{ 3,	21,	"allUnableToUnderstand" },
+	{ 4,	29,	"allErroneousBehaviourDetected" },
+	{ 5,	24,	"allMissbehaviourDetected" },
+	{ 6,	50,	"agreementSeekingManoeuvreCancellationRequestIssued" }
 };
 static const unsigned int asn_MAP_DeclineReason_enum2value_1[] = {
-	4,	/* erroneousBehaviourDetected(4) */
-	6,	/* manoeuvreCancellationRequestIssued(6) */
-	5,	/* missbehaviourAttackDetected(5) */
-	1,	/* unableToConform(1) */
-	3,	/* unableToUnderstand(3) */
-	0,	/* unknown(0) */
-	2	/* unwanted(2) */
+	6,	/* agreementSeekingManoeuvreCancellationRequestIssued(6) */
+	0,	/* agreementSeekingUnknown(0) */
+	2,	/* agreementSeekingUnwanted(2) */
+	4,	/* allErroneousBehaviourDetected(4) */
+	5,	/* allMissbehaviourDetected(5) */
+	1,	/* allUnableToConform(1) */
+	3	/* allUnableToUnderstand(3) */
 };
 const asn_INTEGER_specifics_t asn_SPC_DeclineReason_specs_1 = {
 	asn_MAP_DeclineReason_value2enum_1,	/* "tag" => N; sorted by tag */

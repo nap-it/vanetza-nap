@@ -94,6 +94,7 @@ public:
     double chan_tx_time;
     double time_received;
     double time_queue;
+    std::string source;
 
 private:
     void reset_iterators(OsiLayer layer);

@@ -26,7 +26,7 @@ private:
     config_t config_s;
     metrics_t metrics_s;
 
-    Document buildJSON(CollectivePerceptionMessage_t cpm, double time_reception, int rssi, int packet_size, double time_queue, channel channel_info);
+    Document buildJSON(CollectivePerceptionMessage_t cpm, double time_reception, int rssi, int packet_size, double time_queue, channel channel_info, string source);
 
 };
 

@@ -94,7 +94,7 @@ void VamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     if(config_s.publish_encoded_payloads) {
         const std::vector<uint8_t> vec = std::vector<uint8_t>(cp[OsiLayer::Application].begin(), cp[OsiLayer::Application].end());
         double time_pre_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-        string test = "{\"encoded_timestamp\": " + to_string(time_pre_encoded) + "}";
+        string test = "{\"encoded_timestamp\": " + to_string(time_pre_encoded) + ", \"stationAddr\": " + cp.source + "}";
         pubsub->publish_encoded(
             config_s.vam,
             vec, 
@@ -110,7 +110,7 @@ void VamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
     Document vam_json_full(kObjectType);
-    Document vam_json = buildJSON(vam_t, vam_json_full, cp.time_received, cp.rssi, cp.size(), cp.time_queue, parse_channel_info(cp));
+    Document vam_json = buildJSON(vam_t, vam_json_full, cp.time_received, cp.rssi, cp.size(), cp.time_queue, parse_channel_info(cp), cp.source);
 
     StringBuffer simpleBuffer;
     Writer<StringBuffer> simpleWriter(simpleBuffer);
@@ -204,7 +204,7 @@ void VamApplication::schedule_timer()
     runtime_.schedule(vam_interval_, std::bind(&VamApplication::on_timer, this, std::placeholders::_1), this);
 }
 
-Document VamApplication::buildJSON(VAM_t message, Document& vam_json_full, double time_reception, int rssi, int packet_size, double time_queue, channel channel_info) {
+Document VamApplication::buildJSON(VAM_t message, Document& vam_json_full, double time_reception, int rssi, int packet_size, double time_queue, channel channel_info, string source) {
     ITS_Container_ItsPduHeader_t& header = message.header;
     VruAwareness_t& vam = message.vam;
     CAM_PDU_Descriptions_BasicContainer_t& basic = vam.vamParameters.basicContainer;
@@ -243,6 +243,7 @@ Document VamApplication::buildJSON(VAM_t message, Document& vam_json_full, doubl
         .AddMember("newInfo", newInfo, allocator)
         .AddMember("rssi", rssi, allocator)
         .AddMember("stationID", Value(static_cast<int64_t>(header.stationID)), allocator)
+        .AddMember("stationAddr", source, allocator)
         .AddMember("receiverID", config_s.station_id, allocator)
         .AddMember("receiverType", config_s.station_type, allocator)
         .AddMember("packet_size", packet_size, allocator)
@@ -353,6 +354,7 @@ void VamApplication::on_message(string topic, string mqtt_message, const std::ve
 
         timePayload.AddMember("timestamp", time_reception, allocator)
             .AddMember("stationID", config_s.station_id, allocator)
+            .AddMember("stationAddr", config_s.mac_address, allocator)
             .AddMember("receiverID", config_s.station_id, allocator)
             .AddMember("receiverType", config_s.station_type, allocator);
         if(!is_encoded) timePayload.AddMember("fields", Value(kObjectType).AddMember("vam", payload, allocator), allocator);

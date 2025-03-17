@@ -87,6 +87,11 @@ int main(int argc, const char** argv)
                 std::cerr << "The specified MAC address is invalid." << std::endl;
                 return 1;
             }
+        } else {
+            std::stringstream stream;
+            stream << mac_address;
+            std::string source_mac(stream.str());
+            config_s.mac_address = source_mac;
         }
 
         const std::string link_layer_name = "ethernet";

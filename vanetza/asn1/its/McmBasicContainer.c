@@ -28,7 +28,7 @@ asn_TYPE_member_t asn_MBR_McmBasicContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct McmBasicContainer, stationID),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ETSI_ITS_CDD_StationID,
+		&asn_DEF_StationId,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -45,7 +45,7 @@ asn_TYPE_member_t asn_MBR_McmBasicContainer_1[] = {
 	{ ATF_NOFLAGS, 0, offsetof(struct McmBasicContainer, stationType),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ETSI_ITS_CDD_StationType,
+		&asn_DEF_McmStationType,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -59,10 +59,10 @@ asn_TYPE_member_t asn_MBR_McmBasicContainer_1[] = {
 		0, 0, /* No default value */
 		"stationType"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct McmBasicContainer, deltaReferencePosition),
+	{ ATF_NOFLAGS, 0, offsetof(struct McmBasicContainer, itssRole),
 		(ASN_TAG_CLASS_CONTEXT | (3 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ETSI_ITS_CDD_DeltaReferencePosition,
+		&asn_DEF_McmItssRole,
 		0,
 		{
 #if !defined(ASN_DISABLE_OER_SUPPORT)
@@ -74,9 +74,112 @@ asn_TYPE_member_t asn_MBR_McmBasicContainer_1[] = {
 			0
 		},
 		0, 0, /* No default value */
-		"deltaReferencePosition"
+		"itssRole"
+		},
+	{ ATF_NOFLAGS, 0, offsetof(struct McmBasicContainer, position),
+		(ASN_TAG_CLASS_CONTEXT | (4 << 2)),
+		-1,	/* IMPLICIT tag at current level */
+		&asn_DEF_ReferencePositionWithConfidence,
+		0,
+		{
+#if !defined(ASN_DISABLE_OER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+			0
+		},
+		0, 0, /* No default value */
+		"position"
+		},
+	{ ATF_NOFLAGS, 0, offsetof(struct McmBasicContainer, mcmType),
+		(ASN_TAG_CLASS_CONTEXT | (5 << 2)),
+		-1,	/* IMPLICIT tag at current level */
+		&asn_DEF_McmType,
+		0,
+		{
+#if !defined(ASN_DISABLE_OER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+			0
+		},
+		0, 0, /* No default value */
+		"mcmType"
+		},
+	{ ATF_NOFLAGS, 0, offsetof(struct McmBasicContainer, manoeuvreId),
+		(ASN_TAG_CLASS_CONTEXT | (6 << 2)),
+		-1,	/* IMPLICIT tag at current level */
+		&asn_DEF_ManoeuvreId,
+		0,
+		{
+#if !defined(ASN_DISABLE_OER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+			0
+		},
+		0, 0, /* No default value */
+		"manoeuvreId"
+		},
+	{ ATF_NOFLAGS, 0, offsetof(struct McmBasicContainer, concept),
+		(ASN_TAG_CLASS_CONTEXT | (7 << 2)),
+		-1,	/* IMPLICIT tag at current level */
+		&asn_DEF_ManoeuvreCoordinationConcept,
+		0,
+		{
+#if !defined(ASN_DISABLE_OER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+			0
+		},
+		0, 0, /* No default value */
+		"concept"
+		},
+	{ ATF_POINTER, 2, offsetof(struct McmBasicContainer, rational),
+		(ASN_TAG_CLASS_CONTEXT | (8 << 2)),
+		+1,	/* EXPLICIT tag at current level */
+		&asn_DEF_ManoeuvreCoordinationRational,
+		0,
+		{
+#if !defined(ASN_DISABLE_OER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+			0
+		},
+		0, 0, /* No default value */
+		"rational"
+		},
+	{ ATF_POINTER, 1, offsetof(struct McmBasicContainer, executionStatus),
+		(ASN_TAG_CLASS_CONTEXT | (9 << 2)),
+		-1,	/* IMPLICIT tag at current level */
+		&asn_DEF_ManoeuvreExecutionStatus,
+		0,
+		{
+#if !defined(ASN_DISABLE_OER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+			0,
+#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+			0
+		},
+		0, 0, /* No default value */
+		"executionStatus"
 		},
 };
+static const int asn_MAP_McmBasicContainer_oms_1[] = { 8, 9 };
 static const ber_tlv_tag_t asn_DEF_McmBasicContainer_tags_1[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
@@ -84,14 +187,21 @@ static const asn_TYPE_tag2member_t asn_MAP_McmBasicContainer_tag2el_1[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* generationDeltaTime */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* stationID */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 }, /* stationType */
-    { (ASN_TAG_CLASS_CONTEXT | (3 << 2)), 3, 0, 0 } /* deltaReferencePosition */
+    { (ASN_TAG_CLASS_CONTEXT | (3 << 2)), 3, 0, 0 }, /* itssRole */
+    { (ASN_TAG_CLASS_CONTEXT | (4 << 2)), 4, 0, 0 }, /* position */
+    { (ASN_TAG_CLASS_CONTEXT | (5 << 2)), 5, 0, 0 }, /* mcmType */
+    { (ASN_TAG_CLASS_CONTEXT | (6 << 2)), 6, 0, 0 }, /* manoeuvreId */
+    { (ASN_TAG_CLASS_CONTEXT | (7 << 2)), 7, 0, 0 }, /* concept */
+    { (ASN_TAG_CLASS_CONTEXT | (8 << 2)), 8, 0, 0 }, /* rational */
+    { (ASN_TAG_CLASS_CONTEXT | (9 << 2)), 9, 0, 0 } /* executionStatus */
 };
 asn_SEQUENCE_specifics_t asn_SPC_McmBasicContainer_specs_1 = {
 	sizeof(struct McmBasicContainer),
 	offsetof(struct McmBasicContainer, _asn_ctx),
 	asn_MAP_McmBasicContainer_tag2el_1,
-	4,	/* Count of tags in the map */
-	0, 0, 0,	/* Optional elements (not needed) */
+	10,	/* Count of tags in the map */
+	asn_MAP_McmBasicContainer_oms_1,	/* Optional members */
+	2, 0,	/* Root/Additions */
 	-1,	/* First extension addition */
 };
 asn_TYPE_descriptor_t asn_DEF_McmBasicContainer = {
@@ -114,7 +224,7 @@ asn_TYPE_descriptor_t asn_DEF_McmBasicContainer = {
 		SEQUENCE_constraint
 	},
 	asn_MBR_McmBasicContainer_1,
-	4,	/* Elements count */
+	10,	/* Elements count */
 	&asn_SPC_McmBasicContainer_specs_1	/* Additional specs */
 };
 

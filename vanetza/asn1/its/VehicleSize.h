@@ -12,7 +12,11 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "NativeInteger.h"
+#include "ETSI-ITS-CDD_Iso3833VehicleType.h"
+#include "ETSI-ITS-CDD_SpecialTransportType.h"
+#include "ETSI-ITS-CDD_VehicleLength.h"
+#include "ETSI-ITS-CDD_VehicleWidth.h"
+#include "ETSI-ITS-CDD_VehicleHeight.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
@@ -21,8 +25,11 @@ extern "C" {
 
 /* VehicleSize */
 typedef struct VehicleSize {
-	long	 vehicleLenth;
-	long	 vehicleWidth;
+	ETSI_ITS_CDD_Iso3833VehicleType_t	 vehicleType;
+	ETSI_ITS_CDD_SpecialTransportType_t	*vehicleTransportedGoods;	/* OPTIONAL */
+	ETSI_ITS_CDD_VehicleLength_t	 vehicleLenth;
+	ETSI_ITS_CDD_VehicleWidth_t	 vehicleWidth;
+	ETSI_ITS_CDD_VehicleHeight_t	 vehicleHeight;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
@@ -31,7 +38,7 @@ typedef struct VehicleSize {
 /* Implementation */
 extern asn_TYPE_descriptor_t asn_DEF_VehicleSize;
 extern asn_SEQUENCE_specifics_t asn_SPC_VehicleSize_specs_1;
-extern asn_TYPE_member_t asn_MBR_VehicleSize_1[2];
+extern asn_TYPE_member_t asn_MBR_VehicleSize_1[5];
 
 #ifdef __cplusplus
 }

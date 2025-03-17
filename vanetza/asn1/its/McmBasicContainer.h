@@ -13,21 +13,35 @@
 
 /* Including external dependencies */
 #include "ETSI-ITS-CDD_TimestampIts.h"
-#include "ETSI-ITS-CDD_StationID.h"
-#include "ETSI-ITS-CDD_StationType.h"
-#include "ETSI-ITS-CDD_DeltaReferencePosition.h"
+#include "StationId.h"
+#include "McmStationType.h"
+#include "McmItssRole.h"
+#include "ReferencePositionWithConfidence.h"
+#include "McmType.h"
+#include "ManoeuvreId.h"
+#include "ManoeuvreCoordinationConcept.h"
+#include "ManoeuvreExecutionStatus.h"
 #include "constr_SEQUENCE.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+/* Forward declarations */
+struct ManoeuvreCoordinationRational;
+
 /* McmBasicContainer */
 typedef struct McmBasicContainer {
 	ETSI_ITS_CDD_TimestampIts_t	 generationDeltaTime;
-	ETSI_ITS_CDD_StationID_t	 stationID;
-	ETSI_ITS_CDD_StationType_t	 stationType;
-	ETSI_ITS_CDD_DeltaReferencePosition_t	 deltaReferencePosition;
+	StationId_t	 stationID;
+	McmStationType_t	 stationType;
+	McmItssRole_t	 itssRole;
+	ReferencePositionWithConfidence_t	 position;
+	McmType_t	 mcmType;
+	ManoeuvreId_t	 manoeuvreId;
+	ManoeuvreCoordinationConcept_t	 concept;
+	struct ManoeuvreCoordinationRational	*rational;	/* OPTIONAL */
+	ManoeuvreExecutionStatus_t	*executionStatus;	/* OPTIONAL */
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
@@ -36,11 +50,14 @@ typedef struct McmBasicContainer {
 /* Implementation */
 extern asn_TYPE_descriptor_t asn_DEF_McmBasicContainer;
 extern asn_SEQUENCE_specifics_t asn_SPC_McmBasicContainer_specs_1;
-extern asn_TYPE_member_t asn_MBR_McmBasicContainer_1[4];
+extern asn_TYPE_member_t asn_MBR_McmBasicContainer_1[10];
 
 #ifdef __cplusplus
 }
 #endif
+
+/* Referred external types */
+#include "ManoeuvreCoordinationRational.h"
 
 #endif	/* _McmBasicContainer_H_ */
 #include "asn_internal.h"

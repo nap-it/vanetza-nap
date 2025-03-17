@@ -12,32 +12,59 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
+#include "NULL.h"
 #include "NativeInteger.h"
+#include "JoinGroupStateChange.h"
+#include "constr_CHOICE.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+/* Dependencies */
+typedef enum CurrentStateAdvisedChange_PR {
+	CurrentStateAdvisedChange_PR_NOTHING,	/* No components present */
+	CurrentStateAdvisedChange_PR_transitToHumanDrivingMode,
+	CurrentStateAdvisedChange_PR_transitToAutomatedDrivingMode,
+	CurrentStateAdvisedChange_PR_followMeWithMinTimeInterDistance,
+	CurrentStateAdvisedChange_PR_joinGroup,
+	CurrentStateAdvisedChange_PR_leaveGroup,
+	CurrentStateAdvisedChange_PR_emergencyBrakeTriggering,
+	CurrentStateAdvisedChange_PR_stayInLane,
+	CurrentStateAdvisedChange_PR_stop,
+	CurrentStateAdvisedChange_PR_resetStop,
+	CurrentStateAdvisedChange_PR_resetStayInLane,
+	CurrentStateAdvisedChange_PR_stayAwayOfVehicleSithStationID,
+	CurrentStateAdvisedChange_PR_resetStayAwayOfVehicle
+} CurrentStateAdvisedChange_PR;
+
 /* CurrentStateAdvisedChange */
-typedef long	 CurrentStateAdvisedChange_t;
+typedef struct CurrentStateAdvisedChange {
+	CurrentStateAdvisedChange_PR present;
+	union CurrentStateAdvisedChange_u {
+		NULL_t	 transitToHumanDrivingMode;
+		NULL_t	 transitToAutomatedDrivingMode;
+		long	 followMeWithMinTimeInterDistance;
+		JoinGroupStateChange_t	 joinGroup;
+		NULL_t	 leaveGroup;
+		NULL_t	 emergencyBrakeTriggering;
+		NULL_t	 stayInLane;
+		NULL_t	 stop;
+		NULL_t	 resetStop;
+		NULL_t	 resetStayInLane;
+		NULL_t	 stayAwayOfVehicleSithStationID;
+		NULL_t	 resetStayAwayOfVehicle;
+	} choice;
+	
+	/* Context for parsing across buffer boundaries */
+	asn_struct_ctx_t _asn_ctx;
+} CurrentStateAdvisedChange_t;
 
 /* Implementation */
-extern asn_per_constraints_t asn_PER_type_CurrentStateAdvisedChange_constr_1;
 extern asn_TYPE_descriptor_t asn_DEF_CurrentStateAdvisedChange;
-asn_struct_free_f CurrentStateAdvisedChange_free;
-asn_struct_print_f CurrentStateAdvisedChange_print;
-asn_constr_check_f CurrentStateAdvisedChange_constraint;
-ber_type_decoder_f CurrentStateAdvisedChange_decode_ber;
-der_type_encoder_f CurrentStateAdvisedChange_encode_der;
-xer_type_decoder_f CurrentStateAdvisedChange_decode_xer;
-xer_type_encoder_f CurrentStateAdvisedChange_encode_xer;
-jer_type_encoder_f CurrentStateAdvisedChange_encode_jer;
-oer_type_decoder_f CurrentStateAdvisedChange_decode_oer;
-oer_type_encoder_f CurrentStateAdvisedChange_encode_oer;
-per_type_decoder_f CurrentStateAdvisedChange_decode_uper;
-per_type_encoder_f CurrentStateAdvisedChange_encode_uper;
-per_type_decoder_f CurrentStateAdvisedChange_decode_aper;
-per_type_encoder_f CurrentStateAdvisedChange_encode_aper;
+extern asn_CHOICE_specifics_t asn_SPC_CurrentStateAdvisedChange_specs_1;
+extern asn_TYPE_member_t asn_MBR_CurrentStateAdvisedChange_1[12];
+extern asn_per_constraints_t asn_PER_type_CurrentStateAdvisedChange_constr_1;
 
 #ifdef __cplusplus
 }

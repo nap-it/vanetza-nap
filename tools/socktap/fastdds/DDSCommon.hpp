@@ -5,6 +5,7 @@
 #include <fastdds/dds/domain/DomainParticipant.hpp>
 #include <fastdds/dds/publisher/Publisher.hpp>
 #include <fastdds/dds/subscriber/Subscriber.hpp>
+#include <fastdds/rtps/transport/UDPv4TransportDescriptor.h>
 
 using namespace eprosima::fastdds::dds;
 
@@ -17,6 +18,10 @@ inline DomainParticipant* get_participant(const eprosima::fastrtps::fixed_string
     if (participant_ == nullptr) {
         DomainParticipantQos participantQos;
         participantQos.name(participantName);
+        auto udp_transport = std::make_shared<eprosima::fastdds::rtps::UDPv4TransportDescriptor>();
+        udp_transport->interface_blocklist.emplace_back("wlan0");
+        participantQos.transport().user_transports.push_back(udp_transport);
+        participantQos.transport().use_builtin_transports = false;
         participant_ = DomainParticipantFactory::get_instance()->create_participant(domain_id, participantQos);
 
         if (participant_ == nullptr) {

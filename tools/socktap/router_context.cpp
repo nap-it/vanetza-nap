@@ -177,7 +177,7 @@ void RouterContext::set_link_layer(LinkLayer* link_layer)
 
 void RouterContext::indicate(CohesivePacket&& packet, const EthernetHeader& hdr)
 {
-    if ((!ignore_own_messages || hdr.source != mib_.itsGnLocalGnAddr.mid()) && (!ignore_rsu_messages || ((int) hdr.source.octets[3]) != 0x01) && hdr.type == access::ethertype::GeoNetworking) {
+    if ((!ignore_own_messages || hdr.source != mib_.itsGnLocalGnAddr.mid()) && hdr.type == access::ethertype::GeoNetworking) {
         auto sharedHdr = std::make_shared<const EthernetHeader>(hdr);
         queued_reception qr{std::make_unique<CohesivePacket>(std::move(packet)), sharedHdr};
         reception_tq->push(std::make_unique<queued_reception>(std::move(qr)));
