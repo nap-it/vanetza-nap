@@ -1,267 +1,374 @@
--- Draft 05.10.2023
--- @brief Specification of the maneuver Coordination Message ETSI TS 103 561
--- - git SHA @todo
--- - git tag @todo
--- - Latest version available at @url https://forge.etsi.org/rep/ITS/MCM_TS103561
-
 MCM-PDU-Descriptions {
-    itu-t (0) identified-organization (4) etsi (0) itsDomain (5) wg1 (1) ts(103561) mcm (1) major-version-1 (1) minor-version-1 (1)
+	itu-t (0) identified-organization (4) etsi (0) itsDomain (5) wg1 (1) ts(103561) mcm (1) major-version-1 (1) minor-version-1 (1)
 }
 
-DEFINITIONS AUTOMATIC TAGS ::= 
+
+
+DEFINITIONS AUTOMATIC TAGS ::=
 
 BEGIN
 
 IMPORTS
-    --@brief Include ETSI TS 102 894-2
-    --Include references from @url
-    -- https://forge.etsi.org/rep/ITS/ITS_ASN1/blob/master/CDD_TS102894-2/ITS-Container.asn
-    ItsPduHeader,
-    Heading, DeltaReferencePosition, Speed, DriveDirection, LongitudinalAcceleration, LateralAcceleration, VerticalAcceleration, StationType, AltitudeValue, ConfidenceLevel, EuVehicleCategoryCode, SpecialTransportType, TimestampIts, Wgs84Angle, laneCount, lanePosition, intersectionTimeofPositionEntry, intersectionTimeofPositionLeaving
-    FROM ETSI-ITS-CDD {itu-t (0) identified-organization (4) etsi (0) itsDomain (5) wg1 (1) ts (102894) cdd (2) major-version-3 (3) minor-version-1 (1)};
 
--- maneuver Coordination Block:
+--@brief Include ETSI TS 102 894-2
+
+GenerationDeltaTime, Identifier1B, Iso3833VehicleType, ItsPduHeader, ReferencePositionWithConfidence, SpecialTransportType, Speed, StationId, VehicleHeight,
+VehicleLength, VehicleWidth, Wgs84Angle, Latitude, Longitude, Altitude, TimestampIts, PathPoint
+
+FROM ETSI-ITS-CDD {itu-t (0) identified-organization (4) etsi (0) itsDomain (5) wg1 (1) 102894 cdd (2) major-version-3 (3) minor-version-1 (1)};
+
+
+
+-- Manoeuvre Coordination Block:
 
 /**
- * This type represents the maneuver Coordination Block at a given facility.  
+ * This type represents the Manoeuvre Coordination Block at a given facility.
  *
- * It shall include the following components: 
+ * It shall include the following components:
  *
  * @field header: the header of the MCM PDU,
+ *
  * @field mcm: the payload of the MCM PDU,
 */
 
 MCM ::= SEQUENCE {
-    header ItsPduHeader,
-    payload WrappedMcmInformationBlocks
+	header	ItsPduHeader,
+	payload	WrappedMcmInformationBlocks
 }
 
-WrappedMcmInformationBlocks ::= SEQUENCE {
+WrappedMcmInformationBlocks ::= SEQUENCE { --Adicionado para se assemelhar à outras mensagens
     basicContainer McmBasicContainer,
     mcmContainer McmContainer
 }
-/**
-* This DF represents a list of MCM information blocks, each with their type identifier.
-*/
 
-McmBasicContainer::= SEQUENCE {
-	generationDeltaTime TimestampIts, -- Generation TimestampIts represent an integer value in milliseconds since 2004-01-01T00-00-00-00Z as defined in ETSI TS 102 894-2
-	stationID StationID,
-	stationType StationType,
-	deltaReferencePosition DeltaReferencePosition
-}
-    
-McmContainer::= CHOICE {
-	vehiclemaneuverContainer VehiclemaneuverContainer,
-	acknowledgmentContainer AcknowledgmentContainer
-	--advisedmaneuverContainer AdvisedmaneuverContainer
-}
-
-VehiclemaneuverContainer::= SEQUENCE {
-	mcmType McmType,
-	maneuverId ManeuverId,
-	maneuverCoordinationConcept ManeuverCoordinationConcept,
-	maneuverCoordinationRational ManeuverCoordinationRational, -- 0: denied, 1: accepted
-	vehicleCurrentState VehicleCurrentState,
-	maneuverExecutionStatus ManeuverExecutionStatus OPTIONAL,
-	trajectoryId TrajectoryId,
-	vehicleTrajectory CHOICE {
-		--frenetTrajectory FrenetTrajectory,
-		wgs84Trajectory Wgs84Trajectory
-	},
-	maneuverAdviceContainer ManeuverAdviceContainer OPTIONAL,
-	maneuverResponse ManeuverResponse OPTIONAL
+McmBasicContainer ::= SEQUENCE {
+	generationDeltaTime TimestampIts,
+	stationID StationId,
+	stationType McmStationType, -- Type of originating ITS-S (VRU Portable Device, vehicle (vehicle type) or roadside unit or central station)
+	itssRole McmItssRole, -- The role of the originating ITS-S can only be identified once the MC is accepted by all relevant participants
+	position ReferencePositionWithConfidence, -- Time relative delta of the latest WGS84 geographic position of the originating ITS-S as obtained by the MCS at the time of MCM generation (only for vehicle ITS-S)
+	-- mcmData McmContainer agora está em WrappedMcmInformationBlocks
+	mcmType McmType, -- type of manoeuvre coordination message
+	manoeuvreId ManoeuvreId, -- MCS session ID (its-s ID provided in header and integer modulo 256)
+	concept ManoeuvreCoordinationConcept,
+	rational ManoeuvreCoordinationRational OPTIONAL, -- Rational to be associated to an offer, intent, advice or a request. Depending on the manoeuvre coordination concept being used.
+													 -- For agreement seeking concept the cooperationCost rational can be provided (optional),
+													 -- while for the prescriptive concept, the cooperationGoal rational shall be provided
+	executionStatus ManoeuvreExecutionStatus OPTIONAL -- Only present in MCM type 7 and type 4
 }
 
-McmType::= ENUMERATED {intent (0), request (1), response (2), reservation (3), termination (4), cancellationRequest (5), emergencymaneuverReservation (6), executionStatus (7),offer (8), ack(9)
+McmStationType ::= ENUMERATED {
+	vruPortableDevice (0),
+	vehicle (1),
+	roadsideUnit (2),
+	centralStation (3),
+	...
 }
 
-ManeuverId::= INTEGER (0..256) -- Unique identifier of the maneuver
-
-ManeuverCoordinationConcept::= ENUMERATED {agreementSeeking (0), prescriptive (1)
+McmItssRole ::= ENUMERATED {
+	notAvailable (0),
+	coordinatingItss (1),
+	notCoordinatingSubjectVehicle (2),
+	targetVehicle (3),
+	...
 }
 
-ManeuverCoordinationRational::= CHOICE {
-	maneuverCooperationGoal ManeuverCooperationGoal,
-	maneuverCooperationCost ManeuverCooperationCost
+McmContainer ::= CHOICE {
+	vehicleManoeuvreContainer VehicleManoeuvreContainer,
+	advisedManoeuvreContainer ManoeuvreAdviceContainer,
+    acknowledgmentContainer AcknowledgmentContainer,
+	responseContainer ResponseContainer,
+	terminationContainer TerminationContainer
 }
 
-ManeuverCooperationGoal ::= ENUMERATED {vehicleInterception (0), roadSafety (1), humanHelth (2), emergencyIntervention (3), roadOperatorIntervention (4), localTrafficManagement (5), globalTrafficManagement (6)
+TerminationContainer::= SEQUENCE {
+	-- mcmGenericCurrentStateContainer McmGenericCurentStateContainer
 }
 
-ManeuverCooperationCost ::= INTEGER { zero(0), oneThousndth(1) } (-1000..1000)
-
-ManeuverExecutionStatus::= ENUMERATED {started (0), inProgress (1), completed (2), terminated (3), chained (4)
+VehicleManoeuvreContainer::= SEQUENCE {
+	-- mcmGenericCurrentStateContainer McmGenericCurentStateContainer,
+	vehicleCurrentStateContainer VehicleCurrentStateContainer, -- Specific state of the vehicle for an ITS-S of the type vehicle or of the type VRU portable device
+	submaneuvres ListOfSubmanoeuvreDescriptionsContainer,
+	manoeuvreAdvice  ManoeuvreAdviceContainer OPTIONAL -- sending advice to target vehicles
 }
 
-VehicleCurrentState::= SEQUENCE {
-	mcmGenericCurrentState McmGenericCurrentState,
-	vehicleAutomationState VehicleAutomationState,
-	speed Speed,
-	heading Heading,
-	longitudinalAcceleration LongitudinalAcceleration,
+ResponseContainer::= SEQUENCE {
+	-- mcmGenericCurrentStateContainer McmGenericCurentStateContainer,
+	manouevreResponse ManouevreResponse,
+	declineReason DeclineReason OPTIONAL,
+	submaneuvres ListOfSubmanoeuvreDescriptionsContainer OPTIONAL
+}
+
+McmGenericCurentStateContainer::= SEQUENCE {
+	mcmType McmType, -- type of manoeuvre coordination message
+	manoeuvreId ManoeuvreId, -- MCS session ID (its-s ID provided in header and integer modulo 256)
+	concept ManoeuvreCoordinationConcept,
+	rational ManoeuvreCoordinationRational OPTIONAL, -- Rational to be associated to an offer, intent, advice or a request. Depending on the manoeuvre coordination concept being used.
+													 -- For agreement seeking concept the cooperationCost rational can be provided (optional),
+													 -- while for the prescriptive concept, the cooperationGoal rational shall be provided
+	executionStatus ManoeuvreExecutionStatus OPTIONAL -- Only present in MCM type 7 and type 4
+}
+
+VehicleCurrentStateContainer::= SEQUENCE {
+	manoeuvreOverallStrategy ManoeuvreOverallStrategy OPTIONAL, -- Podemos comentar isso? Ou fazer Optional?
+	vehicleSpeed Speed,
+	vehicleHeading Wgs84Angle,
 	vehicleSize VehicleSize
 }
 
-McmGenericCurrentState::= SEQUENCE {
-	mcmType McmType,
-	maneuverId ManeuverId,
-	maneuverCoordinationConcept ManeuverCoordinationConcept,
-	maneuverCoordinationRational ManeuverCoordinationRational, 
-	maneuverExecutionStatus ManeuverExecutionStatus
+ManoeuvreOverallStrategy::= CHOICE {
+	undefined NULL,
+	transitToHumanDrivenMode NULL,
+	transitToAutomatedDrivingMode NULL,
+	driveStraight NULL,
+	turnLeft NULL,
+	turnRight NULL,
+	uTurn NULL,
+	moveBackward NULL,
+	overtake NULL,
+	accelerate NULL,
+	slowdown NULL,
+	stop NULL,
+	goToLeftLane NULL,
+	oToRightLane NULL,
+	getOnHighway NULL,
+	exitHighway NULL,
+	takeTollingLane INTEGER (1..31), -- laneNumber
+	stopAndWait NULL,
+	emergencyBrakeAndStop NULL,
+	resetStopAndRestartMoving NULL,
+	stayInLane NULL,
+	resetStayInLane NULL,
+	stayAway NULL,
+	resetStayAway NULL,
+	followMe NULL,
+	existingGroup NULL,
+	temporarilyDisbandAnExistingGroup NULL,
+	constituteAtemporarilyGroup NULL,
+	disbandATemporarilyGroup NULL
 }
 
-VehicleAutomationState::= SEQUENCE {
-	humanDrivingLongitudinalAutomated BOOLEAN,
-	humanDrivenLateralAutomated BOOLEAN,
-	automatedDriving BOOLEAN DEFAULT FALSE -- 0: humanDriving, 1: automatedDriving
+ListOfSubmanoeuvreDescriptionsContainer::= SEQUENCE (SIZE(0..31)) OF SubmanoeuvreDescription
+
+SubmanoeuvreDescription::= SEQUENCE {
+	submanoeuvreID Identifier1B, -- Unique ID of the sub manoeuvre
+	submanoeuvreStrategy SubmanoeuvreStrategy OPTIONAL,
+	referenceTrajectory Trajectory OPTIONAL,
+	targetRoadResourceIContainer TrrDescription OPTIONAL, -- Type 3 is selected when reference trajectory is used
+	temporalCharateristics TemporalCharacteristics,
+	kinematicsCharacteristics KinematicsCharacteristics OPTIONAL
+}
+
+McmType::= ENUMERATED {
+	intent (0),
+	request (1),
+	response (2),
+	reservation (3),
+	termination (4),
+	cancellationRequest (5),
+	emergencyManoeuvreReservation (6),
+	executionStatus (7),
+	offer (8),
+    acknowledgment (9)
+}
+
+ManoeuvreId::= Identifier1B
+
+ManoeuvreCoordinationConcept ::= ENUMERATED {
+	agreementSeeking (0),
+	prescriptive (1)
+}
+
+ManoeuvreCoordinationRational ::= CHOICE {
+	manoeuvreCooperationGoal ManoeuvreCooperationGoal, 	-- Only in case of prescriptive concept
+	manoeuvreCooperationCost ManoeuvreCooperationCost	-- Only in case of agreement seeking
+}
+
+ManoeuvreCooperationGoal ::= ENUMERATED {
+	vehicleInterception (0),
+	roadSafety (1),
+	humanHelth (2),
+	emergencyIntervention (3),
+	roadOperatorIntervention (4),
+	localTrafficManagement (5),
+	globalTrafficManagement (6)
+}
+
+ManoeuvreCooperationCost ::= INTEGER {
+	zero(0),
+	oneThousndth(1)
+} (-1000..1000) -- Only in case of agreement seeking
+
+
+ManoeuvreExecutionStatus ::= ENUMERATED { -- Only for MCM of type 4 and type 7
+	started (0),
+	inProgress (1),
+	completed (2),
+	terminated (3),
+	chained (4)
+}
+
+SubmanoeuvreStrategy::= CHOICE {
+	undefined NULL,
+	transitToHumanDrivenMode NULL,
+	transitToAutomatedDrivingMode NULL,
+	driveStraight NULL,
+	turnLeft NULL,
+	turnRight NULL,
+	uTurn NULL,
+	moveBackward NULL,
+	overtake NULL,
+	accelerate NULL,
+	slowDown NULL,
+	stop NULL,
+	goToLeftLane NULL,
+	goToRightLane NULL,
+	getOnHighway NULL,
+	exitHighway NULL,
+	takeTollingLane INTEGER (1..31), -- laneNumber
+	stopAndWait NULL,
+	emergencyBrakeAndStop NULL,
+	resetStopAndRestartMoving NULL,
+	stayInLane NULL,
+	resetStayInLane NULL,
+	stayAway NULL,
+	resetStayAway NULL,
+	followMe NULL,
+	existingGroup NULL,
+	temporarilyDisbandAnExistingGroup NULL,
+	constituteATemporarilyGroup NULL,
+	disbandATemporarilyGroup NULL
 }
 
 VehicleSize::= SEQUENCE {
-	vehicleLenth INTEGER (0..65535), -- in meters
-	vehicleWidth INTEGER (0..65535)  -- in meters
+	vehicleType Iso3833VehicleType,
+	vehicleTransportedGoods SpecialTransportType OPTIONAL, -- ??
+	vehicleLenth VehicleLength,
+	vehicleWidth VehicleWidth,
+	vehicleHeight VehicleHeight
 }
 
-ReferenceCoordinatesSystem::= BOOLEAN -- 0: WGS84, 1: Frenet
-
-TrajectoryId::= INTEGER (0..65535)
-
--- FrenetTrajectory::= SEQUENCE {
--- 	intermediatePoints SEQUENCE SIZE (1..10) OF IntermediatePoint
--- 	longitudinalPositions SEQUENCE SIZE (1..11) OF Polynom
--- 	lateralPositions SEQUENCE SIZE (1..11) OF Polynom
--- 	elevationPositions SEQUENCE SIZE (1..11) OF Polynom OPTIONAL
--- 	headings SEQUENCE SIZE (1..11) OF Polynom OPTIONAL
--- 	speed INTEGER (0..511)  in meters per second
--- }
-
-IntermediatePoint::= CHOICE {
-	reference IntermediatePointReference,
-	lane IntermediatePointLane,
-	intersection IntermediatePointIntersection,
-	offroad IntermediatePointOffroad
+Trajectory::= SEQUENCE {
+	wayPointType WayPointType, -- WAYPOINT TYPE BUT ONLY ONE? WHAT SHOULD I SEND AT LEAST TWO TYPES: START AND END?
+	wayPoints SEQUENCE (SIZE (1..10)) OF WayPoint, -- Including starting way point and ending way point
+	longitudePositions SEQUENCE (SIZE (1..10)) OF Longitude OPTIONAL, -- OPTIONAL?
+	latitudePositions SEQUENCE (SIZE (1..10)) OF Latitude OPTIONAL, -- OPTIONAL?
+	altitudePositions SEQUENCE (SIZE (1..10)) OF Altitude OPTIONAL,
+	headings SEQUENCE (SIZE (1..11)) OF Wgs84Angle OPTIONAL,
+	speed SEQUENCE (SIZE (1..10)) OF Speed -- in meters per second, AGORA É UMA LISTA
 }
 
--- Polynom ::= SEQUENCE {
--- 	coefficients SEQUENCE SIZE (1..6) OF PolygonCoefficient
--- 	start PolygonStartX
--- 	end PolygonEndX
--- 	xOffset PolygonXOffset
--- }
-
-ReferenceStartingPosition ::= SEQUENCE {
-    latitude                     Latitude,
-    longitude                    Longitude,
-    positionConfidenceEllipse    PositionConfidenceEllipse,
-    altitude                     Altitude
+WayPointType ::= ENUMERATED {
+	startingWayPoint (0),
+	intermediateWayPoint (1),
+	endingWayPoint (2)
 }
 
-IntermediatePointReference::= SEQUENCE {
-	referenceStartingPosition ReferenceStartingPosition,
-	referenceHeading Heading,
-	lane Lane,
-	timeOfPos TimeOfPos
+
+WayPoint ::= PathPoint
+
+ManoeuvreAdviceContainer::= SEQUENCE (SIZE(1..16)) OF ManoeuvreAdvice
+
+ManoeuvreAdvice ::= SEQUENCE {
+	executantID StationId,
+	currentStateAdvisedChange CurrentStateAdvisedChange OPTIONAL, -- OPTIONAL?
+	submaneuvres Submanoeuvres
 }
-
-IntermediatePointLane::= SEQUENCE {
-	lane Lane,
-	reason Reason,
-	timeOfPos TimeOfPos
-}
-
-IntermediatePointIntersection::= SEQUENCE {
-	exitLane SEQUENCE {
-		lanePosition LanePosition,
-		laneCount LaneCount
-	},
-	exitHeading Heading,
-	timeOfPosEntry TimeOfPos, -- time on the trajectory when the intersection will be entered
-	timeOfPosExit TimeOfPos -- time on the trajectory when the intersection will be leaved
-}
-
-IntermediatePointOffroad::= SEQUENCE {
-	referencePosition ReferencePosition,
-	referenceHeading Heading,
-	timeOfPos TimeOfPos
-}
-
-Lane::= SEQUENCE {
-	lanePosition LanePosition,
-	laneCount LaneCount --total number of lanes at the position
-}
-
-PolynomCoefficient ::= REAL
-PolynomStartX ::= INTEGER (0..2097151) -- Unit: 0.001 meter or seconds
-PolynomEndX::= INTEGER (0..2097151) -- Unit: 0.001 meter or seconds
-PolynomXOffst::= INTEGER (-8000000..8000000) -- Unit: 0.001 meter or seconds
-
--- Basic types
-LaneCount::= INTEGER (1..16) -- Number of Lanes
-TimeOfPos::= INTEGER (0..65535) -- Unit: 0.01 seconds
-
-Reason::= ENUMERATED {
-	none (0),
-	laneOpening (1),
-	laneClosing (2),
-	laneChange (3)
-}
-
-Wgs84Trajectory ::= SEQUENCE {
-    trajectoryPoints Wgs84TrajectoryPoint
-}
-
-Wgs84TrajectoryPoint ::= SEQUENCE {
-    intermediatePoint IntermediatePoint,
-    longitudePosition Longitude,
-    latitudePosition Latitude,
-    altitudePosition Altitude OPTIONAL,
-    headings Heading OPTIONAL,
-    speed Speed
-}
-
-ManeuverAdviceContainer ::= SEQUENCE {
-    numberOfExecutants INTEGER (0..16),
-    maneuver Maneuvers
-}
-
-Maneuvers ::= SEQUENCE SIZE (1..16) OF Maneuver
-
-Maneuver::= SEQUENCE {
-	itsId ItsId,
-	currentStateAdvisedChange CurrentStateAdvisedChange,
-	numberOfSubmaneuvers INTEGER (0..10),
-	submaneuver Submaneuvers
-}
-
-Submaneuvers ::= SEQUENCE SIZE (1..10) OF Submaneuver
-
-ItsId ::= INTEGER
 
 AcknowledgmentContainer ::= SEQUENCE {
-	acknowledgedType McmType,
-	generationDeltaTime TimestampIts
+    acknowledgedType McmType,
+    generationDeltaTime TimestampIts
 }
 
-TrajectoryList ::= SEQUENCE SIZE (1..10) OF Wgs84TrajectoryPoint
+Submanoeuvres ::= SEQUENCE (SIZE(1..16)) OF Submanoeuvre
 
-Submaneuver::= SEQUENCE {
-	submaneuverId INTEGER (0..16),
-	trajectoryPoint TrajectoryList
-	--advisedTrajectory BOOLEAN
-	--advisedTRR TRR OPTIONAL,
-	--temporalCharacteristics TemporalCharacteristics OPTIONAL,
-	--kinematicsCharacteristics KinematicsCharacteristics OPTIONAL
+Submanoeuvre ::= SEQUENCE {
+	submanoeuvreId Identifier1B,
+	advisedTrajectory Trajectory OPTIONAL,
+	advisedTargetRoadResource AdvisedTrrContainer OPTIONAL
 }
 
-CurrentStateAdvisedChange ::= INTEGER (0..11) -- 0: NO CHANGE, 1: TRANSIT TO HUMAN DRIVING MODE, 2: TRANSIT TO AUTOMATED DRIVING MODE, 3: FOLLOW ME, 4: JOIN GROUP, 5: LEAVE GROUP, 6: EMERGENCY BRAKE TRIGGERING, 7: STAY IN LANE, 8: RESET STOP, 9: RESET STAY IN LANE, 10: STAY AWAY OF VEHICLE WITH STATION ID, 11: RESET STAY AWAY
-
-ManeuverResponse ::= SEQUENCE {
-    response Response, -- 0: denied, 1: accepted
-    declineReason DeclineReason OPTIONAL
+AdvisedTrrContainer::= SEQUENCE {
+	trrDescription TrrDescription,
+	temporalCharacteristics TemporalCharacteristics,
+	kinematicsCharacteristics KinematicsCharacteristics OPTIONAL
 }
 
-Response ::= ENUMERATED {denied(0), accepted(1)}
+TrrDescription ::= SEQUENCE {
+	trrType TrrType,
+	laneCount LaneCount, -- Number of adjacent lanes covered by the TRR surface from the starting lane number with a relavive position for each one
+	startingLaneNumber LaneCount OPTIONAL, --: identification of the lane in which the executant vehicle starts the submanoeuvre
+	endingLaneNumber LaneCount OPTIONAL, -- Identification of the lane in which the executant vehicle ends the submanoeuvre
+	waypoints SEQUENCE (SIZE (2..16)) OF WayPoint OPTIONAL, -- At least the starting and ending waypoints used to specify the length of the covered TRR. Optional intermediary waypoints can be added
+	heading SEQUENCE (SIZE (2..16)) OF Wgs84Angle OPTIONAL, -- At the level of all identified waypoints
+	trrWidth TRRWidth, -- computed from the lane count
+	trrLength TRRLength -- computed distance between the starting and ending waypoints
+}
 
-DeclineReason ::= ENUMERATED {unknown(0), unableToConform (1), unwanted (2), unableToUnderstand (3), erroneousBehaviourDetected (4), missbehaviourAttackDetected(5),manoeuvreCancellationRequestIssued(6)}
+TrrType ::= ENUMERATED {
+	trrType1(0),
+	trrType2(1),
+	trrType3(2)
+}
+
+LaneCount::= INTEGER (0..31) -- (1+RLLC+RRLC): Can be used to obtain the TRR surface width or just identifying the lanes which belong to the reserved TRR
+
+RLLC ::= BIT STRING {  -- Required Left Lanes Count
+    currentLane (0)
+} (SIZE (8))
+
+RRLC ::= BIT STRING {  -- Required Right Lanes Count
+    currentLane (0)
+} (SIZE (8))
+
+TRRWidth ::= INTEGER (0..15) -- LSB units are the width of a lane
+
+TRRLength ::= INTEGER (0..4095) -- LSB units are 0.1 meters: The TRRLength includes safety gaps to be maintained with surrounding vehicles
+
+TemporalCharacteristics::= SEQUENCE {
+	tRROccupancyStartTime INTEGER (0..65535), -- LSB unit 1 millisecond: Delta time since the TimesStampIts
+	tRROccupancyEndTime INTEGER (0..65535) -- LSB unit 1 millisecond: Delta time since the TimesStampIts
+}
+
+KinematicsCharacteristics ::= NULL
+
+CurrentStateAdvisedChange::= CHOICE {
+	transitToHumanDrivingMode NULL,
+	transitToAutomatedDrivingMode NULL,
+	followMeWithMinTimeInterDistance INTEGER (300..2000), -- in Milliseconds
+	joinGroup JoinGroupStateChange,
+	leaveGroup NULL,
+	emergencyBrakeTriggering NULL,
+	stayInLane NULL,
+	stop NULL,
+	resetStop NULL,
+	resetStayInLane NULL,
+	stayAwayOfVehicleSithStationID NULL,
+	resetStayAwayOfVehicle NULL
+}
+
+JoinGroupStateChange ::= CHOICE {
+	vehicleSynchronization NULL,
+	modeLong NULL,
+	modeLatLeftLane NULL,
+	modeLatRightLane NULL,
+	withMinTimeInterDistance INTEGER (300..2000) -- in milliseconds
+}
+
+
+ManouevreResponse::= ENUMERATED {
+	accept(0),
+	decline(1)
+}
+
+DeclineReason ::= ENUMERATED {
+	agreementSeekingUnknown(0),
+	allUnableToConform (1),
+	agreementSeekingUnwanted (2),
+	allUnableToUnderstand (3),
+	allErroneousBehaviourDetected (4),
+	allMissbehaviourDetected (5),
+	agreementSeekingManoeuvreCancellationRequestIssued (6)
+}
 
 END

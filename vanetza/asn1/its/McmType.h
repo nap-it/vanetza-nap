@@ -26,10 +26,10 @@ typedef enum McmType {
 	McmType_reservation	= 3,
 	McmType_termination	= 4,
 	McmType_cancellationRequest	= 5,
-	McmType_emergencymaneuverReservation	= 6,
+	McmType_emergencyManoeuvreReservation	= 6,
 	McmType_executionStatus	= 7,
 	McmType_offer	= 8,
-	McmType_ack	= 9
+	McmType_acknowledgment	= 9
 } e_McmType;
 
 /* McmType */

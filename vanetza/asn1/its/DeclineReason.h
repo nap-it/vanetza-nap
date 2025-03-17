@@ -20,13 +20,13 @@ extern "C" {
 
 /* Dependencies */
 typedef enum DeclineReason {
-	DeclineReason_unknown	= 0,
-	DeclineReason_unableToConform	= 1,
-	DeclineReason_unwanted	= 2,
-	DeclineReason_unableToUnderstand	= 3,
-	DeclineReason_erroneousBehaviourDetected	= 4,
-	DeclineReason_missbehaviourAttackDetected	= 5,
-	DeclineReason_manoeuvreCancellationRequestIssued	= 6
+	DeclineReason_agreementSeekingUnknown	= 0,
+	DeclineReason_allUnableToConform	= 1,
+	DeclineReason_agreementSeekingUnwanted	= 2,
+	DeclineReason_allUnableToUnderstand	= 3,
+	DeclineReason_allErroneousBehaviourDetected	= 4,
+	DeclineReason_allMissbehaviourDetected	= 5,
+	DeclineReason_agreementSeekingManoeuvreCancellationRequestIssued	= 6
 } e_DeclineReason;
 
 /* DeclineReason */

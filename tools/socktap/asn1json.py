@@ -72,7 +72,7 @@ include = ["NodeXY", "VehicleID", "TransitVehicleStatus", "TransmissionAndSpeed"
            "PayUnit", "PersonalAccountNumber", "PurseBalance", "ReceiptOBUId", "ReceiptAuthenticator", "ReceiptText",
            "ResultFin", "SessionClass", "ReceiptContract", "SessionLocation", "DateAndTime", "ItsStationPosition", 
            "SignalHeadLocation", "ItsStationPositionList", "SignalHeadLocationList", "CurrentVehicleConfiguration",
-           "ManeuverResponse"]
+           "RLLC", "RRLC", "McmGenericCurentStateContainer"]
 
 add_t = ["ObjectClass", "VehicleID", "VehicleLength", "VerticalAcceleration", "DeltaReferencePosition", "ItsPduHeader", 
          "PtActivationData", "MapData","NodeAttributeSetXY", "NodeXY", "DigitalMap", "TransmissionAndSpeed", "Position3D",
@@ -232,6 +232,11 @@ disambiguate_types = {
     ("Direction", "LanePositionAndType"): "ETSI_ITS_CDD_",
     ("Heading", "Wgs84TrajectoryPoint"): "ETSI_ITS_CDD_",
     ("Altitude", "Wgs84TrajectoryPoint"): "ETSI_ITS_CDD_",
+    ("Latitude", "Trajectory::Trajectory__latitudePositions"): "ETSI_ITS_CDD_",
+    ("Longitude", "Trajectory::Trajectory__longitudePositions"): "ETSI_ITS_CDD_",
+    ("Altitude", "Trajectory::Trajectory__altitudePositions"): "ETSI_ITS_CDD_",
+    ("Speed", "Trajectory::Trajectory__speed"): "ETSI_ITS_CDD_",
+    ("SpecialTransportType", "VehicleSize"): "ETSI_ITS_CDD_",
 }
 
 ignore_member_names = ['regional', 'shadowingApplies', 'expiryTime', 'fill', 'ownerCode', 'language', 'sessionLocation', 'avc', 'mlc', 'rsc', 'train']
@@ -594,7 +599,7 @@ void from_json(const Value& j, """ + (self.print_name.replace("-", "_") + "_t" i
 Value to_json(const """ + (self.print_name.replace("-", "_") + "_t" if self.name in add_t else self.print_name.replace("-", "_")) + """& p, Document::AllocatorType& allocator) {
     Value json(kArrayType);
     for(int i = 0; i < p.list.count; i++) {
-        const """ + get_disambiguated_member_name(self.element, self.name, self.parent_name, self.print_name) + """_t po = *(p.list.array[i]);
+        """ + (("const " + get_disambiguated_member_name(self.element, self.name, self.parent_name, self.print_name) + "_t po = *(p.list.array[i]);") if "INTEGER" not in get_disambiguated_member_name(self.element, self.name, self.parent_name, self.print_name) else (get_disambiguated_member_name(self.element, self.name, self.parent_name, self.print_name) + "_t po;\n        asn_long2INTEGER(&po, *(p.list.array[i]));")) + """
         """ + ('// ' if self.element in basic else '') + """Value obj = to_json(po, allocator);
         json.PushBack(""" + ('po' if self.element in basic else 'obj') + """, allocator);
     }
@@ -771,7 +776,8 @@ def parse_type(type_name, top_level_key, asn1_file, asn1_type):
             add_t.append(type_name)
     else:
         #print(type_name)
-        basic.append(type_name)
+        if all(t not in type_name for t in ["WayPoint"]):
+            basic.append(type_name)
         printed.append(type_name)
 
 

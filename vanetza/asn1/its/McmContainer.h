@@ -12,8 +12,11 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "VehiclemaneuverContainer.h"
+#include "VehicleManoeuvreContainer.h"
+#include "ManoeuvreAdviceContainer.h"
 #include "AcknowledgmentContainer.h"
+#include "ResponseContainer.h"
+#include "TerminationContainer.h"
 #include "constr_CHOICE.h"
 
 #ifdef __cplusplus
@@ -23,16 +26,22 @@ extern "C" {
 /* Dependencies */
 typedef enum McmContainer_PR {
 	McmContainer_PR_NOTHING,	/* No components present */
-	McmContainer_PR_vehiclemaneuverContainer,
-	McmContainer_PR_acknowledgmentContainer
+	McmContainer_PR_vehicleManoeuvreContainer,
+	McmContainer_PR_advisedManoeuvreContainer,
+	McmContainer_PR_acknowledgmentContainer,
+	McmContainer_PR_responseContainer,
+	McmContainer_PR_terminationContainer
 } McmContainer_PR;
 
 /* McmContainer */
 typedef struct McmContainer {
 	McmContainer_PR present;
 	union McmContainer_u {
-		VehiclemaneuverContainer_t	 vehiclemaneuverContainer;
+		VehicleManoeuvreContainer_t	 vehicleManoeuvreContainer;
+		ManoeuvreAdviceContainer_t	 advisedManoeuvreContainer;
 		AcknowledgmentContainer_t	 acknowledgmentContainer;
+		ResponseContainer_t	 responseContainer;
+		TerminationContainer_t	 terminationContainer;
 	} choice;
 	
 	/* Context for parsing across buffer boundaries */
@@ -42,7 +51,7 @@ typedef struct McmContainer {
 /* Implementation */
 extern asn_TYPE_descriptor_t asn_DEF_McmContainer;
 extern asn_CHOICE_specifics_t asn_SPC_McmContainer_specs_1;
-extern asn_TYPE_member_t asn_MBR_McmContainer_1[2];
+extern asn_TYPE_member_t asn_MBR_McmContainer_1[5];
 extern asn_per_constraints_t asn_PER_type_McmContainer_constr_1;
 
 #ifdef __cplusplus
