@@ -313,11 +313,12 @@ disambiguate_types = {
     ("Altitude", "Trajectory::Trajectory__altitudePositions"): "ETSI_ITS_CDD_",
     ("Speed", "Trajectory::Trajectory__speed"): "ETSI_ITS_CDD_",
     ("SpecialTransportType", "VehicleSize"): "ETSI_ITS_CDD_",
+    ("Iso3833VehicleType", "RequestorType"): "ElectronicRegistrationIdentificationVehicleDataModule_",
 }
 
 ignore_member_names = ['regional', 'shadowingApplies', 'expiryTime', 'fill', 'ownerCode', 'language', 'sessionLocation', 'avc', 'mlc', 'rsc', 'train']
-ignore_member_types = ["PhoneNumber", "OpeningDaysHours", "MessageFrame", "DescriptiveName", "RegionalExtension", "Iso3833VehicleType",
-                       "REG-EXT-ID-AND-TYPE.&id", "REG-EXT-ID-AND-TYPE.&Type", 'MESSAGE-ID-AND-TYPE.&id', 'MESSAGE-ID-AND-TYPE.&Type', 
+ignore_member_types = ["PhoneNumber", "OpeningDaysHours", "MessageFrame", "DescriptiveName", "RegionalExtension", "REG-EXT-ID-AND-TYPE.&id", 
+                       "REG-EXT-ID-AND-TYPE.&Type", 'MESSAGE-ID-AND-TYPE.&id', 'MESSAGE-ID-AND-TYPE.&Type', 
                        'PreemptPriorityList', "WMInumber", "VDS", "TemporaryID", "Attributes", "GetStampedRq", "GetStampedRs", 
                        "SetInstanceRq", "SetStampedRq", "AttributeList", "AttributeIdList", "EventZone"]
 

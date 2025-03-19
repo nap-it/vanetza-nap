@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by RapidJSON
-*   Auto-generated from the asn1 directory by asn1json.py on 2025-03-17 18:19:00.303807
+*   Auto-generated from the asn1 directory by asn1json.py on 2025-03-19 16:20:43.595033
 */
 
 #include "asn1json.hpp"
@@ -7278,6 +7278,7 @@ Value to_json(const RequestorType& p, Document::AllocatorType& allocator) {
     json.AddMember("role", to_json((p.role), allocator), allocator);
     if (p.subrole != 0) json.AddMember("subrole", to_json(*(p.subrole), allocator), allocator);
     if (p.request != 0) json.AddMember("request", to_json(*(p.request), allocator), allocator);
+    if (p.iso3883 != 0) json.AddMember("iso3883", to_json(*(p.iso3883), allocator), allocator);
     if (p.hpmsType != 0) json.AddMember("hpmsType", to_json(*(p.hpmsType), allocator), allocator);
     return json;
 }
@@ -7290,9 +7291,10 @@ void from_json(const Value& j, RequestorType& p, std::string field) {
         else { p.subrole=nullptr; }
         if (j.HasMember("request")) { p.request = vanetza::asn1::allocate<RequestImportanceLevel_t>(); from_json(j["request"], *(p.request), "request"); }
         else { p.request=nullptr; }
+        if (j.HasMember("iso3883")) { p.iso3883 = vanetza::asn1::allocate<ElectronicRegistrationIdentificationVehicleDataModule_Iso3833VehicleType_t>(); from_json(j["iso3883"], *(p.iso3883), "iso3883"); }
+        else { p.iso3883=nullptr; }
         if (j.HasMember("hpmsType")) { p.hpmsType = vanetza::asn1::allocate<VehicleType_t>(); from_json(j["hpmsType"], *(p.hpmsType), "hpmsType"); }
         else { p.hpmsType=nullptr; }
-        p.iso3883=nullptr;
         p.regional=nullptr;
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -10889,6 +10891,8 @@ Value to_json(const VehicleCharacteristicsFixValues& p, Document::AllocatorType&
         json.AddMember("simpleVehicleType", to_json(p.choice.simpleVehicleType, allocator), allocator);
     } else if (p.present == VehicleCharacteristicsFixValues_PR_euVehicleCategoryCode) {
         json.AddMember("euVehicleCategoryCode", to_json(p.choice.euVehicleCategoryCode, allocator), allocator);
+    } else if (p.present == VehicleCharacteristicsFixValues_PR_iso3833VehicleType) {
+        json.AddMember("iso3833VehicleType", to_json(p.choice.iso3833VehicleType, allocator), allocator);
     } else if (p.present == VehicleCharacteristicsFixValues_PR_euroAndCo2value) {
         json.AddMember("euroAndCo2value", to_json(p.choice.euroAndCo2value, allocator), allocator);
     } else if (p.present == VehicleCharacteristicsFixValues_PR_engineCharacteristics) {
@@ -10909,6 +10913,9 @@ void from_json(const Value& j, VehicleCharacteristicsFixValues& p, std::string f
         } else if (j.HasMember("euVehicleCategoryCode")) {
             p.present = VehicleCharacteristicsFixValues_PR_euVehicleCategoryCode;
             from_json(j["euVehicleCategoryCode"], p.choice.euVehicleCategoryCode, "euVehicleCategoryCode");
+        } else if (j.HasMember("iso3833VehicleType")) {
+            p.present = VehicleCharacteristicsFixValues_PR_iso3833VehicleType;
+            from_json(j["iso3833VehicleType"], p.choice.iso3833VehicleType, "iso3833VehicleType");
         } else if (j.HasMember("euroAndCo2value")) {
             p.present = VehicleCharacteristicsFixValues_PR_euroAndCo2value;
             from_json(j["euroAndCo2value"], p.choice.euroAndCo2value, "euroAndCo2value");
@@ -13756,6 +13763,7 @@ void from_json(const Value& j, SubmanoeuvreStrategy& p, std::string field) {
 
 Value to_json(const VehicleSize& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
+    json.AddMember("vehicleType", to_json((p.vehicleType), allocator), allocator);
     json.AddMember("vehicleLenth", to_json((p.vehicleLenth), allocator), allocator);
     json.AddMember("vehicleWidth", to_json(((p.vehicleWidth) == 61 || (p.vehicleWidth) == 62) ? (p.vehicleWidth) : (double)(p.vehicleWidth) / 10.0, allocator), allocator);
     json.AddMember("vehicleHeight", to_json((p.vehicleHeight), allocator), allocator);
@@ -13766,12 +13774,12 @@ Value to_json(const VehicleSize& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, VehicleSize& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
+        from_json(j["vehicleType"], (p.vehicleType), "vehicleType");
         if (j.HasMember("vehicleTransportedGoods")) { p.vehicleTransportedGoods = vanetza::asn1::allocate<ETSI_ITS_CDD_SpecialTransportType_t>(); from_json_ETSI_ITS_CDD_SpecialTransportType(j["vehicleTransportedGoods"],*(p.vehicleTransportedGoods), "vehicleTransportedGoods"); }
         else { p.vehicleTransportedGoods=nullptr; }
         from_json(j["vehicleLenth"], (p.vehicleLenth), "vehicleLenth");
         double vehicleWidth; from_json(j["vehicleWidth"], (vehicleWidth), "vehicleWidth"); (p.vehicleWidth) = ((vehicleWidth) != 61 && (vehicleWidth) != 62) ? vehicleWidth * 10 : vehicleWidth;
         from_json(j["vehicleHeight"], (p.vehicleHeight), "vehicleHeight");
-        
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();

@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by RapidJSON
-*   Auto-generated from the asn1 directory by asn1json.py on 2025-03-17 18:19:08.925292
+*   Auto-generated from the asn1 directory by asn1json.py on 2025-03-19 16:20:46.992190
 */
 
 #ifndef ASN1_JSON_HPP
