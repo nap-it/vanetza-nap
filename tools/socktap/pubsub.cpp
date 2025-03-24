@@ -107,6 +107,7 @@ void PubSub::subscribe(message_config_t message_config, PubSub_application* app)
     if(message_config.dds_enabled) {
         this->dds->subscribe(topic);
         this->dds->provison_publisher(message_config.topic_out);
+        this->dds->provison_publisher(message_config.topic_time);
     }
     if(message_config.mqtt_enabled) {
         this->local_mqtt->subscribe(topic);
@@ -191,6 +192,7 @@ void PubSub::publish_time(message_config_t message_config, rapidjson::Value& mes
     message_json.Accept(writer);
     const char* messageJSON = fullBuffer.GetString();
 
+    if(message_config.dds_enabled) this->dds->publish(message_config.topic_time, messageJSON);
     this->local_mqtt->publish(message_config.topic_time, messageJSON);
     if (this->remote_mqtt != NULL) this->remote_mqtt->publish(this->config.remote_mqtt_prefix + std::to_string(this->config.station_id) + "/" + message_config.topic_time, messageJSON);
 }
