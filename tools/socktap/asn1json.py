@@ -55,7 +55,7 @@ transformation = {
     "Radius": (pow(10,1),[]),
     "CoordinateConfidence": (pow(10,2), [4096]),
     "AngleConfidence": (pow(10,1), [127])
-
+    "TimestampIts": (pow(10,3),[]),
 }
 
 printed = ["PhoneNumber", "VehicleHeight", "PreemptPriorityList", "WMInumber", "VDS",
