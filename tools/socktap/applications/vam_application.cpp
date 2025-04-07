@@ -51,6 +51,8 @@ VamApplication::VamApplication(PositionProvider& positioning, Runtime& rt, PubSu
     if(config_s.vam.dds_enabled) {
         pubsub->manual_provision(config_s.vam, config_s.vam.topic_out);
         pubsub->manual_provision(config_s.vam, config_s.full_vam_topic_out);
+        pubsub->manual_provision(config_s.vam, config_s.vam.topic_time);
+        pubsub->manual_provision(config_s.vam, config_s.full_vam_topic_time);
     }
 
     if(config_s.vam.udp_out_port != 0) {
