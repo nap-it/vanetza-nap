@@ -251,6 +251,8 @@ treat_as_optional = ["validityDuration"]
 
 capitalize_first_letter = ["class", "long"]
 
+integer_types = ["TimestampIts"]
+
 add_pointer = [
     ("GddAttribute", "ddd"),
     ("InternationalSign-destinationInformation", "ioList")
@@ -334,6 +336,11 @@ Value to_json(const """ + (self.print_name.replace("-", "_") + "_t" if self.name
         
         member_strs = []
         for m in self.members:
+            if m["type"] in integer_types and m["type"] in transformation:
+                member_strs.append("long " + m["name"] + ";")
+                member_strs.append("asn_INTEGER2long(" + ("&" if 'optional' not in m or not m['optional'] else "") + get_element_name(m, self, False) + "), &" + m['name'] + ");")
+
+        for m in self.members:
             if "optional" in m and m["optional"]:
                 continue
             
@@ -347,7 +354,11 @@ Value to_json(const """ + (self.print_name.replace("-", "_") + "_t" if self.name
                     member_str += "(" + condition_str + ") ? " + \
                                     get_element_name(m, self, True) + ') : '
                 
-                member_str += '(double)' + get_element_name(m, self, False) + \
+                if m["type"] in integer_types:
+                    member_str += '(double) (' + m["name"] + \
+                                ') / ' + str(float(transformation[m["type"]][0]))
+                else:
+                    member_str += '(double)' + get_element_name(m, self, False) + \
                                 ') / ' + str(float(transformation[m["type"]][0]))
             else:
                 member_str += get_element_name(m, self, False) + ')'
@@ -371,7 +382,11 @@ Value to_json(const """ + (self.print_name.replace("-", "_") + "_t" if self.name
                     if len(transformation[m["type"]][1]) > 0:
                         member_str += "(" + condition_str + ") ? "
                     
-                    member_str += '(double) *' + get_element_name(m, self, False) + \
+                    if m["type"] in integer_types:
+                        member_str += '(double) (' + m["name"] + \
+                                    ') / ' + str(float(transformation[m["type"]][0]))
+                    else: 
+                        member_str += '(double) *' + get_element_name(m, self, False) + \
                                     ') / ' + str(float(transformation[m["type"]][0]))
 
                     if len(transformation[m["type"]][1]) > 0:
@@ -417,7 +432,12 @@ void from_json(const Value& j, """ + (self.print_name.replace("-", "_") + "_t" i
             if m["type"] not in transformation:
                 member_str += get_element_name(m, self, True) + '), "' + m["name"] + '");'
             else:
-                member_str += '(' + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + '), "' + m["name"] + '"); ' + \
+                if m["type"] in integer_types:
+                    member_str += '(' + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + '), "' + m["name"] + '"); ' + \
+                                m["name"] + \
+                                ' = '
+                else:
+                    member_str += '(' + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + '), "' + m["name"] + '"); ' + \
                                 get_element_name(m, self, True) + \
                                 ') = '
                 if len(transformation[m["type"]][1]) > 0:
@@ -429,6 +449,9 @@ void from_json(const Value& j, """ + (self.print_name.replace("-", "_") + "_t" i
                 else:
                     member_str += (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + \
                                     ' * ' + str(int(transformation[m["type"]][0]) if (transformation[m["type"]][0]).is_integer() else float(transformation[m["type"]][0])) + ';'
+
+                if m["type"] in integer_types:
+                    member_str += " asn_long2INTEGER(&" + get_element_name(m, self, True) + "), static_cast<long>(" + m["name"] + "));"
                                     
             if needs_closing:
                 member_str += ' }\n        else { ' + \
