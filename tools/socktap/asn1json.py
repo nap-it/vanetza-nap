@@ -54,8 +54,7 @@ transformation = {
     "SemiRangeLength": (pow(10,1),[]),
     "Radius": (pow(10,1),[]),
     "CoordinateConfidence": (pow(10,2), [4096]),
-    "AngleConfidence": (pow(10,1), [127])
-
+    "AngleConfidence": (pow(10,1), [127]),
 }
 
 printed = ["PhoneNumber", "VehicleHeight", "PreemptPriorityList", "WMInumber", "VDS",
@@ -314,6 +313,8 @@ disambiguate_types = {
     ("Speed", "Trajectory::Trajectory__speed"): "ETSI_ITS_CDD_",
     ("SpecialTransportType", "VehicleSize"): "ETSI_ITS_CDD_",
     ("Iso3833VehicleType", "RequestorType"): "ElectronicRegistrationIdentificationVehicleDataModule_",
+    ("DeltaAltitude", "PathPointPredicted"): "ETSI_ITS_CDD_",
+    ("AltitudeConfidence", "PathPointPredicted"): "ETSI_ITS_CDD_",
 }
 
 ignore_member_names = ['regional', 'shadowingApplies', 'expiryTime', 'fill', 'ownerCode', 'language', 'sessionLocation', 'avc', 'mlc', 'rsc', 'train']
@@ -322,7 +323,7 @@ ignore_member_types = ["PhoneNumber", "OpeningDaysHours", "MessageFrame", "Descr
                        'PreemptPriorityList', "WMInumber", "VDS", "TemporaryID", "Attributes", "GetStampedRq", "GetStampedRs", 
                        "SetInstanceRq", "SetStampedRq", "AttributeList", "AttributeIdList", "EventZone"]
 
-treat_as_optional = ["validityDuration"]
+treat_as_optional = [("validityDuration", "ManagementContainer"), ("deltaAltitude", "PathPointPredicted"), ("altitudeConfidence", "PathPointPredicted")]
 
 capitalize_first_letter = ["class", "long"]
 
@@ -381,7 +382,7 @@ class ASN1Sequence:
         self.print_name = name
 
         for m in self.members:
-            if m["name"] in treat_as_optional:
+            if (m["name"], self.name) in treat_as_optional:
                 m["optional"] = True
             if "default" in m and m["name"] == "altitude":
                 m["optional"] = True

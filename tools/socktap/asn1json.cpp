@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by RapidJSON
-*   Auto-generated from the asn1 directory by asn1json.py on 2025-03-19 16:20:43.595033
+*   Auto-generated from the asn1 directory by asn1json.py on 2025-05-21 02:46:12.552644
 */
 
 #include "asn1json.hpp"
@@ -15772,9 +15772,9 @@ Value to_json(const PathPointPredicted_t& p, Document::AllocatorType& allocator)
     Value json(kObjectType);
     json.AddMember("deltaLatitude", to_json((p.deltaLatitude), allocator), allocator);
     json.AddMember("deltaLongitude", to_json((p.deltaLongitude), allocator), allocator);
-    json.AddMember("deltaAltitude", to_json((p.deltaAltitude), allocator), allocator);
-    json.AddMember("altitudeConfidence", to_json((p.altitudeConfidence), allocator), allocator);
     if (p.horizontalPositionConfidence != 0) json.AddMember("horizontalPositionConfidence", to_json(*(p.horizontalPositionConfidence), allocator), allocator);
+    if (p.deltaAltitude != 0) json.AddMember("deltaAltitude", to_json(*(p.deltaAltitude), allocator), allocator);
+    if (p.altitudeConfidence != 0) json.AddMember("altitudeConfidence", to_json(*(p.altitudeConfidence), allocator), allocator);
     if (p.pathDeltaTime != 0) json.AddMember("pathDeltaTime", to_json(*(p.pathDeltaTime), allocator), allocator);
     if (p.symmetricAreaOffset != 0) json.AddMember("symmetricAreaOffset", to_json(*(p.symmetricAreaOffset), allocator), allocator);
     if (p.asymmetricAreaOffset != 0) json.AddMember("asymmetricAreaOffset", to_json(*(p.asymmetricAreaOffset), allocator), allocator);
@@ -15788,8 +15788,10 @@ void from_json(const Value& j, PathPointPredicted_t& p, std::string field) {
         from_json(j["deltaLongitude"], (p.deltaLongitude), "deltaLongitude");
         if (j.HasMember("horizontalPositionConfidence")) { p.horizontalPositionConfidence = vanetza::asn1::allocate<ETSI_ITS_CDD_PosConfidenceEllipse_t>(); from_json(j["horizontalPositionConfidence"], *(p.horizontalPositionConfidence), "horizontalPositionConfidence"); }
         else { p.horizontalPositionConfidence=nullptr; }
-        from_json(j["deltaAltitude"], (p.deltaAltitude), "deltaAltitude");
-        from_json(j["altitudeConfidence"], (p.altitudeConfidence), "altitudeConfidence");
+        if (j.HasMember("deltaAltitude")) { p.deltaAltitude = vanetza::asn1::allocate<ETSI_ITS_CDD_DeltaAltitude_t>(); from_json(j["deltaAltitude"], *(p.deltaAltitude), "deltaAltitude"); }
+        else { p.deltaAltitude=nullptr; }
+        if (j.HasMember("altitudeConfidence")) { p.altitudeConfidence = vanetza::asn1::allocate<ETSI_ITS_CDD_AltitudeConfidence_t>(); from_json(j["altitudeConfidence"], *(p.altitudeConfidence), "altitudeConfidence"); }
+        else { p.altitudeConfidence=nullptr; }
         if (j.HasMember("pathDeltaTime")) { p.pathDeltaTime = vanetza::asn1::allocate<PathDeltaTimeChoice_t>(); from_json(j["pathDeltaTime"], *(p.pathDeltaTime), "pathDeltaTime"); }
         else { p.pathDeltaTime=nullptr; }
         if (j.HasMember("symmetricAreaOffset")) { p.symmetricAreaOffset = vanetza::asn1::allocate<StandardLength9b_t>(); from_json(j["symmetricAreaOffset"], *(p.symmetricAreaOffset), "symmetricAreaOffset"); }
