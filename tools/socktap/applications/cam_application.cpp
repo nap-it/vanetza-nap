@@ -60,6 +60,8 @@ CamApplication::CamApplication(vanetza::PositionProvider& positioning, vanetza::
         pubsub->manual_provision(config_s.cam, config_s.full_cam_topic_out);
         pubsub->manual_provision(config_s.cam, config_s.own_cam_topic_out);
         pubsub->manual_provision(config_s.cam, config_s.own_full_cam_topic_out);
+        pubsub->manual_provision(config_s.cam, config_s.cam.topic_time);
+        pubsub->manual_provision(config_s.cam, config_s.full_cam_topic_time);
     }
 
     if(config_s.cam.udp_out_port != 0) {
@@ -606,10 +608,12 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
         if(topic == config_s.full_cam_topic_in || topic == config_s.full_cam_topic_in + "_enc") {
             pubsub->local_mqtt->publish(config_s.full_cam_topic_time, simpleJSON);
             if (pubsub->remote_mqtt != NULL) pubsub->remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_cam_topic_time, simpleJSON);
+            if(config_s.cam.dds_enabled) pubsub->dds->publish(config_s.full_cam_topic_time, simpleJSON);
         }
         else {
             pubsub->local_mqtt->publish(config_s.cam.topic_time, simpleJSON);
             if (pubsub->remote_mqtt != NULL) pubsub->remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_time, simpleJSON);
+            if(config_s.cam.dds_enabled) pubsub->dds->publish(config_s.cam.topic_time, simpleJSON);
         }
     }
 

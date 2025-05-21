@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by RapidJSON
-*   Auto-generated from the asn1 directory by asn1json.py on 2025-05-21 02:46:12.552644
+*   Auto-generated from the asn1 directory by asn1json.py on 2025-05-21 03:11:28.695869
 */
 
 #include "asn1json.hpp"
@@ -11398,9 +11398,13 @@ void from_json(const Value& j, CAM_PDU_Descriptions_RSUContainerHighFrequency& p
 
 Value to_json(const DENM_PDU_Descriptions_ManagementContainer& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
+    long detectionTime;
+    asn_INTEGER2long(&(p.detectionTime), &detectionTime);
+    long referenceTime;
+    asn_INTEGER2long(&(p.referenceTime), &referenceTime);
     json.AddMember("actionID", to_json((p.actionID), allocator), allocator);
-    json.AddMember("detectionTime", to_json((p.detectionTime), allocator), allocator);
-    json.AddMember("referenceTime", to_json((p.referenceTime), allocator), allocator);
+    json.AddMember("detectionTime", to_json((double) (detectionTime) / 1000.0, allocator), allocator);
+    json.AddMember("referenceTime", to_json((double) (referenceTime) / 1000.0, allocator), allocator);
     json.AddMember("eventPosition", to_json((p.eventPosition), allocator), allocator);
     json.AddMember("stationType", to_json((p.stationType), allocator), allocator);
     if (p.termination != 0) json.AddMember("termination", to_json(*(p.termination), allocator), allocator);
@@ -11415,8 +11419,8 @@ void from_json(const Value& j, DENM_PDU_Descriptions_ManagementContainer& p, std
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["actionID"], (p.actionID), "actionID");
-        from_json(j["detectionTime"], (p.detectionTime), "detectionTime");
-        from_json(j["referenceTime"], (p.referenceTime), "referenceTime");
+        double detectionTime; from_json(j["detectionTime"], (detectionTime), "detectionTime"); detectionTime = detectionTime * 1000; asn_long2INTEGER(&(p.detectionTime), static_cast<long>(detectionTime));
+        double referenceTime; from_json(j["referenceTime"], (referenceTime), "referenceTime"); referenceTime = referenceTime * 1000; asn_long2INTEGER(&(p.referenceTime), static_cast<long>(referenceTime));
         if (j.HasMember("termination")) { p.termination = vanetza::asn1::allocate<DENM_PDU_Descriptions_Termination_t>(); from_json(j["termination"], *(p.termination), "termination"); }
         else { p.termination=nullptr; }
         from_json(j["eventPosition"], (p.eventPosition), "eventPosition");
@@ -12464,8 +12468,10 @@ void from_json(const Value& j, PerceivedObjectIds& p, std::string field) {
 
 Value to_json(const ItsPOIHeader& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
+    long timeStamp;
+    asn_INTEGER2long(&(p.timeStamp), &timeStamp);
     json.AddMember("poiType", to_json((p.poiType), allocator), allocator);
-    json.AddMember("timeStamp", to_json((p.timeStamp), allocator), allocator);
+    json.AddMember("timeStamp", to_json((double) (timeStamp) / 1000.0, allocator), allocator);
     json.AddMember("relayCapable", to_json((p.relayCapable), allocator), allocator);
     
     return json;
@@ -12475,7 +12481,7 @@ void from_json(const Value& j, ItsPOIHeader& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["poiType"], (p.poiType), "poiType");
-        from_json(j["timeStamp"], (p.timeStamp), "timeStamp");
+        double timeStamp; from_json(j["timeStamp"], (timeStamp), "timeStamp"); timeStamp = timeStamp * 1000; asn_long2INTEGER(&(p.timeStamp), static_cast<long>(timeStamp));
         from_json(j["relayCapable"], (p.relayCapable), "relayCapable");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -12846,7 +12852,9 @@ void from_json(const Value& j, TisTpgDRM_Location& p, std::string field) {
 
 Value to_json(const TisTpgSNM_Management& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("generationTime", to_json((p.generationTime), allocator), allocator);
+    long generationTime;
+    asn_INTEGER2long(&(p.generationTime), &generationTime);
+    json.AddMember("generationTime", to_json((double) (generationTime) / 1000.0, allocator), allocator);
     json.AddMember("totalTpgStations", to_json((p.totalTpgStations), allocator), allocator);
     
     return json;
@@ -12855,7 +12863,7 @@ Value to_json(const TisTpgSNM_Management& p, Document::AllocatorType& allocator)
 void from_json(const Value& j, TisTpgSNM_Management& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["generationTime"], (p.generationTime), "generationTime");
+        double generationTime; from_json(j["generationTime"], (generationTime), "generationTime"); generationTime = generationTime * 1000; asn_long2INTEGER(&(p.generationTime), static_cast<long>(generationTime));
         from_json(j["totalTpgStations"], (p.totalTpgStations), "totalTpgStations");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -12872,7 +12880,9 @@ void from_json(const Value& j, TisTpgSNM_Management& p, std::string field) {
 
 Value to_json(const TisTpgTRM_Situation& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("estArrivalTime", to_json((p.estArrivalTime), allocator), allocator);
+    long estArrivalTime;
+    asn_INTEGER2long(&(p.estArrivalTime), &estArrivalTime);
+    json.AddMember("estArrivalTime", to_json((double) (estArrivalTime) / 1000.0, allocator), allocator);
     if (p.proposedPairingID != 0) json.AddMember("proposedPairingID", to_json(*(p.proposedPairingID), allocator), allocator);
     return json;
 }
@@ -12880,7 +12890,7 @@ Value to_json(const TisTpgTRM_Situation& p, Document::AllocatorType& allocator) 
 void from_json(const Value& j, TisTpgTRM_Situation& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["estArrivalTime"], (p.estArrivalTime), "estArrivalTime");
+        double estArrivalTime; from_json(j["estArrivalTime"], (estArrivalTime), "estArrivalTime"); estArrivalTime = estArrivalTime * 1000; asn_long2INTEGER(&(p.estArrivalTime), static_cast<long>(estArrivalTime));
         if (j.HasMember("proposedPairingID")) { p.proposedPairingID = vanetza::asn1::allocate<PairingID_t>(); from_json(j["proposedPairingID"], *(p.proposedPairingID), "proposedPairingID"); }
         else { p.proposedPairingID=nullptr; }
     } catch(VanetzaJSONException& ex) {
@@ -14026,8 +14036,10 @@ void from_json(const Value& j, Trajectory& p, std::string field) {
 
 Value to_json(const AcknowledgmentContainer& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
+    long generationDeltaTime;
+    asn_INTEGER2long(&(p.generationDeltaTime), &generationDeltaTime);
     json.AddMember("acknowledgedType", to_json((p.acknowledgedType), allocator), allocator);
-    json.AddMember("generationDeltaTime", to_json((p.generationDeltaTime), allocator), allocator);
+    json.AddMember("generationDeltaTime", to_json((double) (generationDeltaTime) / 1000.0, allocator), allocator);
     
     return json;
 }
@@ -14036,7 +14048,7 @@ void from_json(const Value& j, AcknowledgmentContainer& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["acknowledgedType"], (p.acknowledgedType), "acknowledgedType");
-        from_json(j["generationDeltaTime"], (p.generationDeltaTime), "generationDeltaTime");
+        double generationDeltaTime; from_json(j["generationDeltaTime"], (generationDeltaTime), "generationDeltaTime"); generationDeltaTime = generationDeltaTime * 1000; asn_long2INTEGER(&(p.generationDeltaTime), static_cast<long>(generationDeltaTime));
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -14762,9 +14774,13 @@ void from_json(const Value& j, VehicleMovementControlContainer& p, std::string f
 
 Value to_json(const DENM_PDU_Description_ManagementContainer& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
+    long detectionTime;
+    asn_INTEGER2long(&(p.detectionTime), &detectionTime);
+    long referenceTime;
+    asn_INTEGER2long(&(p.referenceTime), &referenceTime);
     json.AddMember("actionId", to_json((p.actionId), allocator), allocator);
-    json.AddMember("detectionTime", to_json((p.detectionTime), allocator), allocator);
-    json.AddMember("referenceTime", to_json((p.referenceTime), allocator), allocator);
+    json.AddMember("detectionTime", to_json((double) (detectionTime) / 1000.0, allocator), allocator);
+    json.AddMember("referenceTime", to_json((double) (referenceTime) / 1000.0, allocator), allocator);
     json.AddMember("eventPosition", to_json((p.eventPosition), allocator), allocator);
     json.AddMember("stationType", to_json((p.stationType), allocator), allocator);
     if (p.termination != 0) json.AddMember("termination", to_json(*(p.termination), allocator), allocator);
@@ -14779,8 +14795,8 @@ void from_json(const Value& j, DENM_PDU_Description_ManagementContainer& p, std:
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["actionId"], (p.actionId), "actionId");
-        from_json(j["detectionTime"], (p.detectionTime), "detectionTime");
-        from_json(j["referenceTime"], (p.referenceTime), "referenceTime");
+        double detectionTime; from_json(j["detectionTime"], (detectionTime), "detectionTime"); detectionTime = detectionTime * 1000; asn_long2INTEGER(&(p.detectionTime), static_cast<long>(detectionTime));
+        double referenceTime; from_json(j["referenceTime"], (referenceTime), "referenceTime"); referenceTime = referenceTime * 1000; asn_long2INTEGER(&(p.referenceTime), static_cast<long>(referenceTime));
         if (j.HasMember("termination")) { p.termination = vanetza::asn1::allocate<DENM_PDU_Descriptions_Termination_t>(); from_json(j["termination"], *(p.termination), "termination"); }
         else { p.termination=nullptr; }
         from_json(j["eventPosition"], (p.eventPosition), "eventPosition");
@@ -17456,12 +17472,18 @@ void from_json(const Value& j, CITSapplMgmtIDs_VarLengthNumber_t& p, std::string
 
 Value to_json(const IviManagementContainer& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
+    long timeStamp;
+    asn_INTEGER2long((p.timeStamp), &timeStamp);
+    long validFrom;
+    asn_INTEGER2long((p.validFrom), &validFrom);
+    long validTo;
+    asn_INTEGER2long((p.validTo), &validTo);
     json.AddMember("serviceProviderId", to_json((p.serviceProviderId), allocator), allocator);
     json.AddMember("iviIdentificationNumber", to_json((p.iviIdentificationNumber), allocator), allocator);
     json.AddMember("iviStatus", to_json((p.iviStatus), allocator), allocator);
-    if (p.timeStamp != 0) json.AddMember("timeStamp", to_json(*(p.timeStamp), allocator), allocator);
-    if (p.validFrom != 0) json.AddMember("validFrom", to_json(*(p.validFrom), allocator), allocator);
-    if (p.validTo != 0) json.AddMember("validTo", to_json(*(p.validTo), allocator), allocator);
+    if (p.timeStamp != 0) json.AddMember("timeStamp", to_json((double) (timeStamp) / 1000.0, allocator), allocator);
+    if (p.validFrom != 0) json.AddMember("validFrom", to_json((double) (validFrom) / 1000.0, allocator), allocator);
+    if (p.validTo != 0) json.AddMember("validTo", to_json((double) (validTo) / 1000.0, allocator), allocator);
     if (p.connectedIviStructures != 0) json.AddMember("connectedIviStructures", to_json(*(p.connectedIviStructures), allocator), allocator);
     if (p.connectedDenms != 0) json.AddMember("connectedDenms", to_json(*(p.connectedDenms), allocator), allocator);
     return json;
@@ -17472,11 +17494,11 @@ void from_json(const Value& j, IviManagementContainer& p, std::string field) {
         p._asn_ctx.ptr = nullptr;
         from_json(j["serviceProviderId"], (p.serviceProviderId), "serviceProviderId");
         from_json(j["iviIdentificationNumber"], (p.iviIdentificationNumber), "iviIdentificationNumber");
-        if (j.HasMember("timeStamp")) { p.timeStamp = vanetza::asn1::allocate<ITS_Container_TimestampIts_t>(); from_json(j["timeStamp"], *(p.timeStamp), "timeStamp"); }
+        double timeStamp; if (j.HasMember("timeStamp")) { p.timeStamp = vanetza::asn1::allocate<ITS_Container_TimestampIts_t>(); from_json(j["timeStamp"], (timeStamp), "timeStamp"); timeStamp = timeStamp * 1000; asn_long2INTEGER(&*(p.timeStamp), static_cast<long>(timeStamp)); }
         else { p.timeStamp=nullptr; }
-        if (j.HasMember("validFrom")) { p.validFrom = vanetza::asn1::allocate<ITS_Container_TimestampIts_t>(); from_json(j["validFrom"], *(p.validFrom), "validFrom"); }
+        double validFrom; if (j.HasMember("validFrom")) { p.validFrom = vanetza::asn1::allocate<ITS_Container_TimestampIts_t>(); from_json(j["validFrom"], (validFrom), "validFrom"); validFrom = validFrom * 1000; asn_long2INTEGER(&*(p.validFrom), static_cast<long>(validFrom)); }
         else { p.validFrom=nullptr; }
-        if (j.HasMember("validTo")) { p.validTo = vanetza::asn1::allocate<ITS_Container_TimestampIts_t>(); from_json(j["validTo"], *(p.validTo), "validTo"); }
+        double validTo; if (j.HasMember("validTo")) { p.validTo = vanetza::asn1::allocate<ITS_Container_TimestampIts_t>(); from_json(j["validTo"], (validTo), "validTo"); validTo = validTo * 1000; asn_long2INTEGER(&*(p.validTo), static_cast<long>(validTo)); }
         else { p.validTo=nullptr; }
         if (j.HasMember("connectedIviStructures")) { p.connectedIviStructures = vanetza::asn1::allocate<IviIdentificationNumbers_t>(); from_json(j["connectedIviStructures"], *(p.connectedIviStructures), "connectedIviStructures"); }
         else { p.connectedIviStructures=nullptr; }
@@ -18517,7 +18539,9 @@ void from_json(const Value& j, CollectivePerceptionMessage& p, std::string field
 
 Value to_json(const CPM_PDU_Descriptions_ManagementContainer& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("referenceTime", to_json((p.referenceTime), allocator), allocator);
+    long referenceTime;
+    asn_INTEGER2long(&(p.referenceTime), &referenceTime);
+    json.AddMember("referenceTime", to_json((double) (referenceTime) / 1000.0, allocator), allocator);
     json.AddMember("referencePosition", to_json((p.referencePosition), allocator), allocator);
     if (p.segmentationInfo != 0) json.AddMember("segmentationInfo", to_json(*(p.segmentationInfo), allocator), allocator);
     if (p.messageRateRange != 0) json.AddMember("messageRateRange", to_json(*(p.messageRateRange), allocator), allocator);
@@ -18527,7 +18551,7 @@ Value to_json(const CPM_PDU_Descriptions_ManagementContainer& p, Document::Alloc
 void from_json(const Value& j, CPM_PDU_Descriptions_ManagementContainer& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["referenceTime"], (p.referenceTime), "referenceTime");
+        double referenceTime; from_json(j["referenceTime"], (referenceTime), "referenceTime"); referenceTime = referenceTime * 1000; asn_long2INTEGER(&(p.referenceTime), static_cast<long>(referenceTime));
         from_json(j["referencePosition"], (p.referencePosition), "referencePosition");
         if (j.HasMember("segmentationInfo")) { p.segmentationInfo = vanetza::asn1::allocate<MessageSegmentationInfo_t>(); from_json(j["segmentationInfo"], *(p.segmentationInfo), "segmentationInfo"); }
         else { p.segmentationInfo=nullptr; }
@@ -18965,7 +18989,9 @@ void from_json(const Value& j, IMZMAreaEllipse& p, std::string field) {
 
 Value to_json(const TisTpgDRM_Management& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("generationTime", to_json((p.generationTime), allocator), allocator);
+    long generationTime;
+    asn_INTEGER2long(&(p.generationTime), &generationTime);
+    json.AddMember("generationTime", to_json((double) (generationTime) / 1000.0, allocator), allocator);
     json.AddMember("vehicleType", to_json((p.vehicleType), allocator), allocator);
     json.AddMember("tisProfile", to_json_TisProfile((p.tisProfile), allocator), allocator);
     if (p.costumerContract != 0) json.AddMember("costumerContract", to_json(*(p.costumerContract), allocator), allocator);
@@ -18975,7 +19001,7 @@ Value to_json(const TisTpgDRM_Management& p, Document::AllocatorType& allocator)
 void from_json(const Value& j, TisTpgDRM_Management& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["generationTime"], (p.generationTime), "generationTime");
+        double generationTime; from_json(j["generationTime"], (generationTime), "generationTime"); generationTime = generationTime * 1000; asn_long2INTEGER(&(p.generationTime), static_cast<long>(generationTime));
         from_json(j["vehicleType"], (p.vehicleType), "vehicleType");
         if (j.HasMember("costumerContract")) { p.costumerContract = vanetza::asn1::allocate<CustomerContract_t>(); from_json(j["costumerContract"], *(p.costumerContract), "costumerContract"); }
         else { p.costumerContract=nullptr; }
@@ -18995,7 +19021,9 @@ void from_json(const Value& j, TisTpgDRM_Management& p, std::string field) {
 
 Value to_json(const TisTpgTRM_Management& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("generationTime", to_json((p.generationTime), allocator), allocator);
+    long generationTime;
+    asn_INTEGER2long(&(p.generationTime), &generationTime);
+    json.AddMember("generationTime", to_json((double) (generationTime) / 1000.0, allocator), allocator);
     json.AddMember("vehicleType", to_json((p.vehicleType), allocator), allocator);
     json.AddMember("tpgStationID", to_json((p.tpgStationID), allocator), allocator);
     json.AddMember("reservationStatus", to_json((p.reservationStatus), allocator), allocator);
@@ -19007,7 +19035,7 @@ Value to_json(const TisTpgTRM_Management& p, Document::AllocatorType& allocator)
 void from_json(const Value& j, TisTpgTRM_Management& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["generationTime"], (p.generationTime), "generationTime");
+        double generationTime; from_json(j["generationTime"], (generationTime), "generationTime"); generationTime = generationTime * 1000; asn_long2INTEGER(&(p.generationTime), static_cast<long>(generationTime));
         from_json(j["vehicleType"], (p.vehicleType), "vehicleType");
         from_json(j["tpgStationID"], (p.tpgStationID), "tpgStationID");
         from_json(j["reservationStatus"], (p.reservationStatus), "reservationStatus");
@@ -19030,7 +19058,9 @@ void from_json(const Value& j, TisTpgTRM_Management& p, std::string field) {
 
 Value to_json(const TisTpgTCM_Management& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("generationTime", to_json((p.generationTime), allocator), allocator);
+    long generationTime;
+    asn_INTEGER2long(&(p.generationTime), &generationTime);
+    json.AddMember("generationTime", to_json((double) (generationTime) / 1000.0, allocator), allocator);
     json.AddMember("tpgStationID", to_json((p.tpgStationID), allocator), allocator);
     json.AddMember("reservationStatus", to_json((p.reservationStatus), allocator), allocator);
     if (p.reservedTpg != 0) json.AddMember("reservedTpg", to_json(*(p.reservedTpg), allocator), allocator);
@@ -19043,7 +19073,7 @@ Value to_json(const TisTpgTCM_Management& p, Document::AllocatorType& allocator)
 void from_json(const Value& j, TisTpgTCM_Management& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["generationTime"], (p.generationTime), "generationTime");
+        double generationTime; from_json(j["generationTime"], (generationTime), "generationTime"); generationTime = generationTime * 1000; asn_long2INTEGER(&(p.generationTime), static_cast<long>(generationTime));
         from_json(j["tpgStationID"], (p.tpgStationID), "tpgStationID");
         from_json(j["reservationStatus"], (p.reservationStatus), "reservationStatus");
         if (j.HasMember("reservedTpg")) { p.reservedTpg = vanetza::asn1::allocate<long>(); from_json(j["reservedTpg"], *(p.reservedTpg), "reservedTpg"); }
@@ -19069,7 +19099,9 @@ void from_json(const Value& j, TisTpgTCM_Management& p, std::string field) {
 
 Value to_json(const TisTpgTCM_Situation& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("reservationTimeLimit", to_json((p.reservationTimeLimit), allocator), allocator);
+    long reservationTimeLimit;
+    asn_INTEGER2long(&(p.reservationTimeLimit), &reservationTimeLimit);
+    json.AddMember("reservationTimeLimit", to_json((double) (reservationTimeLimit) / 1000.0, allocator), allocator);
     if (p.pairingID != 0) json.AddMember("pairingID", to_json(*(p.pairingID), allocator), allocator);
     if (p.cancellationCondition != 0) json.AddMember("cancellationCondition", to_json(*(p.cancellationCondition), allocator), allocator);
     return json;
@@ -19080,7 +19112,7 @@ void from_json(const Value& j, TisTpgTCM_Situation& p, std::string field) {
         p._asn_ctx.ptr = nullptr;
         if (j.HasMember("pairingID")) { p.pairingID = vanetza::asn1::allocate<PairingID_t>(); from_json(j["pairingID"], *(p.pairingID), "pairingID"); }
         else { p.pairingID=nullptr; }
-        from_json(j["reservationTimeLimit"], (p.reservationTimeLimit), "reservationTimeLimit");
+        double reservationTimeLimit; from_json(j["reservationTimeLimit"], (reservationTimeLimit), "reservationTimeLimit"); reservationTimeLimit = reservationTimeLimit * 1000; asn_long2INTEGER(&(p.reservationTimeLimit), static_cast<long>(reservationTimeLimit));
         if (j.HasMember("cancellationCondition")) { p.cancellationCondition = vanetza::asn1::allocate<CancellationCondition_t>(); from_json(j["cancellationCondition"], *(p.cancellationCondition), "cancellationCondition"); }
         else { p.cancellationCondition=nullptr; }
     } catch(VanetzaJSONException& ex) {
@@ -19098,7 +19130,9 @@ void from_json(const Value& j, TisTpgTCM_Situation& p, std::string field) {
 
 Value to_json(const TisTpgVDRM_Management& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("generationTime", to_json((p.generationTime), allocator), allocator);
+    long generationTime;
+    asn_INTEGER2long(&(p.generationTime), &generationTime);
+    json.AddMember("generationTime", to_json((double) (generationTime) / 1000.0, allocator), allocator);
     json.AddMember("fillingStatus", to_json((p.fillingStatus), allocator), allocator);
     json.AddMember("automationLevel", to_json_TpgAutomation((p.automationLevel), allocator), allocator);
     if (p.pairingID != 0) json.AddMember("pairingID", to_json(*(p.pairingID), allocator), allocator);
@@ -19108,7 +19142,7 @@ Value to_json(const TisTpgVDRM_Management& p, Document::AllocatorType& allocator
 void from_json(const Value& j, TisTpgVDRM_Management& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["generationTime"], (p.generationTime), "generationTime");
+        double generationTime; from_json(j["generationTime"], (generationTime), "generationTime"); generationTime = generationTime * 1000; asn_long2INTEGER(&(p.generationTime), static_cast<long>(generationTime));
         from_json(j["fillingStatus"], (p.fillingStatus), "fillingStatus");
         from_json_TpgAutomation(j["automationLevel"],(p.automationLevel), "automationLevel");
         if (j.HasMember("pairingID")) { p.pairingID = vanetza::asn1::allocate<PairingID_t>(); from_json(j["pairingID"], *(p.pairingID), "pairingID"); }
@@ -19128,7 +19162,9 @@ void from_json(const Value& j, TisTpgVDRM_Management& p, std::string field) {
 
 Value to_json(const TisTpgVDPM_Management& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("generationTime", to_json((p.generationTime), allocator), allocator);
+    long generationTime;
+    asn_INTEGER2long(&(p.generationTime), &generationTime);
+    json.AddMember("generationTime", to_json((double) (generationTime) / 1000.0, allocator), allocator);
     json.AddMember("vehicleType", to_json((p.vehicleType), allocator), allocator);
     json.AddMember("tyreTempCondition", to_json((p.tyreTempCondition), allocator), allocator);
     json.AddMember("fillingStatus", to_json((p.fillingStatus), allocator), allocator);
@@ -19140,7 +19176,7 @@ Value to_json(const TisTpgVDPM_Management& p, Document::AllocatorType& allocator
 void from_json(const Value& j, TisTpgVDPM_Management& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["generationTime"], (p.generationTime), "generationTime");
+        double generationTime; from_json(j["generationTime"], (generationTime), "generationTime"); generationTime = generationTime * 1000; asn_long2INTEGER(&(p.generationTime), static_cast<long>(generationTime));
         if (j.HasMember("tisProfile")) { p.tisProfile = vanetza::asn1::allocate<TisProfile_t>(); from_json_TisProfile(j["tisProfile"],*(p.tisProfile), "tisProfile"); }
         else { p.tisProfile=nullptr; }
         from_json(j["vehicleType"], (p.vehicleType), "vehicleType");
@@ -19164,7 +19200,9 @@ void from_json(const Value& j, TisTpgVDPM_Management& p, std::string field) {
 
 Value to_json(const TisTpgEOFM_Management& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("generationTime", to_json((p.generationTime), allocator), allocator);
+    long generationTime;
+    asn_INTEGER2long(&(p.generationTime), &generationTime);
+    json.AddMember("generationTime", to_json((double) (generationTime) / 1000.0, allocator), allocator);
     json.AddMember("fillingStatus", to_json((p.fillingStatus), allocator), allocator);
     json.AddMember("numberOfAppliedPressure", to_json((p.numberOfAppliedPressure), allocator), allocator);
     if (p.appliedTyrePressures != 0) json.AddMember("appliedTyrePressures", to_json(*(p.appliedTyrePressures), allocator), allocator);
@@ -19175,7 +19213,7 @@ Value to_json(const TisTpgEOFM_Management& p, Document::AllocatorType& allocator
 void from_json(const Value& j, TisTpgEOFM_Management& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["generationTime"], (p.generationTime), "generationTime");
+        double generationTime; from_json(j["generationTime"], (generationTime), "generationTime"); generationTime = generationTime * 1000; asn_long2INTEGER(&(p.generationTime), static_cast<long>(generationTime));
         from_json(j["fillingStatus"], (p.fillingStatus), "fillingStatus");
         from_json(j["numberOfAppliedPressure"], (p.numberOfAppliedPressure), "numberOfAppliedPressure");
         if (j.HasMember("appliedTyrePressures")) { p.appliedTyrePressures = vanetza::asn1::allocate<AppliedTyrePressures_t>(); from_json(j["appliedTyrePressures"], *(p.appliedTyrePressures), "appliedTyrePressures"); }
@@ -19411,7 +19449,9 @@ void from_json(const Value& j, TpgNotifContainer& p, std::string field) {
 
 Value to_json(const McmBasicContainer& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("generationDeltaTime", to_json((p.generationDeltaTime), allocator), allocator);
+    long generationDeltaTime;
+    asn_INTEGER2long(&(p.generationDeltaTime), &generationDeltaTime);
+    json.AddMember("generationDeltaTime", to_json((double) (generationDeltaTime) / 1000.0, allocator), allocator);
     json.AddMember("stationID", to_json((p.stationID), allocator), allocator);
     json.AddMember("stationType", to_json((p.stationType), allocator), allocator);
     json.AddMember("itssRole", to_json((p.itssRole), allocator), allocator);
@@ -19427,7 +19467,7 @@ Value to_json(const McmBasicContainer& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, McmBasicContainer& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["generationDeltaTime"], (p.generationDeltaTime), "generationDeltaTime");
+        double generationDeltaTime; from_json(j["generationDeltaTime"], (generationDeltaTime), "generationDeltaTime"); generationDeltaTime = generationDeltaTime * 1000; asn_long2INTEGER(&(p.generationDeltaTime), static_cast<long>(generationDeltaTime));
         from_json(j["stationID"], (p.stationID), "stationID");
         from_json(j["stationType"], (p.stationType), "stationType");
         from_json(j["itssRole"], (p.itssRole), "itssRole");
@@ -22418,9 +22458,11 @@ void from_json(const Value& j, InternationalSign_destinationInformation& p, std:
 
 Value to_json(const GeographicLocationContainer& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
+    long referencePositionTime;
+    asn_INTEGER2long((p.referencePositionTime), &referencePositionTime);
     json.AddMember("referencePosition", to_json((p.referencePosition), allocator), allocator);
     json.AddMember("parts", to_json((p.parts), allocator), allocator);
-    if (p.referencePositionTime != 0) json.AddMember("referencePositionTime", to_json(*(p.referencePositionTime), allocator), allocator);
+    if (p.referencePositionTime != 0) json.AddMember("referencePositionTime", to_json((double) (referencePositionTime) / 1000.0, allocator), allocator);
     if (p.referencePositionHeading != 0) json.AddMember("referencePositionHeading", to_json(*(p.referencePositionHeading), allocator), allocator);
     if (p.referencePositionSpeed != 0) json.AddMember("referencePositionSpeed", to_json(*(p.referencePositionSpeed), allocator), allocator);
     return json;
@@ -22430,7 +22472,7 @@ void from_json(const Value& j, GeographicLocationContainer& p, std::string field
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["referencePosition"], (p.referencePosition), "referencePosition");
-        if (j.HasMember("referencePositionTime")) { p.referencePositionTime = vanetza::asn1::allocate<ITS_Container_TimestampIts_t>(); from_json(j["referencePositionTime"], *(p.referencePositionTime), "referencePositionTime"); }
+        double referencePositionTime; if (j.HasMember("referencePositionTime")) { p.referencePositionTime = vanetza::asn1::allocate<ITS_Container_TimestampIts_t>(); from_json(j["referencePositionTime"], (referencePositionTime), "referencePositionTime"); referencePositionTime = referencePositionTime * 1000; asn_long2INTEGER(&*(p.referencePositionTime), static_cast<long>(referencePositionTime)); }
         else { p.referencePositionTime=nullptr; }
         if (j.HasMember("referencePositionHeading")) { p.referencePositionHeading = vanetza::asn1::allocate<ITS_Container_Heading_t>(); from_json(j["referencePositionHeading"], *(p.referencePositionHeading), "referencePositionHeading"); }
         else { p.referencePositionHeading=nullptr; }
