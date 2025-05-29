@@ -531,7 +531,7 @@ void from_json(const Value& j, """ + (self.print_name.replace("-", "_") + "_t" i
                                     ' * ' + str(int(transformation[m["type"]][0]) if (transformation[m["type"]][0]).is_integer() else float(transformation[m["type"]][0])) + ';'
 
                 if m["type"] in integer_types:
-                    member_str += " asn_long2INTEGER(&" + get_element_name(m, self, True) + "), static_cast<long>(" + m["name"] + "));"
+                    member_str += " memset(&" + get_element_name(m, self, True) + "), 0, sizeof" + get_element_name(m, self, True) + ")); asn_long2INTEGER(&" + get_element_name(m, self, True) + "), static_cast<long>(" + m["name"] + "));"
                                     
             if needs_closing:
                 member_str += ' }\n        else { ' + \
