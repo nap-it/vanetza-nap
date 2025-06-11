@@ -1,0 +1,1761 @@
+diff --git b/vanetza/asn1/its/BasicVehicleContainerHighFrequency.h a/vanetza/asn1/its/BasicVehicleContainerHighFrequency.h
+index fedbf073..68b58a2b 100644
+--- b/vanetza/asn1/its/BasicVehicleContainerHighFrequency.h
++++ a/vanetza/asn1/its/BasicVehicleContainerHighFrequency.h
+@@ -31,10 +31,10 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct SteeringWheelAngle;
+-struct LateralAcceleration;
+-struct VerticalAcceleration;
+-struct CenDsrcTollingZone;
++struct ITS_Container_SteeringWheelAngle;
++struct ITS_Container_LateralAcceleration;
++struct ITS_Container_VerticalAcceleration;
++struct ITS_Container_CenDsrcTollingZone;
+ 
+ /* BasicVehicleContainerHighFrequency */
+ typedef struct BasicVehicleContainerHighFrequency {
+@@ -49,11 +49,11 @@ typedef struct BasicVehicleContainerHighFrequency {
+ 	ITS_Container_YawRate_t	 yawRate;
+ 	ITS_Container_AccelerationControl_t	*accelerationControl;	/* OPTIONAL */
+ 	ITS_Container_LanePosition_t	*lanePosition;	/* OPTIONAL */
+-	struct SteeringWheelAngle	*steeringWheelAngle;	/* OPTIONAL */
+-	struct LateralAcceleration	*lateralAcceleration;	/* OPTIONAL */
+-	struct VerticalAcceleration	*verticalAcceleration;	/* OPTIONAL */
++	struct ITS_Container_SteeringWheelAngle	*steeringWheelAngle;	/* OPTIONAL */
++	struct ITS_Container_LateralAcceleration	*lateralAcceleration;	/* OPTIONAL */
++	struct ITS_Container_VerticalAcceleration	*verticalAcceleration;	/* OPTIONAL */
+ 	ITS_Container_PerformanceClass_t	*performanceClass;	/* OPTIONAL */
+-	struct CenDsrcTollingZone	*cenDsrcTollingZone;	/* OPTIONAL */
++	struct ITS_Container_CenDsrcTollingZone	*cenDsrcTollingZone;	/* OPTIONAL */
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/ComputedSegment.h a/vanetza/asn1/its/ComputedSegment.h
+index d1baa842..e053aca3 100644
+--- b/vanetza/asn1/its/ComputedSegment.h
++++ a/vanetza/asn1/its/ComputedSegment.h
+@@ -23,7 +23,7 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct DeltaReferencePosition;
++struct ITS_Container_DeltaReferencePosition;
+ 
+ /* ComputedSegment */
+ typedef struct ComputedSegment {
+@@ -31,7 +31,7 @@ typedef struct ComputedSegment {
+ 	ITS_Container_LanePosition_t	 laneNumber;
+ 	IviLaneWidth_t	 laneWidth;
+ 	long	*offsetDistance;	/* OPTIONAL */
+-	struct DeltaReferencePosition	*offsetPosition;	/* OPTIONAL */
++	struct ITS_Container_DeltaReferencePosition	*offsetPosition;	/* OPTIONAL */
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/ConnectedDenms.h a/vanetza/asn1/its/ConnectedDenms.h
+index 44b3970a..124fdf0c 100644
+--- b/vanetza/asn1/its/ConnectedDenms.h
++++ a/vanetza/asn1/its/ConnectedDenms.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct ActionID;
++struct ITS_Container_ActionID;
+ 
+ /* ConnectedDenms */
+ typedef struct ConnectedDenms {
+-	A_SEQUENCE_OF(struct ActionID) list;
++	A_SEQUENCE_OF(struct ITS_Container_ActionID) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/DeltaReferencePositions.h a/vanetza/asn1/its/DeltaReferencePositions.h
+index e97cd8bf..49667bae 100644
+--- b/vanetza/asn1/its/DeltaReferencePositions.h
++++ a/vanetza/asn1/its/DeltaReferencePositions.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct DeltaReferencePosition;
++struct ITS_Container_DeltaReferencePosition;
+ 
+ /* DeltaReferencePositions */
+ typedef struct DeltaReferencePositions {
+-	A_SEQUENCE_OF(struct DeltaReferencePosition) list;
++	A_SEQUENCE_OF(struct ITS_Container_DeltaReferencePosition) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_DigitalMap.h a/vanetza/asn1/its/ETSI-ITS-CDD_DigitalMap.h
+index 5c9d655e..c475f704 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_DigitalMap.h
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_DigitalMap.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct ReferencePosition;
++struct ETSI_ITS_CDD_ReferencePosition;
+ 
+ /* ETSI-ITS-CDD_DigitalMap */
+ typedef struct ETSI_ITS_CDD_DigitalMap {
+-	A_SEQUENCE_OF(struct ReferencePosition) list;
++	A_SEQUENCE_OF(struct ETSI_ITS_CDD_ReferencePosition) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_EventHistory.h a/vanetza/asn1/its/ETSI-ITS-CDD_EventHistory.h
+index 32c12d08..4a73e2f6 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_EventHistory.h
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_EventHistory.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct EventPoint;
++struct ETSI_ITS_CDD_EventPoint;
+ 
+ /* ETSI-ITS-CDD_EventHistory */
+ typedef struct ETSI_ITS_CDD_EventHistory {
+-	A_SEQUENCE_OF(struct EventPoint) list;
++	A_SEQUENCE_OF(struct ETSI_ITS_CDD_EventPoint) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_Heading.c a/vanetza/asn1/its/ETSI-ITS-CDD_Heading.c
+index bc4616af..42090559 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_Heading.c
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_Heading.c
+@@ -7,7 +7,7 @@
+ 
+ #include "ETSI-ITS-CDD_Heading.h"
+ 
+-static asn_TYPE_member_t asn_MBR_ETSI_ITS_CDD_Heading_1[] = {
++asn_TYPE_member_t asn_MBR_ETSI_ITS_CDD_Heading_1[] = {
+ 	{ ATF_NOFLAGS, 0, offsetof(struct ETSI_ITS_CDD_Heading, headingValue),
+ 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
+ 		-1,	/* IMPLICIT tag at current level */
+@@ -50,7 +50,7 @@ static const asn_TYPE_tag2member_t asn_MAP_ETSI_ITS_CDD_Heading_tag2el_1[] = {
+     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* headingValue */
+     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 } /* headingConfidence */
+ };
+-static asn_SEQUENCE_specifics_t asn_SPC_ETSI_ITS_CDD_Heading_specs_1 = {
++asn_SEQUENCE_specifics_t asn_SPC_ETSI_ITS_CDD_Heading_specs_1 = {
+ 	sizeof(struct ETSI_ITS_CDD_Heading),
+ 	offsetof(struct ETSI_ITS_CDD_Heading, _asn_ctx),
+ 	asn_MAP_ETSI_ITS_CDD_Heading_tag2el_1,
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_Heading.h a/vanetza/asn1/its/ETSI-ITS-CDD_Heading.h
+index b6a847da..d0d535f5 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_Heading.h
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_Heading.h
+@@ -31,6 +31,8 @@ typedef struct ETSI_ITS_CDD_Heading {
+ 
+ /* Implementation */
+ extern asn_TYPE_descriptor_t asn_DEF_ETSI_ITS_CDD_Heading;
++extern asn_SEQUENCE_specifics_t asn_SPC_ETSI_ITS_CDD_Heading_specs_1;
++extern asn_TYPE_member_t asn_MBR_ETSI_ITS_CDD_Heading_1[2];
+ 
+ #ifdef __cplusplus
+ }
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_InterferenceManagementInfo.h a/vanetza/asn1/its/ETSI-ITS-CDD_InterferenceManagementInfo.h
+index a9d3fc23..75bc1018 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_InterferenceManagementInfo.h
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_InterferenceManagementInfo.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct InterferenceManagementInfoPerChannel;
++struct ETSI_ITS_CDD_InterferenceManagementInfoPerChannel;
+ 
+ /* ETSI-ITS-CDD_InterferenceManagementInfo */
+ typedef struct ETSI_ITS_CDD_InterferenceManagementInfo {
+-	A_SEQUENCE_OF(struct InterferenceManagementInfoPerChannel) list;
++	A_SEQUENCE_OF(struct ETSI_ITS_CDD_InterferenceManagementInfoPerChannel) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_InterferenceManagementInfoPerChannel.h a/vanetza/asn1/its/ETSI-ITS-CDD_InterferenceManagementInfoPerChannel.h
+index 469cd5f4..f70a85ef 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_InterferenceManagementInfoPerChannel.h
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_InterferenceManagementInfoPerChannel.h
+@@ -22,13 +22,13 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct MitigationForTechnologies;
++struct ETSI_ITS_CDD_MitigationForTechnologies;
+ 
+ /* ETSI-ITS-CDD_InterferenceManagementInfoPerChannel */
+ typedef struct ETSI_ITS_CDD_InterferenceManagementInfoPerChannel {
+ 	ETSI_ITS_CDD_InterferenceManagementChannel_t	 interferenceManagementChannel;
+ 	ETSI_ITS_CDD_InterferenceManagementZoneType_t	 interferenceManagementZoneType;
+-	struct MitigationForTechnologies	*interferenceManagementMitigationType;	/* OPTIONAL */
++	struct ETSI_ITS_CDD_MitigationForTechnologies	*interferenceManagementMitigationType;	/* OPTIONAL */
+ 	ETSI_ITS_CDD_TimestampIts_t	*expiryTime;	/* OPTIONAL */
+ 	/*
+ 	 * This type is extensible,
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_InterferenceManagementZones.h a/vanetza/asn1/its/ETSI-ITS-CDD_InterferenceManagementZones.h
+index b7e39843..e65ae597 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_InterferenceManagementZones.h
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_InterferenceManagementZones.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct InterferenceManagementZone;
++struct ETSI_ITS_CDD_InterferenceManagementZone;
+ 
+ /* ETSI-ITS-CDD_InterferenceManagementZones */
+ typedef struct ETSI_ITS_CDD_InterferenceManagementZones {
+-	A_SEQUENCE_OF(struct InterferenceManagementZone) list;
++	A_SEQUENCE_OF(struct ETSI_ITS_CDD_InterferenceManagementZone) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_Iso3833VehicleType.c a/vanetza/asn1/its/ETSI-ITS-CDD_Iso3833VehicleType.c
+index 71385a85..520aa52e 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_Iso3833VehicleType.c
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_Iso3833VehicleType.c
+@@ -42,7 +42,7 @@ static asn_oer_constraints_t asn_OER_type_ETSI_ITS_CDD_Iso3833VehicleType_constr
+ 	-1};
+ #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+ #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+-asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_Iso3833VehicleType_constr_1 CC_NOTUSED = {
++static asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_Iso3833VehicleType_constr_1 CC_NOTUSED = {
+ 	{ APC_CONSTRAINED,	 8,  8,  0,  255 }	/* (0..255) */,
+ 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
+ 	0, 0	/* No PER value map */
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_Iso3833VehicleType.h a/vanetza/asn1/its/ETSI-ITS-CDD_Iso3833VehicleType.h
+index 29201717..7f2ef098 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_Iso3833VehicleType.h
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_Iso3833VehicleType.h
+@@ -67,7 +67,6 @@ typedef enum ETSI_ITS_CDD_Iso3833VehicleType {
+ typedef long	 ETSI_ITS_CDD_Iso3833VehicleType_t;
+ 
+ /* Implementation */
+-extern asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_Iso3833VehicleType_constr_1;
+ extern asn_TYPE_descriptor_t asn_DEF_ETSI_ITS_CDD_Iso3833VehicleType;
+ asn_struct_free_f ETSI_ITS_CDD_Iso3833VehicleType_free;
+ asn_struct_print_f ETSI_ITS_CDD_Iso3833VehicleType_print;
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_ItineraryPath.h a/vanetza/asn1/its/ETSI-ITS-CDD_ItineraryPath.h
+index fcc5a08a..b92e452c 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_ItineraryPath.h
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_ItineraryPath.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct ReferencePosition;
++struct ETSI_ITS_CDD_ReferencePosition;
+ 
+ /* ETSI-ITS-CDD_ItineraryPath */
+ typedef struct ETSI_ITS_CDD_ItineraryPath {
+-	A_SEQUENCE_OF(struct ReferencePosition) list;
++	A_SEQUENCE_OF(struct ETSI_ITS_CDD_ReferencePosition) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_LongitudinalAcceleration.c a/vanetza/asn1/its/ETSI-ITS-CDD_LongitudinalAcceleration.c
+index cf26ea83..56e9a431 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_LongitudinalAcceleration.c
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_LongitudinalAcceleration.c
+@@ -7,7 +7,7 @@
+ 
+ #include "ETSI-ITS-CDD_LongitudinalAcceleration.h"
+ 
+-static asn_TYPE_member_t asn_MBR_ETSI_ITS_CDD_LongitudinalAcceleration_1[] = {
++asn_TYPE_member_t asn_MBR_ETSI_ITS_CDD_LongitudinalAcceleration_1[] = {
+ 	{ ATF_NOFLAGS, 0, offsetof(struct ETSI_ITS_CDD_LongitudinalAcceleration, longitudinalAccelerationValue),
+ 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
+ 		-1,	/* IMPLICIT tag at current level */
+@@ -50,7 +50,7 @@ static const asn_TYPE_tag2member_t asn_MAP_ETSI_ITS_CDD_LongitudinalAcceleration
+     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* longitudinalAccelerationValue */
+     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 } /* longitudinalAccelerationConfidence */
+ };
+-static asn_SEQUENCE_specifics_t asn_SPC_ETSI_ITS_CDD_LongitudinalAcceleration_specs_1 = {
++asn_SEQUENCE_specifics_t asn_SPC_ETSI_ITS_CDD_LongitudinalAcceleration_specs_1 = {
+ 	sizeof(struct ETSI_ITS_CDD_LongitudinalAcceleration),
+ 	offsetof(struct ETSI_ITS_CDD_LongitudinalAcceleration, _asn_ctx),
+ 	asn_MAP_ETSI_ITS_CDD_LongitudinalAcceleration_tag2el_1,
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_LongitudinalAcceleration.h a/vanetza/asn1/its/ETSI-ITS-CDD_LongitudinalAcceleration.h
+index 8f3280c6..f62a1893 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_LongitudinalAcceleration.h
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_LongitudinalAcceleration.h
+@@ -31,6 +31,8 @@ typedef struct ETSI_ITS_CDD_LongitudinalAcceleration {
+ 
+ /* Implementation */
+ extern asn_TYPE_descriptor_t asn_DEF_ETSI_ITS_CDD_LongitudinalAcceleration;
++extern asn_SEQUENCE_specifics_t asn_SPC_ETSI_ITS_CDD_LongitudinalAcceleration_specs_1;
++extern asn_TYPE_member_t asn_MBR_ETSI_ITS_CDD_LongitudinalAcceleration_1[2];
+ 
+ #ifdef __cplusplus
+ }
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_MapPosition.h a/vanetza/asn1/its/ETSI-ITS-CDD_MapPosition.h
+index 328a1050..c40ca2d5 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_MapPosition.h
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_MapPosition.h
+@@ -20,12 +20,12 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct MapReference;
++struct ETSI_ITS_CDD_MapReference;
+ struct LongitudinalLanePosition;
+ 
+ /* ETSI-ITS-CDD_MapPosition */
+ typedef struct ETSI_ITS_CDD_MapPosition {
+-	struct MapReference	*mapReference;	/* OPTIONAL */
++	struct ETSI_ITS_CDD_MapReference	*mapReference;	/* OPTIONAL */
+ 	Identifier1B_t	*laneId;	/* OPTIONAL */
+ 	Identifier1B_t	*connectionId;	/* OPTIONAL */
+ 	struct LongitudinalLanePosition	*longitudinalLanePosition;	/* OPTIONAL */
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_MitigationForTechnologies.h a/vanetza/asn1/its/ETSI-ITS-CDD_MitigationForTechnologies.h
+index accc3825..b20edee7 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_MitigationForTechnologies.h
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_MitigationForTechnologies.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct MitigationPerTechnologyClass;
++struct ETSI_ITS_CDD_MitigationPerTechnologyClass;
+ 
+ /* ETSI-ITS-CDD_MitigationForTechnologies */
+ typedef struct ETSI_ITS_CDD_MitigationForTechnologies {
+-	A_SEQUENCE_OF(struct MitigationPerTechnologyClass) list;
++	A_SEQUENCE_OF(struct ETSI_ITS_CDD_MitigationPerTechnologyClass) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_PathHistory.h a/vanetza/asn1/its/ETSI-ITS-CDD_PathHistory.h
+index de1f4bba..7110c634 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_PathHistory.h
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_PathHistory.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct PathPoint;
++struct ETSI_ITS_CDD_PathPoint;
+ 
+ /* ETSI-ITS-CDD_PathHistory */
+ typedef struct ETSI_ITS_CDD_PathHistory {
+-	A_SEQUENCE_OF(struct PathPoint) list;
++	A_SEQUENCE_OF(struct ETSI_ITS_CDD_PathPoint) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_ProtectedCommunicationZonesRSU.h a/vanetza/asn1/its/ETSI-ITS-CDD_ProtectedCommunicationZonesRSU.h
+index b1136c5d..c423c9c4 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_ProtectedCommunicationZonesRSU.h
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_ProtectedCommunicationZonesRSU.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct ProtectedCommunicationZone;
++struct ETSI_ITS_CDD_ProtectedCommunicationZone;
+ 
+ /* ETSI-ITS-CDD_ProtectedCommunicationZonesRSU */
+ typedef struct ETSI_ITS_CDD_ProtectedCommunicationZonesRSU {
+-	A_SEQUENCE_OF(struct ProtectedCommunicationZone) list;
++	A_SEQUENCE_OF(struct ETSI_ITS_CDD_ProtectedCommunicationZone) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_SequenceOfTrajectoryInterceptionIndication.h a/vanetza/asn1/its/ETSI-ITS-CDD_SequenceOfTrajectoryInterceptionIndication.h
+index 26a9ab61..fb446746 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_SequenceOfTrajectoryInterceptionIndication.h
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_SequenceOfTrajectoryInterceptionIndication.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct TrajectoryInterceptionIndication;
++struct ETSI_ITS_CDD_TrajectoryInterceptionIndication;
+ 
+ /* ETSI-ITS-CDD_SequenceOfTrajectoryInterceptionIndication */
+ typedef struct ETSI_ITS_CDD_SequenceOfTrajectoryInterceptionIndication {
+-	A_SEQUENCE_OF(struct TrajectoryInterceptionIndication) list;
++	A_SEQUENCE_OF(struct ETSI_ITS_CDD_TrajectoryInterceptionIndication) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_SpecialTransportType.c a/vanetza/asn1/its/ETSI-ITS-CDD_SpecialTransportType.c
+index 4909fb25..022ee0a1 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_SpecialTransportType.c
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_SpecialTransportType.c
+@@ -48,7 +48,7 @@ static asn_oer_constraints_t asn_OER_type_ETSI_ITS_CDD_SpecialTransportType_cons
+ 	4	/* (SIZE(4..4)) */};
+ #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+ #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+-asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_SpecialTransportType_constr_1 CC_NOTUSED = {
++static asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_SpecialTransportType_constr_1 CC_NOTUSED = {
+ 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
+ 	{ APC_CONSTRAINED,	 0,  0,  4,  4 }	/* (SIZE(4..4)) */,
+ 	0, 0	/* No PER value map */
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_SpecialTransportType.h a/vanetza/asn1/its/ETSI-ITS-CDD_SpecialTransportType.h
+index 481ccaf4..e3592c8f 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_SpecialTransportType.h
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_SpecialTransportType.h
+@@ -30,7 +30,6 @@ typedef enum ETSI_ITS_CDD_SpecialTransportType {
+ typedef BIT_STRING_t	 ETSI_ITS_CDD_SpecialTransportType_t;
+ 
+ /* Implementation */
+-extern asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_SpecialTransportType_constr_1;
+ extern asn_TYPE_descriptor_t asn_DEF_ETSI_ITS_CDD_SpecialTransportType;
+ asn_struct_free_f ETSI_ITS_CDD_SpecialTransportType_free;
+ asn_struct_print_f ETSI_ITS_CDD_SpecialTransportType_print;
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_VehicleHeight.c a/vanetza/asn1/its/ETSI-ITS-CDD_VehicleHeight.c
+index bbbc192d..a74302f8 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_VehicleHeight.c
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_VehicleHeight.c
+@@ -42,7 +42,7 @@ static asn_oer_constraints_t asn_OER_type_ETSI_ITS_CDD_VehicleHeight_constr_1 CC
+ 	-1};
+ #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+ #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+-asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_VehicleHeight_constr_1 CC_NOTUSED = {
++static asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_VehicleHeight_constr_1 CC_NOTUSED = {
+ 	{ APC_CONSTRAINED,	 7,  7,  1,  128 }	/* (1..128) */,
+ 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
+ 	0, 0	/* No PER value map */
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_VehicleHeight.h a/vanetza/asn1/its/ETSI-ITS-CDD_VehicleHeight.h
+index 4f4f99fa..110d6586 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_VehicleHeight.h
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_VehicleHeight.h
+@@ -28,7 +28,6 @@ typedef enum ETSI_ITS_CDD_VehicleHeight {
+ typedef long	 ETSI_ITS_CDD_VehicleHeight_t;
+ 
+ /* Implementation */
+-extern asn_per_constraints_t asn_PER_type_ETSI_ITS_CDD_VehicleHeight_constr_1;
+ extern asn_TYPE_descriptor_t asn_DEF_ETSI_ITS_CDD_VehicleHeight;
+ asn_struct_free_f ETSI_ITS_CDD_VehicleHeight_free;
+ asn_struct_print_f ETSI_ITS_CDD_VehicleHeight_print;
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_VehicleLength.c a/vanetza/asn1/its/ETSI-ITS-CDD_VehicleLength.c
+index bf81c11f..d5a9be77 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_VehicleLength.c
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_VehicleLength.c
+@@ -7,7 +7,7 @@
+ 
+ #include "ETSI-ITS-CDD_VehicleLength.h"
+ 
+-asn_TYPE_member_t asn_MBR_ETSI_ITS_CDD_VehicleLength_1[] = {
++static asn_TYPE_member_t asn_MBR_ETSI_ITS_CDD_VehicleLength_1[] = {
+ 	{ ATF_NOFLAGS, 0, offsetof(struct ETSI_ITS_CDD_VehicleLength, vehicleLengthValue),
+ 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
+ 		-1,	/* IMPLICIT tag at current level */
+@@ -50,7 +50,7 @@ static const asn_TYPE_tag2member_t asn_MAP_ETSI_ITS_CDD_VehicleLength_tag2el_1[]
+     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* vehicleLengthValue */
+     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 } /* vehicleLengthConfidenceIndication */
+ };
+-asn_SEQUENCE_specifics_t asn_SPC_ETSI_ITS_CDD_VehicleLength_specs_1 = {
++static asn_SEQUENCE_specifics_t asn_SPC_ETSI_ITS_CDD_VehicleLength_specs_1 = {
+ 	sizeof(struct ETSI_ITS_CDD_VehicleLength),
+ 	offsetof(struct ETSI_ITS_CDD_VehicleLength, _asn_ctx),
+ 	asn_MAP_ETSI_ITS_CDD_VehicleLength_tag2el_1,
+diff --git b/vanetza/asn1/its/ETSI-ITS-CDD_VehicleLength.h a/vanetza/asn1/its/ETSI-ITS-CDD_VehicleLength.h
+index 91ce0b2a..b2e5fefa 100644
+--- b/vanetza/asn1/its/ETSI-ITS-CDD_VehicleLength.h
++++ a/vanetza/asn1/its/ETSI-ITS-CDD_VehicleLength.h
+@@ -31,8 +31,6 @@ typedef struct ETSI_ITS_CDD_VehicleLength {
+ 
+ /* Implementation */
+ extern asn_TYPE_descriptor_t asn_DEF_ETSI_ITS_CDD_VehicleLength;
+-extern asn_SEQUENCE_specifics_t asn_SPC_ETSI_ITS_CDD_VehicleLength_specs_1;
+-extern asn_TYPE_member_t asn_MBR_ETSI_ITS_CDD_VehicleLength_1[2];
+ 
+ #ifdef __cplusplus
+ }
+diff --git b/vanetza/asn1/its/EmergencyContainer.h a/vanetza/asn1/its/EmergencyContainer.h
+index 2c1e529b..2902f6b3 100644
+--- b/vanetza/asn1/its/EmergencyContainer.h
++++ a/vanetza/asn1/its/EmergencyContainer.h
+@@ -21,12 +21,12 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct CauseCode;
++struct ITS_Container_CauseCode;
+ 
+ /* EmergencyContainer */
+ typedef struct EmergencyContainer {
+ 	ITS_Container_LightBarSirenInUse_t	 lightBarSirenInUse;
+-	struct CauseCode	*incidentIndication;	/* OPTIONAL */
++	struct ITS_Container_CauseCode	*incidentIndication;	/* OPTIONAL */
+ 	ITS_Container_EmergencyPriority_t	*emergencyPriority;	/* OPTIONAL */
+ 	
+ 	/* Context for parsing across buffer boundaries */
+diff --git b/vanetza/asn1/its/GeneralizedLanePosition.h a/vanetza/asn1/its/GeneralizedLanePosition.h
+index 8eba875c..a153dccf 100644
+--- b/vanetza/asn1/its/GeneralizedLanePosition.h
++++ a/vanetza/asn1/its/GeneralizedLanePosition.h
+@@ -21,12 +21,12 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct MapPosition;
++struct ETSI_ITS_CDD_MapPosition;
+ 
+ /* GeneralizedLanePosition */
+ typedef struct GeneralizedLanePosition {
+ 	LanePositionOptions_t	 lanePositionBased;
+-	struct MapPosition	*mapBased;	/* OPTIONAL */
++	struct ETSI_ITS_CDD_MapPosition	*mapBased;	/* OPTIONAL */
+ 	MetaInformation_t	 confidence;
+ 	/*
+ 	 * This type is extensible,
+diff --git b/vanetza/asn1/its/GeographicLocationContainer.h a/vanetza/asn1/its/GeographicLocationContainer.h
+index 137d8e93..201f89a8 100644
+--- b/vanetza/asn1/its/GeographicLocationContainer.h
++++ a/vanetza/asn1/its/GeographicLocationContainer.h
+@@ -22,15 +22,15 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct Heading;
+-struct Speed;
++struct ITS_Container_Heading;
++struct ITS_Container_Speed;
+ 
+ /* GeographicLocationContainer */
+ typedef struct GeographicLocationContainer {
+ 	ITS_Container_ReferencePosition_t	 referencePosition;
+ 	ITS_Container_TimestampIts_t	*referencePositionTime;	/* OPTIONAL */
+-	struct Heading	*referencePositionHeading;	/* OPTIONAL */
+-	struct Speed	*referencePositionSpeed;	/* OPTIONAL */
++	struct ITS_Container_Heading	*referencePositionHeading;	/* OPTIONAL */
++	struct ITS_Container_Speed	*referencePositionSpeed;	/* OPTIONAL */
+ 	GlcParts_t	 parts;
+ 	/*
+ 	 * This type is extensible,
+diff --git b/vanetza/asn1/its/GicPart.h a/vanetza/asn1/its/GicPart.h
+index f6b4bd0f..7939edf8 100644
+--- b/vanetza/asn1/its/GicPart.h
++++ a/vanetza/asn1/its/GicPart.h
+@@ -27,7 +27,7 @@ extern "C" {
+ 
+ /* Forward declarations */
+ struct ZoneIds;
+-struct VarLengthNumber;
++struct CITSapplMgmtIDs_VarLengthNumber;
+ struct LanePositions;
+ struct VehicleCharacteristicsList;
+ struct ConstraintTextLines1;
+@@ -35,7 +35,7 @@ struct ConstraintTextLines1;
+ /* GicPart */
+ typedef struct GicPart {
+ 	struct ZoneIds	*detectionZoneIds;	/* OPTIONAL */
+-	struct VarLengthNumber	*its_Rrid;	/* OPTIONAL */
++	struct CITSapplMgmtIDs_VarLengthNumber	*its_Rrid;	/* OPTIONAL */
+ 	struct ZoneIds	*relevanceZoneIds;	/* OPTIONAL */
+ 	IVI_Direction_t	*direction;	/* OPTIONAL */
+ 	struct ZoneIds	*driverAwarenessZoneIds;	/* OPTIONAL */
+diff --git b/vanetza/asn1/its/IMZM-PDU-Descriptions_InterferenceManagementInfo.h a/vanetza/asn1/its/IMZM-PDU-Descriptions_InterferenceManagementInfo.h
+index bd3c946e..9ecee342 100644
+--- b/vanetza/asn1/its/IMZM-PDU-Descriptions_InterferenceManagementInfo.h
++++ a/vanetza/asn1/its/IMZM-PDU-Descriptions_InterferenceManagementInfo.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct InterferenceManagementInfoPerChannel;
++struct IMZM_PDU_Descriptions_InterferenceManagementInfoPerChannel;
+ 
+ /* IMZM-PDU-Descriptions_InterferenceManagementInfo */
+ typedef struct IMZM_PDU_Descriptions_InterferenceManagementInfo {
+-	A_SEQUENCE_OF(struct InterferenceManagementInfoPerChannel) list;
++	A_SEQUENCE_OF(struct IMZM_PDU_Descriptions_InterferenceManagementInfoPerChannel) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/IMZM-PDU-Descriptions_InterferenceManagementZones.h a/vanetza/asn1/its/IMZM-PDU-Descriptions_InterferenceManagementZones.h
+index 51cdf17a..73a8b84d 100644
+--- b/vanetza/asn1/its/IMZM-PDU-Descriptions_InterferenceManagementZones.h
++++ a/vanetza/asn1/its/IMZM-PDU-Descriptions_InterferenceManagementZones.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct InterferenceManagementZone;
++struct IMZM_PDU_Descriptions_InterferenceManagementZone;
+ 
+ /* IMZM-PDU-Descriptions_InterferenceManagementZones */
+ typedef struct IMZM_PDU_Descriptions_InterferenceManagementZones {
+-	A_SEQUENCE_OF(struct InterferenceManagementZone) list;
++	A_SEQUENCE_OF(struct IMZM_PDU_Descriptions_InterferenceManagementZone) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/IMZM-PDU-Descriptions_MitigationForTechnologies.h a/vanetza/asn1/its/IMZM-PDU-Descriptions_MitigationForTechnologies.h
+index 53b69f44..54370487 100644
+--- b/vanetza/asn1/its/IMZM-PDU-Descriptions_MitigationForTechnologies.h
++++ a/vanetza/asn1/its/IMZM-PDU-Descriptions_MitigationForTechnologies.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct MitigationPerTechnologyClass;
++struct IMZM_PDU_Descriptions_MitigationPerTechnologyClass;
+ 
+ /* IMZM-PDU-Descriptions_MitigationForTechnologies */
+ typedef struct IMZM_PDU_Descriptions_MitigationForTechnologies {
+-	A_SEQUENCE_OF(struct MitigationPerTechnologyClass) list;
++	A_SEQUENCE_OF(struct IMZM_PDU_Descriptions_MitigationPerTechnologyClass) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/ITS-Container_DigitalMap.h a/vanetza/asn1/its/ITS-Container_DigitalMap.h
+index d56f2dd8..7959daef 100644
+--- b/vanetza/asn1/its/ITS-Container_DigitalMap.h
++++ a/vanetza/asn1/its/ITS-Container_DigitalMap.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct ReferencePosition;
++struct ITS_Container_ReferencePosition;
+ 
+ /* ITS-Container_DigitalMap */
+ typedef struct ITS_Container_DigitalMap {
+-	A_SEQUENCE_OF(struct ReferencePosition) list;
++	A_SEQUENCE_OF(struct ITS_Container_ReferencePosition) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/ITS-Container_EventHistory.h a/vanetza/asn1/its/ITS-Container_EventHistory.h
+index 2b602994..fd8656e1 100644
+--- b/vanetza/asn1/its/ITS-Container_EventHistory.h
++++ a/vanetza/asn1/its/ITS-Container_EventHistory.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct EventPoint;
++struct ITS_Container_EventPoint;
+ 
+ /* ITS-Container_EventHistory */
+ typedef struct ITS_Container_EventHistory {
+-	A_SEQUENCE_OF(struct EventPoint) list;
++	A_SEQUENCE_OF(struct ITS_Container_EventPoint) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/ITS-Container_ItineraryPath.h a/vanetza/asn1/its/ITS-Container_ItineraryPath.h
+index e9158c33..94258763 100644
+--- b/vanetza/asn1/its/ITS-Container_ItineraryPath.h
++++ a/vanetza/asn1/its/ITS-Container_ItineraryPath.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct ReferencePosition;
++struct ITS_Container_ReferencePosition;
+ 
+ /* ITS-Container_ItineraryPath */
+ typedef struct ITS_Container_ItineraryPath {
+-	A_SEQUENCE_OF(struct ReferencePosition) list;
++	A_SEQUENCE_OF(struct ITS_Container_ReferencePosition) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/ITS-Container_PathHistory.h a/vanetza/asn1/its/ITS-Container_PathHistory.h
+index 5de3b744..25cc7dcd 100644
+--- b/vanetza/asn1/its/ITS-Container_PathHistory.h
++++ a/vanetza/asn1/its/ITS-Container_PathHistory.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct PathPoint;
++struct ITS_Container_PathPoint;
+ 
+ /* ITS-Container_PathHistory */
+ typedef struct ITS_Container_PathHistory {
+-	A_SEQUENCE_OF(struct PathPoint) list;
++	A_SEQUENCE_OF(struct ITS_Container_PathPoint) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/ITS-Container_ProtectedCommunicationZonesRSU.h a/vanetza/asn1/its/ITS-Container_ProtectedCommunicationZonesRSU.h
+index ab1278cf..e5bd354b 100644
+--- b/vanetza/asn1/its/ITS-Container_ProtectedCommunicationZonesRSU.h
++++ a/vanetza/asn1/its/ITS-Container_ProtectedCommunicationZonesRSU.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct ProtectedCommunicationZone;
++struct ITS_Container_ProtectedCommunicationZone;
+ 
+ /* ITS-Container_ProtectedCommunicationZonesRSU */
+ typedef struct ITS_Container_ProtectedCommunicationZonesRSU {
+-	A_SEQUENCE_OF(struct ProtectedCommunicationZone) list;
++	A_SEQUENCE_OF(struct ITS_Container_ProtectedCommunicationZone) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/ITS-Container_Traces.h a/vanetza/asn1/its/ITS-Container_Traces.h
+index 79a79b04..4341f26d 100644
+--- b/vanetza/asn1/its/ITS-Container_Traces.h
++++ a/vanetza/asn1/its/ITS-Container_Traces.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct PathHistory;
++struct ITS_Container_PathHistory;
+ 
+ /* ITS-Container_Traces */
+ typedef struct ITS_Container_Traces {
+-	A_SEQUENCE_OF(struct PathHistory) list;
++	A_SEQUENCE_OF(struct ITS_Container_PathHistory) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/ItsChargingStationData.h a/vanetza/asn1/its/ItsChargingStationData.h
+index 781bd997..34ca186b 100644
+--- b/vanetza/asn1/its/ItsChargingStationData.h
++++ a/vanetza/asn1/its/ItsChargingStationData.h
+@@ -24,7 +24,7 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct DigitalMap;
++struct ITS_Container_DigitalMap;
+ 
+ /* ItsChargingStationData */
+ typedef struct ItsChargingStationData {
+@@ -35,7 +35,7 @@ typedef struct ItsChargingStationData {
+ 	UTF8String_t	*address;	/* OPTIONAL */
+ 	NumericString_t	*phoneNumber;	/* OPTIONAL */
+ 	UTF8String_t	 accessibility;
+-	struct DigitalMap	*digitalMap;	/* OPTIONAL */
++	struct ITS_Container_DigitalMap	*digitalMap;	/* OPTIONAL */
+ 	UTF8String_t	 openingDaysHours;
+ 	UTF8String_t	 pricing;
+ 	UTF8String_t	*bookingContactInfo;	/* OPTIONAL */
+diff --git b/vanetza/asn1/its/LocationContainer.h a/vanetza/asn1/its/LocationContainer.h
+index f4e4be19..9d875521 100644
+--- b/vanetza/asn1/its/LocationContainer.h
++++ a/vanetza/asn1/its/LocationContainer.h
+@@ -21,13 +21,13 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct Speed;
+-struct Heading;
++struct ITS_Container_Speed;
++struct ITS_Container_Heading;
+ 
+ /* LocationContainer */
+ typedef struct LocationContainer {
+-	struct Speed	*eventSpeed;	/* OPTIONAL */
+-	struct Heading	*eventPositionHeading;	/* OPTIONAL */
++	struct ITS_Container_Speed	*eventSpeed;	/* OPTIONAL */
++	struct ITS_Container_Heading	*eventPositionHeading;	/* OPTIONAL */
+ 	ITS_Container_Traces_t	 traces;
+ 	ITS_Container_RoadType_t	*roadType;	/* OPTIONAL */
+ 	/*
+diff --git b/vanetza/asn1/its/MapReferences.h a/vanetza/asn1/its/MapReferences.h
+index e1e37a4c..1e2ba280 100644
+--- b/vanetza/asn1/its/MapReferences.h
++++ a/vanetza/asn1/its/MapReferences.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct MapReference;
++struct ETSI_ITS_CDD_MapReference;
+ 
+ /* MapReferences */
+ typedef struct MapReferences {
+-	A_SEQUENCE_OF(struct MapReference) list;
++	A_SEQUENCE_OF(struct ETSI_ITS_CDD_MapReference) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/MapemElementReference.h a/vanetza/asn1/its/MapemElementReference.h
+index 4043a647..f8140fa7 100644
+--- b/vanetza/asn1/its/MapemElementReference.h
++++ a/vanetza/asn1/its/MapemElementReference.h
+@@ -19,13 +19,13 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct MapReference;
++struct ETSI_ITS_CDD_MapReference;
+ struct MapemLaneList;
+ struct MapemConnectionList;
+ 
+ /* MapemElementReference */
+ typedef struct MapemElementReference {
+-	struct MapReference	*mapReference;	/* OPTIONAL */
++	struct ETSI_ITS_CDD_MapReference	*mapReference;	/* OPTIONAL */
+ 	struct MapemLaneList	*laneIds;	/* OPTIONAL */
+ 	struct MapemConnectionList	*connectionIds;	/* OPTIONAL */
+ 	/*
+diff --git b/vanetza/asn1/its/OccupiedLanesWithConfidence.h a/vanetza/asn1/its/OccupiedLanesWithConfidence.h
+index ddbce32d..d53306cd 100644
+--- b/vanetza/asn1/its/OccupiedLanesWithConfidence.h
++++ a/vanetza/asn1/its/OccupiedLanesWithConfidence.h
+@@ -23,7 +23,7 @@ extern "C" {
+ 
+ /* Forward declarations */
+ struct LanePositionOptions;
+-struct MapPosition;
++struct ETSI_ITS_CDD_MapPosition;
+ 
+ /* OccupiedLanesWithConfidence */
+ typedef struct OccupiedLanesWithConfidence {
+@@ -34,7 +34,7 @@ typedef struct OccupiedLanesWithConfidence {
+ 		asn_struct_ctx_t _asn_ctx;
+ 	} lanePositionBased;
+ 	struct OccupiedLanesWithConfidence__mapBased {
+-		A_SEQUENCE_OF(struct MapPosition) list;
++		A_SEQUENCE_OF(struct ETSI_ITS_CDD_MapPosition) list;
+ 		
+ 		/* Context for parsing across buffer boundaries */
+ 		asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/OriginatingRsuContainer.h a/vanetza/asn1/its/OriginatingRsuContainer.h
+index f429dd75..708abfd9 100644
+--- b/vanetza/asn1/its/OriginatingRsuContainer.h
++++ a/vanetza/asn1/its/OriginatingRsuContainer.h
+@@ -19,11 +19,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct MapReference;
++struct ETSI_ITS_CDD_MapReference;
+ 
+ /* OriginatingRsuContainer */
+ typedef struct OriginatingRsuContainer {
+-	struct MapReference	*mapReference;	/* OPTIONAL */
++	struct ETSI_ITS_CDD_MapReference	*mapReference;	/* OPTIONAL */
+ 	/*
+ 	 * This type is extensible,
+ 	 * possible extensions are below.
+diff --git b/vanetza/asn1/its/Path.h a/vanetza/asn1/its/Path.h
+index a7f7a3c6..b9e77ba5 100644
+--- b/vanetza/asn1/its/Path.h
++++ a/vanetza/asn1/its/Path.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct PathPoint;
++struct ETSI_ITS_CDD_PathPoint;
+ 
+ /* Path */
+ typedef struct Path {
+-	A_SEQUENCE_OF(struct PathPoint) list;
++	A_SEQUENCE_OF(struct ETSI_ITS_CDD_PathPoint) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/PathPointPredicted.h a/vanetza/asn1/its/PathPointPredicted.h
+index d59c93cb..ba010d81 100644
+--- b/vanetza/asn1/its/PathPointPredicted.h
++++ a/vanetza/asn1/its/PathPointPredicted.h
+@@ -24,14 +24,14 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct PosConfidenceEllipse;
++struct ETSI_ITS_CDD_PosConfidenceEllipse;
+ struct PathDeltaTimeChoice;
+ 
+ /* PathPointPredicted */
+ typedef struct PathPointPredicted {
+ 	ETSI_ITS_CDD_DeltaLatitude_t	 deltaLatitude;
+ 	ETSI_ITS_CDD_DeltaLongitude_t	 deltaLongitude;
+-	struct PosConfidenceEllipse	*horizontalPositionConfidence;	/* OPTIONAL */
++	struct ETSI_ITS_CDD_PosConfidenceEllipse	*horizontalPositionConfidence;	/* OPTIONAL */
+ 	ETSI_ITS_CDD_DeltaAltitude_t	*deltaAltitude;	/* DEFAULT 12800 */
+ 	ETSI_ITS_CDD_AltitudeConfidence_t	*altitudeConfidence;	/* DEFAULT 15 */
+ 	struct PathDeltaTimeChoice	*pathDeltaTime;	/* OPTIONAL */
+diff --git b/vanetza/asn1/its/PerceivedObject.h a/vanetza/asn1/its/PerceivedObject.h
+index 51e625c2..b678d61c 100644
+--- b/vanetza/asn1/its/PerceivedObject.h
++++ a/vanetza/asn1/its/PerceivedObject.h
+@@ -50,7 +50,7 @@ typedef struct PerceivedObject {
+ 	ObjectPerceptionQuality_t	*objectPerceptionQuality;	/* OPTIONAL */
+ 	struct SequenceOfIdentifier1B	*sensorIdList;	/* OPTIONAL */
+ 	struct ObjectClassDescription	*classification;	/* OPTIONAL */
+-	struct MapPosition	*mapPosition;	/* OPTIONAL */
++	struct ETSI_ITS_CDD_MapPosition	*mapPosition;	/* OPTIONAL */
+ 	/*
+ 	 * This type is extensible,
+ 	 * possible extensions are below.
+diff --git b/vanetza/asn1/its/PublicTransportContainer.h a/vanetza/asn1/its/PublicTransportContainer.h
+index 02ea32ae..bb28377e 100644
+--- b/vanetza/asn1/its/PublicTransportContainer.h
++++ a/vanetza/asn1/its/PublicTransportContainer.h
+@@ -20,12 +20,12 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct PtActivation;
++struct ITS_Container_PtActivation;
+ 
+ /* PublicTransportContainer */
+ typedef struct PublicTransportContainer {
+ 	ITS_Container_EmbarkationStatus_t	 embarkationStatus;
+-	struct PtActivation	*ptActivation;	/* OPTIONAL */
++	struct ITS_Container_PtActivation	*ptActivation;	/* OPTIONAL */
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/RSUContainerHighFrequency.h a/vanetza/asn1/its/RSUContainerHighFrequency.h
+index 130ceef2..9c538794 100644
+--- b/vanetza/asn1/its/RSUContainerHighFrequency.h
++++ a/vanetza/asn1/its/RSUContainerHighFrequency.h
+@@ -19,11 +19,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct ProtectedCommunicationZonesRSU;
++struct ITS_Container_ProtectedCommunicationZonesRSU;
+ 
+ /* RSUContainerHighFrequency */
+ typedef struct RSUContainerHighFrequency {
+-	struct ProtectedCommunicationZonesRSU	*protectedCommunicationZonesRSU;	/* OPTIONAL */
++	struct ITS_Container_ProtectedCommunicationZonesRSU	*protectedCommunicationZonesRSU;	/* OPTIONAL */
+ 	/*
+ 	 * This type is extensible,
+ 	 * possible extensions are below.
+diff --git b/vanetza/asn1/its/ReferenceDenms.h a/vanetza/asn1/its/ReferenceDenms.h
+index 2f0405ac..7c951947 100644
+--- b/vanetza/asn1/its/ReferenceDenms.h
++++ a/vanetza/asn1/its/ReferenceDenms.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct ActionID;
++struct ITS_Container_ActionID;
+ 
+ /* ReferenceDenms */
+ typedef struct ReferenceDenms {
+-	A_SEQUENCE_OF(struct ActionID) list;
++	A_SEQUENCE_OF(struct ITS_Container_ActionID) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/RoadWorksContainerBasic.h a/vanetza/asn1/its/RoadWorksContainerBasic.h
+index 76bdc7af..51ed3109 100644
+--- b/vanetza/asn1/its/RoadWorksContainerBasic.h
++++ a/vanetza/asn1/its/RoadWorksContainerBasic.h
+@@ -21,13 +21,13 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct ClosedLanes;
++struct ITS_Container_ClosedLanes;
+ 
+ /* RoadWorksContainerBasic */
+ typedef struct RoadWorksContainerBasic {
+ 	ITS_Container_RoadworksSubCauseCode_t	*roadworksSubCauseCode;	/* OPTIONAL */
+ 	ITS_Container_LightBarSirenInUse_t	 lightBarSirenInUse;
+-	struct ClosedLanes	*closedLanes;	/* OPTIONAL */
++	struct ITS_Container_ClosedLanes	*closedLanes;	/* OPTIONAL */
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/RoadWorksContainerExtended.h a/vanetza/asn1/its/RoadWorksContainerExtended.h
+index 3852548a..5c214e2e 100644
+--- b/vanetza/asn1/its/RoadWorksContainerExtended.h
++++ a/vanetza/asn1/its/RoadWorksContainerExtended.h
+@@ -22,22 +22,22 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct ClosedLanes;
+-struct RestrictedTypes;
+-struct CauseCode;
+-struct ItineraryPath;
+-struct DeltaReferencePosition;
++struct ITS_Container_ClosedLanes;
++struct ITS_Container_RestrictedTypes;
++struct ITS_Container_CauseCode;
++struct ITS_Container_ItineraryPath;
++struct ITS_Container_DeltaReferencePosition;
+ struct ReferenceDenms;
+ 
+ /* RoadWorksContainerExtended */
+ typedef struct RoadWorksContainerExtended {
+ 	ITS_Container_LightBarSirenInUse_t	*lightBarSirenInUse;	/* OPTIONAL */
+-	struct ClosedLanes	*closedLanes;	/* OPTIONAL */
+-	struct RestrictedTypes	*restriction;	/* OPTIONAL */
++	struct ITS_Container_ClosedLanes	*closedLanes;	/* OPTIONAL */
++	struct ITS_Container_RestrictedTypes	*restriction;	/* OPTIONAL */
+ 	ITS_Container_SpeedLimit_t	*speedLimit;	/* OPTIONAL */
+-	struct CauseCode	*incidentIndication;	/* OPTIONAL */
+-	struct ItineraryPath	*recommendedPath;	/* OPTIONAL */
+-	struct DeltaReferencePosition	*startingPointSpeedLimit;	/* OPTIONAL */
++	struct ITS_Container_CauseCode	*incidentIndication;	/* OPTIONAL */
++	struct ITS_Container_ItineraryPath	*recommendedPath;	/* OPTIONAL */
++	struct ITS_Container_DeltaReferencePosition	*startingPointSpeedLimit;	/* OPTIONAL */
+ 	ITS_Container_TrafficRule_t	*trafficFlowRule;	/* OPTIONAL */
+ 	struct ReferenceDenms	*referenceDenms;	/* OPTIONAL */
+ 	
+diff --git b/vanetza/asn1/its/SafetyCarContainer.h a/vanetza/asn1/its/SafetyCarContainer.h
+index d50479d3..739bb95a 100644
+--- b/vanetza/asn1/its/SafetyCarContainer.h
++++ a/vanetza/asn1/its/SafetyCarContainer.h
+@@ -22,12 +22,12 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct CauseCode;
++struct ITS_Container_CauseCode;
+ 
+ /* SafetyCarContainer */
+ typedef struct SafetyCarContainer {
+ 	ITS_Container_LightBarSirenInUse_t	 lightBarSirenInUse;
+-	struct CauseCode	*incidentIndication;	/* OPTIONAL */
++	struct ITS_Container_CauseCode	*incidentIndication;	/* OPTIONAL */
+ 	ITS_Container_TrafficRule_t	*trafficRule;	/* OPTIONAL */
+ 	ITS_Container_SpeedLimit_t	*speedLimit;	/* OPTIONAL */
+ 	
+diff --git b/vanetza/asn1/its/SituationContainer.h a/vanetza/asn1/its/SituationContainer.h
+index 02f5c39d..dbe4b0f7 100644
+--- b/vanetza/asn1/its/SituationContainer.h
++++ a/vanetza/asn1/its/SituationContainer.h
+@@ -21,15 +21,15 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct CauseCode;
+-struct EventHistory;
++struct ITS_Container_CauseCode;
++struct ITS_Container_EventHistory;
+ 
+ /* SituationContainer */
+ typedef struct SituationContainer {
+ 	ITS_Container_InformationQuality_t	 informationQuality;
+ 	ITS_Container_CauseCode_t	 eventType;
+-	struct CauseCode	*linkedCause;	/* OPTIONAL */
+-	struct EventHistory	*eventHistory;	/* OPTIONAL */
++	struct ITS_Container_CauseCode	*linkedCause;	/* OPTIONAL */
++	struct ITS_Container_EventHistory	*eventHistory;	/* OPTIONAL */
+ 	/*
+ 	 * This type is extensible,
+ 	 * possible extensions are below.
+diff --git b/vanetza/asn1/its/StationaryVehicleContainer.h a/vanetza/asn1/its/StationaryVehicleContainer.h
+index a4339d47..7050ddcf 100644
+--- b/vanetza/asn1/its/StationaryVehicleContainer.h
++++ a/vanetza/asn1/its/StationaryVehicleContainer.h
+@@ -22,17 +22,17 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct CauseCode;
+-struct DangerousGoodsExtended;
+-struct VehicleIdentification;
++struct ITS_Container_CauseCode;
++struct ITS_Container_DangerousGoodsExtended;
++struct ITS_Container_VehicleIdentification;
+ 
+ /* StationaryVehicleContainer */
+ typedef struct StationaryVehicleContainer {
+ 	ITS_Container_StationarySince_t	*stationarySince;	/* OPTIONAL */
+-	struct CauseCode	*stationaryCause;	/* OPTIONAL */
+-	struct DangerousGoodsExtended	*carryingDangerousGoods;	/* OPTIONAL */
++	struct ITS_Container_CauseCode	*stationaryCause;	/* OPTIONAL */
++	struct ITS_Container_DangerousGoodsExtended	*carryingDangerousGoods;	/* OPTIONAL */
+ 	ITS_Container_NumberOfOccupants_t	*numberOfOccupants;	/* OPTIONAL */
+-	struct VehicleIdentification	*vehicleIdentification;	/* OPTIONAL */
++	struct ITS_Container_VehicleIdentification	*vehicleIdentification;	/* OPTIONAL */
+ 	ITS_Container_EnergyStorageType_t	*energyStorageType;	/* OPTIONAL */
+ 	
+ 	/* Context for parsing across buffer boundaries */
+diff --git b/vanetza/asn1/its/TisTpgDRM-Location.h a/vanetza/asn1/its/TisTpgDRM-Location.h
+index 1298719e..03ed85c3 100644
+--- b/vanetza/asn1/its/TisTpgDRM-Location.h
++++ a/vanetza/asn1/its/TisTpgDRM-Location.h
+@@ -24,14 +24,14 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct ReferencePosition;
++struct ITS_Container_ReferencePosition;
+ 
+ /* TisTpgDRM-Location */
+ typedef struct TisTpgDRM_Location {
+ 	ITS_Container_ReferencePosition_t	 vehiclePosition;
+ 	ITS_Container_Speed_t	 vehicleSpeed;
+ 	ITS_Container_Heading_t	 vehicleHeading;
+-	struct ReferencePosition	*requestedPosition;	/* OPTIONAL */
++	struct ITS_Container_ReferencePosition	*requestedPosition;	/* OPTIONAL */
+ 	SearchRange_t	*searchRange;	/* OPTIONAL */
+ 	SearchCondition_t	*searchCondition;	/* OPTIONAL */
+ 	/*
+diff --git b/vanetza/asn1/its/TisTpgTCM-Location.h a/vanetza/asn1/its/TisTpgTCM-Location.h
+index 4df76e43..7e1cf9f4 100644
+--- b/vanetza/asn1/its/TisTpgTCM-Location.h
++++ a/vanetza/asn1/its/TisTpgTCM-Location.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct ReferencePosition;
++struct ITS_Container_ReferencePosition;
+ 
+ /* TisTpgTCM-Location */
+ typedef struct TisTpgTCM_Location {
+-	struct ReferencePosition	*tpgLocation;	/* OPTIONAL */
++	struct ITS_Container_ReferencePosition	*tpgLocation;	/* OPTIONAL */
+ 	UTF8String_t	*address;	/* OPTIONAL */
+ 	/*
+ 	 * This type is extensible,
+diff --git b/vanetza/asn1/its/TpgStationData.h a/vanetza/asn1/its/TpgStationData.h
+index 0a107713..50e7f57c 100644
+--- b/vanetza/asn1/its/TpgStationData.h
++++ a/vanetza/asn1/its/TpgStationData.h
+@@ -31,7 +31,7 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct DigitalMap;
++struct ITS_Container_DigitalMap;
+ 
+ /* TpgStationData */
+ typedef struct TpgStationData {
+@@ -43,7 +43,7 @@ typedef struct TpgStationData {
+ 	Accessibility_t	 accessibility;
+ 	UTF8String_t	*address;	/* OPTIONAL */
+ 	ITS_Container_PhoneNumber_t	*phoneNumber;	/* OPTIONAL */
+-	struct DigitalMap	*digitalMap;	/* OPTIONAL */
++	struct ITS_Container_DigitalMap	*digitalMap;	/* OPTIONAL */
+ 	ITS_Container_OpeningDaysHours_t	*openingDaysHours;	/* OPTIONAL */
+ 	BookingInfo_t	*bookingInfo;	/* OPTIONAL */
+ 	AvailableTpgNumber_t	*availableTpgNumber;	/* OPTIONAL */
+diff --git b/vanetza/asn1/its/TrailerCharacteristicsList.h a/vanetza/asn1/its/TrailerCharacteristicsList.h
+index 5409cf32..29736566 100644
+--- b/vanetza/asn1/its/TrailerCharacteristicsList.h
++++ a/vanetza/asn1/its/TrailerCharacteristicsList.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct TrailerCharacteristics;
++struct IVI_TrailerCharacteristics;
+ 
+ /* TrailerCharacteristicsList */
+ typedef struct TrailerCharacteristicsList {
+-	A_SEQUENCE_OF(struct TrailerCharacteristics) list;
++	A_SEQUENCE_OF(struct IVI_TrailerCharacteristics) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/Trajectory.h a/vanetza/asn1/its/Trajectory.h
+index 6d7ddeae..93b4cdd8 100644
+--- b/vanetza/asn1/its/Trajectory.h
++++ a/vanetza/asn1/its/Trajectory.h
+@@ -18,22 +18,22 @@
+ #include "ETSI-ITS-CDD_Longitude.h"
+ #include "ETSI-ITS-CDD_Latitude.h"
+ #include "constr_SEQUENCE.h"
++#include "WayPoint.h"
++#include "ETSI-ITS-CDD_Altitude.h"
++#include "Wgs84Angle.h"
++#include "ETSI-ITS-CDD_Speed.h"
+ 
+ #ifdef __cplusplus
+ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct WayPoint;
+-struct Altitude;
+-struct Wgs84Angle;
+-struct Speed;
+ 
+ /* Trajectory */
+ typedef struct Trajectory {
+ 	WayPointType_t	 wayPointType;
+ 	struct Trajectory__wayPoints {
+-		A_SEQUENCE_OF(struct WayPoint) list;
++		A_SEQUENCE_OF(WayPoint_t) list;
+ 		
+ 		/* Context for parsing across buffer boundaries */
+ 		asn_struct_ctx_t _asn_ctx;
+@@ -51,19 +51,19 @@ typedef struct Trajectory {
+ 		asn_struct_ctx_t _asn_ctx;
+ 	} *latitudePositions;
+ 	struct Trajectory__altitudePositions {
+-		A_SEQUENCE_OF(struct Altitude) list;
++		A_SEQUENCE_OF(ETSI_ITS_CDD_Altitude_t) list;
+ 		
+ 		/* Context for parsing across buffer boundaries */
+ 		asn_struct_ctx_t _asn_ctx;
+ 	} *altitudePositions;
+ 	struct Trajectory__headings {
+-		A_SEQUENCE_OF(struct Wgs84Angle) list;
++		A_SEQUENCE_OF(Wgs84Angle_t) list;
+ 		
+ 		/* Context for parsing across buffer boundaries */
+ 		asn_struct_ctx_t _asn_ctx;
+ 	} *headings;
+ 	struct Trajectory__speed {
+-		A_SEQUENCE_OF(struct Speed) list;
++		A_SEQUENCE_OF(ETSI_ITS_CDD_Speed_t) list;
+ 		
+ 		/* Context for parsing across buffer boundaries */
+ 		asn_struct_ctx_t _asn_ctx;
+@@ -83,10 +83,6 @@ extern asn_TYPE_member_t asn_MBR_Trajectory_1[7];
+ #endif
+ 
+ /* Referred external types */
+-#include "WayPoint.h"
+-#include "ETSI-ITS-CDD_Altitude.h"
+-#include "Wgs84Angle.h"
+-#include "ETSI-ITS-CDD_Speed.h"
+ 
+ #endif	/* _Trajectory_H_ */
+ #include "asn_internal.h"
+diff --git b/vanetza/asn1/its/TrrDescription.h a/vanetza/asn1/its/TrrDescription.h
+index 3caf8819..fc080553 100644
+--- b/vanetza/asn1/its/TrrDescription.h
++++ a/vanetza/asn1/its/TrrDescription.h
+@@ -19,14 +19,14 @@
+ #include "asn_SEQUENCE_OF.h"
+ #include "constr_SEQUENCE_OF.h"
+ #include "constr_SEQUENCE.h"
++#include "WayPoint.h"
++#include "Wgs84Angle.h"
+ 
+ #ifdef __cplusplus
+ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct WayPoint;
+-struct Wgs84Angle;
+ 
+ /* TrrDescription */
+ typedef struct TrrDescription {
+@@ -35,13 +35,13 @@ typedef struct TrrDescription {
+ 	LaneCount_t	*startingLaneNumber;	/* OPTIONAL */
+ 	LaneCount_t	*endingLaneNumber;	/* OPTIONAL */
+ 	struct TrrDescription__waypoints {
+-		A_SEQUENCE_OF(struct WayPoint) list;
++		A_SEQUENCE_OF(WayPoint_t) list;
+ 		
+ 		/* Context for parsing across buffer boundaries */
+ 		asn_struct_ctx_t _asn_ctx;
+ 	} *waypoints;
+ 	struct TrrDescription__heading {
+-		A_SEQUENCE_OF(struct Wgs84Angle) list;
++		A_SEQUENCE_OF(Wgs84Angle_t) list;
+ 		
+ 		/* Context for parsing across buffer boundaries */
+ 		asn_struct_ctx_t _asn_ctx;
+@@ -63,8 +63,6 @@ extern asn_TYPE_member_t asn_MBR_TrrDescription_1[8];
+ #endif
+ 
+ /* Referred external types */
+-#include "WayPoint.h"
+-#include "Wgs84Angle.h"
+ 
+ #endif	/* _TrrDescription_H_ */
+ #include "asn_internal.h"
+diff --git b/vanetza/asn1/its/VAM-PDU-Descriptions_SequenceOfTrajectoryInterceptionIndication.h a/vanetza/asn1/its/VAM-PDU-Descriptions_SequenceOfTrajectoryInterceptionIndication.h
+index 246152d3..8f277058 100644
+--- b/vanetza/asn1/its/VAM-PDU-Descriptions_SequenceOfTrajectoryInterceptionIndication.h
++++ a/vanetza/asn1/its/VAM-PDU-Descriptions_SequenceOfTrajectoryInterceptionIndication.h
+@@ -20,11 +20,11 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct TrajectoryInterceptionIndication;
++struct VAM_PDU_Descriptions_TrajectoryInterceptionIndication;
+ 
+ /* VAM-PDU-Descriptions_SequenceOfTrajectoryInterceptionIndication */
+ typedef struct VAM_PDU_Descriptions_SequenceOfTrajectoryInterceptionIndication {
+-	A_SEQUENCE_OF(struct TrajectoryInterceptionIndication) list;
++	A_SEQUENCE_OF(struct VAM_PDU_Descriptions_TrajectoryInterceptionIndication) list;
+ 	
+ 	/* Context for parsing across buffer boundaries */
+ 	asn_struct_ctx_t _asn_ctx;
+diff --git b/vanetza/asn1/its/VruClusterOperationContainer.h a/vanetza/asn1/its/VruClusterOperationContainer.h
+index 50afeb3a..3a7d75e1 100644
+--- b/vanetza/asn1/its/VruClusterOperationContainer.h
++++ a/vanetza/asn1/its/VruClusterOperationContainer.h
+@@ -20,15 +20,15 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct ClusterJoinInfo;
+-struct ClusterLeaveInfo;
+-struct ClusterBreakupInfo;
++struct VAM_PDU_Descriptions_ClusterJoinInfo;
++struct VAM_PDU_Descriptions_ClusterLeaveInfo;
++struct VAM_PDU_Descriptions_ClusterBreakupInfo;
+ 
+ /* VruClusterOperationContainer */
+ typedef struct VruClusterOperationContainer {
+-	struct ClusterJoinInfo	*clusterJoinInfo;	/* OPTIONAL */
+-	struct ClusterLeaveInfo	*clusterLeaveInfo;	/* OPTIONAL */
+-	struct ClusterBreakupInfo	*clusterBreakupInfo;	/* OPTIONAL */
++	struct VAM_PDU_Descriptions_ClusterJoinInfo	*clusterJoinInfo;	/* OPTIONAL */
++	struct VAM_PDU_Descriptions_ClusterLeaveInfo	*clusterLeaveInfo;	/* OPTIONAL */
++	struct VAM_PDU_Descriptions_ClusterBreakupInfo	*clusterBreakupInfo;	/* OPTIONAL */
+ 	VruClusterOpTimestamp_t	*clusterIdChangeTimeInfo;	/* OPTIONAL */
+ 	/*
+ 	 * This type is extensible,
+diff --git b/vanetza/asn1/its/VruHighFrequencyContainer.h a/vanetza/asn1/its/VruHighFrequencyContainer.h
+index 1f55f931..3d8ed9f9 100644
+--- b/vanetza/asn1/its/VruHighFrequencyContainer.h
++++ a/vanetza/asn1/its/VruHighFrequencyContainer.h
+@@ -20,35 +20,35 @@
+ #include "VAM-PDU-Descriptions_VruMovementControl.h"
+ #include "VAM-PDU-Descriptions_VruDeviceUsage.h"
+ #include "constr_SEQUENCE.h"
++#include "VruOrientation.h"
++#include "VruRollAngle.h"
+ 
+ #ifdef __cplusplus
+ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct Curvature;
+-struct YawRate;
+-struct LateralAcceleration;
+-struct VerticalAcceleration;
++struct ITS_Container_Curvature;
++struct ITS_Container_YawRate;
++struct ITS_Container_LateralAcceleration;
++struct ITS_Container_VerticalAcceleration;
+ struct VruLanePosition;
+-struct VruOrientation;
+-struct VruRollAngle;
+ 
+ /* VruHighFrequencyContainer */
+ typedef struct VruHighFrequencyContainer {
+ 	ITS_Container_Heading_t	 heading;
+ 	ITS_Container_Speed_t	 speed;
+ 	ITS_Container_LongitudinalAcceleration_t	 longitudinalAcceleration;
+-	struct Curvature	*curvature;	/* OPTIONAL */
++	struct ITS_Container_Curvature	*curvature;	/* OPTIONAL */
+ 	ITS_Container_CurvatureCalculationMode_t	*curvatureCalculationMode;	/* OPTIONAL */
+-	struct YawRate	*yawRate;	/* OPTIONAL */
+-	struct LateralAcceleration	*lateralAcceleration;	/* OPTIONAL */
+-	struct VerticalAcceleration	*verticalAcceleration;	/* OPTIONAL */
++	struct ITS_Container_YawRate	*yawRate;	/* OPTIONAL */
++	struct ITS_Container_LateralAcceleration	*lateralAcceleration;	/* OPTIONAL */
++	struct ITS_Container_VerticalAcceleration	*verticalAcceleration;	/* OPTIONAL */
+ 	struct VruLanePosition	*vruLanePosition;	/* OPTIONAL */
+ 	VAM_PDU_Descriptions_VruEnvironment_t	*environment;	/* OPTIONAL */
+ 	VAM_PDU_Descriptions_VruMovementControl_t	*movementControl;	/* OPTIONAL */
+-	struct VruOrientation	*orientation;	/* OPTIONAL */
+-	struct VruRollAngle	*rollAngle;	/* OPTIONAL */
++	VruOrientation_t	*orientation;	/* OPTIONAL */
++	VruRollAngle_t	*rollAngle;	/* OPTIONAL */
+ 	VAM_PDU_Descriptions_VruDeviceUsage_t	*deviceUsage;	/* OPTIONAL */
+ 	/*
+ 	 * This type is extensible,
+diff --git b/vanetza/asn1/its/VruLowFrequencyContainer.h a/vanetza/asn1/its/VruLowFrequencyContainer.h
+index fe7f871a..4a2a49ec 100644
+--- b/vanetza/asn1/its/VruLowFrequencyContainer.h
++++ a/vanetza/asn1/its/VruLowFrequencyContainer.h
+@@ -20,13 +20,13 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct VruProfileAndSubprofile;
+-struct VruExteriorLights;
++struct VAM_PDU_Descriptions_VruProfileAndSubprofile;
++struct VAM_PDU_Descriptions_VruExteriorLights;
+ 
+ /* VruLowFrequencyContainer */
+ typedef struct VruLowFrequencyContainer {
+-	struct VruProfileAndSubprofile	*profileAndSubprofile;	/* OPTIONAL */
+-	struct VruExteriorLights	*exteriorLights;	/* OPTIONAL */
++	struct VAM_PDU_Descriptions_VruProfileAndSubprofile	*profileAndSubprofile;	/* OPTIONAL */
++	struct VAM_PDU_Descriptions_VruExteriorLights	*exteriorLights;	/* OPTIONAL */
+ 	VAM_PDU_Descriptions_VruSizeClass_t	*sizeClass;	/* OPTIONAL */
+ 	/*
+ 	 * This type is extensible,
+diff --git b/vanetza/asn1/its/VruMotionPredictionContainer.h a/vanetza/asn1/its/VruMotionPredictionContainer.h
+index 4d1fce67..b6a24dec 100644
+--- b/vanetza/asn1/its/VruMotionPredictionContainer.h
++++ a/vanetza/asn1/its/VruMotionPredictionContainer.h
+@@ -19,23 +19,23 @@ extern "C" {
+ #endif
+ 
+ /* Forward declarations */
+-struct PathHistory;
++struct ITS_Container_PathHistory;
+ struct SequenceOfVruPathPoint;
+ struct SequenceOfVruSafeDistanceIndication;
+-struct SequenceOfTrajectoryInterceptionIndication;
+-struct AccelerationChangeIndication;
+-struct HeadingChangeIndication;
+-struct StabilityChangeIndication;
++struct VAM_PDU_Descriptions_SequenceOfTrajectoryInterceptionIndication;
++struct VAM_PDU_Descriptions_AccelerationChangeIndication;
++struct VAM_PDU_Descriptions_HeadingChangeIndication;
++struct VAM_PDU_Descriptions_StabilityChangeIndication;
+ 
+ /* VruMotionPredictionContainer */
+ typedef struct VruMotionPredictionContainer {
+-	struct PathHistory	*pathHistory;	/* OPTIONAL */
++	struct ITS_Container_PathHistory	*pathHistory;	/* OPTIONAL */
+ 	struct SequenceOfVruPathPoint	*pathPrediction;	/* OPTIONAL */
+ 	struct SequenceOfVruSafeDistanceIndication	*safeDistance;	/* OPTIONAL */
+-	struct SequenceOfTrajectoryInterceptionIndication	*trajectoryInterceptionIndication;	/* OPTIONAL */
+-	struct AccelerationChangeIndication	*accelerationChangeIndication;	/* OPTIONAL */
+-	struct HeadingChangeIndication	*headingChangeIndication;	/* OPTIONAL */
+-	struct StabilityChangeIndication	*stabilityChangeIndication;	/* OPTIONAL */
++	struct VAM_PDU_Descriptions_SequenceOfTrajectoryInterceptionIndication	*trajectoryInterceptionIndication;	/* OPTIONAL */
++	struct VAM_PDU_Descriptions_AccelerationChangeIndication	*accelerationChangeIndication;	/* OPTIONAL */
++	struct VAM_PDU_Descriptions_HeadingChangeIndication	*headingChangeIndication;	/* OPTIONAL */
++	struct VAM_PDU_Descriptions_StabilityChangeIndication	*stabilityChangeIndication;	/* OPTIONAL */
+ 	/*
+ 	 * This type is extensible,
+ 	 * possible extensions are below.
+diff --git b/vanetza/asn1/its/WrappedCpmContainer.c a/vanetza/asn1/its/WrappedCpmContainer.c
+index 826fe944..957c95eb 100644
+--- b/vanetza/asn1/its/WrappedCpmContainer.c
++++ a/vanetza/asn1/its/WrappedCpmContainer.c
+@@ -7,22 +7,125 @@
+ 
+ #include "WrappedCpmContainer.h"
+ 
++static const long asn_VAL_1_originatingVehicleContainer = 1;
++static const long asn_VAL_2_originatingRsuContainer = 2;
++static const long asn_VAL_3_sensorInformationContainer = 3;
++static const long asn_VAL_4_perceptionRegionContainer = 4;
++static const long asn_VAL_5_perceivedObjectContainer = 5;
++static const asn_ioc_cell_t asn_IOS_CpmContainers_1_rows[] = {
++	{ "&id", aioc__value, &asn_DEF_CpmContainerId, &asn_VAL_1_originatingVehicleContainer },
++	{ "&Type", aioc__type, &asn_DEF_OriginatingVehicleContainer },
++	{ "&id", aioc__value, &asn_DEF_CpmContainerId, &asn_VAL_2_originatingRsuContainer },
++	{ "&Type", aioc__type, &asn_DEF_OriginatingRsuContainer },
++	{ "&id", aioc__value, &asn_DEF_CpmContainerId, &asn_VAL_3_sensorInformationContainer },
++	{ "&Type", aioc__type, &asn_DEF_SensorInformationContainer },
++	{ "&id", aioc__value, &asn_DEF_CpmContainerId, &asn_VAL_4_perceptionRegionContainer },
++	{ "&Type", aioc__type, &asn_DEF_PerceptionRegionContainer },
++	{ "&id", aioc__value, &asn_DEF_CpmContainerId, &asn_VAL_5_perceivedObjectContainer },
++	{ "&Type", aioc__type, &asn_DEF_PerceivedObjectContainer }
++};
++static const asn_ioc_set_t asn_IOS_CpmContainers_1[] = {
++	{ 5, 2, asn_IOS_CpmContainers_1_rows }
++};
++static int
++memb_containerId_constraint_1(const asn_TYPE_descriptor_t *td, const void *sptr,
++			asn_app_constraint_failed_f *ctfailcb, void *app_key) {
++	long value;
++	
++	if(!sptr) {
++		ASN__CTFAIL(app_key, td, sptr,
++			"%s: value not given (%s:%d)",
++			td->name, __FILE__, __LINE__);
++		return -1;
++	}
++	
++	value = *(const long *)sptr;
++	
++	if((value >= 1L && value <= 16L)) {
++		/* Constraint check succeeded */
++		return 0;
++	} else {
++		ASN__CTFAIL(app_key, td, sptr,
++			"%s: constraint failed (%s:%d)",
++			td->name, __FILE__, __LINE__);
++		return -1;
++	}
++}
++
++static asn_type_selector_result_t
++select_WrappedCpmContainer_containerData_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
++	asn_type_selector_result_t result = {0, 0};
++	const asn_ioc_set_t *itable = asn_IOS_CpmContainers_1;
++	size_t constraining_column = 0; /* &id */
++	size_t for_column = 1; /* &Type */
++	size_t row, presence_index = 0;
++	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct WrappedCpmContainer, containerId));
++	
++	for(row=0; row < itable->rows_count; row++) {
++	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
++	    const asn_ioc_cell_t *type_cell = &itable->rows[row * itable->columns_count + for_column];
++	
++	    if(type_cell->cell_kind == aioc__undefined)
++	        continue;
++	
++	    presence_index++;
++	    if(constraining_cell->type_descriptor->op->compare_struct(constraining_cell->type_descriptor, constraining_value, constraining_cell->value_sptr) == 0) {
++	        result.type_descriptor = type_cell->type_descriptor;
++	        result.presence_index = presence_index;
++	        break;
++	    }
++	}
++	
++	return result;
++}
++
++static int
++memb_containerData_constraint_1(const asn_TYPE_descriptor_t *td, const void *sptr,
++			asn_app_constraint_failed_f *ctfailcb, void *app_key) {
++	
++	if(!sptr) {
++		ASN__CTFAIL(app_key, td, sptr,
++			"%s: value not given (%s:%d)",
++			td->name, __FILE__, __LINE__);
++		return -1;
++	}
++	
++	
++	if(1 /* No applicable constraints whatsoever */) {
++		/* Nothing is here. See below */
++	}
++	
++	return td->encoding_constraints.general_constraints(td, sptr, ctfailcb, app_key);
++}
++
++#if !defined(ASN_DISABLE_OER_SUPPORT)
++static asn_oer_constraints_t asn_OER_memb_containerId_constr_2 CC_NOTUSED = {
++	{ 1, 1 }	/* (1..16) */,
++	-1};
++#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
++#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
++static asn_per_constraints_t asn_PER_memb_containerId_constr_2 CC_NOTUSED = {
++	{ APC_CONSTRAINED,	 4,  4,  1,  16 }	/* (1..16) */,
++	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
++	0, 0	/* No PER value map */
++};
++#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+ #if !defined(ASN_DISABLE_OER_SUPPORT)
+-static asn_oer_constraints_t asn_OER_type_containerData_constr_3 CC_NOTUSED = {
++static asn_oer_constraints_t asn_OER_memb_containerData_constr_3 CC_NOTUSED = {
+ 	{ 0, 0 },
+ 	-1};
+ #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+ #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+-static asn_per_constraints_t asn_PER_type_containerData_constr_3 CC_NOTUSED = {
+-	{ APC_CONSTRAINED,	 3,  3,  0,  4 }	/* (0..4) */,
++static asn_per_constraints_t asn_PER_memb_containerData_constr_3 CC_NOTUSED = {
++	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
+ 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
+ 	0, 0	/* No PER value map */
+ };
+ #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+ static asn_TYPE_member_t asn_MBR_containerData_3[] = {
+-	{ ATF_NOFLAGS, 0, offsetof(struct WrappedCpmContainer__containerData, choice.originatingVehicleContainer),
+-		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
+-		-1,	/* IMPLICIT tag at current level */
++	{ ATF_NOFLAGS, 0, offsetof(struct WrappedCpmContainer__containerData, choice.OriginatingVehicleContainer),
++		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
++		0,
+ 		&asn_DEF_OriginatingVehicleContainer,
+ 		0,
+ 		{
+@@ -35,11 +138,11 @@ static asn_TYPE_member_t asn_MBR_containerData_3[] = {
+ 			0
+ 		},
+ 		0, 0, /* No default value */
+-		"originatingVehicleContainer"
++		"OriginatingVehicleContainer"
+ 		},
+-	{ ATF_NOFLAGS, 0, offsetof(struct WrappedCpmContainer__containerData, choice.originatingRsuContainer),
+-		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
+-		-1,	/* IMPLICIT tag at current level */
++	{ ATF_NOFLAGS, 0, offsetof(struct WrappedCpmContainer__containerData, choice.OriginatingRsuContainer),
++		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
++		0,
+ 		&asn_DEF_OriginatingRsuContainer,
+ 		0,
+ 		{
+@@ -52,11 +155,11 @@ static asn_TYPE_member_t asn_MBR_containerData_3[] = {
+ 			0
+ 		},
+ 		0, 0, /* No default value */
+-		"originatingRsuContainer"
++		"OriginatingRsuContainer"
+ 		},
+-	{ ATF_NOFLAGS, 0, offsetof(struct WrappedCpmContainer__containerData, choice.sensorInformationContainer),
+-		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
+-		-1,	/* IMPLICIT tag at current level */
++	{ ATF_NOFLAGS, 0, offsetof(struct WrappedCpmContainer__containerData, choice.SensorInformationContainer),
++		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
++		0,
+ 		&asn_DEF_SensorInformationContainer,
+ 		0,
+ 		{
+@@ -69,11 +172,11 @@ static asn_TYPE_member_t asn_MBR_containerData_3[] = {
+ 			0
+ 		},
+ 		0, 0, /* No default value */
+-		"sensorInformationContainer"
++		"SensorInformationContainer"
+ 		},
+-	{ ATF_NOFLAGS, 0, offsetof(struct WrappedCpmContainer__containerData, choice.perceptionRegionContainer),
+-		(ASN_TAG_CLASS_CONTEXT | (3 << 2)),
+-		-1,	/* IMPLICIT tag at current level */
++	{ ATF_NOFLAGS, 0, offsetof(struct WrappedCpmContainer__containerData, choice.PerceptionRegionContainer),
++		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
++		0,
+ 		&asn_DEF_PerceptionRegionContainer,
+ 		0,
+ 		{
+@@ -86,11 +189,11 @@ static asn_TYPE_member_t asn_MBR_containerData_3[] = {
+ 			0
+ 		},
+ 		0, 0, /* No default value */
+-		"perceptionRegionContainer"
++		"PerceptionRegionContainer"
+ 		},
+-	{ ATF_NOFLAGS, 0, offsetof(struct WrappedCpmContainer__containerData, choice.perceivedObjectContainer),
+-		(ASN_TAG_CLASS_CONTEXT | (4 << 2)),
+-		-1,	/* IMPLICIT tag at current level */
++	{ ATF_NOFLAGS, 0, offsetof(struct WrappedCpmContainer__containerData, choice.PerceivedObjectContainer),
++		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
++		0,
+ 		&asn_DEF_PerceivedObjectContainer,
+ 		0,
+ 		{
+@@ -103,15 +206,15 @@ static asn_TYPE_member_t asn_MBR_containerData_3[] = {
+ 			0
+ 		},
+ 		0, 0, /* No default value */
+-		"perceivedObjectContainer"
++		"PerceivedObjectContainer"
+ 		},
+ };
+ static const asn_TYPE_tag2member_t asn_MAP_containerData_tag2el_3[] = {
+-    { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* originatingVehicleContainer */
+-    { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* originatingRsuContainer */
+-    { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 }, /* sensorInformationContainer */
+-    { (ASN_TAG_CLASS_CONTEXT | (3 << 2)), 3, 0, 0 }, /* perceptionRegionContainer */
+-    { (ASN_TAG_CLASS_CONTEXT | (4 << 2)), 4, 0, 0 } /* perceivedObjectContainer */
++    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 4 }, /* OriginatingVehicleContainer */
++    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 1, -1, 3 }, /* OriginatingRsuContainer */
++    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 2, -2, 2 }, /* SensorInformationContainer */
++    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 3, -3, 1 }, /* PerceptionRegionContainer */
++    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 4, -4, 0 } /* PerceivedObjectContainer */
+ };
+ static asn_CHOICE_specifics_t asn_SPC_containerData_specs_3 = {
+ 	sizeof(struct WrappedCpmContainer__containerData),
+@@ -127,19 +230,19 @@ static /* Use -fall-defs-global to expose */
+ asn_TYPE_descriptor_t asn_DEF_containerData_3 = {
+ 	"containerData",
+ 	"containerData",
+-	&asn_OP_CHOICE,
++	&asn_OP_OPEN_TYPE,
+ 	0,	/* No effective tags (pointer) */
+ 	0,	/* No effective tags (count) */
+ 	0,	/* No tags (pointer) */
+ 	0,	/* No tags (count) */
+ 	{
+ #if !defined(ASN_DISABLE_OER_SUPPORT)
+-		&asn_OER_type_containerData_constr_3,
++		0,
+ #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+ #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+-		&asn_PER_type_containerData_constr_3,
++		0,
+ #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+-		CHOICE_constraint
++		OPEN_TYPE_constraint
+ 	},
+ 	asn_MBR_containerData_3,
+ 	5,	/* Elements count */
+@@ -154,29 +257,29 @@ asn_TYPE_member_t asn_MBR_WrappedCpmContainer_1[] = {
+ 		0,
+ 		{
+ #if !defined(ASN_DISABLE_OER_SUPPORT)
+-			0,
++			&asn_OER_memb_containerId_constr_2,
+ #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+ #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+-			0,
++			&asn_PER_memb_containerId_constr_2,
+ #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+-			0
++			memb_containerId_constraint_1
+ 		},
+ 		0, 0, /* No default value */
+ 		"containerId"
+ 		},
+-	{ ATF_NOFLAGS, 0, offsetof(struct WrappedCpmContainer, containerData),
++	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct WrappedCpmContainer, containerData),
+ 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
+ 		+1,	/* EXPLICIT tag at current level */
+ 		&asn_DEF_containerData_3,
+-		0,
++		select_WrappedCpmContainer_containerData_type,
+ 		{
+ #if !defined(ASN_DISABLE_OER_SUPPORT)
+-			0,
++			&asn_OER_memb_containerData_constr_3,
+ #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+ #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+-			0,
++			&asn_PER_memb_containerData_constr_3,
+ #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+-			0
++			memb_containerData_constraint_1
+ 		},
+ 		0, 0, /* No default value */
+ 		"containerData"
+diff --git b/vanetza/asn1/its/WrappedCpmContainer.h a/vanetza/asn1/its/WrappedCpmContainer.h
+index 49ca8a58..f70d3fe0 100644
+--- b/vanetza/asn1/its/WrappedCpmContainer.h
++++ a/vanetza/asn1/its/WrappedCpmContainer.h
+@@ -13,11 +13,14 @@
+ 
+ /* Including external dependencies */
+ #include "CpmContainerId.h"
++#include "ANY.h"
++#include "asn_ioc.h"
+ #include "OriginatingVehicleContainer.h"
+ #include "OriginatingRsuContainer.h"
+ #include "SensorInformationContainer.h"
+ #include "PerceptionRegionContainer.h"
+ #include "PerceivedObjectContainer.h"
++#include "OPEN_TYPE.h"
+ #include "constr_CHOICE.h"
+ #include "constr_SEQUENCE.h"
+ 
+@@ -28,11 +31,11 @@ extern "C" {
+ /* Dependencies */
+ typedef enum WrappedCpmContainer__containerData_PR {
+ 	WrappedCpmContainer__containerData_PR_NOTHING,	/* No components present */
+-	WrappedCpmContainer__containerData_PR_originatingVehicleContainer,
+-	WrappedCpmContainer__containerData_PR_originatingRsuContainer,
+-	WrappedCpmContainer__containerData_PR_sensorInformationContainer,
+-	WrappedCpmContainer__containerData_PR_perceptionRegionContainer,
+-	WrappedCpmContainer__containerData_PR_perceivedObjectContainer
++	WrappedCpmContainer__containerData_PR_OriginatingVehicleContainer,
++	WrappedCpmContainer__containerData_PR_OriginatingRsuContainer,
++	WrappedCpmContainer__containerData_PR_SensorInformationContainer,
++	WrappedCpmContainer__containerData_PR_PerceptionRegionContainer,
++	WrappedCpmContainer__containerData_PR_PerceivedObjectContainer
+ } WrappedCpmContainer__containerData_PR;
+ 
+ /* WrappedCpmContainer */
+@@ -41,11 +44,11 @@ typedef struct WrappedCpmContainer {
+ 	struct WrappedCpmContainer__containerData {
+ 		WrappedCpmContainer__containerData_PR present;
+ 		union WrappedCpmContainer__containerData_u {
+-			OriginatingVehicleContainer_t	 originatingVehicleContainer;
+-			OriginatingRsuContainer_t	 originatingRsuContainer;
+-			SensorInformationContainer_t	 sensorInformationContainer;
+-			PerceptionRegionContainer_t	 perceptionRegionContainer;
+-			PerceivedObjectContainer_t	 perceivedObjectContainer;
++			OriginatingVehicleContainer_t	 OriginatingVehicleContainer;
++			OriginatingRsuContainer_t	 OriginatingRsuContainer;
++			SensorInformationContainer_t	 SensorInformationContainer;
++			PerceptionRegionContainer_t	 PerceptionRegionContainer;
++			PerceivedObjectContainer_t	 PerceivedObjectContainer;
+ 		} choice;
+ 		
+ 		/* Context for parsing across buffer boundaries */
