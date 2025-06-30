@@ -15,7 +15,7 @@ before_script:
 
 build_amd64:
   stage: build
-  image: docker:latest
+  image: code.nap.av.it.pt:5050/external-tools/misc-docker-images/docker:latest
   tags:
     - amd64
   script:
@@ -37,7 +37,7 @@ build_amd64:
 
 build_arm64:
   stage: build
-  image: docker:latest
+  image: code.nap.av.it.pt:5050/external-tools/misc-docker-images/docker:latest
   tags:
     - arm64
   script:
@@ -61,7 +61,7 @@ manage_release:
   stage: release
   tags:
     - amd64
-  image: curlimages/curl:latest
+  image: code.nap.av.it.pt:5050/external-tools/misc-docker-images/curlimages/curl:latest
   before_script:
     - curl --location --output ~/release-cli "https://gitlab.com/api/v4/projects/gitlab-org%2Frelease-cli/packages/generic/release-cli/latest/release-cli-linux-amd64"
     - chmod +x ~/release-cli
@@ -101,7 +101,7 @@ manage_release:
 
 create_manifest:
   stage: manifest
-  image: docker:latest
+  image: code.nap.av.it.pt:5050/external-tools/misc-docker-images/docker:latest
   tags:
     - amd64
   script:
@@ -118,7 +118,7 @@ create_manifest:
 
 create_tagged_manifest:
   stage: manifest
-  image: docker:latest
+  image: code.nap.av.it.pt:5050/external-tools/misc-docker-images/docker:latest
   tags:
     - amd64
   script:
@@ -135,7 +135,7 @@ create_tagged_manifest:
 
 cleanup_arch_images:
   stage: clean
-  image: alpine:latest
+  image: code.nap.av.it.pt:5050/external-tools/misc-docker-images/alpine:latest
   tags:
     - amd64
   script:
