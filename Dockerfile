@@ -48,7 +48,7 @@ RUN cmake --build . --target install --parallel $(nproc)
 WORKDIR /tmp
 RUN git clone https://github.com/eProsima/Fast-DDS.git
 WORKDIR /tmp/Fast-DDS/
-RUN git checkout v2.14.4
+RUN git checkout v2.13.2
 RUN mkdir /tmp/Fast-DDS/build
 WORKDIR /tmp/Fast-DDS/build
 RUN cmake ..
