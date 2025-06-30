@@ -61,7 +61,7 @@ RUN cmake .
 RUN cmake --build . --target socktap -j $(nproc)
 RUN cp /vanetza/bin/socktap /usr/local/bin/socktap
 
-FROM debian:bullseye-slim
+FROM code.nap.av.it.pt:5050/external-tools/misc-docker-images/debian:bullseye-slim
 ENV TZ=Europe/Lisbon
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 #RUN printf "deb http://httpredir.debian.org/debian buster-backports main non-free\ndeb-src http://httpredir.debian.org/debian buster-backports main non-free\n" > /etc/apt/sources.list.d/backports.list
