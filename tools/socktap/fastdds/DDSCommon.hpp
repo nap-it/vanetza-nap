@@ -44,7 +44,7 @@ inline DomainParticipant* get_participant(const eprosima::fastrtps::fixed_string
                         </interfaces>\
                     </transport_descriptor>\
                     <transport_descriptor>\
-                        <transport_id>CustomUdpTransportBlocklist</transport_id>\
+                        <transport_id>CustomTcpTransportBlocklist</transport_id>\
                         <type>TCPv4</type>\
                         <interfaces>\
                             <blocklist>\
@@ -62,7 +62,7 @@ inline DomainParticipant* get_participant(const eprosima::fastrtps::fixed_string
                         </interfaces>\
                     </transport_descriptor>\
                 </transport_descriptors>\
-                <participant profile_name=\"CustomTcpTransportBlocklistParticipant\">\
+                <participant profile_name=\"CustomTransportBlocklistParticipant\">\
                     <rtps>\
                         <name>Vanetza</name>\
                         <userTransports>\
@@ -76,7 +76,7 @@ inline DomainParticipant* get_participant(const eprosima::fastrtps::fixed_string
             </profiles>\
         ";
         DomainParticipantFactory::get_instance()->load_XML_profiles_string(xml_profile.c_str(),xml_profile.length());
-        participant_ = DomainParticipantFactory::get_instance()->create_participant_with_profile(domain_id, "CustomTcpTransportBlocklistParticipant");
+        participant_ = DomainParticipantFactory::get_instance()->create_participant_with_profile(domain_id, "CustomTransportBlocklistParticipant");
 
         if (participant_ == nullptr) {
             std::cout << "[Participant] Not created" << std::endl;
