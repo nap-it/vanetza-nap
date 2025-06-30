@@ -44,6 +44,15 @@ inline DomainParticipant* get_participant(const eprosima::fastrtps::fixed_string
                         </interfaces>\
                     </transport_descriptor>\
                     <transport_descriptor>\
+                        <transport_id>CustomUdpTransportBlocklist</transport_id>\
+                        <type>TCPv4</type>\
+                        <interfaces>\
+                            <blocklist>\
+                                <interface name=\"wlan0\"/>\
+                            </blocklist>\
+                        </interfaces>\
+                    </transport_descriptor>\
+                    <transport_descriptor>\
                         <transport_id>CustomSHMTransportBlocklist</transport_id>\
                         <type>SHM</type>\
                         <interfaces>\
@@ -59,6 +68,7 @@ inline DomainParticipant* get_participant(const eprosima::fastrtps::fixed_string
                         <userTransports>\
                             <transport_id>CustomUdpTransportBlocklist</transport_id>\
                             <transport_id>CustomSHMTransportBlocklist</transport_id>\
+                            <transport_id>CustomTcpTransportBlocklist</transport_id>\
                         </userTransports>\
                         <useBuiltinTransports>false</useBuiltinTransports>\
                     </rtps>\
