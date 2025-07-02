@@ -15,7 +15,7 @@ before_script:
 
 build_amd64:
   stage: build
-  image: docker:latest
+  image: code.nap.av.it.pt:5050/external-tools/misc-docker-images/docker:latest
   tags:
     - amd64
   script:
@@ -26,6 +26,7 @@ build_amd64:
         sed -i '/^ENTRYPOINT/i ENV VERSION='"$TAG_VERSION" $DOCKERFILE_PATH/$DOCKERFILE_NAME
         sed -i '/^ENTRYPOINT/i ENV COMMIT='"$CI_COMMIT_SHORT_SHA" $DOCKERFILE_PATH/$DOCKERFILE_NAME
       fi
+    - echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin code.nap.av.it.pt:5050
     - docker build -t code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-amd64 -f $DOCKERFILE_NAME $DOCKERFILE_PATH
     - |
       if [[ "$CI_COMMIT_TAG" != "" ]] || [[ "$CI_COMMIT_BRANCH" != "$CI_DEFAULT_BRANCH" ]]; then
@@ -37,7 +38,7 @@ build_amd64:
 
 build_arm64:
   stage: build
-  image: docker:latest
+  image: code.nap.av.it.pt:5050/external-tools/misc-docker-images/docker:latest
   tags:
     - arm64
   script:
@@ -48,6 +49,7 @@ build_arm64:
         sed -i '/^ENTRYPOINT/i ENV VERSION='"$TAG_VERSION" $DOCKERFILE_PATH/$DOCKERFILE_NAME
         sed -i '/^ENTRYPOINT/i ENV COMMIT='"$CI_COMMIT_SHORT_SHA" $DOCKERFILE_PATH/$DOCKERFILE_NAME
       fi
+    - echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin code.nap.av.it.pt:5050
     - docker build -t code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-arm64 -f $DOCKERFILE_NAME $DOCKERFILE_PATH
     - |
       if [[ "$CI_COMMIT_TAG" != "" ]] || [[ "$CI_COMMIT_BRANCH" != "$CI_DEFAULT_BRANCH" ]]; then
@@ -61,7 +63,7 @@ manage_release:
   stage: release
   tags:
     - amd64
-  image: curlimages/curl:latest
+  image: code.nap.av.it.pt:5050/external-tools/misc-docker-images/curlimages/curl:latest
   before_script:
     - curl --location --output ~/release-cli "https://gitlab.com/api/v4/projects/gitlab-org%2Frelease-cli/packages/generic/release-cli/latest/release-cli-linux-amd64"
     - chmod +x ~/release-cli
@@ -101,7 +103,7 @@ manage_release:
 
 create_manifest:
   stage: manifest
-  image: docker:latest
+  image: code.nap.av.it.pt:5050/external-tools/misc-docker-images/docker:latest
   tags:
     - amd64
   script:
@@ -118,7 +120,7 @@ create_manifest:
 
 create_tagged_manifest:
   stage: manifest
-  image: docker:latest
+  image: code.nap.av.it.pt:5050/external-tools/misc-docker-images/docker:latest
   tags:
     - amd64
   script:
@@ -135,7 +137,7 @@ create_tagged_manifest:
 
 cleanup_arch_images:
   stage: clean
-  image: alpine:latest
+  image: code.nap.av.it.pt:5050/external-tools/misc-docker-images/alpine:latest
   tags:
     - amd64
   script:

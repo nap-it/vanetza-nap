@@ -22,6 +22,8 @@
 class PubSub_application
 {
 public:
+    explicit PubSub_application(int priority_) : priority(priority_) {}
+    virtual ~PubSub_application() = default;
     virtual void on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, string test, vanetza::geonet::Router* router){};
     int priority;
 };
