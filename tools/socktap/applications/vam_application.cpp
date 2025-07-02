@@ -31,6 +31,7 @@ boost::system::error_code vam_err;
 std::mutex vam_persistence_mtx;
 
 VamApplication::VamApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_) :
+    PubSub_application(priority_),
     positioning_(positioning), runtime_(rt), vam_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_), prom_mtx(prom_mtx_)
 {
     vam_persistence = {};

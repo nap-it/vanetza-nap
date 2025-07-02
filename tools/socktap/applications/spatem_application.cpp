@@ -28,6 +28,7 @@ ip::udp::endpoint spatem_remote_endpoint;
 boost::system::error_code spatem_err;
 
 SpatemApplication::SpatemApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_) :
+    PubSub_application(priority_),
     positioning_(positioning), runtime_(rt), spatem_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_), prom_mtx(prom_mtx_)
 {
     spatem_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "spatem"}, {"direction", "rx"}}));
@@ -134,6 +135,8 @@ Document SpatemApplication::buildJSON(SPATEM_t message, double time_reception, i
 }
 
 void SpatemApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, string test, vanetza::geonet::Router* router) {
+
+    std::cout << "[SpatemApplication] Received message on topic: " << topic << std::endl;
 
     const double time_processing = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 

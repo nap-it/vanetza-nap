@@ -89,7 +89,7 @@ PubSub::~PubSub() {
 void PubSub::on_message(std::string topic, std::string message, int priority) {
     const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     std::vector<uint8_t> emptyVector;
-    queued_transmission qt{topic, message, emptyVector, false, time_reception, ""};
+    queued_transmission qt{topic, message, emptyVector, false, time_reception, ""};    
     transmission_tq->push(std::make_unique<queued_transmission>(std::move(qt)), lookupTable[topic] + (3 * priority));
 }
 

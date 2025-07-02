@@ -27,6 +27,7 @@ ip::udp::endpoint ivim_remote_endpoint;
 boost::system::error_code ivim_err;
 
 IvimApplication::IvimApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_) :
+    PubSub_application(priority_),
     positioning_(positioning), runtime_(rt), ivim_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_), prom_mtx(prom_mtx_)
 {    
     ivim_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "ivim"}, {"direction", "rx"}}));

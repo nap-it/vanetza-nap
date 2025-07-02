@@ -38,6 +38,7 @@ double time_heading = 0;
 std::mutex cam_persistence_mtx;
 
 CamApplication::CamApplication(vanetza::PositionProvider& positioning, vanetza::Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, vanetza::geonet::Router* timer_router_, int priority_, std::mutex& prom_mtx_) :
+    PubSub_application(priority_),
     positioning_(positioning), runtime_(rt), cam_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), timer_router(timer_router_), priority(priority_), prom_mtx(prom_mtx_)
 {
     persistence = {};
@@ -453,6 +454,7 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
                 std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
                 std::cout << e.what() << std::endl;
                 std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
+                return;
             } catch(...) {
                 std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
                 std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
@@ -531,6 +533,7 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
                         std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
                         std::cout << e.what() << std::endl;
                         std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
+                        return;
                     } catch(...) {
                         std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
                         std::cout << "\nInvalid payload: " << mqtt_message << std::endl;

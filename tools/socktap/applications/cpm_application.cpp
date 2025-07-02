@@ -28,6 +28,7 @@ ip::udp::endpoint cpm_remote_endpoint;
 boost::system::error_code cpm_err;
 
 CpmApplication::CpmApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_) :
+    PubSub_application(priority_),
     positioning_(positioning), runtime_(rt), cpm_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_), prom_mtx(prom_mtx_)
 {   
     cpm_rx_counter = &((*metrics_s.packet_counter).Add({{"message", "cpm"}, {"direction", "rx"}}));

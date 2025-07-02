@@ -27,6 +27,7 @@ ip::udp::endpoint mapem_remote_endpoint;
 boost::system::error_code mapem_err;
 
 MapemApplication::MapemApplication(PositionProvider& positioning, Runtime& rt, PubSub* pubsub_, config_t config_s_, metrics_t metrics_s_, int priority_, std::mutex& prom_mtx_) :
+    PubSub_application(priority_),
     positioning_(positioning), runtime_(rt), mapem_interval_(seconds(1)), pubsub(pubsub_), config_s(config_s_), metrics_s(metrics_s_), priority(priority_), prom_mtx(prom_mtx_)
 {
     this->pubsub->subscribe(config_s.mapem, this);
