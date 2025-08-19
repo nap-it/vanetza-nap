@@ -1,7 +1,7 @@
 FROM code.nap.av.it.pt:5050/external-tools/misc-docker-images/debian:bullseye-slim
 ENV TZ=Europe/Lisbon
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN printf "deb http://httpredir.debian.org/debian bullseye-backports main non-free\ndeb-src http://httpredir.debian.org/debian bullseye-backports main non-free\n" > /etc/apt/sources.list.d/backports.list
+RUN printf "deb http://archive.debian.org/debian-archive/debian bullseye-backports main non-free\ndeb-src http://archive.debian.org/debian-archive/debian bullseye-backports main non-free\n" > /etc/apt/sources.list.d/backports.list
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     cmake/bullseye-backports \
@@ -48,7 +48,7 @@ RUN cmake --build . --target install --parallel $(nproc)
 WORKDIR /tmp
 RUN git clone https://github.com/eProsima/Fast-DDS.git
 WORKDIR /tmp/Fast-DDS/
-RUN git checkout v2.13.2
+RUN git checkout v2.14.4
 RUN mkdir /tmp/Fast-DDS/build
 WORKDIR /tmp/Fast-DDS/build
 RUN cmake ..
