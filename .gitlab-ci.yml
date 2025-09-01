@@ -148,12 +148,6 @@ cleanup_arch_images:
     - regctl registry login code.nap.av.it.pt:5050 -u ${CI_USER} -p ${CI_TOKEN}
     - regctl tag rm code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-amd64
     - regctl tag rm code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-arm64
-    - |
-      if [[ "$CI_COMMIT_TAG" != "" ]]; then
-        export PREVIOUS_PATCH_VERSION=$(( ${CI_COMMIT_REF_NAME##*.} - 1 ));
-        export PREVIOUS_TAG="${CI_COMMIT_REF_NAME%.*}.$PREVIOUS_PATCH_VERSION";
-        regctl tag rm code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$PREVIOUS_TAG || true;
-      fi
   dependencies:
     - create_manifest
   rules:
