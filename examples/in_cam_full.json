@@ -1,61 +1,81 @@
 {
-    "camParameters": {
-        "basicContainer": {
-            "referencePosition": {
-                "altitude": {
-                    "altitudeConfidence": 15,
-                    "altitudeValue": 800001
-                },
-                "latitude": 40.0000000,
-                "longitude": -8.0000000,
-                "positionConfidenceEllipse": {
-                    "semiMajorConfidence": 4095,
-                    "semiMajorOrientation": 3601,
-                    "semiMinorConfidence": 4095
-                }
-            },
-            "stationType": 5
+  "camParameters": {
+    "basicContainer": {
+      "stationType": 5,
+      "referencePosition": {
+        "latitude": 40.62834930419922,
+        "longitude": -8.654390335083008,
+        "positionConfidenceEllipse": {
+          "semiMajorAxisLength": 4095,
+          "semiMinorAxisLength": 4095,
+          "semiMajorAxisOrientation": 3601
         },
-        "highFrequencyContainer": {
-            "basicVehicleContainerHighFrequency": {
-                "accelerationControl": {
-                    "accEngaged": true,
-                    "brakePedalEngaged": true,
-                    "collisionWarningEngaged": true,
-                    "cruiseControlEngaged": true,
-                    "emergencyBrakeEngaged": true,
-                    "gasPedalEngaged": false,
-                    "speedLimiterEngaged": true
-                },
-                "curvature": {
-                    "curvatureConfidence": 7,
-                    "curvatureValue": 1023
-                },
-                "curvatureCalculationMode": 0,
-                "driveDirection": 0,
-                "heading": {
-                    "headingConfidence": 127,
-                    "headingValue": 3601
-                },
-                "longitudinalAcceleration": {
-                    "longitudinalAccelerationConfidence": 0,
-                    "longitudinalAccelerationValue": 0
-                },
-                "speed": {
-                    "speedConfidence": 127,
-                    "speedValue": 16383
-                },
-                "vehicleLength": {
-                    "vehicleLengthConfidenceIndication": 0,
-                    "vehicleLengthValue": 10.0
-                },
-                "vehicleWidth": 3.0,
-                "yawRate": {
-                    "yawRateConfidence": 0,
-                    "yawRateValue": 0
-                }
-            }
+        "altitude": {
+          "altitudeValue": 800001,
+          "altitudeConfidence": 15
         }
+      }
     },
-    "generationDeltaTime": 2907
+    "highFrequencyContainer": {
+      "basicVehicleContainerHighFrequency": {
+        "heading": {
+          "headingValue": 153.0,
+          "headingConfidence": 127
+        },
+        "speed": {
+          "speedValue": 8.7,
+          "speedConfidence": 127
+        },
+        "driveDirection": 2,
+        "vehicleLength": {
+          "vehicleLengthValue": 1023,
+          "vehicleLengthConfidenceIndication": 4
+        },
+        "vehicleWidth": 62,
+        "longitudinalAcceleration": {
+          "value": -0.4,
+          "confidence": 102
+        },
+        "curvature": {
+          "curvatureValue": 1023,
+          "curvatureConfidence": 7
+        },
+        "curvatureCalculationMode": 2,
+        "yawRate": {
+          "yawRateValue": 11.0,
+          "yawRateConfidence": 8
+        },
+        "accelerationControl": {
+          "brakePedalEngaged": false,
+          "gasPedalEngaged": false,
+          "emergencyBrakeEngaged": false,
+          "collisionWarningEngaged": false,
+          "accEngaged": false,
+          "cruiseControlEngaged": false,
+          "speedLimiterEngaged": false
+        },
+        "steeringWheelAngle": {
+          "steeringWheelAngleValue": 512,
+          "steeringWheelAngleConfidence": 127
+        }
+      }
+    },
+    "lowFrequencyContainer": {
+      "basicVehicleContainerLowFrequency": {
+        "vehicleRole": 0,
+        "exteriorLights": {
+          "lowBeamHeadlightsOn": false,
+          "highBeamHeadlightsOn": false,
+          "leftTurnSignalOn": false,
+          "rightTurnSignalOn": false,
+          "daytimeRunningLightsOn": false,
+          "reverseLightOn": false,
+          "fogLightOn": false,
+          "parkingLightsOn": false
+        },
+        "pathHistory": []
+      }
+    }
+  },
+  "generationDeltaTime": 13190
 }
