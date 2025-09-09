@@ -1659,7 +1659,6 @@ Value to_json(const CauseCodeChoice_t& p, Document::AllocatorType& allocator) {
 }
 
 void from_json(const Value& j, CauseCodeChoice_t& p, std::string field) {
-    std::cout << "Parsing CauseCodeChoice" << std::endl;
     try {
         if (j.HasMember("reserved0")) {
             p.present = CauseCodeChoice_PR_reserved0;
@@ -14838,7 +14837,6 @@ void from_json(const Value& j, DENM_PDU_Description_SituationContainer& p, std::
     p._asn_ctx.ptr = nullptr;
     from_json(j["informationQuality"], (p.informationQuality), "informationQuality");
     from_json(j["eventType"], (p.eventType), "eventType");
-    std::cout << "DENM SituationContainer parsed eventType" << std::endl;
     if (j.HasMember("linkedCause")) { p.linkedCause = vanetza::asn1::allocate<CauseCodeV2_t>(); from_json(j["linkedCause"], *(p.linkedCause), "linkedCause"); }
     else { p.linkedCause=nullptr; }
     // if (j.HasMember("linkedDenms")) { p.ext1->linkedDenms = vanetza::asn1::allocate<ActionIdList_t>(); from_json(j["linkedDenms"], *(p.ext1->linkedDenms), "linkedDenms"); }
@@ -14846,8 +14844,6 @@ void from_json(const Value& j, DENM_PDU_Description_SituationContainer& p, std::
     // if (j.HasMember("eventEnd")) { p.ext1->eventEnd = vanetza::asn1::allocate<Position1d_t>(); from_json(j["eventEnd"], *(p.ext1->eventEnd), "eventEnd"); }
     // else { p.ext1->eventEnd=nullptr; }
     p.eventZone=nullptr;
-
-        std::cout << "DENM SituationContainer finished" << std::endl;
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
