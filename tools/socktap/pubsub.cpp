@@ -83,7 +83,7 @@ PubSub::PubSub(config_t config_, int num_threads_, std::mutex& prom_mtx_) :
     if(!config.zenoh_endpoint.empty()) {
         zconfig.insert_json5("connect/endpoints", "[\"tcp/" + config.zenoh_endpoint + ":7447\"]", err);
     } else {
-        std::cout << "No Zenoh endpoint configured, using default configuration." << std::endl;
+        std::cout << "No Zenoh endpoint provided, using default configuration." << std::endl;
     }
 
     if (err) {
