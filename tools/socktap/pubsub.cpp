@@ -62,6 +62,8 @@ PubSub::PubSub(config_t config_, int num_threads_, std::mutex& prom_mtx_) :
     config(config_), num_threads(num_threads_), prom_mtx(prom_mtx_)
 {
     const auto host_name = boost::asio::ip::host_name();
+
+    // Setup MQTT
     this->local_mqtt = new Mqtt(host_name + "_" + to_string(uni(rng)), this->config.local_mqtt_broker, this->config.local_mqtt_port, this);
     this->remote_mqtt = NULL;
     if (this->config.remote_mqtt_port != 0) {
@@ -71,7 +73,31 @@ PubSub::PubSub(config_t config_, int num_threads_, std::mutex& prom_mtx_) :
             this->remote_mqtt = new Mqtt(host_name + "_" + to_string(uni(rng)), this->config.remote_mqtt_broker, this->config.remote_mqtt_port, this);
         }
     }
+
+    // Setup DDS
     this->dds = new Dds(this, config_);
+
+    // Setup Zenoh
+    zenoh::ZResult *err = nullptr;
+    zenoh::Config zconfig = zenoh::Config::from_file("/zenoh_config.json5", err); 
+    if(!config.zenoh_endpoint.empty()) {
+        zconfig.insert_json5("connect/endpoints", "[\"tcp/" + config.zenoh_endpoint + ":7447\"]", err);
+    } else {
+        std::cout << "No Zenoh endpoint configured, using default configuration." << std::endl;
+    }
+
+    if (err) {
+        std::cout << "Error in Zenoh configuration: " << static_cast<const void*>(err) << std::endl;
+    }
+    
+    session = new zenoh::Session(std::move(zenoh::Session::open(std::move(zconfig))));
+    std::cout << "Zenoh session established" << std::endl;
+
+    //Initialize Zenoh shared memory provider with 10 MB size and 2-byte alignment.
+    static constexpr auto SHM_SIZE  = 1024U * 1024U * 10U;
+    static constexpr auto SHM_ALIGN = 2U;
+    zenoh::MemoryLayout layout(SHM_SIZE, zenoh::AllocAlignment({SHM_ALIGN}));
+    shm_provider = new zenoh::PosixShmProvider(layout);
 
     transmission_tq = new transmission_thread_queue();
     for(int i = 0; i < num_threads; i++) {
@@ -118,11 +144,30 @@ void PubSub::subscribe(message_config_t message_config, PubSub_application* app)
             this->remote_mqtt->subscribe(remote_topic);
         }
     }
+    if(message_config.zenoh_enabled){
+        session->declare_background_subscriber(
+            zenoh::KeyExpr(topic),
+            [this, topic](const zenoh::Sample& sample) {
+                std::string message = sample.get_payload().as_string();
+                this->on_message(topic, message, 0);                         // TODO: think about priority since DDS is 0 and MQTT is 1
+            },
+            zenoh::closures::none
+        );
+        session->declare_publisher(zenoh::KeyExpr(message_config.topic_out));
+        session->declare_publisher(zenoh::KeyExpr(message_config.topic_time));
+    }
+
 }
 
 void PubSub::manual_provision(message_config_t message_config, std::string topic) {
     if(message_config.dds_enabled) {
         this->dds->provison_publisher(topic);
+    }
+}
+
+void PubSub::declare_zenoh_publisher(message_config_t message_config, std::string topic) {
+    if(message_config.zenoh_enabled){
+        this->session->declare_publisher(zenoh::KeyExpr(topic));
     }
 }
 
@@ -134,6 +179,16 @@ void PubSub::manual_subscribe(message_config_t message_config, std::string topic
     if(message_config.mqtt_enabled) {
         this->local_mqtt->subscribe(topic);
         if(this->remote_mqtt != NULL) this->remote_mqtt->subscribe(topic);
+    }
+    if(message_config.zenoh_enabled){
+        session->declare_background_subscriber(
+            zenoh::KeyExpr(topic),
+            [this, topic](const zenoh::Sample& sample) {
+                std::string message = sample.get_payload().as_string();
+                this->on_message(topic, message, 0);                         // TODO: think about priority since DDS is 0 and MQTT is 1
+            },
+            zenoh::closures::none
+        );
     }
 }
 
@@ -193,6 +248,13 @@ void PubSub::publish_time(message_config_t message_config, rapidjson::Value& mes
     const char* messageJSON = fullBuffer.GetString();
 
     if(message_config.dds_enabled) this->dds->publish(message_config.topic_time, messageJSON);
+    if(message_config.zenoh_enabled) {
+        const size_t output_len = strlen(messageJSON);
+        auto output_alloc_result = this->shm_provider->alloc_gc_defrag_blocking(output_len, zenoh::AllocAlignment({0}));
+        zenoh::ZShmMut&& output_buf = std::get<zenoh::ZShmMut>(std::move(output_alloc_result));
+        memcpy(output_buf.data(), messageJSON, output_len);
+        this->session->put(message_config.topic_time, std::move(output_buf));
+    }
     this->local_mqtt->publish(message_config.topic_time, messageJSON);
     if (this->remote_mqtt != NULL) this->remote_mqtt->publish(this->config.remote_mqtt_prefix + std::to_string(this->config.station_id) + "/" + message_config.topic_time, messageJSON);
 }

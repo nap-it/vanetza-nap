@@ -21,6 +21,7 @@ typedef struct message_config {
     bool mqtt_time_enabled;
     bool mqtt_test_enabled;
     bool dds_enabled;
+    bool zenoh_enabled;
 } message_config_t;
 
 typedef struct config {
@@ -79,6 +80,7 @@ typedef struct config {
     string full_vam_topic_test;
     string own_cam_topic_out;
     // string own_full_cam_topic_out;
+    string zenoh_endpoint;
 } config_t;
 
 typedef struct metrics {

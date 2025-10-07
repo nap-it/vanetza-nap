@@ -14,6 +14,7 @@ message_config_t read_message_config(INIReader reader, string env_prefix, string
         getenv((env_prefix + "_MQTT_TIME_ENABLED").c_str()) == NULL ? reader.GetBoolean(ini_section, "mqtt_time_enabled", true) : (strcmp(getenv((env_prefix + "_MQTT_TIME_ENABLED").c_str()), "true") == 0),
         getenv((env_prefix + "_MQTT_TEST_ENABLED").c_str()) == NULL ? reader.GetBoolean(ini_section, "mqtt_test_enabled", false) : (strcmp(getenv((env_prefix + "_MQTT_TEST_ENABLED").c_str()), "true") == 0),
         getenv((env_prefix + "_DDS_ENABLED").c_str()) == NULL ? reader.GetBoolean(ini_section, "dds_enabled", true) : (strcmp(getenv((env_prefix + "_DDS_ENABLED").c_str()), "true") == 0),
+        getenv((env_prefix + "_ZENOH_ENABLED").c_str()) == NULL ? reader.GetBoolean(ini_section, "zenoh_enabled", false) : (strcmp(getenv((env_prefix + "_ZENOH_ENABLED").c_str()), "true") == 0)
     };
     return res;
 }
@@ -51,6 +52,7 @@ void read_config(config_t* config_s, string path) {
     config_s->num_threads = getenv("VANETZA_NUM_THREADS") == NULL ? reader.GetInteger("general", "num_threads", -1) : stoi(getenv("VANETZA_NUM_THREADS"));
     config_s->publish_encoded_payloads = getenv("VANETZA_PUBLISH_ENCODED_PAYLOADS") == NULL ? reader.GetBoolean("general", "publish_encoded_payloads", false) : (strcmp((getenv("VANETZA_PUBLISH_ENCODED_PAYLOADS")), "true") == 0);
     config_s->debug_enabled = getenv("VANETZA_DEBUG_ENABLED") == NULL ? reader.GetBoolean("general", "debug_enabled", false) : (strcmp((getenv("VANETZA_DEBUG_ENABLED")), "true") == 0);
+    config_s->zenoh_endpoint = getenv("VANETZA_ZENOH_ENDPOINT") == NULL ? reader.Get("general", "zenoh_endpoint", "") : getenv("VANETZA_ZENOH_ENDPOINT");
     config_s->cam = read_message_config(reader, "VANETZA_CAM", "cam");
     config_s->denm = read_message_config(reader, "VANETZA_DENM", "denm");
     config_s->cpm = read_message_config(reader, "VANETZA_CPM", "cpm");
@@ -66,14 +68,14 @@ void read_config(config_t* config_s, string path) {
     config_s->evrsrm = read_message_config(reader, "VANETZA_EVRCSM", "evrsrm");
     config_s->tistpgm = read_message_config(reader, "VANETZA_TISTPGM", "tistpgm");
     config_s->mcm = read_message_config(reader, "VANETZA_MCM", "mcm");
-    config_s->full_cam_topic_in = getenv("VANETZA_CAM_FULL_TOPIC_IN") == NULL ? reader.Get("cam", "full_topic_in", "") : getenv("VANETZA_CAM_FULL_TOPIC_IN");
-    config_s->full_cam_topic_out = getenv("VANETZA_CAM_FULL_TOPIC_OUT") == NULL ? reader.Get("cam", "full_topic_out", "") : getenv("VANETZA_CAM_FULL_TOPIC_OUT");
-    config_s->full_cam_topic_time = getenv("VANETZA_CAM_FULL_TOPIC_TIME") == NULL ? reader.Get("cam", "full_topic_time", "") : getenv("VANETZA_CAM_FULL_TOPIC_TIME");
-    config_s->full_cam_topic_test = getenv("VANETZA_CAM_FULL_TOPIC_TEST") == NULL ? reader.Get("cam", "full_topic_test", "") : getenv("VANETZA_CAM_FULL_TOPIC_TEST");
-    config_s->full_vam_topic_in = getenv("VANETZA_VAM_FULL_TOPIC_IN") == NULL ? reader.Get("vam", "full_topic_in", "") : getenv("VANETZA_VAM_FULL_TOPIC_IN");
-    config_s->full_vam_topic_out = getenv("VANETZA_VAM_FULL_TOPIC_OUT") == NULL ? reader.Get("vam", "full_topic_out", "") : getenv("VANETZA_VAM_FULL_TOPIC_OUT");
-    config_s->full_vam_topic_time = getenv("VANETZA_VAM_FULL_TOPIC_TIME") == NULL ? reader.Get("vam", "full_topic_time", "") : getenv("VANETZA_VAM_FULL_TOPIC_TIME");
-    config_s->full_vam_topic_test = getenv("VANETZA_VAM_FULL_TOPIC_TEST") == NULL ? reader.Get("vam", "full_topic_test", "") : getenv("VANETZA_VAM_FULL_TOPIC_TEST");
+    // config_s->full_cam_topic_in = getenv("VANETZA_CAM_FULL_TOPIC_IN") == NULL ? reader.Get("cam", "full_topic_in", "") : getenv("VANETZA_CAM_FULL_TOPIC_IN");
+    // config_s->full_cam_topic_out = getenv("VANETZA_CAM_FULL_TOPIC_OUT") == NULL ? reader.Get("cam", "full_topic_out", "") : getenv("VANETZA_CAM_FULL_TOPIC_OUT");
+    // config_s->full_cam_topic_time = getenv("VANETZA_CAM_FULL_TOPIC_TIME") == NULL ? reader.Get("cam", "full_topic_time", "") : getenv("VANETZA_CAM_FULL_TOPIC_TIME");
+    // config_s->full_cam_topic_test = getenv("VANETZA_CAM_FULL_TOPIC_TEST") == NULL ? reader.Get("cam", "full_topic_test", "") : getenv("VANETZA_CAM_FULL_TOPIC_TEST");
+    // config_s->full_vam_topic_in = getenv("VANETZA_VAM_FULL_TOPIC_IN") == NULL ? reader.Get("vam", "full_topic_in", "") : getenv("VANETZA_VAM_FULL_TOPIC_IN");
+    // config_s->full_vam_topic_out = getenv("VANETZA_VAM_FULL_TOPIC_OUT") == NULL ? reader.Get("vam", "full_topic_out", "") : getenv("VANETZA_VAM_FULL_TOPIC_OUT");
+    // config_s->full_vam_topic_time = getenv("VANETZA_VAM_FULL_TOPIC_TIME") == NULL ? reader.Get("vam", "full_topic_time", "") : getenv("VANETZA_VAM_FULL_TOPIC_TIME");
+    // config_s->full_vam_topic_test = getenv("VANETZA_VAM_FULL_TOPIC_TEST") == NULL ? reader.Get("vam", "full_topic_test", "") : getenv("VANETZA_VAM_FULL_TOPIC_TEST");
     config_s->own_cam_topic_out = getenv("VANETZA_CAM_OWN_TOPIC_OUT") == NULL ? reader.Get("cam", "own_topic_out", "") : getenv("VANETZA_CAM_OWN_TOPIC_OUT");
-    config_s->own_full_cam_topic_out = getenv("VANETZA_CAM_OWN_FULL_TOPIC_OUT") == NULL ? reader.Get("cam", "own_full_topic_out", "") : getenv("VANETZA_CAM_OWN_FULL_TOPIC_OUT");
+    // config_s->own_full_cam_topic_out = getenv("VANETZA_CAM_OWN_FULL_TOPIC_OUT") == NULL ? reader.Get("cam", "own_full_topic_out", "") : getenv("VANETZA_CAM_OWN_FULL_TOPIC_OUT");
 }

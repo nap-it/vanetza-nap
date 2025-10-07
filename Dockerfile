@@ -1,4 +1,8 @@
-FROM code.nap.av.it.pt:5050/external-tools/misc-docker-images/debian:bullseye-slim
+FROM code.nap.av.it.pt:5050/mobility-networks/middleware-images/zenoh-libs:1.4.0 AS zenoh-libs
+FROM code.nap.av.it.pt:5050/external-tools/misc-docker-images/debian:bullseye-slim AS build
+
+COPY --from=zenoh-libs /usr/local /usr/local
+
 ENV TZ=Europe/Lisbon
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN printf "deb http://archive.debian.org/debian-archive/debian bullseye-backports main non-free\ndeb-src http://archive.debian.org/debian-archive/debian bullseye-backports main non-free\n" > /etc/apt/sources.list.d/backports.list
@@ -25,6 +29,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     file \
     && rm -rf /var/lib/apt/lists/*
+
+
+# Prometheus dependencies
 WORKDIR /tmp
 RUN git clone https://github.com/jupp0r/prometheus-cpp.git
 WORKDIR /tmp/prometheus-cpp
@@ -33,6 +40,8 @@ RUN git checkout a944ec100251019cd44d070bbf2fd22f5139d6d0
 RUN cmake -B_build -DCPACK_GENERATOR=DEB -DBUILD_SHARED_LIBS=ON
 RUN cmake --build _build --target package --parallel $(nproc)
 RUN dpkg -i _build/*.deb
+
+# DDS dependencies
 WORKDIR /tmp
 RUN git clone https://github.com/eProsima/foonathan_memory_vendor.git
 RUN mkdir /tmp/foonathan_memory_vendor/build
@@ -53,6 +62,8 @@ RUN mkdir /tmp/Fast-DDS/build
 WORKDIR /tmp/Fast-DDS/build
 RUN cmake ..
 RUN cmake --build . --target install --parallel $(nproc)
+
+# Vanetza
 RUN mkdir /vanetza
 COPY . /vanetza
 WORKDIR /vanetza
@@ -61,7 +72,7 @@ RUN cmake .
 RUN cmake --build . --target socktap -j $(nproc)
 RUN cp /vanetza/bin/socktap /usr/local/bin/socktap
 
-FROM code.nap.av.it.pt:5050/external-tools/misc-docker-images/debian:bullseye-slim
+FROM code.nap.av.it.pt:5050/external-tools/misc-docker-images/debian:bullseye-slim AS final
 ENV TZ=Europe/Lisbon
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 #RUN printf "deb http://httpredir.debian.org/debian buster-backports main non-free\ndeb-src http://httpredir.debian.org/debian buster-backports main non-free\n" > /etc/apt/sources.list.d/backports.list
@@ -95,14 +106,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /usr/share/perl \
     && rm -rf /usr/bin/perl \
     && rm -rf /usr/share/doc/*  
+
 WORKDIR /
 ENV EMBEDDED_MOSQUITTO_PORT=1883
-COPY --from=0 /vanetza/bin/socktap /usr/local/bin/socktap
-COPY --from=0 /vanetza/tools/socktap/config.ini /config.ini
-COPY --from=0 /vanetza/entrypoint.sh /entrypoint.sh
-COPY --from=0 /usr/local/lib/libfast* /usr/local/lib
-COPY --from=0 /usr/local/lib/libfoon* /usr/local/lib
-COPY --from=0 /tmp/prometheus-cpp/_build/*.deb /deps/
+COPY --from=build /vanetza/bin/socktap /usr/local/bin/socktap
+COPY --from=build /vanetza/tools/socktap/config.ini /config.ini
+COPY --from=build /vanetza/tools/socktap/zenoh_config.json5 /zenoh_config.json5
+COPY --from=build /vanetza/entrypoint.sh /entrypoint.sh
+COPY --from=build /usr/local/lib/libfast* /usr/local/lib
+COPY --from=build /usr/local/lib/libfoon* /usr/local/lib
+COPY --from=build /tmp/prometheus-cpp/_build/*.deb /deps/
+COPY --from=build /usr/local/lib/libzenoh* /usr/local/lib/
 RUN dpkg -i /deps/*.deb
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]

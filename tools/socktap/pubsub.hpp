@@ -18,6 +18,7 @@
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
+#include "zenoh.hxx"
 
 class PubSub_application
 {
@@ -42,6 +43,7 @@ public:
     void publish_time(message_config_t message_config, rapidjson::Value& message_json);
     void subscribe(message_config_t message_config, PubSub_application* app);
     void manual_provision(message_config_t message_config, std::string topic);
+    void declare_zenoh_publisher(message_config_t message_config, std::string topic);
     void manual_subscribe(message_config_t message_config, std::string topic, PubSub_application* app);
     void on_message(std::string topic, std::string message, int priority);
     void on_message(std::string topic, const std::vector<uint8_t>& message, int priority, std::string test);
@@ -49,6 +51,8 @@ public:
     Mqtt* local_mqtt;
     Mqtt* remote_mqtt;
     Dds* dds;
+    zenoh::Session* session = nullptr;
+    zenoh::PosixShmProvider* shm_provider = nullptr;
     std::mutex& prom_mtx;
 };
 

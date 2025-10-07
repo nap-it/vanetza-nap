@@ -1,7 +1,7 @@
 {
     "management": {
-        "actionID": {
-            "originatingStationID": 1798587532,
+        "actionId": {
+            "originatingStationId": 1798587532,
             "sequenceNumber": 0
         },
         "detectionTime": 1626453837.658,
@@ -25,8 +25,9 @@
     "situation": {
         "informationQuality": 7,
         "eventType": {
-            "causeCode": 14,
-            "subCauseCode": 14
+            "ccAndScc": {
+              "wrongWayDriving14": 0
+            }
         }
     }
 }

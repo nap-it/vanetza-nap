@@ -65,6 +65,12 @@ CamApplication::CamApplication(vanetza::PositionProvider& positioning, vanetza::
         // pubsub->manual_provision(config_s.cam, config_s.full_cam_topic_time);
     }
 
+    if(config_s.cam.zenoh_enabled) {
+        pubsub->declare_zenoh_publisher(config_s.cam, config_s.cam.topic_out);
+        pubsub->declare_zenoh_publisher(config_s.cam, config_s.own_cam_topic_out);
+        pubsub->declare_zenoh_publisher(config_s.cam, config_s.cam.topic_time);
+    }
+
     if(config_s.cam.udp_out_port != 0) {
         cam_udp_socket.open(ip::udp::v4());
         cam_remote_endpoint = ip::udp::endpoint(ip::address::from_string(config_s.cam.udp_out_addr), config_s.cam.udp_out_port);
@@ -167,6 +173,15 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     if(config_s.cam.topic_out != "" && config_s.cam.dds_enabled) pubsub->dds->publish(config_s.cam.topic_out, fullJSON);
     const double time_full_dds = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     if(config_s.cam.topic_out != "" && config_s.cam.mqtt_enabled) pubsub->local_mqtt->publish(config_s.cam.topic_out, fullJSON);
+    
+    const double time_full_zenoh = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    if(config_s.cam.topic_out != "" && config_s.cam.zenoh_enabled && pubsub->session != nullptr) {
+        const size_t output_len = strlen(fullJSON);
+        auto output_alloc_result = pubsub->shm_provider->alloc_gc_defrag_blocking(output_len, zenoh::AllocAlignment({0}));
+        zenoh::ZShmMut&& output_buf = std::get<zenoh::ZShmMut>(std::move(output_alloc_result));
+        memcpy(output_buf.data(), fullJSON, output_len);
+        pubsub->session->put(config_s.cam.topic_out, std::move(output_buf));
+    }
     const double time_full_local = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     if(config_s.cam.topic_out != "" && config_s.cam.mqtt_enabled && pubsub->remote_mqtt != NULL) pubsub->remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_out, fullJSON);
     const double time_full_remote = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
@@ -203,6 +218,7 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
             if (config_s.cam.topic_out != "") {
                 if (config_s.cam.udp_out_port != 0) cam_json_full["test"].AddMember("full_udp_timestamp", time_full_udp, allocator);
                 if (config_s.cam.dds_enabled) cam_json_full["test"].AddMember("full_dds_timestamp", time_full_dds, allocator);
+                if (config_s.cam.zenoh_enabled) cam_json_full["test"].AddMember("full_zenoh_timestamp", time_full_zenoh, allocator);
                 if (config_s.cam.mqtt_enabled) cam_json_full["test"].AddMember("full_local_timestamp", time_full_local, allocator);
                 if (config_s.cam.mqtt_enabled && pubsub->remote_mqtt != NULL) cam_json_full["test"].AddMember("full_remote_timestamp", time_full_remote, allocator);
             }
@@ -524,7 +540,14 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
         if(topic == config_s.cam.topic_in || topic == config_s.cam.topic_in + "_enc") {
             pubsub->local_mqtt->publish(config_s.cam.topic_time, simpleJSON);
             if (pubsub->remote_mqtt != NULL) pubsub->remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_time, simpleJSON);
-            if(config_s.cam.dds_enabled) pubsub->dds->publish(config_s.cam.topic_time, simpleJSON);
+            if (config_s.cam.dds_enabled) pubsub->dds->publish(config_s.cam.topic_time, simpleJSON);
+            if (config_s.cam.zenoh_enabled && pubsub->session != nullptr) {
+                const size_t output_len = strlen(simpleJSON);
+                auto output_alloc_result = pubsub->shm_provider->alloc_gc_defrag_blocking(output_len, zenoh::AllocAlignment({0}));
+                zenoh::ZShmMut&& output_buf = std::get<zenoh::ZShmMut>(std::move(output_alloc_result));
+                memcpy(output_buf.data(), simpleJSON, output_len);
+                pubsub->session->put(config_s.cam.topic_time, std::move(output_buf));
+            }
         }
         // else {
         //     pubsub->local_mqtt->publish(config_s.cam.topic_time, simpleJSON);
@@ -678,6 +701,14 @@ void CamApplication::on_timer(Clock::time_point)
 
     if(config_s.cam.topic_out != "") {
         if(config_s.cam.dds_enabled && config_s.own_cam_topic_out != "") pubsub->dds->publish(config_s.own_cam_topic_out, fullJSON);
+        if(config_s.cam.zenoh_enabled && config_s.own_cam_topic_out != "" && pubsub->session != nullptr) {
+            const size_t output_len = strlen(fullJSON);
+            auto output_alloc_result = pubsub->shm_provider->alloc_gc_defrag_blocking(output_len, zenoh::AllocAlignment({0}));
+            zenoh::ZShmMut&& output_buf = std::get<zenoh::ZShmMut>(std::move(output_alloc_result));
+            memcpy(output_buf.data(), fullJSON, output_len);
+            pubsub->session->put(config_s.own_cam_topic_out, std::move(output_buf));
+            std::cout << "Published CAM message through Zenoh on topic " << config_s.own_cam_topic_out << std::endl;
+        }
         if(config_s.cam.mqtt_enabled && config_s.own_cam_topic_out != "") pubsub->local_mqtt->publish(config_s.own_cam_topic_out, fullJSON);
         if(config_s.cam.mqtt_enabled && config_s.own_cam_topic_out != "" && pubsub->remote_mqtt != NULL) pubsub->remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.own_cam_topic_out, fullJSON);
     }

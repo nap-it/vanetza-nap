@@ -17,6 +17,8 @@ endif()
 
 find_package(Threads REQUIRED)
 find_package(RapidJSON)
+find_package(zenohc REQUIRED)
+find_package(zenohcxx REQUIRED)
 
 file(GLOB APPLICATIONS_SRC 
     applications/*.cpp
@@ -53,6 +55,7 @@ add_executable(socktap
 target_link_libraries(socktap PUBLIC mosquittopp fastrtps fastcdr)
 target_link_libraries(socktap PUBLIC nl-genl-3 nl-3 dl)
 target_link_libraries(socktap PUBLIC Boost::system Boost::program_options Threads::Threads vanetza)
+target_link_libraries(socktap PUBLIC zenohc::lib zenohcxx::zenohc)
 
 install(TARGETS socktap EXPORT ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
 
