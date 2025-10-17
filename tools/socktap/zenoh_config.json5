@@ -168,7 +168,7 @@
     /// The gossip scouting configuration. Note that instances in "client" mode do not participate in gossip.
     gossip: {
       /// Whether gossip scouting is enabled or not
-      enabled: true,
+      enabled: false,
       /// When true, gossip scouting information are propagated multiple hops to all nodes in the local network.
       /// When false, gossip scouting information are only propagated to the next hop.
       /// Activating multihop gossip implies more scouting traffic and a lower scalability.
@@ -386,7 +386,15 @@
                 "flows":["egress","ingress"],
                 "permission": "deny",
                 "key_exprs": ["**"],
+            },
+            {
+                "id": "drop-all-on-wlan2",
+                "messages": ["put", "delete", "declare_subscriber","query", "reply", "declare_queryable","liveliness_token", "liveliness_query", "declare_liveliness_subscriber",],
+                "flows":["egress","ingress"],
+                "permission": "deny",
+                "key_exprs": ["**"],
             }
+
         ],
         "subjects":
         [
@@ -394,6 +402,10 @@
                 "id": "wlan0-subject",
                 "interfaces": ["wlan0"],
             },
+            {
+                "id": "wlan2-subject",
+                "interfaces": ["wlan2"],
+            }
         ],
         "policies": [
             {
@@ -401,6 +413,11 @@
                 "rules": ["drop-all-on-wlan0"],
                 "subjects": ["wlan0-subject"],
             },
+            {
+                "id": "wlan2-policy",
+                "rules": ["drop-all-on-wlan2"],
+                "subjects": ["wlan2-subject"],
+            }
         ],
     },
 

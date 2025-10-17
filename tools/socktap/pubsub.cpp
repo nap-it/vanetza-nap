@@ -84,7 +84,7 @@ PubSub::PubSub(config_t config_, int num_threads_, std::mutex& prom_mtx_) :
         zconfig.insert_json5("connect/endpoints", "[\"tcp/" + config.zenoh_endpoint + ":7447\"]", err);
     } else {
         zconfig.insert_json5("connect/endpoints", "[\"tcp/127.0.0.1:7447\"]", err);
-        std::cout << "No Zenoh endpoint provided, using default configuration." << std::endl;
+        std::cout << "No Zenoh endpoint provided, using localhost configuration." << std::endl;
     }
 
     if (err) {
