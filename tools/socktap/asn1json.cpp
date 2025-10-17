@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by RapidJSON
-*   Auto-generated from the asn1 directory by asn1json.py on 2025-05-29 16:54:20.084930
+*   Auto-generated from the asn1 directory by asn1json.py on 2025-10-17 16:14:02.777388
 */
 
 #include "asn1json.hpp"
@@ -2381,8 +2381,8 @@ void from_json(const Value& j, ETSI_ITS_CDD_DangerousGoodsExtended_t& p, std::st
 
 Value to_json(const ETSI_ITS_CDD_DeltaPosition_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("deltaLatitude", to_json((p.deltaLatitude), allocator), allocator);
-    json.AddMember("deltaLongitude", to_json((p.deltaLongitude), allocator), allocator);
+    json.AddMember("deltaLatitude", to_json(((p.deltaLatitude) == 131072) ? (p.deltaLatitude) : (double)(p.deltaLatitude) / 10000000.0, allocator), allocator);
+    json.AddMember("deltaLongitude", to_json(((p.deltaLongitude) == 131072) ? (p.deltaLongitude) : (double)(p.deltaLongitude) / 10000000.0, allocator), allocator);
     
     return json;
 }
@@ -2390,8 +2390,8 @@ Value to_json(const ETSI_ITS_CDD_DeltaPosition_t& p, Document::AllocatorType& al
 void from_json(const Value& j, ETSI_ITS_CDD_DeltaPosition_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["deltaLatitude"], (p.deltaLatitude), "deltaLatitude");
-        from_json(j["deltaLongitude"], (p.deltaLongitude), "deltaLongitude");
+        double deltaLatitude; from_json(j["deltaLatitude"], (deltaLatitude), "deltaLatitude"); (p.deltaLatitude) = ((deltaLatitude) != 131072) ? deltaLatitude * 10000000 : deltaLatitude;
+        double deltaLongitude; from_json(j["deltaLongitude"], (deltaLongitude), "deltaLongitude"); (p.deltaLongitude) = ((deltaLongitude) != 131072) ? deltaLongitude * 10000000 : deltaLongitude;
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -2439,9 +2439,9 @@ void from_json(const Value& j, ETSI_ITS_CDD_DeltaPositions_t& p, std::string fie
 
 Value to_json(const ETSI_ITS_CDD_DeltaReferencePosition_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("deltaLatitude", to_json((p.deltaLatitude), allocator), allocator);
-    json.AddMember("deltaLongitude", to_json((p.deltaLongitude), allocator), allocator);
-    json.AddMember("deltaAltitude", to_json((p.deltaAltitude), allocator), allocator);
+    json.AddMember("deltaLatitude", to_json(((p.deltaLatitude) == 131072) ? (p.deltaLatitude) : (double)(p.deltaLatitude) / 10000000.0, allocator), allocator);
+    json.AddMember("deltaLongitude", to_json(((p.deltaLongitude) == 131072) ? (p.deltaLongitude) : (double)(p.deltaLongitude) / 10000000.0, allocator), allocator);
+    json.AddMember("deltaAltitude", to_json(((p.deltaAltitude) == -12700 || (p.deltaAltitude) == 12799 || (p.deltaAltitude) == 12800) ? (p.deltaAltitude) : (double)(p.deltaAltitude) / 100.0, allocator), allocator);
     
     return json;
 }
@@ -2449,9 +2449,9 @@ Value to_json(const ETSI_ITS_CDD_DeltaReferencePosition_t& p, Document::Allocato
 void from_json(const Value& j, ETSI_ITS_CDD_DeltaReferencePosition_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["deltaLatitude"], (p.deltaLatitude), "deltaLatitude");
-        from_json(j["deltaLongitude"], (p.deltaLongitude), "deltaLongitude");
-        from_json(j["deltaAltitude"], (p.deltaAltitude), "deltaAltitude");
+        double deltaLatitude; from_json(j["deltaLatitude"], (deltaLatitude), "deltaLatitude"); (p.deltaLatitude) = ((deltaLatitude) != 131072) ? deltaLatitude * 10000000 : deltaLatitude;
+        double deltaLongitude; from_json(j["deltaLongitude"], (deltaLongitude), "deltaLongitude"); (p.deltaLongitude) = ((deltaLongitude) != 131072) ? deltaLongitude * 10000000 : deltaLongitude;
+        double deltaAltitude; from_json(j["deltaAltitude"], (deltaAltitude), "deltaAltitude"); (p.deltaAltitude) = ((deltaAltitude) != -12700 && (deltaAltitude) != 12799 && (deltaAltitude) != 12800) ? deltaAltitude * 100 : deltaAltitude;
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -4808,9 +4808,9 @@ void from_json(const Value& j, ITS_Container_ReferencePosition_t& p, std::string
 
 Value to_json(const ITS_Container_DeltaReferencePosition_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("deltaLatitude", to_json((p.deltaLatitude), allocator), allocator);
-    json.AddMember("deltaLongitude", to_json((p.deltaLongitude), allocator), allocator);
-    json.AddMember("deltaAltitude", to_json((p.deltaAltitude), allocator), allocator);
+    json.AddMember("deltaLatitude", to_json(((p.deltaLatitude) == 131072) ? (p.deltaLatitude) : (double)(p.deltaLatitude) / 10000000.0, allocator), allocator);
+    json.AddMember("deltaLongitude", to_json(((p.deltaLongitude) == 131072) ? (p.deltaLongitude) : (double)(p.deltaLongitude) / 10000000.0, allocator), allocator);
+    json.AddMember("deltaAltitude", to_json(((p.deltaAltitude) == -12700 || (p.deltaAltitude) == 12799 || (p.deltaAltitude) == 12800) ? (p.deltaAltitude) : (double)(p.deltaAltitude) / 100.0, allocator), allocator);
     
     return json;
 }
@@ -4818,9 +4818,9 @@ Value to_json(const ITS_Container_DeltaReferencePosition_t& p, Document::Allocat
 void from_json(const Value& j, ITS_Container_DeltaReferencePosition_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["deltaLatitude"], (p.deltaLatitude), "deltaLatitude");
-        from_json(j["deltaLongitude"], (p.deltaLongitude), "deltaLongitude");
-        from_json(j["deltaAltitude"], (p.deltaAltitude), "deltaAltitude");
+        double deltaLatitude; from_json(j["deltaLatitude"], (deltaLatitude), "deltaLatitude"); (p.deltaLatitude) = ((deltaLatitude) != 131072) ? deltaLatitude * 10000000 : deltaLatitude;
+        double deltaLongitude; from_json(j["deltaLongitude"], (deltaLongitude), "deltaLongitude"); (p.deltaLongitude) = ((deltaLongitude) != 131072) ? deltaLongitude * 10000000 : deltaLongitude;
+        double deltaAltitude; from_json(j["deltaAltitude"], (deltaAltitude), "deltaAltitude"); (p.deltaAltitude) = ((deltaAltitude) != -12700 && (deltaAltitude) != 12799 && (deltaAltitude) != 12800) ? deltaAltitude * 100 : deltaAltitude;
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -10529,8 +10529,8 @@ void from_json(const Value& j, ComputedSegment& p, std::string field) {
 
 Value to_json(const IVI_DeltaPosition_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("deltaLatitude", to_json((p.deltaLatitude), allocator), allocator);
-    json.AddMember("deltaLongitude", to_json((p.deltaLongitude), allocator), allocator);
+    json.AddMember("deltaLatitude", to_json(((p.deltaLatitude) == 131072) ? (p.deltaLatitude) : (double)(p.deltaLatitude) / 10000000.0, allocator), allocator);
+    json.AddMember("deltaLongitude", to_json(((p.deltaLongitude) == 131072) ? (p.deltaLongitude) : (double)(p.deltaLongitude) / 10000000.0, allocator), allocator);
     
     return json;
 }
@@ -10538,8 +10538,8 @@ Value to_json(const IVI_DeltaPosition_t& p, Document::AllocatorType& allocator) 
 void from_json(const Value& j, IVI_DeltaPosition_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["deltaLatitude"], (p.deltaLatitude), "deltaLatitude");
-        from_json(j["deltaLongitude"], (p.deltaLongitude), "deltaLongitude");
+        double deltaLatitude; from_json(j["deltaLatitude"], (deltaLatitude), "deltaLatitude"); (p.deltaLatitude) = ((deltaLatitude) != 131072) ? deltaLatitude * 10000000 : deltaLatitude;
+        double deltaLongitude; from_json(j["deltaLongitude"], (deltaLongitude), "deltaLongitude"); (p.deltaLongitude) = ((deltaLongitude) != 131072) ? deltaLongitude * 10000000 : deltaLongitude;
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -13391,7 +13391,7 @@ Value to_json(const TerminationContainer& p, Document::AllocatorType& allocator)
 void from_json(const Value& j, TerminationContainer& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        
+
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -14827,6 +14827,7 @@ Value to_json(const DENM_PDU_Description_SituationContainer& p, Document::Alloca
     json.AddMember("informationQuality", to_json((p.informationQuality), allocator), allocator);
     json.AddMember("eventType", to_json((p.eventType), allocator), allocator);
     if (p.linkedCause != 0) json.AddMember("linkedCause", to_json(*(p.linkedCause), allocator), allocator);
+    if (p.eventZone != 0) json.AddMember("eventZone", to_json(*reinterpret_cast<ETSI_ITS_CDD_EventHistory_t*>(p.eventZone), allocator), allocator);
     if (p.ext1 != 0 && (p.ext1->linkedDenms != 0)) json.AddMember("linkedDenms", to_json(*(p.ext1->linkedDenms), allocator), allocator);
     if (p.ext1 != 0 && (p.ext1->eventEnd != 0)) json.AddMember("eventEnd", to_json(*(p.ext1->eventEnd), allocator), allocator);
     return json;
@@ -14834,21 +14835,24 @@ Value to_json(const DENM_PDU_Description_SituationContainer& p, Document::Alloca
 
 void from_json(const Value& j, DENM_PDU_Description_SituationContainer& p, std::string field) {
     try {
-    p._asn_ctx.ptr = nullptr;
-    from_json(j["informationQuality"], (p.informationQuality), "informationQuality");
-    from_json(j["eventType"], (p.eventType), "eventType");
-    if (j.HasMember("linkedCause")) { p.linkedCause = vanetza::asn1::allocate<CauseCodeV2_t>(); from_json(j["linkedCause"], *(p.linkedCause), "linkedCause"); }
-    else { p.linkedCause=nullptr; }
-    // if (j.HasMember("linkedDenms")) { p.ext1->linkedDenms = vanetza::asn1::allocate<ActionIdList_t>(); from_json(j["linkedDenms"], *(p.ext1->linkedDenms), "linkedDenms"); }
-    // else { p.ext1->linkedDenms=nullptr; }
-    // if (j.HasMember("eventEnd")) { p.ext1->eventEnd = vanetza::asn1::allocate<Position1d_t>(); from_json(j["eventEnd"], *(p.ext1->eventEnd), "eventEnd"); }
-    // else { p.ext1->eventEnd=nullptr; }
-    p.eventZone=nullptr;
+        p._asn_ctx.ptr = nullptr;
+        from_json(j["informationQuality"], (p.informationQuality), "informationQuality");
+        from_json(j["eventType"], (p.eventType), "eventType");
+        if (j.HasMember("linkedCause")) { p.linkedCause = vanetza::asn1::allocate<CauseCodeV2_t>(); from_json(j["linkedCause"], *(p.linkedCause), "linkedCause"); }
+        else { p.linkedCause=nullptr; }
+        if (j.HasMember("eventZone")) { ETSI_ITS_CDD_EventHistory_t *tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_EventHistory_t>(); from_json(j["eventZone"], *tmp, "eventZone"); p.eventZone = reinterpret_cast<EventZone*>(tmp); }
+        else { p.eventZone = nullptr; }
+        if (j.HasMember("linkedDenms")) { if (p.ext1 == 0) { p.ext1 = vanetza::asn1::allocate<DENM_PDU_Description_SituationContainer::DENM_PDU_Description_SituationContainer__ext1>(); } p.ext1->linkedDenms = vanetza::asn1::allocate<ActionIdList_t>(); from_json(j["linkedDenms"], *(p.ext1->linkedDenms), "linkedDenms"); }
+        else { if (p.ext1 != 0) p.ext1->linkedDenms=nullptr; }
+        if (j.HasMember("eventEnd")) { if (p.ext1 == 0) { p.ext1 = vanetza::asn1::allocate<DENM_PDU_Description_SituationContainer::DENM_PDU_Description_SituationContainer__ext1>(); } p.ext1->eventEnd = vanetza::asn1::allocate<Position1d_t>(); from_json(j["eventEnd"], *(p.ext1->eventEnd), "eventEnd"); }
+        else { if (p.ext1 != 0) p.ext1->eventEnd=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
     }
 }
+
+
 
 /*
 *   ImpactReductionContainer - Type SEQUENCE
@@ -15784,10 +15788,10 @@ void from_json(const Value& j, ETSI_ITS_CDD_PathHistory_t& p, std::string field)
 
 Value to_json(const PathPointPredicted_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("deltaLatitude", to_json((p.deltaLatitude), allocator), allocator);
-    json.AddMember("deltaLongitude", to_json((p.deltaLongitude), allocator), allocator);
+    json.AddMember("deltaLatitude", to_json(((p.deltaLatitude) == 131072) ? (p.deltaLatitude) : (double)(p.deltaLatitude) / 10000000.0, allocator), allocator);
+    json.AddMember("deltaLongitude", to_json(((p.deltaLongitude) == 131072) ? (p.deltaLongitude) : (double)(p.deltaLongitude) / 10000000.0, allocator), allocator);
     if (p.horizontalPositionConfidence != 0) json.AddMember("horizontalPositionConfidence", to_json(*(p.horizontalPositionConfidence), allocator), allocator);
-    if (p.deltaAltitude != 0) json.AddMember("deltaAltitude", to_json(*(p.deltaAltitude), allocator), allocator);
+    if (p.deltaAltitude != 0) json.AddMember("deltaAltitude", to_json((*(p.deltaAltitude) != -12700 && *(p.deltaAltitude) != 12799 && *(p.deltaAltitude) != 12800) ? (double) *(p.deltaAltitude) / 100.0 : *(p.deltaAltitude), allocator), allocator);
     if (p.altitudeConfidence != 0) json.AddMember("altitudeConfidence", to_json(*(p.altitudeConfidence), allocator), allocator);
     if (p.pathDeltaTime != 0) json.AddMember("pathDeltaTime", to_json(*(p.pathDeltaTime), allocator), allocator);
     if (p.symmetricAreaOffset != 0) json.AddMember("symmetricAreaOffset", to_json(*(p.symmetricAreaOffset), allocator), allocator);
@@ -15798,11 +15802,11 @@ Value to_json(const PathPointPredicted_t& p, Document::AllocatorType& allocator)
 void from_json(const Value& j, PathPointPredicted_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["deltaLatitude"], (p.deltaLatitude), "deltaLatitude");
-        from_json(j["deltaLongitude"], (p.deltaLongitude), "deltaLongitude");
+        double deltaLatitude; from_json(j["deltaLatitude"], (deltaLatitude), "deltaLatitude"); (p.deltaLatitude) = ((deltaLatitude) != 131072) ? deltaLatitude * 10000000 : deltaLatitude;
+        double deltaLongitude; from_json(j["deltaLongitude"], (deltaLongitude), "deltaLongitude"); (p.deltaLongitude) = ((deltaLongitude) != 131072) ? deltaLongitude * 10000000 : deltaLongitude;
         if (j.HasMember("horizontalPositionConfidence")) { p.horizontalPositionConfidence = vanetza::asn1::allocate<ETSI_ITS_CDD_PosConfidenceEllipse_t>(); from_json(j["horizontalPositionConfidence"], *(p.horizontalPositionConfidence), "horizontalPositionConfidence"); }
         else { p.horizontalPositionConfidence=nullptr; }
-        if (j.HasMember("deltaAltitude")) { p.deltaAltitude = vanetza::asn1::allocate<ETSI_ITS_CDD_DeltaAltitude_t>(); from_json(j["deltaAltitude"], *(p.deltaAltitude), "deltaAltitude"); }
+        double deltaAltitude; if (j.HasMember("deltaAltitude")) { p.deltaAltitude = vanetza::asn1::allocate<ETSI_ITS_CDD_DeltaAltitude_t>(); from_json(j["deltaAltitude"], (deltaAltitude), "deltaAltitude"); *(p.deltaAltitude) = ((deltaAltitude) != -12700 && (deltaAltitude) != 12799 && (deltaAltitude) != 12800) ? deltaAltitude * 100 : deltaAltitude; }
         else { p.deltaAltitude=nullptr; }
         if (j.HasMember("altitudeConfidence")) { p.altitudeConfidence = vanetza::asn1::allocate<ETSI_ITS_CDD_AltitudeConfidence_t>(); from_json(j["altitudeConfidence"], *(p.altitudeConfidence), "altitudeConfidence"); }
         else { p.altitudeConfidence=nullptr; }
@@ -16197,7 +16201,7 @@ void from_json(const Value& j, ItsStationPositionList_t& p, std::string field) {
 Value to_json(const SignalHeadLocation_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("nodeXY", to_json((p.nodeXY), allocator), allocator);
-    json.AddMember("nodeZ", to_json((p.nodeZ), allocator), allocator);
+    json.AddMember("nodeZ", to_json(((p.nodeZ) == -12700 || (p.nodeZ) == 12799 || (p.nodeZ) == 12800) ? (p.nodeZ) : (double)(p.nodeZ) / 100.0, allocator), allocator);
     json.AddMember("signalGroupID", to_json((p.signalGroupID), allocator), allocator);
     
     return json;
@@ -16207,7 +16211,7 @@ void from_json(const Value& j, SignalHeadLocation_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
         from_json(j["nodeXY"], (p.nodeXY), "nodeXY");
-        from_json(j["nodeZ"], (p.nodeZ), "nodeZ");
+        double nodeZ; from_json(j["nodeZ"], (nodeZ), "nodeZ"); (p.nodeZ) = ((nodeZ) != -12700 && (nodeZ) != 12799 && (nodeZ) != 12800) ? nodeZ * 100 : nodeZ;
         from_json(j["signalGroupID"], (p.signalGroupID), "signalGroupID");
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
@@ -20956,16 +20960,16 @@ void from_json(const Value& j, LaneInformation& p, std::string field) {
         from_json(j["laneStatus"], (p.laneStatus), "laneStatus");
         if (j.HasMember("laneWidth")) { p.laneWidth = vanetza::asn1::allocate<IviLaneWidth_t>(); from_json(j["laneWidth"], *(p.laneWidth), "laneWidth"); }
         else { p.laneWidth=nullptr; }
-        if (j.HasMember("detectionZoneIds")) { p.ext1->detectionZoneIds = vanetza::asn1::allocate<ZoneIds_t>(); from_json(j["detectionZoneIds"], *(p.ext1->detectionZoneIds), "detectionZoneIds"); }
-        else { p.ext1->detectionZoneIds=nullptr; }
-        if (j.HasMember("relevanceZoneIds")) { p.ext1->relevanceZoneIds = vanetza::asn1::allocate<ZoneIds_t>(); from_json(j["relevanceZoneIds"], *(p.ext1->relevanceZoneIds), "relevanceZoneIds"); }
-        else { p.ext1->relevanceZoneIds=nullptr; }
-        if (j.HasMember("laneCharacteristics")) { p.ext1->laneCharacteristics = vanetza::asn1::allocate<LaneCharacteristics_t>(); from_json(j["laneCharacteristics"], *(p.ext1->laneCharacteristics), "laneCharacteristics"); }
-        else { p.ext1->laneCharacteristics=nullptr; }
-        if (j.HasMember("laneSurfaceStaticCharacteristics")) { p.ext1->laneSurfaceStaticCharacteristics = vanetza::asn1::allocate<RoadSurfaceStaticCharacteristics_t>(); from_json(j["laneSurfaceStaticCharacteristics"], *(p.ext1->laneSurfaceStaticCharacteristics), "laneSurfaceStaticCharacteristics"); }
-        else { p.ext1->laneSurfaceStaticCharacteristics=nullptr; }
-        if (j.HasMember("laneSurfaceDynamicCharacteristics")) { p.ext1->laneSurfaceDynamicCharacteristics = vanetza::asn1::allocate<RoadSurfaceDynamicCharacteristics_t>(); from_json(j["laneSurfaceDynamicCharacteristics"], *(p.ext1->laneSurfaceDynamicCharacteristics), "laneSurfaceDynamicCharacteristics"); }
-        else { p.ext1->laneSurfaceDynamicCharacteristics=nullptr; }
+        if (j.HasMember("detectionZoneIds")) { if (p.ext1 == 0) { p.ext1 = vanetza::asn1::allocate<LaneInformation::LaneInformation__ext1>(); } p.ext1->detectionZoneIds = vanetza::asn1::allocate<ZoneIds_t>(); from_json(j["detectionZoneIds"], *(p.ext1->detectionZoneIds), "detectionZoneIds"); }
+        else { if (p.ext1 != 0) p.ext1->detectionZoneIds=nullptr; }
+        if (j.HasMember("relevanceZoneIds")) { if (p.ext1 == 0) { p.ext1 = vanetza::asn1::allocate<LaneInformation::LaneInformation__ext1>(); } p.ext1->relevanceZoneIds = vanetza::asn1::allocate<ZoneIds_t>(); from_json(j["relevanceZoneIds"], *(p.ext1->relevanceZoneIds), "relevanceZoneIds"); }
+        else { if (p.ext1 != 0) p.ext1->relevanceZoneIds=nullptr; }
+        if (j.HasMember("laneCharacteristics")) { if (p.ext1 == 0) { p.ext1 = vanetza::asn1::allocate<LaneInformation::LaneInformation__ext1>(); } p.ext1->laneCharacteristics = vanetza::asn1::allocate<LaneCharacteristics_t>(); from_json(j["laneCharacteristics"], *(p.ext1->laneCharacteristics), "laneCharacteristics"); }
+        else { if (p.ext1 != 0) p.ext1->laneCharacteristics=nullptr; }
+        if (j.HasMember("laneSurfaceStaticCharacteristics")) { if (p.ext1 == 0) { p.ext1 = vanetza::asn1::allocate<LaneInformation::LaneInformation__ext1>(); } p.ext1->laneSurfaceStaticCharacteristics = vanetza::asn1::allocate<RoadSurfaceStaticCharacteristics_t>(); from_json(j["laneSurfaceStaticCharacteristics"], *(p.ext1->laneSurfaceStaticCharacteristics), "laneSurfaceStaticCharacteristics"); }
+        else { if (p.ext1 != 0) p.ext1->laneSurfaceStaticCharacteristics=nullptr; }
+        if (j.HasMember("laneSurfaceDynamicCharacteristics")) { if (p.ext1 == 0) { p.ext1 = vanetza::asn1::allocate<LaneInformation::LaneInformation__ext1>(); } p.ext1->laneSurfaceDynamicCharacteristics = vanetza::asn1::allocate<RoadSurfaceDynamicCharacteristics_t>(); from_json(j["laneSurfaceDynamicCharacteristics"], *(p.ext1->laneSurfaceDynamicCharacteristics), "laneSurfaceDynamicCharacteristics"); }
+        else { if (p.ext1 != 0) p.ext1->laneSurfaceDynamicCharacteristics=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -21922,18 +21926,18 @@ void from_json(const Value& j, DENM_PDU_Description_LocationContainer& p, std::s
         from_json(j["detectionZonesToEventPosition"], (p.detectionZonesToEventPosition), "detectionZonesToEventPosition");
         if (j.HasMember("roadType")) { p.roadType = vanetza::asn1::allocate<ITS_Container_RoadType_t>(); from_json(j["roadType"], *(p.roadType), "roadType"); }
         else { p.roadType=nullptr; }
-        if (j.HasMember("lanePositions")) { p.ext1->lanePositions = vanetza::asn1::allocate<GeneralizedLanePositions_t>(); from_json(j["lanePositions"], *(p.ext1->lanePositions), "lanePositions"); }
-        else { p.ext1->lanePositions=nullptr; }
-        if (j.HasMember("occupiedLanes")) { p.ext1->occupiedLanes = vanetza::asn1::allocate<OccupiedLanesWithConfidence_t>(); from_json(j["occupiedLanes"], *(p.ext1->occupiedLanes), "occupiedLanes"); }
-        else { p.ext1->occupiedLanes=nullptr; }
-        if (j.HasMember("linkedIvims")) { p.ext1->linkedIvims = vanetza::asn1::allocate<IvimReferences_t>(); from_json(j["linkedIvims"], *(p.ext1->linkedIvims), "linkedIvims"); }
-        else { p.ext1->linkedIvims=nullptr; }
-        if (j.HasMember("linkedMapems")) { p.ext1->linkedMapems = vanetza::asn1::allocate<MapReferences_t>(); from_json(j["linkedMapems"], *(p.ext1->linkedMapems), "linkedMapems"); }
-        else { p.ext1->linkedMapems=nullptr; }
-        if (j.HasMember("detectionZonesToSpecifiedEventPoint")) { p.ext1->detectionZonesToSpecifiedEventPoint = vanetza::asn1::allocate<TracesExtended_t>(); from_json(j["detectionZonesToSpecifiedEventPoint"], *(p.ext1->detectionZonesToSpecifiedEventPoint), "detectionZonesToSpecifiedEventPoint"); }
-        else { p.ext1->detectionZonesToSpecifiedEventPoint=nullptr; }
-        if (j.HasMember("predictedPaths")) { p.ext1->predictedPaths = vanetza::asn1::allocate<PathPredictedList_t>(); from_json(j["predictedPaths"], *(p.ext1->predictedPaths), "predictedPaths"); }
-        else { p.ext1->predictedPaths=nullptr; }
+        if (j.HasMember("lanePositions")) { if (p.ext1 == 0) { p.ext1 = vanetza::asn1::allocate<DENM_PDU_Description_LocationContainer::DENM_PDU_Description_LocationContainer__ext1>(); } p.ext1->lanePositions = vanetza::asn1::allocate<GeneralizedLanePositions_t>(); from_json(j["lanePositions"], *(p.ext1->lanePositions), "lanePositions"); }
+        else { if (p.ext1 != 0) p.ext1->lanePositions=nullptr; }
+        if (j.HasMember("occupiedLanes")) { if (p.ext1 == 0) { p.ext1 = vanetza::asn1::allocate<DENM_PDU_Description_LocationContainer::DENM_PDU_Description_LocationContainer__ext1>(); } p.ext1->occupiedLanes = vanetza::asn1::allocate<OccupiedLanesWithConfidence_t>(); from_json(j["occupiedLanes"], *(p.ext1->occupiedLanes), "occupiedLanes"); }
+        else { if (p.ext1 != 0) p.ext1->occupiedLanes=nullptr; }
+        if (j.HasMember("linkedIvims")) { if (p.ext1 == 0) { p.ext1 = vanetza::asn1::allocate<DENM_PDU_Description_LocationContainer::DENM_PDU_Description_LocationContainer__ext1>(); } p.ext1->linkedIvims = vanetza::asn1::allocate<IvimReferences_t>(); from_json(j["linkedIvims"], *(p.ext1->linkedIvims), "linkedIvims"); }
+        else { if (p.ext1 != 0) p.ext1->linkedIvims=nullptr; }
+        if (j.HasMember("linkedMapems")) { if (p.ext1 == 0) { p.ext1 = vanetza::asn1::allocate<DENM_PDU_Description_LocationContainer::DENM_PDU_Description_LocationContainer__ext1>(); } p.ext1->linkedMapems = vanetza::asn1::allocate<MapReferences_t>(); from_json(j["linkedMapems"], *(p.ext1->linkedMapems), "linkedMapems"); }
+        else { if (p.ext1 != 0) p.ext1->linkedMapems=nullptr; }
+        if (j.HasMember("detectionZonesToSpecifiedEventPoint")) { if (p.ext1 == 0) { p.ext1 = vanetza::asn1::allocate<DENM_PDU_Description_LocationContainer::DENM_PDU_Description_LocationContainer__ext1>(); } p.ext1->detectionZonesToSpecifiedEventPoint = vanetza::asn1::allocate<TracesExtended_t>(); from_json(j["detectionZonesToSpecifiedEventPoint"], *(p.ext1->detectionZonesToSpecifiedEventPoint), "detectionZonesToSpecifiedEventPoint"); }
+        else { if (p.ext1 != 0) p.ext1->detectionZonesToSpecifiedEventPoint=nullptr; }
+        if (j.HasMember("predictedPaths")) { if (p.ext1 == 0) { p.ext1 = vanetza::asn1::allocate<DENM_PDU_Description_LocationContainer::DENM_PDU_Description_LocationContainer__ext1>(); } p.ext1->predictedPaths = vanetza::asn1::allocate<PathPredictedList_t>(); from_json(j["predictedPaths"], *(p.ext1->predictedPaths), "predictedPaths"); }
+        else { if (p.ext1 != 0) p.ext1->predictedPaths=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -23496,7 +23500,7 @@ Value to_json(const TcPart& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     json.AddMember("relevanceZoneIds", to_json((p.relevanceZoneIds), allocator), allocator);
     json.AddMember("data", to_json((p.data), allocator), allocator);
-    json.AddMember("iviType", to_json((p.ext1->iviType), allocator), allocator);
+    if (p.ext1 != 0) json.AddMember("iviType", to_json((p.ext1->iviType), allocator), allocator);
     if (p.detectionZoneIds != 0) json.AddMember("detectionZoneIds", to_json(*(p.detectionZoneIds), allocator), allocator);
     if (p.direction != 0) json.AddMember("direction", to_json(*(p.direction), allocator), allocator);
     if (p.driverAwarenessZoneIds != 0) json.AddMember("driverAwarenessZoneIds", to_json(*(p.driverAwarenessZoneIds), allocator), allocator);
@@ -23513,6 +23517,7 @@ Value to_json(const TcPart& p, Document::AllocatorType& allocator) {
 void from_json(const Value& j, TcPart& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
+        if (p.ext1 == 0) { p.ext1 = vanetza::asn1::allocate<TcPart::TcPart__ext1>(); }
         if (j.HasMember("detectionZoneIds")) { p.detectionZoneIds = vanetza::asn1::allocate<ZoneIds_t>(); from_json(j["detectionZoneIds"], *(p.detectionZoneIds), "detectionZoneIds"); }
         else { p.detectionZoneIds=nullptr; }
         from_json(j["relevanceZoneIds"], (p.relevanceZoneIds), "relevanceZoneIds");
@@ -23532,10 +23537,10 @@ void from_json(const Value& j, TcPart& p, std::string field) {
         else { p.text=nullptr; }
         from_json(j["data"], (p.data), "data");
         from_json(j["iviType"], (p.ext1->iviType), "iviType");
-        if (j.HasMember("laneStatus")) { p.ext1->laneStatus = vanetza::asn1::allocate<LaneStatus_t>(); from_json(j["laneStatus"], *(p.ext1->laneStatus), "laneStatus"); }
-        else { p.ext1->laneStatus=nullptr; }
-        if (j.HasMember("vehicleCharacteristics")) { p.ext1->vehicleCharacteristics = vanetza::asn1::allocate<VehicleCharacteristicsList_t>(); from_json(j["vehicleCharacteristics"], *(p.ext1->vehicleCharacteristics), "vehicleCharacteristics"); }
-        else { p.ext1->vehicleCharacteristics=nullptr; }
+        if (j.HasMember("laneStatus")) { if (p.ext1 == 0) { p.ext1 = vanetza::asn1::allocate<TcPart::TcPart__ext1>(); } p.ext1->laneStatus = vanetza::asn1::allocate<LaneStatus_t>(); from_json(j["laneStatus"], *(p.ext1->laneStatus), "laneStatus"); }
+        else { if (p.ext1 != 0) p.ext1->laneStatus=nullptr; }
+        if (j.HasMember("vehicleCharacteristics")) { if (p.ext1 == 0) { p.ext1 = vanetza::asn1::allocate<TcPart::TcPart__ext1>(); } p.ext1->vehicleCharacteristics = vanetza::asn1::allocate<VehicleCharacteristicsList_t>(); from_json(j["vehicleCharacteristics"], *(p.ext1->vehicleCharacteristics), "vehicleCharacteristics"); }
+        else { if (p.ext1 != 0) p.ext1->vehicleCharacteristics=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -24134,10 +24139,10 @@ void from_json(const Value& j, DENM_PDU_Description_AlacarteContainer& p, std::s
         else { p.positioningSolution=nullptr; }
         if (j.HasMember("stationaryVehicle")) { p.stationaryVehicle = vanetza::asn1::allocate<DENM_PDU_Description_StationaryVehicleContainer_t>(); from_json(j["stationaryVehicle"], *(p.stationaryVehicle), "stationaryVehicle"); }
         else { p.stationaryVehicle=nullptr; }
-        if (j.HasMember("roadConfiguration")) { p.ext1->roadConfiguration = vanetza::asn1::allocate<DENM_PDU_Description_RoadConfigurationContainer_t>(); from_json(j["roadConfiguration"], *(p.ext1->roadConfiguration), "roadConfiguration"); }
-        else { p.ext1->roadConfiguration=nullptr; }
-        if (j.HasMember("preCrash")) { p.ext1->preCrash = vanetza::asn1::allocate<PreCrashContainer_t>(); from_json(j["preCrash"], *(p.ext1->preCrash), "preCrash"); }
-        else { p.ext1->preCrash=nullptr; }
+        if (j.HasMember("roadConfiguration")) { if (p.ext1 == 0) { p.ext1 = vanetza::asn1::allocate<DENM_PDU_Description_AlacarteContainer::DENM_PDU_Description_AlacarteContainer__ext1>(); } p.ext1->roadConfiguration = vanetza::asn1::allocate<DENM_PDU_Description_RoadConfigurationContainer_t>(); from_json(j["roadConfiguration"], *(p.ext1->roadConfiguration), "roadConfiguration"); }
+        else { if (p.ext1 != 0) p.ext1->roadConfiguration=nullptr; }
+        if (j.HasMember("preCrash")) { if (p.ext1 == 0) { p.ext1 = vanetza::asn1::allocate<DENM_PDU_Description_AlacarteContainer::DENM_PDU_Description_AlacarteContainer__ext1>(); } p.ext1->preCrash = vanetza::asn1::allocate<PreCrashContainer_t>(); from_json(j["preCrash"], *(p.ext1->preCrash), "preCrash"); }
+        else { if (p.ext1 != 0) p.ext1->preCrash=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
         ex.rethrow();
@@ -25561,4 +25566,5 @@ void from_json(const Value& j, IVIM& p, std::string field) {
         ex.rethrow();
     }
 }
+
 

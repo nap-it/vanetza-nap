@@ -53,6 +53,9 @@ transformation = {
     "SensorHeight": (pow(10,2),[]),
     "SemiRangeLength": (pow(10,1),[]),
     "Radius": (pow(10,1),[]),
+    "DeltaLatitude": (pow(10,7), [131072]),
+    "DeltaLongitude": (pow(10,7), [131072]),
+    "DeltaAltitude": (pow(10,2), [-12700, 12799, 12800]),
     "CoordinateConfidence": (pow(10,2), [4096]),
     "TimestampIts": (pow(10,3),[]),
     "AngleConfidence": (pow(10,1), [127]),
@@ -322,7 +325,7 @@ ignore_member_names = ['regional', 'shadowingApplies', 'expiryTime', 'fill', 'ow
 ignore_member_types = ["PhoneNumber", "OpeningDaysHours", "MessageFrame", "DescriptiveName", "RegionalExtension", "REG-EXT-ID-AND-TYPE.&id", 
                        "REG-EXT-ID-AND-TYPE.&Type", 'MESSAGE-ID-AND-TYPE.&id', 'MESSAGE-ID-AND-TYPE.&Type', 
                        'PreemptPriorityList', "WMInumber", "VDS", "TemporaryID", "Attributes", "GetStampedRq", "GetStampedRs", 
-                       "SetInstanceRq", "SetStampedRq", "AttributeList", "AttributeIdList", "EventZone"]
+                       "SetInstanceRq", "SetStampedRq", "AttributeList", "AttributeIdList"] # "EventZone"]
 
 treat_as_optional = [("validityDuration", "ManagementContainer"), ("deltaAltitude", "PathPointPredicted"), ("altitudeConfidence", "PathPointPredicted")]
 
@@ -334,6 +337,10 @@ add_pointer = [
     ("GddAttribute", "ddd"),
     ("InternationalSign-destinationInformation", "ioList")
 ]
+
+alias_pointer_types = {
+    "EventZone": ("ETSI_ITS_CDD_EventHistory_t", "EventZone")
+}
 
 ######
 
@@ -358,6 +365,17 @@ def get_disambiguated_member_name(type, parent, root, print_name):
         return (root + "_" + type).replace("-", "_")
     else:
         return type.replace("-", "_")
+
+
+def strip_outer_parens(expr):
+    expr = expr.strip()
+    while expr.startswith('(') and expr.endswith(')'):
+        expr = expr[1:-1].strip()
+    if expr.startswith('('):
+        expr = expr[1:].strip()
+    if expr.endswith(')'):
+        expr = expr[:-1].strip()
+    return expr
 
 
 class ASN1Sequence:
@@ -412,7 +430,9 @@ void from_json(const Value& j, """ + (self.print_name.replace("-", "_") + "_t" i
 Value to_json(const """ + (self.print_name.replace("-", "_") + "_t" if self.name in add_t else self.print_name.replace("-", "_")) + """& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
     """
-        
+
+        struct_name = self.print_name.replace("-", "_")
+
         member_strs = []
         for m in self.members:
             if m["type"] in integer_types and m["type"] in transformation:
@@ -421,6 +441,14 @@ Value to_json(const """ + (self.print_name.replace("-", "_") + "_t" if self.name
 
         for m in self.members:
             if "optional" in m and m["optional"]:
+                continue
+            if m["type"] in alias_pointer_types:
+                ptr = get_element_name(m, self, False)
+                ptr_no = strip_outer_parens(ptr)
+                alias_type = alias_pointer_types[m["type"]][0]
+                cast_expr = '*reinterpret_cast<' + alias_type + '*>(' + ptr_no + ')'
+                member_str = 'json.AddMember("' + m["name"] + '", to_json(' + cast_expr + ', allocator), allocator);'
+                member_strs.append(member_str)
                 continue
             
             member_str = ('json.AddMember("' + m["name"] + '", ' + ('to_json_' + get_disambiguated_member_name(m["type"], self.name, self.parent_name, self.print_name) + '(' if m["type"] in bitstrings else 'to_json('))
@@ -443,6 +471,8 @@ Value to_json(const """ + (self.print_name.replace("-", "_") + "_t" if self.name
                 member_str += get_element_name(m, self, False) + ')'
             
             member_str += ', allocator), allocator);'
+            if m.get("ext") is not None:
+                member_str = 'if (p.' + m["ext"] + ' != 0) ' + member_str
             member_strs.append(member_str)
         
         result += '\n    '.join(member_strs) + """
@@ -451,6 +481,17 @@ Value to_json(const """ + (self.print_name.replace("-", "_") + "_t" if self.name
         member_strs = []
         for m in self.members:
             if "optional" in m and m["optional"]:
+                if m["type"] in alias_pointer_types:
+                    ptr = get_element_name(m, self, False)
+                    ptr_no = strip_outer_parens(ptr)
+                    alias_type = alias_pointer_types[m["type"]][0]
+                    cast_expr = '*reinterpret_cast<' + alias_type + '*>(' + ptr_no + ')'
+                    condition = ptr_no + ' != 0'
+                    if m.get("ext") is not None:
+                        condition = 'p.' + m["ext"] + ' != 0 && ' + ptr_no + ' != 0'
+                    member_str = 'if (' + condition + ') json.AddMember("' + m["name"] + '", to_json(' + cast_expr + ', allocator), allocator);'
+                    member_strs.append(member_str)
+                    continue
                 extendee= "ext" in m and m["ext"] != None
                 member_str = ('if ' + ('(p.' + m["ext"] + ' != 0 && ' if extendee else '') + get_element_name(m, self, False) + ' != 0' + (')' if extendee else '') + ') ' + \
                                 'json.AddMember("' + m["name"] + '", ' + ('to_json_' + get_disambiguated_member_name(m["type"], self.name, self.parent_name, self.print_name) + '(' if m["type"] in bitstrings else 'to_json('))
@@ -487,20 +528,34 @@ Value to_json(const """ + (self.print_name.replace("-", "_") + "_t" if self.name
 void from_json(const Value& j, """ + (self.print_name.replace("-", "_") + "_t" if self.name in add_t else self.print_name.replace("-", "_")) + """& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        """
+"""
+        ext_required = sorted({m["ext"] for m in self.members if m.get("ext") is not None and ("optional" not in m or not m["optional"])})
+        for ext in ext_required:
+            result += '        if (p.' + ext + " == 0) { p." + ext + " = vanetza::asn1::allocate<" + struct_name + "::" + struct_name + "__" + ext + ">(); }\n"
         member_strs = []
         for m in self.members:
             needs_closing = False
             member_str = ""
+
+            alias_info = alias_pointer_types.get(m["type"])
+            if alias_info is not None and "optional" in m and m["optional"]:
+                ptr = get_element_name(m, self, False)
+                ptr_no = strip_outer_parens(ptr)
+                alias_type = alias_info[0]
+                alias_struct = alias_info[1]
+                member_str = 'if (j.HasMember("' + m["name"] + '")) { ' + alias_type + ' *tmp = vanetza::asn1::allocate<' + alias_type + '>(); from_json(j["' + m["name"] + '"], *tmp, "' + m["name"] + '"); ' + ptr_no + ' = reinterpret_cast<' + alias_struct + '*>(tmp); }\n        else { ' + ptr_no + ' = nullptr; }'
+                member_strs.append(member_str)
+                continue
 
             if m["type"] in transformation:
                 member_str += 'double ' + (m["name"] if m['name'] not in capitalize_first_letter else m['name'].title()).replace("-", "_") + '; '
             
             if "optional" in m and m["optional"]:
                 needs_closing = True
-                #type_name = m["type"] if m["type"] not in replace_types else replace_types[m["type"]]
-                member_str += 'if (j.HasMember("' + m["name"] + '")) { ' + \
-                                get_element_name(m, self, False)[1:] + \
+                member_str += 'if (j.HasMember("' + m["name"] + '")) { '
+                if m.get("ext") is not None:
+                    member_str += 'if (p.' + m["ext"] + ' == 0) { p.' + m["ext"] + ' = vanetza::asn1::allocate<' + struct_name + '::' + struct_name + '__' + m["ext"] + '>(); } '
+                member_str += get_element_name(m, self, False)[1:] + \
                                 ' = vanetza::asn1::allocate<' + get_disambiguated_member_name(m["type"], self.name, self.parent_name, self.print_name).replace(" ", "_").replace("INTEGER", "long") +  \
                                     ('_t' if m["type"] not in ["INTEGER"] and "actual_type" not in m else '') + '>(); '
             
@@ -534,7 +589,8 @@ void from_json(const Value& j, """ + (self.print_name.replace("-", "_") + "_t" i
                     member_str += " memset(&" + get_element_name(m, self, True) + "), 0, sizeof" + get_element_name(m, self, True) + ")); asn_long2INTEGER(&" + get_element_name(m, self, True) + "), static_cast<long>(" + m["name"] + "));"
                                     
             if needs_closing:
-                member_str += ' }\n        else { ' + \
+                else_prefix = 'if (p.' + m["ext"] + ' != 0) ' if m.get("ext") is not None else ''
+                member_str += ' }\n        else { ' + else_prefix + \
                                  get_element_name(m, self, False)[1:] + '=nullptr; }'
             
             member_strs.append(member_str)
@@ -546,10 +602,12 @@ void from_json(const Value& j, """ + (self.print_name.replace("-", "_") + "_t" i
         for m in self.ignored_members:
             member_str = ""
             if "optional" in m and m["optional"]:
-                member_str += get_element_name(m, self, False)[1:] + '=nullptr;'
+                prefix = 'if (p.' + m["ext"] + ' != 0) ' if m.get("ext") is not None else ''
+                member_str += prefix + get_element_name(m, self, False)[1:] + '=nullptr;'
             member_strs.append(member_str)
 
-        result += '\n        '.join(member_strs)
+        if member_strs:
+            result += '        ' + '\n        '.join(member_strs)
 
         result += """
     } catch(VanetzaJSONException& ex) {
