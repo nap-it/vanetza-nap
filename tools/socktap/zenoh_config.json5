@@ -9,7 +9,7 @@
   // id: "1234567890abcdef",
 
   /// The node's mode (router, peer or client)
-  mode: "peer",
+  mode: "router",
 
   metadata: {
     name: "Zenoh Node",
@@ -94,8 +94,8 @@
     /// See https://docs.rs/zenoh/latest/zenoh/config/struct.EndPoint.html
     // endpoints: { router: ["tcp/[::]:7447"], peer: ["tcp/[::]:0"] },
     endpoints: {
-      router: ["tcp/0.0.0.0:7447"],
-      peer:   ["tcp/0.0.0.0:0"]
+      // router: ["tcp/0.0.0.0:7447"],
+      // peer:   ["tcp/0.0.0.0:0"]
     },
 
     /// Global listen configuration,
@@ -376,50 +376,22 @@
   //  ],
 
     /// Configure access control (ACL) rules
-    access_control: {
-        "enabled": true,
-        "default_permission": "allow",
-        "rules": [
-            {
-                "id": "drop-all-on-wlan0",
-                "messages": ["put", "delete", "declare_subscriber","query", "reply", "declare_queryable","liveliness_token", "liveliness_query", "declare_liveliness_subscriber",],
-                "flows":["egress","ingress"],
-                "permission": "deny",
-                "key_exprs": ["**"],
-            },
-            {
-                "id": "drop-all-on-wlan2",
-                "messages": ["put", "delete", "declare_subscriber","query", "reply", "declare_queryable","liveliness_token", "liveliness_query", "declare_liveliness_subscriber",],
-                "flows":["egress","ingress"],
-                "permission": "deny",
-                "key_exprs": ["**"],
-            }
+  access_control: {
+      "enabled": true,
+      "default_permission": "deny",
+      "rules": [
+          {
+              "id": "allow-all-on-interface",
+              "messages": ["put", "delete", "declare_subscriber","query", "reply", "declare_queryable","liveliness_token", "liveliness_query", "declare_liveliness_subscriber",],
+              "flows":["egress","ingress"],
+              "permission": "allow",
+              "key_exprs": ["**"],
+          }
 
-        ],
-        "subjects":
-        [
-            {
-                "id": "wlan0-subject",
-                "interfaces": ["wlan0"],
-            },
-            {
-                "id": "wlan2-subject",
-                "interfaces": ["wlan2"],
-            }
-        ],
-        "policies": [
-            {
-                "id": "wlan0-policy",
-                "rules": ["drop-all-on-wlan0"],
-                "subjects": ["wlan0-subject"],
-            },
-            {
-                "id": "wlan2-policy",
-                "rules": ["drop-all-on-wlan2"],
-                "subjects": ["wlan2-subject"],
-            }
-        ],
-    },
+      ],
+      "subjects":[],
+      "policies": [],
+  },
 
 //----------
 /// Rule set for permissions allowing or denying access to key-expressions

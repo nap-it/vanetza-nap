@@ -55,7 +55,7 @@ std::uniform_int_distribution<int> uni(0,1000); // guaranteed unbiased
 
 transmission_thread_queue* transmission_tq;
 std::vector<std::thread> transmission_threads;
-std::unordered_map<std::string, int> lookupTable;
+static std::unordered_map<std::string, int> topic_priority_lookup;
 
 
 PubSub::PubSub(config_t config_, int num_threads_, std::mutex& prom_mtx_) :
@@ -79,27 +79,58 @@ PubSub::PubSub(config_t config_, int num_threads_, std::mutex& prom_mtx_) :
 
     // Setup Zenoh
     zenoh::ZResult *err = nullptr;
-    zenoh::Config zconfig = zenoh::Config::from_file("/zenoh_config.json5", err); 
-    if(!config.zenoh_endpoint.empty()) {
-        zconfig.insert_json5("connect/endpoints", "[\"tcp/" + config.zenoh_endpoint + ":7447\"]", err);
+    zenoh::Config zconfig = zenoh::Config::from_file("/zenoh_config.json5", err);
+
+    auto build_tcp_endpoint = [](const std::string& spec) -> std::string {
+        if (spec.empty()) {
+            return spec;
+        }
+        if (spec.rfind("tcp/", 0) == 0) {
+            return spec;
+        }
+        const auto hash_pos = spec.find('#');
+        std::string address = spec.substr(0, hash_pos);
+        std::string suffix = hash_pos == std::string::npos ? "" : spec.substr(hash_pos);
+        if (address.find(':') == std::string::npos) {
+            address += ":7447";
+        }
+        return "tcp/" + address + suffix;
+    };
+
+    std::string listen_json;
+    if (config.zenoh_local_only) {
+        listen_json = "[\"tcp/127.0.0.1:7447#iface=lo\"]";
+        // std::cout << "Binding Zenoh router to loopback only." << std::endl;
     } else {
-        zconfig.insert_json5("connect/endpoints", "[\"tcp/127.0.0.1:7447\"]", err);
-        std::cout << "No Zenoh endpoint provided, using localhost configuration." << std::endl;
+        listen_json = "[\"tcp/0.0.0.0:7447\"]";
+        // std::cout << "Binding Zenoh router to all interfaces." << std::endl;
     }
+    zconfig.insert_json5("mode", "\"router\"", err);
+    zconfig.insert_json5("listen/endpoints", listen_json, err);
+
+    const std::string allowed_interfaces = this->config.zenoh_interfaces.empty() ? this->config.interface : this->config.zenoh_interfaces;
+    this->allow_interfaces_(zconfig, allowed_interfaces);
 
     if (err) {
         std::cout << "Error in Zenoh configuration: " << static_cast<const void*>(err) << std::endl;
     }
     
-    session = new zenoh::Session(std::move(zenoh::Session::open(std::move(zconfig))));
-    std::cout << "Zenoh session established" << std::endl;
+    this->session = new zenoh::Session(std::move(zenoh::Session::open(std::move(zconfig))));
+    
+    if (config.zenoh_local_only) {
+        std::cout << "Zenoh session established locally" << std::endl;
+    } else {
+        std::cout << "Zenoh session established on allowed interfaces" << std::endl;
+    }
 
     //Initialize Zenoh shared memory provider with 10 MB size and 2-byte alignment.
     static constexpr auto SHM_SIZE  = 1024U * 1024U * 10U;
     static constexpr auto SHM_ALIGN = 2U;
     zenoh::MemoryLayout layout(SHM_SIZE, zenoh::AllocAlignment({SHM_ALIGN}));
-    shm_provider = new zenoh::PosixShmProvider(layout);
+    this->shm_provider = new zenoh::PosixShmProvider(layout);
 
+
+    // Transmission threads
     transmission_tq = new transmission_thread_queue();
     for(int i = 0; i < num_threads; i++) {
         transmission_threads.push_back(std::thread(message_transmission_thread, i));
@@ -117,20 +148,20 @@ void PubSub::on_message(std::string topic, std::string message, int priority) {
     const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     std::vector<uint8_t> emptyVector;
     queued_transmission qt{topic, message, emptyVector, false, time_reception, ""};    
-    transmission_tq->push(std::make_unique<queued_transmission>(std::move(qt)), lookupTable[topic] + (3 * priority));
+    transmission_tq->push(std::make_unique<queued_transmission>(std::move(qt)), topic_priority_lookup[topic] + (3 * priority));
 }
 
 void PubSub::on_message(std::string topic, const std::vector<uint8_t>& message, int priority, std::string test) {
     const double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     queued_transmission qt{topic, "", message, true, time_reception, test};
-    transmission_tq->push(std::make_unique<queued_transmission>(std::move(qt)), lookupTable[topic] + (3 * priority));
+    transmission_tq->push(std::make_unique<queued_transmission>(std::move(qt)), topic_priority_lookup[topic] + (3 * priority));
 }
 
 void PubSub::subscribe(message_config_t message_config, PubSub_application* app) {
     std::string topic = message_config.topic_in;
     subscribers[topic] = app;
     subscribers[topic + "_enc"] = app;
-    lookupTable[topic] = app->priority;
+    topic_priority_lookup[topic] = app->priority;
     if(message_config.dds_enabled) {
         this->dds->subscribe(topic);
         this->dds->provison_publisher(message_config.topic_out);
@@ -141,7 +172,7 @@ void PubSub::subscribe(message_config_t message_config, PubSub_application* app)
         if(this->remote_mqtt != NULL) {
             std::string remote_topic = this->config.remote_mqtt_prefix + std::to_string(this->config.station_id) + "/" + topic;
             subscribers[remote_topic] = app;
-            lookupTable[remote_topic] = app->priority;
+            topic_priority_lookup[remote_topic] = app->priority;
             this->remote_mqtt->subscribe(remote_topic);
         }
     }
@@ -175,7 +206,7 @@ void PubSub::declare_zenoh_publisher(message_config_t message_config, std::strin
 void PubSub::manual_subscribe(message_config_t message_config, std::string topic, PubSub_application* app) {
     subscribers[topic] = app;
     subscribers[topic + "_enc"] = app;
-    lookupTable[topic] = app->priority;
+    topic_priority_lookup[topic] = app->priority;
     if(message_config.dds_enabled) this->dds->subscribe(topic);
     if(message_config.mqtt_enabled) {
         this->local_mqtt->subscribe(topic);
@@ -212,6 +243,14 @@ void PubSub::publish(message_config_t message_config, rapidjson::Document& messa
     if(message_config.dds_enabled) this->dds->publish(message_config.topic_out, messageJSON);
     const double time_full_dds = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     if(message_config.mqtt_enabled) this->local_mqtt->publish(message_config.topic_out, messageJSON);
+    const double time_full_zenoh = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    if(message_config.zenoh_enabled) {
+        const size_t output_len = strlen(messageJSON);
+        auto output_alloc_result = this->shm_provider->alloc_gc_defrag_blocking(output_len, zenoh::AllocAlignment({0}));
+        zenoh::ZShmMut&& output_buf = std::get<zenoh::ZShmMut>(std::move(output_alloc_result));
+        memcpy(output_buf.data(), messageJSON, output_len);
+        this->session->put(message_config.topic_out, std::move(output_buf));
+    }
     const double time_full_local = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     if(message_config.mqtt_enabled && this->remote_mqtt != NULL) this->remote_mqtt->publish(this->config.remote_mqtt_prefix + std::to_string(this->config.station_id) + "/" + message_config.topic_out, messageJSON);
     const double time_full_remote = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
@@ -228,6 +267,7 @@ void PubSub::publish(message_config_t message_config, rapidjson::Document& messa
         if (config.publish_encoded_payloads != 0) message_json["test"].AddMember("encoded_timestamp", time_encoded, allocator);
         if (message_config.udp_out_port != 0) message_json["test"].AddMember("full_udp_timestamp", time_full_udp, allocator);
         if (message_config.dds_enabled != 0) message_json["test"].AddMember("full_dds_timestamp", time_full_dds, allocator);
+        if (message_config.zenoh_enabled != 0) message_json["test"].AddMember("full_zenoh_timestamp", time_full_zenoh, allocator);
         if (message_config.mqtt_enabled != 0) message_json["test"].AddMember("full_local_timestamp", time_full_local, allocator);
         if (message_config.mqtt_enabled && this->remote_mqtt != NULL) message_json["test"].AddMember("full_remote_timestamp", time_full_remote, allocator);
 
@@ -267,4 +307,3 @@ void message_transmission_thread(int i) {
 
     }
 }
-

@@ -136,8 +136,6 @@ Document SpatemApplication::buildJSON(SPATEM_t message, double time_reception, i
 
 void SpatemApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, string test, vanetza::geonet::Router* router) {
 
-    std::cout << "[SpatemApplication] Received message on topic: " << topic << std::endl;
-
     const double time_processing = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
     DownPacketPtr packet { new DownPacket() };
@@ -162,6 +160,7 @@ void SpatemApplication::on_message(string topic, string mqtt_message, const std:
         }
 
         payload = document.GetObject();
+        int payload_station_id = payload.HasMember("stationId") ? payload["stationId"].GetInt() : -1;
 
         try {
             from_json(payload, spatem, "SPATEM");
@@ -181,7 +180,8 @@ void SpatemApplication::on_message(string topic, string mqtt_message, const std:
         ITS_Container_ItsPduHeader_t& header = message->header;
         header.protocolVersion = 2;
         header.messageID = MessageId_spatem;
-        header.stationID = config_s.station_id;
+        if (payload_station_id != -1) header.stationID = payload_station_id;
+        else header.stationID = config_s.station_id;
 
         message->spat = spatem;
 
@@ -225,8 +225,11 @@ void SpatemApplication::on_message(string topic, string mqtt_message, const std:
         Value timePayload(kObjectType);
         Value timeTest(kObjectType);
 
+        int payload_station_id = payload.HasMember("stationId") ? payload["stationId"].GetInt() : -1;
+        if(payload_station_id == -1) payload_station_id = config_s.station_id;
+
         timePayload.AddMember("timestamp", time_reception, allocator)
-            .AddMember("stationID", config_s.station_id, allocator)
+            .AddMember("stationID", payload_station_id, allocator)
             .AddMember("stationAddr", config_s.mac_address, allocator)
             .AddMember("receiverID", config_s.station_id, allocator)
             .AddMember("receiverType", config_s.station_type, allocator);

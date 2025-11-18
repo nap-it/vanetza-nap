@@ -80,7 +80,8 @@ typedef struct config {
     string full_vam_topic_test;
     string own_cam_topic_out;
     // string own_full_cam_topic_out;
-    string zenoh_endpoint;
+    bool zenoh_local_only;
+    string zenoh_interfaces;
 } config_t;
 
 typedef struct metrics {

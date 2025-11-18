@@ -159,6 +159,7 @@ void IvimApplication::on_message(string topic, string mqtt_message, const std::v
         }
 
         payload = document.GetObject();
+        int payload_station_id = payload.HasMember("stationId") ? payload["stationId"].GetInt() : -1;
 
         try {
             from_json(payload, ivim, "IVIM");
@@ -178,7 +179,8 @@ void IvimApplication::on_message(string topic, string mqtt_message, const std::v
         ITS_Container_ItsPduHeader_t& header = message->header;
         header.protocolVersion = 2;
         header.messageID = MessageId_ivim;
-        header.stationID = config_s.station_id;
+        if (payload_station_id != -1) header.stationID = payload_station_id;
+        else header.stationID = config_s.station_id;
 
         message->ivi = ivim;
 
@@ -222,8 +224,11 @@ void IvimApplication::on_message(string topic, string mqtt_message, const std::v
         Value timePayload(kObjectType);
         Value timeTest(kObjectType);
 
+        int payload_station_id = payload.HasMember("stationId") ? payload["stationId"].GetInt() : -1;
+        if(payload_station_id == -1) payload_station_id = config_s.station_id;
+
         timePayload.AddMember("timestamp", time_reception, allocator)
-            .AddMember("stationID", config_s.station_id, allocator)
+            .AddMember("stationID", payload_station_id, allocator)
             .AddMember("stationAddr", config_s.mac_address, allocator)
             .AddMember("receiverID", config_s.station_id, allocator)
             .AddMember("receiverType", config_s.station_type, allocator);

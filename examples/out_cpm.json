@@ -1,583 +1,163 @@
 {
-    "fields": {
-        "cpm": {
-            "cpmParameters": {
-                "managementContainer": {
-                    "referencePosition": {
-                        "altitude": {
-                            "altitudeConfidence": 15,
-                            "altitudeValue": 2.9
-                        },
-                        "latitude": 40.63481,
-                        "longitude": -8.660463,
-                        "positionConfidenceEllipse": {
-                            "semiMajorConfidence": 4095,
-                            "semiMajorOrientation": 0.0,
-                            "semiMinorConfidence": 4095
-                        }
-                    },
-                    "stationType": 15
-                },
-                "numberOfPerceivedObjects": 12,
-                "perceivedObjectContainer": [
-                    {
-                        "classification": [
-                            {
-                                "class": {
-                                    "vehicle": {
-                                        "confidence": 0,
-                                        "type": 3
-                                    }
-                                },
-                                "confidence": 0
-                            }
-                        ],
-                        "objectConfidence": 0,
-                        "objectID": 15,
-                        "objectRefPoint": 0,
-                        "sensorIDList": [
-                            1
-                        ],
-                        "timeOfMeasurement": 0,
-                        "xAcceleration": {
-                            "longitudinalAccelerationConfidence": 102.0,
-                            "longitudinalAccelerationValue": 0.0
-                        },
-                        "xDistance": {
-                            "confidence": 102.0,
-                            "value": 35.95
-                        },
-                        "xSpeed": {
-                            "confidence": 127.0,
-                            "value": 5.72
-                        },
-                        "yAcceleration": {
-                            "lateralAccelerationConfidence": 102.0,
-                            "lateralAccelerationValue": 0.0
-                        },
-                        "yDistance": {
-                            "confidence": 102.0,
-                            "value": 71.25
-                        },
-                        "ySpeed": {
-                            "confidence": 127.0,
-                            "value": 12.11
-                        }
-                    },
-                    {
-                        "classification": [
-                            {
-                                "class": {
-                                    "vehicle": {
-                                        "confidence": 0,
-                                        "type": 3
-                                    }
-                                },
-                                "confidence": 0
-                            }
-                        ],
-                        "objectConfidence": 0,
-                        "objectID": 15,
-                        "objectRefPoint": 0,
-                        "sensorIDList": [
-                            1
-                        ],
-                        "timeOfMeasurement": 0,
-                        "xAcceleration": {
-                            "longitudinalAccelerationConfidence": 102.0,
-                            "longitudinalAccelerationValue": 0.0
-                        },
-                        "xDistance": {
-                            "confidence": 102.0,
-                            "value": 35.6
-                        },
-                        "xSpeed": {
-                            "confidence": 127.0,
-                            "value": 5.72
-                        },
-                        "yAcceleration": {
-                            "lateralAccelerationConfidence": 102.0,
-                            "lateralAccelerationValue": 0.0
-                        },
-                        "yDistance": {
-                            "confidence": 102.0,
-                            "value": 70.38
-                        },
-                        "ySpeed": {
-                            "confidence": 127.0,
-                            "value": 12.11
-                        }
-                    },
-                    {
-                        "classification": [
-                            {
-                                "class": {
-                                    "vehicle": {
-                                        "confidence": 0,
-                                        "type": 3
-                                    }
-                                },
-                                "confidence": 0
-                            }
-                        ],
-                        "objectConfidence": 0,
-                        "objectID": 15,
-                        "objectRefPoint": 0,
-                        "sensorIDList": [
-                            1
-                        ],
-                        "timeOfMeasurement": 0,
-                        "xAcceleration": {
-                            "longitudinalAccelerationConfidence": 102.0,
-                            "longitudinalAccelerationValue": 0.0
-                        },
-                        "xDistance": {
-                            "confidence": 102.0,
-                            "value": 35.26
-                        },
-                        "xSpeed": {
-                            "confidence": 127.0,
-                            "value": 5.72
-                        },
-                        "yAcceleration": {
-                            "lateralAccelerationConfidence": 102.0,
-                            "lateralAccelerationValue": 0.0
-                        },
-                        "yDistance": {
-                            "confidence": 102.0,
-                            "value": 69.52
-                        },
-                        "ySpeed": {
-                            "confidence": 127.0,
-                            "value": 12.11
-                        }
-                    },
-                    {
-                        "classification": [
-                            {
-                                "class": {
-                                    "vehicle": {
-                                        "confidence": 0,
-                                        "type": 3
-                                    }
-                                },
-                                "confidence": 0
-                            }
-                        ],
-                        "objectConfidence": 0,
-                        "objectID": 15,
-                        "objectRefPoint": 0,
-                        "sensorIDList": [
-                            1
-                        ],
-                        "timeOfMeasurement": 0,
-                        "xAcceleration": {
-                            "longitudinalAccelerationConfidence": 102.0,
-                            "longitudinalAccelerationValue": 0.0
-                        },
-                        "xDistance": {
-                            "confidence": 102.0,
-                            "value": 34.91
-                        },
-                        "xSpeed": {
-                            "confidence": 127.0,
-                            "value": 5.72
-                        },
-                        "yAcceleration": {
-                            "lateralAccelerationConfidence": 102.0,
-                            "lateralAccelerationValue": 0.0
-                        },
-                        "yDistance": {
-                            "confidence": 102.0,
-                            "value": 68.65
-                        },
-                        "ySpeed": {
-                            "confidence": 127.0,
-                            "value": 12.11
-                        }
-                    },
-                    {
-                        "classification": [
-                            {
-                                "class": {
-                                    "vehicle": {
-                                        "confidence": 0,
-                                        "type": 3
-                                    }
-                                },
-                                "confidence": 0
-                            }
-                        ],
-                        "objectConfidence": 0,
-                        "objectID": 15,
-                        "objectRefPoint": 0,
-                        "sensorIDList": [
-                            1
-                        ],
-                        "timeOfMeasurement": 0,
-                        "xAcceleration": {
-                            "longitudinalAccelerationConfidence": 102.0,
-                            "longitudinalAccelerationValue": 0.0
-                        },
-                        "xDistance": {
-                            "confidence": 102.0,
-                            "value": 34.56
-                        },
-                        "xSpeed": {
-                            "confidence": 127.0,
-                            "value": 5.72
-                        },
-                        "yAcceleration": {
-                            "lateralAccelerationConfidence": 102.0,
-                            "lateralAccelerationValue": 0.0
-                        },
-                        "yDistance": {
-                            "confidence": 102.0,
-                            "value": 67.66
-                        },
-                        "ySpeed": {
-                            "confidence": 127.0,
-                            "value": 12.11
-                        }
-                    },
-                    {
-                        "classification": [
-                            {
-                                "class": {
-                                    "vehicle": {
-                                        "confidence": 0,
-                                        "type": 3
-                                    }
-                                },
-                                "confidence": 0
-                            }
-                        ],
-                        "objectConfidence": 0,
-                        "objectID": 15,
-                        "objectRefPoint": 0,
-                        "sensorIDList": [
-                            1
-                        ],
-                        "timeOfMeasurement": 0,
-                        "xAcceleration": {
-                            "longitudinalAccelerationConfidence": 102.0,
-                            "longitudinalAccelerationValue": 0.0
-                        },
-                        "xDistance": {
-                            "confidence": 102.0,
-                            "value": 34.12
-                        },
-                        "xSpeed": {
-                            "confidence": 127.0,
-                            "value": 5.72
-                        },
-                        "yAcceleration": {
-                            "lateralAccelerationConfidence": 102.0,
-                            "lateralAccelerationValue": 0.1
-                        },
-                        "yDistance": {
-                            "confidence": 102.0,
-                            "value": 66.93
-                        },
-                        "ySpeed": {
-                            "confidence": 127.0,
-                            "value": 12.11
-                        }
-                    },
-                    {
-                        "classification": [
-                            {
-                                "class": {
-                                    "vehicle": {
-                                        "confidence": 0,
-                                        "type": 3
-                                    }
-                                },
-                                "confidence": 0
-                            }
-                        ],
-                        "objectConfidence": 0,
-                        "objectID": 14,
-                        "objectRefPoint": 0,
-                        "sensorIDList": [
-                            1
-                        ],
-                        "timeOfMeasurement": 0,
-                        "xAcceleration": {
-                            "longitudinalAccelerationConfidence": 102.0,
-                            "longitudinalAccelerationValue": 0.0
-                        },
-                        "xDistance": {
-                            "confidence": 102.0,
-                            "value": 28.56
-                        },
-                        "xSpeed": {
-                            "confidence": 127.0,
-                            "value": -5.25
-                        },
-                        "yAcceleration": {
-                            "lateralAccelerationConfidence": 102.0,
-                            "lateralAccelerationValue": 0.0
-                        },
-                        "yDistance": {
-                            "confidence": 102.0,
-                            "value": 61.53
-                        },
-                        "ySpeed": {
-                            "confidence": 127.0,
-                            "value": -11.12
-                        }
-                    },
-                    {
-                        "classification": [
-                            {
-                                "class": {
-                                    "vehicle": {
-                                        "confidence": 0,
-                                        "type": 3
-                                    }
-                                },
-                                "confidence": 0
-                            }
-                        ],
-                        "objectConfidence": 0,
-                        "objectID": 14,
-                        "objectRefPoint": 0,
-                        "sensorIDList": [
-                            1
-                        ],
-                        "timeOfMeasurement": 0,
-                        "xAcceleration": {
-                            "longitudinalAccelerationConfidence": 102.0,
-                            "longitudinalAccelerationValue": 0.0
-                        },
-                        "xDistance": {
-                            "confidence": 102.0,
-                            "value": 28.81
-                        },
-                        "xSpeed": {
-                            "confidence": 127.0,
-                            "value": -5.25
-                        },
-                        "yAcceleration": {
-                            "lateralAccelerationConfidence": 102.0,
-                            "lateralAccelerationValue": 0.0
-                        },
-                        "yDistance": {
-                            "confidence": 102.0,
-                            "value": 62.41
-                        },
-                        "ySpeed": {
-                            "confidence": 127.0,
-                            "value": -11.12
-                        }
-                    },
-                    {
-                        "classification": [
-                            {
-                                "class": {
-                                    "vehicle": {
-                                        "confidence": 0,
-                                        "type": 3
-                                    }
-                                },
-                                "confidence": 0
-                            }
-                        ],
-                        "objectConfidence": 0,
-                        "objectID": 14,
-                        "objectRefPoint": 0,
-                        "sensorIDList": [
-                            1
-                        ],
-                        "timeOfMeasurement": 0,
-                        "xAcceleration": {
-                            "longitudinalAccelerationConfidence": 102.0,
-                            "longitudinalAccelerationValue": 0.0
-                        },
-                        "xDistance": {
-                            "confidence": 102.0,
-                            "value": 29.35
-                        },
-                        "xSpeed": {
-                            "confidence": 127.0,
-                            "value": -5.25
-                        },
-                        "yAcceleration": {
-                            "lateralAccelerationConfidence": 102.0,
-                            "lateralAccelerationValue": -0.1
-                        },
-                        "yDistance": {
-                            "confidence": 102.0,
-                            "value": 63.13
-                        },
-                        "ySpeed": {
-                            "confidence": 127.0,
-                            "value": -11.12
-                        }
-                    },
-                    {
-                        "classification": [
-                            {
-                                "class": {
-                                    "vehicle": {
-                                        "confidence": 0,
-                                        "type": 3
-                                    }
-                                },
-                                "confidence": 0
-                            }
-                        ],
-                        "objectConfidence": 0,
-                        "objectID": 14,
-                        "objectRefPoint": 0,
-                        "sensorIDList": [
-                            1
-                        ],
-                        "timeOfMeasurement": 0,
-                        "xAcceleration": {
-                            "longitudinalAccelerationConfidence": 102.0,
-                            "longitudinalAccelerationValue": 0.0
-                        },
-                        "xDistance": {
-                            "confidence": 102.0,
-                            "value": 29.78
-                        },
-                        "xSpeed": {
-                            "confidence": 127.0,
-                            "value": -5.21
-                        },
-                        "yAcceleration": {
-                            "lateralAccelerationConfidence": 102.0,
-                            "lateralAccelerationValue": 0.0
-                        },
-                        "yDistance": {
-                            "confidence": 102.0,
-                            "value": 63.86
-                        },
-                        "ySpeed": {
-                            "confidence": 127.0,
-                            "value": -11.02
-                        }
-                    },
-                    {
-                        "classification": [
-                            {
-                                "class": {
-                                    "vehicle": {
-                                        "confidence": 0,
-                                        "type": 3
-                                    }
-                                },
-                                "confidence": 0
-                            }
-                        ],
-                        "objectConfidence": 0,
-                        "objectID": 14,
-                        "objectRefPoint": 0,
-                        "sensorIDList": [
-                            1
-                        ],
-                        "timeOfMeasurement": 0,
-                        "xAcceleration": {
-                            "longitudinalAccelerationConfidence": 102.0,
-                            "longitudinalAccelerationValue": 0.0
-                        },
-                        "xDistance": {
-                            "confidence": 102.0,
-                            "value": 30.42
-                        },
-                        "xSpeed": {
-                            "confidence": 127.0,
-                            "value": -5.21
-                        },
-                        "yAcceleration": {
-                            "lateralAccelerationConfidence": 102.0,
-                            "lateralAccelerationValue": -0.1
-                        },
-                        "yDistance": {
-                            "confidence": 102.0,
-                            "value": 64.57
-                        },
-                        "ySpeed": {
-                            "confidence": 127.0,
-                            "value": -11.02
-                        }
-                    },
-                    {
-                        "classification": [
-                            {
-                                "class": {
-                                    "vehicle": {
-                                        "confidence": 0,
-                                        "type": 3
-                                    }
-                                },
-                                "confidence": 0
-                            }
-                        ],
-                        "objectConfidence": 0,
-                        "objectID": 14,
-                        "objectRefPoint": 0,
-                        "sensorIDList": [
-                            1
-                        ],
-                        "timeOfMeasurement": 0,
-                        "xAcceleration": {
-                            "longitudinalAccelerationConfidence": 102.0,
-                            "longitudinalAccelerationValue": 0.0
-                        },
-                        "xDistance": {
-                            "confidence": 102.0,
-                            "value": 30.76
-                        },
-                        "xSpeed": {
-                            "confidence": 127.0,
-                            "value": -5.17
-                        },
-                        "yAcceleration": {
-                            "lateralAccelerationConfidence": 102.0,
-                            "lateralAccelerationValue": 0.0
-                        },
-                        "yDistance": {
-                            "confidence": 102.0,
-                            "value": 65.44
-                        },
-                        "ySpeed": {
-                            "confidence": 127.0,
-                            "value": -10.93
-                        }
-                    }
-                ],
-                "sensorInformationContainer": [
-                    {
-                        "detectionArea": {
-                            "stationarySensorRectangle": {
-                                "semiMajorRangeLength": 75.0,
-                                "semiMajorRangeOrientation": 3601.0,
-                                "semiMinorRangeLength": 20.0
-                            }
-                        },
-                        "sensorID": 1,
-                        "type": 1
-                    }
-                ]
-            },
-            "generationDeltaTime": 45107
-        },
-        "header": {
-            "messageID": 14,
-            "protocolVersion": 1,
-            "stationID": 20
-        }
-    },
-    "newInfo": true,
-    "receiverID": 1,
-    "receiverType": 15,
-    "rssi": -72,
-    "stationID": 20,
-    "test": {
-        "json_timestamp": 1666021652.148361
-    },
-    "timestamp": 1666021652.139258
+	"timestamp": 1762875449.498165,
+	"rssi": 2,
+	"stationID": 175,
+	"stationAddr": "6e:06:e0:01:00:af",
+	"receiverID": 229,
+	"receiverType": 5,
+	"packet_size": 162,
+	"fields": {
+		"header": {
+			"protocolVersion": 2,
+			"messageId": 14,
+			"stationId": 175
+		},
+		"payload": {
+			"managementContainer": {
+				"referenceTime": 0.0,
+				"referencePosition": {
+					"latitude": 40.63481,
+					"longitude": -8.660463,
+					"positionConfidenceEllipse": {
+						"semiMajorConfidence": 4095,
+						"semiMinorConfidence": 4095,
+						"semiMajorOrientation": 0.0
+					},
+					"altitude": {
+						"altitudeValue": 2.9,
+						"altitudeConfidence": 15
+					}
+				}
+			},
+			"cpmContainers": [
+				{
+					"containerId": 1,
+					"containerData": {
+						"orientationAngle": {
+							"value": 0,
+							"confidence": 1
+						}
+					}
+				},
+				{
+					"containerId": 3,
+					"containerData": [
+						{
+							"sensorId": 1,
+							"sensorType": 1,
+							"perceptionRegionShape": {
+								"radial": {
+									"range": 100,
+									"horizontalOpeningAngleStart": 3601.0,
+									"horizontalOpeningAngleEnd": 3601.0
+								}
+							}
+						},
+						{
+							"sensorId": 2,
+							"sensorType": 12,
+							"perceptionRegionShape": {
+								"radial": {
+									"range": 100,
+									"horizontalOpeningAngleStart": 3601.0,
+									"horizontalOpeningAngleEnd": 3601.0
+								}
+							}
+						},
+						{
+							"sensorId": 3,
+							"sensorType": 10,
+							"perceptionRegionShape": {
+								"radial": {
+									"range": 100,
+									"horizontalOpeningAngleStart": 3601.0,
+									"horizontalOpeningAngleEnd": 3601.0
+								}
+							}
+						},
+						{
+							"sensorId": 4,
+							"sensorType": 11,
+							"perceptionRegionShape": {
+								"radial": {
+									"range": 100,
+									"horizontalOpeningAngleStart": 3601.0,
+									"horizontalOpeningAngleEnd": 3601.0
+								}
+							}
+						}
+					]
+				},
+				{
+					"containerId": 5,
+					"containerData": {
+						"numberOfPerceivedObjects": 2,
+						"perceivedObjects": [
+							{
+								"measurementDeltaTime": 0,
+								"position": {
+									"xCoordinate": {
+										"value": 0.0,
+										"confidence": 1.0
+									},
+									"yCoordinate": {
+										"value": 0.0,
+										"confidence": 1.0
+									}
+								},
+								"objectId": 1,
+								"objectPerceptionQuality": 0,
+								"sensorIdList": [
+									1
+								],
+								"classification": [
+									{
+										"objectClass": {
+											"vehicleSubClass": 5
+										},
+										"confidence": 1
+									}
+								]
+							},
+							{
+								"measurementDeltaTime": 0,
+								"position": {
+									"xCoordinate": {
+										"value": 0.0,
+										"confidence": 1.0
+									},
+									"yCoordinate": {
+										"value": 0.0,
+										"confidence": 1.0
+									}
+								},
+								"objectId": 3,
+								"objectPerceptionQuality": 0,
+								"sensorIdList": [
+									1
+								],
+								"classification": [
+									{
+										"objectClass": {
+											"vehicleSubClass": 5
+										},
+										"confidence": 1
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		}
+	},
+	"test": {
+		"start_processing_timestamp": 1762875449.498326,
+		"channel_frequency": 5860,
+		"channel_noise": -95,
+		"channel_busy_time": 0.002221,
+		"channel_rx_time": 0.000943,
+		"channel_tx_time": 0.00037,
+		"json_timestamp": 1762875449.499094
+	}
 }

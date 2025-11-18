@@ -71,7 +71,6 @@ CamApplication::CamApplication(vanetza::PositionProvider& positioning, vanetza::
         cam_remote_endpoint = ip::udp::endpoint(ip::address::from_string(config_s.cam.udp_out_addr), config_s.cam.udp_out_port);
     }
 
-    std::cout << "CAM Application started" << std::endl;
 }
 
 void CamApplication::set_interval(Clock::duration interval)
@@ -103,6 +102,7 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
         std::cout << "-- Vanetza Decoding Error --\nReceived an encoded CAM message that does not meet ETSI spec" << std::endl;
         return;
     }
+
     CAM_PDU_Description_CAM_t cam_t = {(*cam)->header, (*cam)->cam};
 
     if(config_s.publish_encoded_payloads) {
@@ -122,7 +122,6 @@ void CamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
             test);
     }
     const double time_encoded = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-
 
     Document cam_json_full = buildJSON(cam_t, cp.time_received, cp.time_queue, cp.rssi, cp.size(), parse_channel_info(cp), true, true, cp.source);
 
@@ -356,6 +355,8 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
         }
 
         payload = document.GetObject();
+        int payload_station_id = payload.HasMember("stationId") ? payload["stationId"].GetInt() : -1;
+        
         if(topic == config_s.cam.topic_in) {
             try {
                 from_json(payload, cam, "CAM");
@@ -369,7 +370,8 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
                 std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
                 return;
             }
-            header.stationId = config_s.station_id;
+            if(payload_station_id != -1) header.stationId = payload_station_id;
+            else header.stationId = config_s.station_id;
             message->cam = cam;
         }
 
@@ -415,8 +417,11 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
         Value simplePayload(kObjectType);
         Value timeTest(kObjectType);
 
+        int payload_station_id = payload.HasMember("stationId") ? payload["stationId"].GetInt() : -1;
+        if(payload_station_id == -1) payload_station_id = config_s.station_id;
+
         simplePayload.AddMember("timestamp", time_reception, simpleAllocator)
-                    .AddMember("stationID", config_s.station_id, simpleAllocator)
+                    .AddMember("stationID", payload_station_id, simpleAllocator)
                     .AddMember("stationAddr", config_s.mac_address, simpleAllocator)
                     .AddMember("receiverID", config_s.station_id, simpleAllocator)
                     .AddMember("receiverType", config_s.station_type, simpleAllocator);

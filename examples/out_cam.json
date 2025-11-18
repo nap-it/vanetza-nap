@@ -6,13 +6,13 @@
             "stationId": 175
         },
         "cam": {
-            "generationDeltaTime": 13190,
+            "generationDeltaTime": 48152,
             "camParameters": {
                 "basicContainer": {
-                    "stationType": 5,
+                    "stationType": 2,
                     "referencePosition": {
-                        "latitude": 40.628349300000004,
-                        "longitude": -8.6543903,
+                        "latitude": 900000001.0,
+                        "longitude": 1800000001.0,
                         "positionConfidenceEllipse": {
                             "semiMajorAxisLength": 4095,
                             "semiMinorAxisLength": 4095,
@@ -27,11 +27,11 @@
                 "highFrequencyContainer": {
                     "basicVehicleContainerHighFrequency": {
                         "heading": {
-                            "headingValue": 153.0,
+                            "headingValue": 3601.0,
                             "headingConfidence": 127.0
                         },
                         "speed": {
-                            "speedValue": 8.69,
+                            "speedValue": 16383.0,
                             "speedConfidence": 127.0
                         },
                         "driveDirection": 2,
@@ -41,7 +41,7 @@
                         },
                         "vehicleWidth": 62.0,
                         "longitudinalAcceleration": {
-                            "value": -0.4,
+                            "value": 161.0,
                             "confidence": 102.0
                         },
                         "curvature": {
@@ -50,21 +50,8 @@
                         },
                         "curvatureCalculationMode": 2,
                         "yawRate": {
-                            "yawRateValue": 11.0,
+                            "yawRateValue": 32767.0,
                             "yawRateConfidence": 8
-                        },
-                        "accelerationControl": {
-                            "brakePedalEngaged": false,
-                            "gasPedalEngaged": false,
-                            "emergencyBrakeEngaged": false,
-                            "collisionWarningEngaged": false,
-                            "accEngaged": false,
-                            "cruiseControlEngaged": false,
-                            "speedLimiterEngaged": false
-                        },
-                        "steeringWheelAngle": {
-                            "steeringWheelAngleValue": 511.5,
-                            "steeringWheelAngleConfidence": 127
                         }
                     }
                 },
@@ -83,24 +70,33 @@
                         },
                         "pathHistory": []
                     }
+                },
+                "specialVehicleContainer": {
+                    "safetyCarContainer": {
+                        "lightBarSirenInUse": {
+                            "lightBarActivated": false,
+                            "sirenActivated": false
+                        }
+                    }
                 }
             }
         }
     },
-    "timestamp": 1758550910.673478,
+    "timestamp": 1762875466.004915,
     "newInfo": true,
-    "rssi": -1,
+    "rssi": 9,
     "stationID": 175,
     "stationAddr": "6e:06:e0:01:00:af",
     "receiverID": 229,
     "receiverType": 5,
-    "packet_size": 104,
+    "packet_size": 102,
     "test": {
-        "start_processing_timestamp": 1758550910.673603,
+        "start_processing_timestamp": 1762875466.005073,
         "channel_frequency": 5860,
-        "channel_busy_time": 0.000509,
-        "channel_rx_time": 0.000136,
-        "channel_tx_time": 0.000345,
-        "json_timestamp": 1758550910.674573
+        "channel_noise": -95,
+        "channel_busy_time": 0.002221,
+        "channel_rx_time": 0.000943,
+        "channel_tx_time": 0.00037,
+        "json_timestamp": 1762875466.005668
     }
 }

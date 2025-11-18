@@ -1,0 +1,214 @@
+{
+  "timestamp": 1763484457.686693,
+  "rssi": -9,
+  "stationID": 229,
+  "stationAddr": "6e:06:e0:01:00:e5",
+  "receiverID": 777,
+  "receiverType": 15,
+  "packet_size": 240,
+  "fields": {
+    "header": { "protocolVersion": 2, "messageId": 20, "stationId": 229 },
+    "payload": {
+      "basicContainer": {
+        "generationDeltaTime": 1741192835.464,
+        "stationID": 142,
+        "stationType": 1,
+        "itssRole": 1,
+        "position": {
+          "latitude": 40.638572,
+          "longitude": -8.6499279,
+          "positionConfidenceEllipse": {
+            "semiMajorAxisLength": 0,
+            "semiMinorAxisLength": 0,
+            "semiMajorAxisOrientation": 0
+          },
+          "altitude": { "altitudeValue": 2.0, "altitudeConfidence": 1 }
+        },
+        "mcmType": 8,
+        "manoeuvreId": 1,
+        "concept": 0,
+        "rational": { "manoeuvreCooperationCost": 0 }
+      },
+      "mcmContainer": {
+        "vehicleManoeuvreContainer": {
+          "vehicleCurrentStateContainer": {
+            "vehicleSpeed": { "speedValue": 2.0, "speedConfidence": 127.0 },
+            "vehicleHeading": { "value": 3601, "confidence": 127 },
+            "vehicleSize": {
+              "vehicleType": 0,
+              "vehicleLenth": {
+                "vehicleLengthValue": 1.0,
+                "vehicleLengthConfidenceIndication": 4
+              },
+              "vehicleWidth": 1.0,
+              "vehicleHeight": 1
+            }
+          },
+          "submaneuvres": [
+            {
+              "submanoeuvreID": 0,
+              "temporalCharateristics": {
+                "tRROccupancyStartTime": 1,
+                "tRROccupancyEndTime": 1
+              },
+              "referenceTrajectory": {
+                "wayPointType": 1,
+                "wayPoints": [
+                  {
+                    "pathPosition": {
+                      "deltaLatitude": 0.0,
+                      "deltaLongitude": 0.0,
+                      "deltaAltitude": 0.0
+                    }
+                  },
+                  {
+                    "pathPosition": {
+                      "deltaLatitude": 0.0,
+                      "deltaLongitude": 0.0,
+                      "deltaAltitude": 0.0
+                    }
+                  },
+                  {
+                    "pathPosition": {
+                      "deltaLatitude": 0.0,
+                      "deltaLongitude": 0.0,
+                      "deltaAltitude": 0.0
+                    }
+                  }
+                ],
+                "speed": [
+                  { "speedValue": 1.0, "speedConfidence": 1.0 },
+                  { "speedValue": 1.0, "speedConfidence": 1.0 },
+                  { "speedValue": 1.0, "speedConfidence": 1.0 }
+                ]
+              },
+              "targetRoadResourceIContainer": {
+                "trrType": 2,
+                "laneCount": 2,
+                "trrWidth": 1,
+                "trrLength": 1,
+                "waypoints": [
+                  {
+                    "pathPosition": {
+                      "deltaLatitude": 0.0,
+                      "deltaLongitude": 0.0,
+                      "deltaAltitude": 0.0
+                    }
+                  },
+                  {
+                    "pathPosition": {
+                      "deltaLatitude": 0.0,
+                      "deltaLongitude": 0.0,
+                      "deltaAltitude": 0.0
+                    }
+                  },
+                  {
+                    "pathPosition": {
+                      "deltaLatitude": 0.0,
+                      "deltaLongitude": 0.0,
+                      "deltaAltitude": 0.0
+                    }
+                  }
+                ],
+                "heading": [
+                  { "value": 800, "confidence": 1 },
+                  { "value": 800, "confidence": 1 },
+                  { "value": 800, "confidence": 1 }
+                ]
+              }
+            }
+          ],
+          "manoeuvreAdvice": [
+            {
+              "executantID": 165,
+              "submaneuvres": [
+                {
+                  "submanoeuvreId": 0,
+                  "advisedTrajectory": {
+                    "wayPointType": 1,
+                    "wayPoints": [
+                      {
+                        "pathPosition": {
+                          "deltaLatitude": 0.0,
+                          "deltaLongitude": 0.0,
+                          "deltaAltitude": 0.0
+                        }
+                      },
+                      {
+                        "pathPosition": {
+                          "deltaLatitude": 0.0,
+                          "deltaLongitude": 0.0,
+                          "deltaAltitude": 0.0
+                        }
+                      },
+                      {
+                        "pathPosition": {
+                          "deltaLatitude": 0.0,
+                          "deltaLongitude": 0.0,
+                          "deltaAltitude": 0.0
+                        }
+                      }
+                    ],
+                    "speed": [
+                      { "speedValue": 1.0, "speedConfidence": 1.0 },
+                      { "speedValue": 1.0, "speedConfidence": 1.0 },
+                      { "speedValue": 1.0, "speedConfidence": 1.0 }
+                    ]
+                  },
+                  "advisedTargetRoadResource": {
+                    "trrDescription": {
+                      "trrType": 2,
+                      "laneCount": 2,
+                      "trrWidth": 1,
+                      "trrLength": 1,
+                      "waypoints": [
+                        {
+                          "pathPosition": {
+                            "deltaLatitude": 0.0,
+                            "deltaLongitude": 0.0,
+                            "deltaAltitude": 0.0
+                          }
+                        },
+                        {
+                          "pathPosition": {
+                            "deltaLatitude": 0.0,
+                            "deltaLongitude": 0.0,
+                            "deltaAltitude": 0.0
+                          }
+                        },
+                        {
+                          "pathPosition": {
+                            "deltaLatitude": 0.0,
+                            "deltaLongitude": 0.0,
+                            "deltaAltitude": 0.0
+                          }
+                        }
+                      ],
+                      "heading": [
+                        { "value": 800, "confidence": 1 },
+                        { "value": 800, "confidence": 1 },
+                        { "value": 800, "confidence": 1 }
+                      ]
+                    },
+                    "temporalCharacteristics": {
+                      "tRROccupancyStartTime": 1,
+                      "tRROccupancyEndTime": 1
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "test": {
+    "start_processing_timestamp": 1763484457.686721,
+    "channel_frequency": 5860,
+    "channel_busy_time": 0.001911,
+    "channel_rx_time": 0.001119,
+    "channel_tx_time": 0.000362,
+    "json_timestamp": 1763484457.686887
+  }
+}
