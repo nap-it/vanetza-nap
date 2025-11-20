@@ -1,16 +1,16 @@
 {
-	"timestamp": 1762875449.498165,
-	"rssi": 2,
-	"stationID": 175,
-	"stationAddr": "6e:06:e0:01:00:af",
-	"receiverID": 229,
-	"receiverType": 5,
-	"packet_size": 162,
+	"timestamp": 1763675672.935926,
+	"rssi": -4,
+	"stationID": 229,
+	"stationAddr": "6e:06:e0:01:00:e5",
+	"receiverID": 777,
+	"receiverType": 15,
+	"packet_size": 189,
 	"fields": {
 		"header": {
 			"protocolVersion": 2,
 			"messageId": 14,
-			"stationId": 175
+			"stationId": 229
 		},
 		"payload": {
 			"managementContainer": {
@@ -91,57 +91,123 @@
 				{
 					"containerId": 5,
 					"containerData": {
-						"numberOfPerceivedObjects": 2,
+						"numberOfPerceivedObjects": 1,
 						"perceivedObjects": [
 							{
-								"measurementDeltaTime": 0,
+								"measurementDeltaTime": 19,
 								"position": {
 									"xCoordinate": {
-										"value": 0.0,
+										"value": 39.67,
 										"confidence": 1.0
 									},
 									"yCoordinate": {
-										"value": 0.0,
+										"value": -50.9,
 										"confidence": 1.0
 									}
 								},
-								"objectId": 1,
-								"objectPerceptionQuality": 0,
+								"objectId": 115,
+								"velocity": {
+									"cartesianVelocity": {
+										"xVelocity": {
+											"value": 10.13,
+											"confidence": 1.0
+										},
+										"yVelocity": {
+											"value": -4.27,
+											"confidence": 1.0
+										}
+									}
+								},
+								"acceleration": {
+									"cartesianAcceleration": {
+										"xAcceleration": {
+											"value": 0.0,
+											"confidence": 1.0
+										},
+										"yAcceleration": {
+											"value": 0.0,
+											"confidence": 1.0
+										}
+									}
+								},
+								"angles": {
+									"zAngle": {
+										"value": 337.1,
+										"confidence": 1.0
+									}
+								},
+								"objectDimensionX": {
+									"value": 2.5,
+									"confidence": 1
+								},
 								"sensorIdList": [
 									1
 								],
 								"classification": [
 									{
 										"objectClass": {
-											"vehicleSubClass": 5
+											"vehicleSubClass": 4
 										},
-										"confidence": 1
+										"confidence": 71
 									}
 								]
 							},
 							{
-								"measurementDeltaTime": 0,
+								"measurementDeltaTime": 19,
 								"position": {
 									"xCoordinate": {
-										"value": 0.0,
+										"value": 33.67,
 										"confidence": 1.0
 									},
 									"yCoordinate": {
-										"value": 0.0,
+										"value": -52.9,
 										"confidence": 1.0
 									}
 								},
-								"objectId": 3,
-								"objectPerceptionQuality": 0,
+								"objectId": 120,
+								"velocity": {
+									"cartesianVelocity": {
+										"xVelocity": {
+											"value": 9.13,
+											"confidence": 1.0
+										},
+										"yVelocity": {
+											"value": -2.27,
+											"confidence": 1.0
+										}
+									}
+								},
+								"acceleration": {
+									"cartesianAcceleration": {
+										"xAcceleration": {
+											"value": 0.0,
+											"confidence": 1.0
+										},
+										"yAcceleration": {
+											"value": 0.0,
+											"confidence": 1.0
+										}
+									}
+								},
+								"angles": {
+									"zAngle": {
+										"value": 178.1,
+										"confidence": 1.0
+									}
+								},
+								"objectDimensionX": {
+									"value": 2.5,
+									"confidence": 1
+								},
 								"sensorIdList": [
-									1
+									3
 								],
 								"classification": [
 									{
 										"objectClass": {
 											"vehicleSubClass": 5
 										},
-										"confidence": 1
+										"confidence": 71
 									}
 								]
 							}
@@ -152,12 +218,12 @@
 		}
 	},
 	"test": {
-		"start_processing_timestamp": 1762875449.498326,
+		"start_processing_timestamp": 1763675672.935945,
 		"channel_frequency": 5860,
 		"channel_noise": -95,
-		"channel_busy_time": 0.002221,
-		"channel_rx_time": 0.000943,
-		"channel_tx_time": 0.00037,
-		"json_timestamp": 1762875449.499094
+		"channel_busy_time": 0.008236,
+		"channel_rx_time": 0.004378,
+		"channel_tx_time": 0.000363,
+		"json_timestamp": 1763675672.936108
 	}
 }
