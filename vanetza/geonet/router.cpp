@@ -236,7 +236,8 @@ DataConfirm Router::request(const ShbDataRequest& request, DownPacketPtr payload
         pdu->common().payload = payload->size();
 
         ControlInfo ctrl(request);
-        auto transmit = [this, ctrl](PendingPacket::Packet&& packet) {
+        auto source_override = request.source_mac_override;
+        auto transmit = [this, ctrl, source_override](PendingPacket::Packet&& packet) {
             std::unique_ptr<ShbPdu> pdu;
             std::unique_ptr<DownPacket> payload;
             std::tie(pdu, payload) = std::move(packet);
@@ -253,7 +254,7 @@ DataConfirm Router::request(const ShbDataRequest& request, DownPacketPtr payload
             execute_media_procedures(ctrl.communication_profile);
 
             // step 6: pass packet down to link layer with broadcast destination
-            pass_down(cBroadcastMacAddress, std::move(pdu), std::move(payload));
+            pass_down(cBroadcastMacAddress, source_override, std::move(pdu), std::move(payload));
 
             // step 7: reset beacon timer
             reset_beacon_timer();
@@ -300,7 +301,8 @@ DataConfirm Router::request(const GbcDataRequest& request, DownPacketPtr payload
     pdu->common().payload = payload->size();
 
     ControlInfo ctrl(request);
-    auto transmit = [this, ctrl](Packet&& packet, const MacAddress& mac) {
+    auto source_override = request.source_mac_override;
+    auto transmit = [this, ctrl, source_override](Packet&& packet, const MacAddress& mac) {
         std::unique_ptr<GbcPdu> pdu;
         std::unique_ptr<DownPacket> payload;
         std::tie(pdu, payload) = std::move(packet);
@@ -320,7 +322,7 @@ DataConfirm Router::request(const GbcDataRequest& request, DownPacketPtr payload
         execute_media_procedures(ctrl.communication_profile);
 
         // step 8: pass PDU to link layer
-        pass_down(mac, std::move(pdu), std::move(payload));
+        pass_down(mac, source_override, std::move(pdu), std::move(payload));
     };
 
     auto forwarding = [this, transmit](Packet&& packet) {
@@ -693,11 +695,24 @@ void Router::pass_down(const dcc::DataRequest& request, PduPtr pdu, DownPacketPt
 
 void Router::pass_down(const MacAddress& addr, PduPtr pdu, DownPacketPtr payload)
 {
+    pass_down(addr, boost::none, std::move(pdu), std::move(payload));
+}
+
+void Router::pass_down(const MacAddress& addr, const boost::optional<MacAddress>& source_override, PduPtr pdu, DownPacketPtr payload)
+{
     assert(pdu);
+
+    auto timestamp = std::chrono::steady_clock::now();
 
     dcc::DataRequest request;
     request.destination = addr;
-    request.source = m_local_position_vector.gn_addr.mid();
+    std::cout << "Router::pass_down" << std::endl;
+    if (source_override) {
+        std::cout << "  [ " << timestamp.time_since_epoch().count() << " ] source override: " << *source_override << std::endl;
+    } else {
+        std::cout << "  [ " << timestamp.time_since_epoch().count() << " ] source override: none, using local address" << std::endl;
+    }
+    request.source = source_override ? *source_override : m_local_position_vector.gn_addr.mid();
     request.dcc_profile = map_tc_onto_profile(pdu->common().traffic_class);
     request.ether_type = geonet::ether_type;
     request.lifetime = clock_cast(pdu->basic().lifetime.decode());
