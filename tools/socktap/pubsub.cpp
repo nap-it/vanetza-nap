@@ -179,7 +179,7 @@ void PubSub::subscribe(message_config_t message_config, PubSub_application* app)
     if(message_config.zenoh_enabled){
         session->declare_background_subscriber(
             zenoh::KeyExpr(topic),
-            [this, topic](const zenoh::Sample& sample) {
+            [this, topic](zenoh::Sample& sample) {
                 std::string message = sample.get_payload().as_string();
                 this->on_message(topic, message, 0);                         // TODO: think about priority since DDS is 0 and MQTT is 1
             },
@@ -215,7 +215,7 @@ void PubSub::manual_subscribe(message_config_t message_config, std::string topic
     if(message_config.zenoh_enabled){
         session->declare_background_subscriber(
             zenoh::KeyExpr(topic),
-            [this, topic](const zenoh::Sample& sample) {
+            [this, topic](zenoh::Sample& sample) {
                 std::string message = sample.get_payload().as_string();
                 this->on_message(topic, message, 0);                         // TODO: think about priority since DDS is 0 and MQTT is 1
             },

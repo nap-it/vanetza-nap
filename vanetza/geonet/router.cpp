@@ -237,13 +237,18 @@ DataConfirm Router::request(const ShbDataRequest& request, DownPacketPtr payload
 
         ControlInfo ctrl(request);
         auto source_override = request.source_mac_override;
-        auto transmit = [this, ctrl, source_override](PendingPacket::Packet&& packet) {
+        auto source_position_override = request.source_position_override;
+        auto transmit = [this, ctrl, source_override, source_position_override](PendingPacket::Packet&& packet) {
             std::unique_ptr<ShbPdu> pdu;
             std::unique_ptr<DownPacket> payload;
             std::tie(pdu, payload) = std::move(packet);
 
             // update SO PV before actual transmission
-            pdu->extended().source_position = m_local_position_vector;
+            if (source_position_override) {
+                pdu->extended().source_position = *source_position_override;
+            } else {
+                pdu->extended().source_position = m_local_position_vector;
+            }
 
             // step 2: encapsulate packet by security
             if (m_mib.itsGnSecurity) {
@@ -302,13 +307,18 @@ DataConfirm Router::request(const GbcDataRequest& request, DownPacketPtr payload
 
     ControlInfo ctrl(request);
     auto source_override = request.source_mac_override;
-    auto transmit = [this, ctrl, source_override](Packet&& packet, const MacAddress& mac) {
-        std::unique_ptr<GbcPdu> pdu;
-        std::unique_ptr<DownPacket> payload;
-        std::tie(pdu, payload) = std::move(packet);
+        auto source_position_override = request.source_position_override;
+        auto transmit = [this, ctrl, source_override, source_position_override](Packet&& packet, const MacAddress& mac) {
+            std::unique_ptr<GbcPdu> pdu;
+            std::unique_ptr<DownPacket> payload;
+            std::tie(pdu, payload) = std::move(packet);
 
-        // update SO PV before actual transmission
-        pdu->extended().source_position = m_local_position_vector;
+            // update SO PV before actual transmission
+            if (source_position_override) {
+                pdu->extended().source_position = *source_position_override;
+            } else {
+                pdu->extended().source_position = m_local_position_vector;
+            }
 
         // step 5: apply security
         if (m_mib.itsGnSecurity) {
@@ -702,20 +712,19 @@ void Router::pass_down(const MacAddress& addr, const boost::optional<MacAddress>
 {
     assert(pdu);
 
-    auto timestamp = std::chrono::steady_clock::now();
-
     dcc::DataRequest request;
     request.destination = addr;
-    std::cout << "Router::pass_down" << std::endl;
-    if (source_override) {
-        std::cout << "  [ " << timestamp.time_since_epoch().count() << " ] source override: " << *source_override << std::endl;
-    } else {
-        std::cout << "  [ " << timestamp.time_since_epoch().count() << " ] source override: none, using local address" << std::endl;
-    }
+    // std::cout << "Router::pass_down" << std::endl;
+    // if (source_override) {
+    //     std::cout << "  source override: " << *source_override << std::endl;
+    // } else {
+    //     std::cout << "  source override: none" << std::endl;
+    // }
     request.source = source_override ? *source_override : m_local_position_vector.gn_addr.mid();
     request.dcc_profile = map_tc_onto_profile(pdu->common().traffic_class);
     request.ether_type = geonet::ether_type;
     request.lifetime = clock_cast(pdu->basic().lifetime.decode());
+    request.source_override = source_override;
 
     pass_down(request, std::move(pdu), std::move(payload));
 }
@@ -1233,7 +1242,8 @@ std::unique_ptr<ShbPdu> Router::create_shb_pdu(const ShbDataRequest& request)
     pdu->basic().hop_limit = 1;
     pdu->common().header_type = HeaderType::TSB_Single_Hop;
     pdu->common().maximum_hop_limit = 1;
-    pdu->extended().source_position = m_local_position_vector;
+    auto source_position = request.source_position_override ? *request.source_position_override : m_local_position_vector;
+    pdu->extended().source_position = source_position;
     pdu->extended().dcc = m_dcc_field_generator->generate_dcc_field();
     return pdu;
 }
@@ -1255,7 +1265,8 @@ std::unique_ptr<GbcPdu> Router::create_gbc_pdu(const GbcDataRequest& request)
     std::unique_ptr<GbcPdu> pdu { new GbcPdu(request, m_mib) };
     pdu->common().header_type = gbc_header_type(request.destination);
     pdu->extended().sequence_number = m_local_sequence_number++;
-    pdu->extended().source_position = m_local_position_vector;
+    auto source_position = request.source_position_override ? *request.source_position_override : m_local_position_vector;
+    pdu->extended().source_position = source_position;
     pdu->extended().destination(request.destination);
     return pdu;
 }

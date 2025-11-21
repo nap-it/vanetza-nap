@@ -16,6 +16,7 @@
 #include "pubsub.hpp"
 #include "router_context.hpp"
 #include "config.hpp"
+#include <vanetza/net/mac_address.hpp>
 
 #include <prometheus/counter.h>
 #include <prometheus/registry.h>
@@ -56,11 +57,15 @@ public:
 
 protected:
     bool request(const DataRequest& request, DownPacketPtr packet, std::string* mqtt_message, vanetza::geonet::Router* router);
+    void apply_station_overrides(DataRequest& request, vanetza::geonet::Router* router, int station_type, long station_id);
+    int resolve_station_id(int payload_station_id, int fallback_station_id) const;
+    std::string resolve_station_mac(int station_type, long station_id, const std::string& fallback_mac);
 };
+
+vanetza::MacAddress build_mac_from_station(int station_type, long station_id);
 
 static channel parse_channel_info(vanetza::CohesivePacket cp) {
     return channel{cp.frequency, cp.noise, cp.chan_busy_time, cp.chan_rx_time, cp.chan_tx_time};
 }
 
 #endif /* APPLICATION_HPP_PSIGPUTG */
-

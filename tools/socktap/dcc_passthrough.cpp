@@ -26,7 +26,7 @@ void DccPassthrough::request(const dcc::DataRequest& request, std::unique_ptr<Ch
 
     access::DataRequest acc_req;
     acc_req.ether_type = request.ether_type;
-    acc_req.source_addr = request.source;
+    acc_req.source_addr = request.source_override ? *request.source_override : request.source;
     acc_req.destination_addr = request.destination;
     acc_req.access_category = dcc::map_profile_onto_ac(request.dcc_profile);
     access_.request(acc_req, std::move(packet));

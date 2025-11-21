@@ -139,4 +139,3 @@ boost::optional<EthernetHeader> RawSocketLink::parse_ethernet_header(vanetza::Co
 
     return boost::none;
 }
-

@@ -7,7 +7,9 @@
 #include <vanetza/geonet/interface.hpp>
 #include <vanetza/geonet/lifetime.hpp>
 #include <vanetza/geonet/mib.hpp>
+#include <vanetza/geonet/position_vector.hpp>
 #include <vanetza/geonet/traffic_class.hpp>
+#include <vanetza/net/mac_address.hpp>
 #include <vanetza/units/time.hpp>
 #include <boost/optional.hpp>
 #include <boost/variant.hpp>
@@ -45,6 +47,8 @@ struct DataRequest
     boost::optional<Repetition> repetition;
     unsigned max_hop_limit;
     TrafficClass traffic_class;
+    boost::optional<MacAddress> source_mac_override;
+    boost::optional<LongPositionVector> source_position_override;
 };
 
 /**

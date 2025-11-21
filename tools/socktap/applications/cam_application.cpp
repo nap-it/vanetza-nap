@@ -328,6 +328,7 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
     DownPacketPtr packet { new DownPacket() };
     Document document;
     Value payload;
+    int payload_station_id = -1;
 
     CamPayload_t* cam_ptr = vanetza::asn1::allocate<CamPayload_t>();
     ETSI_ITS_CDD_AccelerationControl_t* p_tmp = vanetza::asn1::allocate<ETSI_ITS_CDD_AccelerationControl_t>();
@@ -355,7 +356,7 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
         }
 
         payload = document.GetObject();
-        int payload_station_id = payload.HasMember("stationId") ? payload["stationId"].GetInt() : -1;
+        payload_station_id = payload.HasMember("stationId") ? payload["stationId"].GetInt() : -1;
         
         if(topic == config_s.cam.topic_in) {
             try {
@@ -394,6 +395,9 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
     request.its_aid = aid::CA;
     request.transport_type = geonet::TransportType::SHB;
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
+    if (payload_station_id != -1) {
+        apply_station_overrides(request, router, config_s.station_type, payload_station_id);
+    }
 
     try {
         if (!Application::request(request, std::move(packet), nullptr, router)) {
@@ -417,12 +421,14 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
         Value simplePayload(kObjectType);
         Value timeTest(kObjectType);
 
-        int payload_station_id = payload.HasMember("stationId") ? payload["stationId"].GetInt() : -1;
-        if(payload_station_id == -1) payload_station_id = config_s.station_id;
+        
+        int station_id_time = resolve_station_id(payload_station_id, config_s.station_id);
+        std::string mac_addr = resolve_station_mac(config_s.station_type, payload_station_id, config_s.mac_address);
+
 
         simplePayload.AddMember("timestamp", time_reception, simpleAllocator)
-                    .AddMember("stationID", payload_station_id, simpleAllocator)
-                    .AddMember("stationAddr", config_s.mac_address, simpleAllocator)
+                    .AddMember("stationID", station_id_time, simpleAllocator)
+                    .AddMember("stationAddr", mac_addr, simpleAllocator)
                     .AddMember("receiverID", config_s.station_id, simpleAllocator)
                     .AddMember("receiverType", config_s.station_type, simpleAllocator);
         if(!is_encoded) simplePayload.AddMember("fields", Value(kObjectType).AddMember("cam", payload, simpleAllocator), simpleAllocator);

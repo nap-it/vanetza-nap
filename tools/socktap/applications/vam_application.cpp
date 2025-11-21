@@ -289,6 +289,7 @@ void VamApplication::on_message(string topic, string mqtt_message, const std::ve
     DownPacketPtr packet { new DownPacket() };
     Document document;
     Value payload;
+    int payload_station_id = -1;
 
     if (!is_encoded) {
         VruAwareness_t vam;
@@ -308,7 +309,7 @@ void VamApplication::on_message(string topic, string mqtt_message, const std::ve
         }
 
         payload = document.GetObject();
-        int payload_station_id = payload.HasMember("stationId") ? payload["stationId"].GetInt() : -1;
+        payload_station_id = payload.HasMember("stationId") ? payload["stationId"].GetInt() : -1;
 
         try {
             from_json(payload, vam, "VAM");
@@ -350,6 +351,9 @@ void VamApplication::on_message(string topic, string mqtt_message, const std::ve
     request.its_aid = aid::VRU;
     request.transport_type = geonet::TransportType::SHB;
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
+    if (payload_station_id != -1) {
+        apply_station_overrides(request, router, config_s.station_type, payload_station_id);
+    }
 
     try {
         if (!Application::request(request, std::move(packet), nullptr, router)) {
@@ -373,12 +377,12 @@ void VamApplication::on_message(string topic, string mqtt_message, const std::ve
         Value timePayload(kObjectType);
         Value timeTest(kObjectType);
 
-        int payload_station_id = payload.HasMember("stationId") ? payload["stationId"].GetInt() : -1;
-        if(payload_station_id == -1) payload_station_id = config_s.station_id;
+        int station_id_time = resolve_station_id(payload_station_id, config_s.station_id);
+        std::string station_mac = resolve_station_mac(config_s.station_type, payload_station_id, config_s.mac_address);
 
         timePayload.AddMember("timestamp", time_reception, allocator)
-            .AddMember("stationID", payload_station_id, allocator)
-            .AddMember("stationAddr", config_s.mac_address, allocator)
+            .AddMember("stationID", station_id_time, allocator)
+            .AddMember("stationAddr", station_mac, allocator)
             .AddMember("receiverID", config_s.station_id, allocator)
             .AddMember("receiverType", config_s.station_type, allocator);
         if(!is_encoded) timePayload.AddMember("fields", Value(kObjectType).AddMember("vam", payload, allocator), allocator);
