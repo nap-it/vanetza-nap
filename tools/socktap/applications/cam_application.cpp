@@ -358,23 +358,21 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
         payload = document.GetObject();
         payload_station_id = payload.HasMember("stationId") ? payload["stationId"].GetInt() : -1;
         
-        if(topic == config_s.cam.topic_in) {
-            try {
-                from_json(payload, cam, "CAM");
-            } catch (VanetzaJSONException& e) {
-                std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
-                std::cout << e.what() << std::endl;
-                std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
-                return;
-            } catch(...) {
-                std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
-                std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
-                return;
-            }
-            if(payload_station_id != -1) header.stationId = payload_station_id;
-            else header.stationId = config_s.station_id;
-            message->cam = cam;
+        try {
+            from_json(payload, cam, "CAM");
+        } catch (VanetzaJSONException& e) {
+            std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+            std::cout << e.what() << std::endl;
+            std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
+            return;
+        } catch(...) {
+            std::cout << "-- Vanetza ETSI Encoding Error --\nCheck that the message format follows ETSI spec" << std::endl;
+            std::cout << "\nInvalid payload: " << mqtt_message << std::endl;
+            return;
         }
+        if(payload_station_id != -1) header.stationId = payload_station_id;
+        else header.stationId = config_s.station_id;
+        message->cam = cam;
 
         std::string error;
         if (config_s.debug_enabled && !message.validate(error)) {
@@ -443,17 +441,15 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
         simplePayload.Accept(simpleWriter);
         const char* simpleJSON = simpleBuffer.GetString();
 
-        if(topic == config_s.cam.topic_in || topic == config_s.cam.topic_in + "_enc") {
-            pubsub->local_mqtt->publish(config_s.cam.topic_time, simpleJSON);
-            if (pubsub->remote_mqtt != NULL) pubsub->remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_time, simpleJSON);
-            if (config_s.cam.dds_enabled) pubsub->dds->publish(config_s.cam.topic_time, simpleJSON);
-            if (config_s.cam.zenoh_enabled && pubsub->session != nullptr) {
-                const size_t output_len = strlen(simpleJSON);
-                auto output_alloc_result = pubsub->shm_provider->alloc_gc_defrag_blocking(output_len, zenoh::AllocAlignment({0}));
-                zenoh::ZShmMut&& output_buf = std::get<zenoh::ZShmMut>(std::move(output_alloc_result));
-                memcpy(output_buf.data(), simpleJSON, output_len);
-                pubsub->session->put(config_s.cam.topic_time, std::move(output_buf));
-            }
+        pubsub->local_mqtt->publish(config_s.cam.topic_time, simpleJSON);
+        if (pubsub->remote_mqtt != NULL) pubsub->remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.cam.topic_time, simpleJSON);
+        if (config_s.cam.dds_enabled) pubsub->dds->publish(config_s.cam.topic_time, simpleJSON);
+        if (config_s.cam.zenoh_enabled && pubsub->session != nullptr) {
+            const size_t output_len = strlen(simpleJSON);
+            auto output_alloc_result = pubsub->shm_provider->alloc_gc_defrag_blocking(output_len, zenoh::AllocAlignment({0}));
+            zenoh::ZShmMut&& output_buf = std::get<zenoh::ZShmMut>(std::move(output_alloc_result));
+            memcpy(output_buf.data(), simpleJSON, output_len);
+            pubsub->session->put(config_s.cam.topic_time, std::move(output_buf));
         }
     }
 
