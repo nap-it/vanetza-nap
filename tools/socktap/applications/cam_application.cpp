@@ -381,6 +381,19 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
             return;
         }
 
+        std::cout << "Validating encoding/decoding of CAM ..." << std::endl;
+        auto enc_message = message.encode();
+        std::cout << "Encoded CAM message size: " << enc_message.size() << " bytes" <<  std::endl;
+        vanetza::asn1::Cam decoded;
+        if (!decoded.decode(enc_message)) {
+            std::cerr << "decode failed\n";
+        }
+        if (decoded.encode() != enc_message) {
+            std::cerr << "encode/decode mismatch\n";
+        } else {
+            std::cout << "encode/decode successful, matching original message\n";
+        }
+
         packet->layer(OsiLayer::Application) = std::move(message);
     } else {
         delete p_tmp;
