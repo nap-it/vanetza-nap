@@ -27,6 +27,7 @@ transformation = {
     "Latitude": (pow(10,7),[900000001]),
     "Longitude": (pow(10,7),[1800000001]),
     "CartesianCoordinateLarge": (pow(10,2),[]),
+    "CartesianCoordinate": (pow(10,2),[]),
     "SteeringWheelAngleValue": ((2/3),[]),
     "AltitudeValue": (pow(10,2),[800001]),
 #    "AltitudeConfidence": (pow(10,2),[14,15]),
