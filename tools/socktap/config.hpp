@@ -82,10 +82,11 @@ typedef struct config {
     // string own_full_cam_topic_out;
     bool zenoh_local_only;
     string zenoh_interfaces;
-    bool tcp_enabled;
-    string tcp_interface;
-    string tcp_ip;
-    int tcp_port;
+    bool tcpudp_enabled;
+    string tcpudp_protocol;
+    string tcpudp_interface;
+    string tcpudp_ip;
+    int tcpudp_port;
 } config_t;
 
 typedef struct metrics {

@@ -79,8 +79,9 @@ void read_config(config_t* config_s, string path) {
     // config_s->full_vam_topic_test = getenv("VANETZA_VAM_FULL_TOPIC_TEST") == NULL ? reader.Get("vam", "full_topic_test", "") : getenv("VANETZA_VAM_FULL_TOPIC_TEST");
     config_s->own_cam_topic_out = getenv("VANETZA_CAM_OWN_TOPIC_OUT") == NULL ? reader.Get("cam", "own_topic_out", "") : getenv("VANETZA_CAM_OWN_TOPIC_OUT");
     // config_s->own_full_cam_topic_out = getenv("VANETZA_CAM_OWN_FULL_TOPIC_OUT") == NULL ? reader.Get("cam", "own_full_topic_out", "") : getenv("VANETZA_CAM_OWN_FULL_TOPIC_OUT");
-    config_s->tcp_enabled = getenv("VANETZA_TCP_ENABLED") == NULL ? reader.GetBoolean("general", "tcp_enabled", false) : (strcmp((getenv("VANETZA_TCP_ENABLED")), "true") == 0);
-    config_s->tcp_interface = getenv("VANETZA_TCP_INTERFACE") == NULL ? reader.Get("general", "tcp_interface", "eth0") : getenv("VANETZA_TCP_INTERFACE");
-    config_s->tcp_ip = getenv("VANETZA_TCP_IP") == NULL ? reader.Get("general", "tcp_ip", "127.0.0.1") : getenv("VANETZA_TCP_IP");
-    config_s->tcp_port = getenv("VANETZA_TCP_PORT") == NULL ? reader.GetInteger("general", "tcp_port", 50050) : stoi(getenv("VANETZA_TCP_PORT"));
+    config_s->tcpudp_enabled = getenv("VANETZA_TCP_ENABLED") == NULL ? reader.GetBoolean("tcpudp", "tcp_enabled", false) : (strcmp((getenv("VANETZA_TCP_ENABLED")), "true") == 0);
+    config_s->tcpudp_protocol = getenv("VANETZA_TCP_PROTOCOL") == NULL ? reader.Get("tcpudp", "protocol", "tcp") : getenv("VANETZA_TCP_PROTOCOL");
+    config_s->tcpudp_interface = getenv("VANETZA_TCP_INTERFACE") == NULL ? reader.Get("tcpudp", "tcp_interface", "eth0") : getenv("VANETZA_TCP_INTERFACE");
+    config_s->tcpudp_ip = getenv("VANETZA_TCP_IP") == NULL ? reader.Get("tcpudp", "tcp_ip", "127.0.0.1") : getenv("VANETZA_TCP_IP");
+    config_s->tcpudp_port = getenv("VANETZA_TCP_PORT") == NULL ? reader.GetInteger("tcpudp", "tcp_port", 50050) : stoi(getenv("VANETZA_TCP_PORT"));
 }
