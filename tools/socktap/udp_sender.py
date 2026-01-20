@@ -3,10 +3,11 @@ import socket
 import time
 
 # Configuration
-HOST = "10.0.22.118"
+HOST = "10.0.23.236"
 PORT = 50050
 MESSAGE = b"Hello World from UDP!"
 INTERVAL = 1.0  # seconds
+
 
 def main():
     print(f"Sending UDP packets to {HOST}:{PORT}...")
@@ -25,6 +26,7 @@ def main():
         print("\nStopped by user")
     finally:
         sock.close()
+
 
 if __name__ == "__main__":
     main()
