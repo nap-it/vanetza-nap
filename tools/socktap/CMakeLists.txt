@@ -47,6 +47,7 @@ add_executable(socktap
     positioning.cpp
     rssi_reader.cpp
     raw_socket_link.cpp
+    raw_transport_link.cpp
     router_context.cpp
     security.cpp
     time_trigger.cpp
