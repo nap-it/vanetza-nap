@@ -1,6 +1,6 @@
 /*
 *   JSON marshalling and unmarshalling functions for use by RapidJSON
-*   Auto-generated from the asn1 directory by asn1json.py on 2025-10-06 18:42:00.736389
+*   Auto-generated from the asn1 directory by asn1json.py on 2026-01-20 15:21:14.897484
 */
 
 #include "asn1json.hpp"
@@ -1314,18 +1314,18 @@ void from_json(const Value& j, CartesianCoordinateWithConfidence_t& p, std::stri
 
 Value to_json(const CartesianPosition3d_t& p, Document::AllocatorType& allocator) {
     Value json(kObjectType);
-    json.AddMember("xCoordinate", to_json((p.xCoordinate), allocator), allocator);
-    json.AddMember("yCoordinate", to_json((p.yCoordinate), allocator), allocator);
-    if (p.zCoordinate != 0) json.AddMember("zCoordinate", to_json(*(p.zCoordinate), allocator), allocator);
+    json.AddMember("xCoordinate", to_json((double)(p.xCoordinate) / 100.0, allocator), allocator);
+    json.AddMember("yCoordinate", to_json((double)(p.yCoordinate) / 100.0, allocator), allocator);
+    if (p.zCoordinate != 0) json.AddMember("zCoordinate", to_json((double) *(p.zCoordinate) / 100.0, allocator), allocator);
     return json;
 }
 
 void from_json(const Value& j, CartesianPosition3d_t& p, std::string field) {
     try {
         p._asn_ctx.ptr = nullptr;
-        from_json(j["xCoordinate"], (p.xCoordinate), "xCoordinate");
-        from_json(j["yCoordinate"], (p.yCoordinate), "yCoordinate");
-        if (j.HasMember("zCoordinate")) { p.zCoordinate = vanetza::asn1::allocate<CartesianCoordinate_t>(); from_json(j["zCoordinate"], *(p.zCoordinate), "zCoordinate"); }
+        double xCoordinate; from_json(j["xCoordinate"], (xCoordinate), "xCoordinate"); (p.xCoordinate) = xCoordinate * 100;
+        double yCoordinate; from_json(j["yCoordinate"], (yCoordinate), "yCoordinate"); (p.yCoordinate) = yCoordinate * 100;
+        double zCoordinate; if (j.HasMember("zCoordinate")) { p.zCoordinate = vanetza::asn1::allocate<CartesianCoordinate_t>(); from_json(j["zCoordinate"], (zCoordinate), "zCoordinate"); *(p.zCoordinate) = zCoordinate * 100; }
         else { p.zCoordinate=nullptr; }
     } catch(VanetzaJSONException& ex) {
         ex.addContext(field);
