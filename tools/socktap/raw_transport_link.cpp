@@ -1,12 +1,11 @@
 #include "raw_transport_link.hpp"
-#include "vanetza/access/ethertype.hpp"
+#include <boost/optional/optional.hpp>
 #include <cerrno>
-#include <chrono>
 #include <cstddef>
 #include <cstdint>
 #include <iostream>
 #include <mutex>
-#include <thread>
+#include <string>
 #include <vanetza/access/data_request.hpp>
 #include <vanetza/net/ethernet_header.hpp>
 
@@ -14,7 +13,6 @@
 #include <arpa/inet.h>
 #include <net/if.h>
 #include <netinet/in.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
@@ -26,7 +24,6 @@
 #define MAXLINE 1024
 
 using namespace vanetza;
-using namespace std::chrono;
 
 std::mutex xtmi_mtx_transport;
 
@@ -81,11 +78,40 @@ void RawTransportLink::do_receive() {
 
 void RawTransportLink::on_read(const boost::system::error_code& ec, std::size_t read_bytes) {
     if (!ec && read_bytes > 0) {
-        std::cout << "Received " << read_bytes << " bytes from " << receive_endpoint_.address().to_string() << ":" << receive_endpoint_.port() << std::endl;
+		// Log the hex representation of the payload
+        std::string payload(receive_buffer_.begin(), receive_buffer_.begin() + read_bytes);
+		std::cout << "Payload (hex): ";
+		for (unsigned char c : payload) {
+			std::cout << std::hex << static_cast<int>(c) << " ";
+		}
 
-        // TODO: Process UDP payload and pass to callback when needed
-        // For now, just log that we received the packet
-    } else if (ec) {
-        std::cerr << "Receive error: " << ec.message() << std::endl;
+        // Validate minimum size
+        if (read_bytes < 4) {
+            std::cerr << "[ON_READ] Packet too small for BTP header" << std::endl;
+            return;
+        }
+
+        // Parse BTP header from payload
+        // BTP-B header format:
+        //   Bytes 0-1: Destination port (big-endian)
+        //   Bytes 2-3: INFO
+        uint16_t dst_port = ntohs(*reinterpret_cast<const uint16_t*>(&receive_buffer_[0]));
+        uint16_t info = ntohs(*reinterpret_cast<const uint16_t*>(&receive_buffer_[2]));
+        std::cout << "[UDP] BTP parsed: dst=" << dst_port 
+                  << " (0x" << std::hex << dst_port << std::dec << ")"
+                  << " info=" << info << std::endl;
+		
+        // Extract CAM payload (everything AFTER BTP header)
+        vanetza::ByteBuffer cam_payload(
+            receive_buffer_.begin() + 4,  // Skip 4-byte BTP header
+            receive_buffer_.begin() + read_bytes
+        );
+        
+        std::cout << "[UDP] CAM payload: " << cam_payload.size() << " bytes" << std::endl;
+		if (udp_btp_callback_) {
+			udp_btp_callback_(dst_port, info, std::move(cam_payload));
+		} else {
+			std::cerr << "[UDP] WARNING: No UDP callback set!" << std::endl;
+		}
     }
 }

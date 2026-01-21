@@ -16,6 +16,15 @@ public:
     void request(const vanetza::access::DataRequest&, std::unique_ptr<vanetza::ChunkPacket>) override;
     void indicate(IndicationCallback) override;
     void do_receive();
+    // Simplified callback: Just BTP info + CAM payload
+    using UdpBtpCallback = std::function<void(
+        uint16_t btp_dst_port,
+        uint16_t btp_dst_port_info,
+        vanetza::ByteBuffer&& cam_payload
+    )>;
+    void indicate_udp_btp(UdpBtpCallback callback) {
+        udp_btp_callback_ = callback;
+    }
 
 protected:
     std::size_t transmit(std::unique_ptr<vanetza::ChunkPacket>);
@@ -30,6 +39,7 @@ private:
     IndicationCallback callback_;
     vanetza::ByteBuffer receive_buffer_;
     boost::asio::ip::udp::endpoint receive_endpoint_;
+    UdpBtpCallback udp_btp_callback_;
 };
 
 #endif /* RAW_SOCKET_LINK_HPP_VUXH507U */

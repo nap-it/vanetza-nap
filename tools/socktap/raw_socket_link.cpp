@@ -28,7 +28,8 @@ using namespace std::chrono;
 bool rssi_enabled = false;
 std::mutex xmit_mtx;
 
-RawSocketLink::RawSocketLink(boost::asio::generic::raw_protocol::socket&& socket, const std::string& device_name, bool _rssi_enabled) : socket_(std::move(socket)), receive_buffer_(2048, 0x00), receive_endpoint_(socket_.local_endpoint()) {
+RawSocketLink::RawSocketLink(boost::asio::generic::raw_protocol::socket&& socket, const std::string& device_name, bool _rssi_enabled)
+    : socket_(std::move(socket)), receive_buffer_(2048, 0x00), receive_endpoint_(socket_.local_endpoint()) {
     // BPF filter
     struct sock_filter bpf_code[] = {
         {0x28, 0, 0, 0x0000000c}, // ldh [12]

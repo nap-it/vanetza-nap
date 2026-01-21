@@ -20,6 +20,7 @@
 #include "router_context.hpp"
 #include "security.hpp"
 #include "time_trigger.hpp"
+#include "tools/socktap/raw_transport_link.hpp"
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/signal_set.hpp>
 #include <boost/program_options.hpp>
@@ -156,7 +157,7 @@ int main(int argc, const char** argv) {
         context.require_position_fix(vm.count("require-gnss-fix") > 0);
 
         std::cout << "[CONFIG] Transport enabled: " << (config_s.tcpudp_enabled ? "YES" : "NO") << std::endl;
-
+		// TODO: CODE BELLOW TO LINK THE LINK LAYER TO THE ROUTER CONTEXT.
         std::unique_ptr<LinkLayer> transport_link_layer;
         if (config_s.tcpudp_enabled) {
             try {
@@ -164,14 +165,28 @@ int main(int argc, const char** argv) {
                 EthernetDevice transport_device(transport_device_name);
 
                 transport_link_layer = create_link_layer_transport(io_service, transport_device, transport_device_name, config_s.tcpudp_port);
-
-                if (!transport_link_layer) {
-                    std::cerr << "Failed to create transport link layer" << std::endl;
-                }
             } catch (std::exception& e) {
                 std::cerr << "Error creating transport link: " << e.what() << std::endl;
             }
         }
+
+		if (!transport_link_layer) {
+			std::cerr << "Failed to create transport link layer" << std::endl;
+		} else {
+			std::cout << "[CONFIG] Transport link layer created successfully" << std::endl;
+			if (auto* raw_transport_link = dynamic_cast<RawTransportLink*>(transport_link_layer.get())) {
+				auto transport_callback = std::bind(
+					&RouterContext::indicate_udp_btp,  // Method to call
+					&context,                           // RouterContext instance
+					std::placeholders::_1,                          // btp_dst_port
+					std::placeholders::_2,                          // btp_dst_port_info
+					std::placeholders::_3                           // cam_payload
+				);
+
+				raw_transport_link->indicate_udp_btp(transport_callback);
+				std::cout << "[CONFIG] Transport link layer callback set successfully" << std::endl;
+			}
+		}
 
         std::mutex prom_mtx;
 
