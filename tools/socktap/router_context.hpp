@@ -3,6 +3,8 @@
 
 #include "dcc_passthrough.hpp"
 #include "link_layer.hpp"
+#include <cstdint>
+#include <sys/types.h>
 #include <vanetza/btp/port_dispatcher.hpp>
 #include <vanetza/common/position_provider.hpp>
 #include <vanetza/geonet/mib.hpp>
@@ -42,6 +44,13 @@ public:
     void log_packet_drop(vanetza::geonet::Router::PacketDropReason);
 
     vanetza::btp::PortDispatcher dispatcher_;
+
+    // TODO: Make this private (create set transport layer function)
+	void indicate_udp_btp(
+			uint16_t btp_dst_port,
+			uint16_t btp_dst_port_info,
+			vanetza::ByteBuffer&& cam_payload
+		);
 
 private:
     void indicate(vanetza::CohesivePacket&& packet, const vanetza::EthernetHeader& hdr);
