@@ -5,6 +5,7 @@
 #include "time_trigger.hpp"
 #include "vanetza/geonet/timestamp.hpp"
 #include "vanetza/geonet/traffic_class.hpp"
+#include "vanetza/geonet/units.hpp"
 #include "vanetza/net/mac_address.hpp"
 #include <vanetza/access/ethertype.hpp>
 #include <vanetza/dcc/data_request.hpp>
@@ -190,44 +191,34 @@ void RouterContext::indicate(CohesivePacket&& packet, const EthernetHeader& hdr)
 
 void RouterContext::indicate_udp_btp(uint16_t btp_dst_port, uint16_t btp_dst_port_info, vanetza::ByteBuffer&& cam_payload) 
 {
-	std::cout << "Reached indicate_udp_btp with BTP dst port: " << btp_dst_port << " and dst port info: " << btp_dst_port_info << std::endl;
-	std::cout << "Payload (hex): ";
-	for (unsigned char c : cam_payload) {
-		std::cout << std::hex << static_cast<int>(c) << " ";
-	}
 	// TODO: Create necessary DataIndication and UpPacket, then call indicationQueue.indicate()
-	// 
-	//
-	//    // Create minimal DataIndication (no GeoNet info!)
-	//    vanetza::btp::DataIndication indication;
-	//    indication.destination_port = vanetza::btp::port_type(btp_dst_port);
-	// indication.destination_port_info = btp_dst_port_info;
-	//
-	//    // Dummy/minimal position (since we don't have GeoNet header)
-	//    // Note: CAM payload itself contains position, app will extract it
-	// indication.source_position.gn_addr.mid(vanetza::MacAddress{0,0,0,0,0,0});
-	//    indication.source_position.latitude = vanetza::units::GeoAngle(0 * vanetza::units::degree);
-	//    indication.source_position.longitude = vanetza::units::GeoAngle(0 * vanetza::units::degree);
-	//    indication.source_position.timestamp = vanetza::geonet::Timestamp(std::chrono::milliseconds(0));
-	//
-	//    // Default traffic class
-	//    // TrafficClass(bool scf, bool channel_offload, BitNumber<unsigned, 6> tc_id);
-	// //    indication.traffic_class.tc_id(0);
-	// // indication.traffic_class.set(vanetza::geonet::TrafficClass::SCF, false);
-	// // indication.traffic_class.set(vanetza::geonet::TrafficClass::ChannelOffload, false);
-	// geonet::TrafficClass tc {false, false, vanetza::BitNumber<unsigned, 6>(0)};
-	// indication.traffic_class = tc;
-	//
-	//
-	//    // Create UpPacket from CAM payload
-	//    vanetza::CohesivePacket cohesive(std::move(cam_payload), OsiLayer::Application);
-	//    vanetza::geonet::Router::UpPacketPtr up_packet(
-	//        new vanetza::PacketVariant(std::move(cohesive))
-	//    );
-	//
-	//    // Direct call to IndicationQueue!
-	//    // This is the SAME point where ITS-G5 arrives after GeoNet parsing
-	//    indicationQueue.indicate(indication, std::move(up_packet));
+	// Create minimal DataIndication (no GeoNet info!)
+	vanetza::btp::DataIndication indication;
+	indication.destination_port = vanetza::host_cast<uint16_t>(btp_dst_port);
+	indication.destination_port_info = vanetza::host_cast<uint16_t>(btp_dst_port_info);
+
+	// Dummy/minimal position (since we don't have GeoNet header)
+	indication.source_position.gn_addr.mid(vanetza::MacAddress{0,0,0,0,0,0});
+	geonet::geo_angle_i32t lat {0};
+	geonet::geo_angle_i32t lon {0};
+	indication.source_position.latitude = lat;
+	indication.source_position.longitude = lon;
+	indication.source_position.timestamp = geonet::Timestamp{0};
+
+	// Default traffic class
+	geonet::TrafficClass tc {false, false, vanetza::BitNumber<unsigned, 6>(0)};
+	indication.traffic_class = tc;
+
+
+	// Create UpPacket from CAM payload
+	vanetza::CohesivePacket cohesive(std::move(cam_payload), OsiLayer::Application);
+	vanetza::geonet::Router::UpPacketPtr up_packet(
+	   new vanetza::PacketVariant(std::move(cohesive))
+	);
+
+	// Direct call to IndicationQueue!
+	// This is the SAME point where ITS-G5 arrives after GeoNet parsing
+	indicationQueue.indicate(indication, std::move(up_packet));
 }
 
 void packet_reception_thread(int i) {

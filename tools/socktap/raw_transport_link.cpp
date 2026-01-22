@@ -80,10 +80,10 @@ void RawTransportLink::on_read(const boost::system::error_code& ec, std::size_t 
     if (!ec && read_bytes > 0) {
 		// Log the hex representation of the payload
         std::string payload(receive_buffer_.begin(), receive_buffer_.begin() + read_bytes);
-		std::cout << "Payload (hex): ";
-		for (unsigned char c : payload) {
-			std::cout << std::hex << static_cast<int>(c) << " ";
-		}
+		// std::cout << "Payload (hex): ";
+		// for (unsigned char c : payload) {
+		// 	std::cout << std::hex << static_cast<int>(c) << " ";
+		// }
 
         // Validate minimum size
         if (read_bytes < 4) {
@@ -97,9 +97,9 @@ void RawTransportLink::on_read(const boost::system::error_code& ec, std::size_t 
         //   Bytes 2-3: INFO
         uint16_t dst_port = ntohs(*reinterpret_cast<const uint16_t*>(&receive_buffer_[0]));
         uint16_t info = ntohs(*reinterpret_cast<const uint16_t*>(&receive_buffer_[2]));
-        std::cout << "[UDP] BTP parsed: dst=" << dst_port 
-                  << " (0x" << std::hex << dst_port << std::dec << ")"
-                  << " info=" << info << std::endl;
+        // std::cout << "[UDP] BTP parsed: dst=" << dst_port 
+        //           << " (0x" << std::hex << dst_port << std::dec << ")"
+        //           << " info=" << info << std::endl;
 		
         // Extract CAM payload (everything AFTER BTP header)
         vanetza::ByteBuffer cam_payload(
@@ -107,11 +107,8 @@ void RawTransportLink::on_read(const boost::system::error_code& ec, std::size_t 
             receive_buffer_.begin() + read_bytes
         );
         
-        std::cout << "[UDP] CAM payload: " << cam_payload.size() << " bytes" << std::endl;
 		if (udp_btp_callback_) {
 			udp_btp_callback_(dst_port, info, std::move(cam_payload));
-		} else {
-			std::cerr << "[UDP] WARNING: No UDP callback set!" << std::endl;
 		}
     }
 }
