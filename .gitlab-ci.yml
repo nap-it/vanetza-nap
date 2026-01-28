@@ -66,6 +66,7 @@ test_images:
   tags:
     - amd64
   before_script:
+    - DOCKER_TAG=$([[ "$CI_COMMIT_BRANCH" == "" || "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]] && echo "latest" || echo "$CI_COMMIT_BRANCH")
     - apk add --no-cache openssh-client
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | ssh-add -
@@ -95,7 +96,8 @@ test_images:
           code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-amd64
 
         echo "=== APU_2: Starting test script (receiver mode) ==="
-        nohup python3 /home/nap/vanetza-tester/vanetza_test.py receiver --station-id 100 > /tmp/test_server.log 2>&1 &
+        cd /home/nap/vanetza-tester
+        nohup python3 vanetza_test.py receiver --station-id 100 > /tmp/test_server.log 2>&1 &
         echo \$! > /tmp/test.pid
       EOF
 
@@ -124,7 +126,8 @@ test_images:
           code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-amd64
 
         echo "=== APU_1: Running test script (sender mode) ==="
-        python3 /home/nap/vanetza-tester/vanetza_test.py sender --station-id 111
+        cd /home/nap/vanetza-tester
+        python3 vanetza_test.py sender --station-id 111
       EOF
 
     # === Cleanup on both APUs (runs if script section succeeds) ===
