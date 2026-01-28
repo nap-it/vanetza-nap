@@ -131,9 +131,10 @@ test_images:
     # === Cleanup on both APUs (runs if script section succeeds) ===
     - |
       ssh $APU_USER@$APU_2_IP << EOF
-        kill \$(cat /tmp/test.pid) 2>/dev/null || true
+        pkill -f "vanetza_test.py receiver" || true
         docker stop vanetza-test 2>/dev/null || true
         docker rm vanetza-test 2>/dev/null || true
+        rm -f /tmp/test.pid 2>/dev/null || true
       EOF
     - |
       ssh $APU_USER@$APU_1_IP << EOF
@@ -143,6 +144,7 @@ test_images:
 
   after_script:
     # Always cleanup containers (even on failure)
+    - DOCKER_TAG=$([[ "$CI_COMMIT_BRANCH" == "" || "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]] && echo "latest" || echo "$CI_COMMIT_BRANCH")
     - apk add --no-cache openssh-client curl
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | ssh-add -
@@ -153,9 +155,10 @@ test_images:
     # Cleanup APU_2
     - |
       ssh $APU_USER@$APU_2_IP << EOF
-        kill \$(cat /tmp/test.pid) 2>/dev/null || true
+        pkill -f "vanetza_test.py receiver" || true
         docker stop vanetza-test 2>/dev/null || true
         docker rm vanetza-test 2>/dev/null || true
+        rm -f /tmp/test.pid 2>/dev/null || true
       EOF
 
     # Cleanup APU_1
