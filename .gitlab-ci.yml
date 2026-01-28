@@ -91,7 +91,7 @@ test_images:
           --cap-add NET_ADMIN \
           -e START_EMBEDDED_MOSQUITTO=false \
           -e SUPPORT_MAC_BLOCKING=false \
-          -v "\$(pwd)/config.ini:/config.ini" \
+          -v /services/config.ini:/config.ini \
           -v /services/info.ini:/info.ini \
           code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-amd64
 
@@ -121,7 +121,7 @@ test_images:
           --cap-add NET_ADMIN \
           -e START_EMBEDDED_MOSQUITTO=false \
           -e SUPPORT_MAC_BLOCKING=false \
-          -v "\$(pwd)/config.ini:/config.ini" \
+          -v /services/config.ini:/config.ini \
           -v /services/info.ini:/info.ini \
           code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-amd64
 
