@@ -1,0 +1,52 @@
+{
+  "mandatory": {
+    "serviceProviderId": {
+      "countryCode": {},
+      "providerIdentifier": 1
+    },
+    "iviIdentificationNumber": 1001,
+    "iviStatus": 0,
+    "timeStamp": 687623512.266
+  },
+  "optional": [
+    {
+      "giv": [
+        {
+          "relevanceZoneIds": [1],
+          "direction": 0,
+          "applicableLanes": [1],
+          "iviType": 1,
+          "roadSignCodes": [
+            {
+              "code": {
+                "viennaConvention": {
+                  "roadSignClass": 2,
+                  "roadSignCode": 14,
+                  "vcOption": 0,
+                  "value": 30,
+                  "unit": 0
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rcc":[
+        {
+          "relevanceZoneIds":[1],
+          "roadType":0,
+          "laneConfiguration":[
+            {
+              "laneNumber": 1,
+              "direction": 2,
+              "laneType": 0,
+              "laneStatus": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

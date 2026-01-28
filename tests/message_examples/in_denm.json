@@ -1,0 +1,33 @@
+{
+    "management": {
+        "actionId": {
+            "originatingStationId": 111,
+            "sequenceNumber": 0
+        },
+        "detectionTime": 1626453837.658,
+        "referenceTime": 1626453837.658,
+        "eventPosition": {
+            "latitude": 40.6377992,
+            "longitude": -8.6523533,
+            "positionConfidenceEllipse": {
+                "semiMajorConfidence": 0,
+                "semiMinorConfidence": 0,
+                "semiMajorOrientation": 0.0
+            },
+            "altitude": {
+                "altitudeValue": 0.0,
+                "altitudeConfidence": 1
+            }
+        },
+        "validityDuration": 0,
+        "stationType": 0
+    },
+    "situation": {
+        "informationQuality": 7,
+        "eventType": {
+            "ccAndScc": {
+              "wrongWayDriving14": 0
+            }
+        }
+    }
+}
