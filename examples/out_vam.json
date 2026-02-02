@@ -1,58 +1,67 @@
 {
+    "timestamp": 1762875477.717062,
+    "newInfo": true,
+    "rssi": 113,
+    "stationID": 175,
+    "stationAddr": "6e:06:e0:01:00:af",
+    "receiverID": 229,
+    "receiverType": 5,
+    "packet_size": 95,
     "fields": {
         "header": {
-            "messageID": 16,
             "protocolVersion": 1,
-            "stationID": 158
+            "messageID": 16,
+            "stationID": 175
         },
         "vam": {
-            "generationDeltaTime": 52264,
+            "generationDeltaTime": 53175,
             "vamParameters": {
                 "basicContainer": {
+                    "stationType": 2,
                     "referencePosition": {
-                        "altitude": {
-                            "altitudeConfidence": 14,
-                            "altitudeValue": 0.0
-                        },
-                        "latitude": 40.64088,
-                        "longitude": -8.65397,
+                        "latitude": 900000001.0,
+                        "longitude": 1800000001.0,
                         "positionConfidenceEllipse": {
                             "semiMajorConfidence": 4095,
-                            "semiMajorOrientation": 0.0,
-                            "semiMinorConfidence": 4095
+                            "semiMinorConfidence": 4095,
+                            "semiMajorOrientation": 3601.0
+                        },
+                        "altitude": {
+                            "altitudeValue": 800001.0,
+                            "altitudeConfidence": 15
                         }
-                    },
-                    "stationType": 1
+                    }
                 },
                 "vruHighFrequencyContainer": {
                     "heading": {
-                        "headingConfidence": 127.0,
-                        "headingValue": 3601.0
-                    },
-                    "longitudinalAcceleration": {
-                        "longitudinalAccelerationConfidence": 0.0,
-                        "longitudinalAccelerationValue": 0.0
+                        "headingValue": 3601.0,
+                        "headingConfidence": 127.0
                     },
                     "speed": {
-                        "speedConfidence": 127.0,
-                        "speedValue": 16383.0
+                        "speedValue": 16383.0,
+                        "speedConfidence": 127.0
+                    },
+                    "longitudinalAcceleration": {
+                        "longitudinalAccelerationValue": 0.0,
+                        "longitudinalAccelerationConfidence": 0.0
                     }
                 },
-                "vruLowFrequencyContainer": {
-                    "profileAndSubprofile": {
-                        "pedestrian": 1
+                "vruClusterOperationContainer": {
+                    "clusterJoinInfo": {
+                        "clusterId": 75,
+                        "joinTime": 5
                     }
                 }
             }
         }
     },
-    "newInfo": true,
-    "receiverID": 143,
-    "receiverType": 15,
-    "rssi": -31,
-    "stationID": 158,
     "test": {
-        "json_timestamp": 1676286122.667354
-    },
-    "timestamp": 1676286122.664969
+        "start_processing_timestamp": 1762875477.717291,
+        "channel_frequency": 5860,
+        "channel_noise": -95,
+        "channel_busy_time": 0.002221,
+        "channel_rx_time": 0.000943,
+        "channel_tx_time": 0.00037,
+        "json_timestamp": 1762875477.71781
+    }
 }

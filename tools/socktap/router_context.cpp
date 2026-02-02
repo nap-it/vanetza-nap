@@ -15,6 +15,7 @@
 #include <mutex>
 #include <condition_variable>
 #include <deque>
+#include <algorithm>
 
 using namespace vanetza;
 using namespace std::chrono;
@@ -61,7 +62,7 @@ public:
 
 processing_thread_queue* processing_tq;
 
-std::unordered_map<int, int> lookupTable;
+static std::unordered_map<int, int> router_priority_lookup;
 
 typedef struct queued_reception {
     std::unique_ptr<CohesivePacket> packet;
@@ -99,7 +100,7 @@ public:
     void indicate(const vanetza::btp::DataIndication& indication, vanetza::geonet::Router::UpPacketPtr packet) { 
         auto copiedIndication = std::make_shared<vanetza::btp::DataIndication>(std::move(indication));
         queued_processing qp{ std::move(copiedIndication), std::move(packet) };
-        processing_tq->push(std::make_unique<queued_processing>(std::move(qp)), lookupTable[indication.destination_port.get()]);
+        processing_tq->push(std::make_unique<queued_processing>(std::move(qp)), router_priority_lookup[indication.destination_port.get()]);
     }
 };
 
@@ -202,7 +203,17 @@ void RouterContext::enable(Application* app)
     if (app->port() != btp::port_type(0)) {
         dispatcher_.set_non_interactive_handler(app->port(), &indicationQueue);
         applications[app->port().get()] = app;
-        lookupTable[app->port().get()] = app->priority;
+
+        int queue_priority = 0;
+        if (auto pubsub_app = dynamic_cast<PubSub_application*>(app)) {
+            queue_priority = pubsub_app->priority;
+        } else {
+            std::cout << "Warning: application registered without PubSub priority, defaulting to 0\n";
+        }
+
+        queue_priority = std::max(0, std::min(queue_priority, 2));
+        app->priority = queue_priority;
+        router_priority_lookup[app->port().get()] = queue_priority;
     }
 }
 

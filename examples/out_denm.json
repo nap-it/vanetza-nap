@@ -1,51 +1,58 @@
 {
+    "timestamp": 1762875485.249549,
+    "rssi": -16,
+    "stationID": 175,
+    "stationAddr": "6e:06:e0:01:00:af",
+    "receiverID": 229,
+    "receiverType": 5,
+    "packet_size": 103,
     "fields": {
+        "header": {
+            "protocolVersion": 2,
+            "messageId": 1,
+            "stationId": 175
+        },
         "denm": {
             "management": {
-                "actionID": {
-                    "originatingStationID": 1798587532,
+                "actionId": {
+                    "originatingStationId": 1798587532,
                     "sequenceNumber": 0
                 },
-                "detectionTime": 1626453837,
+                "detectionTime": 1626453837.658,
+                "referenceTime": 1626453837.658,
                 "eventPosition": {
-                    "altitude": {
-                        "altitudeConfidence": 1,
-                        "altitudeValue": 0.0
-                    },
                     "latitude": 40.6377992,
                     "longitude": -8.6523533,
                     "positionConfidenceEllipse": {
                         "semiMajorConfidence": 0,
-                        "semiMajorOrientation": 0.0,
-                        "semiMinorConfidence": 0
+                        "semiMinorConfidence": 0,
+                        "semiMajorOrientation": 0.0
+                    },
+                    "altitude": {
+                        "altitudeValue": 0.0,
+                        "altitudeConfidence": 1
                     }
                 },
-                "referenceTime": 1626453837,
                 "stationType": 0,
                 "validityDuration": 0
             },
             "situation": {
+                "informationQuality": 7,
                 "eventType": {
-                    "causeCode": 14,
-                    "subCauseCode": 14
-                },
-                "informationQuality": 7
+                    "ccAndScc": {
+                        "wrongWayDriving14": 0
+                    }
+                }
             }
-        },
-        "header": {
-            "messageID": 1,
-            "protocolVersion": 2,
-            "stationID": 143
         }
     },
-    "newInfo": true,
-    "receiverID": 158,
-    "receiverType": 6,
-    "rssi": -45,
-    "stationID": 143,
     "test": {
-        "json_timestamp": 1675772865.224855,
-        "packet_size": 103
-    },
-    "timestamp": 1675772865.22377
+        "start_processing_timestamp": 1762875485.249736,
+        "channel_frequency": 5860,
+        "channel_noise": -95,
+        "channel_busy_time": 0.002221,
+        "channel_rx_time": 0.000943,
+        "channel_tx_time": 0.00037,
+        "json_timestamp": 1762875485.250252
+    }
 }

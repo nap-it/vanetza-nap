@@ -138,6 +138,8 @@ void DenmApplication::on_message(string topic, string mqtt_message, const std::v
     Document document;
     Value payload;
 
+    int payload_station_id = -1;
+
     if (!is_encoded) {
         DenmPayload_t denm;
         fillPosition(mqtt_message, positioning_);
@@ -156,6 +158,7 @@ void DenmApplication::on_message(string topic, string mqtt_message, const std::v
         }
 
         payload = document.GetObject();
+        payload_station_id = payload.HasMember("stationId") ? payload["stationId"].GetInt() : -1;
 
         try {
             from_json(payload, denm, "DENM");
@@ -175,7 +178,8 @@ void DenmApplication::on_message(string topic, string mqtt_message, const std::v
         ETSI_ITS_CDD_ItsPduHeader_t& header = message->header;
         header.protocolVersion = 2;
         header.messageId = MessageId_denm;
-        header.stationId = config_s.station_id;
+        if (payload_station_id != -1) header.stationId = payload_station_id;
+        else header.stationId = config_s.station_id;
 
         message->denm = denm;
 
@@ -196,6 +200,9 @@ void DenmApplication::on_message(string topic, string mqtt_message, const std::v
     request.its_aid = aid::DEN;
     request.transport_type = geonet::TransportType::SHB;
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
+    if (payload_station_id != -1) {
+        apply_station_overrides(request, router, config_s.station_type, payload_station_id);
+    }
 
     try {
         if (!Application::request(request, std::move(packet), nullptr, router)) {
@@ -219,9 +226,12 @@ void DenmApplication::on_message(string topic, string mqtt_message, const std::v
         Value timePayload(kObjectType);
         Value timeTest(kObjectType);
 
+        int station_id_time = resolve_station_id(payload_station_id, config_s.station_id);
+        std::string mac_addr = resolve_station_mac(config_s.station_type, payload_station_id, config_s.mac_address);
+
         timePayload.AddMember("timestamp", time_reception, allocator)
-            .AddMember("stationID", config_s.station_id, allocator)
-            .AddMember("stationAddr", config_s.mac_address, allocator)
+            .AddMember("stationID", station_id_time, allocator)
+            .AddMember("stationAddr", mac_addr, allocator)
             .AddMember("receiverID", config_s.station_id, allocator)
             .AddMember("receiverType", config_s.station_type, allocator);
         if(!is_encoded) timePayload.AddMember("fields", Value(kObjectType).AddMember("denm", payload, allocator), allocator);

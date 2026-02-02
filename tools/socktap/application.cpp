@@ -1,6 +1,7 @@
 #include "application.hpp"
 #include <vanetza/btp/header.hpp>
 #include <vanetza/btp/header_conversion.hpp>
+#include <sstream>
 #include <cassert>
 
 using namespace vanetza;
@@ -15,6 +16,8 @@ void initialize_request(const Application::DataRequest& generic, geonet::DataReq
     }
     geonet.repetition = generic.repetition;
     geonet.traffic_class = generic.traffic_class;
+    geonet.source_mac_override = generic.source_mac_override;
+    geonet.source_position_override = generic.source_position_override;
 }
 
 static geonet::GbcDataRequest request_gbc(const vanetza::btp::DataRequestGeoNetParams& generic, vanetza::geonet::Router* router)
@@ -77,6 +80,32 @@ bool Application::request(const DataRequest& request, DownPacketPtr packet, std:
     }
 }
 
+void Application::apply_station_overrides(DataRequest& request, vanetza::geonet::Router* router, int station_type, long station_id)
+{
+    auto mac_override = build_mac_from_station(station_type, station_id);
+    request.source_mac_override = mac_override;
+    if (router) {
+        auto source_position = router->get_local_position_vector();
+        source_position.gn_addr.mid(mac_override);
+        request.source_position_override = source_position;
+    }
+}
+
+int Application::resolve_station_id(int payload_station_id, int fallback_station_id) const
+{
+    return payload_station_id >= 0 ? payload_station_id : fallback_station_id;
+}
+
+std::string Application::resolve_station_mac(int station_type, long station_id, const std::string& fallback_mac)
+{
+    if (station_id < 0) {
+        return fallback_mac;
+    }
+    std::stringstream mac_stream;
+    mac_stream << build_mac_from_station(station_type, station_id);
+    return mac_stream.str();
+}
+
 void Application::fillPosition(std::string& str, vanetza::PositionProvider& positionProvider) {
     if (str.find('$') != std::string::npos) {
         const vanetza::PositionFix position = positionProvider.position_fix();
@@ -130,4 +159,41 @@ void Application::fillPosition(std::string& str, vanetza::PositionProvider& posi
             str.replace(pos, std::string("$headingConfidence").length(), std::to_string((int) headingConfidence));
         }
     }
+}
+
+namespace {
+uint8_t clamp_component(long value)
+{
+    if (value < 0) {
+        return 0x00;
+    }
+    if (value > 0xFF) {
+        return 0xFF;
+    }
+    return static_cast<uint8_t>(value);
+}
+} // namespace
+
+vanetza::MacAddress build_mac_from_station(int station_type, long station_id)
+{
+    vanetza::MacAddress mac;
+    mac.octets = {0x6e, 0x06, 0xe0, 0x00, 0x00, 0x00};
+
+    uint8_t jj = 0x00;
+    if (station_type == 15) {
+        jj = 0x01;
+    } else if (station_type == 5) {
+        jj = 0x02;
+    }
+    mac.octets[3] = jj;
+
+    const long quotient = station_id / 255;
+    long remainder = station_id % 255;
+    if (remainder < 0) {
+        remainder += 255;
+    }
+
+    mac.octets[4] = clamp_component(quotient);
+    mac.octets[5] = clamp_component(remainder);
+    return mac;
 }

@@ -65,6 +65,8 @@ void copy_request_parameters(const btp::DataRequestB& btp, DataRequest& gn)
         gn.max_hop_limit = *btp.gn.maximum_hop_limit;
     }
     gn.traffic_class = btp.gn.traffic_class;
+    gn.source_mac_override = btp.gn.source_mac_override;
+    gn.source_position_override = btp.gn.source_position_override;
 }
 
 void copy_request_parameters(const btp::DataRequestB& btp, DataRequestWithAddress& gn)

@@ -6,6 +6,7 @@
 #include <vanetza/access/interface.hpp>
 #include <vanetza/common/runtime.hpp>
 #include <algorithm>
+#include <iostream>
 
 namespace vanetza
 {
@@ -150,10 +151,11 @@ void FlowControl::drop_expired()
 void FlowControl::transmit(const DataRequest& request, std::unique_ptr<ChunkPacket> packet)
 {
     access::DataRequest access_request;
-    access_request.source_addr = request.source;
+    access_request.source_addr = request.source_override ? *request.source_override : request.source;
     access_request.destination_addr = request.destination;
     access_request.ether_type = request.ether_type;
     access_request.access_category = map_profile_onto_ac(request.dcc_profile);
+    std::cout << "[FlowControl] source MAC: " << access_request.source_addr << std::endl;
 
     m_packet_transmit_hook(access_request.access_category, packet.get());
     m_access.request(access_request, std::move(packet));

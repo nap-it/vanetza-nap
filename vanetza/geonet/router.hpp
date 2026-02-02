@@ -26,6 +26,7 @@
 #include <vanetza/units/length.hpp>
 #include <vanetza/units/time.hpp>
 #include <vanetza/security/security_entity.hpp>
+#include <boost/optional.hpp>
 #include <boost/variant.hpp>
 #include <cstdint>
 #include <memory>
@@ -376,6 +377,7 @@ private:
      * \param payload Packet payload
      */
     void pass_down(const MacAddress&, PduPtr, DownPacketPtr);
+    void pass_down(const MacAddress&, const boost::optional<MacAddress>&, PduPtr, DownPacketPtr);
 
     /**
      * \brief Send packet using the information in the DataRequest.

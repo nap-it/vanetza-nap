@@ -43,17 +43,22 @@ VamApplication::VamApplication(PositionProvider& positioning, Runtime& rt, PubSu
 
     if(config_s.vam.mqtt_enabled) {
         pubsub->manual_subscribe(config_s.vam, config_s.vam.topic_in, this);
-        pubsub->manual_subscribe(config_s.vam, config_s.full_vam_topic_in, this);
+        // pubsub->manual_subscribe(config_s.vam, config_s.full_vam_topic_in, this);
     }
     if(config_s.vam.mqtt_enabled && pubsub->remote_mqtt != NULL) {
         pubsub->manual_subscribe(config_s.vam, config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.vam.topic_in, this);
-        pubsub->manual_subscribe(config_s.vam, config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_vam_topic_in, this);
+        // pubsub->manual_subscribe(config_s.vam, config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_vam_topic_in, this);
     }
     if(config_s.vam.dds_enabled) {
         pubsub->manual_provision(config_s.vam, config_s.vam.topic_out);
-        pubsub->manual_provision(config_s.vam, config_s.full_vam_topic_out);
+        // pubsub->manual_provision(config_s.vam, config_s.full_vam_topic_out);
         pubsub->manual_provision(config_s.vam, config_s.vam.topic_time);
-        pubsub->manual_provision(config_s.vam, config_s.full_vam_topic_time);
+        // pubsub->manual_provision(config_s.vam, config_s.full_vam_topic_time);
+    }
+
+    if(config_s.vam.zenoh_enabled) {
+        pubsub->declare_zenoh_publisher(config_s.vam, config_s.vam.topic_out);
+        pubsub->declare_zenoh_publisher(config_s.vam, config_s.vam.topic_time);
     }
 
     if(config_s.vam.udp_out_port != 0) {
@@ -127,14 +132,20 @@ void VamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     if(config_s.vam.dds_enabled) pubsub->dds->publish(config_s.vam.topic_out, simpleJSON);
     const double time_simple_dds = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     if(config_s.vam.mqtt_enabled) pubsub->local_mqtt->publish(config_s.vam.topic_out, simpleJSON);
+    
+    const double time_full_zenoh = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+    if(config_s.vam.zenoh_enabled) {
+        pubsub->zenoh_put_shm(config_s.vam.topic_out, simpleJSON, strlen(simpleJSON));
+    }
+
     const double time_simple_local = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     if(config_s.vam.mqtt_enabled && pubsub->remote_mqtt != NULL) pubsub->remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.vam.topic_out, simpleJSON);
     const double time_simple_remote = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
-    StringBuffer fullBuffer;
-    Writer<StringBuffer> fullWriter(fullBuffer);
-    vam_json_full.Accept(fullWriter);
-    const char* fullJSON = fullBuffer.GetString();
+    // StringBuffer fullBuffer;
+    // Writer<StringBuffer> fullWriter(fullBuffer);
+    // vam_json_full.Accept(fullWriter);
+    // const char* fullJSON = fullBuffer.GetString();
 
     /*
     if(config_s.vam.udp_out_port != 0) {
@@ -160,6 +171,7 @@ void VamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
         if (config_s.publish_encoded_payloads != 0) vam_json["test"].AddMember("encoded_timestamp", time_encoded, allocator);
         if (config_s.vam.udp_out_port != 0) vam_json["test"].AddMember("full_udp_timestamp", time_simple_udp, allocator);
         if (config_s.vam.dds_enabled != 0) vam_json["test"].AddMember("full_dds_timestamp", time_simple_dds, allocator);
+        if (config_s.vam.zenoh_enabled != 0) vam_json["test"].AddMember("full_zenoh_timestamp", time_full_zenoh, allocator);
         if (config_s.vam.mqtt_enabled != 0) vam_json["test"].AddMember("full_local_timestamp", time_simple_local, allocator);
         if (config_s.vam.mqtt_enabled && pubsub->remote_mqtt != NULL) vam_json["test"].AddMember("full_remote_timestamp", time_simple_remote, allocator);
         /*
@@ -273,6 +285,7 @@ void VamApplication::on_message(string topic, string mqtt_message, const std::ve
     DownPacketPtr packet { new DownPacket() };
     Document document;
     Value payload;
+    int payload_station_id = -1;
 
     if (!is_encoded) {
         VruAwareness_t vam;
@@ -292,6 +305,7 @@ void VamApplication::on_message(string topic, string mqtt_message, const std::ve
         }
 
         payload = document.GetObject();
+        payload_station_id = payload.HasMember("stationId") ? payload["stationId"].GetInt() : -1;
 
         try {
             from_json(payload, vam, "VAM");
@@ -311,7 +325,8 @@ void VamApplication::on_message(string topic, string mqtt_message, const std::ve
         ITS_Container_ItsPduHeader_t& header = message->header;
         header.protocolVersion = 1;
         header.messageID = MessageId_vam;
-        header.stationID = config_s.station_id;
+        if (payload_station_id != -1) header.stationID = payload_station_id;
+        else header.stationID = config_s.station_id;
 
         message->vam = vam;
 
@@ -332,6 +347,9 @@ void VamApplication::on_message(string topic, string mqtt_message, const std::ve
     request.its_aid = aid::VRU;
     request.transport_type = geonet::TransportType::SHB;
     request.communication_profile = geonet::CommunicationProfile::ITS_G5;
+    if (payload_station_id != -1) {
+        apply_station_overrides(request, router, config_s.station_type, payload_station_id);
+    }
 
     try {
         if (!Application::request(request, std::move(packet), nullptr, router)) {
@@ -355,9 +373,12 @@ void VamApplication::on_message(string topic, string mqtt_message, const std::ve
         Value timePayload(kObjectType);
         Value timeTest(kObjectType);
 
+        int station_id_time = resolve_station_id(payload_station_id, config_s.station_id);
+        std::string station_mac = resolve_station_mac(config_s.station_type, payload_station_id, config_s.mac_address);
+
         timePayload.AddMember("timestamp", time_reception, allocator)
-            .AddMember("stationID", config_s.station_id, allocator)
-            .AddMember("stationAddr", config_s.mac_address, allocator)
+            .AddMember("stationID", station_id_time, allocator)
+            .AddMember("stationAddr", station_mac, allocator)
             .AddMember("receiverID", config_s.station_id, allocator)
             .AddMember("receiverType", config_s.station_type, allocator);
         if(!is_encoded) timePayload.AddMember("fields", Value(kObjectType).AddMember("vam", payload, allocator), allocator);
