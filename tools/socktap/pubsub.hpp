@@ -161,12 +161,20 @@ public:
     void on_message(std::string topic, std::string message, int priority);
     void on_message(std::string topic, const std::vector<uint8_t>& message, int priority, std::string test);
 
+    // Helper method for safe Zenoh publishing with proper error handling
+    void zenoh_put_shm(const std::string& topic, const char* data, size_t len);
+
     Mqtt* local_mqtt;
     Mqtt* remote_mqtt;
     Dds* dds;
     zenoh::Session* session = nullptr;
     zenoh::PosixShmProvider* shm_provider = nullptr;
     std::mutex& prom_mtx;
+
+    // Store Zenoh handles to prevent premature destruction (CRITICAL for memory safety)
+    std::vector<zenoh::Subscriber<void>> zenoh_subscribers;
+    std::vector<zenoh::Publisher> zenoh_publishers;
+    std::mutex zenoh_shm_mutex;  // Protect shared memory allocations across threads
 };
 
 #endif /* PUBSUB_HPP_PSIGPUTG */

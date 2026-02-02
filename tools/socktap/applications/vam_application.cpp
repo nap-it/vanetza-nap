@@ -134,12 +134,8 @@ void VamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     if(config_s.vam.mqtt_enabled) pubsub->local_mqtt->publish(config_s.vam.topic_out, simpleJSON);
     
     const double time_full_zenoh = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.vam.zenoh_enabled && pubsub->session != nullptr) {
-        const size_t output_len = strlen(simpleJSON);
-        auto output_alloc_result = pubsub->shm_provider->alloc_gc_defrag_blocking(output_len, zenoh::AllocAlignment({0}));
-        zenoh::ZShmMut&& output_buf = std::get<zenoh::ZShmMut>(std::move(output_alloc_result));
-        memcpy(output_buf.data(), simpleJSON, output_len);
-        pubsub->session->put(config_s.vam.topic_out, std::move(output_buf));
+    if(config_s.vam.zenoh_enabled) {
+        pubsub->zenoh_put_shm(config_s.vam.topic_out, simpleJSON, strlen(simpleJSON));
     }
 
     const double time_simple_local = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
