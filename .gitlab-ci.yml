@@ -96,7 +96,7 @@ integrity_tests:
 
         echo "=== APU_2: Starting test script (receiver mode) ==="
         cd /home/nap/vanetza-tester
-        nohup python3 vanetza_test.py receiver --station-id 100 > /tmp/test_server.log 2>&1 &
+        nohup python3 vanetza_test.py receiver --filter-station 100 > /tmp/test_server.log 2>&1 &
         echo \$! > /tmp/test.pid
       EOF
 

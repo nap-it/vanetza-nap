@@ -408,8 +408,6 @@ def receiver_on_message(client, userdata, msg):
         data = json.loads(payload)
         station_id = data.get("stationID", "unknown")
 
-        log(f"Received message from station ID: {station_id}", verbose)
-
         # Apply station ID filter if configured
         if filter_station is not None and station_id != filter_station:
             log(
