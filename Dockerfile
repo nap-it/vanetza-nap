@@ -1,7 +1,6 @@
-FROM code.nap.av.it.pt:5050/mobility-networks/middleware-images/zenoh-libs:1.4.0 AS zenoh-libs
-FROM code.nap.av.it.pt:5050/external-tools/misc-docker-images/debian:bullseye-slim AS build
+FROM debian:bullseye-slim AS build
 
-COPY --from=zenoh-libs /usr/local /usr/local
+ARG CARGO_HOME=/root/.cargo
 
 ENV TZ=Europe/Lisbon
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -11,6 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     cmake/bullseye-backports \
     cmake-data/bullseye-backports \
     git \
+    curl \
     mosquitto \
     libboost-date-time-dev \
     libmosquittopp-dev \
@@ -30,6 +30,27 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     file \
     && rm -rf /var/lib/apt/lists/*
 
+# Zenoh dependencies
+RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
+ENV PATH="${CARGO_HOME}/bin:${PATH}"
+RUN cargo --version
+
+WORKDIR /tmp
+RUN git clone https://github.com/eclipse-zenoh/zenoh-c.git \
+    && cd zenoh-c \
+    && git checkout 1.4.0 \
+    && mkdir build && cd build \
+    && cmake .. -DZENOHC_BUILD_WITH_UNSTABLE_API=true -DZENOHC_BUILD_WITH_SHARED_MEMORY=true -DCMAKE_INSTALL_PREFIX=/usr/local \
+    && cmake --build . --config Release \
+    && cmake --build . --target install
+
+WORKDIR /tmp
+RUN git clone https://github.com/eclipse-zenoh/zenoh-cpp.git \
+    && cd zenoh-cpp \
+    && git checkout 1.4.0 \
+    && mkdir build && cd build \
+    && cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local -DZENOHCXX_ENABLE_TESTS=OFF -DZENOHCXX_ENABLE_EXAMPLES=OFF -Dzenohc_DIR=/usr/local/lib/cmake/zenohc \
+    && cmake --build . --target install
 
 # Prometheus dependencies
 WORKDIR /tmp
@@ -72,7 +93,7 @@ RUN cmake .
 RUN cmake --build . --target socktap -j $(nproc)
 RUN cp /vanetza/bin/socktap /usr/local/bin/socktap
 
-FROM code.nap.av.it.pt:5050/external-tools/misc-docker-images/debian:bullseye-slim AS final
+FROM debian:bullseye-slim AS final
 ENV TZ=Europe/Lisbon
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 #RUN printf "deb http://httpredir.debian.org/debian buster-backports main non-free\ndeb-src http://httpredir.debian.org/debian buster-backports main non-free\n" > /etc/apt/sources.list.d/backports.list
