@@ -70,18 +70,18 @@ typedef struct config {
     message_config_t evrsrm;
     message_config_t tistpgm;
     message_config_t mcm;
-    // string full_cam_topic_in;
-    // string full_cam_topic_out;
-    // string full_cam_topic_time;
-    // string full_cam_topic_test;
     string full_vam_topic_in;
     string full_vam_topic_out;
     string full_vam_topic_time;
     string full_vam_topic_test;
     string own_cam_topic_out;
-    // string own_full_cam_topic_out;
     bool zenoh_local_only;
     string zenoh_interfaces;
+    bool ipv4_enabled;
+    string ipv4_type;
+    string ipv4_address;
+    int ipv4_port;
+    string ipv4_interface;
 } config_t;
 
 typedef struct metrics {

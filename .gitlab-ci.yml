@@ -6,6 +6,7 @@ variables:
 
 stages:
   - build
+  - test
   - release
   - manifest
   - clean
@@ -58,6 +59,131 @@ build_arm64:
       fi
   rules:
     - if: '$CI_COMMIT_TAG != "latest"'
+
+integrity_tests:
+  stage: test
+  image: code.nap.av.it.pt:5050/external-tools/misc-docker-images/alpine:latest
+  tags:
+    - amd64
+  before_script:
+    - DOCKER_TAG=$([[ "$CI_COMMIT_BRANCH" == "" || "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]] && echo "latest" || echo "$CI_COMMIT_BRANCH")
+    - apk add --no-cache openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan -H $APU_1_IP $APU_2_IP >> ~/.ssh/known_hosts
+  script:
+    # === APU_2: Pull image, start container, run test receiver ===
+    - |
+      ssh $APU_USER@$APU_2_IP << EOF
+        echo "=== APU_2: Pulling image ==="
+        echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin code.nap.av.it.pt:5050
+        docker pull code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-amd64
+
+        echo "=== APU_2: Starting container ==="
+        docker run -d \
+          --name vanetza-test \
+          --hostname vanetza-test \
+          --network host \
+          --ipc host \
+          --cap-add NET_ADMIN \
+          -e START_EMBEDDED_MOSQUITTO=false \
+          -e SUPPORT_MAC_BLOCKING=false \
+          -v /services/vanetza/config.ini:/config.ini \
+          -v /services/info.ini:/info.ini \
+          code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-amd64
+
+        echo "=== APU_2: Starting test script (receiver mode) ==="
+        cd /home/nap/vanetza-tester
+        nohup python3 vanetza_test.py receiver --station-id 100 > /tmp/test_server.log 2>&1 &
+        echo \$! > /tmp/test.pid
+      EOF
+
+    # Wait for APU_2 receiver to initialize
+    - sleep 2
+
+    # === APU_1: Pull image, start container, run test sender ===
+    - |
+      ssh $APU_USER@$APU_1_IP << EOF
+        echo "=== APU_1: Pulling image ==="
+        echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin code.nap.av.it.pt:5050
+        docker pull code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-amd64
+
+        echo "=== APU_1: Starting container ==="
+        docker run -d \
+          --name vanetza-test \
+          --hostname vanetza-test \
+          --network host \
+          --ipc host \
+          --cap-add NET_ADMIN \
+          -e START_EMBEDDED_MOSQUITTO=false \
+          -e SUPPORT_MAC_BLOCKING=false \
+          -v /services/vanetza/config.ini:/config.ini \
+          -v /services/info.ini:/info.ini \
+          code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-amd64
+
+        echo "=== APU_1: Running test script (sender mode) ==="
+        cd /home/nap/vanetza-tester
+        python3 vanetza_test.py sender --station-id 111
+      EOF
+
+    # === Cleanup on both APUs (runs if script section succeeds) ===
+    - |
+      ssh $APU_USER@$APU_2_IP << EOF
+        pkill -f "vanetza_test.py receiver" || true
+        docker stop vanetza-test 2>/dev/null || true
+        docker rm vanetza-test 2>/dev/null || true
+        rm -f /tmp/test.pid 2>/dev/null || true
+      EOF
+    - |
+      ssh $APU_USER@$APU_1_IP << EOF
+        docker stop vanetza-test 2>/dev/null || true
+        docker rm vanetza-test 2>/dev/null || true
+      EOF
+
+  after_script:
+    # Always cleanup containers (even on failure)
+    - DOCKER_TAG=$([[ "$CI_COMMIT_BRANCH" == "" || "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]] && echo "latest" || echo "$CI_COMMIT_BRANCH")
+    - apk add --no-cache openssh-client curl
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan -H $APU_1_IP $APU_2_IP >> ~/.ssh/known_hosts 2>/dev/null
+
+    # Cleanup APU_2
+    - |
+      ssh $APU_USER@$APU_2_IP << EOF
+        pkill -f "vanetza_test.py receiver" || true
+        docker stop vanetza-test 2>/dev/null || true
+        docker rm vanetza-test 2>/dev/null || true
+        rm -f /tmp/test.pid 2>/dev/null || true
+      EOF
+
+    # Cleanup APU_1
+    - |
+      ssh $APU_USER@$APU_1_IP << EOF
+        docker stop vanetza-test 2>/dev/null || true
+        docker rm vanetza-test 2>/dev/null || true
+      EOF
+
+    # If job failed, delete the pushed images from registry
+    - |
+      if [ "$CI_JOB_STATUS" == "failed" ]; then
+        echo "=== Test failed: Removing images from registry ==="
+        curl --fail-with-body --location "https://github.com/regclient/regclient/releases/download/v0.6.1/regctl-linux-amd64" > /usr/bin/regctl
+        chmod 755 /usr/bin/regctl
+        regctl registry login code.nap.av.it.pt:5050 -u ${CI_USER} -p ${CI_TOKEN}
+        regctl tag rm code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-amd64 || true
+        regctl tag rm code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-arm64 || true
+      fi
+
+  dependencies:
+    - build_amd64
+    - build_arm64
+  rules:
+    - if: '$CI_COMMIT_TAG != "" || ($CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH)'
 
 manage_release:
   stage: release

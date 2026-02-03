@@ -49,7 +49,9 @@ add_executable(socktap
     raw_socket_link.cpp
     router_context.cpp
     security.cpp
+    tcp_link.cpp
     time_trigger.cpp
+    udp_link.cpp
     ${FASTDDS_SRC})
 
 target_link_libraries(socktap PUBLIC mosquittopp fastrtps fastcdr)

@@ -111,7 +111,7 @@ std::vector<std::thread> processing_threads;
 reception_thread_queue* reception_tq;
 std::map<int, Application*> applications;
 
-RouterContext::RouterContext(const geonet::MIB& mib, TimeTrigger& trigger, vanetza::PositionProvider& positioning, vanetza::security::SecurityEntity* security_entity, bool ignore_own_messages_, bool ignore_rsu_messages_, int num_threads_, boost::asio::io_service& io_context) :
+RouterContext::RouterContext(const geonet::MIB& mib, TimeTrigger& trigger, vanetza::PositionProvider& positioning, vanetza::security::SecurityEntity* security_entity, bool ignore_own_messages_, bool ignore_rsu_messages_, int num_threads_, boost::asio::io_context& io_context) :
     mib_(mib), trigger_(trigger), positioning_(positioning), security_entity_(security_entity), ignore_own_messages(ignore_own_messages_), ignore_rsu_messages(ignore_rsu_messages_), num_threads(num_threads_), io_context_(io_context)
 {
 

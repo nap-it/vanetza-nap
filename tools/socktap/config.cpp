@@ -69,14 +69,10 @@ void read_config(config_t* config_s, string path) {
     config_s->evrsrm = read_message_config(reader, "VANETZA_EVRCSM", "evrsrm");
     config_s->tistpgm = read_message_config(reader, "VANETZA_TISTPGM", "tistpgm");
     config_s->mcm = read_message_config(reader, "VANETZA_MCM", "mcm");
-    // config_s->full_cam_topic_in = getenv("VANETZA_CAM_FULL_TOPIC_IN") == NULL ? reader.Get("cam", "full_topic_in", "") : getenv("VANETZA_CAM_FULL_TOPIC_IN");
-    // config_s->full_cam_topic_out = getenv("VANETZA_CAM_FULL_TOPIC_OUT") == NULL ? reader.Get("cam", "full_topic_out", "") : getenv("VANETZA_CAM_FULL_TOPIC_OUT");
-    // config_s->full_cam_topic_time = getenv("VANETZA_CAM_FULL_TOPIC_TIME") == NULL ? reader.Get("cam", "full_topic_time", "") : getenv("VANETZA_CAM_FULL_TOPIC_TIME");
-    // config_s->full_cam_topic_test = getenv("VANETZA_CAM_FULL_TOPIC_TEST") == NULL ? reader.Get("cam", "full_topic_test", "") : getenv("VANETZA_CAM_FULL_TOPIC_TEST");
-    // config_s->full_vam_topic_in = getenv("VANETZA_VAM_FULL_TOPIC_IN") == NULL ? reader.Get("vam", "full_topic_in", "") : getenv("VANETZA_VAM_FULL_TOPIC_IN");
-    // config_s->full_vam_topic_out = getenv("VANETZA_VAM_FULL_TOPIC_OUT") == NULL ? reader.Get("vam", "full_topic_out", "") : getenv("VANETZA_VAM_FULL_TOPIC_OUT");
-    // config_s->full_vam_topic_time = getenv("VANETZA_VAM_FULL_TOPIC_TIME") == NULL ? reader.Get("vam", "full_topic_time", "") : getenv("VANETZA_VAM_FULL_TOPIC_TIME");
-    // config_s->full_vam_topic_test = getenv("VANETZA_VAM_FULL_TOPIC_TEST") == NULL ? reader.Get("vam", "full_topic_test", "") : getenv("VANETZA_VAM_FULL_TOPIC_TEST");
     config_s->own_cam_topic_out = getenv("VANETZA_CAM_OWN_TOPIC_OUT") == NULL ? reader.Get("cam", "own_topic_out", "") : getenv("VANETZA_CAM_OWN_TOPIC_OUT");
-    // config_s->own_full_cam_topic_out = getenv("VANETZA_CAM_OWN_FULL_TOPIC_OUT") == NULL ? reader.Get("cam", "own_full_topic_out", "") : getenv("VANETZA_CAM_OWN_FULL_TOPIC_OUT");
+    config_s->ipv4_enabled = getenv("VANETZA_IPV4_ENABLED") == NULL ? reader.GetBoolean("ipv4", "enabled", false) : (strcmp((getenv("VANETZA_IPV4_ENABLED")), "false") != 0);
+    config_s->ipv4_type = getenv("VANETZA_IPV4_TYPE") == NULL ? reader.Get("ipv4", "type", "udp") : getenv("VANETZA_IPV4_TYPE");
+    config_s->ipv4_address = getenv("VANETZA_IPV4_ADDRESS") == NULL ? reader.Get("ipv4", "address", "239.118.122.97") : getenv("VANETZA_IPV4_ADDRESS");
+    config_s->ipv4_port = getenv("VANETZA_IPV4_PORT") == NULL ? reader.GetInteger("ipv4", "port", 8947) : stoi(getenv("VANETZA_IPV4_PORT"));
+    config_s->ipv4_interface = getenv("VANETZA_IPV4_INTERFACE") == NULL ? reader.Get("ipv4", "interface", "eth0") : getenv("VANETZA_IPV4_INTERFACE");
 }
