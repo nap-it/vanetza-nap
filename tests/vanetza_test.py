@@ -26,6 +26,7 @@ from threading import Event
 from typing import Any, Dict, List, Optional
 
 import paho.mqtt.client as mqtt
+from deepdiff import DeepDiff
 
 # ============================================================================
 # CONSTANTS AND DEFAULTS
@@ -115,6 +116,92 @@ def log(message: str, verbose: bool = True):
         print(message)
 
 
+def print_field_differences(
+    original: Dict[str, Any], received: Dict[str, Any], verbose: bool
+):
+    """Print detailed field-level differences between original and received messages.
+
+    Args:
+        original: Original message data (sorted)
+        received: Received message data (sorted)
+        verbose: If True, also print full dictionary dumps
+    """
+    # Compute deep differences
+    diff = DeepDiff(original, received, ignore_order=False, report_repetition=True)
+
+    # Always print diff to stderr
+    print("\n=== FIELD DIFFERENCES ===", file=sys.stderr)
+
+    if not diff:
+        print(
+            "No differences found (this shouldn't happen with hash mismatch!)",
+            file=sys.stderr,
+        )
+        return
+
+    # Print values that changed
+    if "values_changed" in diff:
+        print("\nValues Changed:", file=sys.stderr)
+        for path, change in diff["values_changed"].items():
+            print(f"  {path}:", file=sys.stderr)
+            print(f"    - Original: {change['old_value']}", file=sys.stderr)
+            print(f"    + Received: {change['new_value']}", file=sys.stderr)
+
+    # Print items removed
+    if "dictionary_item_removed" in diff:
+        print(
+            "\nFields Removed (present in original, missing in received):",
+            file=sys.stderr,
+        )
+        for item in diff["dictionary_item_removed"]:
+            print(f"  {item}", file=sys.stderr)
+
+    # Print items added
+    if "dictionary_item_added" in diff:
+        print(
+            "\nFields Added (missing in original, present in received):",
+            file=sys.stderr,
+        )
+        for item in diff["dictionary_item_added"]:
+            print(f"  {item}", file=sys.stderr)
+
+    # Print type changes
+    if "type_changes" in diff:
+        print("\nType Changes:", file=sys.stderr)
+        for path, change in diff["type_changes"].items():
+            old_type = change["old_type"].__name__
+            new_type = change["new_type"].__name__
+            print(f"  {path}: {old_type} -> {new_type}", file=sys.stderr)
+            print(f"    - Original: {change['old_value']}", file=sys.stderr)
+            print(f"    + Received: {change['new_value']}", file=sys.stderr)
+
+    # Print iterable item changes (for lists/arrays)
+    if "iterable_item_removed" in diff:
+        print("\nList Items Removed:", file=sys.stderr)
+        for path, value in diff["iterable_item_removed"].items():
+            print(f"  {path}: {value}", file=sys.stderr)
+
+    if "iterable_item_added" in diff:
+        print("\nList Items Added:", file=sys.stderr)
+        for path, value in diff["iterable_item_added"].items():
+            print(f"  {path}: {value}", file=sys.stderr)
+
+    # Print repetition changes (if items appear different number of times)
+    if "repetition_change" in diff:
+        print("\nRepetition Changes:", file=sys.stderr)
+        for path, change in diff["repetition_change"].items():
+            print(f"  {path}:", file=sys.stderr)
+            print(f"    Original count: {change['old_repeat']}", file=sys.stderr)
+            print(f"    Received count: {change['new_repeat']}", file=sys.stderr)
+
+    print("\n=== END DIFFERENCES ===\n", file=sys.stderr)
+
+    # If verbose mode, also print full dictionaries
+    if verbose:
+        print(f"Original data: {original}", file=sys.stderr)
+        print(f"Received data: {received}", file=sys.stderr)
+
+
 # ============================================================================
 # SENDER MODE FUNCTIONS
 # ============================================================================
@@ -184,8 +271,7 @@ def sender_on_message(client, userdata, msg):
                 test_passed = True
             else:
                 log("✗ FAILURE: Data mismatch!", verbose)
-                log(f"Original data: {sorted_original}", verbose)
-                log(f"Received data: {sorted_received}", verbose)
+                print_field_differences(sorted_original, sorted_received, verbose)
                 test_passed = False
                 test_error_message = "Hash mismatch between sent and received data"
 
