@@ -3,9 +3,11 @@
 #include <vanetza/net/ethernet_header.hpp>
 #include <boost/asio/ip/multicast.hpp>
 #include <iostream>
+#include <chrono>
 
 namespace ip = boost::asio::ip;
 using namespace vanetza;
+using namespace std::chrono;
 
 UdpLink::UdpLink(boost::asio::io_context& io_context, const ip::udp::endpoint& endpoint, const EthernetDevice& device) :
     multicast_endpoint_(endpoint),
@@ -48,11 +50,18 @@ void UdpLink::do_receive()
                     if (packet.size(OsiLayer::Link) < EthernetHeader::length_bytes) {
                         std::cerr << "Dropped UDP packet too short to contain Ethernet header\n";
                     } else {
+                        double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+                        packet.time_received = time_reception;
+                        packet.frequency = 117100112; // UDP dummy value
                         packet.set_boundary(OsiLayer::Link, EthernetHeader::length_bytes);
                         auto link_range = packet[OsiLayer::Link];
-                        EthernetHeader eth = decode_ethernet_header(link_range.begin(), link_range.end());
+                        boost::optional<EthernetHeader> eth = decode_ethernet_header(link_range.begin(), link_range.end());
+                        std::stringstream stream;
+                        stream << eth->source;
+                        std::string source_mac(stream.str());
+                        packet.source = source_mac;
                         if (callback_) {
-                            callback_(std::move(packet), eth);
+                            callback_(std::move(packet), *eth);
                         }
                     }
                     do_receive();
