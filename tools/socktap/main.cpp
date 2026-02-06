@@ -103,15 +103,15 @@ int main(int argc, const char** argv)
 		if (config_s.ipv4_enabled) {
 			auto multi_link = std::make_unique<MultiLink>(MultiLink::TransmitPolicy::All);
 
-			auto eth_layer = create_link_layer(io_context, device, "ethernet", device_name, config_s.rssi_enabled);
+            // The order that the layers are added to the multi link matters, because it determines the order in which the packet is transmitted.
+            auto eth_layer = create_link_layer(io_context, device, "ethernet", device_name, config_s.rssi_enabled);
 			if (eth_layer) {
 				multi_link->add_layer(std::move(eth_layer));
 			}
 
-			std::string ipv4_type = config_s.ipv4_type;
 			const char* ipv4_device_name = config_s.ipv4_interface.c_str();
 			EthernetDevice ipv4_device(ipv4_device_name);
-			auto ipv4_layer = create_link_layer(io_context, ipv4_device, ipv4_type, ipv4_device_name, config_s.rssi_enabled, config_s.ipv4_address, config_s.ipv4_port);
+			auto ipv4_layer = create_link_layer(io_context, ipv4_device, "udp", ipv4_device_name, config_s.rssi_enabled, config_s.ipv4_address, config_s.ipv4_port);
 			if (ipv4_layer) {
 				multi_link->add_layer(std::move(ipv4_layer));
 			}
@@ -120,31 +120,6 @@ int main(int argc, const char** argv)
 		} else {
 			link_layer = create_link_layer(io_context, device, "ethernet", device_name, config_s.rssi_enabled);
 		}
-
-        // std::string transport_type = "ethernet";
-        //
-        // if (config_s.ipv4_enabled) {
-        //     if(config_s.ipv4_type == "udp") transport_type = "udp";
-        //     else if(config_s.ipv4_type == "tcp") transport_type = "tcp";
-        // };
-        //
-        // const std::string link_layer_name = transport_type;
-        //
-        // std::unique_ptr<LinkLayer> link_layer = nullptr;
-        //
-        // if (config_s.ipv4_enabled) {
-        //     std::cout << "Using IPv4 " << transport_type << std::endl;
-        //     const char* ipv4_device_name = config_s.ipv4_interface.c_str();
-        //     EthernetDevice ipv4_device(ipv4_device_name);
-        //     link_layer = create_link_layer(io_context, ipv4_device, link_layer_name, ipv4_device_name, config_s.rssi_enabled, config_s.ipv4_address, config_s.ipv4_port);
-        // } else {
-        //     link_layer = create_link_layer(io_context, device, link_layer_name, device_name, config_s.rssi_enabled);
-        // }
-        //
-        // if (!link_layer) {
-        //     std::cerr << "No link layer '" << link_layer_name << "' found." << std::endl;
-        //     return 1;
-        // }
 
         auto signal_handler = [&io_context](const boost::system::error_code& ec, int signal_number) {
             mark_unused(signal_number);

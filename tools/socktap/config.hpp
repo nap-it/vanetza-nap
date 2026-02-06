@@ -78,7 +78,6 @@ typedef struct config {
     bool zenoh_local_only;
     string zenoh_interfaces;
     bool ipv4_enabled;
-    string ipv4_type;
     string ipv4_address;
     int ipv4_port;
     string ipv4_interface;

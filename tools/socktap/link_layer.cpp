@@ -88,31 +88,6 @@ create_link_layer(boost::asio::io_context& io_context, const EthernetDevice& dev
             link_layer.reset(new UdpLink { io_context, multicast, device });
         }
 
-    // } else if (name == "tcp") {
-    //     namespace ip = boost::asio::ip;
-
-    //     TcpLink* tcp = new TcpLink { io_context };
-
-    //     if (vm.count("tcp-connect")) {
-    //         for (const std::string& ip_port : vm["tcp-connect"].as<std::vector<std::string>>()) {
-    //             auto ip_port_pair = parse_ip_port(ip_port);
-    //             if (ip_port_pair) {
-    //                 tcp->connect(ip::tcp::endpoint(ip_port_pair.value().first, ip_port_pair.value().second));
-    //             }
-    //         }
-    //     }
-
-    //     if (vm.count("tcp-accept")) {
-    //         for (const std::string& ip_port : vm["tcp-accept"].as<std::vector<std::string>>()) {
-    //             auto ip_port_pair = parse_ip_port(ip_port);
-    //             if (ip_port_pair) {
-    //                 tcp->accept(ip::tcp::endpoint(ip_port_pair.value().first, ip_port_pair.value().second));
-    //             }
-    //         }
-    //     }
-
-    //     link_layer.reset(tcp);
-
     } else if (name == "autotalks") {
 #ifdef SOCKTAP_WITH_AUTOTALKS
         link_layer.reset(new AutotalksLink { io_context });

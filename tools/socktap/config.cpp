@@ -71,7 +71,6 @@ void read_config(config_t* config_s, string path) {
     config_s->mcm = read_message_config(reader, "VANETZA_MCM", "mcm");
     config_s->own_cam_topic_out = getenv("VANETZA_CAM_OWN_TOPIC_OUT") == NULL ? reader.Get("cam", "own_topic_out", "") : getenv("VANETZA_CAM_OWN_TOPIC_OUT");
     config_s->ipv4_enabled = getenv("VANETZA_IPV4_ENABLED") == NULL ? reader.GetBoolean("ipv4", "enabled", false) : (strcmp((getenv("VANETZA_IPV4_ENABLED")), "false") != 0);
-    config_s->ipv4_type = getenv("VANETZA_IPV4_TYPE") == NULL ? reader.Get("ipv4", "type", "udp") : getenv("VANETZA_IPV4_TYPE");
     config_s->ipv4_address = getenv("VANETZA_IPV4_ADDRESS") == NULL ? reader.Get("ipv4", "address", "239.118.122.97") : getenv("VANETZA_IPV4_ADDRESS");
     config_s->ipv4_port = getenv("VANETZA_IPV4_PORT") == NULL ? reader.GetInteger("ipv4", "port", 8947) : stoi(getenv("VANETZA_IPV4_PORT"));
     config_s->ipv4_interface = getenv("VANETZA_IPV4_INTERFACE") == NULL ? reader.Get("ipv4", "interface", "eth0") : getenv("VANETZA_IPV4_INTERFACE");
