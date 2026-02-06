@@ -3,7 +3,7 @@ services:
     vanetza:
         hostname: vanetza
         restart: always
-        image: vanetza-nap:latest
+        image: ghcr.io/nap-it/vanetza-nap:latest
         volumes:
           - ./config.ini:/config.ini
           - /services/info.ini:/info.ini

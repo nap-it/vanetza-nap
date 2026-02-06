@@ -90,7 +90,7 @@ Each container includes an embeded MQTT broker in order to fully simulate the co
 You may update Vanetza to the lastest version by running the following command:
 
 ```
-docker pull code.nap.av.it.pt:5050/mobility-networks/vanetza:latest
+docker pull ghcr.io/nap-it/vanetza-nap:latest
 ```
 
 Try to do this regularly, since NAP-Vanetza is in active development and new features and bug fixes are frequently added.
