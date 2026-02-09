@@ -95,6 +95,16 @@ docker pull ghcr.io/nap-it/vanetza-nap:latest
 
 Try to do this regularly, since NAP-Vanetza is in active development and new features and bug fixes are frequently added.
 
+### Building the Vanetza image locally
+
+If you want to make changes to the Vanetza code or use a specific version of NAP-Vanetza, you can build the image locally by running the following command in the project's root directory:
+
+```
+docker build -t vanetza-nap:latest .
+```
+
+This will build the image using the Dockerfile located in the root directory and tag it as "vanetza-nap:latest". You can then use this image in your `docker-compose.yml` file by replacing `ghcr.io/nap-it/vanetza-nap:latest"` with `vanetza-nap:latest`.
+
 
 #### Running in the background
 
