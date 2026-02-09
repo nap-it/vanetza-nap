@@ -16,7 +16,23 @@ If you find this code useful in your research, please consider citing :
         doi={10.1109/VNC61989.2024.10575959}
     }
 
-### Introduction and Containerized Usage Guide
+## Table of Contents
+
+* [Introduction and Containerized Usage Guide](#introduction-and-containerized-usage-guide)
+* [Setting up](#setting-up)
+* [Usage](#usage)
+* [Wireshark](#wireshark)
+* [MQTT](#mqtt)
+* [Constructing the JSON messages according to ETSI specifications](#constructing-the-json-messages-according-to-etsi-specifications)
+* [Configuration](#configuration)
+* [Variable transformations](#variable-transformations)
+* [Project's State and Missing Fields](#projects-state-and-missing-fields)
+* [Advanced Usage](#advanced-usage)
+* [Authors](#authors)
+* [License](#license)
+
+
+## Introduction and Containerized Usage Guide
 
 Vanetza-NAP extends the base Vanetza project to integrate MQTT/DDS/Zenoh and JSON capabilities, as well as additional types of ETSI C-ITS messages.
 
@@ -87,7 +103,7 @@ Each container includes an embeded MQTT broker in order to fully simulate the co
 
 ![Docker Diagram](https://i.ibb.co/XxCzVZK/docker-diagram.png)
 
-#### Updating the Vanetza image
+### Updating the Vanetza image
 
 You may update Vanetza to the lastest version by running the following command:
 
@@ -175,7 +191,7 @@ mosquitto_pub -h 192.168.98.10 -t "vanetza/in/cam" -m '{"camParameters":{"basicC
 MQTT can also be easily integrated into your application's code by using third-party libraries such as [paho-mqtt](https://pypi.org/project/paho-mqtt/), available for multiple programming languages.
 
 
-### Constructing the JSON messages according to ETSI specifications
+## Constructing the JSON messages according to ETSI specifications
 
 In order to make the encoding and decoding process possible, the JSON messages received and sent by Vanetza through MQTT are required to follow the strict format specified in each message type's respective ETSI specification document.
 
