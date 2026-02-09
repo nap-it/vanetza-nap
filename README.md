@@ -49,7 +49,7 @@ The following diagram examplifies a common usage pattern:
 
 Note: In the case of CAMs, NAP-Vanetza also has a pre-defined "hard-coded" CAM message which is periodically sent at a configurable frequency and with updated GPS values, without the need for an external application to publish JSON CAMs (which is also allowed). This behaviour can be disabled.
 
-## Setting up (Docker)
+## Setting up
 
 1. Install docker and docker-compose
 ```
@@ -68,7 +68,7 @@ sudo apt install docker-ce docker-compose
 docker network create vanetzalan0 --subnet 192.168.98.0/24
 ```
 
-## Usage (Docker)
+## Usage 
 
 To start the Vanetza containers run:
 ```
@@ -128,7 +128,7 @@ sudo apt install docker-compose-plugin
 ```
 And run the commands above, replacing *docker-compose* with *docker compose*
 
-### Wireshark
+## Wireshark
 
 Wireshark can be used to sniff and analyse the ETSI C-ITS messages exchanged between the different containers on the virtual network interface created by Docker
 
@@ -145,7 +145,7 @@ eth.type == 0x8947
 ```
 
 
-### MQTT
+## MQTT
 
 
 
@@ -307,6 +307,54 @@ Each supported type of message (CAM, DENM, CPM, VAM, SPATEM, MAPEM) has its own 
 | cam.udp_out_port | VANETZA_CAM_UDP_OUT_PORT | Port of the UDP server to which Vanetza sends decoded JSON CAMs, in order to minimize communication latency - Used in NAP's Connection Manager v1 | 5051 | 0 to disable |
 | cam.own_topic_out | VANETZA_CAM_OWN_TOPIC_OUT | MQTT/DDS topic to which Vanetza sends a JSON representation of the hardcoded CAMs| vanetza/own/cam | "" to disable | Only available on CAMs |
 
+## Variable transformations
+
+To facilitate the construction of JSON messages, Vanetza performs some transformations on certain fields that are required to be in a specific format or unit according to the ETSI specifications. These transformations are applied both to incoming and outgoing messages.
+
+For example, the latitude and longitude fields in CAM messages are represented in the JSON messages as decimal degrees, while the ETSI specifications require them to be in a fixed-point format with a specific scale factor. Vanetza automatically performs the necessary conversions to ensure that the messages conform to the ETSI specifications.
+
+The file **tools/socktap/asn1json.py** contains a `transformation` dictionary that defines the transformations applied to each field.  Bellow, a table summarizing the transformations applied to the most common fields used in all supported message types:
+
+
+| Variable Type | JSON Format | ETSI Format | Transformation Description |
+| ----------- | ----------- | ----------- | ----------- |
+| Latitude | Decimal Degrees (e.g., 40.628349) | Fixed-point format with a scale factor of 10^-7 (e.g., 406283493) | Multiplication by 10^7 and rounds it to the nearest integer |
+| Longitude | Decimal Degrees (e.g., -8.654390) | Fixed-point format with a scale factor of 10^-7 (e.g., -865439000) | Multiplication by 10^7 and rounds it to the nearest integer |
+| CartesianCoordinateLarge | Decimal Meters (e.g., 123.45) | Fixed-point format with a scale factor of 10^-2 (e.g., 12345) | Multiplication by 100 and rounds it to the nearest integer |
+| CartesianCoordinate | Decimal Meters (e.g., 1.23) | Fixed-point format with a scale factor of 10^-2 (e.g., 123) | Multiplication by 100 and rounds it to the nearest integer |
+| SteeringWheelAngleValue | Decimal Degrees (e.g., 15.5) | Fixed-point format with a scale factor of 2/3 (e.g., 512) | Multiplication by 3/2 and rounds it to the nearest integer |
+| AltitudeValue | Decimal Meters (e.g., 15.0) | Fixed-point format with a scale factor of 10^-2 (e.g., 1500) | Multiplication by 100 and rounds it to the nearest integer |
+| HeadingValue | Decimal Degrees (e.g., 153.0) | Fixed-point format with a scale factor of 10^-1 (e.g., 1530) | Multiplication by 10 and rounds it to the nearest integer |
+| HeadingConfidence | Decimal between 0 and 1 (e.g., 0.95) | Fixed-point format with a scale factor of 100 (e.g., 95) | Multiplication by 100 and rounds it to the nearest integer |
+| SpeedValue | Decimal Meters per Second (e.g., 8.7) | Fixed-point format with a scale factor of 10^-2 (e.g., 870) | Multiplication by 100 and rounds it to the nearest integer |
+| VelocityComponentValue | Decimal Meters per Second (e.g., 8.7) | Fixed-point format with a scale factor of 10^-2 (e.g., 870) | Multiplication by 100 and rounds it to the nearest integer |
+| SpeedConfidence | Decimal between 0 and 1 (e.g., 0.95) | Fixed-point format with a scale factor of 100 (e.g., 95) | Multiplication by 100 and rounds it to the nearest integer |
+| AccelerationConfidence | Decimal between 0 and 1 (e.g., 0.95) | Fixed-point format with a scale factor of 10 (e.g., 9.5) | Multiplication by 10 and rounds it to the nearest integer |
+| VehicleLengthValue | Decimal Meters (e.g., 10.0) | Fixed-point format with a scale factor of 10^-1 (e.g., 100) | Multiplication by 10 and rounds it to the nearest integer |
+| VehicleWidth | Decimal Meters (e.g., 3.0) | Fixed-point format with a scale factor of 10^-1 (e.g., 30) | Multiplication by 10 and rounds it to the nearest integer |
+| LongitudinalAccelerationValue | Decimal Meters per Second Squared (e.g., -0.4) | Fixed-point format with a scale factor of 10^-1 (e.g., -4) | Multiplication by 10 and rounds it to the nearest integer |
+| AccelerationValue | Decimal Meters per Second Squared (e.g., -0.4) | Fixed-point format with a scale factor of 10^-1 (e.g., -4) | Multiplication by 10 and rounds it to the nearest integer |
+| YawRateValue | Decimal Degrees per Second (e.g., 11.0) | Fixed-point format with a scale factor of 10^-2 (e.g., 1100) | Multiplication by 100 and rounds it to the nearest integer |
+| DistanceValue | Decimal Meters (e.g., 10.0) | Fixed-point format with a scale factor of 10^-2 (e.g., 1000) | Multiplication by 100 and rounds it to the nearest integer |
+| DistanceConfidence | Decimal between 0 and 1 (e.g., 0.95) | Fixed-point format with a scale factor of 10^-2 (e.g., 95) | Multiplication by 100 and rounds it to the nearest integer |
+| SpeedValueExtended | Decimal Meters per Second (e.g., 8.7) | Fixed-point format with a scale factor of 10^-2 (e.g., 870) | Multiplication by 100 and rounds it to the nearest integer |
+| LateralAccelerationValue | Decimal Meters per Second Squared (e.g., -0.4) | Fixed-point format with a scale factor of 10^-1 (e.g., -4) | Multiplication by 10 and rounds it to the nearest integer |
+| LongitudinalAccelerationValue | Decimal Meters per Second Squared (e.g., -0.4) | Fixed-point format with a scale factor of 10^-1 (e.g., -4) | Multiplication by 10 and rounds it to the nearest integer |
+| VerticalAccelerationValue | Decimal Meters per Second Squared (e.g., -0.4) | Fixed-point format with a scale factor of 10^-1 (e.g., -4) | Multiplication by 10 and rounds it to the nearest integer |
+| ObjectDimensionValue | Decimal Meters (e.g., 1.5) | Fixed-point format with a scale factor of 10^-1 (e.g., 15) | Multiplication by 10 and rounds it to the nearest integer |
+| WGS84AngleValue | Decimal Degrees (e.g., 15.5) | Fixed-point format with a scale factor of 10^-1 (e.g., 155) | | Multiplication by 10 and rounds it to the nearest integer |
+| CartesianAngleValue | Decimal Degrees (e.g., 15.5) | Fixed-point format with a scale factor of 10^-1 (e.g., 155) | Multiplication by 10 and rounds it to the nearest integer |
+| SensorHeight | Decimal Meters (e.g., 1.5) | Fixed-point format with a scale factor of 10^-2 (e.g., 150) | Multiplication by 100 and rounds it to the nearest integer |
+| SemiRangeLength | Decimal Meters (e.g., 10.0) | Fixed-point format with a scale factor of 10^-1 (e.g., 100) | Multiplication by 10 and rounds it to the nearest integer |
+| Radius | Decimal Meters (e.g., 10.0) | Fixed-point format with a scale factor of 10^-1 (e.g., 100) | Multiplication by 10 and rounds it to the nearest integer |
+| DeltaLatitude | Decimal Degrees (e.g., 0.0001) | Fixed-point format with a scale factor of 10^-7 (e.g., 10000) | Multiplication by 10^7 and rounds it to the nearest integer |
+| DeltaLongitude | Decimal Degrees (e.g., 0.0001) | Fixed-point format with a scale factor of 10^-7 (e.g., 10000) | Multiplication by 10^7 and rounds it to the nearest integer |
+| DeltaAltitude | Decimal Meters (e.g., 0.5) | Fixed-point format with a scale factor of 10^-2 (e.g., 50) | Multiplication by 100 and rounds it to the nearest integer |
+| CoordinateConfidence | Decimal between 0 and 1 (e.g., 0.95) | Fixed-point format with a scale factor of 10^-2 (e.g., 95) | Multiplication by 100 and rounds it to the nearest integer |
+| TimestampIts | Decimal Seconds (e.g., 1.5) | Fixed-point format with a scale factor of 10^-3 (e.g., 1500) | Multiplication by 1000 and rounds it to the nearest integer |
+| AngleConfidence | Decimal between 0 and 1 (e.g., 0.95) | Fixed-point format with a scale factor of 10^-1 (e.g., 9.5) | Multiplication by 10 and rounds it to the nearest integer |
+
+
 ## Project's State and Missing Fields
 
 The NAP-Vanetza project is still under active development and is frequently updated to introduce new features and correct issues.
@@ -330,6 +378,8 @@ These fields are generally optional and relatively unimportant. They will be add
 * WMInumber 
 * VDS
 * TemporaryID
+
+Updates to new releases of the ETSI specifications may be introduced in the future.
 
 ## Advanced Usage
 
