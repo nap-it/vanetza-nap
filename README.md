@@ -502,7 +502,7 @@ Maintenance is coordinated by Raphael Riebl.
 
 Development of NAP-Vanetza is part of ongoing research work at [Instituto de Telecomunicações' Network Architectures and Protocols Group](https://www.it.pt/Groups/Index/36).
 
-Questions and Bug Reports: jp.amaral@av.it.pt
+Questions and Bug Reports: jp.amaral@av.it.pt / andreiagf@av.it.pt
 
 ## License
 
