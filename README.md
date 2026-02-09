@@ -43,6 +43,8 @@ Put simply, NAP-Vanetza's purpose is to manage the encoding, decoding, sending, 
 Applications that need to send ETSI C-ITS messages interact with the service by building a JSON representation of the given message and publishing it in a specific MQTT topic, which Vanetza subscribes to.
 Likewise, applications that need to receive incoming messages do so by subscribing to the respective MQTT/DDS/Zenoh topics, that Vanetza publishes JSON to.
 
+Inside the folder **examples** you can find example JSON representations for some of the supported message types.
+
 The following diagram examplifies a common usage pattern:
 
 ![Generic Diagram](https://i.ibb.co/PxRWMz5/generic-diagram.png)
@@ -178,13 +180,14 @@ MQTT can also be easily integrated into your application's code by using third-p
 In order to make the encoding and decoding process possible, the JSON messages received and sent by Vanetza through MQTT are required to follow the strict format specified in each message type's respective ETSI specification document.
 
 You may consult those documents in the following links:
-* [Common to all messages - ETSI TS 102 894-2 V1.2.1](https://www.etsi.org/deliver/etsi_ts/102800_102899/10289402/01.02.01_60/ts_10289402v010201p.pdf) - Annex A & B
-* [CAM - ETSI EN 302 637-2 V1.4.1](https://www.etsi.org/deliver/etsi_EN/302600_302699/30263702/01.04.01_30/en_30263702v010401v.pdf) - Annex A & B
-* [DENM - ETSI EN 302 637-3 V1.2.1](https://www.etsi.org/deliver/etsi_en/302600_302699/30263703/01.02.01_30/en_30263703v010201v.pdf) - Annex A & B
-* [CPM - ETSI TR 103 562 V2.1.1](https://www.etsi.org/deliver/etsi_tr/103500_103599/103562/02.01.01_60/tr_103562v020101p.pdf) - Annex A & B
-* [VAM - ETSI TS 103 300-3 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103300_103399/10330003/02.01.01_60/ts_10330003v020101p.pdf) - Annex A & B
-* [SPATEM - ETSI TS 103 301 V1.1.1](https://www.etsi.org/deliver/etsi_ts/103300_103399/103301/01.01.01_60/ts_103301v010101p.pdf) - Annex A (and Common Data Types)
-* [MAPEM - ETSI TS 103 301 V1.1.1](https://www.etsi.org/deliver/etsi_ts/103300_103399/103301/01.01.01_60/ts_103301v010101p.pdf) - Annex B (and Common Data Types)
+* [Common to some messages - ETSI TS 102 894-2 V1.2.1](https://forge.etsi.org/rep/ITS/asn1/cdd_ts102894_2/-/tree/v1.2.1)
+* [Common to some messages - ETSI TS 102 894-2 V2.1.1](https://forge.etsi.org/rep/ITS/asn1/cdd_ts102894_2/-/tree/v2.1.1)
+* [CAM - ETSI TS 103 900 V2.2.1](https://forge.etsi.org/rep/ITS/asn1/cam_ts103900/-/tree/v2.2.1)
+* [DENM - ETSI TS 103 831 V2.2.1](https://forge.etsi.org/rep/ITS/asn1/denm_ts103831/-/tree/v2.2.1)
+* [CPM - ETSI TR 103 562 V2.1.1](https://forge.etsi.org/rep/ITS/asn1/cpm_ts103324/-/tree/v2.1.1)
+* [VAM - ETSI TS 103 300-3 V2.1.1](https://forge.etsi.org/rep/ITS/asn1/vam-ts103300_3/-/tree/v2.1.1)
+* [SPATEM - ETSI TS 103 301 V1.1.1](https://forge.etsi.org/rep/ITS/asn1/is_ts103301/-/tree/v1.2.1?ref_type=tags)
+* [MAPEM - ETSI TS 103 301 V1.1.1](https://forge.etsi.org/rep/ITS/asn1/is_ts103301/-/tree/v1.2.1?ref_type=tags)
   
 
 NAP-Vanetza includes some examples of valid JSON messages in the examples folder.
@@ -273,7 +276,7 @@ The following table summarizes the available configuration options:
 | general.num_threads | VANETZA_NUM_THREADS | Number of threads to use in Vanetza's thread pool for parallel processing of messages | 4 | |
 | general.publish_encoded_payloads | VANETZA_PUBLISH_ENCODED_PAYLOADS | Publish the raw ASN.1 encoded messages to DDS topics, in addition to the JSON representations | false | Only recommended for debugging purposes, as it may introduce significant latency |
 | general.debug_enabled | VANETZA_DEBUG_ENABLED | Enable debug prints in the terminal/logs | false | |
-|general.zenoh_local_only | VANETZA_ZENOH_LOCAL_ONLY | Use Zenoh in same host only mode, without connecting to any remote router or peer | true | Advanced usage only |
+| general.zenoh_local_only | VANETZA_ZENOH_LOCAL_ONLY | Use Zenoh in same host only mode, without connecting to any remote router or peer | true | Advanced usage only |
 | general.zenoh_interfaces | VANETZA_ZENOH_INTERFACES | Comma-separated list of network interfaces to use for Zenoh communication when not in local-only mode |  | Advanced usage only |
 | station.id | VANETZA_STATION_ID | ETSI Station ID field | 99 | |
 | station.type | VANETZA_STATION_TYPE | ETSI Station Type field | 15 | |
@@ -315,44 +318,42 @@ For example, the latitude and longitude fields in CAM messages are represented i
 
 The file **tools/socktap/asn1json.py** contains a `transformation` dictionary that defines the transformations applied to each field.  Bellow, a table summarizing the transformations applied to the most common fields used in all supported message types:
 
-
 | Variable Type | JSON Format | ETSI Format | Transformation Description |
 | ----------- | ----------- | ----------- | ----------- |
-| Latitude | Decimal Degrees (e.g., 40.628349) | Fixed-point format with a scale factor of 10^-7 (e.g., 406283493) | Multiplication by 10^7 and rounds it to the nearest integer |
-| Longitude | Decimal Degrees (e.g., -8.654390) | Fixed-point format with a scale factor of 10^-7 (e.g., -865439000) | Multiplication by 10^7 and rounds it to the nearest integer |
-| CartesianCoordinateLarge | Decimal Meters (e.g., 123.45) | Fixed-point format with a scale factor of 10^-2 (e.g., 12345) | Multiplication by 100 and rounds it to the nearest integer |
-| CartesianCoordinate | Decimal Meters (e.g., 1.23) | Fixed-point format with a scale factor of 10^-2 (e.g., 123) | Multiplication by 100 and rounds it to the nearest integer |
-| SteeringWheelAngleValue | Decimal Degrees (e.g., 15.5) | Fixed-point format with a scale factor of 2/3 (e.g., 512) | Multiplication by 3/2 and rounds it to the nearest integer |
-| AltitudeValue | Decimal Meters (e.g., 15.0) | Fixed-point format with a scale factor of 10^-2 (e.g., 1500) | Multiplication by 100 and rounds it to the nearest integer |
-| HeadingValue | Decimal Degrees (e.g., 153.0) | Fixed-point format with a scale factor of 10^-1 (e.g., 1530) | Multiplication by 10 and rounds it to the nearest integer |
-| HeadingConfidence | Decimal between 0 and 1 (e.g., 0.95) | Fixed-point format with a scale factor of 100 (e.g., 95) | Multiplication by 100 and rounds it to the nearest integer |
-| SpeedValue | Decimal Meters per Second (e.g., 8.7) | Fixed-point format with a scale factor of 10^-2 (e.g., 870) | Multiplication by 100 and rounds it to the nearest integer |
-| VelocityComponentValue | Decimal Meters per Second (e.g., 8.7) | Fixed-point format with a scale factor of 10^-2 (e.g., 870) | Multiplication by 100 and rounds it to the nearest integer |
-| SpeedConfidence | Decimal between 0 and 1 (e.g., 0.95) | Fixed-point format with a scale factor of 100 (e.g., 95) | Multiplication by 100 and rounds it to the nearest integer |
-| AccelerationConfidence | Decimal between 0 and 1 (e.g., 0.95) | Fixed-point format with a scale factor of 10 (e.g., 9.5) | Multiplication by 10 and rounds it to the nearest integer |
-| VehicleLengthValue | Decimal Meters (e.g., 10.0) | Fixed-point format with a scale factor of 10^-1 (e.g., 100) | Multiplication by 10 and rounds it to the nearest integer |
-| VehicleWidth | Decimal Meters (e.g., 3.0) | Fixed-point format with a scale factor of 10^-1 (e.g., 30) | Multiplication by 10 and rounds it to the nearest integer |
-| LongitudinalAccelerationValue | Decimal Meters per Second Squared (e.g., -0.4) | Fixed-point format with a scale factor of 10^-1 (e.g., -4) | Multiplication by 10 and rounds it to the nearest integer |
-| AccelerationValue | Decimal Meters per Second Squared (e.g., -0.4) | Fixed-point format with a scale factor of 10^-1 (e.g., -4) | Multiplication by 10 and rounds it to the nearest integer |
-| YawRateValue | Decimal Degrees per Second (e.g., 11.0) | Fixed-point format with a scale factor of 10^-2 (e.g., 1100) | Multiplication by 100 and rounds it to the nearest integer |
-| DistanceValue | Decimal Meters (e.g., 10.0) | Fixed-point format with a scale factor of 10^-2 (e.g., 1000) | Multiplication by 100 and rounds it to the nearest integer |
-| DistanceConfidence | Decimal between 0 and 1 (e.g., 0.95) | Fixed-point format with a scale factor of 10^-2 (e.g., 95) | Multiplication by 100 and rounds it to the nearest integer |
-| SpeedValueExtended | Decimal Meters per Second (e.g., 8.7) | Fixed-point format with a scale factor of 10^-2 (e.g., 870) | Multiplication by 100 and rounds it to the nearest integer |
-| LateralAccelerationValue | Decimal Meters per Second Squared (e.g., -0.4) | Fixed-point format with a scale factor of 10^-1 (e.g., -4) | Multiplication by 10 and rounds it to the nearest integer |
-| LongitudinalAccelerationValue | Decimal Meters per Second Squared (e.g., -0.4) | Fixed-point format with a scale factor of 10^-1 (e.g., -4) | Multiplication by 10 and rounds it to the nearest integer |
-| VerticalAccelerationValue | Decimal Meters per Second Squared (e.g., -0.4) | Fixed-point format with a scale factor of 10^-1 (e.g., -4) | Multiplication by 10 and rounds it to the nearest integer |
-| ObjectDimensionValue | Decimal Meters (e.g., 1.5) | Fixed-point format with a scale factor of 10^-1 (e.g., 15) | Multiplication by 10 and rounds it to the nearest integer |
-| WGS84AngleValue | Decimal Degrees (e.g., 15.5) | Fixed-point format with a scale factor of 10^-1 (e.g., 155) | | Multiplication by 10 and rounds it to the nearest integer |
-| CartesianAngleValue | Decimal Degrees (e.g., 15.5) | Fixed-point format with a scale factor of 10^-1 (e.g., 155) | Multiplication by 10 and rounds it to the nearest integer |
-| SensorHeight | Decimal Meters (e.g., 1.5) | Fixed-point format with a scale factor of 10^-2 (e.g., 150) | Multiplication by 100 and rounds it to the nearest integer |
-| SemiRangeLength | Decimal Meters (e.g., 10.0) | Fixed-point format with a scale factor of 10^-1 (e.g., 100) | Multiplication by 10 and rounds it to the nearest integer |
-| Radius | Decimal Meters (e.g., 10.0) | Fixed-point format with a scale factor of 10^-1 (e.g., 100) | Multiplication by 10 and rounds it to the nearest integer |
-| DeltaLatitude | Decimal Degrees (e.g., 0.0001) | Fixed-point format with a scale factor of 10^-7 (e.g., 10000) | Multiplication by 10^7 and rounds it to the nearest integer |
-| DeltaLongitude | Decimal Degrees (e.g., 0.0001) | Fixed-point format with a scale factor of 10^-7 (e.g., 10000) | Multiplication by 10^7 and rounds it to the nearest integer |
-| DeltaAltitude | Decimal Meters (e.g., 0.5) | Fixed-point format with a scale factor of 10^-2 (e.g., 50) | Multiplication by 100 and rounds it to the nearest integer |
-| CoordinateConfidence | Decimal between 0 and 1 (e.g., 0.95) | Fixed-point format with a scale factor of 10^-2 (e.g., 95) | Multiplication by 100 and rounds it to the nearest integer |
-| TimestampIts | Decimal Seconds (e.g., 1.5) | Fixed-point format with a scale factor of 10^-3 (e.g., 1500) | Multiplication by 1000 and rounds it to the nearest integer |
-| AngleConfidence | Decimal between 0 and 1 (e.g., 0.95) | Fixed-point format with a scale factor of 10^-1 (e.g., 9.5) | Multiplication by 10 and rounds it to the nearest integer |
+| Latitude | Decimal degrees (e.g., 40.628349) | Integer value representing latitude in units of 10⁻⁷ degrees (e.g., 406283493) | Values are scaled by a factor of 10⁷ when converting between JSON and ETSI representations (ETSI = JSON × 10⁷, JSON = ETSI ÷ 10⁷) |
+| Longitude | Decimal degrees (e.g., -8.654390) | Integer value representing longitude in units of 10⁻⁷ degrees (e.g., -865439000) | Values are scaled by a factor of 10⁷ when converting between JSON and ETSI representations (ETSI = JSON × 10⁷, JSON = ETSI ÷ 10⁷) |
+| CartesianCoordinateLarge | Decimal meters (e.g., 123.45) | Integer value representing distance in units of 10⁻² meters (e.g., 12345) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| CartesianCoordinate | Decimal meters (e.g., 123.45) | Integer value representing distance in units of 10⁻² meters (e.g., 12345) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| SteeringWheelAngleValue | Decimal degrees (e.g., 15.0) | Integer value representing angle in units of 2/3 degrees (e.g., 22) | Values are scaled by a factor of 2/3 when converting between JSON and ETSI representations (ETSI = JSON × (2/3), JSON = ETSI ÷ (2/3)) |
+| AltitudeValue | Decimal meters (e.g., 800.0) | Integer value representing altitude in units of 10⁻² meters (e.g., 80000) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| HeadingValue | Decimal degrees (e.g., 153.0) | Integer value representing heading in units of 10⁻¹ degrees (e.g., 1530) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| HeadingConfidence | Decimal between 0 and 1 (e.g., 0.9) | Integer value representing confidence level (e.g., 9) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| VelocityComponentValue | Decimal meters per second (e.g., 8.7) | Integer value representing speed in units of 10⁻² meters per second (e.g., 870) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| SpeedConfidence | Decimal between 0 and 1 (e.g., 0.95) | Integer value representing confidence level (e.g., 95) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| VehicleLengthValue | Decimal meters (e.g., 10.2) | Integer value representing vehicle length in units of 10⁻¹ meters (e.g., 102) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| VehicleWidth | Decimal meters (e.g., 3.0) | Integer value representing vehicle width in units of 10⁻¹ meters (e.g., 30) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| LongitudinalAccelerationValue | Decimal meters per second squared (e.g., -0.4) | Integer value representing acceleration in units of 10⁻¹ meters per second squared (e.g., -4) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| AccelerationValue | Decimal meters per second squared (e.g., -0.4) | Integer value representing acceleration in units of 10⁻¹ meters per second squared (e.g., -4) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| AccelerationConfidence | Decimal between 0 and 1 (e.g., 0.9) | Integer value representing confidence level (e.g., 9) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| YawRateValue | Decimal degrees per second (e.g., 11.0) | Integer value representing yaw rate in units of 10⁻² degrees per second (e.g., 1100) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| DistanceValue | Decimal meters (e.g., 10.0) | Integer value representing distance in units of 10⁻² meters (e.g., 1000) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| DistanceConfidence | Decimal between 0 and 1 (e.g., 0.95) | Integer value representing confidence level (e.g., 95) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| SpeedValueExtended | Decimal meters per second (e.g., 8.7) | Integer value representing speed in units of 10⁻² meters per second (e.g., 870) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| LateralAccelerationValue | Decimal meters per second squared (e.g., -0.4) | Integer value representing acceleration in units of 10⁻¹ meters per second squared (e.g., -4) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| LongitudinalAccelerationValue | Decimal meters per second squared (e.g., -0.4) | Integer value representing acceleration in units of 10⁻¹ meters per second squared (e.g., -4) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| VerticalAccelerationValue | Decimal meters per second squared (e.g., -0.4) | Integer value representing acceleration in units of 10⁻¹ meters per second squared (e.g., -4) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) | |
+| ObjectDimensionValue | Decimal meters (e.g., 15.5) | Integer value representing object dimension in units of 10⁻¹ meters (e.g., 155) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| WGS84AngleValue | Decimal degrees (e.g., 15.5) | Integer value representing angle in units of 10⁻¹ degrees (e.g., 155) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| CartesianAngleValue | Decimal degrees (e.g., 15.5) | Integer value representing angle in units of 10⁻¹ degrees (e.g., 155) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| SensorHeight | Decimal meters (e.g., 1.5) | Integer value representing sensor height in units of 10⁻² meters (e.g., 150) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| SemiRangeLength | Decimal meters (e.g., 10.0) | Integer value representing semi-range length in units of 10⁻¹ meters (e.g., 100) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| Radius | Decimal meters (e.g., 5.0) | Integer value representing radius in units of 10⁻¹ meters (e.g., 50) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| DeltaLatitude | Decimal degrees (e.g., 0.0001) | Integer value representing latitude difference in units of 10⁻⁷ degrees (e.g., 10000) | Values are scaled by a factor of 10⁷ when converting between JSON and ETSI representations (ETSI = JSON × 10⁷, JSON = ETSI ÷ 10⁷) |
+| DeltaLongitude | Decimal degrees (e.g., 0.0001) | Integer value representing longitude difference in units of 10⁻⁷ degrees (e.g., 10000) | Values are scaled by a factor of 10⁷ when converting between JSON and ETSI representations (ETSI = JSON × 10⁷, JSON = ETSI ÷ 10⁷) |
+| DeltaAltitude | Decimal meters (e.g., 1.5) | Integer value representing altitude difference in units of 10⁻² meters (e.g., 150) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| CoordinateConfidence | Decimal between 0 and 1 (e.g., 0.95) | Integer value representing confidence level (e.g., 95) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| TimestampIts | Decimal seconds (e.g., 123.456) | Integer value representing timestamp in units of 10⁻³ seconds (e.g., 123456) | Values are scaled by a factor of 10³ when converting between JSON and ETSI representations (ETSI = JSON × 10³, JSON = ETSI ÷ 10³) |
+| AngleConfidence | Decimal between 0 and 1 (e.g., 0.9) | Integer value representing confidence level (e.g., 9) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
 
 
 ## Project's State and Missing Fields
