@@ -18,8 +18,6 @@ If you find this code useful in your research, please consider citing :
 
 ## Table of Contents
 
-## Table of Contents
-
 - [Vanetza-NAP](#vanetza-nap)
   - [Introduction and Containerized Usage Guide](#introduction-and-containerized-usage-guide)
   - [Setting up](#setting-up)
