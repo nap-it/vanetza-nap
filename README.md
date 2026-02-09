@@ -18,7 +18,7 @@ If you find this code useful in your research, please consider citing :
 
 ### Introduction and Containerized Usage Guide
 
-Vanetza-NAP extends the base Vanetza project to integrate MQTT and JSON capabilities, as well as additional types of ETSI C-ITS messages.
+Vanetza-NAP extends the base Vanetza project to integrate MQTT/DDS/Zenoh and JSON capabilities, as well as additional types of ETSI C-ITS messages.
 
 The following message types are supported:
 * Cooperative Awareness Messages (CAM)
@@ -41,7 +41,7 @@ The following message types are supported:
 Put simply, NAP-Vanetza's purpose is to manage the encoding, decoding, sending, and receiving of ETSI C-ITS messages, thus abstracting those layers from VANET application developers.
 
 Applications that need to send ETSI C-ITS messages interact with the service by building a JSON representation of the given message and publishing it in a specific MQTT topic, which Vanetza subscribes to.
-Likewise, applications that need to receive incoming messages do so by subscribing to the respective MQTT topics, that Vanetza publishes JSON to.
+Likewise, applications that need to receive incoming messages do so by subscribing to the respective MQTT/DDS/Zenoh topics, that Vanetza publishes JSON to.
 
 The following diagram examplifies a common usage pattern:
 
@@ -90,7 +90,7 @@ Each container includes an embeded MQTT broker in order to fully simulate the co
 You may update Vanetza to the lastest version by running the following command:
 
 ```
-docker pull code.nap.av.it.pt:5050/mobility-networks/vanetza:latest
+docker pull code.nap.av.it.pt:5050/mobility-networks/vanetza-nap:latest
 ```
 
 Try to do this regularly, since NAP-Vanetza is in active development and new features and bug fixes are frequently added.
@@ -134,14 +134,6 @@ To filter out miscellaneous packets and protocols and show only ETSI C-ITS messa
 eth.type == 0x8947
 ```
 
-Note: CPMs are only supported/interpreted by Wireshark since version 3.6, which is not yet available to install on Linux OSs.
-
-To circumvent this, compile Wireshark 3.7 from source by running:
-```
-wget -q -O - https://gist.githubusercontent.com/RodrigoRosmaninho/be85885b1cd415a2b1621d2ac9875cb8/raw/2bea6639e1eddbaee1ca316668f48792893888b3/build.sh | bash
-```
-The script will print out further instructions on how to run the compiled binary.
-
 
 ### MQTT
 
@@ -165,7 +157,7 @@ mosquitto_sub -h 192.168.98.10 -t "vanetza/out/cam" -v
 
 To publish an MQTT message to a specific topic use:
 ```
-mosquitto_pub -h 192.168.98.10 -t "vanetza/in/cam" -m "{\"accEngaged\":true,\"acceleration\":0,\"altitude\":800001,\"altitudeConf\":15,\"brakePedal\":true,\"collisionWarning\":true,\"cruiseControl\":true,\"curvature\":1023,\"driveDirection\":\"FORWARD\",\"emergencyBrake\":true,\"gasPedal\":false,\"heading\":3601,\"headingConf\":127,\"latitude\":40,\"length\":10,\"longitude\":-8,\"semiMajorConf\":4095,\"semiMajorOrient\":3601,\"semiMinorConf\":4095,\"specialVehicle\":{\"publicTransportContainer\":{\"embarkationStatus\":false}},\"speed\":16383,\"speedConf\":127,\"speedLimiter\":true,\"stationID\":1,\"stationType\":15,\"width\":3,\"yawRate\":0}"
+mosquitto_pub -h 192.168.98.10 -t "vanetza/in/cam" -m '{"camParameters":{"basicContainer":{"stationType":5,"referencePosition":{"latitude":40.62834930419922,"longitude":-8.654390335083008,"positionConfidenceEllipse":{"semiMajorAxisLength":4095,"semiMinorAxisLength":4095,"semiMajorAxisOrientation":3601},"altitude":{"altitudeValue":800001,"altitudeConfidence":15}}},"highFrequencyContainer":{"basicVehicleContainerHighFrequency":{"heading":{"headingValue":153.0,"headingConfidence":127},"speed":{"speedValue":8.7,"speedConfidence":127},"driveDirection":2,"vehicleLength":{"vehicleLengthValue":1023,"vehicleLengthConfidenceIndication":4},"vehicleWidth":62,"longitudinalAcceleration":{"value":-0.4,"confidence":102},"curvature":{"curvatureValue":1023,"curvatureConfidence":7},"curvatureCalculationMode":2,"yawRate":{"yawRateValue":11.0,"yawRateConfidence":8},"accelerationControl":{"brakePedalEngaged":false,"gasPedalEngaged":false,"emergencyBrakeEngaged":false,"collisionWarningEngaged":false,"accEngaged":false,"cruiseControlEngaged":false,"speedLimiterEngaged":false},"steeringWheelAngle":{"steeringWheelAngleValue":512,"steeringWheelAngleConfidence":127}}}},"generationDeltaTime":13190}'
 ```
 
 MQTT can also be easily integrated into your application's code by using third-party libraries such as [paho-mqtt](https://pypi.org/project/paho-mqtt/), available for multiple programming languages.
@@ -187,21 +179,7 @@ You may consult those documents in the following links:
 
 NAP-Vanetza includes some examples of valid JSON messages in the examples folder.
 
-Note that the ITS PDU Header must not be included in messages published to Vanetza, as it's automatically filled at encode time. It is, however, present in messages published by Vanetza, so as to give developers access to the StationID field.
-
-#### Simpler Formats
-
-In the case of CAMs and VAMs, NAP maintains a seperate, simpler, format, which Vanetza also accepts (see examples folder).
-
-As such, CAMs and VAMs use four MQTT topics each, ie:
-* vanetza/in/cam - input CAMs using the simple format
-* vanetza/in/cam_full - input CAMs using the full ETSI format
-* vanetza/out/cam - output CAMs using the simple format
-* vanetza/out/cam_full - output CAMs using the full ETSI format
-
-The topic names are fully configurable.
-
-Note: The simpler format for VAMs is not yet fully implemented. For the time being, both vam and vam_full topics behave as vam_full.
+Note that the ITS PDU Header must not be included in messages published to Vanetza, as it's automatically filled at encode time. It is, however, present in messages published by Vanetza, so as to give developers access to the stationId field. It is also possible to include the stationId attribute in each of the messages' examples in the high-level fields, which Vanetza will prioritize over the ITS PDU Header's stationId field.
 
 #### Error Messages
 
@@ -279,9 +257,14 @@ The following table summarizes the available configuration options:
 | general.rssi_enabled | VANETZA_RSSI_ENABLED | Enable discovering the RSSI (signal strength) value associated with each inbound ITS-G5 message by interfacing with the kernel | true |  |
 | general.ignore_own_messages | VANETZA_IGNORE_OWN_MESSAGES | Don't capture or decode messages originating from the station itself | true | |
 | general.ignore_rsu_messages | VANETZA_IGNORE_RSU_MESSAGES | Ignore messages from RSUs - Usually set on RSUs | false | |
-| general.to_dds_key | VANETZA_TO_DDS_KEY | SysV Message Queue Key which Vanetza uses to send JSON to be published in DDS topics | 6060 | Advanced usage to minimize communication latency |
-| general.from_dds_key | VANETZA_FROM_DDS_KEY | SysV Message Queue Key which Vanetza uses to receive JSON from DDS topics | 6061 | Advanced usage to minimize communication latency |
 | general.enable_json_prints | VANETZA_ENABLE_JSON_PRINTS | Print a JSON representation of incoming messages on the terminal/logs | true | |
+| general.dds_domain_id | VANETZA_DDS_DOMAIN_ID | DDS Domain ID to use when publishing and subscribing to DDS topics | 0 | Advanced usage only |
+| general.dds_participant_name | VANETZA_DDS_PARTICIPANT_NAME | DDS Participant Name to use when publishing and subscribing to DDS topics | vanetza_participant | Advanced usage only |
+| general.num_threads | VANETZA_NUM_THREADS | Number of threads to use in Vanetza's thread pool for parallel processing of messages | 4 | |
+| general.publish_encoded_payloads | VANETZA_PUBLISH_ENCODED_PAYLOADS | Publish the raw ASN.1 encoded messages to DDS topics, in addition to the JSON representations | false | Only recommended for debugging purposes, as it may introduce significant latency |
+| general.debug_enabled | VANETZA_DEBUG_ENABLED | Enable debug prints in the terminal/logs | false | |
+|general.zenoh_local_only | VANETZA_ZENOH_LOCAL_ONLY | Use Zenoh in same host only mode, without connecting to any remote router or peer | true | Advanced usage only |
+| general.zenoh_interfaces | VANETZA_ZENOH_INTERFACES | Comma-separated list of network interfaces to use for Zenoh communication when not in local-only mode |  | Advanced usage only |
 | station.id | VANETZA_STATION_ID | ETSI Station ID field | 99 | |
 | station.type | VANETZA_STATION_TYPE | ETSI Station Type field | 15 | |
 | station.mac_address | VANETZA_MAC_ADDRESS | Virtual Mac Address used as the source on L2 ethernet headers | interface's address | |
@@ -291,12 +274,6 @@ The following table summarizes the available configuration options:
 | station.longitude | VANETZA_LONGITUDE | Hardcoded GPS longitude - Usually set on static RSUs | -8 | |
 | station.length | VANETZA_LENGTH | Vehicle lenght in meters | 10 | |
 | station.width | VANETZA_WIDTH | Vehicle width in meters | 3 | |
-| cam.full_topic_in | VANETZA_CAM_FULL_TOPIC_IN | MQTT/DDS topic from which Vanetza receives JSON CAMs in the full ETSI spec format | vanetza/in/cam_full | "" to disable |
-| cam.full_topic_out | VANETZA_CAM_FULL_TOPIC_OUT | MQTT/DDS topic to which Vanetza sends JSON CAMs in the full ETSI spec format | vanetza/out/cam_full | "" to disable |
-| vam.full_topic_in | VANETZA_VAM_FULL_TOPIC_IN | MQTT/DDS topic from which Vanetza receives JSON VAMs in the full ETSI spec format | vanetza/in/vam_full | "" to disable |
-| vam.full_topic_out | VANETZA_VAM_FULL_TOPIC_OUT | MQTT/DDS topic to which Vanetza sends JSON VAMs in the full ETSI spec format | vanetza/out/vam_full | "" to disable |
-| cam.own_topic_out | VANETZA_CAM_OWN_TOPIC_OUT | MQTT/DDS topic to which Vanetza sends a JSON representation of the hardcoded CAMs in the simple format | vanetza/own/cam | "" to disable |
-| cam.own_full_topic_out | VANETZA_CAM_OWN_FULL_TOPIC_OUT | MQTT/DDS topic to which Vanetza sends a JSON representation of the hardcoded CAMs in the full ETSI spec format | vanetza/own/cam_full | "" to disable |
 | --- | START_EMBEDDED_MOSQUITTO | Start an MQTT server inside the container to simulate a full OBU or RSU with a local MQTT broker | false | |
 | --- | EMBEDDED_MOSQUITTO_PORT | The port on which the embedded MQTT broker listens for connections | 1883 | |
 | --- | SUPPORT_MAC_BLOCKING | Start the container with ebtables support in order to dynamically block and unblock MAC addresses, simulating out-of-range scenarios | false | |
@@ -307,14 +284,18 @@ Each supported type of message (CAM, DENM, CPM, VAM, SPATEM, MAPEM) has its own 
 | ----------- | ----------- | ----------- | ----------- | ----------- |
 | cam.enabled | VANETZA_CAM_ENABLED | Enable the CAM module | true | |
 | cam.mqtt_enabled | VANETZA_CAM_MQTT_ENABLED | Enable publishing and subscribing to MQTT topics | true | |
-| cam.mqtt_time_enabled | VANETZA_CAM_MQTT_TIME_ENABLED | Enable publishing to the respective time topic for performance measurement purposes | true | |
 | cam.dds_enabled | VANETZA_CAM_DDS_ENABLED | Enable publishing and subscribing to DDS topics | true  | Advanced usage only |
+| cam.zenoh_enabled | VANETZA_CAM_ZENOH_ENABLED | Enable publishing and subscribing to Zenoh keys | false | Advanced usage only |
+| cam.mqtt_time_enabled | VANETZA_CAM_MQTT_TIME_ENABLED | Enable publishing to the respective time topic for performance measurement purposes | true | |
+| cam.mqtt_test_enabled | VANETZA_CAM_MQTT_TEST_ENABLED | Enable publishing to the respective MQTT test topic for performance measurement purposes | false | |
 | cam.periodicity | VANETZA_CAM_PERIODICITY | Periodicity with which to send the default CAM, in milliseconds | 1000 | Only available on CAMs, 0 to disable |
 | cam.topic_in | VANETZA_CAM_TOPIC_IN | MQTT/DDS topic from which Vanetza receives JSON CAMs to encode and send | vanetza/in/cam |  |
 | cam.topic_out | VANETZA_CAM_TOPIC_OUT | MQTT/DDS topic to which Vanetza sends JSON CAMs that were received and decoded | vanetza/out/cam | |
 | cam.topic_time | VANETZA_CAM_TOPIC_TIME | MQTT/DDS topic to which Vanetza sends JSON CAMs that were received in vanetza/in/cam and sent through the WAVE interface | vanetza/time/cam | |
+| cam.topic_test | VANETZA_CAM_TOPIC_TEST | MQTT/DDS topic to which Vanetza sends JSON CAMs that were received and decoded, with additional timestamp fields for performance measurement purposes | vanetza/test/cam | |
 | cam.udp_out_addr | VANETZA_CAM_UDP_OUT_ADDR | Address of the UDP server to which Vanetza sends decoded JSON CAMs, in order to minimize communication latency - Used in NAP's Connection Manager v1 | 127.0.0.1 | |
 | cam.udp_out_port | VANETZA_CAM_UDP_OUT_PORT | Port of the UDP server to which Vanetza sends decoded JSON CAMs, in order to minimize communication latency - Used in NAP's Connection Manager v1 | 5051 | 0 to disable |
+| cam.own_topic_out | VANETZA_CAM_OWN_TOPIC_OUT | MQTT/DDS topic to which Vanetza sends a JSON representation of the hardcoded CAMs| vanetza/own/cam | "" to disable | Only available on CAMs |
 
 ## Project's State and Missing Fields
 
@@ -342,7 +323,7 @@ These fields are generally optional and relatively unimportant. They will be add
 
 ## Advanced Usage
 
-### Measuring processing performance & MQTT/DDS latency
+### Measuring processing performance & MQTT/DDS/Zenoh latency
 
 Each JSON payload that is output by Vanetza contains two different timestamps in UNIX time format.
 
@@ -358,15 +339,15 @@ The difference between the "test/json_timestamp" field and the time at which a g
 #### vanetza/own/cam
 
 - "timestamp": The instant at which the internal timer scheduled the transmission of a new self-generated CAM message
-- "test/json_timestamp": The instant at which Vanetza finished preparing the JSON payload in order to send it via MQTT and/or DDS.
+- "test/json_timestamp": The instant at which Vanetza finished preparing the JSON payload in order to send it via MQTT, DDS and/or Zenoh.
 
 The difference between these timestamps represents the total time elapsed while performing the encoding and queueing of the ASN.1 message and the JSON generation pipeline.
 
-The difference between the "test/json_timestamp" field and the time at which a given client receives a message on this topic represents the total latency introduced by MQTT/DDS and the underlying network
+The difference between the "test/json_timestamp" field and the time at which a given client receives a message on this topic represents the total latency introduced by MQTT/DDS/Zenoh and the underlying network
 
 #### vanetza/time/xxx
 
-- "timestamp": The instant at which the JSON payload was received in the "vanetza/in/xxx" MQTT/DDS topic
+- "timestamp": The instant at which the JSON payload was received in the "vanetza/in/xxx" MQTT/DDS/Zenoh topic
 - "test/wave_timestamp": The instant at which Vanetza finished preparing and sending the ASN.1 encoded message through the WAVE interface
 
 The difference between these timestamps represents the total time elapsed while parsing the JSON message and encoding and queueing the ASN.1 message. 
@@ -375,8 +356,6 @@ The difference between the "test/wave_timestamp" field and the time at which a g
 
 
 **Note**: The "json_timestamp" fields need to be included in the JSON payload itself. This introduces a slight error margin that is unavoidable in this scenario.
-
-**Note**: For legacy reasons, the "vanetza/out/cam_full" topic uses "others" instead of "test".
 
 ### Simulating situations where stations become out of range from each other
 
@@ -416,6 +395,11 @@ You may also use NAP's [dds-mqtt-adapter](https://code.nap.av.it.pt/atcll/dds-mq
 This may be useful for:
 * Allowing developers easy access to the exchanged messages, for debugging or monitoring purposes
 * Allowing less critical services to effectively subscribe to a DDS topic via MQTT, if NAP-Vanetza's MQTT functionality is disabled for performance reasons.
+
+### Zenoh
+NAP-Vanetza also supports publishing and subscribing to Zenoh keys. This allows users to leverage Zenoh's unique features such as its efficient data dissemination through peer-to-peer communication and routing. Vanetza's Zenoh implementation supports both shared memory communication for intra-host data exchange and UDP communication for inter-host data exchange, making it a versatile choice for various deployment scenarios.
+
+To use it, simply activate the <message_type>.zenoh_enabled configuration flags. NAP-Vanetza will use the same topic names configured for MQTT. All technologies may be used simultaneously, if required.
 
 ### Prometheus Metrics
 
@@ -458,7 +442,7 @@ Maintenance is coordinated by Raphael Riebl.
 
 Development of NAP-Vanetza is part of ongoing research work at [Instituto de Telecomunicações' Network Architectures and Protocols Group](https://www.it.pt/Groups/Index/36).
 
-Questions and Bug Reports: @rrosmaninho / r.rosmaninho@av.it.pt
+Questions and Bug Reports: jp.amaral@av.it.pt
 
 ## License
 
