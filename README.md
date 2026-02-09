@@ -18,18 +18,30 @@ If you find this code useful in your research, please consider citing :
 
 ## Table of Contents
 
-* [Introduction and Containerized Usage Guide](#introduction-and-containerized-usage-guide)
-* [Setting up](#setting-up)
-* [Usage](#usage)
-* [Wireshark](#wireshark)
-* [MQTT](#mqtt)
-* [Constructing the JSON messages according to ETSI specifications](#constructing-the-json-messages-according-to-etsi-specifications)
-* [Configuration](#configuration)
-* [Variable transformations](#variable-transformations)
-* [Project's State and Missing Fields](#projects-state-and-missing-fields)
-* [Advanced Usage](#advanced-usage)
-* [Authors](#authors)
-* [License](#license)
+## Table of Contents
+
+- [Vanetza-NAP](#vanetza-nap)
+  - [Introduction and Containerized Usage Guide](#introduction-and-containerized-usage-guide)
+  - [Setting up](#setting-up)
+  - [Usage](#usage)
+    - [Updating the Vanetza image](#updating-the-vanetza-image)
+    - [Building the Vanetza image locally](#building-the-vanetza-image-locally)
+    - [Running in the background](#running-in-the-background)
+  - [Wireshark](#wireshark)
+  - [MQTT](#mqtt)
+  - [Constructing the JSON messages according to ETSI specifications](#constructing-the-json-messages-according-to-etsi-specifications)
+    - [Error Messages](#error-messages)
+  - [Configuration](#configuration)
+  - [Variable transformations](#variable-transformations)
+  - [Project's State and Missing Fields](#projects-state-and-missing-fields)
+  - [Advanced Usage](#advanced-usage)
+    - [Measuring processing performance & MQTT/DDS/Zenoh latency](#measuring-processing-performance--mqttddszenoh-latency)
+    - [Simulating situations where stations become out of range from each other](#simulating-situations-where-stations-become-out-of-range-from-each-other)
+    - [DDS](#dds)
+    - [Zenoh](#zenoh)
+    - [Prometheus Metrics](#prometheus-metrics)
+  - [Authors](#authors)
+  - [License](#license)
 
 
 ## Introduction and Containerized Usage Guide
