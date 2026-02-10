@@ -16,7 +16,33 @@ If you find this code useful in your research, please consider citing :
         doi={10.1109/VNC61989.2024.10575959}
     }
 
-### Introduction and Containerized Usage Guide
+## Table of Contents
+
+- [Vanetza-NAP](#vanetza-nap)
+  - [Introduction and Containerized Usage Guide](#introduction-and-containerized-usage-guide)
+  - [Setting up](#setting-up)
+  - [Usage](#usage)
+    - [Updating the Vanetza image](#updating-the-vanetza-image)
+    - [Building the Vanetza image locally](#building-the-vanetza-image-locally)
+    - [Running in the background](#running-in-the-background)
+  - [Wireshark](#wireshark)
+  - [MQTT](#mqtt)
+  - [Constructing the JSON messages according to ETSI specifications](#constructing-the-json-messages-according-to-etsi-specifications)
+    - [Error Messages](#error-messages)
+  - [Configuration](#configuration)
+  - [Variable transformations](#variable-transformations)
+  - [Advanced Usage](#advanced-usage)
+    - [Measuring processing performance & MQTT/DDS/Zenoh latency](#measuring-processing-performance--mqttddszenoh-latency)
+    - [Simulating situations where stations become out of range from each other](#simulating-situations-where-stations-become-out-of-range-from-each-other)
+    - [DDS](#dds)
+    - [Zenoh](#zenoh)
+    - [Prometheus Metrics](#prometheus-metrics)
+  - [Project's State and Missing Fields](#projects-state-and-missing-fields)
+  - [Authors](#authors)
+  - [License](#license)
+
+
+## Introduction and Containerized Usage Guide
 
 Vanetza-NAP extends the base Vanetza project to integrate MQTT/DDS/Zenoh and JSON capabilities, as well as additional types of ETSI C-ITS messages.
 
@@ -43,13 +69,15 @@ Put simply, NAP-Vanetza's purpose is to manage the encoding, decoding, sending, 
 Applications that need to send ETSI C-ITS messages interact with the service by building a JSON representation of the given message and publishing it in a specific MQTT topic, which Vanetza subscribes to.
 Likewise, applications that need to receive incoming messages do so by subscribing to the respective MQTT/DDS/Zenoh topics, that Vanetza publishes JSON to.
 
+Inside the folder **examples** you can find example JSON representations for some of the supported message types.
+
 The following diagram examplifies a common usage pattern:
 
 ![Generic Diagram](https://i.ibb.co/PxRWMz5/generic-diagram.png)
 
 Note: In the case of CAMs, NAP-Vanetza also has a pre-defined "hard-coded" CAM message which is periodically sent at a configurable frequency and with updated GPS values, without the need for an external application to publish JSON CAMs (which is also allowed). This behaviour can be disabled.
 
-## Setting up (Docker)
+## Setting up
 
 1. Install docker and docker-compose
 ```
@@ -68,7 +96,7 @@ sudo apt install docker-ce docker-compose
 docker network create vanetzalan0 --subnet 192.168.98.0/24
 ```
 
-## Usage (Docker)
+## Usage 
 
 To start the Vanetza containers run:
 ```
@@ -85,7 +113,7 @@ Each container includes an embeded MQTT broker in order to fully simulate the co
 
 ![Docker Diagram](https://i.ibb.co/XxCzVZK/docker-diagram.png)
 
-#### Updating the Vanetza image
+### Updating the Vanetza image
 
 You may update Vanetza to the lastest version by running the following command:
 
@@ -94,6 +122,16 @@ docker pull code.nap.av.it.pt:5050/mobility-networks/vanetza-nap:latest
 ```
 
 Try to do this regularly, since NAP-Vanetza is in active development and new features and bug fixes are frequently added.
+
+### Building the Vanetza image locally
+
+If you want to make changes to the Vanetza code or use a specific version of NAP-Vanetza, you can build the image locally by running the following command in the project's root directory:
+
+```
+docker build -t vanetza-nap:latest .
+```
+
+This will build the image using the Dockerfile located in the root directory and tag it as "vanetza-nap:latest". You can then use this image in your `docker-compose.yml` file by replacing `code.nap.av.it.pt:5050/mobility-networks/vanetza-nap:latest` with `vanetza-nap:latest`.
 
 
 #### Running in the background
@@ -118,7 +156,7 @@ sudo apt install docker-compose-plugin
 ```
 And run the commands above, replacing *docker-compose* with *docker compose*
 
-### Wireshark
+## Wireshark
 
 Wireshark can be used to sniff and analyse the ETSI C-ITS messages exchanged between the different containers on the virtual network interface created by Docker
 
@@ -135,7 +173,7 @@ eth.type == 0x8947
 ```
 
 
-### MQTT
+## MQTT
 
 
 
@@ -163,18 +201,19 @@ mosquitto_pub -h 192.168.98.10 -t "vanetza/in/cam" -m '{"camParameters":{"basicC
 MQTT can also be easily integrated into your application's code by using third-party libraries such as [paho-mqtt](https://pypi.org/project/paho-mqtt/), available for multiple programming languages.
 
 
-### Constructing the JSON messages according to ETSI specifications
+## Constructing the JSON messages according to ETSI specifications
 
 In order to make the encoding and decoding process possible, the JSON messages received and sent by Vanetza through MQTT are required to follow the strict format specified in each message type's respective ETSI specification document.
 
 You may consult those documents in the following links:
-* [Common to all messages - ETSI TS 102 894-2 V1.2.1](https://www.etsi.org/deliver/etsi_ts/102800_102899/10289402/01.02.01_60/ts_10289402v010201p.pdf) - Annex A & B
-* [CAM - ETSI EN 302 637-2 V1.4.1](https://www.etsi.org/deliver/etsi_EN/302600_302699/30263702/01.04.01_30/en_30263702v010401v.pdf) - Annex A & B
-* [DENM - ETSI EN 302 637-3 V1.2.1](https://www.etsi.org/deliver/etsi_en/302600_302699/30263703/01.02.01_30/en_30263703v010201v.pdf) - Annex A & B
-* [CPM - ETSI TR 103 562 V2.1.1](https://www.etsi.org/deliver/etsi_tr/103500_103599/103562/02.01.01_60/tr_103562v020101p.pdf) - Annex A & B
-* [VAM - ETSI TS 103 300-3 V2.1.1](https://www.etsi.org/deliver/etsi_ts/103300_103399/10330003/02.01.01_60/ts_10330003v020101p.pdf) - Annex A & B
-* [SPATEM - ETSI TS 103 301 V1.1.1](https://www.etsi.org/deliver/etsi_ts/103300_103399/103301/01.01.01_60/ts_103301v010101p.pdf) - Annex A (and Common Data Types)
-* [MAPEM - ETSI TS 103 301 V1.1.1](https://www.etsi.org/deliver/etsi_ts/103300_103399/103301/01.01.01_60/ts_103301v010101p.pdf) - Annex B (and Common Data Types)
+* [Common to some messages - ETSI TS 102 894-2 V1.2.1](https://forge.etsi.org/rep/ITS/asn1/cdd_ts102894_2/-/tree/v1.2.1)
+* [Common to some messages - ETSI TS 102 894-2 V2.1.1](https://forge.etsi.org/rep/ITS/asn1/cdd_ts102894_2/-/tree/v2.1.1)
+* [CAM - ETSI TS 103 900 V2.2.1](https://forge.etsi.org/rep/ITS/asn1/cam_ts103900/-/tree/v2.2.1)
+* [DENM - ETSI TS 103 831 V2.2.1](https://forge.etsi.org/rep/ITS/asn1/denm_ts103831/-/tree/v2.2.1)
+* [CPM - ETSI TR 103 562 V2.1.1](https://forge.etsi.org/rep/ITS/asn1/cpm_ts103324/-/tree/v2.1.1)
+* [VAM - ETSI TS 103 300-3 V2.1.1](https://forge.etsi.org/rep/ITS/asn1/vam-ts103300_3/-/tree/v2.1.1)
+* [SPATEM - ETSI TS 103 301 V1.1.1](https://forge.etsi.org/rep/ITS/asn1/is_ts103301/-/tree/v1.2.1?ref_type=tags)
+* [MAPEM - ETSI TS 103 301 V1.1.1](https://forge.etsi.org/rep/ITS/asn1/is_ts103301/-/tree/v1.2.1?ref_type=tags)
   
 
 NAP-Vanetza includes some examples of valid JSON messages in the examples folder.
@@ -263,7 +302,7 @@ The following table summarizes the available configuration options:
 | general.num_threads | VANETZA_NUM_THREADS | Number of threads to use in Vanetza's thread pool for parallel processing of messages | 4 | |
 | general.publish_encoded_payloads | VANETZA_PUBLISH_ENCODED_PAYLOADS | Publish the raw ASN.1 encoded messages to DDS topics, in addition to the JSON representations | false | Only recommended for debugging purposes, as it may introduce significant latency |
 | general.debug_enabled | VANETZA_DEBUG_ENABLED | Enable debug prints in the terminal/logs | false | |
-|general.zenoh_local_only | VANETZA_ZENOH_LOCAL_ONLY | Use Zenoh in same host only mode, without connecting to any remote router or peer | true | Advanced usage only |
+| general.zenoh_local_only | VANETZA_ZENOH_LOCAL_ONLY | Use Zenoh in same host only mode, without connecting to any remote router or peer | true | Advanced usage only |
 | general.zenoh_interfaces | VANETZA_ZENOH_INTERFACES | Comma-separated list of network interfaces to use for Zenoh communication when not in local-only mode |  | Advanced usage only |
 | station.id | VANETZA_STATION_ID | ETSI Station ID field | 99 | |
 | station.type | VANETZA_STATION_TYPE | ETSI Station Type field | 15 | |
@@ -297,29 +336,51 @@ Each supported type of message (CAM, DENM, CPM, VAM, SPATEM, MAPEM) has its own 
 | cam.udp_out_port | VANETZA_CAM_UDP_OUT_PORT | Port of the UDP server to which Vanetza sends decoded JSON CAMs, in order to minimize communication latency - Used in NAP's Connection Manager v1 | 5051 | 0 to disable |
 | cam.own_topic_out | VANETZA_CAM_OWN_TOPIC_OUT | MQTT/DDS topic to which Vanetza sends a JSON representation of the hardcoded CAMs| vanetza/own/cam | "" to disable | Only available on CAMs |
 
-## Project's State and Missing Fields
+## Variable transformations
 
-The NAP-Vanetza project is still under active development and is frequently updated to introduce new features and correct issues.
-Please report any problems you encounter.
+To facilitate the construction of JSON messages, Vanetza performs some transformations on certain fields that are required to be in a specific format or unit according to the ETSI specifications. These transformations are applied both to incoming and outgoing messages.
 
-The following field types are not yet supported by Vanetza. As such, they will be absent from JSON messages generated by Vanetza and ignored in messages received by Vanetza.
+For example, the latitude and longitude fields in CAM messages are represented in the JSON messages as decimal degrees, while the ETSI specifications require them to be in a fixed-point format with a specific scale factor. Vanetza automatically performs the necessary conversions to ensure that the messages conform to the ETSI specifications.
 
-These fields are generally optional and relatively unimportant. They will be added later on a case-by-case basis, should they become necessary.
+The file **tools/socktap/asn1json.py** contains a `transformation` dictionary that defines the transformations applied to each field.  Bellow, a table summarizing the transformations applied to the most common fields used in all supported message types:
 
-* PhoneNumber
-* OpeningDaysHours
-* MessageFrame
-* DescriptiveName
-* RegionalExtension
-* Iso3833VehicleType
-* REG-EXT-ID-AND-TYPE.&id
-* REG-EXT-ID-AND-TYPE.&Type
-* MESSAGE-ID-AND-TYPE.&id 
-* MESSAGE-ID-AND-TYPE.&Type
-* PreemptPriorityList 
-* WMInumber 
-* VDS
-* TemporaryID
+| Variable Type | JSON Format | ETSI Format | Transformation Description |
+| ----------- | ----------- | ----------- | ----------- |
+| Latitude | Decimal degrees (e.g., 40.628349) | Integer value representing latitude in units of 10⁻⁷ degrees (e.g., 406283493) | Values are scaled by a factor of 10⁷ when converting between JSON and ETSI representations (ETSI = JSON × 10⁷, JSON = ETSI ÷ 10⁷) |
+| Longitude | Decimal degrees (e.g., -8.654390) | Integer value representing longitude in units of 10⁻⁷ degrees (e.g., -865439000) | Values are scaled by a factor of 10⁷ when converting between JSON and ETSI representations (ETSI = JSON × 10⁷, JSON = ETSI ÷ 10⁷) |
+| CartesianCoordinateLarge | Decimal meters (e.g., 123.45) | Integer value representing distance in units of 10⁻² meters (e.g., 12345) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| CartesianCoordinate | Decimal meters (e.g., 123.45) | Integer value representing distance in units of 10⁻² meters (e.g., 12345) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| SteeringWheelAngleValue | Decimal degrees (e.g., 15.0) | Integer value representing angle in units of 2/3 degrees (e.g., 22) | Values are scaled by a factor of 2/3 when converting between JSON and ETSI representations (ETSI = JSON × (2/3), JSON = ETSI ÷ (2/3)) |
+| AltitudeValue | Decimal meters (e.g., 800.0) | Integer value representing altitude in units of 10⁻² meters (e.g., 80000) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| HeadingValue | Decimal degrees (e.g., 153.0) | Integer value representing heading in units of 10⁻¹ degrees (e.g., 1530) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| HeadingConfidence | Decimal between 0 and 1 (e.g., 0.9) | Integer value representing confidence level (e.g., 9) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| VelocityComponentValue | Decimal meters per second (e.g., 8.7) | Integer value representing speed in units of 10⁻² meters per second (e.g., 870) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| SpeedConfidence | Decimal between 0 and 1 (e.g., 0.95) | Integer value representing confidence level (e.g., 95) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| VehicleLengthValue | Decimal meters (e.g., 10.2) | Integer value representing vehicle length in units of 10⁻¹ meters (e.g., 102) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| VehicleWidth | Decimal meters (e.g., 3.0) | Integer value representing vehicle width in units of 10⁻¹ meters (e.g., 30) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| LongitudinalAccelerationValue | Decimal meters per second squared (e.g., -0.4) | Integer value representing acceleration in units of 10⁻¹ meters per second squared (e.g., -4) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| AccelerationValue | Decimal meters per second squared (e.g., -0.4) | Integer value representing acceleration in units of 10⁻¹ meters per second squared (e.g., -4) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| AccelerationConfidence | Decimal between 0 and 1 (e.g., 0.9) | Integer value representing confidence level (e.g., 9) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| YawRateValue | Decimal degrees per second (e.g., 11.0) | Integer value representing yaw rate in units of 10⁻² degrees per second (e.g., 1100) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| DistanceValue | Decimal meters (e.g., 10.0) | Integer value representing distance in units of 10⁻² meters (e.g., 1000) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| DistanceConfidence | Decimal between 0 and 1 (e.g., 0.95) | Integer value representing confidence level (e.g., 95) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| SpeedValueExtended | Decimal meters per second (e.g., 8.7) | Integer value representing speed in units of 10⁻² meters per second (e.g., 870) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| LateralAccelerationValue | Decimal meters per second squared (e.g., -0.4) | Integer value representing acceleration in units of 10⁻¹ meters per second squared (e.g., -4) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| LongitudinalAccelerationValue | Decimal meters per second squared (e.g., -0.4) | Integer value representing acceleration in units of 10⁻¹ meters per second squared (e.g., -4) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| VerticalAccelerationValue | Decimal meters per second squared (e.g., -0.4) | Integer value representing acceleration in units of 10⁻¹ meters per second squared (e.g., -4) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) | |
+| ObjectDimensionValue | Decimal meters (e.g., 15.5) | Integer value representing object dimension in units of 10⁻¹ meters (e.g., 155) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| WGS84AngleValue | Decimal degrees (e.g., 15.5) | Integer value representing angle in units of 10⁻¹ degrees (e.g., 155) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| CartesianAngleValue | Decimal degrees (e.g., 15.5) | Integer value representing angle in units of 10⁻¹ degrees (e.g., 155) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| SensorHeight | Decimal meters (e.g., 1.5) | Integer value representing sensor height in units of 10⁻² meters (e.g., 150) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| SemiRangeLength | Decimal meters (e.g., 10.0) | Integer value representing semi-range length in units of 10⁻¹ meters (e.g., 100) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| Radius | Decimal meters (e.g., 5.0) | Integer value representing radius in units of 10⁻¹ meters (e.g., 50) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+| DeltaLatitude | Decimal degrees (e.g., 0.0001) | Integer value representing latitude difference in units of 10⁻⁷ degrees (e.g., 10000) | Values are scaled by a factor of 10⁷ when converting between JSON and ETSI representations (ETSI = JSON × 10⁷, JSON = ETSI ÷ 10⁷) |
+| DeltaLongitude | Decimal degrees (e.g., 0.0001) | Integer value representing longitude difference in units of 10⁻⁷ degrees (e.g., 10000) | Values are scaled by a factor of 10⁷ when converting between JSON and ETSI representations (ETSI = JSON × 10⁷, JSON = ETSI ÷ 10⁷) |
+| DeltaAltitude | Decimal meters (e.g., 1.5) | Integer value representing altitude difference in units of 10⁻² meters (e.g., 150) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| CoordinateConfidence | Decimal between 0 and 1 (e.g., 0.95) | Integer value representing confidence level (e.g., 95) | Values are scaled by a factor of 10² when converting between JSON and ETSI representations (ETSI = JSON × 10², JSON = ETSI ÷ 10²) |
+| TimestampIts | Decimal seconds (e.g., 123.456) | Integer value representing timestamp in units of 10⁻³ seconds (e.g., 123456) | Values are scaled by a factor of 10³ when converting between JSON and ETSI representations (ETSI = JSON × 10³, JSON = ETSI ÷ 10³) |
+| AngleConfidence | Decimal between 0 and 1 (e.g., 0.9) | Integer value representing confidence level (e.g., 9) | Values are scaled by a factor of 10 when converting between JSON and ETSI representations (ETSI = JSON × 10, JSON = ETSI ÷ 10) |
+
 
 ## Advanced Usage
 
@@ -435,6 +496,32 @@ observed_packets_latency_total{direction="rx",message="cam"}
 
 These are easily extensible.
 
+## Project's State and Missing Fields
+
+The NAP-Vanetza project is still under active development and is frequently updated to introduce new features and correct issues.
+Please report any problems you encounter.
+
+The following field types are not yet supported by Vanetza. As such, they will be absent from JSON messages generated by Vanetza and ignored in messages received by Vanetza.
+
+These fields are generally optional and relatively unimportant. They will be added later on a case-by-case basis, should they become necessary.
+
+* PhoneNumber
+* OpeningDaysHours
+* MessageFrame
+* DescriptiveName
+* RegionalExtension
+* Iso3833VehicleType
+* REG-EXT-ID-AND-TYPE.&id
+* REG-EXT-ID-AND-TYPE.&Type
+* MESSAGE-ID-AND-TYPE.&id 
+* MESSAGE-ID-AND-TYPE.&Type
+* PreemptPriorityList 
+* WMInumber 
+* VDS
+* TemporaryID
+
+Updates to new releases of the ETSI specifications may be introduced in the future.
+
 ## Authors
 
 Development of Vanetza is part of ongoing research work at [Technische Hochschule Ingolstadt](https://www.thi.de/forschung/carissma/labore/car2x-labor/).
@@ -442,7 +529,7 @@ Maintenance is coordinated by Raphael Riebl.
 
 Development of NAP-Vanetza is part of ongoing research work at [Instituto de Telecomunicações' Network Architectures and Protocols Group](https://www.it.pt/Groups/Index/36).
 
-Questions and Bug Reports: jp.amaral@av.it.pt
+Questions and Bug Reports: jp.amaral@av.it.pt / andreiagf@av.it.pt
 
 ## License
 
