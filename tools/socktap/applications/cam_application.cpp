@@ -313,6 +313,7 @@ Document CamApplication::buildJSON(CAM_PDU_Description_CAM_t message, double tim
         jsonTest.AddMember("channel_tx_time", channel_info.chan_tx_time, fullAllocator);
     }
     jsonTest.AddMember("json_timestamp", time_now, fullAllocator);
+    if(channel_info.frequency == 117100112) jsonTest.AddMember("transport_type", "UDP", fullAllocator);
     cam_json_full.AddMember("test", jsonTest, fullAllocator);
     return cam_json_full;
 }

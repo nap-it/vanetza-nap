@@ -129,6 +129,7 @@ Document EvrsrmApplication::buildJSON(EV_RSR_t message, double time_reception, i
     }
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     jsonTest.AddMember("json_timestamp", time_now, allocator);
+    if(channel_info.frequency == 117100112) jsonTest.AddMember("transport_type", "UDP", allocator);
     document.AddMember("test", jsonTest, allocator);
     return document;
 }
