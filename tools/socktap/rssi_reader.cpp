@@ -320,10 +320,10 @@ int rssi_main() {
 
   survey.frequency = -1;
 
-  printf("Initializing netlink 802.11\n");
+  printf("[RSSI] Initializing netlink 802.11\n");
   nl.id = initNl80211(&nl, &w, &survey);
   if (nl.id < 0) {
-    fprintf(stderr, "Error initializing netlink 802.11\n");
+    fprintf(stderr, "[RSSI] Error initializing netlink 802.11\n");
     return -1;
   }
 
