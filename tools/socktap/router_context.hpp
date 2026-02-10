@@ -23,7 +23,7 @@ vanetza::geonet::Router* get_router(int i);
 class RouterContext
 {
 public:
-    RouterContext(const vanetza::geonet::MIB&, TimeTrigger&, vanetza::PositionProvider&, vanetza::security::SecurityEntity*, bool ignore_own_messages_, bool ignore_rsu_messages_, int num_threads_, boost::asio::io_service&);
+    RouterContext(const vanetza::geonet::MIB&, TimeTrigger&, vanetza::PositionProvider&, vanetza::security::SecurityEntity*, bool ignore_own_messages_, bool ignore_rsu_messages_, int num_threads_, boost::asio::io_context&);
     ~RouterContext();
     void enable(Application*);
     void disable(Application*);
@@ -49,7 +49,7 @@ private:
     void update_packet_flow(const vanetza::geonet::LongPositionVector&);
 
     vanetza::geonet::MIB mib_;
-    boost::asio::io_service& io_context_;
+    boost::asio::io_context& io_context_;
     vanetza::PositionProvider& positioning_;
     std::unique_ptr<DccPassthrough> request_interface_;
     std::list<Application*> applications_;

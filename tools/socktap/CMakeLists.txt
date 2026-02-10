@@ -44,12 +44,15 @@ add_executable(socktap
     ethernet_device.cpp
     link_layer.cpp
     main.cpp
+	multi_link.cpp
     positioning.cpp
     rssi_reader.cpp
     raw_socket_link.cpp
     router_context.cpp
     security.cpp
+    tcp_link.cpp
     time_trigger.cpp
+    udp_link.cpp
     ${FASTDDS_SRC})
 
 target_link_libraries(socktap PUBLIC mosquittopp fastrtps fastcdr)

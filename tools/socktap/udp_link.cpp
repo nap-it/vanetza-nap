@@ -1,0 +1,84 @@
+#include "udp_link.hpp"
+#include <vanetza/access/data_request.hpp>
+#include <vanetza/net/ethernet_header.hpp>
+#include <boost/asio/ip/multicast.hpp>
+#include <iostream>
+#include <chrono>
+
+namespace ip = boost::asio::ip;
+using namespace vanetza;
+using namespace std::chrono;
+
+UdpLink::UdpLink(boost::asio::io_context& io_context, const ip::udp::endpoint& endpoint, const EthernetDevice& device) :
+    multicast_endpoint_(endpoint),
+    tx_socket_(io_context), rx_socket_(io_context),
+    rx_buffer_(2560, 0x00)
+{
+    auto ip = device.ip();
+
+    tx_socket_.open(multicast_endpoint_.protocol());
+    if (!ip.is_unspecified()) {
+        boost::asio::ip::multicast::outbound_interface option(ip);
+        tx_socket_.set_option(option);
+    }
+
+    rx_socket_.open(multicast_endpoint_.protocol());
+    rx_socket_.set_option(ip::udp::socket::reuse_address(true));
+    rx_socket_.bind(multicast_endpoint_);
+    rx_socket_.set_option(ip::multicast::enable_loopback(false));
+    if(!ip.is_unspecified() && multicast_endpoint_.address().is_v4()) {
+        rx_socket_.set_option(ip::multicast::join_group(multicast_endpoint_.address().to_v4(), ip));
+    } else {
+        rx_socket_.set_option(ip::multicast::join_group(multicast_endpoint_.address()));
+    }
+
+    do_receive();
+}
+
+void UdpLink::indicate(IndicationCallback cb)
+{
+    callback_ = cb;
+}
+
+void UdpLink::do_receive()
+{
+    rx_socket_.async_receive_from(boost::asio::buffer(rx_buffer_), rx_endpoint_,
+            [this](boost::system::error_code ec, std::size_t length) {
+                if (!ec) {
+                    ByteBuffer buffer(rx_buffer_.begin(), rx_buffer_.begin() + length);
+                    CohesivePacket packet(std::move(buffer), OsiLayer::Link);
+                    if (packet.size(OsiLayer::Link) < EthernetHeader::length_bytes) {
+                        std::cerr << "Dropped UDP packet too short to contain Ethernet header\n";
+                    } else {
+                        double time_reception = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
+                        packet.time_received = time_reception;
+                        packet.frequency = 117100112; // UDP dummy value
+                        packet.set_boundary(OsiLayer::Link, EthernetHeader::length_bytes);
+                        auto link_range = packet[OsiLayer::Link];
+                        boost::optional<EthernetHeader> eth = decode_ethernet_header(link_range.begin(), link_range.end());
+                        std::stringstream stream;
+                        stream << eth->source;
+                        std::string source_mac(stream.str());
+                        packet.source = source_mac;
+                        if (callback_) {
+                            callback_(std::move(packet), *eth);
+                        }
+                    }
+                    do_receive();
+                }
+            });
+}
+
+void UdpLink::request(const access::DataRequest& request, std::unique_ptr<ChunkPacket> packet)
+{
+    packet->layer(OsiLayer::Link) = create_ethernet_header(request.destination_addr, request.source_addr, request.ether_type);
+
+    std::array<boost::asio::const_buffer, layers_> const_buffers;
+    for (auto& layer : osi_layer_range<OsiLayer::Link, OsiLayer::Application>()) {
+        const auto index = distance(OsiLayer::Link, layer);
+        packet->layer(layer).convert(tx_buffers_[index]);
+        const_buffers[index] = boost::asio::buffer(tx_buffers_[index]);
+    }
+
+    tx_socket_.send_to(const_buffers, multicast_endpoint_);
+}

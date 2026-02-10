@@ -20,12 +20,16 @@
 #include "security.hpp"
 #include "time_trigger.hpp"
 #include "config.hpp"
-#include <boost/asio/io_service.hpp>
+#include <boost/asio/io_context.hpp>
 #include <boost/asio/signal_set.hpp>
 #include <boost/program_options.hpp>
+#include <memory>
+#include <string>
+#include <vanetza/common/annotation.hpp>
 #include <iostream>
 #include <prometheus/exposer.h>
 #include <unistd.h>
+#include "multi_link.hpp"
 
 // DEBUG PURPOSES:
 #include <thread>
@@ -70,8 +74,8 @@ int main(int argc, const char** argv)
     read_config(&config_s, vm["config"].as<std::string>());
 
     try {
-        asio::io_service io_service;
-        TimeTrigger trigger(io_service);
+        asio::io_context io_context;
+        TimeTrigger trigger(io_context);
 
         // DEBUG PURPOSES
         //std::this_thread::sleep_for(std::chrono::milliseconds(20000));
@@ -93,21 +97,38 @@ int main(int argc, const char** argv)
             std::string source_mac(stream.str());
             config_s.mac_address = source_mac;
         }
+		
+		std::unique_ptr<LinkLayer> link_layer = nullptr;
 
-        const std::string link_layer_name = "ethernet";
-        auto link_layer =  create_link_layer(io_service, device, link_layer_name, device_name, config_s.rssi_enabled);
-        if (!link_layer) {
-            std::cerr << "No link layer '" << link_layer_name << "' found." << std::endl;
-            return 1;
-        }
+		if (config_s.ipv4_enabled) {
+			auto multi_link = std::make_unique<MultiLink>(MultiLink::TransmitPolicy::All);
 
-        auto signal_handler = [&io_service](const boost::system::error_code& ec, int signal_number) {
+            // The order that the layers are added to the multi link matters, because it determines the order in which the packet is transmitted.
+            auto eth_layer = create_link_layer(io_context, device, "ethernet", device_name, config_s.rssi_enabled);
+			if (eth_layer) {
+				multi_link->add_layer(std::move(eth_layer));
+			}
+
+			const char* ipv4_device_name = config_s.ipv4_interface.c_str();
+			EthernetDevice ipv4_device(ipv4_device_name);
+			auto ipv4_layer = create_link_layer(io_context, ipv4_device, "udp", ipv4_device_name, config_s.rssi_enabled, config_s.ipv4_address, config_s.ipv4_port);
+			if (ipv4_layer) {
+				multi_link->add_layer(std::move(ipv4_layer));
+			}
+
+			link_layer =  std::move(multi_link);
+		} else {
+			link_layer = create_link_layer(io_context, device, "ethernet", device_name, config_s.rssi_enabled);
+		}
+
+        auto signal_handler = [&io_context](const boost::system::error_code& ec, int signal_number) {
+            mark_unused(signal_number);
             if (!ec) {
                 std::cout << "Termination requested." << std::endl;
-                io_service.stop();
+                io_context.stop();
             }
         };
-        asio::signal_set signals(io_service, SIGINT, SIGTERM);
+        asio::signal_set signals(io_context, SIGINT, SIGTERM);
         signals.async_wait(signal_handler);
 
         // configure management information base
@@ -126,7 +147,7 @@ int main(int argc, const char** argv)
             throw std::runtime_error("Unsupported GeoNetworking version, only version 0 and 1 are supported.");
         }
 
-        auto positioning = create_position_provider(io_service, vm, config_s, trigger.runtime());
+        auto positioning = create_position_provider(io_context, vm, config_s, trigger.runtime());
         if (!positioning) {
             std::cerr << "Requested positioning method is not available\n";
             return 1;
@@ -165,7 +186,7 @@ int main(int argc, const char** argv)
             num_threads = config_s.num_threads;
         }
 
-        RouterContext context(mib, trigger, *positioning, security.get(), config_s.ignore_own_messages, config_s.ignore_rsu_messages, num_threads, io_service);
+        RouterContext context(mib, trigger, *positioning, security.get(), config_s.ignore_own_messages, config_s.ignore_rsu_messages, num_threads, io_context);
         context.set_link_layer(link_layer.get());
         context.require_position_fix(vm.count("require-gnss-fix") > 0);
 
@@ -304,7 +325,7 @@ int main(int argc, const char** argv)
             context.enable(app.second.get());
         }
 
-        io_service.run();
+        io_context.run();
     } catch (PositioningException& e) {
         std::cerr << "Exit because of positioning error: " << e.what() << std::endl;
         return 1;

@@ -43,17 +43,13 @@ VamApplication::VamApplication(PositionProvider& positioning, Runtime& rt, PubSu
 
     if(config_s.vam.mqtt_enabled) {
         pubsub->manual_subscribe(config_s.vam, config_s.vam.topic_in, this);
-        // pubsub->manual_subscribe(config_s.vam, config_s.full_vam_topic_in, this);
     }
     if(config_s.vam.mqtt_enabled && pubsub->remote_mqtt != NULL) {
         pubsub->manual_subscribe(config_s.vam, config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.vam.topic_in, this);
-        // pubsub->manual_subscribe(config_s.vam, config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_vam_topic_in, this);
     }
     if(config_s.vam.dds_enabled) {
         pubsub->manual_provision(config_s.vam, config_s.vam.topic_out);
-        // pubsub->manual_provision(config_s.vam, config_s.full_vam_topic_out);
         pubsub->manual_provision(config_s.vam, config_s.vam.topic_time);
-        // pubsub->manual_provision(config_s.vam, config_s.full_vam_topic_time);
     }
 
     if(config_s.vam.zenoh_enabled) {
@@ -94,7 +90,6 @@ void VamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     std::shared_ptr<const asn1::Vam> vam = boost::apply_visitor(visitor, *packet);
     if (vam == 0) {
         std::cout << "-- Vanetza Decoding Error --\nReceived an encoded VAM message that does not meet ETSI spec" << std::endl;
-        //std::cout << "\nInvalid sender: " << cp. << std::endl;
         return;
     }
     VAM_t vam_t = {(*vam)->header, (*vam)->vam};
@@ -142,24 +137,6 @@ void VamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
     if(config_s.vam.mqtt_enabled && pubsub->remote_mqtt != NULL) pubsub->remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.vam.topic_out, simpleJSON);
     const double time_simple_remote = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
 
-    // StringBuffer fullBuffer;
-    // Writer<StringBuffer> fullWriter(fullBuffer);
-    // vam_json_full.Accept(fullWriter);
-    // const char* fullJSON = fullBuffer.GetString();
-
-    /*
-    if(config_s.vam.udp_out_port != 0) {
-        vam_udp_socket.send_to(buffer(fullJSON, strlen(fullJSON)), vam_remote_endpoint, 0, vam_err);
-    }
-    const double time_full_udp = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.vam.dds_enabled) pubsub->dds->publish(config_s.full_vam_topic_out, fullJSON);
-    const double time_full_dds = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.vam.mqtt_enabled) pubsub->local_mqtt->publish(config_s.full_vam_topic_out, fullJSON);
-    const double time_full_local = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    if(config_s.vam.mqtt_enabled && pubsub->remote_mqtt != NULL) pubsub->remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_vam_topic_out, fullJSON);
-    const double time_full_remote = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
-    */
-
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     prom_mtx.lock();
     vam_rx_counter->Increment();
@@ -174,14 +151,7 @@ void VamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
         if (config_s.vam.zenoh_enabled != 0) vam_json["test"].AddMember("full_zenoh_timestamp", time_full_zenoh, allocator);
         if (config_s.vam.mqtt_enabled != 0) vam_json["test"].AddMember("full_local_timestamp", time_simple_local, allocator);
         if (config_s.vam.mqtt_enabled && pubsub->remote_mqtt != NULL) vam_json["test"].AddMember("full_remote_timestamp", time_simple_remote, allocator);
-        /*
-        if (config_s.full_vam_topic_out != "") {
-            if (config_s.vam.udp_out_port != 0) vam_json["test"].AddMember("full_udp_timestamp", time_full_udp, allocator);
-            if (config_s.vam.dds_enabled) vam_json["test"].AddMember("full_dds_timestamp", time_full_dds, allocator);
-            if (config_s.vam.mqtt_enabled) vam_json["test"].AddMember("full_local_timestamp", time_full_local, allocator);
-            if (config_s.vam.mqtt_enabled && pubsub->remote_mqtt != NULL) vam_json["test"].AddMember("full_remote_timestamp", time_full_remote, allocator);
-        }
-        */
+
         StringBuffer testBuffer;
         Writer<StringBuffer> testWriter(testBuffer);
         vam_json.Accept(testWriter);
@@ -189,26 +159,6 @@ void VamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
         pubsub->local_mqtt->publish(config_s.vam.topic_test, testJSON);
         if(pubsub->remote_mqtt != NULL) pubsub->remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.vam.topic_test, testJSON);
 
-        /*
-        if(config_s.full_vam_topic_test != "") {
-            allocator = vam_json_full.GetAllocator();
-            if (config_s.vam.dds_enabled != 0) vam_json_full["test"].AddMember("simple_dds_timestamp", time_simple_dds, allocator);
-            if (config_s.vam.mqtt_enabled != 0) vam_json_full["test"].AddMember("simple_local_timestamp", time_simple_local, allocator);
-            if (config_s.vam.mqtt_enabled && pubsub->remote_mqtt != NULL) vam_json_full["test"].AddMember("simple_remote_timestamp", time_simple_remote, allocator);
-            if (config_s.full_vam_topic_out != "") {
-                if (config_s.vam.udp_out_port != 0) vam_json_full["test"].AddMember("full_udp_timestamp", time_full_udp, allocator);
-                if (config_s.vam.dds_enabled) vam_json_full["test"].AddMember("full_dds_timestamp", time_full_dds, allocator);
-                if (config_s.vam.mqtt_enabled) vam_json_full["test"].AddMember("full_local_timestamp", time_full_local, allocator);
-                if (config_s.vam.mqtt_enabled && pubsub->remote_mqtt != NULL) vam_json_full["test"].AddMember("full_remote_timestamp", time_full_remote, allocator);
-            }
-            StringBuffer fullTestBuffer;
-            Writer<StringBuffer> fullTestWriter(fullTestBuffer);
-            vam_json_full.Accept(fullTestWriter);
-            const char* testJSON = fullTestBuffer.GetString();
-            pubsub->local_mqtt->publish(config_s.full_vam_topic_test, testJSON);
-            if(pubsub->remote_mqtt != NULL) pubsub->remote_mqtt->publish(config_s.remote_mqtt_prefix + std::to_string(config_s.station_id) + "/" + config_s.full_vam_topic_test, testJSON);
-        }
-        */
     }
     
     if(config_s.enable_json_prints) std::cout << "VAM JSON: " << simpleJSON << std::endl;
@@ -274,6 +224,7 @@ Document VamApplication::buildJSON(VAM_t message, Document& vam_json_full, doubl
     }
     const double time_now = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
     jsonTest.AddMember("json_timestamp", time_now, allocator);
+    if(channel_info.frequency == 117100112) jsonTest.AddMember("transport_type", "UDP", allocator);
     document.AddMember("test", jsonTest, allocator);
     return document;
 }
