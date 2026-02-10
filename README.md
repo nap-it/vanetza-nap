@@ -131,7 +131,7 @@ If you want to make changes to the Vanetza code or use a specific version of NAP
 docker build -t vanetza-nap:latest .
 ```
 
-This will build the image using the Dockerfile located in the root directory and tag it as "vanetza-nap:latest". You can then use this image in your `docker-compose.yml` file by replacing `ghcr.io/nap-it/vanetza-nap:latest"` with `vanetza-nap:latest`.
+This will build the image using the Dockerfile located in the root directory and tag it as "vanetza-nap:latest". You can then use this image in your `docker-compose.yml` file by replacing `ghcr.io/nap-it/vanetza-nap:latest` with `vanetza-nap:latest`.
 
 
 #### Running in the background
