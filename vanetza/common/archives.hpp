@@ -22,6 +22,13 @@ public:
         using std::runtime_error::runtime_error;
     };
 
+    enum class ErrorCode {
+        Ok,
+        IncompleteData,
+        ExcessiveLength,
+        ConstraintViolation,
+    };
+
     InputArchive(InputStream& is);
     InputArchive(StreamBuffer& buf);
 
@@ -36,9 +43,16 @@ public:
 
     void load_binary(unsigned char* data, std::size_t len);
     void load_binary(char* data, std::size_t len);
+    char peek_byte();
+    std::size_t remaining_bytes();
+
+    bool is_good() const;
+    ErrorCode error_code() const;
+    void fail(ErrorCode error_code);
 
 private:
     StreamBuffer* m_stream_buffer;
+    ErrorCode m_error_code = ErrorCode::Ok;
 };
 
 /**

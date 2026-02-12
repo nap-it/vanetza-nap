@@ -1,7 +1,0 @@
-struct JSONMessage
-{
-    unsigned long uuid;
-    unsigned long datetime;
-    string topic;
-    string message;
-};

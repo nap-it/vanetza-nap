@@ -31,7 +31,7 @@ std::size_t Parser::parse_basic(BasicHeader& basic)
     } catch (InputArchive::Exception&) {
     }
 
-    m_read_bytes += bytes + basic.reserved;
+    m_read_bytes += bytes;
     return bytes;
 }
 
@@ -48,16 +48,26 @@ std::size_t Parser::parse_common(CommonHeader& common)
     return bytes;
 }
 
-std::size_t Parser::parse_secured(security::SecuredMessageV2& secured)
+std::size_t Parser::parse_secured(security::SecuredMessage& secured)
 {
     std::size_t bytes = 0;
-    try {
-        bytes = deserialize(m_archive, secured);
-    } catch (InputArchive::Exception&) {
-    } catch (security::deserialization_error&) {
+    if (m_archive.is_good()) {
+        try {
+            std::uint8_t sec_first_byte = m_archive.peek_byte();
+            if (sec_first_byte < 3) {
+                security::v2::SecuredMessage msg;
+                bytes = security::v2::deserialize(m_archive, msg);
+                secured = std::move(msg);
+            } else if (sec_first_byte == 3) {
+                security::v3::SecuredMessage msg;
+                bytes = security::v3::deserialize(m_archive, msg);
+                secured = std::move(msg);
+            }
+        } catch (...) {
+        }
+        m_read_bytes += bytes;
     }
 
-    m_read_bytes += bytes;
     return bytes;
 }
 
@@ -79,6 +89,9 @@ std::size_t Parser::parse_extended(HeaderVariant& extended, HeaderType ht)
             case HeaderType::TSB_Single_Hop:
                 bytes = deserialize_extended<ShbHeader>(m_archive, extended);
                 break;
+            case HeaderType::TSB_Multi_Hop:
+                bytes = deserialize_extended<TsbHeader>(m_archive, extended);
+                break;
             case HeaderType::GeoBroadcast_Circle:
             case HeaderType::GeoBroadcast_Rect:
             case HeaderType::GeoBroadcast_Elip:
@@ -92,7 +105,6 @@ std::size_t Parser::parse_extended(HeaderVariant& extended, HeaderType ht)
             case HeaderType::GeoAnycast_Circle:
             case HeaderType::GeoAnycast_Rect:
             case HeaderType::GeoAnycast_Elip:
-            case HeaderType::TSB_Multi_Hop:
             case HeaderType::LS_Request:
             case HeaderType::LS_Reply:
                 // unimplemented types

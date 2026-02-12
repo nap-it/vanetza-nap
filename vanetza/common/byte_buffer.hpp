@@ -18,7 +18,8 @@ typedef std::vector<uint8_t> ByteBuffer;
 template<typename MASK>
 MASK* buffer_cast(ByteBuffer& buffer)
 {
-    static_assert(std::is_pod<MASK>::value, "MASK has to be POD data type");
+    static_assert(std::is_standard_layout<MASK>::value, "MASK has to be standard layout type");
+    static_assert(std::is_trivially_copyable<MASK>::value, "MASK has to be trivially copyable");
     static_assert(std::is_object<MASK>::value, "MASK has to be an object");
 
     MASK* mask = nullptr;
@@ -43,7 +44,7 @@ const MASK* buffer_cast(const ByteBuffer& buffer)
 template<class T>
 ByteBuffer buffer_copy(const T& object)
 {
-    static_assert(std::is_pod<T>::value, "T has to be POD data type");
+    static_assert(std::is_standard_layout<T>::value, "T has to be standard layout type");
     auto ptr = reinterpret_cast<const uint8_t*>(&object);
     return ByteBuffer(ptr, ptr + sizeof(T));
 }

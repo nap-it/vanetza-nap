@@ -3,29 +3,24 @@
 
 #include <boost/optional.hpp>
 #include <vanetza/common/its_aid.hpp>
-#include <vanetza/common/byte_buffer.hpp>
-#include <vanetza/security/certificate.hpp>
-#include <vanetza/security/int_x.hpp>
+#include <vanetza/security/certificate_validity.hpp>
+#include <vanetza/security/hashed_id.hpp>
 #include <vanetza/security/secured_message.hpp>
 #include <functional>
 
 namespace vanetza
 {
-
-// forward declaration
-class PositionProvider;
-class Runtime;
-
 namespace security
 {
 
-// forward declarations
-class Backend;
-class CertificateCache;
-class CertificateProvider;
-class CertificateValidator;
-class SignHeaderPolicy;
-
+/**
+ * SN-VERIFY.confirm report codes
+ * 
+ * "Configuration_Problem" is not found in TS 103 723-8 V1.1.1 but indicates a
+ * problem with the verification subsystem itself, e.g. a programming error.
+ * 
+ * \see TS 102 723-8 v1.1.1 table 5
+ */
 enum class VerificationReport
 {
     Success,
@@ -39,14 +34,15 @@ enum class VerificationReport
     Unsigned_Message,
     Signer_Certificate_Not_Found,
     Unsupported_Signer_Identifier_Type,
-    Incompatible_Protocol
+    Incompatible_Protocol,
+    Configuration_Problem,
 };
 
 // mandatory parameters of SN-VERIFY.request (TS 102 723-8 V1.1.1)
 struct VerifyRequest
 {
-    VerifyRequest(const SecuredMessage& msg) : secured_message(msg) {}
-    const SecuredMessage& secured_message; /*< contains security header and payload */
+    VerifyRequest(SecuredMessageView msg) : secured_message(msg) {}
+    SecuredMessageView secured_message; /*< contains security header and payload */
 };
 
 // parameters of SN-VERIFY.confirm (TS 102 723-8 V1.1.1)
@@ -62,27 +58,31 @@ struct VerifyConfirm
 /**
  * Equivalent of SN-VERIFY service in TS 102 723-8 V1.1.1
  */
-using VerifyService = std::function<VerifyConfirm(VerifyRequest&&)>;
+class VerifyService
+{
+public:
+    virtual ~VerifyService() = default;
+    virtual VerifyConfirm verify(const VerifyRequest&) = 0;
+};
 
-/**
- * Get verify service with basic certificate and signature checks
- * \param rt runtime
- * \param certificate_provider certificate provider
- * \param certificate_validator certificate validator
- * \param backend crypto backend
- * \param certificate_cache certificate cache
- * \param sign_header_policy sign header policy to report unknown certificates
- * \return callable verify service
- */
-VerifyService straight_verify_service(const Runtime&, CertificateProvider&, CertificateValidator&, Backend&, CertificateCache&, SignHeaderPolicy&, PositionProvider&);
 
 /**
  * Get insecure dummy verify service without any checks
- * \param report confirm report result
- * \param validity certificate validity result
- * \return callable verify service
  */
-VerifyService dummy_verify_service(VerificationReport report, CertificateValidity validity);
+class DummyVerifyService : public VerifyService
+{
+public:
+    /**
+     * \param report predefined confirm report result
+     * \param validity predefined certificate validity result 
+     */
+    DummyVerifyService(VerificationReport report, CertificateValidity validity);
+    VerifyConfirm verify(const VerifyRequest&) override;
+
+private:
+    VerificationReport m_report;
+    CertificateValidity m_validity;
+};
 
 } // namespace security
 } // namespace vanetza

@@ -8,8 +8,10 @@
 #include "BIT_STRING.h"  /* for .bits_unused member */
 
 asn_enc_rval_t
-OCTET_STRING_encode_jer(const asn_TYPE_descriptor_t *td, const void *sptr,
-                        int ilevel, enum jer_encoder_flags_e flags,
+OCTET_STRING_encode_jer(const asn_TYPE_descriptor_t *td,
+                        const asn_jer_constraints_t *constraints,
+                        const void *sptr, int ilevel,
+                        enum jer_encoder_flags_e flags,
                         asn_app_consume_bytes_f *cb, void *app_key) {
     const char * const h2c = "0123456789ABCDEF";
     const OCTET_STRING_t *st = (const OCTET_STRING_t *)sptr;
@@ -155,8 +157,10 @@ OCTET_STRING__handle_control_chars(void *struct_ptr, const void *chunk_buf, size
 }
 
 asn_enc_rval_t
-OCTET_STRING_encode_jer_utf8(const asn_TYPE_descriptor_t *td, const void *sptr,
-                             int ilevel, enum jer_encoder_flags_e flags,
+OCTET_STRING_encode_jer_utf8(const asn_TYPE_descriptor_t *td,
+                             const asn_jer_constraints_t *constraints,
+                             const void *sptr, int ilevel,
+                             enum jer_encoder_flags_e flags,
                              asn_app_consume_bytes_f *cb, void *app_key) {
     const OCTET_STRING_t *st = (const OCTET_STRING_t *)sptr;
     asn_enc_rval_t er = { 0, 0, 0 };
@@ -225,16 +229,22 @@ static ssize_t OCTET_STRING__convert_hexadecimal(void *sptr, const void *chunk_b
             break;
         }
     }
-    --pend;
-    for (; pend >= p; --pend) {
-        if (*pend == CQUOTE) 
-            break;
+    /* Find ending quote - ensure we don't go below the start */
+    if (pend > (const char *)chunk_buf) {
+        --pend;
+        for (; pend >= p; --pend) {
+            if (*pend == CQUOTE)
+                break;
+        }
     }
-    if (pend - p < 0) return -1;
+    if (pend < p) return -1;
     chunk_size = pend - p;
 
     /* Reallocate buffer according to high cap estimation */
-    size_t new_size = st->size + (chunk_size + 1) / 2;
+    size_t hex_byte_count = (chunk_size + 1) / 2;
+    /* Check for potential overflow */
+    if (hex_byte_count > SIZE_MAX - st->size - 1) return -1;
+    size_t new_size = st->size + hex_byte_count;
     void *nptr = REALLOC(st->buf, new_size + 1);
     if(!nptr) return -1;
     st->buf = (uint8_t *)nptr;
@@ -248,9 +258,8 @@ static ssize_t OCTET_STRING__convert_hexadecimal(void *sptr, const void *chunk_b
     for(; p < pend; p++) {
         int ch = *(const unsigned char *)p;
         switch(ch) {
-        case 0x09: case 0x0a: case 0x0c: case 0x0d:
-        case 0x20:
-            /* Ignore whitespace */
+        /* allow LF, FF, CR, space */
+        case 0x0a: case 0x0c: case 0x0d: case 0x20:
             continue;
         case 0x30: case 0x31: case 0x32: case 0x33: case 0x34:  /*01234*/
         case 0x35: case 0x36: case 0x37: case 0x38: case 0x39:  /*56789*/
@@ -296,7 +305,10 @@ static ssize_t OCTET_STRING__convert_hexadecimal(void *sptr, const void *chunk_b
     assert(st->size <= new_size);
     st->buf[st->size] = 0;  /* Courtesy termination */
 
-    return (chunk_stop - (const char *)chunk_buf);  /* Converted size */
+    /* Ensure return value is valid */
+    ssize_t consumed = chunk_stop - (const char *)chunk_buf;
+    if (consumed < 0 || (size_t)consumed > chunk_size + 2) return -1;  /* +2 for quotes */
+    return consumed;  /* Converted size */
 }
 
 /*
@@ -358,10 +370,10 @@ OCTET_STRING__convert_entrefs(void *sptr, const void *chunk_buf,
     }
     --pend;
     for(; pend >= p; --pend) {
-        if (*pend == CQUOTE) 
+        if (*pend == CQUOTE)
             break;
     }
-    if(pend - p < 0) 
+    if(pend - p < 0)
         return -1;
 
     /* Reallocate buffer */
@@ -532,7 +544,7 @@ OCTET_STRING__decode_jer(
             }
         }
     }
-   
+
     /* Restore parsing context */
     ctx = (asn_struct_ctx_t *)(((char *)*sptr) + specs->ctx_offset);
 
@@ -554,7 +566,9 @@ sta_failed:
  */
 asn_dec_rval_t
 OCTET_STRING_decode_jer_hex(const asn_codec_ctx_t *opt_codec_ctx,
-                            const asn_TYPE_descriptor_t *td, void **sptr,
+                            const asn_TYPE_descriptor_t *td,
+                            const asn_jer_constraints_t *constraints,
+                            void **sptr,
                             const void *buf_ptr, size_t size) {
     return OCTET_STRING__decode_jer(opt_codec_ctx, td, sptr,
                                     buf_ptr, size, 0,
@@ -566,8 +580,9 @@ OCTET_STRING_decode_jer_hex(const asn_codec_ctx_t *opt_codec_ctx,
  */
 asn_dec_rval_t
 OCTET_STRING_decode_jer_utf8(const asn_codec_ctx_t *opt_codec_ctx,
-                             const asn_TYPE_descriptor_t *td, void **sptr,
-                             const void *buf_ptr, size_t size) {
+                             const asn_TYPE_descriptor_t *td,
+                             const asn_jer_constraints_t *constraints,
+                             void **sptr, const void *buf_ptr, size_t size) {
     return OCTET_STRING__decode_jer(opt_codec_ctx, td, sptr,
                                     buf_ptr, size,
                                     OCTET_STRING__handle_control_chars,

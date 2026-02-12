@@ -4,7 +4,7 @@
 #include "positioning.hpp"
 #include <vanetza/common/clock.hpp>
 #include <vanetza/common/position_provider.hpp>
-#include <boost/asio/io_service.hpp>
+#include <boost/asio/io_context.hpp>
 #include <boost/asio/steady_timer.hpp>
 #include <string>
 #include <gps.h>
@@ -19,8 +19,8 @@ public:
         friend class GpsPositionProvider;
     };
 
-    GpsPositionProvider(boost::asio::io_service& io);
-    GpsPositionProvider(boost::asio::io_service& io, const std::string& hostname, const std::string& port);
+    GpsPositionProvider(boost::asio::io_context& io);
+    GpsPositionProvider(boost::asio::io_context& io, const std::string& hostname, const std::string& port);
     ~GpsPositionProvider();
 
     const vanetza::PositionFix& position_fix() override;
@@ -29,10 +29,11 @@ public:
 private:
     void schedule_timer();
     void on_timer(const boost::system::error_code& ec);
+    bool apply_gps_data(const gps_data_t&);
 
     boost::asio::steady_timer timer_;
-    gps_data_t gps_data;
-    vanetza::PositionFix fetched_position_fix;
+    gps_data_t gps_data_;
+    vanetza::PositionFix fetched_position_fix_;
 };
 
 namespace gpsd

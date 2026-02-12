@@ -3,10 +3,8 @@
 
 #include <vanetza/common/byte_buffer.hpp>
 #include <vanetza/net/osi_layer.hpp>
-#include <vanetza/net/ethernet_header.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <array>
-#include <map>
 
 namespace vanetza
 {
@@ -84,17 +82,6 @@ public:
      * \return const byte buffer reference
      */
     const ByteBuffer& buffer() const { return m_buffer; }
-
-    int rssi;
-    std::map<std::string, int> mcs;
-    int frequency;
-    int noise;
-    double chan_busy_time;
-    double chan_rx_time;
-    double chan_tx_time;
-    double time_received;
-    double time_queue;
-    std::string source;
 
 private:
     void reset_iterators(OsiLayer layer);

@@ -1,5 +1,6 @@
 #include <vanetza/btp/data_indication.hpp>
 #include <vanetza/btp/data_request.hpp>
+#include <vanetza/common/annotation.hpp>
 #include <vanetza/common/its_aid.hpp>
 #include <vanetza/common/position_fix.hpp>
 #include <vanetza/common/runtime.hpp>
@@ -39,12 +40,15 @@ namespace
 
 struct ControlInfo
 {
-    ControlInfo(const DataRequest request) :
+    ControlInfo(const DataRequest& request) :
         communication_profile(request.communication_profile),
-        its_aid(request.its_aid) {}
+        its_aid(request.its_aid),
+        permissions(request.permissions)
+    {}
 
     const CommunicationProfile communication_profile;
     const ItsAid its_aid;
+    const ByteBuffer permissions;
 };
 
 template<typename PDU>
@@ -145,14 +149,14 @@ Router::Router(Runtime& rt, const MIB& mib) :
     m_random_gen(mib.vanetzaDefaultSeed)
 {
     if (!m_mib.vanetzaDisableBeaconing) {
-        if (!m_mib.vanetzaDeferInitialBeacon) {
+        if (m_mib.vanetzaDeferInitialBeacon > Clock::duration::zero()) {
+            // defer initial Beacon transmission by given duration plus jitter
+            std::uniform_real_distribution<double> dist_jitter(0.0, 1.0);
+            const auto jitter = clock_cast(dist_jitter(m_random_gen) * m_mib.itsGnBeaconServiceMaxJitter);
+            reset_beacon_timer(m_mib.vanetzaDeferInitialBeacon + jitter);
+        } else {
             // send Beacon immediately after start-up at next runtime trigger invocation
             reset_beacon_timer(Clock::duration::zero());
-        } else {
-            // defer initial Beacon transmission slightly
-            std::uniform_real_distribution<double> dist(0.0, 1.0);
-            const auto first_beacon = dist(m_random_gen) * m_mib.itsGnBeaconServiceRetransmitTimer;
-            reset_beacon_timer(clock_cast(first_beacon));
         }
     }
 
@@ -236,30 +240,28 @@ DataConfirm Router::request(const ShbDataRequest& request, DownPacketPtr payload
         pdu->common().payload = payload->size();
 
         ControlInfo ctrl(request);
-        auto source_override = request.source_mac_override;
-        auto source_position_override = request.source_position_override;
-        auto transmit = [this, ctrl, source_override, source_position_override](PendingPacket::Packet&& packet) {
+        auto transmit = [this, ctrl](PendingPacket::Packet&& packet) {
             std::unique_ptr<ShbPdu> pdu;
             std::unique_ptr<DownPacket> payload;
             std::tie(pdu, payload) = std::move(packet);
 
             // update SO PV before actual transmission
-            if (source_position_override) {
-                pdu->extended().source_position = *source_position_override;
-            } else {
-                pdu->extended().source_position = m_local_position_vector;
-            }
+            pdu->extended().source_position = m_local_position_vector;
 
             // step 2: encapsulate packet by security
             if (m_mib.itsGnSecurity) {
-                payload = encap_packet(ctrl.its_aid, *pdu, std::move(payload));
+                payload = encap_packet(ctrl.its_aid, ctrl.permissions, *pdu, std::move(payload));
+                if (!payload) {
+                    // stop because encapsulation failed
+                    return;
+                }
             }
 
             // step 5: execute media-dependent procedures
             execute_media_procedures(ctrl.communication_profile);
 
             // step 6: pass packet down to link layer with broadcast destination
-            pass_down(cBroadcastMacAddress, source_override, std::move(pdu), std::move(payload));
+            pass_down(cBroadcastMacAddress, std::move(pdu), std::move(payload));
 
             // step 7: reset beacon timer
             reset_beacon_timer();
@@ -306,24 +308,22 @@ DataConfirm Router::request(const GbcDataRequest& request, DownPacketPtr payload
     pdu->common().payload = payload->size();
 
     ControlInfo ctrl(request);
-    auto source_override = request.source_mac_override;
-        auto source_position_override = request.source_position_override;
-        auto transmit = [this, ctrl, source_override, source_position_override](Packet&& packet, const MacAddress& mac) {
-            std::unique_ptr<GbcPdu> pdu;
-            std::unique_ptr<DownPacket> payload;
-            std::tie(pdu, payload) = std::move(packet);
+    auto transmit = [this, ctrl](Packet&& packet, const MacAddress& mac) {
+        std::unique_ptr<GbcPdu> pdu;
+        std::unique_ptr<DownPacket> payload;
+        std::tie(pdu, payload) = std::move(packet);
 
-            // update SO PV before actual transmission
-            if (source_position_override) {
-                pdu->extended().source_position = *source_position_override;
-            } else {
-                pdu->extended().source_position = m_local_position_vector;
-            }
+        // update SO PV before actual transmission
+        pdu->extended().source_position = m_local_position_vector;
 
         // step 5: apply security
         if (m_mib.itsGnSecurity) {
             assert(pdu->basic().next_header == NextHeaderBasic::Secured);
-            payload = encap_packet(ctrl.its_aid, *pdu, std::move(payload));
+            payload = encap_packet(ctrl.its_aid, ctrl.permissions, *pdu, std::move(payload));
+            if (!payload) {
+                // stop because encapsulation failed
+                return;
+            }
         }
 
         // step 6: repetition is already set-up before
@@ -332,7 +332,7 @@ DataConfirm Router::request(const GbcDataRequest& request, DownPacketPtr payload
         execute_media_procedures(ctrl.communication_profile);
 
         // step 8: pass PDU to link layer
-        pass_down(mac, source_override, std::move(pdu), std::move(payload));
+        pass_down(mac, std::move(pdu), std::move(payload));
     };
 
     auto forwarding = [this, transmit](Packet&& packet) {
@@ -375,38 +375,26 @@ DataConfirm Router::request(const TsbDataRequest&, DownPacketPtr)
 void Router::indicate(UpPacketPtr packet, const MacAddress& sender, const MacAddress& destination)
 {
     assert(packet);
+    const auto size_limit = m_mib.itsGnMaxSduSize + m_mib.itsGnMaxGeoNetworkingHeaderSize;
+    if (size(*packet) <= size_limit) {
+        IndicationContext::LinkLayer link_layer;
+        link_layer.sender = sender;
+        link_layer.destination = destination;
 
-    struct indication_visitor : public boost::static_visitor<>
-    {
-        indication_visitor(Router& router, const IndicationContext::LinkLayer& link_layer, UpPacketPtr packet) :
-            m_router(router), m_link_layer(link_layer), m_packet(std::move(packet))
-        {
+        if (auto cohesive = boost::get<CohesivePacket>(packet.get())) {
+            IndicationContextDeserialize ctx(std::move(packet), *cohesive, link_layer);
+            indicate_basic(ctx);
+
+        } else if (auto chunk = boost::get<ChunkPacket>(packet.get())) {
+            IndicationContextCast ctx(std::move(packet), *chunk, link_layer);
+            indicate_basic(ctx);
+        } else {
+            packet_dropped(PacketDropReason::Internal_Error);
         }
-
-        void operator()(CohesivePacket& packet)
-        {
-            IndicationContextDeserialize ctx(std::move(m_packet), packet, m_link_layer);
-            m_router.indicate_basic(ctx);
-        }
-
-        void operator()(ChunkPacket& packet)
-        {
-            IndicationContextCast ctx(std::move(m_packet), packet, m_link_layer);
-            m_router.indicate_basic(ctx);
-        }
-
-        Router& m_router;
-        const IndicationContext::LinkLayer& m_link_layer;
-        UpPacketPtr m_packet;
-    };
-
-    IndicationContext::LinkLayer link_layer;
-    link_layer.sender = sender;
-    link_layer.destination = destination;
-
-    UpPacket* packet_ptr = packet.get();
-    indication_visitor visitor(*this, link_layer, std::move(packet));
-    boost::apply_visitor(visitor, *packet_ptr);
+    } else {
+        packet_dropped(PacketDropReason::Packet_Size);
+        return;
+    }
 }
 
 void Router::indicate_basic(IndicationContextBasic& ctx)
@@ -422,11 +410,10 @@ void Router::indicate_basic(IndicationContextBasic& ctx)
         indication.remaining_hop_limit = basic->hop_limit;
 
         if (basic->next_header == NextHeaderBasic::Secured) {
-            indication.security_report = security::DecapReport::Incompatible_Protocol;
             indicate_secured(ctx, *basic);
         } else if (basic->next_header == NextHeaderBasic::Common) {
             if (!m_mib.itsGnSecurity || SecurityDecapHandling::Non_Strict == m_mib.itsGnSnDecapResultHandling) {
-                indication.security_report = security::DecapReport::Unsigned_Message,
+                indication.security_report = boost::blank {}; /*< not secured at all*/
                 indicate_common(ctx, *basic);
             } else {
                 packet_dropped(PacketDropReason::Decap_Unsuccessful_Strict);
@@ -510,38 +497,23 @@ void Router::indicate_secured(IndicationContextBasic& ctx, const BasicHeader& ba
     } else if (m_security_entity) {
         // Decap packet
         using namespace vanetza::security;
-        DecapConfirm decap_confirm = m_security_entity->decapsulate_packet(DecapRequest(*secured_message));
+        DecapConfirm decap_confirm = m_security_entity->decapsulate_packet(SecuredMessageView { *secured_message });
         ctx.service_primitive().security_report = decap_confirm.report;
         ctx.service_primitive().its_aid = decap_confirm.its_aid;
         ctx.service_primitive().permissions = decap_confirm.permissions;
         secured_payload_visitor visitor(*this, ctx, basic);
 
         // check whether the received packet is valid
-        if (DecapReport::Success == decap_confirm.report) {
+        if (is_successful(decap_confirm.report)) {
             boost::apply_visitor(visitor, decap_confirm.plaintext_payload);
         } else if (SecurityDecapHandling::Non_Strict == m_mib.itsGnSnDecapResultHandling) {
-            // according to ETSI EN 302 636-4-1 v1.2.1 section 9.3.3 Note 2
-            // handle the packet anyway, when itsGnDecapResultHandling is set to NON-Strict (1)
-            switch (decap_confirm.report) {
-                case DecapReport::False_Signature:
-                case DecapReport::Invalid_Certificate:
-                case DecapReport::Revoked_Certificate:
-                case DecapReport::Inconsistant_Chain:
-                case DecapReport::Invalid_Timestamp:
-                case DecapReport::Invalid_Mobility_Data:
-                case DecapReport::Unsigned_Message:
-                case DecapReport::Signer_Certificate_Not_Found:
-                case DecapReport::Unsupported_Signer_Identifier_Type:
-                case DecapReport::Unencrypted_Message:
-                    // ok, continue
-                    boost::apply_visitor(visitor, decap_confirm.plaintext_payload);
-                    break;
-                case DecapReport::Duplicate_Message:
-                case DecapReport::Incompatible_Protocol:
-                case DecapReport::Decryption_Error:
-                default:
-                    packet_dropped(PacketDropReason::Decap_Unsuccessful_Non_Strict);
-                    break;
+            // Any packet is passed up with NON-STRICT decapsulation handling
+            // -> see ETSI EN 302 636-4-1 v1.4.1 Section 10.3.3 Note 3
+            if (!decap_confirm.plaintext_payload.empty()) {
+                boost::apply_visitor(visitor, decap_confirm.plaintext_payload);
+            } else {
+                // no payload extracted from secured message to pass up
+                packet_dropped(PacketDropReason::Decap_Unsuccessful_Non_Strict);
             }
         } else {
             // discard packet
@@ -569,8 +541,18 @@ void Router::indicate_extended(IndicationContext& ctx, const CommonHeader& commo
 
             auto& pdu = m_context.pdu();
             ExtendedPduConstRefs<ShbHeader> shb_pdu(pdu.basic(), pdu.common(), shb, pdu.secured());
-
             return m_router.process_extended(shb_pdu, m_packet, m_context.link_layer());
+        }
+
+        bool operator()(const TsbHeader& tsb)
+        {
+            DataIndication& indication = m_context.service_primitive();
+            indication.transport_type = TransportType::TSB;
+            indication.source_position = static_cast<ShortPositionVector>(tsb.source_position);
+
+            auto& pdu = m_context.pdu();
+            ExtendedPduConstRefs<TsbHeader> tsb_pdu(pdu.basic(), pdu.common(), tsb, pdu.secured());
+            return m_router.process_extended(tsb_pdu, m_packet, m_context.link_layer());
         }
 
         bool operator()(const GeoBroadcastHeader& gbc)
@@ -668,6 +650,7 @@ void Router::execute_media_procedures(CommunicationProfile com_profile)
             execute_itsg5_procedures();
             break;
         case CommunicationProfile::Unspecified:
+        case CommunicationProfile::LTE_V2X:
             // do nothing
             break;
         default:
@@ -705,26 +688,14 @@ void Router::pass_down(const dcc::DataRequest& request, PduPtr pdu, DownPacketPt
 
 void Router::pass_down(const MacAddress& addr, PduPtr pdu, DownPacketPtr payload)
 {
-    pass_down(addr, boost::none, std::move(pdu), std::move(payload));
-}
-
-void Router::pass_down(const MacAddress& addr, const boost::optional<MacAddress>& source_override, PduPtr pdu, DownPacketPtr payload)
-{
     assert(pdu);
 
     dcc::DataRequest request;
     request.destination = addr;
-    // std::cout << "Router::pass_down" << std::endl;
-    // if (source_override) {
-    //     std::cout << "  source override: " << *source_override << std::endl;
-    // } else {
-    //     std::cout << "  source override: none" << std::endl;
-    // }
-    request.source = source_override ? *source_override : m_local_position_vector.gn_addr.mid();
+    request.source = m_local_position_vector.gn_addr.mid();
     request.dcc_profile = map_tc_onto_profile(pdu->common().traffic_class);
     request.ether_type = geonet::ether_type;
     request.lifetime = clock_cast(pdu->basic().lifetime.decode());
-    request.source_override = source_override;
 
     pass_down(request, std::move(pdu), std::move(payload));
 }
@@ -750,7 +721,11 @@ void Router::on_beacon_timer_expired()
 
     if (m_mib.itsGnSecurity) {
         pdu->basic().next_header = NextHeaderBasic::Secured;
-        payload = encap_packet(aid::GN_MGMT, *pdu, std::move(payload));
+        payload = encap_packet(aid::GN_MGMT, ByteBuffer {}, *pdu, std::move(payload));
+        if (!payload) {
+            // stop because encapsulation failed
+            return;
+        }
     } else {
         pdu->basic().next_header = NextHeaderBasic::Common;
     }
@@ -1036,6 +1011,102 @@ bool Router::process_extended(const ExtendedPduConstRefs<ShbHeader>& pdu, const 
     return true;
 }
 
+bool Router::process_extended(const ExtendedPduConstRefs<TsbHeader>& pdu, const UpPacket& packet, const LinkLayer& ll)
+{
+    const TsbHeader& tsb = pdu.extended();
+    const Address& source_addr = tsb.source_position.gn_addr;
+
+    // remember if LocTE(SO) exists (5) before duplicate packet detection might (3) silently create an entry
+    const bool locte_exists = m_location_table.has_entry(source_addr);
+
+    // step 3: execute duplicate packet detection
+    if (detect_duplicate_packet(source_addr, tsb.sequence_number)) {
+        // discard packet and omit execution of further steps
+        return false;
+    }
+
+    // step 4: execute duplicate address detection
+    if (m_mib.vanetzaMultiHopDuplicateAddressDetection) {
+        // Be careful, DAD is broken with address mode AUTO for multi-hop communication
+        detect_duplicate_address(source_addr, ll.sender);
+    }
+
+    // step 5a & step 6a (make sure IS_NEIGHBOUR is false for new location table entry)
+    auto& source_entry = m_location_table.update(tsb.source_position);
+    if (!locte_exists) {
+        // step 5b only
+        source_entry.set_neighbour(false);
+    }
+
+    // step 5c and step 6b
+    const std::size_t packet_size = size(packet, OsiLayer::Network, OsiLayer::Application);
+    source_entry.update_pdr(packet_size, m_mib.itsGnMaxPacketDataRateEmaBeta);
+
+    // step 7: packet is passed up depending on return value of this method
+
+    // step 8a: TODO: flush SO LS packet buffer if LS_pending, reset LS_pending
+    // step 8b: flush UC forwarding packet buffer
+    flush_unicast_forwarding_buffer(source_addr);
+
+    // step 9: discard packet (no forwarding) if hop limit is reached
+    if (pdu.basic().hop_limit <= 1) {
+        // step 9a: discard packet and omit execution of further steps
+        forwarding_stopped(ForwardingStopReason::Hop_Limit);
+        return true;
+    } else if (m_mib.itsGnMaxPacketDataRate < std::numeric_limits<decltype(m_mib.itsGnMaxPacketDataRate)>::max()) {
+        // do packet data rate checks (annex B.2) if set maximum rate is not "infinity" (i.e. max unsigned value)
+        if (source_entry.get_pdr() > m_mib.itsGnMaxPacketDataRate * 1000.0) {
+            forwarding_stopped(ForwardingStopReason::Source_PDR);
+            return true; // omit forwarding, source exceeds PDR limit
+        } else if (const auto* sender_entry = m_location_table.get_entry(ll.sender)) {
+            if (sender_entry->get_pdr() > m_mib.itsGnMaxPacketDataRate * 1000.0) {
+                forwarding_stopped(ForwardingStopReason::Sender_PDR);
+                return true; // omit forwarding, sender exceeds PDR limit
+            }
+        }
+    }
+
+    // step 9b: update hop limit in basic header
+    auto fwd_dup = create_forwarding_duplicate(pdu, packet);
+    TsbPdu& fwd_pdu = get_pdu(fwd_dup);
+    --fwd_pdu.basic().hop_limit;
+    assert(fwd_pdu.basic().hop_limit + 1 == pdu.basic().hop_limit);
+
+    auto transmit = [this](PendingPacket<TsbPdu>::Packet&& packet) {
+        // step 11: execute media-dependent procedures
+        execute_media_procedures(m_mib.itsGnIfType);
+
+        // step 12: pass down to link-layer
+        std::unique_ptr<Pdu> pdu;
+        std::unique_ptr<DownPacket> payload;
+        std::tie(pdu, payload) = std::move(packet);
+
+        dcc::DataRequest request;
+        request.destination = cBroadcastMacAddress;
+        request.source = m_local_position_vector.gn_addr.mid();
+        request.dcc_profile = dcc::Profile::DP3;
+        request.ether_type = geonet::ether_type;
+        request.lifetime = clock_cast(pdu->basic().lifetime.decode());
+        pass_down(request, std::move(pdu), std::move(payload));
+    };
+
+    PendingPacket<TsbPdu> fwd_packet(std::move(fwd_dup), transmit);
+
+    // step 10: store & carry forwarding procedure
+    const bool scf = pdu.common().traffic_class.store_carry_forward();
+    if (scf && !m_location_table.has_neighbours()) {
+        PacketBuffer::data_ptr data { new PendingPacketBufferData<TsbPdu>(std::move(fwd_packet)) };
+        m_bc_forward_buffer.push(std::move(data), m_runtime.now());
+        return true; // step 10a: buffer packet and omit further steps
+    }
+
+    // immediately execute steps 11 & 12
+    std::move(fwd_packet).process();
+    
+    // step 7: pass up TSB finally
+    return true;
+}
+
 bool Router::process_extended(const ExtendedPduConstRefs<BeaconHeader>& pdu, const UpPacket& packet, const LinkLayer& ll)
 {
     const BeaconHeader& beacon = pdu.extended();
@@ -1181,11 +1252,13 @@ bool Router::process_extended(const ExtendedPduConstRefs<GeoBroadcastHeader>& pd
 
 bool Router::decide_pass_up(bool within_destination, const GeoBroadcastHeader& gbc)
 {
+    // accept only GBC within destination area if not explicitly requested
+    const bool accept = within_destination || m_mib.vanetzaGbcPassUpOutsideDestination;
+
     if (m_mib.vanetzaGbcMemoryCapacity == 0) {
         // classic pass up: suppress only GBCs outside of destination area
-        //return within_destination;
-        return true;
-    } else if (within_destination) {
+        return accept;
+    } else if (accept) {
         // modified pass up: suppress passing up duplicate GBC packets
         return !m_gbc_memory.remember(std::make_tuple(gbc.source_position.gn_addr, gbc.sequence_number));
     } else {
@@ -1201,6 +1274,7 @@ void Router::flush_broadcast_forwarding_buffer()
 void Router::flush_unicast_forwarding_buffer(const Address& source)
 {
     // TODO flush only packets for given source address (required for GUC packets)
+    mark_unused(source);
     m_uc_forward_buffer.flush(m_runtime.now());
 }
 
@@ -1242,8 +1316,7 @@ std::unique_ptr<ShbPdu> Router::create_shb_pdu(const ShbDataRequest& request)
     pdu->basic().hop_limit = 1;
     pdu->common().header_type = HeaderType::TSB_Single_Hop;
     pdu->common().maximum_hop_limit = 1;
-    auto source_position = request.source_position_override ? *request.source_position_override : m_local_position_vector;
-    pdu->extended().source_position = source_position;
+    pdu->extended().source_position = m_local_position_vector;
     pdu->extended().dcc = m_dcc_field_generator->generate_dcc_field();
     return pdu;
 }
@@ -1265,32 +1338,55 @@ std::unique_ptr<GbcPdu> Router::create_gbc_pdu(const GbcDataRequest& request)
     std::unique_ptr<GbcPdu> pdu { new GbcPdu(request, m_mib) };
     pdu->common().header_type = gbc_header_type(request.destination);
     pdu->extended().sequence_number = m_local_sequence_number++;
-    auto source_position = request.source_position_override ? *request.source_position_override : m_local_position_vector;
-    pdu->extended().source_position = source_position;
+    pdu->extended().source_position = m_local_position_vector;
     pdu->extended().destination(request.destination);
     return pdu;
 }
 
-Router::DownPacketPtr Router::encap_packet(ItsAid its_aid, Pdu& pdu, DownPacketPtr packet)
+Router::DownPacketPtr Router::encap_packet(ItsAid its_aid, ByteBuffer ssp, Pdu& pdu, DownPacketPtr packet)
 {
-    security::EncapRequest encap_request;
-
-    DownPacket sec_payload;
-    sec_payload[OsiLayer::Network] = SecuredPdu(pdu);
-    sec_payload.merge(*packet, OsiLayer::Transport, max_osi_layer());
-    encap_request.plaintext_payload = std::move(sec_payload);
-    encap_request.its_aid = its_aid;
-
     if (m_security_entity) {
-        security::EncapConfirm confirm = m_security_entity->encapsulate_packet(std::move(encap_request));
-        pdu.secured(std::move(confirm.sec_packet));
-    } else {
-        throw std::runtime_error("security entity unavailable");
-    }
+        DownPacket sec_payload;
+        sec_payload[OsiLayer::Network] = SecuredPdu(pdu);
+        sec_payload.merge(*packet, OsiLayer::Transport, max_osi_layer());
 
-    assert(size(*packet, OsiLayer::Transport, max_osi_layer()) == 0);
-    assert(pdu.basic().next_header == NextHeaderBasic::Secured);
-    return packet;
+        security::SignRequest sign_request;
+        sign_request.plain_message = std::move(sec_payload);
+        sign_request.its_aid = its_aid;
+        sign_request.permissions = std::move(ssp);
+
+        security::EncapConfirm confirm = m_security_entity->encapsulate_packet(std::move(sign_request));
+
+        struct Visitor : boost::static_visitor<DownPacketPtr>
+        {
+            Visitor(DownPacketPtr packet, Pdu& pdu) : m_packet(std::move(packet)), m_pdu(pdu)
+            {
+                assert(size(*m_packet, OsiLayer::Transport, max_osi_layer()) == 0);
+                assert(m_pdu.basic().next_header == NextHeaderBasic::Secured);
+            }
+
+            DownPacketPtr operator() (security::SecuredMessage& msg)
+            {
+                m_pdu.secured(std::move(msg));
+                return std::move(m_packet);
+            }
+
+            DownPacketPtr operator() (const security::SignConfirmError&)
+            {
+                // SN-SIGN encapsulation failed
+                return nullptr;
+            }
+
+            DownPacketPtr m_packet;
+            Pdu& m_pdu;
+        };
+
+        Visitor visitor(std::move(packet), pdu);
+        return boost::apply_visitor(visitor, confirm);
+    } else {
+        // security entity is not available
+        return nullptr;
+    }
 }
 
 std::string stringify(Router::PacketDropReason pdr)

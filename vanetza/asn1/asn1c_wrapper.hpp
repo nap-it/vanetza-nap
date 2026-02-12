@@ -18,14 +18,20 @@ void free(asn_TYPE_descriptor_t&, void*);
 void* copy(asn_TYPE_descriptor_t&, const void*);
 bool validate(asn_TYPE_descriptor_t&, const void*);
 bool validate(asn_TYPE_descriptor_t&, const void*, std::string&);
+int compare(asn_TYPE_descriptor_t&, const void*, const void*);
+int print(FILE* stream, asn_TYPE_descriptor_t&, const void*);
 std::size_t size_per(asn_TYPE_descriptor_t&, const void*);
 std::size_t size_oer(asn_TYPE_descriptor_t&, const void*);
+std::size_t size_xer(asn_TYPE_descriptor_t&, const void*);
 ByteBuffer encode_per(asn_TYPE_descriptor_t&, const void*);
 bool decode_per(asn_TYPE_descriptor_t&, void**, const ByteBuffer&);
 bool decode_per(asn_TYPE_descriptor_t&, void**, const void* buffer, std::size_t size);
 ByteBuffer encode_oer(asn_TYPE_descriptor_t&, const void*);
 bool decode_oer(asn_TYPE_descriptor_t&, void**, const ByteBuffer&);
 bool decode_oer(asn_TYPE_descriptor_t&, void**, const void* buffer, std::size_t size);
+ByteBuffer encode_xer(asn_TYPE_descriptor_t&, const void*);
+bool decode_xer(asn_TYPE_descriptor_t&, void**, const ByteBuffer&);
+bool decode_xer(asn_TYPE_descriptor_t&, void**, const void* buffer, std::size_t size);
 
 template<class T>
 T* allocate()
@@ -42,6 +48,8 @@ public:
 
     asn1c_wrapper_common(asn_TYPE_descriptor_t& desc) :
         m_struct(vanetza::asn1::allocate<asn1c_type>()), m_type(desc) {}
+    asn1c_wrapper_common(asn_TYPE_descriptor_t& desc, const T* ptr) :
+        m_struct(static_cast<T*>(copy(desc, ptr))), m_type(desc) {}
     ~asn1c_wrapper_common() { vanetza::asn1::free(m_type, m_struct); }
 
     // copy semantics
@@ -69,6 +77,20 @@ public:
     const asn1c_type& operator*() const { return *m_struct; }
     const asn1c_type* operator->() const { return m_struct; }
 
+    // direct access to content structure
+    const asn1c_type* content() const { return m_struct; }
+    asn1c_type* content() { return m_struct; }
+
+    // compare semantics
+    bool operator==(const asn1c_wrapper_common& rhs) const
+    {
+        return vanetza::asn1::compare(m_type, m_struct, rhs.m_struct) == 0;
+    }
+    bool operator!=(const asn1c_wrapper_common& rhs) const
+    {
+        return vanetza::asn1::compare(m_type, m_struct, rhs.m_struct) != 0;
+    }
+
     /**
      * Check ASN.1 constraints
      * \param error (optional) copy of error message
@@ -87,6 +109,35 @@ public:
     bool validate(std::string& error) const
     {
         return vanetza::asn1::validate(m_type, m_struct, error);
+    }
+
+    /**
+     * Compare ASN.1 types
+     * \param other Other ASN.1 type to compare with
+     * \return 0 if equal, <0 if other is "greater", >0 if other is "smaller"
+     */
+    int compare(const asn1c_wrapper_common& other) const
+    {
+        return vanetza::asn1::compare(m_type, m_struct, other.m_struct);
+    }
+
+    /**
+     * Print ASN.1 type to standard output
+     * \return 0 on success, -1 on error
+     */
+    int print() const 
+    {
+        return vanetza::asn1::print(stdout, m_type, m_struct);
+    }
+
+    /**
+     * Print ASN.1 type to some file stream
+     * \param stream Output stream
+     * \return 0 on success, -1 on error
+     */
+    int print(FILE* stream) const 
+    {
+        return vanetza::asn1::print(stream, m_type, m_struct);
     }
 
     /**
@@ -205,6 +256,52 @@ public:
     std::size_t size() const
     {
         return vanetza::asn1::size_oer(base::m_type, base::m_struct);
+    }
+};
+
+template<class T>
+class asn1c_xer_wrapper : public asn1c_wrapper_common<T>
+{
+public:
+    using base = asn1c_wrapper_common<T>;
+    using base::base;
+
+    /**
+     * Encode ASN.1 struct into byte buffer
+     * \return byte buffer containing serialized ASN.1 struct
+     */
+    ByteBuffer encode() const
+    {
+        return vanetza::asn1::encode_xer(base::m_type, base::m_struct);
+    }
+
+    /**
+     * Try to decode ASN.1 struct from byte buffer
+     * \param buffer input data
+     * \return true if decoding has been successful
+     */
+    bool decode(const ByteBuffer& buffer)
+    {
+        return vanetza::asn1::decode_xer(base::m_type, (void**)&(base::m_struct), buffer);
+    }
+
+    bool decode(ByteBuffer::const_iterator begin, ByteBuffer::const_iterator end)
+    {
+        return vanetza::asn1::decode_xer(base::m_type, (void**)&(base::m_struct), &(*begin), std::distance(begin, end));
+    }
+
+    bool decode(const void* buffer, std::size_t len)
+    {
+        return vanetza::asn1::decode_xer(base::m_type, (void**)&(base::m_struct), buffer, len);
+    }
+
+    /**
+     * Get size of encoded ASN.1 struct
+     * \return size in bytes
+     */
+    std::size_t size() const
+    {
+        return vanetza::asn1::size_xer(base::m_type, base::m_struct);
     }
 };
 

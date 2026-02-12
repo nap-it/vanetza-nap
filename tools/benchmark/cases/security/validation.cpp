@@ -1,5 +1,7 @@
 #include "validation.hpp"
 #include <vanetza/security/delegating_security_entity.hpp>
+#include <vanetza/security/v2/secured_message.hpp>
+#include <vanetza/security/v2/sign_service.hpp>
 #include <boost/program_options.hpp>
 #include <iostream>
 #include <random>
@@ -51,24 +53,22 @@ int SecurityValidationCase::execute()
     certificate_cache.insert(certificate_provider.aa_certificate());
     trust_store.insert(certificate_provider.root_certificate());
 
-    std::vector<NaiveCertificateProvider*> providers(identities, nullptr);
-    std::vector<SignService> signers(identities);
-    std::vector<SecurityEntity*> entities(identities, nullptr);
-    std::vector<SecuredMessageV2> secured_messages(identities);
+    std::vector<std::unique_ptr<v2::CertificateProvider>> providers;
+    std::vector<std::unique_ptr<SecurityEntity>> entities;
+    std::vector<SecuredMessage> secured_messages(identities);
 
     for (unsigned i = 0; i < identities; i++) {
-        providers[i] = new NaiveCertificateProvider(runtime);
-        signers[i] = straight_sign_service(*providers[i], *crypto_backend, sign_header_policy);
-        entities[i] = new DelegatingSecurityEntity(signers[i], verify_service);
-        certificate_cache.insert(providers[i]->own_certificate());
+        providers.emplace_back(new v2::NaiveCertificateProvider(runtime));
+        entities.emplace_back(new DelegatingSecurityEntity { create_sign_service(), create_verify_service() });
+        certificate_cache.insert(providers.back()->own_certificate());
     }
 
     if (signer_info_type == "hash") {
         // Sign one message with CAM profile, so the next message only includes the certificate hash
-        EncapRequest initial_encap_request;
-        initial_encap_request.plaintext_payload = packet;
-        initial_encap_request.its_aid = aid::CA;
-        entities[0]->encapsulate_packet(std::move(initial_encap_request));
+        SignRequest initial_sign_request;
+        initial_sign_request.plain_message = packet;
+        initial_sign_request.its_aid = aid::CA;
+        entities[0]->encapsulate_packet(std::move(initial_sign_request));
     }
 
     for (unsigned i = 0; i < identities; i++) {
@@ -78,21 +78,28 @@ int SecurityValidationCase::execute()
             sign_header_policy.request_certificate_chain();
         }
 
-        EncapRequest encap_request;
-        encap_request.plaintext_payload = packet;
-        encap_request.its_aid = aid::CA;
+        SignRequest sign_request;
+        sign_request.plain_message = packet;
+        sign_request.its_aid = aid::CA;
 
-        EncapConfirm encap_confirm = entities[i]->encapsulate_packet(std::move(encap_request));
-        secured_messages[i] = encap_confirm.sec_packet;
-        auto signer_info = encap_confirm.sec_packet.header_field<HeaderFieldType::Signer_Info>();
-
-        if (signer_info_type == "hash") {
-            assert(signer_info && get_type(*signer_info) == SignerInfoType::Certificate_Digest_With_SHA256);
-        } else if (signer_info_type == "certificate") {
-            assert(signer_info && get_type(*signer_info) == SignerInfoType::Certificate);
-        } else if (signer_info_type == "chain") {
-            assert(signer_info && get_type(*signer_info) == SignerInfoType::Certificate_Chain);
+        EncapConfirm encap_confirm = entities[i]->encapsulate_packet(std::move(sign_request));
+        auto secured_msg = encap_confirm.secured_message();
+        if (!secured_msg) {
+            std::cerr << "Failed to encapsulate packet." << std::endl;
+            return 1;
         }
+        auto v2_sec_msg = boost::get<v2::SecuredMessage>(*secured_msg);
+        auto signer_info = v2_sec_msg.header_field<v2::HeaderFieldType::Signer_Info>();
+        
+        if (signer_info_type == "hash") {
+            assert(signer_info && get_type(*signer_info) == v2::SignerInfoType::Certificate_Digest_With_SHA256);
+        } else if (signer_info_type == "certificate") {
+            assert(signer_info && get_type(*signer_info) == v2::SignerInfoType::Certificate);
+        } else if (signer_info_type == "chain") {
+            assert(signer_info && get_type(*signer_info) == v2::SignerInfoType::Certificate_Chain);
+        }
+
+        secured_messages.push_back(v2_sec_msg);
     }
 
     std::mt19937 gen(0);
@@ -101,9 +108,9 @@ int SecurityValidationCase::execute()
     std::cout << "Starting benchmark for messages ... ";
 
     for (unsigned i = 0; i < messages; i++) {
-        auto copy = secured_messages[dis(gen)];
-        auto decap_confirm = security_entity.decapsulate_packet(std::move(copy));
-        assert(decap_confirm.report == DecapReport::Success);
+        DecapRequest decap_request { SecuredMessageView { secured_messages[dis(gen)] }};
+        auto decap_confirm = security_entity.decapsulate_packet(std::move(decap_request));
+        assert(decap_confirm.report == VerificationReport::Success);
     }
 
     std::cout << "[Done]" << std::endl;

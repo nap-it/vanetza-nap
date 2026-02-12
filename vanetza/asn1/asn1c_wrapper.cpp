@@ -11,7 +11,6 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
-#include <iostream>
 
 namespace vanetza
 {
@@ -53,16 +52,16 @@ void* copy(asn_TYPE_descriptor_t& td, const void* original)
     ByteBuffer buffer;
 
     asn_enc_rval_t ec;
-    ec = der_encode(&td, const_cast<void*>(original), write_buffer, &buffer);
+    ec = oer_encode(&td, const_cast<void*>(original), write_buffer, &buffer);
     if (ec.encoded == -1) {
-        throw std::runtime_error("DER encoding failed");
+        throw std::runtime_error("OER encoding failed");
     }
 
     asn_dec_rval_t dc;
-    dc = ber_decode(0, &td, &copy, buffer.data(), buffer.size());
+    dc = oer_decode(0, &td, &copy, buffer.data(), buffer.size());
     if (dc.code != RC_OK) {
         free(td, copy);
-        throw std::runtime_error("BER decoding failed");
+        throw std::runtime_error("OER decoding failed");
     }
 
     return copy;
@@ -82,6 +81,16 @@ bool validate(asn_TYPE_descriptor_t& td, const void* t, std::string& error)
         error = errbuf;
     }
     return ok;
+}
+
+int compare(asn_TYPE_descriptor_t& td, const void* a, const void* b)
+{
+    return td.op->compare_struct(&td, a, b);
+}
+
+int print(FILE* stream, asn_TYPE_descriptor_t& td, const void* t)
+{
+    return asn_fprint(stream, &td, t);
 }
 
 std::size_t size_per(asn_TYPE_descriptor_t& td, const void* t)
@@ -138,8 +147,8 @@ std::size_t size_oer(asn_TYPE_descriptor_t& td, const void* t)
         throw std::runtime_error(error_msg.str());
     }
 
-    // Caution! ec.encoded are bits not bytes!
-    return (ec.encoded + 7) / 8;
+    // ec.encoded are bytes for OER encoding
+    return ec.encoded;
 }
 
 ByteBuffer encode_oer(asn_TYPE_descriptor_t& td, const void* t)
@@ -168,6 +177,47 @@ bool decode_oer(asn_TYPE_descriptor_t& td, void** t, const void* buffer, std::si
     return ec.code == RC_OK;
 }
 
+std::size_t size_xer(asn_TYPE_descriptor_t& td, const void* t)
+{
+    asn_enc_rval_t ec;
+    ec = xer_encode(&td, const_cast<void*>(t), XER_F_BASIC, write_null, nullptr);
+    if (ec.encoded < 0) {
+        const char* failed_type = ec.failed_type ? ec.failed_type->name : "unknown";
+        const auto error_msg = boost::format(
+                "Can't determine size for XER encoding of type %1% because of %2% sub-type")
+                % td.name % failed_type;
+        throw std::runtime_error(error_msg.str());
+    }
+
+    // ec.encoded are bytes for XER encoding
+    return ec.encoded;
+}
+
+ByteBuffer encode_xer(asn_TYPE_descriptor_t& td, const void* t)
+{
+    ByteBuffer buffer;
+    asn_enc_rval_t ec = xer_encode(&td, const_cast<void*>(t), XER_F_BASIC, write_buffer, &buffer);
+    if (ec.encoded == -1) {
+        const char* failed_type = ec.failed_type ? ec.failed_type->name : "unknown";
+        const auto error_msg = boost::format(
+                "XER encoding of type %1% failed because of %2% sub-type")
+                % td.name % failed_type;
+        throw std::runtime_error(error_msg.str());
+    }
+    return buffer;
+}
+
+bool decode_xer(asn_TYPE_descriptor_t& td, void** t, const ByteBuffer& buffer)
+{
+    return decode_xer(td, t, buffer.data(), buffer.size());
+}
+
+bool decode_xer(asn_TYPE_descriptor_t& td, void** t, const void* buffer, std::size_t size)
+{
+    asn_codec_ctx_t ctx {};
+    asn_dec_rval_t ec = xer_decode(&ctx, &td, t, buffer, size);
+    return ec.code == RC_OK;
+}
 
 } // namespace asn1
 } // namespace vanetza

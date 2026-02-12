@@ -50,13 +50,14 @@ ManagementInformationBase::ManagementInformationBase() :
     itsGnDefaultTrafficClass(false, false, 0),
     vanetzaDefaultSeed(0xc0114c2c),
     vanetzaCbfMaxCounter(1),
-    vanetzaDeferInitialBeacon(false),
+    vanetzaDeferInitialBeacon(Clock::duration::zero()),
     vanetzaDisableBeaconing(false),
     vanetzaMultiHopDuplicateAddressDetection(false),
     vanetzaFadingCbfCounter(false),
     vanetzaFadingCbfCounterLifetime(4.0 * itsGnCbfMaxTime),
     vanetzaNeighbourFlagExpiry(Clock::duration::zero()),
-    vanetzaGbcMemoryCapacity(0)
+    vanetzaGbcMemoryCapacity(0),
+    vanetzaGbcPassUpOutsideDestination(false)
 {
 }
 

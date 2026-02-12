@@ -12,13 +12,19 @@ For example, *socktap* omits *Decentralized Congestion Control* (DCC) entirely t
 
 ## Link layer
 
-At the moment, three link layer implementations exist for *socktap*.
+At the moment, six link layer implementations exist for *socktap*.
 You can choose via the `--link-layer` argument which implementation to use:
 
 - *ethernet* runs on Linux raw packet sockets
-- *cohda* employs Cohda's LLC API (optional)
+- *cube-evk* runs nfiniity's link-layer implementation for the cube-evk
+- *autotalks* uses the Autotalks API to run on Autotalks hardware
+- *cohda* employs Cohda's LLC API
 - *udp* runs GeoNetworking on top of IP/UDP multicast sockets
+- *tcp* runs GeoNetworking on top of IP/TCP sockets
+- *rpc* uses *Cap’n Proto* interchange format and RPC with external server
 
+
+### Ethernet
 
 The *ethernet* variant has been initially *socktap*'s only available link-layer implementation.
 In this mode, *socktap* will send and receiver Ethernet frames on the specified network interface (see `--interface` argument).
@@ -29,15 +35,56 @@ You can do this via `sudo setcap cap_net_raw+ep bin/socktap`.
 When `CAP_NET_RAW` is attached to the *socktap* binary you can run it as an ordinary user.
 
 
+### CUBE-EVK
+
+If you have access to a cube-evk from [nfiniity](https://www.nfiniity.com/#portfolio) you can use socktap on your personal computer and connect to the EVK. In this mode the EVK is used as wireless remote radio. Moreover, you can use socktap on the EVK natively as well. Please refer to our [Running socktap on nfiniity devices](../recipes/cube-evk-build.md) for more details.
+
+
+### Cohda
+
 If you have access to V2X hardware from Cohda Wireless, you can also run *socktap* on their units.
 In the *cohda* mode, *socktap* uses Cohda's LLC API for sending and receiving data frames.
 This mode is similar to *ethernet* but depends on the Cohda SDK.
-Please refer to our [Cohda SDK building recipe](/recipes/cohda-sdk-build) for details.
+Please refer to our [Cohda SDK building recipe](../recipes/cohda-sdk-build.md) for details.
+
+
+### Autotalks
+
+Another option involving dedicated V2X hardware uses the Autotalks API.
+Please have a look at our [Building for Autotalks devices](../recipes/autotalks-sdk-build.md) guide how to incorporate the Autotalks SDK.
+
+> [!WARNING]
+> Our Autotalks link layer integration is deprecated. Please use the RPC link layer as a superior replacement.
+
+
+### UDP
 
 A relatively new addition is the *udp* mode, which allows running *socktap* without any privileges.
 GeoNetworking packets are wrapped into UDP datagrams and sent to the IP multicast group **239.118.122.97** on UDP port **8947**.
 Further *socktap* instances within the same IP multicast network exchange GeoNetworking packets then.
 You can consider this as "GeoNetworking over IP/UDP".
+
+
+### TCP
+
+The TCP implementation is similiar to the UDP one.
+However, TCP adds the arguments `--tcp-accept` and `--tcp-connect`, which allow the user to accept incoming TCP connections or connect to open TCP sockets, respectively.
+Both arguments expect a comma separated list of `ip:port`.
+Outgoing GeoNetworking packets will then be sent to all active TCP connections.
+
+### RPC
+
+RPC link layer lets socktap connect to an external RPC server over [Cap’n Proto](https://capnproto.org/).
+You can refer to [MACH SYSTEMS's RPC link](https://github.com/mach-systems/RPC-link) for developing the server on your own V2X hardware, e.g. Autotalks EVKs.
+The [cube V2X devices](https://cubesys.io) ship a compatible *cube-radio-rpc* service with *cube:os* 1.4 and later.
+
+#### Command line flags
+- `--rpc-host <HOST>` –⁠⁠⁠⁠⁠ hostname or IP of the RPC server (default: `localhost`)
+- `--rpc-port <PORT>` –⁠⁠⁠⁠⁠⁠ TCP port on which the server is listening (default: `23057`)
+- `--rpc-radio-technology <TECH>` –⁠⁠⁠⁠ radio technology to advertise to the server; valid values:  
+  - `ITS-G5` –⁠⁠⁠⁠⁠⁠ 802.11p / bd
+  - `LTE-V2X|C-V2X` –⁠⁠⁠⁠⁠⁠ LTE-V2X / 5G-V2X
+- `--rpc-debug` –⁠⁠⁠⁠⁠⁠ enable debugging output
 
 
 ## Positioning

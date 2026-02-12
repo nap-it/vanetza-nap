@@ -1,6 +1,5 @@
 #include "manual_runtime.hpp"
 #include <cassert>
-#include <iostream>
 
 namespace vanetza
 {
@@ -62,15 +61,10 @@ void ManualRuntime::trigger()
         auto top = m_queue.get<by_deadline>().begin();
         const auto deadline = top->deadline; // copy of deadline on purpose (erase before callback)
         if (deadline <= m_now) {
-            if(&top != nullptr && top.get_node() != nullptr && top.get_node()->right() != nullptr && top.get_node()->right() == top.get_node()->right()->left()) {
-                std::cout << "[DEBUG] - Runtime queue corruption was detected and cleared" << std::endl;
-                m_queue.get<by_deadline>().clear();
-            } else {
-                Callback cb = top->callback;
-                m_queue.get<by_deadline>().erase(top);
-                cb(deadline);
-            }
+            Callback cb = top->callback;
+            m_queue.get<by_deadline>().erase(top);
             // callback invocation has to be last action because it might modify runtime
+            cb(deadline);
         } else {
             break;
         }

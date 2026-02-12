@@ -6,23 +6,20 @@
 #include <vanetza/dcc/data_request.hpp>
 #include <vanetza/dcc/interface.hpp>
 #include <vanetza/net/cohesive_packet.hpp>
-#include <thread>
 
 class DccPassthrough : public vanetza::dcc::RequestInterface
 {
 public:
-    DccPassthrough(vanetza::access::Interface&, boost::asio::io_context&);
+    DccPassthrough(vanetza::access::Interface&, TimeTrigger& trigger);
 
     void request(const vanetza::dcc::DataRequest& request, std::unique_ptr<vanetza::ChunkPacket> packet) override;
 
     void allow_packet_flow(bool allow);
     bool allow_packet_flow();
-    TimeTrigger& get_trigger();
-    TimeTrigger& get_trigger(std::thread::id id);
 
 private:
     vanetza::access::Interface& access_;
-    boost::asio::io_context& io_context_;
+    TimeTrigger& trigger_;
     bool allow_packet_flow_ = true;
 };
 

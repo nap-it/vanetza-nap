@@ -1,22 +1,10 @@
 cmake_minimum_required(VERSION 3.12)
-project(Vanetza VERSION 0.8)
+cmake_policy(VERSION 3.12...3.31)
+project(Vanetza VERSION 24.10)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
-#set(CMAKE_BUILD_TYPE Debug)
-set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wno-narrowing -O2")
-
-# enable convenient CMake policies if available
-if(POLICY CMP0074)
-  # find_package() employs <package>_ROOT (since CMake 3.12)
-  cmake_policy(SET CMP0074 NEW)
-endif()
-if(POLICY CMP0077)
-  # option() honours normal variable (since CMake 3.13)
-  cmake_policy(SET CMP0077 NEW)
-endif()
-
 # Vanetza makes extensive use of C++11
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED OFF)
 
 # Load conan configuration if available
@@ -54,10 +42,10 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # Find project dependencies
 set(Boost_COMPONENTS date_time) # used by VanetzaConfig generator
-find_package(Boost 1.58 REQUIRED COMPONENTS ${Boost_COMPONENTS})
+find_package(Boost 1.69 REQUIRED COMPONENTS ${Boost_COMPONENTS})
 # query optional Boost components one by one quietly
-foreach(component IN ITEMS program_options system)
-  find_package(Boost 1.58 QUIET COMPONENTS ${component})
+foreach(component IN ITEMS program_options)
+  find_package(Boost 1.69 QUIET COMPONENTS ${component})
   if (Boost_${component}_FOUND)
     list(APPEND Boost_COMPONENTS ${component})
   endif()
@@ -65,6 +53,10 @@ endforeach()
 include(CompatBoostTargets)
 find_package(CryptoPP 5.6.1 REQUIRED)
 find_package(GeographicLib 1.37 REQUIRED)
+
+if(Boost_VERSION_STRING STRGREATER_EQUAL 1.80)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
 
 option(VANETZA_WITH_OPENSSL "Enable OpenSSL extensions" OFF)
 if (VANETZA_WITH_OPENSSL)
@@ -81,18 +73,14 @@ add_subdirectory(vanetza/facilities)
 add_subdirectory(vanetza/geonet)
 add_subdirectory(vanetza/gnss)
 add_subdirectory(vanetza/net)
+add_subdirectory(vanetza/rpc)
 add_subdirectory(vanetza/security)
 add_subdirectory(vanetza/units)
-add_subdirectory(tools/socktap)
 
-if(TARGET Cohda::headers)
-  add_subdirectory(tools/cohda_proxy)
+option(BUILD_SOCKTAP "Build socktap application" OFF)
+if(BUILD_SOCKTAP)
+  add_subdirectory(tools/socktap)
 endif()
-
-#option(BUILD_SOCKTAP "Build socktap application" ON)
-#if(BUILD_SOCKTAP)
-#  add_subdirectory(tools/socktap)
-#endif()
 
 option(BUILD_CERTIFY "Build certify application" OFF)
 if(BUILD_CERTIFY)
@@ -102,6 +90,11 @@ endif()
 option(BUILD_BENCHMARK "Build benchmark application" OFF)
 if(BUILD_BENCHMARK)
   add_subdirectory(tools/benchmark)
+endif()
+
+option(BUILD_FUZZ "Build fuzz harness" OFF)
+if(BUILD_FUZZ)
+  add_subdirectory(tools/fuzz-harness)
 endif()
 
 # interface library for convenience
@@ -143,6 +136,8 @@ if(VANETZA_INSTALL)
   install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/vanetza
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
     FILES_MATCHING PATTERN "*.hpp" PATTERN "/tests/*.hpp" EXCLUDE)
+  install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/vanetza/asn1/memory.h
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/vanetza/asn1)
 
   # export build tree (allows import by outside projects)
   option(VANETZA_EXPORT_PACKAGE "Export Vanetza build directory to CMake package registry" ON)

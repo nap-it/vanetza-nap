@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <vanetza/common/annotation.hpp>
 #include <vanetza/security/tests/check_region.hpp>
 #include <vanetza/security/tests/check_visitor.hpp>
 #include <boost/format.hpp>
@@ -6,6 +7,8 @@
 namespace vanetza
 {
 namespace security
+{
+namespace v2
 {
 
 void check(const ThreeDLocation& expected, const ThreeDLocation& actual)
@@ -23,6 +26,8 @@ void check(const TwoDLocation& expected, const TwoDLocation& actual)
 
 void check(const NoneRegion& expected, const NoneRegion& actual)
 {
+    mark_unused(expected);
+    mark_unused(actual);
     SCOPED_TRACE("None");
 }
 
@@ -77,5 +82,6 @@ void check(const GeographicRegion& expected, const GeographicRegion& actual)
     boost::apply_visitor(check_visitor<GeographicRegion>(), expected, actual);
 }
 
+} // namespace v2
 } // namespace security
 } // namespace vanetza

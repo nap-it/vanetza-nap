@@ -26,7 +26,6 @@
 #include <vanetza/units/length.hpp>
 #include <vanetza/units/time.hpp>
 #include <vanetza/security/security_entity.hpp>
-#include <boost/optional.hpp>
 #include <boost/variant.hpp>
 #include <cstdint>
 #include <memory>
@@ -93,7 +92,9 @@ public:
         Decap_Unsuccessful_Strict,
         Hop_Limit,
         Payload_Size,
-        Security_Entity_Missing
+        Security_Entity_Missing,
+        Packet_Size,
+        Internal_Error,
     };
 
     // Reason for stopping packet forwarding
@@ -332,6 +333,16 @@ private:
     bool process_extended(const ExtendedPduConstRefs<ShbHeader>&, const UpPacket&, const LinkLayer& ll);
 
     /**
+     * \brief packet handling of received TSB packet
+     *
+     * \param pdu PDU with TSB header
+     * \param packet received packet
+     * \param ll link-layer control info
+     * \return pass up decision (true for all non-duplicate TSBs)
+     */
+    bool process_extended(const ExtendedPduConstRefs<TsbHeader>&, const UpPacket&, const LinkLayer& ll);
+
+    /**
      * \brief Process ExtendedHeader information.
      * Update router's LocationTable and neighbour relationship.
      * Pass packet up to transport layer for further processing.
@@ -377,7 +388,6 @@ private:
      * \param payload Packet payload
      */
     void pass_down(const MacAddress&, PduPtr, DownPacketPtr);
-    void pass_down(const MacAddress&, const boost::optional<MacAddress>&, PduPtr, DownPacketPtr);
 
     /**
      * \brief Send packet using the information in the DataRequest.
@@ -506,10 +516,11 @@ private:
      * \brief Encaspulate a packet according to security profile
      *
      * \param aid ITS-AID
+     * \param ssp Service Specific Permissions
      * \param pdu PDU
      * \param packet Packet with payload
      */
-    DownPacketPtr encap_packet(ItsAid aid, Pdu& pdu, DownPacketPtr packet);
+    DownPacketPtr encap_packet(ItsAid aid, ByteBuffer ssp, Pdu& pdu, DownPacketPtr packet);
 
     /**
      * \brief Create an initialized Single-Hop-Broadcast PDU

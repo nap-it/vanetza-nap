@@ -40,7 +40,8 @@ enum class AddrConfMethod {
 
 enum class InterfaceType {
     Unspecified = 0,
-    ITS_G5 = 1
+    ITS_G5 = 1,
+    LTE_V2X = 2
 };
 
 enum class SecurityDecapHandling {
@@ -94,13 +95,14 @@ struct ManagementInformationBase
     TrafficClass itsGnDefaultTrafficClass;
     std::uint32_t vanetzaDefaultSeed; /*< default seed for internal random number generator */
     std::size_t vanetzaCbfMaxCounter; /*< maximum counter value used for Advanced routing */
-    bool vanetzaDeferInitialBeacon; /*< defer first beacon up to itsGnBeaconServiceRetransmitTimer */
+    Clock::duration vanetzaDeferInitialBeacon; /*< defer first beacon by given duration */
     bool vanetzaDisableBeaconing; /*< disable transmission of beacons entirely */
     bool vanetzaMultiHopDuplicateAddressDetection; /*< execute DAD for multi-hop packets */
     bool vanetzaFadingCbfCounter; /*< use fading counters for CBF packet buffer */
     units::Duration vanetzaFadingCbfCounterLifetime; /*< lifetime until counter vanishes */
     Clock::duration vanetzaNeighbourFlagExpiry; /*< reset LocTE neighbour state without explicit updates */
     std::size_t vanetzaGbcMemoryCapacity; /*< do not pass up duplicate GBC packets (0 to disable this filter) */
+    bool vanetzaGbcPassUpOutsideDestination; /*< pass up received GBC packets even when outside of destination area */
 };
 
 // This name is too clumsy to write it out every time

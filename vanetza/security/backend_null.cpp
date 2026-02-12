@@ -14,20 +14,32 @@ EcdsaSignature BackendNull::sign_data(const ecdsa256::PrivateKey&, const ByteBuf
     return fake;
 }
 
+Signature BackendNull::sign_digest(const PrivateKey&, const ByteBuffer&)
+{
+    static const Signature empty {};
+    return empty;
+}
+
 bool BackendNull::verify_data(const ecdsa256::PublicKey&, const ByteBuffer&, const EcdsaSignature&)
 {
     // accept everything
     return true;
 }
 
-boost::optional<Uncompressed> BackendNull::decompress_point(const EccPoint& ecc_point)
+bool BackendNull::verify_digest(const PublicKey&, const ByteBuffer&, const Signature&)
+{
+    // accept everything
+    return true;
+}
+
+boost::optional<Uncompressed> BackendNull::decompress_point(const EccPoint&)
 {
     return boost::none;
 }
 
 EcdsaSignature BackendNull::fake_signature() const
 {
-    const std::size_t size = field_size(PublicKeyAlgorithm::ECDSA_NISTP256_With_SHA256);
+    constexpr std::size_t size = 32;
     EcdsaSignature signature;
     X_Coordinate_Only coordinate;
     coordinate.x = random_byte_sequence(size, 0xdead);
@@ -35,6 +47,22 @@ EcdsaSignature BackendNull::fake_signature() const
     signature.s = random_byte_sequence(size, 0xbeef);
 
     return signature;
+}
+
+ByteBuffer BackendNull::calculate_hash(HashAlgorithm algo, const ByteBuffer&)
+{
+    ByteBuffer hash;
+    switch (algo) {
+        case HashAlgorithm::SHA256:
+            hash.resize(32);
+            break;
+        case HashAlgorithm::SHA384:
+            hash.resize(48);
+            break;
+        default:
+            break;
+    }
+    return hash;
 }
 
 } // namespace security

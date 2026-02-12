@@ -31,6 +31,7 @@ Sources of these libraries, also known as Vanetza component, are bundled in thei
 | geonet | dcc, net, security | GeoNetworking layer featuring geographical routing |
 | gnss | - | Satellite navigation integration for positioning |
 | net | common | Utilities for socket API and packet handling |
+| rpc | access, dcc, net | Cap'n Proto RPC client with *Boost.Asio* support |
 | security | common, net | Security entity to sign and verify packets |
 
 For most of the code unit tests exist. We are using [Googletest](https://github.com/google/googletest) for those.
@@ -55,6 +56,8 @@ Meanwhile, Vanetza is used by many more parties and for more use cases than anti
    Vanetza is used in this network simulation as (quite detailed) model of ITS-G5 protocols.
 * Various communication units (roadside units, vehicles and testbeds) in the [CARISSMA Car2X lab](https://www.thi.de/forschung/carissma/labore/car2x-labor) are powered by Vanetza.
 * Prototype motorcycles operated by the [Connected Motorcycle Consortium](https://www.cmc-info.net) use Vanetza for evaluation of novel ITS applications to enhance rider safety.
+* [nfiniity](https://www.nfiniity.com) integrates its *cube* V2X ecosystem with Vanetza.
 
 If you are using Vanetza, we would love to add your project to the list above.
-Please write an e-mail to [raphael.riebl@thi.de](mailto:raphael.riebl@thi.de) or open a pull request.
+Please write an e-mail to [raphael@riebl.net](mailto:raphael@riebl.net) or open a pull request.
+

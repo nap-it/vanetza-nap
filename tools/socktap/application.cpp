@@ -1,10 +1,34 @@
 #include "application.hpp"
 #include <vanetza/btp/header.hpp>
 #include <vanetza/btp/header_conversion.hpp>
-#include <sstream>
 #include <cassert>
 
 using namespace vanetza;
+
+Application::DataConfirm Application::request(const DataRequest& request, DownPacketPtr packet)
+{
+    DataConfirm confirm(DataConfirm::ResultCode::Rejected_Unspecified);
+    if (router_ && packet) {
+        btp::HeaderB btp_header;
+        btp_header.destination_port = this->port();
+        btp_header.destination_port_info = host_cast<uint16_t>(0);
+        packet->layer(OsiLayer::Transport) = btp_header;
+
+        switch (request.transport_type) {
+            case geonet::TransportType::SHB:
+                confirm = router_->request(request_shb(request), std::move(packet));
+                break;
+            case geonet::TransportType::GBC:
+                confirm = router_->request(request_gbc(request), std::move(packet));
+                break;
+            default:
+                // TODO remaining transport types are not implemented
+                break;
+        }
+    }
+
+    return confirm;
+}
 
 void initialize_request(const Application::DataRequest& generic, geonet::DataRequest& geonet)
 {
@@ -16,23 +40,21 @@ void initialize_request(const Application::DataRequest& generic, geonet::DataReq
     }
     geonet.repetition = generic.repetition;
     geonet.traffic_class = generic.traffic_class;
-    geonet.source_mac_override = generic.source_mac_override;
-    geonet.source_position_override = generic.source_position_override;
 }
 
-static geonet::GbcDataRequest request_gbc(const vanetza::btp::DataRequestGeoNetParams& generic, vanetza::geonet::Router* router)
+geonet::GbcDataRequest Application::request_gbc(const DataRequest& generic)
 {
-    assert(router);
-    geonet::GbcDataRequest gbc(router->get_mib());
+    assert(router_);
+    geonet::GbcDataRequest gbc(router_->get_mib());
     initialize_request(generic, gbc);
     gbc.destination = boost::get<geonet::Area>(generic.destination);
     return gbc;
 }
 
-static geonet::ShbDataRequest request_shb(const vanetza::btp::DataRequestGeoNetParams& generic, vanetza::geonet::Router* router)
+geonet::ShbDataRequest Application::request_shb(const DataRequest& generic)
 {
-    assert(router);
-    geonet::ShbDataRequest shb(router->get_mib());
+    assert(router_);
+    geonet::ShbDataRequest shb(router_->get_mib());
     initialize_request(generic, shb);
     return shb;
 }
@@ -40,160 +62,4 @@ static geonet::ShbDataRequest request_shb(const vanetza::btp::DataRequestGeoNetP
 Application::PromiscuousHook* Application::promiscuous_hook()
 {
     return nullptr;
-}
-
-bool Application::request(const DataRequest& request, DownPacketPtr packet, std::string* mqtt_message, vanetza::geonet::Router* router)
-{
-    btp::HeaderB btp_header;
-    btp_header.destination_port = this->port();
-    btp_header.destination_port_info = host_cast<uint16_t>(0);
-    packet->layer(OsiLayer::Transport) = btp_header;
-    vanetza::geonet::DataConfirm confirm(vanetza::geonet::DataConfirm::ResultCode::Rejected_Unspecified);
-    try {
-        if (router && packet) {
-            switch (request.transport_type) {
-                case geonet::TransportType::SHB:
-                    confirm = router->request(request_shb(request, router), std::move(packet));
-                    break;
-                case geonet::TransportType::GBC:
-                    confirm = router->request(request_gbc(request, router), std::move(packet));
-                    break;
-                default:
-                    // TODO remaining transport types are not implemented
-                    break;
-            }
-        }
-        if (confirm.accepted()) {
-            return true;
-        } else {
-            std::cout << "Application data request failed. Reason: " << static_cast<std::underlying_type<vanetza::geonet::DataConfirm::ResultCode>::type>(confirm.result_code) << std::endl;
-            return false;
-        }
-    } catch(std::runtime_error& e) {
-        std::cout << "--- Vanetza UPER Encoding Error ---\nCheck that the message format follows ETSI spec\n" << e.what() << std::endl;
-        if (mqtt_message != nullptr) std::cout << "Invalid payload: " << *(mqtt_message) << std::endl;
-        return false;
-    } catch(...) {
-        std::cout << "--- Unexpected Error ---\nVanetza couldn't send the requested message but did not throw a runtime error on UPER encode.\nNo other info available\n" << std::endl;
-        if (mqtt_message != nullptr) std::cout << "Invalid payload: " << *(mqtt_message) << std::endl;
-        return false;
-    }
-}
-
-void Application::apply_station_overrides(DataRequest& request, vanetza::geonet::Router* router, int station_type, long station_id)
-{
-    auto mac_override = build_mac_from_station(station_type, station_id);
-    request.source_mac_override = mac_override;
-    if (router) {
-        auto source_position = router->get_local_position_vector();
-        source_position.gn_addr.mid(mac_override);
-        request.source_position_override = source_position;
-    }
-}
-
-int Application::resolve_station_id(int payload_station_id, int fallback_station_id) const
-{
-    return payload_station_id >= 0 ? payload_station_id : fallback_station_id;
-}
-
-std::string Application::resolve_station_mac(int station_type, long station_id, const std::string& fallback_mac)
-{
-    if (station_id < 0) {
-        return fallback_mac;
-    }
-    std::stringstream mac_stream;
-    mac_stream << build_mac_from_station(station_type, station_id);
-    return mac_stream.str();
-}
-
-void Application::fillPosition(std::string& str, vanetza::PositionProvider& positionProvider) {
-    if (str.find('$') != std::string::npos) {
-        const vanetza::PositionFix position = positionProvider.position_fix();
-        if (size_t pos = str.find("$latitude"); pos != std::string::npos) {
-            double latitude = 900000001; 
-            if (position.latitude.value() <= 900000000) latitude = position.latitude.value();
-            str.replace(pos, std::string("$latitude").length(), std::to_string(latitude));
-        }
-        if (size_t pos = str.find("$longitude"); pos != std::string::npos) {
-            double longitude = 1800000001; 
-            if (position.longitude.value() <= 1800000000) longitude = position.longitude.value();
-            str.replace(pos, std::string("$longitude").length(), std::to_string(longitude));
-        }
-        if (size_t pos = str.find("$altitude"); pos != std::string::npos) {
-            double altitude = 800001; 
-            if (position.altitude.is_initialized() && position.altitude.value().value().value() <= 800000) altitude = position.altitude.value().value().value();
-            str.replace(pos, std::string("$altitude").length(), std::to_string(altitude));
-        }
-        if (size_t pos = str.find("$speed"); pos != std::string::npos) {
-            double speed = 16383; 
-            if (position.speed.value().value() >= 0 && position.speed.value().value() <= 16382) speed = position.speed.value().value();
-            str.replace(pos, std::string("$speed").length(), std::to_string(speed));
-        }
-        if (size_t pos = str.find("$heading"); pos != std::string::npos) {
-            double heading = 3601; 
-            if (position.course.value().value() >= 0 && position.course.value().value() <= 3600) heading = position.course.value().value();
-            str.replace(pos, std::string("$heading").length(), std::to_string(heading));
-        }
-        if (size_t pos = str.find("$semiMajorConfidence"); pos != std::string::npos) {
-            str.replace(pos, std::string("$semiMajorConfidence").length(), std::to_string((int) position.confidence.semi_major.value()));
-        }
-        if (size_t pos = str.find("$semiMinorConfidence"); pos != std::string::npos) {
-            str.replace(pos, std::string("$semiMinorConfidence").length(), std::to_string((int) position.confidence.semi_minor.value()));
-        }
-        if (size_t pos = str.find("$orientationConfidence"); pos != std::string::npos) {
-            str.replace(pos, std::string("$orientationConfidence").length(), std::to_string((int) position.confidence.orientation.value()));
-        }
-        if (size_t pos = str.find("$altitudeConfidence"); pos != std::string::npos) {
-            double altitudeConfidence = 15; 
-            if(position.altitude.is_initialized()) altitudeConfidence = position.altitude.value().confidence().value();
-            str.replace(pos, std::string("$altitudeConfidence").length(), std::to_string((int) altitudeConfidence));
-        }
-        if (size_t pos = str.find("$speedConfidence"); pos != std::string::npos) {
-            double speedConfidence = 127; 
-            if (position.speed.confidence().value() >= 0 && position.speed.confidence().value() <= 125) speedConfidence = position.speed.confidence().value();
-            str.replace(pos, std::string("$speedConfidence").length(), std::to_string((int) speedConfidence));
-        }
-        if (size_t pos = str.find("$headingConfidence"); pos != std::string::npos) {
-            double headingConfidence = 127; 
-            if (position.course.confidence().value() >= 0 && position.course.confidence().value() <= 125) headingConfidence = position.course.confidence().value();
-            str.replace(pos, std::string("$headingConfidence").length(), std::to_string((int) headingConfidence));
-        }
-    }
-}
-
-namespace {
-uint8_t clamp_component(long value)
-{
-    if (value < 0) {
-        return 0x00;
-    }
-    if (value > 0xFF) {
-        return 0xFF;
-    }
-    return static_cast<uint8_t>(value);
-}
-} // namespace
-
-vanetza::MacAddress build_mac_from_station(int station_type, long station_id)
-{
-    vanetza::MacAddress mac;
-    mac.octets = {0x6e, 0x06, 0xe0, 0x00, 0x00, 0x00};
-
-    uint8_t jj = 0x00;
-    if (station_type == 15) {
-        jj = 0x01;
-    } else if (station_type == 5) {
-        jj = 0x02;
-    }
-    mac.octets[3] = jj;
-
-    const long quotient = station_id / 255;
-    long remainder = station_id % 255;
-    if (remainder < 0) {
-        remainder += 255;
-    }
-
-    mac.octets[4] = clamp_component(quotient);
-    mac.octets[5] = clamp_component(remainder);
-    return mac;
 }

@@ -5,7 +5,6 @@
 #include <vanetza/common/clock.hpp>
 #include <vanetza/dcc/profile.hpp>
 #include <vanetza/net/mac_address.hpp>
-#include <boost/optional.hpp>
 
 namespace vanetza
 {
@@ -21,10 +20,10 @@ struct DataRequest
     MacAddress destination;
     Profile dcc_profile;
     Clock::duration lifetime;
-    boost::optional<MacAddress> source_override;
 };
 
 } // namespace dcc
 } // namespace vanetza
 
 #endif /* DATA_REQUEST_HPP_A5DWTTJN */
+
