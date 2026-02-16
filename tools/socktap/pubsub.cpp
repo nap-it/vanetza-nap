@@ -99,17 +99,23 @@ PubSub::PubSub(config_t config_, int num_threads_, std::mutex& prom_mtx_) :
 
     std::string listen_json;
     if (config.zenoh_local_only) {
+        // Binding Zenoh router to loopback only
         listen_json = "[\"tcp/127.0.0.1:7447#iface=lo\"]";
-        // std::cout << "Binding Zenoh router to loopback only." << std::endl;
     } else {
+        // Binding Zenoh router to all interfaces
         listen_json = "[\"tcp/0.0.0.0:7447\"]";
-        // std::cout << "Binding Zenoh router to all interfaces." << std::endl;
     }
     zconfig.insert_json5("mode", "\"router\"", err);
     zconfig.insert_json5("listen/endpoints", listen_json, err);
 
-    const std::string allowed_interfaces = this->config.zenoh_interfaces.empty() ? this->config.interface : this->config.zenoh_interfaces;
-    this->allow_interfaces_(zconfig, allowed_interfaces);
+    if (!config.zenoh_local_only){
+        std::string zenoh_ifaces = this->config.zenoh_interfaces;
+        if (zenoh_ifaces == "\"\"") {
+            zenoh_ifaces = "";
+        }
+        const std::string allowed_interfaces = zenoh_ifaces;
+        this->allow_interfaces_(zconfig, allowed_interfaces);
+    }
 
     if (err) {
         std::cout << "Error in Zenoh configuration: " << static_cast<const void*>(err) << std::endl;
