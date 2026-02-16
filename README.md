@@ -303,7 +303,7 @@ The following table summarizes the available configuration options:
 | general.publish_encoded_payloads | VANETZA_PUBLISH_ENCODED_PAYLOADS | Publish the raw ASN.1 encoded messages to DDS topics, in addition to the JSON representations | false | Only recommended for debugging purposes, as it may introduce significant latency |
 | general.debug_enabled | VANETZA_DEBUG_ENABLED | Enable debug prints in the terminal/logs | false | |
 | general.zenoh_local_only | VANETZA_ZENOH_LOCAL_ONLY | Use Zenoh in same host only mode, without connecting to any remote router or peer | true | Advanced usage only |
-| general.zenoh_interfaces | VANETZA_ZENOH_INTERFACES | Comma-separated list of network interfaces to use for Zenoh communication when not in local-only mode |  | Advanced usage only |
+| general.zenoh_interfaces | VANETZA_ZENOH_INTERFACES | Comma-separated list of network interfaces to use for Zenoh communication when not in local-only mode |  | For example: lo,eth0,wlan0 |
 | station.id | VANETZA_STATION_ID | ETSI Station ID field | 99 | |
 | station.type | VANETZA_STATION_TYPE | ETSI Station Type field | 15 | |
 | station.mac_address | VANETZA_MAC_ADDRESS | Virtual Mac Address used as the source on L2 ethernet headers | interface's address | |
