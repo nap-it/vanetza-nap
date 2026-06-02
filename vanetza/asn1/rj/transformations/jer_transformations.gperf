@@ -1,0 +1,57 @@
+%{
+// Regenerate: gperf --language=C++ --struct-type --readonly-tables jer_transformations.gperf > jer_transformations.cpp
+#include "jer_transformations.hpp"
+#include <cstring>
+namespace vanetza { namespace asn1 { namespace rj {
+%}
+%struct-type
+%readonly-tables
+%define lookup-function-name jer_transform_lookup_internal
+%define class-name JerTransformHash
+struct jer_transform_entry_internal { const char* name; double scale; int32_t unavail0, unavail1, unavail2, unavail3; uint8_t unavail_count; };
+%%
+# Format: TypeName, scale, unavail0, unavail1, unavail2, unavail3, unavail_count
+# Only first `unavail_count` values are checked as sentinels (not transformed)
+Latitude,                   10000000.0, 900000001,  0, 0, 0, 1
+Longitude,                  10000000.0, 1800000001, 0, 0, 0, 1
+DeltaLatitude,              10000000.0, 131072, 0, 0, 0, 1
+DeltaLongitude,             10000000.0, 131072, 0, 0, 0, 1
+AltitudeValue,              100.0, 800001, 0, 0, 0, 1
+DeltaAltitude,              100.0, -12700, 12799, 12800, 0, 3
+SensorHeight,               100.0, 0, 0, 0, 0, 0
+SpeedValue,                 100.0, 16383, 0, 0, 0, 1
+SpeedValueExtended,         100.0, 16383, 0, 0, 0, 1
+VelocityComponentValue,     100.0, 16383, 0, 0, 0, 1
+SpeedConfidence,            100.0, 126, 127, 0, 0, 2
+HeadingValue,               10.0, 3601, 0, 0, 0, 1
+HeadingConfidence,          10.0, 126, 127, 0, 0, 2
+WGS84AngleValue,            10.0, 3601, 0, 0, 0, 1
+CartesianAngleValue,        10.0, 3601, 0, 0, 0, 1
+AngleConfidence,            10.0, 127, 0, 0, 0, 1
+AccelerationValue,          10.0, 161, 0, 0, 0, 1
+LongitudinalAccelerationValue, 10.0, 161, 0, 0, 0, 1
+LateralAccelerationValue,   10.0, 161, 0, 0, 0, 1
+VerticalAccelerationValue,  10.0, 161, 0, 0, 0, 1
+AccelerationConfidence,     10.0, 102, 0, 0, 0, 1
+YawRateValue,               100.0, 32767, 0, 0, 0, 1
+DistanceValue,              100.0, 0, 0, 0, 0, 0
+DistanceConfidence,         100.0, 101, 102, 0, 0, 2
+CartesianCoordinate,        100.0, 0, 0, 0, 0, 0
+CartesianCoordinateLarge,   100.0, 0, 0, 0, 0, 0
+CoordinateConfidence,       100.0, 4096, 0, 0, 0, 1
+VehicleLengthValue,         10.0, 1023, 0, 0, 0, 1
+VehicleWidth,               10.0, 61, 62, 0, 0, 2
+ObjectDimensionValue,       10.0, 0, 0, 0, 0, 0
+SemiRangeLength,            10.0, 0, 0, 0, 0, 0
+Radius,                     10.0, 0, 0, 0, 0, 0
+SteeringWheelAngleValue,    0.667, 0, 0, 0, 0, 0
+TimestampIts,               1000.0, 0, 0, 0, 0, 0
+TransmissionInterval,       1000.0, 0, 0, 0, 0, 0
+SemiAxisLength,             100.0, 4094, 4095, 0, 0, 2
+StandardLength12b,          10.0, 0, 0, 0, 0, 0
+%%
+const jer_transform_entry* jer_find_transform(const char* name, size_t len) {
+    auto* e = JerTransformHash::jer_transform_lookup_internal(name, len);
+    return reinterpret_cast<const jer_transform_entry*>(e);
+}
+}}}

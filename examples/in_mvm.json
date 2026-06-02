@@ -1,0 +1,107 @@
+{
+	"e2eProtection": {
+		"length": 0,
+		"rollingCounter": 0,
+		"dataID": 0,
+		"crc32": 0
+	},
+	"mvm": {
+		"mvmDataControlField": {
+			"mvmGenerationTime": 123456890.0,
+			"rollingCounterFromMim": [
+				100,
+				200,
+				300,
+				400,
+				500,
+				600,
+				700,
+				800,
+				900,
+				1000
+			],
+			"proprietaryExtensionField": 45000
+		},
+		"systemManagementData": {
+			"sessionID": "mysessionid202312081030",
+			"missionID": "mymissionid103001200",
+			"vehicleID": "myvehicleid202312",
+			"facilityID": "myfacilityid103001200"
+		},
+		"vehicleState": {
+			"vehicleStateGenerationTime":65535.0,
+			"operationMode": 8,
+			"gearState": 4,
+			"directionIndicatorState": 4,
+			"parkingBrakeState": 4,
+			"motorSystemState": 2,
+			"currentVelocity": 16.0,
+			"currentCurvature": -5000,
+			"secureStandstill": false,
+			"idxLastWayPoint": 369,
+			"localizedPose": {
+				"x": 369,
+				"y": -123,
+				"psi": 62831
+			}
+		},
+		"vidResponse": {
+			"vidVehicleState": 5,
+			"vidVehiclePublicKey": 255
+		},
+		"safetyTimeSyncResponse": {
+			"challenge": 32767,
+			"vehicleSafetyClockReceiveTimestamp": 123456890.0,
+			"vehicleSafetyClockTransmitTimestamp": 123456890.0,
+			"checksum": 4294967295
+		},
+		"safeVehicleTypeConfirmation": {
+			"vehicleType": "myvehicletype",
+			"safetyProfile": "mysafetyprofile",
+			"checksum": 4294967295
+		},
+		"vehicleError": {
+			"time": 123456890.0,
+			"vehCode": 4,
+			"customCode": 255,
+			"description": "example of populated mvm"
+		},
+		"vehicleSafetyFeedback": [
+			{
+				"remainingTimeToStartBraking": 255,
+				"safetyViolations": [
+					0,
+					5,
+					8,
+					9,
+					11
+				],
+				"currentVehicleSafetyClockTime": 123456890.0
+			},
+			{
+				"remainingTimeToStartBraking": 1000,
+				"safetyViolations": [
+					1,
+					6,
+					9,
+					2,
+					3
+				],
+				"currentVehicleSafetyClockTime": 123456890.0
+			}
+		],
+		"vehicleProperties": {
+			"basicVehicleClass": 15,
+			"vehicleLength": 6,
+			"vehicleWheelbase": 3,
+			"vehicleRearOverhang": 2,
+			"vehicleWidth": 4,
+			"vehicleTireWidth": 6,
+			"vehicleTrackWidth": 5,
+			"vehicleMass": 1003,
+			"vehicleSpeedLimit": 120.0,
+			"vehicleCuvatureLimit": 32767,
+			"vehicleMaxAngularSteeringRate": 32766
+		}
+	}
+}

@@ -1,0 +1,40 @@
+{
+  "generationDeltaTime": 52264,
+  "vamParameters": {
+    "basicContainer": {
+      "stationType": 1,
+      "referencePosition": {
+        "latitude": 40.64088,
+        "longitude": -8.65397,
+        "positionConfidenceEllipse": {
+          "semiMajorAxisLength": 4095,
+          "semiMinorAxisLength": 4095,
+          "semiMajorAxisOrientation": 3601
+        },
+        "altitude": {
+          "altitudeValue": 0,
+          "altitudeConfidence": 14
+        }
+      }
+    },
+    "vruHighFrequencyContainer": {
+      "heading": {
+        "value": 153.0,
+        "confidence": 127
+      },
+      "speed": {
+        "speedValue": 8.7,
+        "speedConfidence": 127
+      },
+      "longitudinalAcceleration": {
+        "longitudinalAccelerationValue": -0.4,
+        "longitudinalAccelerationConfidence": 0
+      }
+    },
+    "vruLowFrequencyContainer": {
+      "profileAndSubprofile": {
+        "pedestrian": 1
+      }
+    }
+  }
+}

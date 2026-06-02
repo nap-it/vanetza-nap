@@ -1,0 +1,214 @@
+{
+	"managementContainer": {
+		"referenceTime": 0.0,
+		"referencePosition": {
+			"latitude": 40.63481,
+			"longitude": -8.660463,
+			"positionConfidenceEllipse": {
+				"semiMajorConfidence": 4095,
+				"semiMinorConfidence": 4095,
+				"semiMajorOrientation": 0.0
+			},
+			"altitude": {
+				"altitudeValue": 2.9,
+				"altitudeConfidence": 15
+			}
+		}
+	},
+	"cpmContainers": [
+		{
+			"containerId": 1,
+			"containerData": {
+				"OriginatingVehicleContainer": {
+					"orientationAngle": {
+						"value": 0,
+						"confidence": 1
+					}
+				}
+			}
+		},
+		{
+			"containerId": 3,
+			"containerData": {
+				"SensorInformationContainer": [
+					{
+						"sensorId": 1,
+						"sensorType": 1,
+						"perceptionRegionShape": {
+							"radial": {
+								"range": 100.0,
+								"horizontalOpeningAngleStart": 3601,
+								"horizontalOpeningAngleEnd": 3601
+							}
+						},
+						"shadowingApplies": false
+					},
+					{
+						"sensorId": 2,
+						"sensorType": 12,
+						"perceptionRegionShape": {
+							"radial": {
+								"range": 100.0,
+								"horizontalOpeningAngleStart": 3601,
+								"horizontalOpeningAngleEnd": 3601
+							}
+						},
+						"shadowingApplies": false
+					},
+					{
+						"sensorId": 3,
+						"sensorType": 10,
+						"perceptionRegionShape": {
+							"radial": {
+								"range": 100.0,
+								"horizontalOpeningAngleStart": 3601,
+								"horizontalOpeningAngleEnd": 3601
+							}
+						},
+						"shadowingApplies": false
+					},
+					{
+						"sensorId": 4,
+						"sensorType": 11,
+						"perceptionRegionShape": {
+							"radial": {
+								"range": 100.0,
+								"horizontalOpeningAngleStart": 3601,
+								"horizontalOpeningAngleEnd": 3601
+							}
+						},
+						"shadowingApplies": false
+					}
+				]
+			}
+		},
+		{
+			"containerId": 5,
+			"containerData": {
+				"PerceivedObjectContainer": {
+					"numberOfPerceivedObjects": 1,
+					"perceivedObjects": [
+						{
+							"objectId": 115,
+							"measurementDeltaTime": 19,
+							"position": {
+								"xCoordinate": {
+									"value": 39.67,
+									"confidence": 1.0
+								},
+								"yCoordinate": {
+									"value": -50.9,
+									"confidence": 1.0
+								}
+							},
+							"velocity": {
+								"cartesianVelocity": {
+									"xVelocity": {
+										"value": 10.13,
+										"confidence": 1.0
+									},
+									"yVelocity": {
+										"value": -4.27,
+										"confidence": 1.0
+									}
+								}
+							},
+							"acceleration": {
+								"cartesianAcceleration": {
+									"xAcceleration": {
+										"value": 0.0,
+										"confidence": 1.0
+									},
+									"yAcceleration": {
+										"value": 0.0,
+										"confidence": 1.0
+									}
+								}
+							},
+							"angles": {
+								"zAngle": {
+									"value": 337.1,
+									"confidence": 1.0
+								}
+							},
+							"objectDimensionX": {
+								"value": 2.5,
+								"confidence": 1
+							},
+							"sensorIdList": [
+								1
+							],
+							"classification": [
+								{
+									"objectClass": {
+										"vehicleSubClass": 4
+									},
+									"confidence": 71
+								}
+							]
+						},
+						{
+							"objectId": 120,
+							"measurementDeltaTime": 19,
+							"position": {
+								"xCoordinate": {
+									"value": 33.67,
+									"confidence": 1.0
+								},
+								"yCoordinate": {
+									"value": -52.9,
+									"confidence": 1.0
+								}
+							},
+							"velocity": {
+								"cartesianVelocity": {
+									"xVelocity": {
+										"value": 9.13,
+										"confidence": 1.0
+									},
+									"yVelocity": {
+										"value": -2.27,
+										"confidence": 1.0
+									}
+								}
+							},
+							"acceleration": {
+								"cartesianAcceleration": {
+									"xAcceleration": {
+										"value": 0.0,
+										"confidence": 1.0
+									},
+									"yAcceleration": {
+										"value": 0.0,
+										"confidence": 1.0
+									}
+								}
+							},
+							"angles": {
+								"zAngle": {
+									"value": 178.1,
+									"confidence": 1.0
+								}
+							},
+							"objectDimensionX": {
+								"value": 2.5,
+								"confidence": 1
+							},
+							"sensorIdList": [
+								3
+							],
+							"classification": [
+								{
+									"objectClass": {
+										"vehicleSubClass": 5
+									},
+									"confidence": 71
+								}
+							]
+						}
+					]
+				}
+			}
+		}
+	]
+}

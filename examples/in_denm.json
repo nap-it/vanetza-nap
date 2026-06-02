@@ -1,0 +1,313 @@
+{
+  "management": {
+    "actionId": {
+      "originatingStationId": 12,
+      "sequenceNumber": 3
+    },
+    "detectionTime": 702067545,
+    "referenceTime": 702067545,
+    "eventPosition": {
+      "latitude": 40.673,
+      "longitude": -8.141,
+      "positionConfidenceEllipse": {
+        "semiMajorConfidence": 40,
+        "semiMinorConfidence": 30,
+        "semiMajorOrientation": 135.5
+      },
+      "altitude": {
+        "altitudeValue": 485,
+        "altitudeConfidence": 4
+      }
+    },
+    "validityDuration": 5,
+    "stationType": 5
+  },
+  "situation": {
+    "informationQuality": 7,
+    "eventType": {
+      "ccAndScc": {
+        "collisionRisk97": 1
+      }
+    },
+    "linkedCause": {
+      "ccAndScc": {
+        "wrongWayDriving14": 2
+      }
+    },
+    "eventZone": [
+      {
+        "eventPosition": {
+          "deltaLatitude": 0.0003,
+          "deltaLongitude": 0.0005,
+          "deltaAltitude": 0.8
+        },
+        "informationQuality": 7,
+        "eventDeltaTime": 10
+      },
+      {
+        "eventPosition": {
+          "deltaLatitude": 0.0006,
+          "deltaLongitude": 0.0008,
+          "deltaAltitude": 1.5
+        },
+        "informationQuality": 6,
+        "eventDeltaTime": 20
+      },
+      {
+        "eventPosition": {
+          "deltaLatitude": 0.0009,
+          "deltaLongitude": 0.0011,
+          "deltaAltitude": 2.2
+        },
+        "informationQuality": 5,
+        "eventDeltaTime": 30
+      }
+    ]
+  },
+  "location": {
+    "detectionZonesToEventPosition": [
+      [
+        {
+          "pathPosition": {
+            "deltaLatitude": 0.0002,
+            "deltaLongitude": 0.0004,
+            "deltaAltitude": 1
+          },
+          "pathDeltaTime": 50
+        },
+        {
+          "pathPosition": {
+            "deltaLatitude": 0.0005,
+            "deltaLongitude": 0.0008,
+            "deltaAltitude": 2.5
+          },
+          "pathDeltaTime": 100
+        },
+        {
+          "pathPosition": {
+            "deltaLatitude": 0.0008,
+            "deltaLongitude": 0.0012,
+            "deltaAltitude": 4
+          },
+          "pathDeltaTime": 150
+        }
+      ],
+      [
+        {
+          "pathPosition": {
+            "deltaLatitude": -0.0003,
+            "deltaLongitude": -0.0002,
+            "deltaAltitude": 0.5
+          },
+          "pathDeltaTime": 30
+        },
+        {
+          "pathPosition": {
+            "deltaLatitude": -0.0006,
+            "deltaLongitude": -0.0004,
+            "deltaAltitude": 1.2
+          },
+          "pathDeltaTime": 60
+        }
+      ],
+      [
+        {
+          "pathPosition": {
+            "deltaLatitude": 0.0001,
+            "deltaLongitude": -0.0005,
+            "deltaAltitude": -1
+          }
+        }
+      ]
+    ],
+    "eventSpeed": {
+      "speedValue": 33.5,
+      "speedConfidence": 1.27
+    },
+    "eventPositionHeading": {
+      "value": 2700,
+      "confidence": 8
+    },
+    "roadType": 2,
+    "ext1":{
+      "lanePositions": [
+        {
+          "lanePositionBased": {
+            "simplelanePosition": 1
+          },
+          "mapBased": {
+            "mapReference": {
+              "roadsegment": {
+                "region": 15,
+                "id": 8
+              }
+            },
+            "laneId": 2,
+            "longitudinalLanePosition": {
+              "longitudinalLanePositionValue": 2500,
+              "longitudinalLanePositionConfidence": 300
+            }
+          },
+          "confidence": {
+            "usedDetectionInformation": {
+              "radar": true,
+              "stereovision": true
+            },
+            "usedStoredInformation": {
+              "dynamicDb": true
+            },
+            "confidenceValue": 78
+          }
+        }
+      ],
+      "occupiedLanes": {
+        "lanePositionBased": [
+          {
+            "simplelanePosition": 1
+          },
+          {
+            "simplelanePosition": 2
+          },
+          {
+            "simplelanePosition": 3
+          }
+        ],
+        "confidence": {
+          "usedDetectionInformation": {
+            "radar": true
+          },
+          "usedStoredInformation": {
+            "map": true
+          },
+          "confidenceValue": 65
+        }
+      },
+      "linkedIvims": [
+        {
+          "serviceProviderId": {
+            "countryCode": "10",
+            "providerIdentifier": 5
+          },
+          "iviIdentificationNumber": 44001
+        }
+      ],
+      "linkedMapems": [
+        {
+          "roadsegment": {
+            "region": 15,
+            "id": 8
+          }
+        },
+        {
+          "roadsegment": {
+            "region": 15,
+            "id": 9
+          }
+        }
+      ],
+      "detectionZonesToSpecifiedEventPoint": [
+        {
+          "pointOfEventZone": 1,
+          "path": [
+            {
+              "pathPosition": {
+                "deltaLatitude": 0.0001,
+                "deltaLongitude": 0.0003,
+                "deltaAltitude": 0.5
+              },
+              "pathDeltaTime": 40
+            },
+            {
+              "pathPosition": {
+                "deltaLatitude": 0.0003,
+                "deltaLongitude": 0.0006,
+                "deltaAltitude": 1.2
+              }
+            }
+          ]
+        },
+        {
+          "pointOfEventZone": 2,
+          "path": [
+            {
+              "pathPosition": {
+                "deltaLatitude": -0.0002,
+                "deltaLongitude": -0.0001,
+                "deltaAltitude": 0.3
+              },
+              "pathDeltaTime": 25
+            }
+          ]
+        }
+      ],
+      "predictedPaths": [
+        {
+          "pathPredicted": [
+            {
+              "deltaLatitude": 0.0004,
+              "deltaLongitude": 0.0003,
+              "horizontalPositionConfidence": {
+                "semiMajorConfidence": 40,
+                "semiMinorConfidence": 40,
+                "semiMajorOrientation": 130
+              },
+              "deltaAltitude": 1,
+              "altitudeConfidence": 3,
+              "pathDeltaTime": {
+                "deltaTimeHighPrecision": 20
+              },
+              "symmetricAreaOffset": 15,
+              "asymmetricAreaOffset": 8
+            },
+            {
+              "deltaLatitude": 0.0008,
+              "deltaLongitude": 0.0006,
+              "horizontalPositionConfidence": {
+                "semiMajorConfidence": 25,
+                "semiMinorConfidence": 12,
+                "semiMajorOrientation": 132
+              },
+              "deltaAltitude": 2.5,
+              "altitudeConfidence": 5,
+              "pathDeltaTime": {
+                "deltaTimeHighPrecision": 40
+              }
+            },
+            {
+              "deltaLatitude": 0.0012,
+              "deltaLongitude": 0.0009,
+              "deltaAltitude": 4,
+              "altitudeConfidence": 15,
+              "pathDeltaTime": {
+                "deltaTimeHighPrecision": 60
+              }
+            }
+          ],
+          "usageIndication": 1,
+          "confidenceLevel": 90
+        },
+        {
+          "pathPredicted": [
+            {
+              "deltaLatitude": -0.0003,
+              "deltaLongitude": 0.0002,
+              "deltaAltitude": 128,
+              "altitudeConfidence": 15,
+              "pathDeltaTime": {
+                "deltaTimeBigRange": 3
+              }
+            },
+            {
+              "deltaLatitude": -0.0006,
+              "deltaLongitude": 0.0004,
+              "deltaAltitude": 128,
+              "altitudeConfidence": 15
+            }
+          ],
+          "usageIndication": 2,
+          "confidenceLevel": 55
+        }
+      ]
+    }
+  }
+}

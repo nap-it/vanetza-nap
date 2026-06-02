@@ -1,0 +1,35 @@
+From 01309cb8dbdae67c57b95d3cc59c55d24a8bb08d Mon Sep 17 00:00:00 2001
+From: Vanetza <patch@vanetza>
+Date: Wed, 27 May 2026 16:09:44 +0000
+Subject: [PATCH 1/2] Disable check_is_refer_to_enhanced to fix false-positive
+ EM_INDIRECT
+
+---
+ libasn1compiler/asn1c_C.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/libasn1compiler/asn1c_C.c b/libasn1compiler/asn1c_C.c
+index 3772b375..28312354 100644
+--- a/libasn1compiler/asn1c_C.c
++++ b/libasn1compiler/asn1c_C.c
+@@ -4631,8 +4631,7 @@ expr_defined_recursively(arg_t *arg, asn1p_expr_t *expr) {
+ 	/* First try the original fast detection */
+ 	int result = asn1c_recurse(arg, terminal, check_is_refer_to, topmost);
+ 	
+-	/* If no circular dependency found with fast method, try enhanced detection
+-	 * which can find deeper cycles at the cost of performance */
++	/* DISABLED: causes false-positive EM_INDIRECT on non-recursive types
+ 	if(result == 0) {
+ 		circ_detect_ctx_t ctx = {
+ 			.path = NULL,
+@@ -4647,6 +4646,7 @@ expr_defined_recursively(arg_t *arg, asn1p_expr_t *expr) {
+ 			free(ctx.path);
+ 		}
+ 	}
++	*/
+ 	
+ 	return result;
+ }
+-- 
+2.34.1
+

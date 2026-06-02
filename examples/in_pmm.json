@@ -1,0 +1,29 @@
+{
+  "basicContainer": {
+    "stationId": 1002,
+    "vehicleRole": 2,
+    "generationDeltaTime": 13350
+  },
+  "pmmContainer": {
+    "platoonId": 42,
+    "pmmType": 1,
+    "payload": {
+      "connectivityReport": {
+        "connectivityEntries": [
+          {
+            "neighbourStationId": 1001,
+            "pdr": 230
+          },
+          {
+            "neighbourStationId": 1003,
+            "pdr": 200
+          },
+          {
+            "neighbourStationId": 1004,
+            "pdr": 185
+          }
+        ]
+      }
+    }
+  }
+}

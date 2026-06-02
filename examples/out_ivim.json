@@ -1,0 +1,89 @@
+{
+    "fields": {
+        "header": {
+            "protocolVersion": 2,
+            "messageID": 6,
+            "stationID": 777
+        },
+        "ivi": {
+            "mandatory": {
+                "serviceProviderId": {
+                    "countryCode": "0000000000",
+                    "providerIdentifier": 1
+                },
+                "iviIdentificationNumber": 1001,
+                "timeStamp": 687623512.266,
+                "iviStatus": 0
+            },
+            "optional": [
+                {
+                    "giv": [
+                        {
+                            "relevanceZoneIds": [
+                                1
+                            ],
+                            "direction": 0,
+                            "applicableLanes": [
+                                1
+                            ],
+                            "iviType": 1,
+                            "roadSignCodes": [
+                                {
+                                    "code": {
+                                        "viennaConvention": {
+                                            "roadSignClass": 2,
+                                            "roadSignCode": 14,
+                                            "vcOption": 0,
+                                            "value": 30,
+                                            "unit": 0
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "rcc": [
+                        {
+                            "relevanceZoneIds": [
+                                1
+                            ],
+                            "roadType": 0,
+                            "laneConfiguration": [
+                                {
+                                    "laneNumber": 1,
+                                    "direction": 2,
+                                    "laneType": 0,
+                                    "laneStatus": 0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "test": {
+        "start_processing_timestamp": 1773072530.04017,
+        "channel_frequency": 5890,
+        "channel_noise": -95,
+        "channel_busy_time": 0.004688,
+        "channel_rx_time": 0.003127,
+        "channel_tx_time": 0.000336,
+        "json_timestamp": 1773072530.041074,
+        "mcs": {
+            "04:f0:21:86:4f:64": 7,
+            "04:f0:21:96:bc:0f": 1,
+            "6e:06:e0:01:03:0c": 1,
+            "6e:06:e0:02:02:fa": 1
+        }
+    },
+    "timestamp": 1773072530.03992,
+    "rssi": -21,
+    "stationID": 777,
+    "stationAddr": "6e:06:e0:01:03:0c",
+    "receiverID": 229,
+    "receiverType": 5,
+    "packet_size": 93
+}

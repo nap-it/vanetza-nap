@@ -1,0 +1,34 @@
+{
+    "fields": {
+        "header": {
+            "protocolVersion": 2,
+            "messageId": 12,
+            "stationId": 1001
+        },
+        "pmm": {
+            "basicContainer": {
+                "stationId": 1001,
+                "vehicleRole": 0,
+                "generationDeltaTime": 13190
+            },
+            "pmmContainer": {
+                "platoonId": 42,
+                "pmmType": 2,
+                "payload": {
+                    "vlAssignment": {
+                        "assignedStations": [1002, 1003, 1004],
+                        "clusterId": 1,
+                        "vlIndicator": true
+                    }
+                }
+            }
+        }
+    },
+    "timestamp": 1773073432.497263,
+    "rssi": -21,
+    "stationID": 1001,
+    "stationAddr": "6e:06:e0:01:03:0c",
+    "receiverID": 1002,
+    "receiverType": 5,
+    "packet_size": 48
+}

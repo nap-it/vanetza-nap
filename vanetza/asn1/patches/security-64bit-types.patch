@@ -1,0 +1,188 @@
+diff --git a/vanetza/asn1/security/Time64.c b/vanetza/asn1/security/Time64.c
+index bdbe30d7d..3bd3abb53 100644
+--- a/vanetza/asn1/security/Time64.c
++++ b/vanetza/asn1/security/Time64.c
+@@ -11,7 +11,7 @@ int
+ Vanetza_Security_Time64_constraint(const asn_TYPE_descriptor_t *td, const void *sptr,
+ 			asn_app_constraint_failed_f *ctfailcb, void *app_key) {
+ 	const Vanetza_Security_Uint64_t *st = (const Vanetza_Security_Uint64_t *)sptr;
+-	unsigned long value;
++	uintmax_t value;
+ 	
+ 	if(!sptr) {
+ 		ASN__CTFAIL(app_key, td, sptr,
+@@ -20,7 +20,7 @@ Vanetza_Security_Time64_constraint(const asn_TYPE_descriptor_t *td, const void *
+ 		return -1;
+ 	}
+ 	
+-	if(asn_INTEGER2ulong(st, &value)) {
++	if(asn_INTEGER2umax(st, &value)) {
+ 		ASN__CTFAIL(app_key, td, sptr,
+ 			"%s: value too large (%s:%d)",
+ 			td->name, __FILE__, __LINE__);
+@@ -49,10 +49,15 @@ asn_oer_constraints_t asn_OER_type_Vanetza_Security_Time64_constr_1 CC_NOTUSED =
+ #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+ #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+ asn_per_constraints_t asn_PER_type_Vanetza_Security_Time64_constr_1 CC_NOTUSED = {
+-	{ APC_CONSTRAINED,	 64, -1,  0,  18446744073709551615 }	/* (0..18446744073709551615) */,
++	{ APC_CONSTRAINED,	 64, -1,  0,  18446744073709551615UL }	/* (0..18446744073709551615) */,
+ 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
+ 	0, 0	/* No PER value map */
+ };
++const asn_INTEGER_specifics_t asn_SPC_Vanetza_Security_Time64_specs_1 = {
++	0,	0,	0,	0,	0,
++	0,	/* Native long size */
++	1	/* Unsigned representation */
++};
+ #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+ static const ber_tlv_tag_t asn_DEF_Vanetza_Security_Time64_tags_1[] = {
+ 	(ASN_TAG_CLASS_UNIVERSAL | (2 << 2))
+@@ -80,6 +85,6 @@ asn_TYPE_descriptor_t asn_DEF_Vanetza_Security_Time64 = {
+ 		Vanetza_Security_Time64_constraint
+ 	},
+ 	0, 0,	/* No members */
+-	0	/* No specifics */
++	&asn_SPC_Vanetza_Security_Time64_specs_1	/* Manually added specifics */
+ };
+ 
+diff --git a/vanetza/asn1/security/Uint64.c b/vanetza/asn1/security/Uint64.c
+index a54a77f80..8ba62797a 100644
+--- a/vanetza/asn1/security/Uint64.c
++++ b/vanetza/asn1/security/Uint64.c
+@@ -11,7 +11,7 @@ int
+ Vanetza_Security_Uint64_constraint(const asn_TYPE_descriptor_t *td, const void *sptr,
+ 			asn_app_constraint_failed_f *ctfailcb, void *app_key) {
+ 	const INTEGER_t *st = (const INTEGER_t *)sptr;
+-	unsigned long value;
++	uintmax_t value;
+ 	
+ 	if(!sptr) {
+ 		ASN__CTFAIL(app_key, td, sptr,
+@@ -20,7 +20,7 @@ Vanetza_Security_Uint64_constraint(const asn_TYPE_descriptor_t *td, const void *
+ 		return -1;
+ 	}
+ 	
+-	if(asn_INTEGER2ulong(st, &value)) {
++	if(asn_INTEGER2umax(st, &value)) {
+ 		ASN__CTFAIL(app_key, td, sptr,
+ 			"%s: value too large (%s:%d)",
+ 			td->name, __FILE__, __LINE__);
+@@ -49,10 +49,15 @@ asn_oer_constraints_t asn_OER_type_Vanetza_Security_Uint64_constr_1 CC_NOTUSED =
+ #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+ #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+ asn_per_constraints_t asn_PER_type_Vanetza_Security_Uint64_constr_1 CC_NOTUSED = {
+-	{ APC_CONSTRAINED,	 64, -1,  0,  18446744073709551615 }	/* (0..18446744073709551615) */,
++	{ APC_CONSTRAINED,	 64, -1,  0,  18446744073709551615UL }	/* (0..18446744073709551615) */,
+ 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
+ 	0, 0	/* No PER value map */
+ };
++const asn_INTEGER_specifics_t asn_SPC_Vanetza_Security_Uint64_specs_1 = {
++	0,	0,	0,	0,	0,
++	0,	/* Native long size */
++	1	/* Unsigned representation */
++};
+ #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+ static const ber_tlv_tag_t asn_DEF_Vanetza_Security_Uint64_tags_1[] = {
+ 	(ASN_TAG_CLASS_UNIVERSAL | (2 << 2))
+@@ -80,6 +85,6 @@ asn_TYPE_descriptor_t asn_DEF_Vanetza_Security_Uint64 = {
+ 		Vanetza_Security_Uint64_constraint
+ 	},
+ 	0, 0,	/* No members */
+-	0	/* No specifics */
++	&asn_SPC_Vanetza_Security_Uint64_specs_1	/* Manually added specifics */
+ };
+ 
+diff --git a/vanetza/asn1/security/r2/Time64.c b/vanetza/asn1/security/r2/Time64.c
+index 231e36513..0e77ec0f6 100644
+--- a/vanetza/asn1/security/r2/Time64.c
++++ b/vanetza/asn1/security/r2/Time64.c
+@@ -11,7 +11,7 @@ int
+ Vanetza_Security2_Time64_constraint(const asn_TYPE_descriptor_t *td, const void *sptr,
+ 			asn_app_constraint_failed_f *ctfailcb, void *app_key) {
+ 	const Vanetza_Security2_Uint64_t *st = (const Vanetza_Security2_Uint64_t *)sptr;
+-	unsigned long value;
++	uintmax_t value;
+ 	
+ 	if(!sptr) {
+ 		ASN__CTFAIL(app_key, td, sptr,
+@@ -20,7 +20,7 @@ Vanetza_Security2_Time64_constraint(const asn_TYPE_descriptor_t *td, const void
+ 		return -1;
+ 	}
+ 	
+-	if(asn_INTEGER2ulong(st, &value)) {
++	if(asn_INTEGER2umax(st, &value)) {
+ 		ASN__CTFAIL(app_key, td, sptr,
+ 			"%s: value too large (%s:%d)",
+ 			td->name, __FILE__, __LINE__);
+@@ -49,10 +49,15 @@ asn_oer_constraints_t asn_OER_type_Vanetza_Security2_Time64_constr_1 CC_NOTUSED
+ #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+ #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+ asn_per_constraints_t asn_PER_type_Vanetza_Security2_Time64_constr_1 CC_NOTUSED = {
+-	{ APC_CONSTRAINED,	 64, -1,  0,  18446744073709551615 }	/* (0..18446744073709551615) */,
++	{ APC_CONSTRAINED,	 64, -1,  0,  18446744073709551615UL }	/* (0..18446744073709551615) */,
+ 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
+ 	0, 0	/* No PER value map */
+ };
++const asn_INTEGER_specifics_t asn_SPC_Vanetza_Security2_Time64_specs_1 = {
++	0,	0,	0,	0,	0,
++	0,	/* Native long size */
++	1	/* Unsigned representation */
++};
+ #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+ static const ber_tlv_tag_t asn_DEF_Vanetza_Security2_Time64_tags_1[] = {
+ 	(ASN_TAG_CLASS_UNIVERSAL | (2 << 2))
+@@ -80,6 +85,6 @@ asn_TYPE_descriptor_t asn_DEF_Vanetza_Security2_Time64 = {
+ 		Vanetza_Security2_Time64_constraint
+ 	},
+ 	0, 0,	/* No members */
+-	0	/* No specifics */
++	&asn_SPC_Vanetza_Security2_Time64_specs_1	/* Manually added specifics */
+ };
+ 
+diff --git a/vanetza/asn1/security/r2/Uint64.c b/vanetza/asn1/security/r2/Uint64.c
+index 812c6c56b..09139ab77 100644
+--- a/vanetza/asn1/security/r2/Uint64.c
++++ b/vanetza/asn1/security/r2/Uint64.c
+@@ -11,7 +11,7 @@ int
+ Vanetza_Security2_Uint64_constraint(const asn_TYPE_descriptor_t *td, const void *sptr,
+ 			asn_app_constraint_failed_f *ctfailcb, void *app_key) {
+ 	const INTEGER_t *st = (const INTEGER_t *)sptr;
+-	unsigned long value;
++	uintmax_t value;
+ 	
+ 	if(!sptr) {
+ 		ASN__CTFAIL(app_key, td, sptr,
+@@ -20,7 +20,7 @@ Vanetza_Security2_Uint64_constraint(const asn_TYPE_descriptor_t *td, const void
+ 		return -1;
+ 	}
+ 	
+-	if(asn_INTEGER2ulong(st, &value)) {
++	if(asn_INTEGER2umax(st, &value)) {
+ 		ASN__CTFAIL(app_key, td, sptr,
+ 			"%s: value too large (%s:%d)",
+ 			td->name, __FILE__, __LINE__);
+@@ -49,10 +49,15 @@ asn_oer_constraints_t asn_OER_type_Vanetza_Security2_Uint64_constr_1 CC_NOTUSED
+ #endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
+ #if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
+ asn_per_constraints_t asn_PER_type_Vanetza_Security2_Uint64_constr_1 CC_NOTUSED = {
+-	{ APC_CONSTRAINED,	 64, -1,  0,  18446744073709551615 }	/* (0..18446744073709551615) */,
++	{ APC_CONSTRAINED,	 64, -1,  0,  18446744073709551615UL }	/* (0..18446744073709551615) */,
+ 	{ APC_UNCONSTRAINED,	-1, -1,  0,  0 },
+ 	0, 0	/* No PER value map */
+ };
++const asn_INTEGER_specifics_t asn_SPC_Vanetza_Security2_Uint64_specs_1 = {
++	0,	0,	0,	0,	0,
++	0,	/* Native long size */
++	1	/* Unsigned representation */
++};
+ #endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
+ static const ber_tlv_tag_t asn_DEF_Vanetza_Security2_Uint64_tags_1[] = {
+ 	(ASN_TAG_CLASS_UNIVERSAL | (2 << 2))
+@@ -80,6 +85,6 @@ asn_TYPE_descriptor_t asn_DEF_Vanetza_Security2_Uint64 = {
+ 		Vanetza_Security2_Uint64_constraint
+ 	},
+ 	0, 0,	/* No members */
+-	0	/* No specifics */
++	&asn_SPC_Vanetza_Security2_Uint64_specs_1	/* Manually added specifics */
+ };
+ 

@@ -1,0 +1,266 @@
+/**
+* LHP PMM module draft for Vanetza-NAP integration.
+*
+* This module defines a standalone Platoon Management Message (PMM) PDU
+* for the Long Heterogeneous Platoon (LHP) protocol.
+*
+* Integration note:
+* The PMM messageId is intentionally not constrained in the ItsPduHeader
+* in this draft. A PMM MessageId value/name must be assigned during
+* integration before the header can be constrained in the
+* same style as standardized ETSI ITS PDUs such as CAM.
+*/
+LHP-PMM-PDU-Descriptions DEFINITIONS AUTOMATIC TAGS ::= BEGIN
+
+IMPORTS
+    ItsPduHeader,
+    GenerationDeltaTime,
+    StationId,
+    PlatoonID,
+    ClusterID
+FROM ETSI-ITS-CDD {
+    itu-t (0) identified-organization (4) etsi (0) itsDomain (5) wg1 (1) 102894 cdd (2) major-version-4 (4) minor-version-1 (1)
+} WITH SUCCESSORS;
+
+-- =====================================================================
+-- Root PDU
+-- =====================================================================
+
+/**
+* Root data frame for Platoon Management Messages.
+*
+* @field header: ITS PDU header. The PMM messageId is not constrained yet.
+*
+* @field pmm: PMM payload.
+*/
+PMM ::= SEQUENCE {
+    header ItsPduHeader,
+    pmm    PmmPayload
+}
+
+/**
+* PMM payload.
+*
+* @field basicContainer: Basic LHP/PMM sender information.
+*
+* @field pmmContainer: PMM-specific container.
+*/
+PmmPayload ::= SEQUENCE {
+    basicContainer      PmmBasicContainer,
+    pmmContainer        PmmContainer,
+    ...
+}
+
+-- =====================================================================
+-- Basic PMM container
+-- =====================================================================
+
+/**
+* Basic LHP/PMM container.
+*
+* @field stationId: Station identifier of the originating ITS-S.
+*
+* @field vehicleRole: Role of the originating ITS-S in the LHP platoon.
+*
+*
+* @field generationDeltaTime: Time corresponding to PMM generation.
+*                   
+*/
+PmmBasicContainer ::= SEQUENCE {
+    stationId   StationId,
+    vehicleRole PmmVehicleRole,
+    generationDeltaTime   GenerationDeltaTime,
+    ...
+}
+
+/**
+* LHP vehicle role.
+*
+* The fourth value is reserved for future use.
+*/
+PmmVehicleRole ::= ENUMERATED {
+    actualLeader(0),
+    virtualLeader(1),
+    follower(2),
+    reserved(3)
+}
+
+-- =====================================================================
+-- PMM container and payload selection
+-- =====================================================================
+
+/**
+* PMM-specific container.
+*
+* @field platoonId: Identifier of the LHP platoon.
+*
+* @field pmmType: 8-bit PMM subtype identifier. The value shall match the selected alternative in payload.
+*
+* @field payload: PMM payload selected according to pmmType.
+*
+* @field reservedContainer: Optional container reserved for future PMM extensions.
+*/
+PmmContainer ::= SEQUENCE {
+    platoonId PlatoonID,
+    pmmType   PmmType,
+    payload   PmmPayloadChoice,
+    reservedContainer  PmmReservedContainer OPTIONAL,
+    ...
+}
+
+/**
+* PMM payload choice.
+*
+* The selected alternative shall match the value carried in pmmType.
+*
+* @field connectivityRequest: Empty payload used by the Actual Leader to request connectivity reports from platoon members.
+*
+* @field connectivityReport: Payload carrying the sender's connectivity information regarding neighbouring ITS stations.
+*
+* @field vlAssignment: Payload used to assign a Virtual Leader role and provide the list of stations associated with the receiver.
+*
+* @field followerAssignment: Payload used to inform a follower about its assigned Virtual Leader and cluster.
+*
+* @field acknowledgement: Payload used by platoon members to acknowledge received PMM information.
+*/
+PmmPayloadChoice ::= CHOICE {
+    connectivityRequest NULL,
+    connectivityReport  ConnectivityReport,
+    vlAssignment        VlAssignment,
+    followerAssignment  FollowerAssignment,
+    acknowledgement     Acknowledgement,
+    ...
+}
+
+/**
+ * Reserved container for future PMM extensions.
+ *
+ * These fields are intentionally undefined in this draft and shall only be used
+ * after their semantics are specified in a later version of the PMM specification.
+ * Each reserved field is optional and has a 32-bit unsigned integer range.
+ */
+PmmReservedContainer ::= SEQUENCE {
+    reserved1 INTEGER (0..4294967295) OPTIONAL,
+    reserved2 INTEGER (0..4294967295) OPTIONAL,
+    reserved3 INTEGER (0..4294967295) OPTIONAL,
+    reserved4 INTEGER (0..4294967295) OPTIONAL,
+    reserved5 INTEGER (0..4294967295) OPTIONAL,
+    reserved6 INTEGER (0..4294967295) OPTIONAL,
+    reserved7 INTEGER (0..4294967295) OPTIONAL,
+    reserved8 INTEGER (0..4294967295) OPTIONAL,
+    ...
+}
+
+-- =====================================================================
+-- PMM type values
+-- =====================================================================
+
+/**
+* PMM subtype identifier.
+*
+* This is defined as INTEGER (0..255) to preserve the intended 8-bit field.
+*/
+PmmType ::= INTEGER (0..255)
+
+connectivityRequest PmmType ::= 0
+connectivityReport  PmmType ::= 1
+vlAssignment        PmmType ::= 2
+followerAssignment  PmmType ::= 3
+acknowledgement     PmmType ::= 4
+
+-- =====================================================================
+-- Connectivity report
+-- =====================================================================
+
+/**
+* Connectivity report from a platoon member to the Actual Leader.
+*
+* @field connectivityEntries: List of observed neighbour connectivity entries.
+*/
+ConnectivityReport ::= SEQUENCE {
+    connectivityEntries ConnectivityEntries,
+    ...
+}
+
+ConnectivityEntries ::= SEQUENCE SIZE(1..10) OF ConnectivityEntry
+
+/**
+* Connectivity entry for one neighbouring station.
+*
+* @field neighbourStationId: Station identifier of the observed neighbour.
+*
+* @field pdr: Packet delivery ratio encoded as an 8-bit value. The exact
+*             scaling/interpretation is defined by the application.
+*/
+ConnectivityEntry ::= SEQUENCE {
+    neighbourStationId StationId,
+    pdr                Pdr,
+    ...
+}
+
+Pdr ::= INTEGER (0..255)
+
+-- =====================================================================
+-- VL assignment
+-- =====================================================================
+
+/**
+* Assignment sent to a Virtual Leader.
+*
+* @field assignedStations: List of stations assigned to the receiving VL.
+*
+* @field clusterId: Cluster/sub-platoon identifier assigned to the receiver.
+*
+* @field vlIndicator: Indicates whether the receiver is a VL. For this message type, it is expected to be TRUE.
+*/
+VlAssignment ::= SEQUENCE {
+    assignedStations AssignedStationList,
+    clusterId        ClusterID,
+    vlIndicator      BOOLEAN,
+    ...
+}
+
+AssignedStationList ::= SEQUENCE SIZE(1..10) OF StationId
+
+-- =====================================================================
+-- Follower assignment
+-- =====================================================================
+
+/**
+* Assignment sent to a follower vehicle.
+*
+* @field assignedVLId: Station identifier of the assigned Virtual Leader.
+*
+* @field clusterId: Cluster/sub-platoon identifier assigned to the receiver.
+*
+* @field vlIndicator: For this message type, it is expected to be FALSE and could be removed in a later revision after protocol review.
+*/
+FollowerAssignment ::= SEQUENCE {
+    assignedVLId StationId,
+    clusterId    ClusterID,
+    vlIndicator  BOOLEAN,
+    ...
+}
+
+-- =====================================================================
+-- Acknowledgement
+-- =====================================================================
+
+/**
+* PMM acknowledgement from VLs or followers to the Actual Leader.
+*
+* @field ack: Acknowledgement status.
+*
+* @field clusterId: Cluster/sub-platoon identifier associated with the ACK.
+*/
+Acknowledgement ::= SEQUENCE {
+    ack       BOOLEAN,
+    clusterId ClusterID,
+    ...
+}
+
+-- =====================================================================
+-- Local data elements
+-- =====================================================================
+
+END

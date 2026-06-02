@@ -1,0 +1,125 @@
+--- a/vanetza/asn1/its/r2/BasicVehicleContainerLowFrequency.h	2026-05-27 10:17:01.147927108 +0000
++++ b/vanetza/asn1/its/r2/BasicVehicleContainerLowFrequency.h	2026-05-27 10:40:51.979190069 +0000
+@@ -36,6 +36,11 @@
+ extern asn_SEQUENCE_specifics_t asn_SPC_Vanetza_ITS2_BasicVehicleContainerLowFrequency_specs_1;
+ extern asn_TYPE_member_t asn_MBR_Vanetza_ITS2_BasicVehicleContainerLowFrequency_1[3];
+ 
++/* Compact variant (6-bit pathHistory) for VW-style encoders */
++extern asn_TYPE_descriptor_t asn_DEF_Vanetza_ITS2_BasicVehicleContainerLowFrequency_Compact;
++extern asn_SEQUENCE_specifics_t asn_SPC_Vanetza_ITS2_BasicVehicleContainerLowFrequency_Compact_specs_1;
++extern asn_TYPE_member_t asn_MBR_Vanetza_ITS2_BasicVehicleContainerLowFrequency_Compact_1[3];
++
+ #ifdef __cplusplus
+ }
+ #endif
+--- a/vanetza/asn1/its/r2/BasicVehicleContainerLowFrequency.c	2026-05-27 10:17:01.143927119 +0000
++++ b/vanetza/asn1/its/r2/BasicVehicleContainerLowFrequency.c	2026-05-27 10:19:20.155552050 +0000
+@@ -150,3 +150,108 @@
+ 	&asn_SPC_Vanetza_ITS2_BasicVehicleContainerLowFrequency_specs_1	/* Additional specs */
+ };
+ 
++
++/*
++ * Compact variant (6-bit pathHistory) for compatibility with VW-style encoders
++ * that use R1 PathHistory SIZE(0..40) constraint even with protocolVersion=2.
++ * This variant has NO inline SIZE constraint on pathHistory, so it uses
++ * the base Path definition which is SIZE(0..40) = 6 bits.
++ */
++asn_TYPE_member_t asn_MBR_Vanetza_ITS2_BasicVehicleContainerLowFrequency_Compact_1[] = {
++	{ ATF_NOFLAGS, 0, offsetof(struct Vanetza_ITS2_BasicVehicleContainerLowFrequency, vehicleRole),
++		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
++		-1,	/* IMPLICIT tag at current level */
++		&asn_DEF_Vanetza_ITS2_VehicleRole,
++		0,
++		{
++#if !defined(ASN_DISABLE_OER_SUPPORT)
++			0,
++#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
++#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
++			0,
++#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
++#if !defined(ASN_DISABLE_JER_SUPPORT)
++			0,
++#endif  /* !defined(ASN_DISABLE_JER_SUPPORT) */
++			0
++		},
++		0, 0, /* No default value */
++		"vehicleRole"
++		},
++	{ ATF_NOFLAGS, 0, offsetof(struct Vanetza_ITS2_BasicVehicleContainerLowFrequency, exteriorLights),
++		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
++		-1,	/* IMPLICIT tag at current level */
++		&asn_DEF_Vanetza_ITS2_ExteriorLights,
++		0,
++		{
++#if !defined(ASN_DISABLE_OER_SUPPORT)
++			0,
++#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
++#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
++			0,
++#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
++#if !defined(ASN_DISABLE_JER_SUPPORT)
++			0,
++#endif  /* !defined(ASN_DISABLE_JER_SUPPORT) */
++			0
++		},
++		0, 0, /* No default value */
++		"exteriorLights"
++		},
++	{ ATF_NOFLAGS, 0, offsetof(struct Vanetza_ITS2_BasicVehicleContainerLowFrequency, pathHistory),
++		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
++		-1,	/* IMPLICIT tag at current level */
++		&asn_DEF_Vanetza_ITS2_Path,
++		0,
++		{
++#if !defined(ASN_DISABLE_OER_SUPPORT)
++			0,  /* No inline OER constraint - uses base Path constraint */
++#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
++#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
++			0,  /* No inline PER constraint - uses base Path SIZE(0..40) = 6 bits */
++#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
++#if !defined(ASN_DISABLE_JER_SUPPORT)
++			0,
++#endif  /* !defined(ASN_DISABLE_JER_SUPPORT) */
++			0  /* No constraint function - uses base Path validation */
++		},
++		0, 0, /* No default value */
++		"pathHistory"
++		},
++};
++
++asn_SEQUENCE_specifics_t asn_SPC_Vanetza_ITS2_BasicVehicleContainerLowFrequency_Compact_specs_1 = {
++	sizeof(struct Vanetza_ITS2_BasicVehicleContainerLowFrequency),
++	offsetof(struct Vanetza_ITS2_BasicVehicleContainerLowFrequency, _asn_ctx),
++	asn_MAP_Vanetza_ITS2_BasicVehicleContainerLowFrequency_tag2el_1,
++	3,	/* Count of tags in the map */
++	0, 0, 0,	/* Optional elements (not needed) */
++	-1,	/* First extension addition */
++};
++
++asn_TYPE_descriptor_t asn_DEF_Vanetza_ITS2_BasicVehicleContainerLowFrequency_Compact = {
++	"BasicVehicleContainerLowFrequency",
++	"BasicVehicleContainerLowFrequency",
++	&asn_OP_SEQUENCE,
++	asn_DEF_Vanetza_ITS2_BasicVehicleContainerLowFrequency_tags_1,
++	sizeof(asn_DEF_Vanetza_ITS2_BasicVehicleContainerLowFrequency_tags_1)
++		/sizeof(asn_DEF_Vanetza_ITS2_BasicVehicleContainerLowFrequency_tags_1[0]), /* 1 */
++	asn_DEF_Vanetza_ITS2_BasicVehicleContainerLowFrequency_tags_1,	/* Same as above */
++	sizeof(asn_DEF_Vanetza_ITS2_BasicVehicleContainerLowFrequency_tags_1)
++		/sizeof(asn_DEF_Vanetza_ITS2_BasicVehicleContainerLowFrequency_tags_1[0]), /* 1 */
++	{
++#if !defined(ASN_DISABLE_OER_SUPPORT)
++		0,
++#endif  /* !defined(ASN_DISABLE_OER_SUPPORT) */
++#if !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT)
++		0,
++#endif  /* !defined(ASN_DISABLE_UPER_SUPPORT) || !defined(ASN_DISABLE_APER_SUPPORT) */
++#if !defined(ASN_DISABLE_JER_SUPPORT)
++		0,
++#endif  /* !defined(ASN_DISABLE_JER_SUPPORT) */
++		SEQUENCE_constraint
++	},
++	asn_MBR_Vanetza_ITS2_BasicVehicleContainerLowFrequency_Compact_1,
++	3,	/* Elements count */
++	&asn_SPC_Vanetza_ITS2_BasicVehicleContainerLowFrequency_Compact_specs_1	/* Additional specs */
++};

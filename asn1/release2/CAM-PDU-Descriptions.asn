@@ -1,0 +1,233 @@
+CAM-PDU-Descriptions  {itu-t (0) identified-organization (4) etsi (0) itsDomain (5) wg1 (1) camPduRelease2 (103900) major-version-2 (2) minor-version-1 (1)}
+
+DEFINITIONS AUTOMATIC TAGS ::=
+
+BEGIN
+
+IMPORTS
+ItsPduHeader, CauseCodeV2, ReferencePosition, AccelerationControl, Curvature, CurvatureCalculationMode, Heading, LanePosition, EmergencyPriority, EmbarkationStatus, Speed,
+DriveDirection, AccelerationComponent, StationType, ExteriorLights, DangerousGoodsBasic, SpecialTransportType, LightBarSirenInUse,
+VehicleRole, VehicleLength, VehicleWidth, Path, RoadworksSubCauseCode, ClosedLanes, TrafficRule, SpeedLimit, SteeringWheelAngle, PerformanceClass, YawRate,
+PtActivation, ProtectedCommunicationZonesRSU, CenDsrcTollingZone, GenerationDeltaTime, BasicContainer,
+PlatoonID, ClusterID, LhpRole
+
+FROM ETSI-ITS-CDD {itu-t (0) identified-organization (4) etsi (0) itsDomain (5) wg1 (1) 102894 cdd (2) major-version-4 (4) minor-version-1 (1)} WITH SUCCESSORS
+;
+
+
+--	The root data frame for cooperative awareness messages
+
+/**
+* This type represents the CAM PDU.
+*
+* It shall include the following componenets:
+*
+* @field header: the header of the CAM PDU.
+*
+* @field cam: the payload of the CAM PDU.
+*/
+
+CAM ::= SEQUENCE {
+	header ItsPduHeader (WITH COMPONENTS {... , protocolVersion (2), messageId(cam)}),
+	cam    CamPayload
+}
+
+/**
+* This type represents the CAM payload.
+*
+* It shall include the following components:
+*
+* @field generationDeltaTime: Time corresponding to the time of the reference position in the CAM, considered as time of the CAM generation.
+*
+* @field camParameters: The sequence of CAM mandatory and optional container.
+*
+*/
+CamPayload ::= SEQUENCE {
+	generationDeltaTime GenerationDeltaTime,
+	camParameters       CamParameters
+}
+
+/**
+* @field basicContainer: the mandatory basic container of the CAM.
+*
+* @field highFrequencyContainer: the mandatory container represents the high frequency of the CAM.
+*
+* @field lowFrequencyContainer: the optional conatainer represents the low frequency of the CAM.
+*
+* @field specialVehicleContainer: The special container of the CAM shall be present as defined in clause 6.1.2.
+* The content of the container shall be set according to the value of the vehicleRole component as specified in Table 5.
+*
+* @field extensionContainers: the list of CAM extension containers, including its container type identifier and the container itself.
+*/
+CamParameters ::= SEQUENCE {
+	basicContainer           BasicContainer,
+	highFrequencyContainer   HighFrequencyContainer,
+	lowFrequencyContainer    LowFrequencyContainer OPTIONAL,
+	specialVehicleContainer  SpecialVehicleContainer OPTIONAL,
+	...,
+	extensionContainers      WrappedExtensionContainers OPTIONAL
+}
+
+/**
+* This type represents the high frequency container.
+*
+* It shall include the following components:
+*
+* @field basicVehicleContainerHighFrequency: The mandatory high frequency container of the CAM when the originating ITS-S is of the type vehicle ITS-S.
+*
+* @field rsuContainerHighFrequency: The mandatory high frequency container of CAM when the type of the originating ITS-S is RSU ITS-S.
+*/
+HighFrequencyContainer ::= CHOICE {
+	basicVehicleContainerHighFrequency BasicVehicleContainerHighFrequency,
+	rsuContainerHighFrequency          RSUContainerHighFrequency,
+	...
+}
+
+/**
+* This type represents the low frequency container.
+*
+* It shall include the following components:
+*
+* The low frequency container of the CAM when the originating ITS-S is of the type vehicle ITS-S. It shall be present as defined in clause 6.1.2.
+*/
+ LowFrequencyContainer ::= CHOICE {
+  basicVehicleContainerLowFrequency BasicVehicleContainerLowFrequency,
+	...
+}
+
+/**
+* This type represent the Special Vehicle Container.
+*
+* It shall include the following components:
+*
+* @field publicTransportContainer: If the vehicleRole component is set to publicTransport(1) this container shall be present.
+*
+* @field specialTransportContainer: If the vehicleRole component is set to specialTransport(2) this container shall be present.
+*
+* @field dangerousGoodsContainer: If the vehicleRole component is set to dangerousGoods(3) this container shall be present.
+*
+* @field roadWorksContainerBasic: If the vehicleRole component is set to roadWork(4) this container shall be present.
+*
+* @field rescueContainer: If the vehicleRole component is set to rescue(5) this container shall be present.
+*
+* @field emergencyContainer: If the vehicleRole component is set to emergency(6) this container shall be present.
+*
+* @field safetyCarContainer: If the vehicleRole component is set to safetyCar(7) this container shall be present.
+*/
+SpecialVehicleContainer ::= CHOICE {
+	publicTransportContainer  PublicTransportContainer,
+	specialTransportContainer SpecialTransportContainer,
+	dangerousGoodsContainer   DangerousGoodsContainer,
+	roadWorksContainerBasic   RoadWorksContainerBasic,
+	rescueContainer           RescueContainer,
+	emergencyContainer        EmergencyContainer,
+	safetyCarContainer        SafetyCarContainer,
+	...
+}
+
+BasicVehicleContainerHighFrequency ::= SEQUENCE {
+	heading Heading,
+	speed Speed,
+	driveDirection DriveDirection,
+	vehicleLength VehicleLength,
+	vehicleWidth VehicleWidth,
+	longitudinalAcceleration AccelerationComponent,
+	curvature Curvature,
+	curvatureCalculationMode CurvatureCalculationMode,
+	yawRate YawRate,
+	accelerationControl AccelerationControl OPTIONAL,
+	lanePosition LanePosition OPTIONAL,
+	steeringWheelAngle SteeringWheelAngle OPTIONAL,
+	lateralAcceleration AccelerationComponent OPTIONAL,
+	verticalAcceleration AccelerationComponent OPTIONAL,
+	performanceClass PerformanceClass OPTIONAL,
+	cenDsrcTollingZone CenDsrcTollingZone OPTIONAL
+}
+
+BasicVehicleContainerLowFrequency  ::= SEQUENCE {
+	vehicleRole VehicleRole,
+	exteriorLights ExteriorLights,
+	pathHistory Path (SIZE (0..23))
+}
+
+PublicTransportContainer ::= SEQUENCE {
+	embarkationStatus EmbarkationStatus,
+	ptActivation PtActivation OPTIONAL
+}
+
+SpecialTransportContainer ::= SEQUENCE {
+	specialTransportType SpecialTransportType,
+	lightBarSirenInUse LightBarSirenInUse
+}
+
+ DangerousGoodsContainer ::= SEQUENCE {
+  dangerousGoodsBasic DangerousGoodsBasic
+ }
+
+ RoadWorksContainerBasic ::= SEQUENCE {
+  roadworksSubCauseCode RoadworksSubCauseCode OPTIONAL,
+  lightBarSirenInUse LightBarSirenInUse,
+  closedLanes ClosedLanes OPTIONAL
+ }
+
+RescueContainer ::= SEQUENCE {
+	lightBarSirenInUse LightBarSirenInUse
+}
+
+EmergencyContainer ::= SEQUENCE {
+	lightBarSirenInUse LightBarSirenInUse,
+	incidentIndication CauseCodeV2 OPTIONAL,
+	emergencyPriority EmergencyPriority OPTIONAL
+}
+
+SafetyCarContainer ::= SEQUENCE {
+	lightBarSirenInUse LightBarSirenInUse,
+	incidentIndication CauseCodeV2 OPTIONAL,
+	trafficRule TrafficRule OPTIONAL,
+	speedLimit SpeedLimit OPTIONAL
+}
+
+RSUContainerHighFrequency ::= SEQUENCE {
+	protectedCommunicationZonesRSU ProtectedCommunicationZonesRSU OPTIONAL,
+	...
+}
+
+-- ===========[ LHP Extension Container Infrastructure ]===========
+
+/**
+* Identifier for CAM extension container types.
+*/
+ExtensionContainerId ::= INTEGER (1..16,...)
+
+lhpContainer ExtensionContainerId ::= 1
+
+/**
+* A CAM container preceded by its type identifier.
+*/
+WrappedExtensionContainer ::= SEQUENCE {
+	containerId   INTEGER,
+	containerData CHOICE {
+		lhpContainer LhpContainer,
+		...
+	}
+}
+
+WrappedExtensionContainers ::= SEQUENCE SIZE(1..8,...) OF WrappedExtensionContainer
+
+-- ===========[ LHP Container ]====================================
+
+/**
+* LHP container carried as a CAM extension.
+*
+* @field platoonID: Identifier of the LHP platoon.
+* @field clusterID: Identifier of the cluster (sub-platoon).
+* @field lhpRole: Role of the originating ITS-S in the LHP platoon.
+*/
+LhpContainer ::= SEQUENCE {
+	platoonID PlatoonID,
+	clusterID ClusterID,
+	lhpRole   LhpRole,
+	...
+}
+
+END
