@@ -1,0 +1,13 @@
+services:
+    vanetza-obu:
+        hostname: vanetza
+        restart: always
+        image: ghcr.io/nap-it/vanetza-nap:release2
+        volumes:
+          - ./config-obu.ini:/config.ini
+          - /services/info.ini:/info.ini
+        cap_add:
+            - "NET_ADMIN"
+        network_mode: "host" 
+        ipc: shareable
+        shm_size: 300M

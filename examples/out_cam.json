@@ -1,0 +1,113 @@
+{
+    "fields": {
+        "header": {
+            "protocolVersion": 2,
+            "messageId": 2,
+            "stationId": 777
+        },
+        "cam": {
+            "generationDeltaTime": 13190,
+            "camParameters": {
+                "basicContainer": {
+                    "stationType": 5,
+                    "referencePosition": {
+                        "latitude": 40.6283493,
+                        "longitude": -8.6543903,
+                        "positionConfidenceEllipse": {
+                            "semiMajorAxisLength": 4095,
+                            "semiMinorAxisLength": 4095,
+                            "semiMajorAxisOrientation": 3601
+                        },
+                        "altitude": {
+                            "altitudeValue": 800001,
+                            "altitudeConfidence": 15
+                        }
+                    }
+                },
+                "highFrequencyContainer": {
+                    "basicVehicleContainerHighFrequency": {
+                        "heading": {
+                            "headingValue": 153,
+                            "headingConfidence": 127
+                        },
+                        "speed": {
+                            "speedValue": 8.69,
+                            "speedConfidence": 127
+                        },
+                        "driveDirection": 2,
+                        "vehicleLength": {
+                            "vehicleLengthValue": 1023,
+                            "vehicleLengthConfidenceIndication": 4
+                        },
+                        "vehicleWidth": 62,
+                        "longitudinalAcceleration": {
+                            "value": -0.4,
+                            "confidence": 102
+                        },
+                        "curvature": {
+                            "curvatureValue": 1023,
+                            "curvatureConfidence": 7
+                        },
+                        "curvatureCalculationMode": 2,
+                        "yawRate": {
+                            "yawRateValue": 11,
+                            "yawRateConfidence": 8
+                        },
+                        "accelerationControl": {
+                            "brakePedalEngaged": false,
+                            "gasPedalEngaged": false,
+                            "emergencyBrakeEngaged": false,
+                            "collisionWarningEngaged": false,
+                            "accEngaged": false,
+                            "cruiseControlEngaged": false,
+                            "speedLimiterEngaged": false
+                        },
+                        "steeringWheelAngle": {
+                            "steeringWheelAngleValue": 511.2443778110944,
+                            "steeringWheelAngleConfidence": 127
+                        }
+                    }
+                },
+                "lowFrequencyContainer": {
+                    "basicVehicleContainerLowFrequency": {
+                        "vehicleRole": 0,
+                        "exteriorLights": {
+                            "lowBeamHeadlightsOn": false,
+                            "highBeamHeadlightsOn": false,
+                            "leftTurnSignalOn": false,
+                            "rightTurnSignalOn": false,
+                            "daytimeRunningLightsOn": false,
+                            "reverseLightOn": false,
+                            "fogLightOn": false,
+                            "parkingLightsOn": false
+                        },
+                        "pathHistory": []
+                    }
+                }
+            }
+        }
+    },
+    "test": {
+        "start_processing_timestamp": 1773073432.497463,
+        "channel_frequency": 5890,
+        "channel_noise": -95,
+        "channel_busy_time": 0.004709,
+        "channel_rx_time": 0.003141,
+        "channel_tx_time": 0.000336,
+        "json_timestamp": 1773073432.4984,
+        "mcs": {
+            "04:f0:21:86:4f:64": 6,
+            "04:f0:21:96:bc:0f": 1,
+            "6e:06:e0:01:03:0c": 1,
+            "6e:06:e0:02:02:fa": 1,
+            "dc:2c:6e:6a:3b:bf": 1
+        }
+    },
+    "timestamp": 1773073432.497263,
+    "rssi": -21,
+    "stationID": 777,
+    "stationAddr": "6e:06:e0:01:03:0c",
+    "receiverID": 229,
+    "receiverType": 5,
+    "packet_size": 104
+}

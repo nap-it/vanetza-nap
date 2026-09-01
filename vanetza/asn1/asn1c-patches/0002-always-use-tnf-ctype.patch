@@ -1,0 +1,25 @@
+From 3abed0d29895ae0fa998cf4bbceaa6c3191842ca Mon Sep 17 00:00:00 2001
+From: Vanetza <patch@vanetza>
+Date: Wed, 27 May 2026 16:09:49 +0000
+Subject: [PATCH 2/2] Always use TNF_CTYPE for parameterized type typedefs
+
+---
+ libasn1compiler/asn1c_C.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libasn1compiler/asn1c_C.c b/libasn1compiler/asn1c_C.c
+index 28312354..f443c4fa 100644
+--- a/libasn1compiler/asn1c_C.c
++++ b/libasn1compiler/asn1c_C.c
+@@ -1709,7 +1709,7 @@ asn1c_lang_C_type_SIMPLE_TYPE(arg_t *arg) {
+ 		REDIR(OT_TYPE_DECLS);
+ 
+ 		OUT("typedef %s\t",
+-			asn1c_type_name(arg, arg->expr, use_rsafe_typedef ? TNF_RSAFE : TNF_CTYPE));
++			asn1c_type_name(arg, arg->expr, TNF_CTYPE));
+ 		OUT("%s%s_t%s",
+ 			(expr->marker.flags & EM_INDIRECT)?"*":" ",
+ 			MKID(expr),
+-- 
+2.34.1
+

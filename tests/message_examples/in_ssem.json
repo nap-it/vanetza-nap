@@ -1,0 +1,48 @@
+{
+	"timeStamp": 400000,
+	"second": 35000,
+	"sequenceNumber": 1,
+	"status": [
+		{
+			"sequenceNumber": 1,
+			"id": {
+				"region": 0,
+				"id": 1234
+			},
+			"sigStatus": [
+				{
+					"requester": {
+						"id": { "stationID": 175 },
+						"request": 1,
+						"sequenceNumber": 1,
+						"role": 1,
+						"typeData": {
+							"role": 1,
+							"subrole": 0,
+							"request": 0,
+							"iso3883": 0,
+							"hpmsType": 0
+						}
+					},
+					"inboundOn": { "lane": 5 },
+					"outboundOn": { "approach": 2 },
+					"minute": 400000,
+					"second": 35000,
+					"duration": 6000,
+					"status": 4,
+					"regional": [
+						{
+							"regionId": 3,
+							"regExtValue": {
+								"SignalStatusPackage-addGrpC": {
+									"synchToSchedule": 120,
+									"rejectedReason": 0
+								}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,8 @@
+**/.git
+**/*.o
+CMakeFiles/
+Dockerfile
+docker_compose.yml
+.dockerignore
+.gitignore
+README.md

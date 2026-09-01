@@ -1,0 +1,205 @@
+{
+	"e2eProtection": {
+		"length": 0,
+		"rollingCounter": 0,
+		"dataID": 0,
+		"crc32": 0
+	},
+	"mims": [
+		{
+			"mimDataControlField": {
+				"checksum": 123456789,
+				"mimGenerationTime": 123456789.0,
+				"rollingCounterFromMvm": [
+					100,
+					200,
+					300,
+					400,
+					500,
+					600,
+					700,
+					800,
+					900,
+					1000
+				],
+				"proprietaryExtensionField": 45000
+			},
+			"systemManagementData": {
+				"sessionID": "mysessionid202312081030",
+				"missionID": "mymissionid103001200",
+				"vehicleID": "myvehicleid202312",
+				"facilityID": "myfacilityid103001200"
+			},
+			"vehicleIdentification": {
+				"blinking": {
+					"vidRoPublicKey": 1940637616166,
+					"codeLength": 255,
+					"blinkingCommand": 3
+				}
+			},
+			"drivingPermission": {
+				"expirationTime": 3.0,
+				"velocityMax": 140.0,
+				"curvatureMin": -3,
+				"curvatureMax": 30,
+				"checksum": 123456789
+			},
+			"safetyTimeSyncRequest": {
+				"challenge": 65535,
+				"checksum": 123456789
+			},
+			"driveCommand": {
+				"driveCommandAction": 4,
+				"terminateReason": 5,
+				"gearRequest": 4,
+				"directionIndicatorRequest": 4,
+				"parkingBrakeRequest": 1,
+				"motorSystemRequest": 2,
+				"emergencyStopRequest": 2,
+				"interlockRequest": 2,
+				"hornRequest": 3
+			},
+			"detectedVehiclePose": {
+				"detectedPose": {
+					"x": 369,
+					"y": -123,
+					"psi": 6093
+				},
+				"poseMeasurementTime": 123456789.0
+			},
+			"controlInterface": {
+				"pathControl": {
+					"pathSnippet": [
+						{
+							"index": 0,
+							"wayPointPose": {
+								"x": 369,
+								"y": -123,
+								"psi": 6093
+							},
+							"velocity": 60.0,
+							"curvature": -327,
+							"pitchAngle": 3601
+						},
+						{
+							"index": 1,
+							"wayPointPose": {
+								"x": 370,
+								"y": -123,
+								"psi": 6093
+							},
+							"velocity": 60.0,
+							"curvature": -327,
+							"pitchAngle": 3601
+						}
+					],
+					"clearedDistanceOnPath": 369,
+					"situationalVelocityLimit": 100.0
+				}
+			}
+		},
+		{
+			"mimDataControlField": {
+				"checksum": 123456789,
+				"mimGenerationTime": 123456789.0,
+				"rollingCounterFromMvm": [
+					100,
+					200,
+					300,
+					400,
+					500,
+					600,
+					700,
+					800,
+					900,
+					1000
+				],
+				"proprietaryExtensionField": 45000
+			},
+			"systemManagementData": {
+				"sessionID": "mysessionid202312081030",
+				"missionID": "mymissionid103001200",
+				"vehicleID": "myvehicleid202312",
+				"facilityID": "myfacilityid103001200"
+			},
+			"vehicleIdentification": {
+				"blinking": {
+					"vidRoPublicKey": 1940637616166,
+					"codeLength": 255,
+					"blinkingCommand": 3
+				}
+			},
+			"drivingPermission": {
+				"expirationTime": 3.0,
+				"velocityMax": 140.0,
+				"curvatureMin": -3,
+				"curvatureMax": 30,
+				"checksum": 123456789
+			},
+			"safetyTimeSyncRequest": {
+				"challenge": 65535,
+				"checksum": 123456789
+			},
+			"driveCommand": {
+				"driveCommandAction": 4,
+				"terminateReason": 5,
+				"gearRequest": 4,
+				"directionIndicatorRequest": 4,
+				"parkingBrakeRequest": 1,
+				"motorSystemRequest": 2,
+				"emergencyStopRequest": 2,
+				"interlockRequest": 2,
+				"hornRequest": 3
+			},
+			"detectedVehiclePose": {
+				"detectedPose": {
+					"x": 369,
+					"y": -123,
+					"psi": 6093
+				},
+				"poseMeasurementTime": 123456789.0
+			},
+			"controlInterface": {
+				"trajectoryControl": {
+					"timeReference": 36923497.0,
+					"driveDirection": 1,
+					"controlTrajectory": [
+						{
+							"curvature": 0,
+							"controlParameter": {
+								"controlAcceleration": 161
+							}
+						},
+						{
+							"curvature": 0,
+							"controlParameter": {
+								"controlVelocity": {
+									"velocity": 75.0,
+									"distanceToStop": 51653
+								}
+							}
+						}
+					],
+					"stateTrajectory": [
+						{
+							"statePose": {
+								"x": 369,
+								"y": -123,
+								"psi": 6093
+							},
+							"velocity": 60.0
+						},
+						{
+							"statePose": {
+								"x": 370,
+								"y": -123,
+								"psi": 6093
+							},
+							"velocity": 60.0
+						}
+					]
+				}
+			}
+		}
+	]
+}

@@ -1,0 +1,80 @@
+{
+	"header": {
+		"protocolVersion": 2,
+		"messageID": 9,
+		"stationID": 175
+	},
+	"srm": {
+		"timeStamp": 123456,           
+		"second": 52264,               
+		"sequenceNumber": 1,           
+		"requests": [                  
+			{
+				"request": {              
+					"id": {              
+						"region": 0,    
+						"id": 1234        
+					},
+					"requestID": 1,       
+					"requestType": 0,   
+					"inBoundLane": { 
+						"lane": 5
+					},      
+					"outBoundLane": { 
+						"lane": 5
+					}
+				},
+				"minute": 123456,          
+				"second": 30000,           
+				"duration": 5000
+			}
+		],
+		"requestor": {                 
+			"id": { 
+				"stationID": 175 
+			},  
+			"type": {                    
+				"role": 1, 
+				"subrole": 2,      
+				"request": 3, 
+				"iso3883": 0,              
+				"hpmsType": 0
+			},
+			"position": {                
+				"position": {            
+					"lat": 40.8526134,    
+					"long": -8.6768661,
+					"elevation": 1500        
+				},
+				"heading": 9000,           
+				"speed": {                 
+					"transmisson": 0,
+					"speed": 500
+				}
+			},
+			"name": "Bus-42",            
+			"routeName": "Route-7",      
+			"transitStatus": {
+				"loading": true,
+				"anADAuse": false,
+				"aBikeLoad": false,
+				"doorOpen": false,
+				"charging": false,
+				"atStopLine": false
+			},  
+			"transitOccupancy": 2,      
+			"transitSchedule": 1,
+			"regional": [
+				{
+					"regionId": 3,
+					"regExtValue": {
+						"RequestorDescription-addGrpC": {
+							"fuel": 4,
+							"batteryStatus": 3
+						}
+					}
+				}
+			]
+		}
+	}
+}

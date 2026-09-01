@@ -1,0 +1,435 @@
+// =============================================================================
+//  COLLECTIVE PERCEPTION MESSAGE (CPM) — COMPLETE REFERENCE  (Release 2)
+//  ETSI TS 103 324 v2.1.1  +  ETSI TS 102 894-2 v2.2.1 (CDD)
+// =============================================================================
+//
+//  HOW TO READ THIS FILE
+//  ---------------------
+//  This is a JSONC (JSON-with-comments) file. It is NOT directly ingestible —
+//  strip the comments to feed it to the CPM application. It documents EVERY
+//  possible field of a CPM, whether it is mandatory (M) or optional (O), the
+//  ASN.1 leaf type, the raw integer range, and whether a numeric
+//  TRANSFORMATION (scaling) is applied by the rj encoder/decoder.
+//
+//  KEY MECHANIC — TRANSFORMATIONS  (vanetza/asn1/rj/transformations/*.gperf)
+//  ------------------------------------------------------------------------
+//  A subset of leaf INTEGER types carry a "scale". For those types the rj
+//  layer converts between the raw ASN.1 integer and a human/SI JSON number:
+//
+//      JSON  ->  ASN.1 :  raw = round( json_double * scale )
+//      ASN.1 ->  JSON  :  json_double = raw / scale
+//
+//  EXCEPT when the raw value equals one of the type's SENTINEL values
+//  ("unavailable", "outOfRange", "doNotUse", ...). Sentinels are passed
+//  THROUGH AS RAW INTEGERS, never scaled. So:
+//    * To send a real measured value  -> put a DECIMAL number (e.g. 40.63481).
+//    * To send "unavailable"          -> put the raw SENTINEL INTEGER
+//                                         (e.g. latitude 900000001).
+//  Types WITHOUT a transform (plain INTEGER, ENUMERATED, ...) always take the
+//  raw integer directly. ENUMERATED are ALWAYS raw integer index values.
+//
+//  Below, each field is tagged:
+//    [M] mandatory   [O] optional
+//    (raw a..b)      raw ASN.1 integer range
+//    xScale          transform scale (SI unit shown)   — decimal JSON accepted
+//    sentinel: N     the "unavailable/out-of-range" raw integer(s)
+//
+//  STRUCTURAL RULES
+//  ----------------
+//   * cpmContainers is an array of {containerId, containerData}. The
+//     containerData object has exactly ONE key naming the container variant
+//     (the ASN.1 type name). containerId must match the variant:
+//         1 -> OriginatingVehicleContainer   (payload MUST NOT use id 2)
+//         2 -> OriginatingRsuContainer        (mutually excluded w/ 1 by spec)
+//         3 -> SensorInformationContainer
+//         4 -> PerceptionRegionContainer
+//         5 -> PerceivedObjectContainer
+//     Array size 1..8. By constraint a message uses either the vehicle (1) OR
+//     the rsu (2) container, not both; ids 3/4/5 are free to add.
+//   * CHOICE objects (Shape, velocity, acceleration, objectClass, ...) must
+//     contain EXACTLY ONE key.
+//   * The app auto-wraps this payload with header{protocolVersion,messageId,
+//     stationId}. You may also POST {"header":..., "payload":{...}} directly.
+//
+// =============================================================================
+{
+  // ---------------------------------------------------------------------------
+  // managementContainer  [M]   (CpmPayload.managementContainer)
+  // ---------------------------------------------------------------------------
+  "managementContainer": {
+
+    // referenceTime [M]  TimestampIts  (raw 0..4398046511103)  x1000  (seconds)
+    //   Transform TimestampIts scale = 1000 -> JSON is SECONDS since 2004 epoch.
+    //   0.0 means raw 0. To send an exact tick you may pass the raw int instead.
+    "referenceTime": 0.0,
+
+    // referencePosition [M]  ReferencePosition
+    "referencePosition": {
+      // latitude  [M]  Latitude   (raw -900000000..900000001)  x1e7 (deg)
+      //   sentinel: 900000001 = unavailable
+      "latitude": 40.63481,
+      // longitude [M]  Longitude  (raw -1800000000..1800000001) x1e7 (deg)
+      //   sentinels: -1800000000 = valueNotUsed, 1800000001 = unavailable
+      "longitude": -8.660463,
+      // positionConfidenceEllipse [M]  PosConfidenceEllipse
+      "positionConfidenceEllipse": {
+        // semiMajorConfidence [M] SemiAxisLength (raw 0..4095) x100 (metre)
+        //   sentinels: 0 doNotUse, 4094 outOfRange, 4095 unavailable
+        "semiMajorConfidence": 4095,
+        // semiMinorConfidence [M] SemiAxisLength (same as above)
+        "semiMinorConfidence": 4095,
+        // semiMajorOrientation [M] HeadingValue (raw 0..3601) x10 (degree)
+        //   sentinels: 3600 doNotUse, 3601 unavailable
+        "semiMajorOrientation": 0.0
+      },
+      // altitude [M]  Altitude
+      "altitude": {
+        // altitudeValue [M] AltitudeValue (raw -100000..800001) x100 (metre)
+        //   sentinels: 800001 unavailable (800000 positiveOutOfRange)
+        "altitudeValue": 2.9,
+        // altitudeConfidence [M] ENUMERATED AltitudeConfidence — RAW INDEX 0..15
+        //   0=0.01m 1=0.02 2=0.05 3=0.1 4=0.2 5=0.5 6=1 7=2 8=5 9=10 10=20
+        //   11=50 12=100 13=200 14=outOfRange 15=unavailable  (NO transform)
+        "altitudeConfidence": 15
+      }
+    },
+
+    // segmentationInfo [O]  MessageSegmentationInfo — present only if segmented
+    "segmentationInfo": {
+      "totalMsgNo": 1,   // CardinalNumber3b  INTEGER (1..8)  no transform
+      "thisMsgNo":  1    // OrdinalNumber3b   INTEGER (1..8)  no transform
+    },
+
+    // messageRateRange [O]  MessageRateRange — planned generation-rate window
+    "messageRateRange": {
+      // MessageRateHz = mantissa * 10^exponent  (Hz)
+      "messageRateMin": { "mantissa": 1,  "exponent": 0 },  // mantissa 1..100, exponent -5..2
+      "messageRateMax": { "mantissa": 10, "exponent": 0 }
+    }
+  },
+
+  // ---------------------------------------------------------------------------
+  // cpmContainers  [M]   SEQUENCE SIZE(1..8) OF WrappedCpmContainer
+  // ---------------------------------------------------------------------------
+  "cpmContainers": [
+
+    // =========================================================================
+    // containerId 1 : OriginatingVehicleContainer
+    //   (use id 1 OR id 2, never both)
+    // =========================================================================
+    {
+      "containerId": 1,
+      "containerData": {
+        "OriginatingVehicleContainer": {
+          // orientationAngle [M]  Wgs84Angle
+          "orientationAngle": {
+            // value [M] Wgs84AngleValue (raw 0..3601) x10 (deg from true North)
+            //   sentinels: 3600 doNotUse, 3601 unavailable
+            "value": 0,
+            // confidence [M] Wgs84AngleConfidence (raw 1..127) x10 (deg)
+            //   sentinels: 126 outOfRange, 127 unavailable
+            "confidence": 1
+          },
+          // pitchAngle [O]  CartesianAngle
+          "pitchAngle": {
+            // value [M] CartesianAngleValue (raw 0..3601) x10 (deg)
+            //   sentinels: 3600 valueNotUsed, 3601 unavailable
+            "value": 0.0,
+            // confidence [M] AngleConfidence (raw 1..127) x10 (deg)
+            //   sentinels: 126 outOfRange, 127 unavailable
+            "confidence": 1
+          },
+          // rollAngle [O]  CartesianAngle (same structure as pitchAngle)
+          "rollAngle": {
+            "value": 0.0,
+            "confidence": 1
+          },
+          // trailerDataSet [O]  SEQUENCE SIZE(1..8) OF TrailerData
+          //   NOTE: in a CPM, frontOverhang/rearOverhang/trailerWidth are ABSENT.
+          "trailerDataSet": [
+            {
+              "refPointId":       1,      // Identifier1B INTEGER (0..255)
+              // hitchPointOffset [O] StandardLength1B INTEGER (0..255) x1?? no transform (raw)
+              "hitchPointOffset": 10,
+              // hitchAngle [O] CartesianAngle
+              "hitchAngle": { "value": 0.0, "confidence": 1 }
+            }
+          ]
+        }
+      }
+    },
+
+    // =========================================================================
+    // containerId 2 : OriginatingRsuContainer  (ALTERNATIVE to id 1)
+    //   Shown for completeness — do NOT include together with id 1.
+    // =========================================================================
+    // {
+    //   "containerId": 2,
+    //   "containerData": {
+    //     "OriginatingRsuContainer": {
+    //       // mapReference [O]  MapReference CHOICE (exactly one key)
+    //       "mapReference": {
+    //         // one of:
+    //         "mapem":     { "..." : "MapPosition/Intersection or Road ref" }
+    //         // "roadSegmentReferenceId": { "region": 0, "id": 0 }
+    //       }
+    //     }
+    //   }
+    // },
+
+    // =========================================================================
+    // containerId 3 : SensorInformationContainer
+    //   SEQUENCE SIZE(1..128) OF SensorInformation
+    // =========================================================================
+    {
+      "containerId": 3,
+      "containerData": {
+        "SensorInformationContainer": [
+          {
+            // sensorId [M] Identifier1B INTEGER (0..255) — no transform
+            "sensorId": 1,
+            // sensorType [M] SensorType INTEGER (0..31) — RAW, no transform
+            //   0 undefined 1 radar 2 lidar 3 monovideo 4 stereovision
+            //   5 nightvision 6 ultrasonic 7 pmd 8 inductionLoop 9 sphericalCamera
+            //   10 uwb 11 acoustic 12 localAggregation 13 itsAggregation
+            "sensorType": 1,
+            // perceptionRegionShape [O]  Shape  CHOICE (exactly ONE key)
+            //   Options: rectangular | circular | polygonal | elliptical |
+            //            radial | radialShapes
+            "perceptionRegionShape": {
+              "radial": {
+                // range [M] StandardLength12b INTEGER (0..4095) x10 (metre)
+                "range": 100,
+                // horizontalOpeningAngleStart [M] CartesianAngleValue (0..3601) x10 deg
+                //   3601 = unavailable sentinel (used here as "full/unknown")
+                "horizontalOpeningAngleStart": 3601,
+                // horizontalOpeningAngleEnd [M] CartesianAngleValue (0..3601) x10 deg
+                "horizontalOpeningAngleEnd": 3601
+                // vertical*Angle{Start,End} [O] must be BOTH present or BOTH absent
+                // "verticalOpeningAngleStart": 0.0,
+                // "verticalOpeningAngleEnd":  90.0
+                // shapeReferencePoint [O] CartesianPosition3d (see below)
+              }
+            },
+            // perceptionRegionConfidence [O] ConfidenceLevel INTEGER (1..101) — RAW
+            //   sentinel: 101 unavailable  (percentage, no transform)
+            "perceptionRegionConfidence": 90,
+            // shadowingApplies [M]  BOOLEAN
+            "shadowingApplies": false
+          }
+        ]
+      }
+    },
+
+    // =========================================================================
+    // containerId 4 : PerceptionRegionContainer
+    //   SEQUENCE SIZE(1..256) OF PerceptionRegion
+    // =========================================================================
+    {
+      "containerId": 4,
+      "containerData": {
+        "PerceptionRegionContainer": [
+          {
+            // measurementDeltaTime [M] DeltaTimeMilliSecondSigned INTEGER (-2048..2047) RAW (ms)
+            "measurementDeltaTime": 0,
+            // perceptionRegionConfidence [M] ConfidenceLevel (1..101) RAW, sentinel 101
+            "perceptionRegionConfidence": 90,
+            // perceptionRegionShape [M]  Shape CHOICE — here shown as rectangular
+            "perceptionRegionShape": {
+              "rectangular": {
+                // shapeReferencePoint [O] CartesianPosition3d
+                "shapeReferencePoint": {
+                  // CartesianCoordinate (raw -32768..32767) x100 (metre);
+                  //   sentinels handled by scale but ±32768/32767 = out-of-range
+                  "xCoordinate": 0.0,
+                  "yCoordinate": 0.0
+                  // "zCoordinate": 0.0   // [O]
+                },
+                // semiLength  [M] StandardLength12b (0..4095) x10 (metre)
+                "semiLength":  50.0,
+                // semiBreadth [M] StandardLength12b (0..4095) x10 (metre)
+                "semiBreadth": 20.0,
+                // orientation [O] CartesianAngleValue (0..3601) x10 (deg)
+                "orientation": 0.0,
+                // height [O] StandardLength12b (0..4095) x10 (metre)
+                "height": 5.0
+              }
+            },
+            // shadowingApplies [M] BOOLEAN
+            "shadowingApplies": true,
+            // sensorIdList [O] SequenceOfIdentifier1B SIZE(1..128) OF Identifier1B(0..255)
+            "sensorIdList": [1, 2],
+            // numberOfPerceivedObjects [O] CardinalNumber1B INTEGER (0..255) RAW
+            "numberOfPerceivedObjects": 2,
+            // perceivedObjectIds [O] SIZE(0..255) OF Identifier2B(0..65535)
+            "perceivedObjectIds": [115, 120]
+          }
+        ]
+      }
+    },
+
+    // =========================================================================
+    // containerId 5 : PerceivedObjectContainer
+    // =========================================================================
+    {
+      "containerId": 5,
+      "containerData": {
+        "PerceivedObjectContainer": {
+          // numberOfPerceivedObjects [M] CardinalNumber1B INTEGER (0..255) RAW
+          "numberOfPerceivedObjects": 1,
+          // perceivedObjects [M] SIZE(0..255) OF PerceivedObject (objectId PRESENT)
+          "perceivedObjects": [
+            {
+              // objectId [O by CDD, PRESENT-required in CPM] Identifier2B (0..65535)
+              "objectId": 115,
+              // measurementDeltaTime [M] DeltaTimeMilliSecondSigned (-2048..2047) RAW ms
+              "measurementDeltaTime": 19,
+
+              // position [M] CartesianPosition3dWithConfidence
+              "position": {
+                // xCoordinate [M] CartesianCoordinateWithConfidence
+                "xCoordinate": {
+                  // value [M] CartesianCoordinateLarge (raw -131072..131071) x100 (m)
+                  //   sentinels: ±131072/131071 = out of range
+                  "value": 39.67,
+                  // confidence [M] CoordinateConfidence (raw 1..4096) x100 (m)
+                  //   sentinels: 4095 outOfRange, 4096 unavailable
+                  "confidence": 1.0
+                },
+                "yCoordinate": { "value": -50.9, "confidence": 1.0 }
+                // zCoordinate [O] same structure as x/y
+                // "zCoordinate": { "value": 0.0, "confidence": 1.0 }
+              },
+
+              // velocity [O] Velocity3dWithConfidence CHOICE (exactly ONE key):
+              //   "cartesianVelocity" | "polarVelocity"
+              "velocity": {
+                "cartesianVelocity": {
+                  // xVelocity [M] VelocityComponent
+                  "xVelocity": {
+                    // value [M] VelocityComponentValue (raw -16383..16383) x100 (m/s)
+                    //   sentinels: ±16383/16382 out-of-range, 16383 unavailable
+                    "value": 10.13,
+                    // confidence [M] SpeedConfidence (raw 1..127) x100 (m/s)
+                    //   sentinels: 126 outOfRange, 127 unavailable
+                    "confidence": 1.0
+                  },
+                  "yVelocity": { "value": -4.27, "confidence": 1.0 }
+                  // zVelocity [O] VelocityComponent (same shape)
+                }
+                // Alternative polar form:
+                // "polarVelocity": {
+                //   "velocityMagnitude": { "speedValue": 5.0, "speedConfidence": 1.0 },
+                //   "velocityDirection": { "value": 90.0, "confidence": 1.0 }
+                // }
+              },
+
+              // acceleration [O] Acceleration3dWithConfidence CHOICE (ONE key):
+              //   "cartesianAcceleration" | "polarAcceleration"
+              "acceleration": {
+                "cartesianAcceleration": {
+                  // xAcceleration [M] AccelerationComponent
+                  "xAcceleration": {
+                    // value [M] AccelerationValue (raw -160..161) x10 (m/s^2)
+                    //   sentinels: 161 unavailable (160 positiveOutOfRange)
+                    "value": 0.0,
+                    // confidence [M] AccelerationConfidence (raw 0..102) x10 (m/s^2)
+                    //   sentinels: 101 outOfRange, 102 unavailable
+                    "confidence": 1.0
+                  },
+                  "yAcceleration": { "value": 0.0, "confidence": 1.0 }
+                  // zAcceleration [O]
+                }
+              },
+
+              // angles [O] EulerAnglesWithConfidence
+              "angles": {
+                // zAngle [M] CartesianAngle
+                "zAngle": {
+                  // value [M] CartesianAngleValue (raw 0..3601) x10 (deg)
+                  //   sentinels: 3600 valueNotUsed, 3601 unavailable
+                  "value": 337.1,
+                  // confidence [M] AngleConfidence (raw 1..127) x10 (deg)
+                  "confidence": 1.0
+                }
+                // yAngle [O] CartesianAngle
+                // xAngle [O] CartesianAngle
+              },
+
+              // zAngularVelocity [O] CartesianAngularVelocityComponent
+              "zAngularVelocity": {
+                // value [M] CartesianAngularVelocityComponentValue (raw -255..256) RAW (deg/s)
+                //   NO transform. sentinels: ±255 out-of-range, 256 unavailable
+                "value": 0,
+                // confidence [M] AngularSpeedConfidence ENUMERATED — RAW INDEX 0..7
+                //   0=0.01 1=0.02 2=0.05 3=0.1 4=0.2 5=0.5 (deg/s?) 6=outOfRange 7=unavailable
+                "confidence": 7
+              },
+
+              // objectDimensionZ/Y/X [O] ObjectDimension  (height / width / length)
+              "objectDimensionZ": { "value": 1.5, "confidence": 1 },
+              "objectDimensionY": { "value": 1.8, "confidence": 1 },
+              "objectDimensionX": {
+                // value [M] ObjectDimensionValue (raw 1..256) x10 (metre)
+                //   sentinels: 255 outOfRange, 256 unavailable
+                "value": 2.5,
+                // confidence [M] ObjectDimensionConfidence (raw 1..32) RAW (metre)
+                //   NO transform. sentinels: 31 outOfRange, 32 unavailable
+                "confidence": 1
+              },
+
+              // objectAge [O] DeltaTimeMilliSecondSigned constrained (0..2047) RAW ms
+              "objectAge": 100,
+
+              // objectPerceptionQuality [O] ObjectPerceptionQuality (0..15) RAW
+              //   0 = noConfidence, 15 = fullConfidence
+              "objectPerceptionQuality": 10,
+
+              // sensorIdList [O] SequenceOfIdentifier1B SIZE(1..128) OF (0..255)
+              "sensorIdList": [1],
+
+              // classification [O] ObjectClassDescription SIZE(1..8) OF ObjectClassWithConfidence
+              "classification": [
+                {
+                  // objectClass [M] ObjectClass CHOICE — exactly ONE key of:
+                  //   vehicleSubClass | vruSubClass | groupSubClass | otherSubClass
+                  "objectClass": {
+                    // vehicleSubClass: TrafficParticipantType, constrained to
+                    //   (unknown | passengerCar..tram | agricultural). RAW int.
+                    //   0 unknown, 5 passengerCar, 6 bus, 7 lightTruck,
+                    //   8 heavyTruck, 9 trailer, 10 specialVehicle, 11 tram,
+                    //   14 agricultural
+                    "vehicleSubClass": 4
+
+                    // --- OR vruSubClass: VruProfileAndSubprofile CHOICE (ONE key) ---
+                    // "vruSubClass": { "pedestrian": 1 }
+                    //   pedestrian  VruSubProfilePedestrian  (0..15): 0 unavail,1 ordinary,2 road-worker,3 first-responder
+                    //   bicyclistAndLightVruVehicle VruSubProfileBicyclist (0..15): 1 bicyclist,2 wheelchair,3 horse,4 rollerskater,5 e-scooter,6 personal-transporter,7 pedelec,8 speed-pedelec,9 roadbike,10 childrensbike
+                    //   motorcyclist VruSubProfileMotorcyclist (0..15): 1 moped,2 motorcycle,3 sidecar-right,4 sidecar-left
+                    //   animal       VruSubProfileAnimal       (0..15): 1 wild,2 farm,3 service
+
+                    // --- OR groupSubClass: VruClusterInformation ---
+                    // "groupSubClass": {
+                    //   "clusterCardinalitySize": 3,          // CardinalNumber1B (0..255) RAW  [M]
+                    //   "clusterId": 7,                       // Identifier1B (0..255)          [O]
+                    //   "clusterProfiles": { "...": "bitstring named-bits" } // [O]
+                    // }  // NOTE: clusterBoundingBoxShape is ABSENT in this context
+
+                    // --- OR otherSubClass: OtherSubClass INTEGER (0..255) RAW ---
+                    // "otherSubClass": 1   // 0 unknown,1 singleObject,2 multipleObjects,3 bulkMaterial
+                  },
+                  // confidence [M] ConfidenceLevel INTEGER (1..101) RAW (percent)
+                  //   sentinel: 101 unavailable
+                  "confidence": 71
+                }
+              ]
+
+              // mapPosition [O] MapPosition — MAPEM lane/position ref (omitted here)
+              // lowerTriangularCorrelationMatrices [O] — omitted, advanced use
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

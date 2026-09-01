@@ -1,0 +1,347 @@
+// =============================================================================
+//  COOPERATIVE AWARENESS MESSAGE (CAM) — COMPLETE REFERENCE  (Release 2)
+//  ETSI TS 103 900 v2.1.1  +  ETSI TS 102 894-2 v2.2.1 (CDD)
+// =============================================================================
+//
+//  HOW TO READ THIS FILE
+//  ---------------------
+//  JSONC (JSON-with-comments). NOT directly ingestible — strip comments first.
+//  It documents EVERY possible CAM field: mandatory (M) / optional (O), the
+//  ASN.1 leaf type, the raw integer range, and whether a numeric TRANSFORMATION
+//  (scaling) is applied by the rj encoder/decoder.
+//
+//  KEY MECHANIC — TRANSFORMATIONS  (vanetza/asn1/rj/transformations/*.gperf)
+//  ------------------------------------------------------------------------
+//  Certain leaf INTEGER types carry a "scale". For those the rj layer converts:
+//      JSON  ->  ASN.1 :  raw = round( json_double * scale )
+//      ASN.1 ->  JSON  :  json_double = raw / scale
+//  EXCEPT when raw equals a SENTINEL ("unavailable"/"outOfRange"/...): sentinels
+//  pass THROUGH AS RAW INTEGERS, never scaled. Therefore:
+//    * real measured value -> send a DECIMAL   (e.g. heading 153.0 deg)
+//    * "unavailable"        -> send the raw SENTINEL INTEGER (e.g. 3601)
+//  Types WITHOUT a transform (plain INTEGER, ENUMERATED) take the raw integer
+//  directly. ENUMERATED are ALWAYS raw integer index values. BIT STRING with
+//  named bits is a JSON OBJECT of booleans (missing keys = 0).
+//
+//  Field tags used below:
+//    [M] mandatory   [O] optional
+//    (raw a..b)      raw ASN.1 integer range
+//    xScale          transform scale + SI unit (decimal JSON accepted)
+//    sentinel: N     the "unavailable/out-of-range/doNotUse" raw integer(s)
+//    RAW             no transform — put the raw integer/enum index
+//
+//  TOP-LEVEL STRUCTURE
+//  -------------------
+//    CAM ::= { header, cam }        cam = CamPayload { generationDeltaTime, camParameters }
+//  The app auto-wraps this payload: if you POST just {camParameters,
+//  generationDeltaTime} it inserts header{protocolVersion,messageId,stationId}
+//  and nests your object under "cam". You may also POST the full
+//  {"header":..., "cam":{...}} form directly.
+//
+//  CONTAINER RULES
+//  ---------------
+//   * basicContainer        [M]
+//   * highFrequencyContainer[M]  CHOICE: basicVehicleContainerHighFrequency | rsuContainerHighFrequency
+//   * lowFrequencyContainer [O]  CHOICE: basicVehicleContainerLowFrequency
+//   * specialVehicleContainer[O] CHOICE (exactly ONE); the variant MUST match
+//     the vehicleRole in the low-frequency container:
+//         1 publicTransport -> publicTransportContainer
+//         2 specialTransport-> specialTransportContainer
+//         3 dangerousGoods  -> dangerousGoodsContainer
+//         4 roadWork        -> roadWorksContainerBasic
+//         5 rescue          -> rescueContainer
+//         6 emergency       -> emergencyContainer
+//         7 safetyCar       -> safetyCarContainer
+//   * CHOICE objects must contain EXACTLY ONE key.
+//
+// =============================================================================
+{
+  // ---------------------------------------------------------------------------
+  // generationDeltaTime [M]  GenerationDeltaTime INTEGER (0..65535) RAW
+  //   Unit = 1 ms. = (TimestampIts of the reference position) mod 65536. No transform.
+  // ---------------------------------------------------------------------------
+  "generationDeltaTime": 13190,
+
+  // ---------------------------------------------------------------------------
+  // camParameters [M]  CamParameters
+  // ---------------------------------------------------------------------------
+  "camParameters": {
+
+    // =========================================================================
+    // basicContainer [M]  BasicContainer  (CDD)
+    // =========================================================================
+    "basicContainer": {
+      // stationType [M] TrafficParticipantType INTEGER (0..255) RAW
+      //   0 unknown 1 pedestrian 2 cyclist 3 moped 4 motorcycle 5 passengerCar
+      //   6 bus 7 lightTruck 8 heavyTruck 9 trailer 10 specialVehicle 11 tram
+      //   12 lightVruVehicle 13 animal 14 agricultural 15 roadSideUnit
+      "stationType": 5,
+      // referencePosition [M] ReferencePositionWithConfidence
+      "referencePosition": {
+        // latitude  [M] Latitude  (raw -900000000..900000001)  x1e7 (deg); sentinel 900000001
+        "latitude": 40.62834930419922,
+        // longitude [M] Longitude (raw -1800000000..1800000001) x1e7 (deg);
+        //   sentinels -1800000000 valueNotUsed, 1800000001 unavailable
+        "longitude": -8.654390335083008,
+        // positionConfidenceEllipse [M] PositionConfidenceEllipse
+        //   (NOTE: R2 BasicContainer uses the *WithConfidence variant — the
+        //    keys are semiMajorAxisLength/semiMinorAxisLength/semiMajorAxisOrientation)
+        "positionConfidenceEllipse": {
+          // semiMajorAxisLength [M] SemiAxisLength (raw 0..4095) x100 (m)
+          //   sentinels: 0 doNotUse, 4094 outOfRange, 4095 unavailable
+          "semiMajorAxisLength": 4095,
+          "semiMinorAxisLength": 4095,
+          // semiMajorAxisOrientation [M] Wgs84AngleValue (raw 0..3601) x10 (deg)
+          //   sentinels: 3600 doNotUse, 3601 unavailable
+          "semiMajorAxisOrientation": 3601
+        },
+        // altitude [M] Altitude
+        "altitude": {
+          // altitudeValue [M] AltitudeValue (raw -100000..800001) x100 (m); sentinel 800001
+          "altitudeValue": 800001,
+          // altitudeConfidence [M] ENUMERATED — RAW INDEX 0..15
+          //   0=0.01m 1=0.02 2=0.05 3=0.1 4=0.2 5=0.5 6=1 7=2 8=5 9=10 10=20
+          //   11=50 12=100 13=200 14=outOfRange 15=unavailable
+          "altitudeConfidence": 15
+        }
+      }
+    },
+
+    // =========================================================================
+    // highFrequencyContainer [M]  CHOICE — exactly ONE key:
+    //   basicVehicleContainerHighFrequency | rsuContainerHighFrequency
+    // =========================================================================
+    "highFrequencyContainer": {
+      "basicVehicleContainerHighFrequency": {
+        // heading [M] Heading
+        "heading": {
+          // headingValue [M] HeadingValue (raw 0..3601) x10 (deg from true North)
+          //   named values: 0 N, 900 E, 1800 S, 2700 W; sentinels 3600 doNotUse, 3601 unavailable
+          "headingValue": 153.0,
+          // headingConfidence [M] HeadingConfidence (raw 1..127) x10 (deg)
+          //   sentinels: 126 outOfRange, 127 unavailable
+          "headingConfidence": 127
+        },
+        // speed [M] Speed
+        "speed": {
+          // speedValue [M] SpeedValue (raw 0..16383) x100 (m/s)
+          //   0 standstill; sentinels 16382 outOfRange, 16383 unavailable
+          "speedValue": 8.7,
+          // speedConfidence [M] SpeedConfidence (raw 1..127) x100 (m/s)
+          //   sentinels: 126 outOfRange, 127 unavailable
+          "speedConfidence": 127
+        },
+        // driveDirection [M] ENUMERATED DriveDirection — RAW 0..2
+        //   0 forward, 1 backward, 2 unavailable
+        "driveDirection": 2,
+        // vehicleLength [M] VehicleLength
+        "vehicleLength": {
+          // vehicleLengthValue [M] VehicleLengthValue (raw 1..1023) x10 (m)
+          //   sentinels: 1022 outOfRange, 1023 unavailable
+          "vehicleLengthValue": 1023,
+          // vehicleLengthConfidenceIndication [M] ENUMERATED — RAW 0..4
+          //   0 noTrailerPresent, 1 trailerKnownLength, 2 trailerUnknownLength,
+          //   3 trailerPresenceUnknown, 4 unavailable
+          "vehicleLengthConfidenceIndication": 4
+        },
+        // vehicleWidth [M] VehicleWidth (raw 1..62) x10 (m)
+        //   sentinels: 61 outOfRange, 62 unavailable
+        "vehicleWidth": 62,
+        // longitudinalAcceleration [M] AccelerationComponent
+        "longitudinalAcceleration": {
+          // value [M] AccelerationValue (raw -160..161) x10 (m/s^2); sentinel 161 unavailable
+          "value": -0.4,
+          // confidence [M] AccelerationConfidence (raw 0..102) x10 (m/s^2)
+          //   sentinels: 101 outOfRange, 102 unavailable
+          "confidence": 102
+        },
+        // curvature [M] Curvature
+        "curvature": {
+          // curvatureValue [M] CurvatureValue (raw -1023..1023) RAW (1/m scaled by 10000 per CDD, but NO rj transform)
+          //   0 straight; sentinels -1023 outOfRangeNeg, 1022 outOfRangePos, 1023 unavailable
+          "curvatureValue": 1023,
+          // curvatureConfidence [M] ENUMERATED — RAW 0..7
+          //   0..5 = 0.00002..0.1 /m, 6 outOfRange, 7 unavailable
+          "curvatureConfidence": 7
+        },
+        // curvatureCalculationMode [M] ENUMERATED — RAW 0..2
+        //   0 yawRateUsed, 1 yawRateNotUsed, 2 unavailable
+        "curvatureCalculationMode": 2,
+        // yawRate [M] YawRate
+        "yawRate": {
+          // yawRateValue [M] YawRateValue (raw -32766..32767) x100 (deg/s)
+          //   sentinels: ±32766 out-of-range, 32767 unavailable
+          "yawRateValue": 11.0,
+          // yawRateConfidence [M] ENUMERATED — RAW 0..8
+          //   0=0.01 1=0.05 2=0.10 3=1 4=5 5=10 6=100 (deg/s) 7 outOfRange 8 unavailable
+          "yawRateConfidence": 8
+        },
+
+        // ---- OPTIONAL high-frequency fields ----
+
+        // accelerationControl [O] BIT STRING AccelerationControl (SIZE 7) — named bits
+        "accelerationControl": {
+          "brakePedalEngaged": false,
+          "gasPedalEngaged": false,
+          "emergencyBrakeEngaged": false,
+          "collisionWarningEngaged": false,
+          "accEngaged": false,
+          "cruiseControlEngaged": false,
+          "speedLimiterEngaged": false
+        },
+        // lanePosition [O] LanePosition INTEGER (-1..14) RAW
+        //   -1 offTheRoad, 0 innerHardShoulder, 1..13 lanes, 14 outerHardShoulder
+        "lanePosition": 1,
+        // steeringWheelAngle [O] SteeringWheelAngle
+        "steeringWheelAngle": {
+          // steeringWheelAngleValue [M] (raw -511..512) x0.667 (~1.5 deg/unit)
+          //   sentinels: ±511 out-of-range, 512 unavailable  (send raw 512 for unavailable)
+          "steeringWheelAngleValue": 512,
+          // steeringWheelAngleConfidence [M] (raw 1..127) x0.667? NO transform — RAW
+          //   sentinels: 126 outOfRange, 127 unavailable
+          "steeringWheelAngleConfidence": 127
+        },
+        // lateralAcceleration [O] AccelerationComponent (same shape as longitudinal)
+        "lateralAcceleration": { "value": 0.0, "confidence": 102 },
+        // verticalAcceleration [O] AccelerationComponent
+        "verticalAcceleration": { "value": 0.0, "confidence": 102 },
+        // performanceClass [O] PerformanceClass INTEGER (0..7) RAW
+        //   0 unavailable, 1 classA, 2 classB
+        "performanceClass": 0,
+        // cenDsrcTollingZone [O] CenDsrcTollingZone — tolling zone (rarely used)
+        "cenDsrcTollingZone": {
+          // protectedZoneLatitude  [M] Latitude  x1e7 (deg)
+          "protectedZoneLatitude": 40.6,
+          // protectedZoneLongitude [M] Longitude x1e7 (deg)
+          "protectedZoneLongitude": -8.6,
+          // cenDsrcTollingZoneId [O] ProtectedZoneId INTEGER (0..134217727) RAW
+          "cenDsrcTollingZoneId": 1
+        }
+
+        // ---- RSU alternative for highFrequencyContainer ----
+        // "rsuContainerHighFrequency": {
+        //   // protectedCommunicationZonesRSU [O] SIZE(1..16) OF ProtectedCommunicationZone
+        //   "protectedCommunicationZonesRSU": [
+        //     {
+        //       "protectedZoneType": 0,          // ENUMERATED (0=permanentCenDsrcTolling) RAW
+        //       "protectedZoneLatitude": 40.6,   // Latitude  x1e7  [M]
+        //       "protectedZoneLongitude": -8.6,  // Longitude x1e7  [M]
+        //       "expiryTime": 0,                 // TimestampIts x1000 [O]
+        //       "protectedZoneRadius": 10,       // ProtectedZoneRadius INTEGER(1..255) m RAW [O]
+        //       "protectedZoneId": 1             // ProtectedZoneId RAW [O]
+        //     }
+        //   ]
+        // }
+      }
+    },
+
+    // =========================================================================
+    // lowFrequencyContainer [O]  CHOICE — one key: basicVehicleContainerLowFrequency
+    // =========================================================================
+    "lowFrequencyContainer": {
+      "basicVehicleContainerLowFrequency": {
+        // vehicleRole [M] ENUMERATED VehicleRole — RAW 0..15
+        //   0 default 1 publicTransport 2 specialTransport 3 dangerousGoods
+        //   4 roadWork 5 rescue 6 emergency 7 safetyCar 8 agriculture
+        //   9 commercial 10 military 11 roadOperator 12 taxi 13 uvar 14/15 rfu
+        //   (drives which specialVehicleContainer variant, if any)
+        "vehicleRole": 0,
+        // exteriorLights [M] BIT STRING ExteriorLights (SIZE 8) — named bits
+        "exteriorLights": {
+          "lowBeamHeadlightsOn": false,
+          "highBeamHeadlightsOn": false,
+          "leftTurnSignalOn": false,
+          "rightTurnSignalOn": false,
+          "daytimeRunningLightsOn": false,
+          "reverseLightOn": false,
+          "fogLightOn": false,
+          "parkingLightsOn": false
+        },
+        // pathHistory [M] Path constrained SIZE(0..23) OF PathPoint
+        "pathHistory": [
+          {
+            // pathPosition [M] DeltaReferencePosition (offset from previous point / ref position)
+            "pathPosition": {
+              // deltaLatitude  [M] DeltaLatitude  (raw -131071..131072) x1e7 (deg); sentinel 131072
+              "deltaLatitude": 0.000074,
+              // deltaLongitude [M] DeltaLongitude (raw -131071..131072) x1e7 (deg); sentinel 131072
+              "deltaLongitude": 0.0000179,
+              // deltaAltitude  [M] DeltaAltitude  (raw -12700..12800) x100 (m)
+              //   sentinels: -12700/12799 out-of-range, 12800 unavailable
+              "deltaAltitude": 0
+            },
+            // pathDeltaTime [O] PathDeltaTime INTEGER (1..65535) RAW (unit 10 ms)
+            "pathDeltaTime": 111
+          },
+          {
+            "pathPosition": {
+              "deltaLatitude": 0.0001251,
+              "deltaLongitude": -0.0000414,
+              "deltaAltitude": 0
+            },
+            "pathDeltaTime": 190
+          }
+        ]
+      }
+    },
+
+    // =========================================================================
+    // specialVehicleContainer [O]  CHOICE — exactly ONE key, matching vehicleRole
+    //   Shown here fully commented; UNCOMMENT ONE that matches vehicleRole above.
+    // =========================================================================
+    // "specialVehicleContainer": {
+    //
+    //   // --- vehicleRole 1 : publicTransport ---
+    //   "publicTransportContainer": {
+    //     "embarkationStatus": false,      // BOOLEAN [M]
+    //     "ptActivation": {                // PtActivation [O]
+    //       "ptActivationType": 0,         // PtActivationType INTEGER(0..255) RAW [M]
+    //       "ptActivationData": "00"       // PtActivationData OCTET STRING (hex) [M]
+    //     }
+    //   }
+    //
+    //   // --- vehicleRole 2 : specialTransport ---
+    //   // "specialTransportContainer": {
+    //   //   "specialTransportType": { "heavyLoad": false, "excessWidth": false,
+    //   //                             "excessLength": false, "excessHeight": false }, // BIT STRING SIZE(4) [M]
+    //   //   "lightBarSirenInUse": { "lightBarActivated": false, "sirenActivated": false } // BIT STRING SIZE(2) [M]
+    //   // }
+    //
+    //   // --- vehicleRole 3 : dangerousGoods ---
+    //   // "dangerousGoodsContainer": {
+    //   //   "dangerousGoodsBasic": 0   // ENUMERATED 0..19 (0 explosives1 ... 19 misc) RAW [M]
+    //   // }
+    //
+    //   // --- vehicleRole 4 : roadWork ---
+    //   // "roadWorksContainerBasic": {
+    //   //   "roadworksSubCauseCode": 0,                      // INTEGER(0..255) RAW [O]
+    //   //   "lightBarSirenInUse": { "lightBarActivated": false, "sirenActivated": false }, // [M]
+    //   //   "closedLanes": {                                 // ClosedLanes [O]
+    //   //     "innerhardShoulderStatus": 0,                  // HardShoulderStatus ENUM RAW [O]
+    //   //     "outerhardShoulderStatus": 0,                  // [O]
+    //   //     "drivingLaneStatus": "80"                      // DrivingLaneStatus BIT STRING (hex) [O]
+    //   //   }
+    //   // }
+    //
+    //   // --- vehicleRole 5 : rescue ---
+    //   // "rescueContainer": {
+    //   //   "lightBarSirenInUse": { "lightBarActivated": false, "sirenActivated": false } // [M]
+    //   // }
+    //
+    //   // --- vehicleRole 6 : emergency ---
+    //   // "emergencyContainer": {
+    //   //   "lightBarSirenInUse": { "lightBarActivated": true, "sirenActivated": true }, // [M]
+    //   //   "incidentIndication": { "ccAndScc": { "...": "CauseCodeV2 CHOICE" } },       // CauseCodeV2 [O]
+    //   //   "emergencyPriority": { "requestForRightOfWay": true, "requestForFreeCrossingAtATrafficLight": false } // BIT STRING SIZE(2) [O]
+    //   // }
+    //
+    //   // --- vehicleRole 7 : safetyCar ---
+    //   // "safetyCarContainer": {
+    //   //   "lightBarSirenInUse": { "lightBarActivated": false, "sirenActivated": false }, // [M]
+    //   //   "incidentIndication": { "...": "CauseCodeV2" },  // [O]
+    //   //   "trafficRule": 2,                                // ENUMERATED 0..4 RAW [O] (0 noPassing..4 passToLeftOrRight)
+    //   //   "speedLimit": 50                                 // SpeedLimit INTEGER(1..255) RAW (km/h) [O]
+    //   // }
+    // }
+  }
+}

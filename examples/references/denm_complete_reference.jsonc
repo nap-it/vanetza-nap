@@ -1,0 +1,466 @@
+// =============================================================================
+//  DECENTRALIZED ENVIRONMENTAL NOTIFICATION MESSAGE (DENM) — COMPLETE REFERENCE
+//  ETSI TS 103 831 v2.2.2  +  ETSI TS 102 894-2 v2.2.1 (CDD)      (Release 2)
+// =============================================================================
+//
+//  HOW TO READ THIS FILE
+//  ---------------------
+//  JSONC (JSON-with-comments). NOT directly ingestible — strip comments first.
+//  Documents EVERY possible DENM field: mandatory (M) / optional (O), ASN.1 leaf
+//  type, raw integer range, and whether a numeric TRANSFORMATION is applied by
+//  the rj encoder/decoder.
+//
+//  KEY MECHANIC — TRANSFORMATIONS  (vanetza/asn1/rj/transformations/*.gperf)
+//  ------------------------------------------------------------------------
+//      JSON  ->  ASN.1 :  raw = round( json_double * scale )
+//      ASN.1 ->  JSON  :  json_double = raw / scale
+//  EXCEPT when raw equals a SENTINEL ("unavailable"/"outOfRange"/...): sentinels
+//  pass THROUGH AS RAW INTEGERS, never scaled. Therefore:
+//    * real measured value -> send a DECIMAL
+//    * "unavailable"        -> send the raw SENTINEL INTEGER
+//  Types WITHOUT a transform (plain INTEGER, ENUMERATED) take the raw integer
+//  directly. ENUMERATED are ALWAYS raw integer index values. BIT STRING with
+//  named bits is a JSON OBJECT of booleans (missing keys = 0).
+//
+//  Field tags:
+//    [M] mandatory  [O] optional  [D] has DEFAULT (omit to use default)
+//    (raw a..b)  raw ASN.1 range   xScale = scale + SI unit (decimal accepted)
+//    sentinel: N  the unavailable/out-of-range raw integer(s)   RAW = no transform
+//
+//  TOP-LEVEL STRUCTURE
+//  -------------------
+//    DENM ::= { header, denm }     denm = DenmPayload { management, situation?, location?, alacarte? }
+//  The app auto-wraps: POST just the payload {management, situation, ...} and it
+//  inserts header{protocolVersion,messageId,stationId} and nests under "denm".
+//  Or POST the full {"header":..., "denm":{...}} form directly.
+//
+//  IMPORTANT PRESENCE CONSTRAINT (DenmPayload)
+//  -------------------------------------------
+//  Exactly one of these two shapes is valid:
+//    (A) NEW/UPDATE DENM : management.termination ABSENT,
+//                          situation PRESENT, location PRESENT   (alacarte optional)
+//    (B) CANCEL/NEGATE   : management.termination PRESENT,
+//                          situation ABSENT, location ABSENT, alacarte ABSENT
+//  The example below is shape (A).
+//
+//  EXTENSION WRAPPERS ( "ext1" )
+//  -----------------------------
+//  Fields added in an ASN.1 extension block [[ ... ]] are nested by the rj layer
+//  under an "ext1" object (see SituationContainer / LocationContainer below).
+//  This mirrors how the codec groups version-2 additions.
+//
+//  CauseCodeV2 ENCODING
+//  --------------------
+//  eventType / linkedCause / incidentIndication / stationaryCause are CauseCodeV2:
+//     { "ccAndScc": { "<causeName><causeCode>": <subCauseCode int> } }
+//  The single key names the direct cause (e.g. "collisionRisk97", "accident2",
+//  "roadworks3", "wrongWayDriving14"); its integer value is the sub-cause code.
+//
+// =============================================================================
+{
+  // ===========================================================================
+  // management [M]  ManagementContainer
+  // ===========================================================================
+  "management": {
+    // actionId [M] ActionId — unique DENM identifier
+    "actionId": {
+      // originatingStationId [M] StationId INTEGER (0..4294967295) RAW
+      "originatingStationId": 12,
+      // sequenceNumber [M] SequenceNumber INTEGER (0..65535) RAW
+      "sequenceNumber": 3
+    },
+    // detectionTime [M] TimestampIts (raw 0..4398046511103) x1000 (seconds since 2004 epoch)
+    "detectionTime": 702067545,
+    // referenceTime [M] TimestampIts x1000 (seconds) — time this DENM was generated
+    "referenceTime": 702067545,
+    // termination [O] ENUMERATED Termination — RAW 0..1  (0 isCancellation, 1 isNegation)
+    //   PRESENT only in a cancel/negate DENM (shape B); then situation/location/alacarte MUST be absent.
+    // "termination": 0,
+    // eventPosition [M] ReferencePosition
+    "eventPosition": {
+      // latitude  [M] Latitude  (raw -900000000..900000001)  x1e7 (deg); sentinel 900000001
+      "latitude": 40.673,
+      // longitude [M] Longitude (raw -1800000000..1800000001) x1e7 (deg); sentinels -1800000000,1800000001
+      "longitude": -8.141,
+      // positionConfidenceEllipse [M] PosConfidenceEllipse
+      //   (DENM uses plain ReferencePosition -> keys semiMajorConfidence / semiMinorConfidence / semiMajorOrientation)
+      "positionConfidenceEllipse": {
+        // semiMajorConfidence [M] SemiAxisLength (raw 0..4095) x100 (m); sentinels 0 doNotUse, 4094 outOfRange, 4095 unavailable
+        "semiMajorConfidence": 40,
+        "semiMinorConfidence": 30,
+        // semiMajorOrientation [M] HeadingValue (raw 0..3601) x10 (deg); sentinels 3600 doNotUse, 3601 unavailable
+        "semiMajorOrientation": 135.5
+      },
+      // altitude [M] Altitude
+      "altitude": {
+        // altitudeValue [M] AltitudeValue (raw -100000..800001) x100 (m); sentinel 800001
+        "altitudeValue": 485,
+        // altitudeConfidence [M] ENUMERATED — RAW INDEX 0..15 (0=0.01m .. 13=200m, 14 outOfRange, 15 unavailable)
+        "altitudeConfidence": 4
+      }
+    },
+    // awarenessDistance [O] ENUMERATED StandardLength3b — RAW 0..7
+    //   0 <50m 1 <100m 2 <200m 3 <500m 4 <1000m 5 <5km 6 <10km 7 >10km
+    "awarenessDistance": 3,
+    // trafficDirection [O] ENUMERATED TrafficDirection — RAW 0..3
+    //   0 allTrafficDirections
+    //   1 sameAsReferenceDirection_upstreamOfReferencePosition
+    //   2 sameAsReferenceDirection_downstreamOfReferencePosition
+    //   3 oppositeToReferenceDirection
+    "trafficDirection": 0,
+    // validityDuration [D] DeltaTimeSecond INTEGER (0..86400) RAW seconds. DEFAULT 600 (omit to use default)
+    "validityDuration": 5,
+    // transmissionInterval [O] DeltaTimeMilliSecondPositive (raw 1..10000) x1000 (seconds)
+    //   NOTE: has a transform (scale 1000) -> pass DECIMAL seconds (e.g. 0.5 = 500 ms)
+    "transmissionInterval": 0.5,
+    // stationType [M] StationType INTEGER (0..255) RAW
+    //   0 unknown 1 pedestrian 2 cyclist 3 moped 4 motorcycle 5 passengerCar 6 bus
+    //   7 lightTruck 8 heavyTruck 9 trailer 10 specialVehicle 11 tram 15 roadSideUnit
+    "stationType": 5
+  },
+
+  // ===========================================================================
+  // situation [O]  SituationContainer   (PRESENT in a new/update DENM)
+  // ===========================================================================
+  "situation": {
+    // informationQuality [M] InformationQuality INTEGER (0..7) RAW (0 unavailable .. 7 highest)
+    "informationQuality": 7,
+    // eventType [M] CauseCodeV2  — direct+sub cause of THIS event
+    "eventType": {
+      "ccAndScc": {
+        // key = "<causeName><causeCode>", value = subCauseCode (INTEGER, RAW)
+        //   examples: "trafficCondition1", "accident2", "roadworks3",
+        //             "impassability5", "collisionRisk97", "wrongWayDriving14"
+        "collisionRisk97": 1
+      }
+    },
+    // linkedCause [O] CauseCodeV2 — a co-existing linked event (same zone), same shape
+    "linkedCause": {
+      "ccAndScc": { "wrongWayDriving14": 2 }
+    },
+    // eventZone [O] EventZone = SEQUENCE SIZE(1..23) OF EventPoint
+    //   Mutually exclusive with eventEnd (ext1). Present here -> eventEnd absent.
+    "eventZone": [
+      {
+        // eventPosition [M] DeltaReferencePosition (offset from mgmt.eventPosition for first, then from previous)
+        "eventPosition": {
+          // deltaLatitude  [M] DeltaLatitude  (raw -131071..131072) x1e7 (deg); sentinel 131072
+          "deltaLatitude": 0.0003,
+          // deltaLongitude [M] DeltaLongitude (raw -131071..131072) x1e7 (deg); sentinel 131072
+          "deltaLongitude": 0.0005,
+          // deltaAltitude  [M] DeltaAltitude  (raw -12700..12800) x100 (m); sentinels ±12700/12799, 12800 unavailable
+          "deltaAltitude": 0.8
+        },
+        // informationQuality [M] InformationQuality (0..7) RAW
+        "informationQuality": 7,
+        // eventDeltaTime [O] PathDeltaTime (raw 1..65535) RAW (unit 10 ms)
+        //   NB: by constraint, all EventPoints in the list are consistently present-or-absent.
+        "eventDeltaTime": 10
+      },
+      {
+        "eventPosition": { "deltaLatitude": 0.0006, "deltaLongitude": 0.0008, "deltaAltitude": 1.5 },
+        "informationQuality": 6,
+        "eventDeltaTime": 20
+      }
+    ]
+
+    // ---- ext1 additions (mutually exclusive with eventZone above) ----
+    // "ext1": {
+    //   "linkedDenms": [ { "originatingStationId": 12, "sequenceNumber": 4 } ], // ActionIdList SIZE(1..8) [O]
+    //   "eventEnd": 200   // Position1d (raw -8190..8191) x?? RAW (m); sentinels 8190 outOfRange, 8191 unavailable [O]
+    // }
+  },
+
+  // ===========================================================================
+  // location [O]  LocationContainer   (PRESENT in a new/update DENM)
+  // ===========================================================================
+  "location": {
+    // eventSpeed [O] Speed
+    "eventSpeed": {
+      // speedValue [M] SpeedValue (raw 0..16383) x100 (m/s); 0 standstill, 16382 outOfRange, 16383 unavailable
+      "speedValue": 33.5,
+      // speedConfidence [M] SpeedConfidence (raw 1..127) x100 (m/s); 126 outOfRange, 127 unavailable
+      "speedConfidence": 1.27
+    },
+    // eventPositionHeading [O] Wgs84Angle
+    "eventPositionHeading": {
+      // value [M] Wgs84AngleValue (raw 0..3601) x10 (deg); sentinels 3600 doNotUse, 3601 unavailable
+      "value": 2700,
+      // confidence [M] Wgs84AngleConfidence (raw 1..127) x10 (deg); 126 outOfRange, 127 unavailable
+      "confidence": 8
+    },
+    // detectionZonesToEventPosition [M] Traces = SEQUENCE SIZE(1..7) OF Path
+    //   Each Path = SEQUENCE SIZE(0..40) OF PathPoint (array of arrays).
+    "detectionZonesToEventPosition": [
+      [
+        {
+          // pathPosition [M] DeltaReferencePosition
+          "pathPosition": { "deltaLatitude": 0.0002, "deltaLongitude": 0.0004, "deltaAltitude": 1 },
+          // pathDeltaTime [O] PathDeltaTime (raw 1..65535) RAW (unit 10 ms)
+          "pathDeltaTime": 50
+        },
+        {
+          "pathPosition": { "deltaLatitude": 0.0005, "deltaLongitude": 0.0008, "deltaAltitude": 2.5 },
+          "pathDeltaTime": 100
+        }
+      ],
+      [
+        {
+          "pathPosition": { "deltaLatitude": -0.0003, "deltaLongitude": -0.0002, "deltaAltitude": 0.5 }
+          // pathDeltaTime omitted (optional)
+        }
+      ]
+    ],
+    // roadType [O] ENUMERATED RoadType — RAW 0..3
+    //   0 urban-NoStructuralSeparationToOppositeLanes
+    //   1 urban-WithStructuralSeparationToOppositeLanes
+    //   2 nonUrban-NoStructuralSeparationToOppositeLanes
+    //   3 nonUrban-WithStructuralSeparationToOppositeLanes
+    "roadType": 2,
+
+    // ---- ext1 additions (LocationContainer version-2 fields) ----
+    "ext1": {
+      // lanePositions [O] GeneralizedLanePositions SIZE(1..16) OF GeneralizedLanePosition
+      "lanePositions": [
+        {
+          // lanePositionBased [M] LanePositionOptions CHOICE (one key):
+          //   simplelanePosition | detailedlanePosition | lanePositionWithLateralDetails
+          "lanePositionBased": {
+            // simplelanePosition: LanePosition INTEGER (-1..14) RAW
+            //   -1 offTheRoad, 0 innerHardShoulder, 1..13 lanes, 14 outerHardShoulder
+            "simplelanePosition": 1
+          },
+          // mapBased [O] MapPosition — MAPEM lane reference
+          "mapBased": {
+            "mapReference": {
+              // MapReference CHOICE (one key): mapem | roadsegment
+              "roadsegment": { "region": 15, "id": 8 }   // region RAW, id RAW
+            },
+            "laneId": 2,  // Identifier1B (0..255) RAW [O]
+            "longitudinalLanePosition": {
+              // longitudinalLanePositionValue [M] (raw 0..32767) x10 (m)
+              "longitudinalLanePositionValue": 2500,
+              // longitudinalLanePositionConfidence [M] (raw 0..1023?) RAW (m)
+              "longitudinalLanePositionConfidence": 300
+            }
+          },
+          // confidence [M] MetaInformation
+          "confidence": {
+            // usedDetectionInformation [M] BIT STRING SensorType-like named bits (see below)
+            "usedDetectionInformation": { "radar": true, "stereovision": true },
+            // usedStoredInformation [M] BIT STRING named bits (cartography/dynamicDb/...)
+            "usedStoredInformation": { "dynamicDb": true },
+            // confidenceValue [O] ConfidenceLevel (raw 1..101) RAW (percent); 101 unavailable
+            "confidenceValue": 78
+          }
+        }
+      ],
+      // occupiedLanes [O] OccupiedLanesWithConfidence
+      "occupiedLanes": {
+        // lanePositionBased [M] SIZE(1..4) OF LanePositionOptions
+        "lanePositionBased": [
+          { "simplelanePosition": 1 },
+          { "simplelanePosition": 2 },
+          { "simplelanePosition": 3 }
+        ],
+        // confidence [M] MetaInformation
+        "confidence": {
+          "usedDetectionInformation": { "radar": true },
+          "usedStoredInformation": { "map": true },
+          "confidenceValue": 65
+        }
+      },
+      // linkedIvims [O] IvimReferences SIZE(1..8) OF IvimReference
+      "linkedIvims": [
+        {
+          "serviceProviderId": {
+            // countryCode: BIT STRING SIZE(10) as hex string
+            "countryCode": "10",
+            "providerIdentifier": 5   // INTEGER RAW
+          },
+          "iviIdentificationNumber": 44001  // INTEGER RAW
+        }
+      ],
+      // linkedMapems [O] MapReferences SIZE(1..8) OF MapReference (CHOICE: mapem | roadsegment)
+      "linkedMapems": [
+        { "roadsegment": { "region": 15, "id": 8 } },
+        { "roadsegment": { "region": 15, "id": 9 } }
+      ],
+      // detectionZonesToSpecifiedEventPoint [O] TracesExtended SIZE(1..7) OF PathExtended
+      "detectionZonesToSpecifiedEventPoint": [
+        {
+          // pointOfEventZone [O] OrdinalNumber1B INTEGER (1..255) RAW — which EventPoint this path targets
+          "pointOfEventZone": 1,
+          // path [M] Path SIZE(0..40) OF PathPoint
+          "path": [
+            {
+              "pathPosition": { "deltaLatitude": 0.0001, "deltaLongitude": 0.0003, "deltaAltitude": 0.5 },
+              "pathDeltaTime": 40
+            },
+            {
+              "pathPosition": { "deltaLatitude": 0.0003, "deltaLongitude": 0.0006, "deltaAltitude": 1.2 }
+            }
+          ]
+        }
+      ],
+      // predictedPaths [O] PathPredictedList SIZE(1..16) OF PathPredicted2
+      "predictedPaths": [
+        {
+          // pathPredicted [M] SIZE(0..16) OF PathPredictedPoint
+          "pathPredicted": [
+            {
+              // deltaLatitude / deltaLongitude [M] x1e7 (deg)
+              "deltaLatitude": 0.0004,
+              "deltaLongitude": 0.0003,
+              // horizontalPositionConfidence [O] PosConfidenceEllipse (same keys as management)
+              "horizontalPositionConfidence": {
+                "semiMajorConfidence": 40, "semiMinorConfidence": 40, "semiMajorOrientation": 130
+              },
+              // deltaAltitude [O] DeltaAltitude x100 (m); sentinel 12800 unavailable
+              "deltaAltitude": 1,
+              // altitudeConfidence [O] ENUMERATED — RAW 0..15
+              "altitudeConfidence": 3,
+              // pathDeltaTime [M] CHOICE (one key): deltaTimeHighPrecision | deltaTimeBigRange
+              //   deltaTimeHighPrecision: DeltaTimeTenthOfSecond (raw) RAW
+              //   deltaTimeBigRange:      DeltaTimeTenSeconds     (raw) RAW
+              "pathDeltaTime": { "deltaTimeHighPrecision": 20 },
+              // symmetricAreaOffset [O] StandardLength9b RAW (m) — lateral spread
+              "symmetricAreaOffset": 15,
+              // asymmetricAreaOffset [O] StandardLength9b RAW (m)
+              "asymmetricAreaOffset": 8
+            },
+            {
+              "deltaLatitude": 0.0008, "deltaLongitude": 0.0006,
+              "deltaAltitude": 2.5, "altitudeConfidence": 5,
+              "pathDeltaTime": { "deltaTimeBigRange": 3 }
+            }
+          ],
+          // usageIndication [O] usage-related enum/indicator RAW
+          "usageIndication": 1,
+          // confidenceLevel [O] ConfidenceLevel (1..101) RAW (percent)
+          "confidenceLevel": 90
+        }
+      ]
+    }
+  },
+
+  // ===========================================================================
+  // alacarte [O]  AlacarteContainer   (optional even in new/update DENM)
+  //   Shown fully; every sub-container is OPTIONAL — include only what applies.
+  // ===========================================================================
+  "alacarte": {
+    // lanePosition [O] LanePosition INTEGER (-1..14) RAW
+    "lanePosition": 1,
+
+    // impactReduction [O] ImpactReductionContainer — collision-mitigation vehicle data
+    "impactReduction": {
+      // heightLonCarr{Left,Right} [M] HeightLonCarr INTEGER (1..100) RAW (unit 1 cm); 99 outOfRange,100 unavailable
+      "heightLonCarrLeft": 50,
+      "heightLonCarrRight": 50,
+      // posLonCarr{Left,Right} [M] PosLonCarr INTEGER (1..127) RAW (cm); 126 outOfRange,127 unavailable
+      "posLonCarrLeft": 30,
+      "posLonCarrRight": 30,
+      // positionOfPillars [M] PositionOfPillars SIZE(1..3) OF PosPillar INTEGER(1..30) RAW (unit 10 cm)
+      "positionOfPillars": [20, 25],
+      // posCentMass [M] PosCentMass INTEGER (1..63) RAW (unit 10 cm); 62 outOfRange,63 unavailable
+      "posCentMass": 15,
+      // wheelBaseVehicle [M] WheelBaseVehicle INTEGER (1..127) RAW (cm); 126 outOfRange,127 unavailable
+      "wheelBaseVehicle": 40,
+      // turningRadius [M] TurningRadius INTEGER (1..255) RAW (unit 0.4 m); 254 outOfRange,255 unavailable
+      "turningRadius": 30,
+      // posFrontAx [M] PosFrontAx INTEGER (1..20) RAW (unit 10 cm); 19 outOfRange,20 unavailable
+      "posFrontAx": 5,
+      // positionOfOccupants [M] BIT STRING SIZE(20) — one bit per seat (hex string)
+      "positionOfOccupants": "00000",
+      // vehicleMass [M] VehicleMass INTEGER (1..1024) RAW (unit 100 kg); 1023 outOfRange,1024 unavailable
+      "vehicleMass": 15,
+      // requestResponseIndication [M] ENUMERATED — RAW 0..1 (0 request, 1 response)
+      "requestResponseIndication": 0
+    },
+
+    // externalTemperature [O] Temperature INTEGER (-60..67) RAW (deg C)
+    "externalTemperature": 21,
+
+    // roadWorks [O] RoadWorksContainerExtended
+    "roadWorks": {
+      // lightBarSirenInUse [O] BIT STRING SIZE(2) named bits
+      "lightBarSirenInUse": { "lightBarActivated": true, "sirenActivated": false },
+      // closedLanes [O] ClosedLanes
+      "closedLanes": {
+        "innerhardShoulderStatus": 0,   // HardShoulderStatus ENUM RAW (0 availableForStopping,1 closed,2 availableForDriving) [O]
+        "outerhardShoulderStatus": 1,   // [O]
+        "drivingLaneStatus": "80"       // DrivingLaneStatus BIT STRING (hex) [O]
+      },
+      // restriction [O] RestrictedTypes SIZE(1..3) OF StationType (RAW ints)
+      "restriction": [8, 9],
+      // speedLimit [O] SpeedLimit INTEGER (1..255) RAW (km/h)
+      "speedLimit": 30,
+      // incidentIndication [O] CauseCodeV2
+      "incidentIndication": { "ccAndScc": { "roadworks3": 4 } },
+      // recommendedPath [O] ItineraryPath SIZE(1..40) OF ReferencePosition
+      "recommendedPath": [
+        {
+          "latitude": 40.674, "longitude": -8.142,
+          "positionConfidenceEllipse": { "semiMajorConfidence": 40, "semiMinorConfidence": 30, "semiMajorOrientation": 135.5 },
+          "altitude": { "altitudeValue": 485, "altitudeConfidence": 4 }
+        }
+      ],
+      // startingPointSpeedLimit [O] DeltaReferencePosition
+      "startingPointSpeedLimit": { "deltaLatitude": 0.0001, "deltaLongitude": 0.0001, "deltaAltitude": 0 },
+      // trafficFlowRule [O] ENUMERATED TrafficRule — RAW 0..4
+      //   0 noPassing 1 noPassingForTrucks 2 passToRight 3 passToLeft 4 passToLeftOrRight
+      "trafficFlowRule": 2,
+      // referenceDenms [O] ActionIdList SIZE(1..8) OF ActionId
+      "referenceDenms": [ { "originatingStationId": 99, "sequenceNumber": 1 } ]
+    },
+
+    // positioningSolution [O] ENUMERATED PositioningSolutionType — RAW 0..6
+    //   0 noPositioningSolution 1 sGNSS 2 dGNSS 3 sGNSSplusDR 4 dGNSSplusDR 5 dR 6 manuallyByOperator
+    "positioningSolution": 1,
+
+    // stationaryVehicle [O] StationaryVehicleContainer
+    "stationaryVehicle": {
+      // stationarySince [O] ENUMERATED — RAW 0..3 (0 <1min,1 <2min,2 <15min,3 >=15min)
+      "stationarySince": 1,
+      // stationaryCause [O] CauseCodeV2
+      "stationaryCause": { "ccAndScc": { "vehicleBreakdown11": 2 } },
+      // carryingDangerousGoods [O] DangerousGoodsExtended
+      "carryingDangerousGoods": {
+        "dangerousGoodsType": 0,     // DangerousGoodsBasic ENUMERATED 0..19 RAW [M]
+        "unNumber": 1203,            // INTEGER (0..9999) RAW [M]
+        "elevatedTemperature": false,// BOOLEAN [M]
+        "tunnelsRestricted": false,  // BOOLEAN [M]
+        "limitedQuantity": false,    // BOOLEAN [M]
+        "emergencyActionCode": "30", // IA5String (SIZE 1..24) [O]
+        "phoneNumber": "112",        // PhoneNumber NumericString [O]
+        "companyName": "ACME"        // UTF8String (SIZE 1..24) [O]
+      },
+      // numberOfOccupants [O] NumberOfOccupants INTEGER (0..127) RAW; 126 outOfRange,127 unavailable
+      "numberOfOccupants": 2,
+      // vehicleIdentification [O] VehicleIdentification
+      "vehicleIdentification": {
+        "wMInumber": "1G8",          // WMInumber IA5String SIZE(1..3) [O]
+        "vDS": "ZC5238"              // VDS IA5String SIZE(6) [O]
+      },
+      // energyStorageType [O] BIT STRING SIZE(7) named bits (hydrogen/electric/...) — hex string
+      "energyStorageType": "40"
+    }
+
+    // ---- ext1 additions (AlacarteContainer version-2 fields) ----
+    // "ext1": {
+    //   // roadConfiguration [O] RoadConfigurationContainer
+    //   "roadConfiguration": {
+    //     "roadConfigurationConfidence": { "...": "MetaInformation" }, // [M]
+    //     "roadConfigurationSectionList": [ { "...": "RoadConfigurationSection" } ] // [M]
+    //   },
+    //   // preCrash [O] PreCrashContainer
+    //   "preCrash": {
+    //     "perceivedPreCrashObject": { "...": "PerceivedObject — see CPM reference" }, // [M]
+    //     "objectStationId": 4321,             // StationId RAW [O]
+    //     "timeToCollision": 0.5,              // DeltaTimeMilliSecondPositive (1..10000) x1000 s [O]
+    //     "impactSection": 0,                  // ObjectFace ENUM RAW [O]
+    //     "estimatedBrakingDistance": 25.0     // StandardLength12b (0..4095) x10 m [O]
+    //   }
+    // }
+  }
+}

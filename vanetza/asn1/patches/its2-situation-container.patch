@@ -1,0 +1,22 @@
+diff --git a/vanetza/asn1/its/r2/SituationContainer.h b/vanetza/asn1/its/r2/SituationContainer.h
+index 441b6df81..000000000 100644
+--- a/vanetza/asn1/its/r2/SituationContainer.h
++++ b/vanetza/asn1/its/r2/SituationContainer.h
+@@ -26,7 +26,7 @@ extern "C" {
+
+ /* Forward declarations */
+ struct Vanetza_ITS2_CauseCodeV2;
+-struct Vanetza_ITS2_EventZone;
++struct Vanetza_ITS2_EventHistory;
+ struct Vanetza_ITS2_ActionIdList;
+
+ /* Vanetza_ITS2_SituationContainer */
+@@ -33,7 +33,7 @@ typedef struct Vanetza_ITS2_SituationContainer {
+ 	Vanetza_ITS2_InformationQuality_t	 informationQuality;
+ 	Vanetza_ITS2_CauseCodeV2_t	 eventType;
+ 	struct Vanetza_ITS2_CauseCodeV2	*linkedCause;	/* OPTIONAL */
+-	struct Vanetza_ITS2_EventZone	*eventZone;	/* OPTIONAL */
++	struct Vanetza_ITS2_EventHistory	*eventZone;	/* OPTIONAL */
+ 	/*
+ 	 * This type is extensible,
+ 	 * possible extensions are below.

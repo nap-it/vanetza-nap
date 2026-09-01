@@ -1,0 +1,241 @@
+{
+    "basicContainer": {
+        "generationDeltaTime": 1741192835.4648783,
+        "stationID": 142,
+        "stationType": 1,
+        "itssRole": 1,
+        "position": {
+            "latitude": 40.638572,
+            "longitude": -8.649928,
+            "positionConfidenceEllipse": {
+                "semiMajorAxisLength": 0,
+                "semiMinorAxisLength": 0,
+                "semiMajorAxisOrientation": 0
+            },
+            "altitude": {
+                "altitudeValue": 2,
+                "altitudeConfidence": 1
+            }
+        },
+        "mcmType": 8,
+        "manoeuvreId": 1,
+        "concept": 0,
+        "rational": {
+            "manoeuvreCooperationCost": 0
+        }
+    },
+    "mcmContainer": {
+        "vehicleManoeuvreContainer": {
+            "vehicleCurrentStateContainer": {
+                "vehicleSpeed": {
+                    "speedValue": 2,
+                    "speedConfidence": 127
+                },
+                "vehicleHeading": {
+                    "value": 3601,
+                    "confidence": 127
+                },
+                "vehicleSize": {
+                    "vehicleType": 0,
+                    "vehicleLenth": {
+                        "vehicleLengthValue": 1,
+                        "vehicleLengthConfidenceIndication": 4
+                    },
+                    "vehicleWidth": 1,
+                    "vehicleHeight": 1
+                }
+            },
+            "submaneuvres": [
+                {
+                    "submanoeuvreID": 0,
+                    "referenceTrajectory": {
+                        "speed": [
+                            {
+                                "speedValue": 1,
+                                "speedConfidence": 1
+                            },
+                            {
+                                "speedValue": 1,
+                                "speedConfidence": 1
+                            },
+                            {
+                                "speedValue": 1,
+                                "speedConfidence": 1
+                            }
+                        ],
+                        "wayPointType": 1,
+                        "wayPoints": [
+                            {
+                                "pathPosition": {
+                                    "deltaLatitude": 0,
+                                    "deltaLongitude": 0,
+                                    "deltaAltitude": 0
+                                }
+                            },
+                            {
+                                "pathPosition": {
+                                    "deltaLatitude": 0,
+                                    "deltaLongitude": 0,
+                                    "deltaAltitude": 0
+                                }
+                            },
+                            {
+                                "pathPosition": {
+                                    "deltaLatitude": 0,
+                                    "deltaLongitude": 0,
+                                    "deltaAltitude": 0
+                                }
+                            }
+                        ]
+                    },
+                    "targetRoadResourceIContainer": {
+                        "trrType": 2,
+                        "laneCount": 2,
+                        "waypoints": [
+                            {
+                                "pathPosition": {
+                                    "deltaLatitude": 0,
+                                    "deltaLongitude": 0,
+                                    "deltaAltitude": 0
+                                }
+                            },
+                            {
+                                "pathPosition": {
+                                    "deltaLatitude": 0,
+                                    "deltaLongitude": 0,
+                                    "deltaAltitude": 0
+                                }
+                            },
+                            {
+                                "pathPosition": {
+                                    "deltaLatitude": 0,
+                                    "deltaLongitude": 0,
+                                    "deltaAltitude": 0
+                                }
+                            }
+                        ],
+                        "heading": [
+                            {
+                                "value": 800,
+                                "confidence": 1
+                            },
+                            {
+                                "value": 800,
+                                "confidence": 1
+                            },
+                            {
+                                "value": 800,
+                                "confidence": 1
+                            }
+                        ],
+                        "trrWidth": 1,
+                        "trrLength": 1
+                    },
+                    "temporalCharateristics": {
+                        "tRROccupancyStartTime": 1,
+                        "tRROccupancyEndTime": 1
+                    }
+                }
+            ],
+            "manoeuvreAdvice": [
+                {
+                    "executantID": 165,
+                    "submaneuvres": [
+                        {
+                            "submanoeuvreId": 0,
+                            "advisedTrajectory": {
+                                "speed": [
+                                    {
+                                        "speedValue": 1,
+                                        "speedConfidence": 1
+                                    },
+                                    {
+                                        "speedValue": 1,
+                                        "speedConfidence": 1
+                                    },
+                                    {
+                                        "speedValue": 1,
+                                        "speedConfidence": 1
+                                    }
+                                ],
+                                "wayPointType": 1,
+                                "wayPoints": [
+                                    {
+                                        "pathPosition": {
+                                            "deltaLatitude": 0,
+                                            "deltaLongitude": 0,
+                                            "deltaAltitude": 0
+                                        }
+                                    },
+                                    {
+                                        "pathPosition": {
+                                            "deltaLatitude": 0,
+                                            "deltaLongitude": 0,
+                                            "deltaAltitude": 0
+                                        }
+                                    },
+                                    {
+                                        "pathPosition": {
+                                            "deltaLatitude": 0,
+                                            "deltaLongitude": 0,
+                                            "deltaAltitude": 0
+                                        }
+                                    }
+                                ]
+                            },
+                            "advisedTargetRoadResource": {
+                                "trrDescription": {
+                                    "trrType": 2,
+                                    "laneCount": 2,
+                                    "waypoints": [
+                                        {
+                                            "pathPosition": {
+                                                "deltaLatitude": 0,
+                                                "deltaLongitude": 0,
+                                                "deltaAltitude": 0
+                                            }
+                                        },
+                                        {
+                                            "pathPosition": {
+                                                "deltaLatitude": 0,
+                                                "deltaLongitude": 0,
+                                                "deltaAltitude": 0
+                                            }
+                                        },
+                                        {
+                                            "pathPosition": {
+                                                "deltaLatitude": 0,
+                                                "deltaLongitude": 0,
+                                                "deltaAltitude": 0
+                                            }
+                                        }
+                                    ],
+                                    "heading": [
+                                        {
+                                            "value": 800,
+                                            "confidence": 1
+                                        },
+                                        {
+                                            "value": 800,
+                                            "confidence": 1
+                                        },
+                                        {
+                                            "value": 800,
+                                            "confidence": 1
+                                        }
+                                    ],
+                                    "trrWidth": 1,
+                                    "trrLength": 1
+                                },
+                                "temporalCharacteristics": {
+                                    "tRROccupancyStartTime": 1,
+                                    "tRROccupancyEndTime": 1
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

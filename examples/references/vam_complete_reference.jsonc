@@ -1,0 +1,388 @@
+// =============================================================================
+//  VRU AWARENESS MESSAGE (VAM) — COMPLETE REFERENCE  (Release 2)
+//  ETSI TS 103 300-3 v2.2.1  +  ETSI TS 102 894-2 v2.2.1 (CDD)
+// =============================================================================
+//
+//  HOW TO READ THIS FILE
+//  ---------------------
+//  JSONC (JSON-with-comments). NOT directly ingestible — strip comments first.
+//  Documents EVERY possible VAM field: mandatory (M) / optional (O), ASN.1 leaf
+//  type, raw integer range, and whether a numeric TRANSFORMATION is applied by
+//  the rj encoder/decoder.
+//
+//  KEY MECHANIC — TRANSFORMATIONS  (vanetza/asn1/rj/transformations/*.gperf)
+//  ------------------------------------------------------------------------
+//      JSON  ->  ASN.1 :  raw = round( json_double * scale )
+//      ASN.1 ->  JSON  :  json_double = raw / scale
+//  EXCEPT when raw equals a SENTINEL ("unavailable"/"outOfRange"/...): sentinels
+//  pass THROUGH AS RAW INTEGERS, never scaled. Therefore:
+//    * real measured value -> send a DECIMAL
+//    * "unavailable"        -> send the raw SENTINEL INTEGER
+//  Types WITHOUT a transform (plain INTEGER, ENUMERATED) take the raw integer.
+//  ENUMERATED are ALWAYS raw integer index values. BIT STRING with named bits
+//  is a JSON OBJECT of booleans (missing keys = 0).
+//
+//  Field tags:
+//    [M] mandatory  [O] optional  [D] has DEFAULT (omit to use default)
+//    (raw a..b)  raw range   xScale = scale + SI unit (decimal accepted)
+//    sentinel: N  the unavailable/out-of-range raw integer(s)   RAW = no transform
+//
+//  RELATIONSHIP TO CAM
+//  -------------------
+//  VAM is CAM's structural sibling. It reuses the same CDD leaf types: Speed,
+//  Wgs84Angle, Curvature, YawRate, ExteriorLights, AccelerationConfidence, the
+//  BasicContainer, etc. Same scale/sentinel rules apply. Two differences to note:
+//    1) protocolVersion is 3 (CAM/DENM use 2). The app auto-inserts this.
+//    2) The VRU-HF container uses Wgs84Angle for heading (keys value/confidence),
+//       whereas CAM's basicVehicle-HF uses Heading (keys headingValue/headingConfidence).
+//
+//  TOP-LEVEL STRUCTURE
+//  -------------------
+//    VAM ::= { header, vam }     vam = VruAwareness { generationDeltaTime, vamParameters }
+//  The app auto-wraps: POST just {generationDeltaTime, vamParameters} and it
+//  inserts header{protocolVersion:3, messageId:vam, stationId} and nests under
+//  "vam". Or POST the full {"header":..., "vam":{...}} form directly.
+//
+//  CONTAINER RULES  (VamParameters)
+//  --------------------------------
+//   * basicContainer            [M]
+//   * vruHighFrequencyContainer [M]
+//   * vruLowFrequencyContainer  [O]  (mandatory at higher periodicity / when cluster-op present)
+//   * vruClusterInformationContainer [O]  (present when transmitter is a cluster leader)
+//   * vruClusterOperationContainer   [O]  (present when joining/leaving/breaking a cluster;
+//                                          at least one of its fields must be set)
+//   * vruMotionPredictionContainer   [O]  (at least one of its fields must be set)
+//   CHOICE objects must contain EXACTLY ONE key.
+//
+// =============================================================================
+{
+  // ---------------------------------------------------------------------------
+  // generationDeltaTime [M] GenerationDeltaTime INTEGER (0..65535) RAW (unit 1 ms)
+  //   = TimestampIts of the reference position mod 65536. No transform.
+  // ---------------------------------------------------------------------------
+  "generationDeltaTime": 52264,
+
+  // ---------------------------------------------------------------------------
+  // vamParameters [M] VamParameters
+  // ---------------------------------------------------------------------------
+  "vamParameters": {
+
+    // =========================================================================
+    // basicContainer [M] BasicContainer  (identical to CAM)
+    // =========================================================================
+    "basicContainer": {
+      // stationType [M] TrafficParticipantType INTEGER (0..255) RAW
+      //   Typical VRU values: 1 pedestrian, 2 cyclist, 3 moped, 4 motorcycle, 12 lightVruVehicle, 13 animal
+      "stationType": 1,
+      // referencePosition [M] ReferencePositionWithConfidence
+      "referencePosition": {
+        // latitude  [M] Latitude  (raw -900000000..900000001)  x1e7 (deg); sentinel 900000001
+        "latitude": 40.64088,
+        // longitude [M] Longitude (raw -1800000000..1800000001) x1e7 (deg); sentinels -1800000000,1800000001
+        "longitude": -8.65397,
+        // positionConfidenceEllipse [M] PositionConfidenceEllipse
+        //   (R2 BasicContainer uses the *WithConfidence variant ->
+        //    keys semiMajorAxisLength / semiMinorAxisLength / semiMajorAxisOrientation)
+        "positionConfidenceEllipse": {
+          // semiMajorAxisLength [M] SemiAxisLength (raw 0..4095) x100 (m); 0 doNotUse, 4094 outOfRange, 4095 unavailable
+          "semiMajorAxisLength": 4095,
+          "semiMinorAxisLength": 4095,
+          // semiMajorAxisOrientation [M] Wgs84AngleValue (raw 0..3601) x10 (deg); 3600 doNotUse, 3601 unavailable
+          "semiMajorAxisOrientation": 3601
+        },
+        // altitude [M] Altitude
+        "altitude": {
+          // altitudeValue [M] AltitudeValue (raw -100000..800001) x100 (m); sentinel 800001
+          "altitudeValue": 0,
+          // altitudeConfidence [M] ENUMERATED — RAW INDEX 0..15 (14 outOfRange, 15 unavailable)
+          "altitudeConfidence": 14
+        }
+      }
+    },
+
+    // =========================================================================
+    // vruHighFrequencyContainer [M] VruHighFrequencyContainer
+    // =========================================================================
+    "vruHighFrequencyContainer": {
+      // heading [M] Wgs84Angle  (NOTE: keys value/confidence — NOT headingValue!)
+      "heading": {
+        // value [M] Wgs84AngleValue (raw 0..3601) x10 (deg from true North)
+        //   named: 0 N, 900 E, 1800 S, 2700 W; sentinels 3600 doNotUse, 3601 unavailable
+        "value": 153.0,
+        // confidence [M] Wgs84AngleConfidence (raw 1..127) x10 (deg); 126 outOfRange, 127 unavailable
+        "confidence": 127
+      },
+      // speed [M] Speed
+      "speed": {
+        // speedValue [M] SpeedValue (raw 0..16383) x100 (m/s); 0 standstill, 16382 outOfRange, 16383 unavailable
+        "speedValue": 8.7,
+        // speedConfidence [M] SpeedConfidence (raw 1..127) x100 (m/s); 126 outOfRange, 127 unavailable
+        "speedConfidence": 127
+      },
+      // longitudinalAcceleration [M] LongitudinalAcceleration
+      "longitudinalAcceleration": {
+        // longitudinalAccelerationValue [M] (raw -160..161) x10 (m/s^2); sentinel 161 unavailable
+        "longitudinalAccelerationValue": -0.4,
+        // longitudinalAccelerationConfidence [M] AccelerationConfidence (raw 0..102) x10 (m/s^2)
+        //   sentinels: 101 outOfRange, 102 unavailable
+        "longitudinalAccelerationConfidence": 0
+      },
+
+      // ---- OPTIONAL high-frequency fields (recommended mostly for VRU Profile 2 / vehicles) ----
+
+      // curvature [O] Curvature
+      "curvature": {
+        // curvatureValue [M] CurvatureValue (raw -1023..1023) RAW; 0 straight, 1023 unavailable
+        "curvatureValue": 1023,
+        // curvatureConfidence [M] ENUMERATED — RAW 0..7 (6 outOfRange, 7 unavailable)
+        "curvatureConfidence": 7
+      },
+      // curvatureCalculationMode [O] ENUMERATED — RAW 0..2 (0 yawRateUsed, 1 notUsed, 2 unavailable)
+      "curvatureCalculationMode": 2,
+      // yawRate [O] YawRate
+      "yawRate": {
+        // yawRateValue [M] YawRateValue (raw -32766..32767) x100 (deg/s); ±32766 out-of-range, 32767 unavailable
+        "yawRateValue": 0.0,
+        // yawRateConfidence [M] ENUMERATED — RAW 0..8 (7 outOfRange, 8 unavailable)
+        "yawRateConfidence": 8
+      },
+      // lateralAcceleration [O] LateralAcceleration
+      "lateralAcceleration": {
+        // lateralAccelerationValue [M] (raw -160..161) x10 (m/s^2); sentinel 161 unavailable
+        "lateralAccelerationValue": 0.0,
+        "lateralAccelerationConfidence": 0
+      },
+      // verticalAcceleration [O] VerticalAcceleration
+      "verticalAcceleration": {
+        // verticalAccelerationValue [M] (raw -160..161) x10 (m/s^2); sentinel 161 unavailable
+        "verticalAccelerationValue": 0.0,
+        "verticalAccelerationConfidence": 0
+      },
+      // vruLanePosition [O] GeneralizedLanePosition
+      "vruLanePosition": {
+        // lanePositionBased [M] LanePositionOptions CHOICE (one key):
+        //   simplelanePosition | detailedlanePosition | lanePositionWithLateralDetails
+        "lanePositionBased": {
+          // simplelanePosition: LanePosition INTEGER (-1..14) RAW (-1 offTheRoad, 0 innerHardShoulder, 14 outerHardShoulder)
+          "simplelanePosition": 0
+        },
+        // mapBased [O] MapPosition — MAPEM lane reference
+        // "mapBased": { "mapReference": { "roadsegment": { "region": 15, "id": 8 } }, "laneId": 2 },
+        // confidence [M] MetaInformation
+        "confidence": {
+          "usedDetectionInformation": { "radar": false },   // BIT STRING named bits (sensor types)
+          "usedStoredInformation": { "map": true },          // BIT STRING named bits
+          "confidenceValue": 78                              // ConfidenceLevel (1..101) RAW; 101 unavailable [O]
+        }
+      },
+      // environment [O] VruEnvironment INTEGER (0..15) RAW
+      //   0 unavailable, 1 intersectionCrossing, 2 zebraCrossing, 3 sidewalk,
+      //   4 onVehicleRoad, 5 protectedGeographicArea
+      "environment": 3,
+      // movementControl [O] VruMovementControl INTEGER (0..15) RAW
+      //   0 unavailable, 1 braking, 2 hardBraking, 3 stopPedaling,
+      //   4 brakingAndStopPedaling, 5 hardBrakingAndStopPedaling, 6 noReaction
+      "movementControl": 0,
+      // orientation [O] Wgs84Angle (VRU vehicle longitudinal axis vs WGS84 north) — keys value/confidence
+      "orientation": { "value": 153.0, "confidence": 127 },
+      // rollAngle [O] CartesianAngle
+      "rollAngle": {
+        // value [M] CartesianAngleValue (raw 0..3601) x10 (deg); 3600 valueNotUsed, 3601 unavailable
+        "value": 0.0,
+        // confidence [M] AngleConfidence (raw 1..127) x10 (deg); 126 outOfRange, 127 unavailable
+        "confidence": 1
+      },
+      // deviceUsage [O] VruDeviceUsage INTEGER (0..15) RAW  (recommended for VRU Profile 1)
+      //   0 unavailable 1 other 2 idle 3 listeningToAudio 4 typing 5 calling
+      //   6 playingGames 7 reading 8 viewing
+      "deviceUsage": 2
+    },
+
+    // =========================================================================
+    // vruLowFrequencyContainer [O] VruLowFrequencyContainer
+    // =========================================================================
+    "vruLowFrequencyContainer": {
+      // profileAndSubprofile [M] VruProfileAndSubprofile CHOICE (exactly ONE key):
+      //   pedestrian | bicyclistAndLightVruVehicle | motorcyclist | animal
+      "profileAndSubprofile": {
+        // pedestrian: VruSubProfilePedestrian INTEGER (0..15) RAW
+        //   0 unavailable, 1 ordinary-pedestrian, 2 road-worker, 3 first-responder
+        "pedestrian": 1
+        // OR "bicyclistAndLightVruVehicle": 1  // VruSubProfileBicyclist (0..15):
+        //      1 bicyclist,2 wheelchair-user,3 horse-and-rider,4 rollerskater,5 e-scooter,
+        //      6 personal-transporter,7 pedelec,8 speed-pedelec,9 roadbike,10 childrensbike
+        // OR "motorcyclist": 2  // VruSubProfileMotorcyclist (0..15):
+        //      1 moped,2 motorcycle,3 sidecar-right,4 sidecar-left
+        // OR "animal": 1        // VruSubProfileAnimal (0..15): 1 wild,2 farm,3 service
+      },
+      // sizeClass [O] VruSizeClass INTEGER (0..15) RAW  (0 unavailable, 1 low, 2 medium, 3 high)
+      "sizeClass": 2,
+      // exteriorLights [O] VruExteriorLights
+      "exteriorLights": {
+        // vehicular [M] BIT STRING ExteriorLights (SIZE 8) — named bits
+        "vehicular": {
+          "lowBeamHeadlightsOn": false,
+          "highBeamHeadlightsOn": false,
+          "leftTurnSignalOn": false,
+          "rightTurnSignalOn": false,
+          "daytimeRunningLightsOn": false,
+          "reverseLightOn": false,
+          "fogLightOn": false,
+          "parkingLightsOn": false
+        },
+        // vruSpecific [M] BIT STRING VruSpecificExteriorLights (SIZE 8) — named bits
+        "vruSpecific": {
+          "unavailable": false,
+          "backFlashLight": false,
+          "helmetLight": false,
+          "armLight": false,
+          "legLight": false,
+          "wheelLight": false
+        }
+      }
+    },
+
+    // =========================================================================
+    // vruClusterInformationContainer [O]  (present when THIS station is a cluster leader)
+    // =========================================================================
+    // "vruClusterInformationContainer": {
+    //   // vruClusterInformation [M] VruClusterInformation — clusterId & clusterBoundingBoxShape MUST be present here
+    //   "vruClusterInformation": {
+    //     "clusterId": 7,                         // Identifier1B (0..255) RAW [M-in-this-context]
+    //     "clusterBoundingBoxShape": {            // Shape CHOICE (rectangular|circular|polygonal only) [M-in-this-context]
+    //       "rectangular": { "semiLength": 5.0, "semiBreadth": 3.0 }   // StandardLength12b x10 (m)
+    //     },
+    //     "clusterCardinalitySize": 3,            // CardinalNumber1B (0..255) RAW [M]
+    //     "clusterProfiles": {                    // VruClusterProfiles BIT STRING SIZE(4) — named bits [O]
+    //       "pedestrian": true, "bicyclist": false, "motorcyclist": false, "animal": false
+    //     }
+    //   }
+    // },
+
+    // =========================================================================
+    // vruClusterOperationContainer [O]  (joining/leaving/breaking a cluster;
+    //   at least ONE field must be present)
+    // =========================================================================
+    // "vruClusterOperationContainer": {
+    //   // clusterJoinInfo [O]
+    //   "clusterJoinInfo": {
+    //     "clusterId": 7,        // Identifier1B (0..255) RAW [M]
+    //     "joinTime": 4          // DeltaTimeQuarterSecond (raw 1..255) RAW (unit 0.25 s); 255 unavailable [M]
+    //   },
+    //   // clusterLeaveInfo [O]
+    //   "clusterLeaveInfo": {
+    //     "clusterId": 7,             // [M]
+    //     "clusterLeaveReason": 3     // ClusterLeaveReason INTEGER (0..15) RAW [M]
+    //     //   0 notProvided 1 clusterLeaderLost 2 disbandedByLeader 3 outOfBoundingBox
+    //     //   4 outOfSpeedRange 5 joiningAnotherCluster 6 cancelledJoin 7 failedJoin 8 safetyCondition
+    //   },
+    //   // clusterBreakupInfo [O]
+    //   "clusterBreakupInfo": {
+    //     "clusterBreakupReason": 1,  // ClusterBreakupReason INTEGER (0..15) RAW [M]
+    //     //   0 notProvided 1 clusteringPurposeCompleted 2 leaderMovedOutOfBox
+    //     //   3 joiningAnotherCluster 4 enteringLowRiskArea 5 receptionOfCpmContainingCluster
+    //     "breakupTime": 4            // DeltaTimeQuarterSecond (1..255) RAW; 255 unavailable [M]
+    //   },
+    //   // clusterIdChangeTimeInfo [O] DeltaTimeQuarterSecond (1..255) RAW; 255 unavailable
+    //   "clusterIdChangeTimeInfo": 8
+    // },
+
+    // =========================================================================
+    // vruMotionPredictionContainer [O]  (at least ONE field must be present)
+    // =========================================================================
+    "vruMotionPredictionContainer": {
+      // pathHistory [O] PathHistory = SEQUENCE SIZE(0..40) OF PathPoint
+      "pathHistory": [
+        {
+          // pathPosition [M] DeltaReferencePosition
+          "pathPosition": {
+            // deltaLatitude  [M] DeltaLatitude  (raw -131071..131072) x1e7 (deg); sentinel 131072
+            "deltaLatitude": 0.000074,
+            // deltaLongitude [M] DeltaLongitude (raw -131071..131072) x1e7 (deg); sentinel 131072
+            "deltaLongitude": 0.0000179,
+            // deltaAltitude  [M] DeltaAltitude  (raw -12700..12800) x100 (m); 12800 unavailable
+            "deltaAltitude": 0
+          },
+          // pathDeltaTime [O] PathDeltaTime (raw 1..65535) RAW (unit 10 ms)
+          "pathDeltaTime": 111
+        }
+      ],
+
+      // pathPrediction [O] PathPredicted = SEQUENCE SIZE(1..16) OF PathPointPredicted
+      //   NOTE: unlike DENM, this is a FLAT list of predicted points (no usageIndication/confidenceLevel wrapper).
+      "pathPrediction": [
+        {
+          // deltaLatitude  [M] DeltaLatitude  x1e7 (deg)
+          "deltaLatitude": 0.0004,
+          // deltaLongitude [M] DeltaLongitude x1e7 (deg)
+          "deltaLongitude": 0.0003,
+          // horizontalPositionConfidence [O] PosConfidenceEllipse (keys semiMajorConfidence/…/semiMajorOrientation)
+          "horizontalPositionConfidence": {
+            "semiMajorConfidence": 40, "semiMinorConfidence": 40, "semiMajorOrientation": 130
+          },
+          // deltaAltitude [D] DeltaAltitude x100 (m); DEFAULT unavailable (12800)
+          "deltaAltitude": 1,
+          // altitudeConfidence [D] ENUMERATED — RAW 0..15; DEFAULT unavailable (15)
+          "altitudeConfidence": 3,
+          // pathDeltaTime [O] PathDeltaTimeChoice CHOICE (one key): deltaTimeHighPrecision | deltaTimeBigRange
+          //   present => trajectory (timed); absent => path (untimed). RAW ints.
+          "pathDeltaTime": { "deltaTimeHighPrecision": 20 },
+          // symmetricAreaOffset [O] StandardLength9b (raw 0..511) RAW (m) — path-zone lateral spread
+          "symmetricAreaOffset": 15,
+          // asymmetricAreaOffset [O] StandardLength9b RAW (m) — only allowed if symmetricAreaOffset present
+          "asymmetricAreaOffset": 8
+        }
+      ],
+
+      // safeDistance [O] SequenceOfSafeDistanceIndication SIZE(1..8) OF SafeDistanceIndication
+      "safeDistance": [
+        {
+          // subjectStation [O] StationId INTEGER (0..4294967295) RAW — the other ITS-S/entity
+          "subjectStation": 12345,
+          // safeDistanceIndicator [M] BOOLEAN (true = at a safe distance)
+          "safeDistanceIndicator": true,
+          // timeToCollision [O] DeltaTimeTenthOfSecond (raw 0..127) RAW (unit 0.1 s); 127 unavailable
+          "timeToCollision": 30
+        }
+      ],
+
+      // trajectoryInterceptionIndication [O] SequenceOfTrajectoryInterceptionIndication SIZE(1..8)
+      "trajectoryInterceptionIndication": [
+        {
+          // subjectStation [O] StationId RAW
+          "subjectStation": 12345,
+          // trajectoryInterceptionProbability [M] INTEGER (0..63) RAW; 63 unavailable
+          "trajectoryInterceptionProbability": 10,
+          // trajectoryInterceptionConfidence [O] INTEGER (0..3) RAW
+          //   0 <50%, 1 50-70%, 2 70-90%, 3 >90%
+          "trajectoryInterceptionConfidence": 2
+        }
+      ],
+
+      // accelerationChangeIndication [O] AccelerationChangeIndication
+      "accelerationChangeIndication": {
+        // accelOrDecel [M] ENUMERATED AccelerationChange — RAW 0..1 (0 accelerate, 1 decelerate)
+        "accelOrDecel": 1,
+        // actionDeltaTime [M] DeltaTimeTenthOfSecond (raw 0..127) RAW (unit 0.1 s); 127 unavailable
+        "actionDeltaTime": 10
+      },
+
+      // headingChangeIndication [O] HeadingChangeIndication
+      "headingChangeIndication": {
+        // direction [M] ENUMERATED TurningDirection — RAW 0..1 (0 left, 1 right)
+        "direction": 0,
+        // actionDeltaTime [M] DeltaTimeTenthOfSecond (0..127) RAW; 127 unavailable
+        "actionDeltaTime": 10
+      },
+
+      // stabilityChangeIndication [O] StabilityChangeIndication
+      "stabilityChangeIndication": {
+        // lossProbability [M] StabilityLossProbability INTEGER (0..63) RAW
+        //   0 stable, 50 totalLossOfStability, 63 unavailable
+        "lossProbability": 0,
+        // actionDeltaTime [M] DeltaTimeTenthOfSecond (0..127) RAW; 127 unavailable
+        "actionDeltaTime": 10
+      }
+    }
+  }
+}

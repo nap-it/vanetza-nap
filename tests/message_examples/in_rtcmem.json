@@ -1,0 +1,59 @@
+{
+	"msgCnt": 1,
+	"rev": 2,
+	"timeStamp": 400000,
+	"anchorPoint": {
+		"utcTime": {
+			"year": 2026,
+			"month": 4,
+			"day": 14,
+			"hour": 12,
+			"minute": 30,
+			"second": 15000,
+			"offset": 0
+		},
+		"long": -8.6532400,
+		"lat": 40.6369300,
+		"elevation": 1500,
+		"heading": 9000,
+		"speed": {
+			"transmisson": 0,
+			"speed": 500
+		},
+		"posAccuracy": {
+			"semiMajor": 50,
+			"semiMinor": 50,
+			"orientation": 0
+		},
+		"timeConfidence": 0,
+		"posConfidence": {
+			"pos": 0,
+			"elevation": 0
+		},
+		"speedConfidence": {
+			"heading": 0,
+			"speed": 0,
+			"throttle": 0
+		}
+	},
+	"rtcmHeader": {
+		"status": {
+			"unavailable": false,
+			"isHealthy": true,
+			"isMonitored": true,
+			"baseStationType": false,
+			"aPDOPofUnder5": true,
+			"inViewOfUnder5": false,
+			"localCorrectionsPresent": false,
+			"networkCorrectionsPresent": false
+		},
+		"offsetSet": {
+			"antOffsetX": 0,
+			"antOffsetY": 0,
+			"antOffsetZ": 0
+		}
+	},
+	"msgs": [
+		"D300133EC2"
+	]
+}

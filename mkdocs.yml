@@ -1,0 +1,64 @@
+site_name: Vanetza - NAP
+site_url: https://github.com/nap-it/vanetza-nap
+repo_url: https://github.com/nap-it/vanetza-nap
+
+nav:
+  - Overview:
+      - index.md
+      - overview/architecture.md
+  - Getting Started:
+      - getting-started/howto.md
+      - getting-started/configuration.md
+      - getting-started/simulated-deployment.md
+  - Applications:
+      - applications/generic.md
+      - applications/applications.md
+      - applications/developing-new-application.md
+  - Pub/Sub:
+      - pubsub/middleware.md
+      - pubsub/jer.md
+      - pubsub/threads.md
+  - Multi-Link: multi-link/multi-link.md
+  - Extended Features:
+      - extended-features/rssi.md
+      - extended-features/override.md
+      - extended-features/metadata.md
+      - extended-features/filtering.md
+      - extended-features/queue.md
+      - extended-features/prometheus.md
+  - Help:
+      - help/generate-asn1.md
+      - help/migration-guide.md
+      - help/contact.md
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    - navigation.instant
+    - navigation.instant.progress
+    - search.suggestions
+    - search.highlight
+    - header.autohide
+  font:
+    code: Roboto Mono
+  palette:
+    # Dark Mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Dark mode
+      primary: blue grey
+      accent: amber
+
+    # Light Mode
+    - media: "(prefers-color-scheme: light)" 
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Light mode
+      primary: blue grey
+      accent: amber
