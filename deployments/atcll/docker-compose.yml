@@ -5,7 +5,7 @@ services:
         restart: always
         image: code.nap.av.it.pt:5050/mobility-networks/vanetza-nap:latest
         volumes:
-          - ./config.ini:/config.ini
+          - /services/vanetza/config.ini:/config.ini
           - /services/info.ini:/info.ini
         cap_add:
             - "NET_ADMIN"
