@@ -1,0 +1,17 @@
+services:
+  vanetza:
+    container_name: vanetza
+    hostname: vanetza
+    image: code.nap.av.it.pt:5050/mobility-networks/vanetza-nap:latest
+    restart: unless-stopped
+    network_mode: host
+    ipc: shareable
+    shm_size: 300m
+    cap_add:
+      - NET_ADMIN
+    environment:
+      START_EMBEDDED_MOSQUITTO: "false"
+      SUPPORT_MAC_BLOCKING: "false"
+    volumes:
+      - /services/atcll-portainer-configs/vanetza/config.ini:/config.ini
+      - /services/atcll-portainer-configs/info.ini:/info.ini
