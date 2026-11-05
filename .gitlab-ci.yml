@@ -27,11 +27,20 @@ build_amd64:
         sed -i '/^ENTRYPOINT/i ENV COMMIT='"$CI_COMMIT_SHORT_SHA" $DOCKERFILE_PATH/$DOCKERFILE_NAME
       fi
     - echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin code.nap.av.it.pt:5050
-    - docker build -t code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-amd64 -f $DOCKERFILE_NAME $DOCKERFILE_PATH
+    - docker buildx create --name ci-builder --use || docker buildx use ci-builder
+    - docker buildx inspect --bootstrap
     - |
       if [[ "$CI_COMMIT_TAG" != "" ]] || [[ "$CI_COMMIT_BRANCH" != "$CI_DEFAULT_BRANCH" ]]; then
-        echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin code.nap.av.it.pt:5050;
-        docker push code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-amd64;
+        docker buildx build \
+          --platform linux/amd64 \
+          --provenance=false \
+          --sbom=false \
+          --push \
+          --cache-from type=registry,ref=code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG \
+          --build-arg BUILDKIT_INLINE_CACHE=1 \
+          -t code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-amd64 \
+          -f $DOCKERFILE_NAME \
+          $DOCKERFILE_PATH
       fi
   rules:
     - if: '$CI_COMMIT_TAG != "latest"'
@@ -50,11 +59,20 @@ build_arm64:
         sed -i '/^ENTRYPOINT/i ENV COMMIT='"$CI_COMMIT_SHORT_SHA" $DOCKERFILE_PATH/$DOCKERFILE_NAME
       fi
     - echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin code.nap.av.it.pt:5050
-    - docker build -t code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-arm64 -f $DOCKERFILE_NAME $DOCKERFILE_PATH
+    - docker buildx create --name ci-builder --use || docker buildx use ci-builder
+    - docker buildx inspect --bootstrap
     - |
       if [[ "$CI_COMMIT_TAG" != "" ]] || [[ "$CI_COMMIT_BRANCH" != "$CI_DEFAULT_BRANCH" ]]; then
-        echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin code.nap.av.it.pt:5050;
-        docker push code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-arm64;
+        docker buildx build \
+          --platform linux/arm64 \
+          --provenance=false \
+          --sbom=false \
+          --push \
+          --cache-from type=registry,ref=code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG \
+          --build-arg BUILDKIT_INLINE_CACHE=1 \
+          -t code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-arm64 \
+          -f $DOCKERFILE_NAME \
+          $DOCKERFILE_PATH
       fi
   rules:
     - if: '$CI_COMMIT_TAG != "latest"'
@@ -107,11 +125,14 @@ create_manifest:
   tags:
     - amd64
   script:
+    - export IMAGE_REF=code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG
     - echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin code.nap.av.it.pt:5050
-    - docker manifest create code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-amd64 code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-arm64
-    - docker manifest annotate code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-amd64 --arch amd64
-    - docker manifest annotate code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-arm64 --arch arm64
-    - docker manifest push code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG
+    - docker buildx imagetools create -t $IMAGE_REF code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-amd64 code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-arm64
+    - |
+      INSPECT_OUTPUT="$(docker buildx imagetools inspect $IMAGE_REF)"
+      echo "$INSPECT_OUTPUT"
+      echo "$INSPECT_OUTPUT" | grep -q "linux/amd64" || { echo "Missing linux/amd64 in $IMAGE_REF"; exit 1; }
+      echo "$INSPECT_OUTPUT" | grep -q "linux/arm64" || { echo "Missing linux/arm64 in $IMAGE_REF"; exit 1; }
   dependencies:
     - build_amd64
     - build_arm64
@@ -124,11 +145,14 @@ create_tagged_manifest:
   tags:
     - amd64
   script:
+    - export IMAGE_REF=code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$CI_COMMIT_TAG
     - echo "$CI_TOKEN" | docker login -u "$CI_USER" --password-stdin code.nap.av.it.pt:5050
-    - docker manifest create code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$CI_COMMIT_TAG code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-amd64 code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-arm64
-    - docker manifest annotate code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$CI_COMMIT_TAG code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-amd64 --arch amd64
-    - docker manifest annotate code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$CI_COMMIT_TAG code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-arm64 --arch arm64
-    - docker manifest push code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$CI_COMMIT_TAG
+    - docker buildx imagetools create -t $IMAGE_REF code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-amd64 code.nap.av.it.pt:5050/$CI_PROJECT_PATH:$DOCKER_TAG-arm64
+    - |
+      INSPECT_OUTPUT="$(docker buildx imagetools inspect $IMAGE_REF)"
+      echo "$INSPECT_OUTPUT"
+      echo "$INSPECT_OUTPUT" | grep -q "linux/amd64" || { echo "Missing linux/amd64 in $IMAGE_REF"; exit 1; }
+      echo "$INSPECT_OUTPUT" | grep -q "linux/arm64" || { echo "Missing linux/arm64 in $IMAGE_REF"; exit 1; }
   dependencies:
     - build_amd64
     - build_arm64
