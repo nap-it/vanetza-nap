@@ -20,7 +20,27 @@
 
 #include <prometheus/counter.h>
 #include <prometheus/registry.h>
+#include <iostream>
 #include <mutex>
+
+/**
+ * Read the optional "stationId" override from a JSON payload.
+ *
+ * rapidjson here throws VanetzaJSONException from GetInt() on a non-integer, and this read
+ * sits outside the try block around from_json, so an unchecked read aborted the station.
+ */
+inline int read_payload_station_id(const rapidjson::Value& payload)
+{
+    const auto member = payload.FindMember("stationId");
+    if (member == payload.MemberEnd()) {
+        return -1;
+    }
+    if (!member->value.IsInt()) {
+        std::cerr << "Ignoring \"stationId\" in payload: expected an integer" << std::endl;
+        return -1;
+    }
+    return member->value.GetInt();
+}
 
 static vanetza::geonet::GbcDataRequest request_gbc(const vanetza::btp::DataRequestGeoNetParams&, vanetza::geonet::Router* router);
 static vanetza::geonet::ShbDataRequest request_shb(const vanetza::btp::DataRequestGeoNetParams&, vanetza::geonet::Router* router);

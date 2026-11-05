@@ -77,7 +77,10 @@ void Mqtt::on_subscribe(int, int, const int *) {
 }
 
 void Mqtt::on_message(const struct mosquitto_message *message) {
-    string payload = string(static_cast<char *>(message->payload));
+    // libmosquitto leaves payload == nullptr for a zero-length publish
+    const char* data = static_cast<const char*>(message->payload);
+    const int length = message->payloadlen;
+    string payload = (data != nullptr && length > 0) ? string(data, length) : string();
     string topic = string(message->topic);
 
     this->pubsub->on_message(topic, payload, 1);

@@ -97,6 +97,11 @@ void VamApplication::indicate(const DataIndication& indication, UpPacketPtr pack
         //std::cout << "\nInvalid sender: " << cp. << std::endl;
         return;
     }
+    // Release 2 VAMs (protocolVersion 3) can decode against the Release 1 grammar, but into wrong values
+    if ((*vam)->header.protocolVersion >= 3) {
+        std::cout << "-- Vanetza Decoding Error --\nDropped a VAM with unsupported protocolVersion " << (*vam)->header.protocolVersion << std::endl;
+        return;
+    }
     VAM_t vam_t = {(*vam)->header, (*vam)->vam};
 
     if(config_s.publish_encoded_payloads) {
@@ -242,8 +247,9 @@ Document VamApplication::buildJSON(VAM_t message, Document& vam_json_full, doubl
     } else {
         long latitude = (long) basic.referencePosition.latitude;
         long longitude = (long) basic.referencePosition.longitude;
-        long speed = (long) vhfc->speed.speedValue;
-        long heading = (long) vhfc->heading.headingValue;
+        // vruHighFrequencyContainer is OPTIONAL
+        long speed = vhfc != nullptr ? (long) vhfc->speed.speedValue : 16383;
+        long heading = vhfc != nullptr ? (long) vhfc->heading.headingValue : 3601;
 
         newInfo = isNewInfo(header.stationID, latitude, longitude, speed, heading, time_reception);
 
@@ -305,7 +311,7 @@ void VamApplication::on_message(string topic, string mqtt_message, const std::ve
         }
 
         payload = document.GetObject();
-        payload_station_id = payload.HasMember("stationId") ? payload["stationId"].GetInt() : -1;
+        payload_station_id = read_payload_station_id(payload);
 
         try {
             from_json(payload, vam, "VAM");

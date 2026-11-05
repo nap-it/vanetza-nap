@@ -161,7 +161,7 @@ void SpatemApplication::on_message(string topic, string mqtt_message, const std:
         }
 
         payload = document.GetObject();
-        payload_station_id = payload.HasMember("stationId") ? payload["stationId"].GetInt() : -1;
+        payload_station_id = read_payload_station_id(payload);
 
         try {
             from_json(payload, spatem, "SPATEM");
