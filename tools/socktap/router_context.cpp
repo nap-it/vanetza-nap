@@ -20,7 +20,12 @@
 using namespace vanetza;
 using namespace std::chrono;
 
-std::vector<std::unique_ptr<vanetza::geonet::Router>> routers;
+// Deliberately never destroyed. As a plain global its destructor ran at exit, after main()'s
+// TimeTrigger was gone, and ~Router() calls m_runtime.cancel() on that dead runtime: a
+// use-after-free that glibc caught in free(), so every error exit after the routers existed
+// ended in SIGABRT (exit 134) instead of 1. The detached threads keep using the routers until
+// the process ends anyway.
+std::vector<std::unique_ptr<vanetza::geonet::Router>>& routers = *new std::vector<std::unique_ptr<vanetza::geonet::Router>>();
 
 typedef struct queued_processing {
     std::shared_ptr<const vanetza::btp::DataIndication> indication; 

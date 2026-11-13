@@ -1,4 +1,5 @@
 #include "cam_application.hpp"
+#include "../positioning.hpp"
 #include <vanetza/btp/ports.hpp>
 #include <vanetza/asn1/cam.hpp>
 #include <vanetza/asn1/packet_visitor.hpp>
@@ -317,6 +318,58 @@ Document CamApplication::buildJSON(CAM_PDU_Description_CAM_t message, double tim
     return cam_json_full;
 }
 
+namespace
+{
+
+/**
+ * positioning=external: take this station's position from a CAM it is asked to send for
+ * itself, so the GeoNetworking headers carry the CAM's position (from the routers' next 1 s
+ * position refresh). Read from the decoded ASN.1, so the units are the raw ETSI ones.
+ * Unavailable values leave the previous ones in place.
+ */
+void update_external_position(ExternalPositionProvider& provider, const CamPayload_t& cam, const vanetza::Runtime& runtime)
+{
+    using namespace vanetza::units;
+    const auto& reference = cam.camParameters.basicContainer.referencePosition;
+    if (reference.latitude == ETSI_ITS_CDD_Latitude_unavailable || reference.longitude == ETSI_ITS_CDD_Longitude_unavailable) {
+        return;
+    }
+
+    vanetza::PositionFix fix = provider.position_fix();
+    static const TrueNorth north = TrueNorth::from_value(0.0);
+    fix.timestamp = runtime.now();
+    fix.latitude = reference.latitude / 1e7 * degree;
+    fix.longitude = reference.longitude / 1e7 * degree;
+
+    const auto& ellipse = reference.positionConfidenceEllipse;
+    if (ellipse.semiMajorAxisLength < ETSI_ITS_CDD_SemiAxisLength_outOfRange &&
+        ellipse.semiMinorAxisLength < ETSI_ITS_CDD_SemiAxisLength_outOfRange) {
+        fix.confidence.semi_major = ellipse.semiMajorAxisLength / 100.0 * si::meter;
+        fix.confidence.semi_minor = ellipse.semiMinorAxisLength / 100.0 * si::meter;
+    } else {
+        fix.confidence = vanetza::PositionConfidence();
+    }
+
+    const auto& high_frequency = cam.camParameters.highFrequencyContainer;
+    if (high_frequency.present == CAM_PDU_Description_HighFrequencyContainer_PR_basicVehicleContainerHighFrequency) {
+        const auto& vehicle = high_frequency.choice.basicVehicleContainerHighFrequency;
+        if (vehicle.heading.headingValue != ETSI_ITS_CDD_HeadingValue_unavailable) {
+            const long confidence = vehicle.heading.headingConfidence;
+            const double confidence_degrees = confidence < ETSI_ITS_CDD_HeadingConfidence_outOfRange ? confidence / 10.0 : 360.0;
+            fix.course.assign(north + vehicle.heading.headingValue / 10.0 * degree, north + confidence_degrees * degree);
+        }
+        if (vehicle.speed.speedValue != ETSI_ITS_CDD_SpeedValue_unavailable) {
+            const long confidence = vehicle.speed.speedConfidence;
+            const double confidence_mps = confidence < ETSI_ITS_CDD_SpeedConfidence_outOfRange ? confidence / 100.0 : 1.27;
+            fix.speed.assign(vehicle.speed.speedValue / 100.0 * si::meter_per_second, confidence_mps * si::meter_per_second);
+        }
+    }
+
+    provider.update(fix);
+}
+
+} // namespace
+
 void CamApplication::on_message(string topic, string mqtt_message, const std::vector<uint8_t>& bytes, bool is_encoded, double time_reception, string test, vanetza::geonet::Router* router) {
 
     const double time_processing = (double) duration_cast< microseconds >(system_clock::now().time_since_epoch()).count() / 1000000.0;
@@ -369,6 +422,14 @@ void CamApplication::on_message(string topic, string mqtt_message, const std::ve
         if(payload_station_id != -1) header.stationId = payload_station_id;
         else header.stationId = config_s.station_id;
         message->cam = cam;
+
+        if (config_s.positioning == "external" &&
+            (payload_station_id == -1 || payload_station_id == config_s.station_id)) {
+            // A CAM sent for another station id is that station's position, not ours.
+            if (auto* external = dynamic_cast<ExternalPositionProvider*>(&positioning_)) {
+                update_external_position(*external, message->cam, runtime_);
+            }
+        }
 
         std::string error;
         if (config_s.debug_enabled && !message.validate(error)) {

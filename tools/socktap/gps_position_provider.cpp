@@ -4,6 +4,7 @@
 #include <vanetza/units/velocity.hpp>
 #include <vanetza/units/length.hpp>
 #include <cmath>
+#include <iostream>
 
 //static_assert(GPSD_API_MAJOR_VERSION >= 5 && GPSD_API_MAJOR_VERSION <= 14, "libgps has incompatible API");
 
@@ -48,6 +49,9 @@ vanetza::Clock::time_point convert_gps_time(gpsd_timestamp gpstime)
     return vanetza::Clock::at(posix_time + tai_utc_bias);
 }
 
+// on_timer runs every 500 ms; reconnect to gpsd every 10 ticks, i.e. every 5 s.
+constexpr unsigned retry_ticks = 10;
+
 } // namespace
 
 GpsPositionProvider::GpsPositionProvider(boost::asio::io_service& io) :
@@ -56,19 +60,47 @@ GpsPositionProvider::GpsPositionProvider(boost::asio::io_service& io) :
 }
 
 GpsPositionProvider::GpsPositionProvider(boost::asio::io_service& io, const std::string& hostname, const std::string& port) :
-    timer_(io)
+    timer_(io), hostname_(hostname), port_(port)
 {
-    if (gps_open(hostname.c_str(), port.c_str(), &gps_data)) {
-        throw GpsPositioningException(errno);
-    }
-    gps_stream(&gps_data, WATCH_ENABLE | WATCH_JSON, nullptr);
+    // gpsd being absent is not fatal: the station runs without a fix and keeps retrying.
+    connect();
     schedule_timer();
 }
 
 GpsPositionProvider::~GpsPositionProvider()
 {
-    gps_stream(&gps_data, WATCH_DISABLE, nullptr);
-    gps_close(&gps_data);
+    disconnect(true);
+}
+
+bool GpsPositionProvider::connect()
+{
+    if (gps_open(hostname_.c_str(), port_.c_str(), &gps_data)) {
+        if (!reported_unavailable_) {
+            std::cerr << "gpsd unavailable at " << hostname_ << ":" << port_ << " (" << gps_errstr(errno)
+                      << "); running without a fix and retrying every " << retry_ticks / 2 << " s" << std::endl;
+            reported_unavailable_ = true;
+        }
+        ticks_until_retry_ = retry_ticks;
+        return false;
+    }
+    gps_stream(&gps_data, WATCH_ENABLE | WATCH_JSON, nullptr);
+    connected_ = true;
+    reported_unavailable_ = false;
+    std::cout << "Connected to gpsd at " << hostname_ << ":" << port_ << std::endl;
+    return true;
+}
+
+void GpsPositionProvider::disconnect(bool graceful)
+{
+    if (connected_) {
+        // After gpsd has gone, writing WATCH_DISABLE to its socket would raise SIGPIPE, which
+        // nothing in socktap ignores, so a lost connection is only closed.
+        if (graceful) {
+            gps_stream(&gps_data, WATCH_DISABLE, nullptr);
+        }
+        gps_close(&gps_data);
+        connected_ = false;
+    }
 }
 
 GpsPositionProvider::GpsPositioningException::GpsPositioningException(int err) :
@@ -93,7 +125,25 @@ void GpsPositionProvider::on_timer(const boost::system::error_code& ec)
         return;
     }
 
-    fetch_position_fix();
+    if (!connected_) {
+        if (ticks_until_retry_ > 0) {
+            --ticks_until_retry_;
+        } else {
+            connect();
+        }
+    } else {
+        // Nothing may escape this handler: it runs inside io_service.run(), and an exception
+        // there ends socktap. Losing gpsd keeps the last fix and starts reconnecting.
+        try {
+            fetch_position_fix();
+        } catch (const std::exception& e) {
+            std::cerr << "Lost gpsd at " << hostname_ << ":" << port_ << " (" << e.what()
+                      << "); keeping the last fix and reconnecting" << std::endl;
+            disconnect(false);
+            reported_unavailable_ = true;
+            ticks_until_retry_ = retry_ticks;
+        }
+    }
     schedule_timer();
 }
 

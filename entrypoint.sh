@@ -22,15 +22,17 @@ else
     echo "No global board config file found. Skipping config update process"
 fi
 
-IP_ADDR=$(ip -f inet addr show eth0 | awk '/inet / {print $2}')
-GW_ADDR=$(ip r | awk '/default / {print $3}')
-BR_ID=br0
-
 if [ -n "$SUPPORT_MAC_BLOCKING" ] && [ $SUPPORT_MAC_BLOCKING = true ] ; then
+    # The interface moved under the bridge; eth0 unless MAC_BLOCKING_INTERFACE says otherwise.
+    IFACE=${MAC_BLOCKING_INTERFACE:-eth0}
+    IP_ADDR=$(ip -f inet addr show $IFACE | awk '/inet / {print $2}')
+    GW_ADDR=$(ip r | awk '/default / {print $3}')
+    BR_ID=br0
+
     brctl addbr $BR_ID
     ip a a $IP_ADDR dev $BR_ID
-    ip a d  $IP_ADDR dev eth0
-    brctl addif $BR_ID eth0
+    ip a d  $IP_ADDR dev $IFACE
+    brctl addif $BR_ID $IFACE
     ip link set $BR_ID up
     ip r a default via $GW_ADDR
 fi
@@ -46,4 +48,5 @@ if [ -n "$START_EMBEDDED_MOSQUITTO" ] && [ $START_EMBEDDED_MOSQUITTO = true ] ; 
     sleep 2
 fi
 
-/usr/local/bin/socktap -c /config.ini
+# exec, so socktap is PID 1 and receives the SIGTERM from `docker stop`.
+exec /usr/local/bin/socktap -c /config.ini

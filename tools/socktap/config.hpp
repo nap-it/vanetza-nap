@@ -31,6 +31,7 @@ typedef struct config {
     string mac_address;
     bool beacons_enabled;
     bool use_hardcoded_gps;
+    string positioning;                 // gpsd, static, none or external; see read_config()
     double latitude;
     double longitude;
     double length;
@@ -45,6 +46,7 @@ typedef struct config {
     string gpsd_host;
     string gpsd_port;
     int prometheus_port;
+    bool prometheus_enabled;
     bool rssi_enabled;
     bool mcs_enabled;
     bool ignore_own_messages;
@@ -84,6 +86,7 @@ typedef struct config {
     string zenoh_interfaces;
     int zenoh_port;
     string zenoh_connect;
+    bool zenoh_enabled;
 } config_t;
 
 typedef struct metrics {

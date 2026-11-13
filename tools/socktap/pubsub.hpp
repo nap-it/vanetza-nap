@@ -82,6 +82,8 @@ private:
         }
     }
 
+    void open_zenoh_();
+
     void allow_interfaces_(zenoh::Config& zconfig, const std::string& interfaces_csv) {
         auto trim = [](const std::string& value) {
             const auto first = value.find_first_not_of(" \t\n\r");

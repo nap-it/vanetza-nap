@@ -54,14 +54,7 @@ std::map<std::string, std::unique_ptr<DDSPublisher<JSONMessage, JSONMessagePubSu
 std::map<std::string, std::unique_ptr<DDSPublisher<EncodedITSMessage, EncodedITSMessagePubSubType>>> encoded_dds_publishers;
 std::map<std::string, std::unique_ptr<DDSSubscriber>> dds_subscribers;
 
-void sig_handler(int sig) {
-    json_dds_publishers.clear();
-    encoded_dds_publishers.clear();
-    dds_subscribers.clear();
-}
-
 Dds::Dds(PubSub* pubsub_, config_t config) {
-    signal(SIGTERM, sig_handler);
     this->pubsub = pubsub_;
     listener_ = new SubListener(this);
     typeSupport = new TypeSupport(&jsonMessagePubSubType);

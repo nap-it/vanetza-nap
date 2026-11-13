@@ -23,6 +23,7 @@
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/signal_set.hpp>
 #include <boost/program_options.hpp>
+#include <cstdlib>
 #include <iostream>
 #include <prometheus/exposer.h>
 #include <unistd.h>
@@ -101,10 +102,13 @@ int main(int argc, const char** argv)
             return 1;
         }
 
-        auto signal_handler = [&io_service](const boost::system::error_code& ec, int signal_number) {
+        // Exit at once rather than unwinding: the reception, processing and transmission threads
+        // are detached and still use the routers, so returning from main would run destructors
+        // underneath them. entrypoint.sh execs socktap, so this is what `docker stop` hits.
+        auto signal_handler = [](const boost::system::error_code& ec, int signal_number) {
             if (!ec) {
-                std::cout << "Termination requested." << std::endl;
-                io_service.stop();
+                std::cout << "Termination requested (signal " << signal_number << ")." << std::endl;
+                std::_Exit(0);
             }
         };
         asio::signal_set signals(io_service, SIGINT, SIGTERM);
@@ -151,8 +155,8 @@ int main(int argc, const char** argv)
                              .Help("Processing latency of observed packets")
                              .Register(*(metrics_s.registry)));
 
-        Exposer* exposer;
-        if (config_s.prometheus_port != 0) {
+        Exposer* exposer = nullptr;
+        if (config_s.prometheus_enabled && config_s.prometheus_port != 0) {
             exposer = new Exposer("0.0.0.0:" + to_string(config_s.prometheus_port),2,nullptr);
             exposer->RegisterCollectable(metrics_s.registry);
         }

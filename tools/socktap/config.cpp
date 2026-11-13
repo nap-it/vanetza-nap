@@ -28,6 +28,16 @@ void read_config(config_t* config_s, string path) {
     config_s->mac_address = getenv("VANETZA_MAC_ADDRESS") == NULL ? reader.Get("station", "mac_address", "") : getenv("VANETZA_MAC_ADDRESS");
     config_s->beacons_enabled = getenv("VANETZA_BEACONS_ENABLED") == NULL ? reader.GetBoolean("station", "beacons_enabled", true) : (strcmp((getenv("VANETZA_BEACONS_ENABLED")), "true") == 0);
     config_s->use_hardcoded_gps = getenv("VANETZA_USE_HARDCODED_GPS") == NULL ? reader.GetBoolean("station", "use_hardcoded_gps", true) : (strcmp((getenv("VANETZA_USE_HARDCODED_GPS")), "true") == 0);
+    // positioning supersedes use_hardcoded_gps, which still works when positioning is not set.
+    // An environment variable beats any INI key, so a deployment that sets
+    // VANETZA_USE_HARDCODED_GPS keeps its meaning even if the image's config.ini sets positioning.
+    if (getenv("VANETZA_POSITIONING") != NULL) {
+        config_s->positioning = getenv("VANETZA_POSITIONING");
+    } else if (getenv("VANETZA_USE_HARDCODED_GPS") != NULL) {
+        config_s->positioning = config_s->use_hardcoded_gps ? "static" : "gpsd";
+    } else {
+        config_s->positioning = reader.Get("station", "positioning", config_s->use_hardcoded_gps ? "static" : "gpsd");
+    }
     config_s->latitude = getenv("VANETZA_LATITUDE") == NULL ? reader.GetReal("station", "latitude", 40) : stod(getenv("VANETZA_LATITUDE"));
     config_s->longitude = getenv("VANETZA_LONGITUDE") == NULL ? reader.GetReal("station", "longitude", -8) : stod(getenv("VANETZA_LONGITUDE"));
     config_s->length = getenv("VANETZA_LENGTH") == NULL ? reader.GetReal("station", "length", 10) : stod(getenv("VANETZA_LENGTH"));
@@ -42,6 +52,7 @@ void read_config(config_t* config_s, string path) {
     config_s->gpsd_host = getenv("VANETZA_GPSD_HOST") == NULL ? reader.Get("general", "gpsd_host", "127.0.0.1") : getenv("VANETZA_GPSD_HOST");
     config_s->gpsd_port = getenv("VANETZA_GPSD_PORT") == NULL ? reader.Get("general", "gpsd_port", "2947") : getenv("VANETZA_GPSD_PORT");
     config_s->prometheus_port = getenv("VANETZA_PROMETHEUS_PORT") == NULL ? reader.GetInteger("general", "prometheus_port", 9100) : stoi(getenv("VANETZA_PROMETHEUS_PORT"));
+    config_s->prometheus_enabled = getenv("VANETZA_PROMETHEUS_ENABLED") == NULL ? reader.GetBoolean("general", "prometheus_enabled", true) : (strcmp((getenv("VANETZA_PROMETHEUS_ENABLED")), "true") == 0);
     config_s->rssi_enabled = getenv("VANETZA_RSSI_ENABLED") == NULL ? reader.GetBoolean("general", "rssi_enabled", true) : (strcmp((getenv("VANETZA_RSSI_ENABLED")), "true") == 0);
     config_s->mcs_enabled = getenv("VANETZA_MCS_ENABLED") == NULL ? reader.GetBoolean("general", "mcs_enabled", false) : (strcmp((getenv("VANETZA_MCS_ENABLED")), "true") == 0);
     config_s->ignore_own_messages = getenv("VANETZA_IGNORE_OWN_MESSAGES") == NULL ? reader.GetBoolean("general", "ignore_own_messages", true) : (strcmp((getenv("VANETZA_IGNORE_OWN_MESSAGES")), "true") == 0);
@@ -56,6 +67,7 @@ void read_config(config_t* config_s, string path) {
     config_s->zenoh_interfaces = getenv("VANETZA_ZENOH_INTERFACES") == NULL ? reader.Get("general", "zenoh_interfaces", "") : getenv("VANETZA_ZENOH_INTERFACES");
     config_s->zenoh_port = getenv("VANETZA_ZENOH_PORT") == NULL ? reader.GetInteger("general", "zenoh_port", 7447) : stoi(getenv("VANETZA_ZENOH_PORT"));
     config_s->zenoh_connect = getenv("VANETZA_ZENOH_CONNECT") == NULL ? reader.Get("general", "zenoh_connect", "") : getenv("VANETZA_ZENOH_CONNECT");
+    config_s->zenoh_enabled = getenv("VANETZA_ZENOH_ENABLED") == NULL ? reader.GetBoolean("general", "zenoh_enabled", true) : (strcmp((getenv("VANETZA_ZENOH_ENABLED")), "true") == 0);
     config_s->cam = read_message_config(reader, "VANETZA_CAM", "cam");
     config_s->denm = read_message_config(reader, "VANETZA_DENM", "denm");
     config_s->cpm = read_message_config(reader, "VANETZA_CPM", "cpm");
@@ -71,5 +83,15 @@ void read_config(config_t* config_s, string path) {
     config_s->evrsrm = read_message_config(reader, "VANETZA_EVRCSM", "evrsrm");
     config_s->tistpgm = read_message_config(reader, "VANETZA_TISTPGM", "tistpgm");
     config_s->mcm = read_message_config(reader, "VANETZA_MCM", "mcm");
+    if (!config_s->zenoh_enabled) {
+        // The global switch wins over every message's zenoh_enabled, so no Zenoh session is
+        // opened and nothing below needs to check both flags.
+        for (message_config_t* m : {&config_s->cam, &config_s->denm, &config_s->cpm, &config_s->vam,
+                                    &config_s->spatem, &config_s->mapem, &config_s->ssem, &config_s->srem,
+                                    &config_s->rtcmem, &config_s->ivim, &config_s->imzm, &config_s->evcsnm,
+                                    &config_s->evrsrm, &config_s->tistpgm, &config_s->mcm}) {
+            m->zenoh_enabled = false;
+        }
+    }
     config_s->own_cam_topic_out = getenv("VANETZA_CAM_OWN_TOPIC_OUT") == NULL ? reader.Get("cam", "own_topic_out", "") : getenv("VANETZA_CAM_OWN_TOPIC_OUT");
 }

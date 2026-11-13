@@ -29,10 +29,17 @@ public:
 private:
     void schedule_timer();
     void on_timer(const boost::system::error_code& ec);
+    bool connect();
+    void disconnect(bool graceful);
 
     boost::asio::steady_timer timer_;
     gps_data_t gps_data;
     vanetza::PositionFix fetched_position_fix;
+    std::string hostname_;
+    std::string port_;
+    bool connected_ = false;
+    bool reported_unavailable_ = false;
+    unsigned ticks_until_retry_ = 0;
 };
 
 namespace gpsd

@@ -78,8 +78,27 @@ PubSub::PubSub(config_t config_, int num_threads_, std::mutex& prom_mtx_) :
     this->dds = new Dds(this, config_);
 
     // Setup Zenoh
-    zenoh::ZResult *err = nullptr;
-    zenoh::Config zconfig = zenoh::Config::from_file("/zenoh_config.json5", err);
+    if (this->config.zenoh_enabled) {
+        open_zenoh_();
+    } else {
+        std::cout << "Zenoh disabled ([general] zenoh_enabled=false)" << std::endl;
+    }
+
+    // Transmission threads
+    transmission_tq = new transmission_thread_queue();
+    for(int i = 0; i < num_threads; i++) {
+        transmission_threads.push_back(std::thread(message_transmission_thread, i));
+        transmission_threads[i].detach();
+    }
+}
+
+std::map<std::string, PubSub_application*> subscribers;
+
+void PubSub::open_zenoh_()
+{
+    // zenoh-cpp throws ZException on any failure when no ZResult* is passed, so the config
+    // calls below need no return-code checks.
+    zenoh::Config zconfig = zenoh::Config::from_file("/zenoh_config.json5");
 
     auto build_tcp_endpoint = [](const std::string& spec) -> std::string {
         if (spec.empty()) {
@@ -106,8 +125,8 @@ PubSub::PubSub(config_t config_, int num_threads_, std::mutex& prom_mtx_) :
         // Binding Zenoh router to all interfaces
         listen_json = "[\"tcp/0.0.0.0:" + zenoh_port + "\"]";
     }
-    zconfig.insert_json5("mode", "\"router\"", err);
-    zconfig.insert_json5("listen/endpoints", listen_json, err);
+    zconfig.insert_json5("mode", "\"router\"");
+    zconfig.insert_json5("listen/endpoints", listen_json);
 
     // Routers do not autoconnect to routers they scout, so reaching a router already running
     // on the host (zenohd) takes an explicit connect endpoint.
@@ -125,7 +144,7 @@ PubSub::PubSub(config_t config_, int num_threads_, std::mutex& prom_mtx_) :
         start = comma + 1;
     }
     if (!connect_json.empty()) {
-        zconfig.insert_json5("connect/endpoints", "[" + connect_json + "]", err);
+        zconfig.insert_json5("connect/endpoints", "[" + connect_json + "]");
     }
 
     if (!config.zenoh_local_only){
@@ -137,10 +156,6 @@ PubSub::PubSub(config_t config_, int num_threads_, std::mutex& prom_mtx_) :
         this->allow_interfaces_(zconfig, allowed_interfaces);
     }
 
-    if (err) {
-        std::cout << "Error in Zenoh configuration: " << static_cast<const void*>(err) << std::endl;
-    }
-    
     try {
         this->session = new zenoh::Session(std::move(zenoh::Session::open(std::move(zconfig))));
     } catch (const zenoh::ZException& e) {
@@ -159,17 +174,7 @@ PubSub::PubSub(config_t config_, int num_threads_, std::mutex& prom_mtx_) :
     static constexpr auto SHM_ALIGN = 2U;
     zenoh::MemoryLayout layout(SHM_SIZE, zenoh::AllocAlignment({SHM_ALIGN}));
     this->shm_provider = new zenoh::PosixShmProvider(layout);
-
-
-    // Transmission threads
-    transmission_tq = new transmission_thread_queue();
-    for(int i = 0; i < num_threads; i++) {
-        transmission_threads.push_back(std::thread(message_transmission_thread, i));
-        transmission_threads[i].detach();
-    }
 }
-
-std::map<std::string, PubSub_application*> subscribers;
 
 PubSub::~PubSub() {
     zenoh_subscribers.clear();

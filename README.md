@@ -293,6 +293,7 @@ The following table summarizes the available configuration options:
 | general.gpsd_host | VANETZA_GPSD_HOST | GPSD position provider host | 127.0.0.1 | |
 | general.gpsd_port | VANETZA_GPSD_PORT | GPSD position provider port | 2947 | |
 | general.prometheus_port | VANETZA_PROMETHEUS_PORT | Port on which Vanetza exposes metrics | 9100 | 0 to disable |
+| general.prometheus_enabled | VANETZA_PROMETHEUS_ENABLED | Open the Prometheus metrics endpoint | true | false opens no port |
 | general.rssi_enabled | VANETZA_RSSI_ENABLED | Enable discovering the RSSI (signal strength) value associated with each inbound ITS-G5 message by interfacing with the kernel | true |  |
 | general.ignore_own_messages | VANETZA_IGNORE_OWN_MESSAGES | Don't capture or decode messages originating from the station itself | true | |
 | general.ignore_rsu_messages | VANETZA_IGNORE_RSU_MESSAGES | Ignore messages from RSUs - Usually set on RSUs | false | |
@@ -302,6 +303,7 @@ The following table summarizes the available configuration options:
 | general.num_threads | VANETZA_NUM_THREADS | Number of threads to use in Vanetza's thread pool for parallel processing of messages | 4 | |
 | general.publish_encoded_payloads | VANETZA_PUBLISH_ENCODED_PAYLOADS | Publish the raw ASN.1 encoded messages to DDS topics, in addition to the JSON representations | false | Only recommended for debugging purposes, as it may introduce significant latency |
 | general.debug_enabled | VANETZA_DEBUG_ENABLED | Enable debug prints in the terminal/logs | false | |
+| general.zenoh_enabled | VANETZA_ZENOH_ENABLED | Master switch for Zenoh | true | false opens no Zenoh session, whatever each message's zenoh_enabled says |
 | general.zenoh_local_only | VANETZA_ZENOH_LOCAL_ONLY | Use Zenoh in same host only mode, without connecting to any remote router or peer | true | Advanced usage only |
 | general.zenoh_interfaces | VANETZA_ZENOH_INTERFACES | Comma-separated list of network interfaces to use for Zenoh communication when not in local-only mode |  | For example: lo,eth0,wlan0 |
 | general.zenoh_port | VANETZA_ZENOH_PORT | TCP port vanetza's Zenoh router listens on | 7447 | Change it when another router, such as zenohd, already holds the port; vanetza otherwise exits with `Failed to open session` |
@@ -310,7 +312,8 @@ The following table summarizes the available configuration options:
 | station.type | VANETZA_STATION_TYPE | ETSI Station Type field | 15 | |
 | station.mac_address | VANETZA_MAC_ADDRESS | Virtual Mac Address used as the source on L2 ethernet headers | interface's address | |
 | station.beacons_enabled | VANETZA_BEACONS_ENABLED | Send GeoNetworking Beacons every 3 seconds | true | |
-| station.use_hardcoded_gps | VANETZA_USE_HARDCODED_GPS | Use hardcoded gps coordinates instead of information provided by a GPS module | true | |
+| station.positioning | VANETZA_POSITIONING | Where the station's own position comes from: gpsd, static (station.latitude/longitude), none (no position, gpsd never opened) or external (the reference position, heading and speed of the CAMs published on the cam topic_in for this station) | static | With gpsd, socktap starts without it and reconnects every 5 s, keeping the last fix while gpsd is gone. With external the GeoNetworking headers follow within the 1 s position refresh |
+| station.use_hardcoded_gps | VANETZA_USE_HARDCODED_GPS | Older form of station.positioning: true is static, false is gpsd | true | Read only when positioning is not set; the environment variable still overrides a positioning key in the INI |
 | station.latitude | VANETZA_LATITUDE | Hardcoded GPS latitude - Usually set on static RSUs | 40 | |
 | station.longitude | VANETZA_LONGITUDE | Hardcoded GPS longitude - Usually set on static RSUs | -8 | |
 | station.length | VANETZA_LENGTH | Vehicle lenght in meters | 10 | |
@@ -318,6 +321,7 @@ The following table summarizes the available configuration options:
 | --- | START_EMBEDDED_MOSQUITTO | Start an MQTT server inside the container to simulate a full OBU or RSU with a local MQTT broker | false | |
 | --- | EMBEDDED_MOSQUITTO_PORT | The port on which the embedded MQTT broker listens for connections | 1883 | |
 | --- | SUPPORT_MAC_BLOCKING | Start the container with ebtables support in order to dynamically block and unblock MAC addresses, simulating out-of-range scenarios | false | |
+| --- | MAC_BLOCKING_INTERFACE | Interface the MAC blocking bridge takes over | eth0 | Only read when SUPPORT_MAC_BLOCKING=true |
 
 Each supported type of message (CAM, DENM, CPM, VAM, SPATEM, MAPEM) has its own set of configurations, which are specified in the following table (using CAMs as an example):
  
