@@ -304,6 +304,8 @@ The following table summarizes the available configuration options:
 | general.debug_enabled | VANETZA_DEBUG_ENABLED | Enable debug prints in the terminal/logs | false | |
 | general.zenoh_local_only | VANETZA_ZENOH_LOCAL_ONLY | Use Zenoh in same host only mode, without connecting to any remote router or peer | true | Advanced usage only |
 | general.zenoh_interfaces | VANETZA_ZENOH_INTERFACES | Comma-separated list of network interfaces to use for Zenoh communication when not in local-only mode |  | For example: lo,eth0,wlan0 |
+| general.zenoh_port | VANETZA_ZENOH_PORT | TCP port vanetza's Zenoh router listens on | 7447 | Change it when another router, such as zenohd, already holds the port; vanetza otherwise exits with `Failed to open session` |
+| general.zenoh_connect | VANETZA_ZENOH_CONNECT | Comma-separated Zenoh routers to connect to (`host[:port]`, port defaulting to 7447, or a full `tcp/...` endpoint) |  | Routers do not connect to each other on their own: set to 127.0.0.1:7447 to reach a zenohd on the same host |
 | station.id | VANETZA_STATION_ID | ETSI Station ID field | 99 | |
 | station.type | VANETZA_STATION_TYPE | ETSI Station Type field | 15 | |
 | station.mac_address | VANETZA_MAC_ADDRESS | Virtual Mac Address used as the source on L2 ethernet headers | interface's address | |

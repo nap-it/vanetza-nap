@@ -82,6 +82,8 @@ typedef struct config {
     // string own_full_cam_topic_out;
     bool zenoh_local_only;
     string zenoh_interfaces;
+    int zenoh_port;
+    string zenoh_connect;
 } config_t;
 
 typedef struct metrics {

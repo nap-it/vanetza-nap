@@ -97,16 +97,36 @@ PubSub::PubSub(config_t config_, int num_threads_, std::mutex& prom_mtx_) :
         return "tcp/" + address + suffix;
     };
 
+    const std::string zenoh_port = std::to_string(config.zenoh_port);
     std::string listen_json;
     if (config.zenoh_local_only) {
         // Binding Zenoh router to loopback only
-        listen_json = "[\"tcp/127.0.0.1:7447#iface=lo\"]";
+        listen_json = "[\"tcp/127.0.0.1:" + zenoh_port + "#iface=lo\"]";
     } else {
         // Binding Zenoh router to all interfaces
-        listen_json = "[\"tcp/0.0.0.0:7447\"]";
+        listen_json = "[\"tcp/0.0.0.0:" + zenoh_port + "\"]";
     }
     zconfig.insert_json5("mode", "\"router\"", err);
     zconfig.insert_json5("listen/endpoints", listen_json, err);
+
+    // Routers do not autoconnect to routers they scout, so reaching a router already running
+    // on the host (zenohd) takes an explicit connect endpoint.
+    std::string connect_json;
+    std::string zenoh_connect = config.zenoh_connect == "\"\"" ? "" : config.zenoh_connect;
+    for (size_t start = 0; start < zenoh_connect.size();) {
+        size_t comma = zenoh_connect.find(',', start);
+        if (comma == std::string::npos) comma = zenoh_connect.size();
+        std::string spec = zenoh_connect.substr(start, comma - start);
+        spec.erase(0, spec.find_first_not_of(" \t"));
+        spec.erase(spec.find_last_not_of(" \t") + 1);
+        if (!spec.empty()) {
+            connect_json += (connect_json.empty() ? "\"" : ",\"") + build_tcp_endpoint(spec) + "\"";
+        }
+        start = comma + 1;
+    }
+    if (!connect_json.empty()) {
+        zconfig.insert_json5("connect/endpoints", "[" + connect_json + "]", err);
+    }
 
     if (!config.zenoh_local_only){
         std::string zenoh_ifaces = this->config.zenoh_interfaces;
@@ -121,7 +141,12 @@ PubSub::PubSub(config_t config_, int num_threads_, std::mutex& prom_mtx_) :
         std::cout << "Error in Zenoh configuration: " << static_cast<const void*>(err) << std::endl;
     }
     
-    this->session = new zenoh::Session(std::move(zenoh::Session::open(std::move(zconfig))));
+    try {
+        this->session = new zenoh::Session(std::move(zenoh::Session::open(std::move(zconfig))));
+    } catch (const zenoh::ZException& e) {
+        throw std::runtime_error(std::string(e.what()) + " - could not listen on " + listen_json +
+            "; if another Zenoh router (e.g. zenohd) holds that port, set [general] zenoh_port");
+    }
     
     if (config.zenoh_local_only) {
         std::cout << "Zenoh session established locally" << std::endl;

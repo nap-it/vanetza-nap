@@ -54,6 +54,8 @@ void read_config(config_t* config_s, string path) {
     config_s->debug_enabled = getenv("VANETZA_DEBUG_ENABLED") == NULL ? reader.GetBoolean("general", "debug_enabled", false) : (strcmp((getenv("VANETZA_DEBUG_ENABLED")), "true") == 0);
     config_s->zenoh_local_only = getenv("VANETZA_ZENOH_LOCAL_ONLY") == NULL ? reader.GetBoolean("general", "zenoh_local_only", true) : (strcmp((getenv("VANETZA_ZENOH_LOCAL_ONLY")), "true") == 0);
     config_s->zenoh_interfaces = getenv("VANETZA_ZENOH_INTERFACES") == NULL ? reader.Get("general", "zenoh_interfaces", "") : getenv("VANETZA_ZENOH_INTERFACES");
+    config_s->zenoh_port = getenv("VANETZA_ZENOH_PORT") == NULL ? reader.GetInteger("general", "zenoh_port", 7447) : stoi(getenv("VANETZA_ZENOH_PORT"));
+    config_s->zenoh_connect = getenv("VANETZA_ZENOH_CONNECT") == NULL ? reader.Get("general", "zenoh_connect", "") : getenv("VANETZA_ZENOH_CONNECT");
     config_s->cam = read_message_config(reader, "VANETZA_CAM", "cam");
     config_s->denm = read_message_config(reader, "VANETZA_DENM", "denm");
     config_s->cpm = read_message_config(reader, "VANETZA_CPM", "cpm");
